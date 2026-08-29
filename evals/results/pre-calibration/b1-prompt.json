@@ -1,0 +1,1695 @@
+{
+  "aggregate": {
+    "citationHallucination": {
+      "hallucinations": 9,
+      "invalidReferences": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "20.5",
+        "20.5",
+        "11",
+        "11",
+        "20.5"
+      ],
+      "rate": 0.03225806451612903,
+      "references": 279
+    },
+    "contracts": 12,
+    "detection": {
+      "macro": {
+        "f1": 0.9487572284483039,
+        "precision": 0.9345177970177971,
+        "recall": 0.9669312169312171
+      },
+      "micro": {
+        "ambiguousItems": 31,
+        "ambiguousMatches": 19,
+        "escalations": 14,
+        "f1": 0.9441624365482234,
+        "fn": 3,
+        "fp": 8,
+        "precision": 0.9207920792079208,
+        "recall": 0.96875,
+        "tp": 93
+      }
+    },
+    "deviationAccuracy": {
+      "accuracy": 0.8715596330275229,
+      "correct": 95,
+      "located": 109
+    },
+    "minimality": {
+      "eligible": 92,
+      "passing": 16,
+      "rate": 0.17391304347826086
+    },
+    "redlineValidity": {
+      "eligible": 92,
+      "passing": 37,
+      "rate": 0.40217391304347827
+    },
+    "resources": {
+      "cacheReadTokens": 7128,
+      "cacheWriteTokens": 3564,
+      "calls": 12,
+      "costUsd": 4.1730540000000005,
+      "inputTokens": 227178,
+      "latencyMs": 1257459,
+      "outputTokens": 120453,
+      "retries": 0,
+      "toolCalls": 0
+    }
+  },
+  "config": "b1-prompt",
+  "contracts": [
+    {
+      "contractId": "cuad-americas-shopping-mall-hosting",
+      "judgements": {
+        "f-audit-6b2cca01": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The clause adopts the preferred frequency, 30-day written notice, business-hours limitation, independent confidentiality-bound auditor, and prohibition on systems access. Retaining HDI’s obligation to bear all audit costs is more protective of the Company than the preferred position and preserves the original allocation. The edits are targeted and professionally drafted, though the inherited phrasing (“have the right to inspect” and references to each party’s General Manager) remains somewhat awkward.",
+          "satisfies_rule": true
+        },
+        "f-indemn-1e80f8a6": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative language reaches the preferred position: HDI defends and indemnifies the Company and its affiliates against third-party IP claims, legal violations, HDI-caused unauthorized data access or disclosure, and gross negligence or wilful misconduct, with notice, defence control, and cooperation procedures. It adds no Customer indemnity, which is at least as protective as limiting one to Customer content and legal violations. The insertion is targeted and professionally drafted, though a fuller procedure would ordinarily address prejudicial late notice and restrictions on settlements affecting the Company.",
+          "satisfies_rule": true
+        },
+        "f-insurance-f5961f45": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The clause includes the preferred CGL, E&O, and conditional cyber limits and requires certificates on request, but it omits workers’ compensation insurance as required by law. It also adds a one-year post-termination maintenance requirement not called for by the playbook, so the change is broader than necessary. The original Headings; Counterparts provision is preserved and appropriately renumbered, and the drafting is otherwise professional.",
+          "satisfies_rule": false
+        },
+        "f-ip-274399d9": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The addition is targeted and preserves the unrelated operational provisions, and it adequately addresses pre-existing HDI IP, embedded-IP licensing, and no joint ownership. However, the operative assignment covers only “deliverables created specifically” for the Company, not all related work product created for it. The definition of Company Data is also limited to specified data collected through the Site and does not clearly cover all data supplied or made available by the Company. The margin comment therefore overstates the scope of the operative language.",
+          "satisfies_rule": false
+        },
+        "f-ld-3facbfb2": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": false,
+          "reason": "The redline reaches the fallback by limiting the termination payment to three months’ fees. However, it goes beyond making that amount the sole liquidated amount by making it HDI’s “sole and exclusive remedy,” which could waive unrelated remedies or accrued claims arising from the termination. It also states only a maximum and does not specify how the actual Termination Payment is determined, leaving subsections (b) and (c) to refer to an amount that has no operative calculation. The cap should instead define the payable amount and clarify that it is the sole liquidated or early-termination amount, without broadly eliminating other remedies.",
+          "satisfies_rule": true
+        },
+        "f-lol-cap-7c4c03b9": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative language satisfies the fallback and nearly reaches the preferred position: it provides a mutual cap exceeding 12 months’ fees, a mutual consequential-damages exclusion, the required fallback carve-outs, and additional carve-outs for security, fraud, and IP infringement. It also excludes Company payment obligations from the cap. It does not fully match the preferred position because it omits an express carve-out for data protection obligations, and the fee lookback runs from the event giving rise to the claim rather than the claim itself. The addition is otherwise targeted, preserves the existing warranty terms, and is professionally drafted.",
+          "satisfies_rule": true
+        },
+        "f-noncompete-e5ebbc3e": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The redline narrows the restriction and includes the required internal-development and acquisition carve-outs, but it does not cap the restriction at 12 months; it could continue for any longer agreement term. It also applies broadly to “Deerskin Products” rather than clearly identifying a single named competing product. The automatic termination for any failure under Section 1 is an additional, potentially ambiguous change not required by the playbook. The clause otherwise preserves the arrangement’s core intent and is generally readable, though subsection (b) is redundant with the opening term limitation.",
+          "satisfies_rule": false
+        },
+        "f-renewal-04a745d4": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline provides 12-month automatic renewals, a 30-day non-renewal deadline, and a 60-day Vendor reminder, but it omits the required cap on renewal price increases. It otherwise preserves the term structure and makes limited changes. Drafting is weakened because “Such notice” most naturally refers to HDI’s reminder, incorrectly suggesting that the reminder must specify a termination date; it should instead refer expressly to any notice of non-renewal.",
+          "satisfies_rule": false
+        },
+        "f-t4c-0f321251": {
+          "drafting_quality": 2,
+          "minimal": false,
+          "preserves_intent": false,
+          "reason": "The operative language does not reach either playbook position. It grants the Company a 30-day convenience right but omits the required pro-rata refund of prepaid fees, leaves HDI's apparent 90-day termination right unrestricted to term end, and directly conflicts with subsection (a), which still requires a Termination Payment whenever the Company terminates. The new right to terminate “in whole or in part” also exceeds the requested position and may alter commercial scope. The margin comment does not cure these defects.",
+          "satisfies_rule": false
+        },
+        "f-transition-4a97e568": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language reaches the preferred position: up to six months of transition assistance at then-current rates, return of data within 30 days in a machine-readable format, and written certification of deletion thereafter. It preserves the existing termination-payment provision. However, it goes beyond the playbook by expressly requiring transfer of the Site and URL and by extending return/deletion obligations to all Content; those additions may be commercially appropriate but are not necessary to satisfy the rule. Drafting is otherwise professional, though the new section numbering may be inconsistent with the existing subsection structure and 'thereafter' does not set a specific deletion deadline.",
+          "satisfies_rule": true
+        },
+        "f-warranty-c7156a1e": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline adds professional/workmanlike performance, a 90-day deliverable conformance warranty, repair/replacement/re-performance/refund remedies, and a no-malicious-code warranty. However, it omits the required compliance-with-laws warranty and does not clearly state a warranty period for services. Although 90 days may satisfy the fallback period for software/deliverables, the clause therefore does not fully reach even the fallback position. The changes are otherwise targeted and preserve the original corporate warranties, but the service-duration ambiguity reduces drafting quality.",
+          "satisfies_rule": false
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 0,
+          "invalidReferences": [],
+          "rate": 0,
+          "references": 26
+        },
+        "detection": {
+          "ambiguousItems": 1,
+          "ambiguousMatches": 1,
+          "escalations": 0,
+          "f1": 0.923076923076923,
+          "fn": 0,
+          "fp": 2,
+          "precision": 0.8571428571428571,
+          "recall": 1,
+          "tp": 12
+        },
+        "deviationAccuracy": {
+          "accuracy": 0.8461538461538461,
+          "correct": 11,
+          "located": 13
+        },
+        "integrity": {
+          "applied": 11,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 11
+        },
+        "minimality": {
+          "eligible": 11,
+          "passing": 2,
+          "rate": 0.18181818181818182
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 11,
+            "passing": 11,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 11,
+            "passing": 8,
+            "rate": 0.7272727272727273
+          },
+          "eligible": 11,
+          "judge": {
+            "eligible": 11,
+            "passing": 5,
+            "rate": 0.45454545454545453
+          },
+          "valid": {
+            "eligible": 11,
+            "passing": 5,
+            "rate": 0.45454545454545453
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 891,
+          "calls": 1,
+          "costUsd": 0.40048875,
+          "inputTokens": 13729,
+          "latencyMs": 140442,
+          "outputTokens": 13051,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "cuad-bluefly-hosting",
+      "judgements": {
+        "f-assign-67988114": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline appropriately permits Customer assignments to affiliates and transaction successors without consent, requires Customer consent for IBM assignments, and adds no change-of-control termination right. However, it does not prohibit IBM from assigning to a Customer competitor, even with Customer consent, so it does not fully reach the preferred position. It also does not implement the fallback's mutual successor-assignment right upon written notice. The changes are otherwise targeted and professionally drafted.",
+          "satisfies_rule": false
+        },
+        "f-insurance-b7760547": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The clause includes the preferred CGL, E&O, and cyber limits and requires certificates on request, while preserving the risk-of-loss language. However, it omits the required workers’ compensation coverage as required by law, so it does not fully reach the playbook position. Otherwise, the insertion is targeted and professionally drafted.",
+          "satisfies_rule": false
+        },
+        "f-ip-c4e1e6df": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language does not reach either playbook position. It makes Type I the default and confirms Customer ownership of Customer data, but it does not expressly assign ownership of deliverables or work product to Customer. The Type II licence remains limited to use within Customer’s US-only Enterprise and does not include modification, derivative-work or sublicensing rights, so it is narrower than both the preferred and fallback positions. The margin comment identifies these defects but does not cure them. The unexplained reordering, undefined use of “Content,” and fragmented Type I licence language also reduce drafting quality and are unnecessary.",
+          "satisfies_rule": false
+        },
+        "f-license-10f35953": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": false,
+          "reason": "The clause covers Affiliates and contractors, but does not make paid-up licences perpetual and irrevocable, restrict termination of subscription licences to uncured material breach, or permit transfer to successors. It also fails the fallback because Affiliate coverage is not conditioned on written notice and no M&A-successor transfer right is included. Deleting “solely” unnecessarily broadens the use restriction, and allowing revocation upon any termination or expiration does not meet the required termination standard.",
+          "satisfies_rule": false
+        },
+        "f-lol-cap-6fcb17c9": {
+          "drafting_quality": 2,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative language does not reach either playbook position. Only IBM’s cap is increased to the greater of USD 1,000,000 and 12 months’ paid or payable fees; Customer’s separate cap remains the greater of USD 100,000 and fees paid, so the cap is not mutual. The carve-outs are inserted only into IBM’s limitation paragraph and do not clearly apply to Customer’s separate cap, and the preferred IP-infringement carve-out is absent. The express exclusion for loss of or damage to Customer data remains despite the margin comment. The consequential-damages exclusion is mutual, and the payment exception effectively leaves payment obligations outside the limitations, but those points do not cure the cap and carve-out defects. The edits are targeted and preserve unrelated intent, but the inconsistent structure and ambiguous reference to 'a party’s' obligations reduce drafting quality.",
+          "satisfies_rule": false
+        },
+        "f-renewal-be8c0d9f": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline appropriately limits renewals to 12 months and reduces the non-renewal notice period to 30 days, while preserving the bilateral termination right. However, it does not reach either playbook position because it includes no cap on renewal price increases; it also omits the 60-day Vendor reminder required by the preferred position. The changes made are targeted and professionally drafted, but the margin comment cannot cure the missing operative protections.",
+          "satisfies_rule": false
+        },
+        "f-t4c-78558d14": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The clause reaches the fallback position: Customer retains approximately one-month notice, which is more favorable than the fallback notice period; early-termination charges are capped at three months’ recurring charges; and post-termination prepaid charges are refunded. It does not add any Vendor convenience-termination right. The changes are targeted and preserve the original scope and prerequisite-attachment limitation. Drafting quality is reduced because the trailing “and IBM will refund” is awkwardly included within item (b), potentially making IBM’s refund appear to be part of the conditions by which Customer terminates, and the “which” modifier could be clearer.",
+          "satisfies_rule": true
+        },
+        "f-transition-b76fdb97": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": false,
+          "reason": "The added language reaches the preferred position by providing up to six months of transition assistance at then-current rates, data return within 30 days in a machine-readable format, and certified deletion. However, it applies upon termination of any individual Service Option Attachment and requires return and deletion of all Customer data, potentially including data supporting unaffected attachments that remain in force. That overbreadth conflicts with the original clause’s preservation of other Service Option Attachments. The obligations should be limited to data and services associated with the terminated Agreement or attachment.",
+          "satisfies_rule": true
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 0,
+          "invalidReferences": [],
+          "rate": 0,
+          "references": 27
+        },
+        "detection": {
+          "ambiguousItems": 5,
+          "ambiguousMatches": 5,
+          "escalations": 1,
+          "f1": 0.8888888888888888,
+          "fn": 1,
+          "fp": 1,
+          "precision": 0.8888888888888888,
+          "recall": 0.8888888888888888,
+          "tp": 8
+        },
+        "deviationAccuracy": {
+          "accuracy": 1,
+          "correct": 8,
+          "located": 8
+        },
+        "integrity": {
+          "applied": 8,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 8
+        },
+        "minimality": {
+          "eligible": 8,
+          "passing": 3,
+          "rate": 0.375
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 8,
+            "passing": 8,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 8,
+            "passing": 6,
+            "rate": 0.75
+          },
+          "eligible": 8,
+          "judge": {
+            "eligible": 8,
+            "passing": 2,
+            "rate": 0.25
+          },
+          "valid": {
+            "eligible": 8,
+            "passing": 1,
+            "rate": 0.125
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 891,
+          "calls": 1,
+          "costUsd": 0.36723375,
+          "inputTokens": 19818,
+          "latencyMs": 109547,
+          "outputTokens": 10503,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "cuad-bnc-mortgage-hosting",
+      "judgements": {
+        "f-assign-0a8a7267": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The redline does not reach the preferred position because Vendor may assign to a successor—including a Customer competitor—without consent. It also narrowly misses the fallback because successor assignments do not require written notice. The no-repricing restriction goes beyond the stated playbook requirement, making the change non-minimal, although the clause otherwise preserves the original commercial structure and is professionally drafted.",
+          "satisfies_rule": false
+        },
+        "f-indemn-d482f06a": {
+          "drafting_quality": 2,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language does not reach either playbook position. It adds the desired Vendor indemnity triggers, but does not expressly require a defense, limit coverage to third-party claims, or include notice, control, and cooperation procedures. It also leaves Client’s indemnity far broader than Customer-provided content and breach of law. The fallback is not met because there are no customary IP exclusions, procure/modify/replace/refund remedies, or 3× annual-fees super-cap. The IP provision is overbroad as drafted ('any allegation'), and the phrase 'any (i) any claim' is duplicative and unprofessional. Unrelated commercial terms are otherwise largely preserved.",
+          "satisfies_rule": false
+        },
+        "f-insurance-1b60bba9": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative clause includes the preferred CGL, E&O, cyber, and certificate requirements, but omits workers’ compensation as required by law, so it does not fully reach the playbook position. Requiring all coverage for one year after the term is not called for by the playbook and is unnecessarily broad, particularly for occurrence-based CGL. The force majeure provision and unrelated commercial intent are otherwise preserved. The drafting is generally professional, though “Client data” should align with the defined term “Customer Data.”",
+          "satisfies_rule": false
+        },
+        "f-ip-ad69f7ea": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The Credit Data position is appropriately narrowed and Client ownership is confirmed while preserving TrueLink’s service-use rights. However, the deliverables position is incomplete: stating that Client “retains” rights in Support Services results does not assign newly created IP, does not cover all deliverables or work product, and omits both the required licence to embedded Vendor IP and an express exclusion of joint ownership. It also does not reach the fallback because there is no perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense deliverables.",
+          "satisfies_rule": false
+        },
+        "f-license-80f9b96e": {
+          "drafting_quality": 2,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The affiliate and contractor coverage reaches part of the preferred position, and M&A-successor transferability reaches the fallback. However, section (c) still ends the licence whenever the Agreement terminates under section 12, potentially permitting termination on grounds other than an uncured material breach and conflicting with the new revocability language. The clause also does not make paid-up licences perpetual and irrevocable or provide general transferability to successors. Adding correspondent broker customers exceeds the supplied playbook scope, and the conflict between the grant and term provisions reduces drafting quality.",
+          "satisfies_rule": false
+        },
+        "f-lol-cap-ee73e643": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative language reaches the preferred position: it creates a mutual cap equal to the greater of paid or payable 12-month fees and USD 1 million, mutually excludes indirect and consequential damages, includes all required uncapped carve-outs, and excludes Client fee-payment obligations from the cap. The changes are targeted and preserve the separate warranty disclaimer. Minor drafting imperfections include the undefined reference point for the “immediately preceding” 12-month period and slightly awkward phrasing in the Excluded Claims definition, but these do not materially prevent compliance.",
+          "satisfies_rule": true
+        },
+        "f-mincommit-2fa95dd0": {
+          "drafting_quality": 2,
+          "minimal": false,
+          "preserves_intent": false,
+          "reason": "The operative payment language expressly eliminates minimum monthly commitments, reaching the preferred position. However, Section 6 retains two references to “minimum monthly fees listed in Section 4,” creating an internal inconsistency and unnecessarily excluding nonexistent fees from documentation and dispute rights. In addition, requiring services to be both “ordered and used” is narrower than the playbook’s usage-or-ordered-services position and may eliminate fees for services ordered or reserved but not consumed. The stale cross-references should be deleted, and the payment language should say fees are payable only for services actually used or ordered by Client.",
+          "satisfies_rule": true
+        },
+        "f-transition-1ae4db85": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The addition reaches the preferred position: transition assistance is available for up to six months at TrueLink’s then-current rates, specified Client-related data must be returned within 30 days in a commonly used machine-readable format, and TrueLink must thereafter delete and certify deletion. The amendment is confined to post-termination obligations and does not disturb unrelated commercial terms. Drafting is professional, though “thereafter” leaves the deletion deadline somewhat open-ended and the data categories should ideally align with a single defined term such as “Customer Data.”",
+          "satisfies_rule": true
+        },
+        "f-warranty-418c12bb": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The revision adds a professional-and-workmanlike services warranty, a 90-day conformance period, remedies, and a malicious-code warranty. However, it does not expressly warrant that the Interface and related software conform to documentation for either the preferred 12-month period or fallback 90-day period; “any deliverable” is too ambiguous to establish that software warranty. It also omits the required compliance-with-laws warranty, and the malicious-code protection applies only to the Interface rather than clearly covering all software and deliverables. The changes are otherwise targeted and preserve unrelated commercial terms, but the duration trigger (“following performance”) and remedy formulation could be drafted more precisely.",
+          "satisfies_rule": false
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 0,
+          "invalidReferences": [],
+          "rate": 0,
+          "references": 38
+        },
+        "detection": {
+          "ambiguousItems": 0,
+          "ambiguousMatches": 0,
+          "escalations": 2,
+          "f1": 0.9,
+          "fn": 0,
+          "fp": 2,
+          "precision": 0.8181818181818182,
+          "recall": 1,
+          "tp": 9
+        },
+        "deviationAccuracy": {
+          "accuracy": 0.8181818181818182,
+          "correct": 9,
+          "located": 11
+        },
+        "integrity": {
+          "applied": 9,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 9
+        },
+        "minimality": {
+          "eligible": 9,
+          "passing": 0,
+          "rate": 0
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 9,
+            "passing": 9,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 9,
+            "passing": 7,
+            "rate": 0.7777777777777778
+          },
+          "eligible": 9,
+          "judge": {
+            "eligible": 9,
+            "passing": 3,
+            "rate": 0.3333333333333333
+          },
+          "valid": {
+            "eligible": 9,
+            "passing": 3,
+            "rate": 0.3333333333333333
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 891,
+          "calls": 1,
+          "costUsd": 0.44059875,
+          "inputTokens": 18076,
+          "latencyMs": 141208,
+          "outputTokens": 13786,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "cuad-corio-hosting",
+      "judgements": {
+        "f-assign-6b028ebe": {
+          "drafting_quality": 2,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The redline does not reach either playbook position. It preserves the existing mutual successor-assignment carveout, so Vendor may assign to a non-competitor successor without Customer consent, contrary to the preferred position. It also allows assignment to a Customer competitor with consent rather than prohibiting it entirely. The fallback is not met because successor assignments require no written notice. In addition, the new Corio carveout conflicts with the retained competitor restriction, and “in whole or in part” unnecessarily expands the permitted assignment right. Unrelated provisions are otherwise preserved, but the operative language is duplicative and ambiguous.",
+          "satisfies_rule": false
+        },
+        "f-insurance-32277dcc": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The clause includes the preferred CGL, E&O, and conditional cyber limits and requires certificates on request, but it omits workers’ compensation coverage as required by law. It also unnecessarily requires all coverage to continue for one year after the term, which is not part of the playbook and may be unsuitable for occurrence-based CGL coverage. The unrelated force majeure and bankruptcy provisions remain unchanged.",
+          "satisfies_rule": false
+        },
+        "f-license-7ef34fe0": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The amendment appropriately extends the Section 2.2 internal-use licence to affiliates and contractors with a limited change, but it does not extend the Section 2.1 hosting licence to them. It also leaves the fully paid-up Section 2.2 licence perpetual but not irrevocable, and the cross-reference to Section 14.1 does not affirmatively establish transferability to an M&A successor. Accordingly, the operative language reaches neither the full preferred position nor the complete fallback position.",
+          "satisfies_rule": false
+        },
+        "f-lol-cap-28e73001": {
+          "drafting_quality": 5,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language substantially reaches the preferred position: the cap is mutual, based on the greater of 12 months’ paid/payable fees and USD 1,000,000; all specified claims are uncapped; and Corio’s fee obligations are outside the cap. The indirect/consequential-damages exclusion is mutual. However, the lookback was unnecessarily changed to the event giving rise to the claim rather than the claim itself, and the malformed duplicated paragraph was left intact. The consequential-damages exception also still refers only to Section 8 rather than using the new Excluded Claims concept; while the playbook expressly requires those claims to be uncapped rather than necessarily exempt from the damages waiver, this creates avoidable inconsistency. These defects reduce minimality and drafting quality, though unrelated commercial intent is preserved.",
+          "satisfies_rule": true
+        },
+        "f-t4c-1bb10ba8": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "Assuming Corio is the Customer, the operative language gives it a 30-day convenience-termination right and requires a refund of prepaid fees allocable to the post-termination period, substantively providing the required pro-rata refund. Commerce One receives no convenience-termination right during a committed term; its existing right is only to prevent renewal at term end. However, adding a right to terminate “in part” exceeds the playbook requirement and may create unnecessary scope and fee-adjustment ambiguity, so the revision is not strictly minimal.",
+          "satisfies_rule": true
+        },
+        "f-transition-e5402995": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The added language reaches the preferred position: up to six months of transition assistance at then-current rates, return of Corio and Customer data within 30 days in a commonly used machine-readable format, and subsequent deletion certification. The amendment is confined to exit obligations and preserves the existing survival, support, payment, and confidentiality provisions. Drafting is clear and operative, though using a defined term such as “Customer Data” and specifying a deadline for deletion certification would improve precision.",
+          "satisfies_rule": true
+        },
+        "f-warranty-ab42704b": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language does not reach the playbook position. It provides a 12-month documentation-conformance warranty for both Software and MarketSite.net Service, rather than separately covering software for 12 months and services for 90 days, and it omits warranties that services will be performed professionally and workmanlike and that performance will comply with laws. The malicious-code warranty is also limited to willfully introduced code. Although correction, replacement, and a conditional refund are included, the refund is tied to termination and only covers prepaid fees. Applying the 12-month period to the service goes beyond the requested service duration, so the revision is not fully minimal. The margin comment cannot cure these operative omissions.",
+          "satisfies_rule": false
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 0,
+          "invalidReferences": [],
+          "rate": 0,
+          "references": 21
+        },
+        "detection": {
+          "ambiguousItems": 5,
+          "ambiguousMatches": 5,
+          "escalations": 2,
+          "f1": 1,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1,
+          "recall": 1,
+          "tp": 7
+        },
+        "deviationAccuracy": {
+          "accuracy": 1,
+          "correct": 8,
+          "located": 8
+        },
+        "integrity": {
+          "applied": 7,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 7
+        },
+        "minimality": {
+          "eligible": 7,
+          "passing": 1,
+          "rate": 0.14285714285714285
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 7,
+            "passing": 7,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 7,
+            "passing": 6,
+            "rate": 0.8571428571428571
+          },
+          "eligible": 7,
+          "judge": {
+            "eligible": 7,
+            "passing": 3,
+            "rate": 0.42857142857142855
+          },
+          "valid": {
+            "eligible": 7,
+            "passing": 2,
+            "rate": 0.2857142857142857
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 891,
+          "cacheWriteTokens": 0,
+          "calls": 1,
+          "costUsd": 0.4319255,
+          "inputTokens": 26906,
+          "latencyMs": 123378,
+          "outputTokens": 11878,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "cuad-kubient-msa-part1",
+      "judgements": {
+        "f-insurance-ad681f96": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The clause includes the preferred CGL, E&O, and conditional cyber/privacy limits and requires certificates on request, but it omits workers’ compensation insurance as required by law. It also adds a one-year post-Term maintenance obligation not required by the playbook, so the revision is broader than necessary. The language is otherwise clear and preserves unrelated commercial terms.",
+          "satisfies_rule": false
+        },
+        "f-license-64baea80": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The edit appropriately extends the licence to affiliates and contractors and removes the express revocability and transfer restrictions. However, it does not establish that a paid-up licence is perpetual and irrevocable, and “terminable only in accordance with Section 4” does not itself limit termination to an uncured material breach. Likewise, transferability depends on unknown Section 14(h), so transfer to an M&A successor is not assured by the rendered language. The continuing limitation to Customer’s websites may also undercut meaningful affiliate use. The changes are targeted and generally preserve the original commercial purpose, but the operative language does not reach the preferred or fallback position on the information provided.",
+          "satisfies_rule": false
+        },
+        "f-lol-cap-e8074444": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline adds the preferred mutual cap, mutual damages exclusion, and the specified uncapped carve-outs. However, it omits the required statement that Customer payment obligations are not damages and therefore are not subject to the cap. It also measures the fee lookback from the event giving rise to the claim rather than from the claim itself. Although it meets the fallback position, it does not fully reach the preferred position. The changes are otherwise targeted and preserve the existing commercial allocation, but the retained typographical error and minor imprecision reduce drafting quality.",
+          "satisfies_rule": false
+        },
+        "f-renewal-42b932dd": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The added 30-day non-renewal deadline satisfies the notice-window component and preserves the existing termination and breach provisions. However, the clause does not reach the preferred position because it omits the required 60-day Vendor renewal reminder and the CPI/3% price-increase cap. It also fails the fallback because it contains no 5% cap on renewal price increases. The overlapping 30-day non-renewal and 90-day post-Initial-Term termination provisions are workable but could be clarified.",
+          "satisfies_rule": false
+        },
+        "f-t4c-2933129a": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language reaches the preferred position: Customer may terminate on 30 days’ notice with a refund of prepaid fees allocable to the post-termination period, while Kubient may terminate for convenience only at the end of the then-current term on 90 days’ notice. However, allowing Customer to terminate any Exhibit, in whole or in part, goes beyond what the playbook requires and may materially expand partial-termination rights. The retained fees-during-notice language is generally compatible with the refund obligation, though “then-current Term” and “termination period” could be drafted more precisely.",
+          "satisfies_rule": true
+        },
+        "f-transition-61053177": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative language substantially reaches the preferred position for termination: up to six months of transition assistance at then-current rates, data return within 30 days in a machine-readable format, and deletion certification. However, it applies only upon termination and does not cover expiry, as required. The margin comment does not cure that omission. The change is otherwise targeted and preserves the existing mutual confidentiality obligation, though the timing for deletion and certification could be clearer.",
+          "satisfies_rule": false
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 0,
+          "invalidReferences": [],
+          "rate": 0,
+          "references": 5
+        },
+        "detection": {
+          "ambiguousItems": 2,
+          "ambiguousMatches": 1,
+          "escalations": 2,
+          "f1": 1,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1,
+          "recall": 1,
+          "tp": 6
+        },
+        "deviationAccuracy": {
+          "accuracy": 0.8888888888888888,
+          "correct": 8,
+          "located": 9
+        },
+        "integrity": {
+          "applied": 6,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 6
+        },
+        "minimality": {
+          "eligible": 6,
+          "passing": 2,
+          "rate": 0.3333333333333333
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 6,
+            "passing": 6,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 6,
+            "passing": 5,
+            "rate": 0.8333333333333334
+          },
+          "eligible": 6,
+          "judge": {
+            "eligible": 6,
+            "passing": 1,
+            "rate": 0.16666666666666666
+          },
+          "valid": {
+            "eligible": 6,
+            "passing": 1,
+            "rate": 0.16666666666666666
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 891,
+          "cacheWriteTokens": 0,
+          "calls": 1,
+          "costUsd": 0.3244855,
+          "inputTokens": 16373,
+          "latencyMs": 97957,
+          "outputTokens": 9687,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "cuad-merit-life-master-services",
+      "judgements": {
+        "f-assign-d213e1d1": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The clause gives Customer the preferred affiliate and M&A/successor assignment carve-out and creates no termination right on Customer change of control. However, it does not expressly prohibit Contractor from assigning to a Customer competitor, as required by the preferred position. It also does not reach the fallback because the successor carve-out is not mutual. The changes are otherwise limited and professionally drafted; the margin comment cannot cure the missing operative restriction.",
+          "satisfies_rule": false
+        },
+        "f-govlaw-29d875f8": {
+          "drafting_quality": 2,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The governing-law language adopts New York law and facially grants exclusive jurisdiction to the specified New York courts, but the operative text still requires binding arbitration for the defined Disputes and permits award confirmation in other courts. This creates a direct forum conflict and does not achieve the playbook position of New York courts rather than arbitration. The margin comment identifies the issue but does not cure the operative language. The changes are otherwise limited and preserve unrelated terms.",
+          "satisfies_rule": false
+        },
+        "f-indemn-8a822a30": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": false,
+          "reason": "Paragraph 7(d) reaches the preferred position: Contractor defends and indemnifies Company and affiliates for third-party IP claims, legal violations, Contractor-caused data incidents, and gross negligence/wilful misconduct, with notice, cooperation, defence control, and settlement protections. No Company indemnity is created, which is at least as protective as limiting one to Company content and legal violations. However, new paragraph 7(c) is unnecessary to implement the indemnity playbook and materially changes unrelated litigation economics by imposing a mutual attorneys’ fee waiver. Its exception for paragraph 7(d) does not justify adding the broader waiver. Accordingly, the indemnity is substantively compliant, but the redline is not minimal and does not preserve unrelated commercial intent.",
+          "satisfies_rule": true
+        },
+        "f-insurance-2e48a9a6": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The clause reaches the fallback E&O limit and the preferred cyber limit, and retains statutory workers’ compensation and certificates on request. However, it does not require the CGL coverage to be USD 1 million per occurrence and USD 2 million aggregate. It also unnecessarily expands the cyber trigger to vendors that merely access Company systems, whereas the playbook applies it to vendors processing Customer Data, and it uses the less precise term “Company data.”",
+          "satisfies_rule": false
+        },
+        "f-license-33da57c6": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language covers Affiliates and contractors acting on Company's behalf, makes the royalty-free perpetual licence irrevocable, and permits transfer to a successor in an M&A transaction. It therefore reaches the fallback transfer position while satisfying the preferred scope protections. Unrelated commercial intent is preserved. However, adding “worldwide” is not required by the playbook, so the redline is not strictly minimal. Drafting is otherwise professional, though the transfer language could be integrated more cleanly into the licence grant.",
+          "satisfies_rule": true
+        },
+        "f-lol-cap-d223113b": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative language reaches the preferred position: it creates a mutual aggregate cap equal to the greater of 12 months’ fees paid or payable and USD 1,000,000; retains a mutual exclusion of indirect and consequential damages; and places confidentiality, data protection/security, indemnification, gross negligence, wilful misconduct, fraud, and infringement of the other party’s IP outside the cap. It also excludes Company’s fee-payment obligations from the cap, substantively achieving the required payment-obligations treatment. The revisions are appropriately limited to the liability allocation and preserve the existing damages exclusion. Drafting is professional, with only minor issues such as the redundant phrase “total aggregate liability” and use of the 12 months preceding the event rather than preceding the claim.",
+          "satisfies_rule": true
+        },
+        "f-nosolicit-9fa0864b": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The added carve-outs appropriately cover general recruitment and unsolicited approaches, and the clause remains mutual and limited to personnel directly involved with the Services. However, the restriction runs during the entire Agreement and for one year after termination, rather than for 12 months from the end of each person's involvement as required by the fallback. This can materially extend the restriction for personnel whose involvement ends before termination. The margin comment overlooks that mismatch. The edits are otherwise narrow and professionally drafted, and the operative restriction remains a non-solicit rather than a general no-hire.",
+          "satisfies_rule": false
+        },
+        "f-t4c-046913c8": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language gives Company the preferred 30-day written-notice right, including during an active SOW, and requires refund of prepaid fees allocable to the post-termination period. Contractor cannot terminate while an SOW remains uncompleted and must give 90 days' notice. However, allowing Company to terminate an SOW “in part” exceeds what is needed to meet the playbook and may create avoidable scope and fee-allocation ambiguity. Otherwise, the language is professional and preserves unrelated commercial intent.",
+          "satisfies_rule": true
+        },
+        "f-transition-b9c5149d": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The addition reaches the preferred position: up to six months of transition assistance at then-current rates, export within 30 days in a commonly used machine-readable format, and written deletion certification. It is broader than necessary because it applies the return obligation to all Company materials and Confidential Information, rather than only Company Data; some such items may not be capable of machine-readable return. The deletion language also omits “materials” and does not specify when certification must occur. These issues reduce precision but do not defeat the playbook requirements or materially alter the existing termination economics.",
+          "satisfies_rule": true
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 0,
+          "invalidReferences": [],
+          "rate": 0,
+          "references": 21
+        },
+        "detection": {
+          "ambiguousItems": 2,
+          "ambiguousMatches": 1,
+          "escalations": 0,
+          "f1": 0.9473684210526316,
+          "fn": 0,
+          "fp": 1,
+          "precision": 0.9,
+          "recall": 1,
+          "tp": 9
+        },
+        "deviationAccuracy": {
+          "accuracy": 1,
+          "correct": 9,
+          "located": 9
+        },
+        "integrity": {
+          "applied": 9,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 9
+        },
+        "minimality": {
+          "eligible": 9,
+          "passing": 2,
+          "rate": 0.2222222222222222
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 9,
+            "passing": 9,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 9,
+            "passing": 7,
+            "rate": 0.7777777777777778
+          },
+          "eligible": 9,
+          "judge": {
+            "eligible": 9,
+            "passing": 5,
+            "rate": 0.5555555555555556
+          },
+          "valid": {
+            "eligible": 9,
+            "passing": 4,
+            "rate": 0.4444444444444444
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 891,
+          "cacheWriteTokens": 0,
+          "calls": 1,
+          "costUsd": 0.3523955,
+          "inputTokens": 15075,
+          "latencyMs": 114053,
+          "outputTokens": 11063,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "cuad-sfg-financial-license",
+      "judgements": {
+        "f-assign-2cf03c63": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline appropriately removes Licensor’s automatic termination/consent right for Licensee’s change of control and adds notice, but it does not establish either playbook assignment position. It omits Licensee’s affiliate-assignment right, successor-assignment mechanics, restrictions on Licensor assignments, and the prohibition on assignment to a Licensee competitor. It also leaves Licensor’s right of first refusal over a sale or merger intact, despite the comment objecting to an effective veto. The margin comment cannot cure these operative omissions. The edits are narrowly scoped and generally clear, but substantively incomplete.",
+          "satisfies_rule": false
+        },
+        "f-audit-52dc2d8b": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The audit frequency, 30-day notice, business-hours limitation, independent confidentiality-bound auditor, and prohibition on systems access reach the preferred position. However, the cost-shifting trigger remains any “discrepancy” over 5%, rather than an underpayment exceeding 5%, so the operative language is broader than permitted. The cost paragraph was also unnecessarily moved ahead of subsection (b), reducing coherence and making the redline non-minimal.",
+          "satisfies_rule": false
+        },
+        "f-indemn-be433f80": {
+          "drafting_quality": 2,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline adds the preferred categories of Licensor indemnity, but it does not reach either playbook position. Licensee’s indemnity remains broadly tied to all license use, business conduct, and any contractual breach rather than being limited to Licensee-provided content and breach of law. There are no standard notice, defense-control, or cooperation procedures. Further, Article XIII still expressly disclaims Licensor liability for infringement claims and caps all Licensor liability at one-half of fees, directly undermining the new IP indemnity and falling well below the fallback 3× annual-fees super-cap. The fallback IP exclusions and procure/modify/replace/refund remedies are also absent. The edits are targeted and preserve unrelated terms, but the operative provisions are internally inconsistent, and the margin comment inaccurately states that Licensee’s indemnity has been correspondingly limited.",
+          "satisfies_rule": false
+        },
+        "f-insurance-93a1af10": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The clause includes the preferred CGL, E&O, and cyber limits and certificates on request, but omits workers’ compensation coverage as required by law. It also unnecessarily requires all coverages to continue for one year after termination and relocates the existing compliance provision into Article VII, neither of which is required by the playbook. The unrelated substantive obligations remain otherwise unchanged, and the insurance language is generally clear.",
+          "satisfies_rule": false
+        },
+        "f-license-573a6a47": {
+          "drafting_quality": 2,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The grant properly adds Affiliates and contractors and limits termination to an uncured material breach, but the operative restrictions still prohibit disclosure, access, outsourcing, and use by anyone other than Licensee employees, directly contradicting the expanded grant. The redline also omits transferability to an M&A successor and does not provide that paid-up licences are perpetual and irrevocable. Accordingly, it reaches neither the preferred position nor the fallback position. The changes are otherwise targeted and retain the Field of Use and other unrelated limitations, but the internal inconsistency materially impairs drafting quality.",
+          "satisfies_rule": false
+        },
+        "f-lol-cap-f0822ebd": {
+          "drafting_quality": 2,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "Although the added language facially reaches the fallback by providing a mutual 12-month-fees cap, mutual indirect/consequential-damages exclusion, and the required carve-outs, the retained provisions materially conflict with it. They continue to disclaim virtually all Licensor liability, require Licensee to assume all system-related liabilities and risks, limit Licensor exposure to direct damages arising from gross negligence or wilful misconduct, and disclaim IP-infringement liability. Those provisions undermine mutuality and may eliminate liability for the stated confidentiality, indemnity, security, fraud, and IP carve-outs. The unnecessary relocation of the existing text and the resulting contradictory, poorly structured clause also make the redline non-minimal and professionally deficient. The margin comment does not cure these operative defects.",
+          "satisfies_rule": false
+        },
+        "f-nosolicit-d9a0a23e": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The clause adopts mutuality, limits coverage to personnel directly involved in the services, includes general-advertising and unsolicited-inquiry carve-outs, and does not impose a no-hire restriction. However, the 12-month period runs from expiration or termination of the Agreement, rather than from the end of each individual’s involvement as required by the fallback. It also applies throughout the entire Term even after an individual ceases involvement. The margin comment does not cure this operative-language defect.",
+          "satisfies_rule": false
+        },
+        "f-renewal-b8bf2ee0": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative change reaches the preferred position by replacing the Licensor’s unilateral seven-year renewal right with twelve-month renewals requiring mutual written agreement. No notice window, reminder, or price cap is required under the mutual-agreement option. The change is targeted and preserves the initial term and unrelated termination provisions. Drafting quality is reduced because Section II retains the incomplete phrase “mutual written of the parties” and creates unnecessary duplication and some ambiguity alongside Sections I and III.",
+          "satisfies_rule": true
+        },
+        "f-t4c-f1e935a5": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": false,
+          "reason": "The operative language gives Licensee a 30-day written termination-for-convenience right and requires a refund of prepaid fees attributable to the post-termination period, functionally providing the required pro-rata refund. Licensor receives no convenience-termination right. However, the redline unnecessarily changes the separate breach-termination standard by adding materiality, notice, and a 30-day cure period, materially altering unrelated rights. It also leaves an internal inconsistency by referring to “such immediate termination” after immediate termination was removed, and “in whole or in part” is not clearly implemented.",
+          "satisfies_rule": true
+        },
+        "f-transition-abbbff3c": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative addition reaches the preferred position: up to six months of transition assistance at then-current rates, return of Licensee data within 30 days in a commonly used machine-readable format, and subsequent deletion certification. It leaves the existing termination mechanics intact and adds only the required exit obligations. The added language is professionally drafted, though the pre-existing typographical and grammatical errors remain uncorrected.",
+          "satisfies_rule": true
+        },
+        "f-warranty-94f04c6e": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The clause adds professional-and-workmanlike performance, material conformance, malicious-code protection, and a correction-or-refund remedy while preserving the unrelated disclaimer. However, it does not reach even the fallback because it provides no warranty periods (minimum 90 days for software and 30 days for services) and omits compliance with laws. It also does not expressly provide replacement as a remedy. The margin comment cannot cure these operative omissions, and the retained disclaimer text appears syntactically incomplete.",
+          "satisfies_rule": false
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 4,
+          "invalidReferences": [
+            "50",
+            "50",
+            "50",
+            "50"
+          ],
+          "rate": 1,
+          "references": 4
+        },
+        "detection": {
+          "ambiguousItems": 1,
+          "ambiguousMatches": 1,
+          "escalations": 2,
+          "f1": 0.9565217391304348,
+          "fn": 0,
+          "fp": 1,
+          "precision": 0.9166666666666666,
+          "recall": 1,
+          "tp": 11
+        },
+        "deviationAccuracy": {
+          "accuracy": 0.6666666666666666,
+          "correct": 8,
+          "located": 12
+        },
+        "integrity": {
+          "applied": 11,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 11
+        },
+        "minimality": {
+          "eligible": 11,
+          "passing": 3,
+          "rate": 0.2727272727272727
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 11,
+            "passing": 11,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 11,
+            "passing": 7,
+            "rate": 0.6363636363636364
+          },
+          "eligible": 11,
+          "judge": {
+            "eligible": 11,
+            "passing": 3,
+            "rate": 0.2727272727272727
+          },
+          "valid": {
+            "eligible": 11,
+            "passing": 1,
+            "rate": 0.09090909090909091
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 891,
+          "cacheWriteTokens": 0,
+          "calls": 1,
+          "costUsd": 0.4397855,
+          "inputTokens": 25733,
+          "latencyMs": 129303,
+          "outputTokens": 12427,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "cuad-sparkling-spring-license",
+      "judgements": {
+        "f-assign-7f6e0807": {
+          "drafting_quality": 2,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The redline does not reach the preferred position because it does not prohibit Vendor assignment to a Customer competitor, and Section 3(c) remains an unqualified assignment restriction that conflicts with Sparkling’s new affiliate/successor carve-out. It also does not reach the fallback because Vendor lacks a notice-only right to assign to a successor. The margin comment cannot cure these operative defects. The changes are confined to assignment and preserve unrelated commercial terms, but adding corporate-reorganization coverage while leaving the conflicting provision unresolved is not a minimal or professionally complete implementation.",
+          "satisfies_rule": false
+        },
+        "f-insurance-629dd670": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The clause includes the preferred CGL, E&O, and conditional cyber limits and requires certificates on request, but it omits workers’ compensation as required by law. It also adds an unsupported one-year post-termination insurance obligation, so it changes more than necessary. The existing independent-contractor language is preserved, and the drafting is otherwise professional, although the cyber trigger should use the defined term “Customer Data” if applicable.",
+          "satisfies_rule": false
+        },
+        "f-license-293583c2": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline reaches the fallback position: affiliates remain covered without even requiring written notice, and the licence is transferable to a successor in an M&A transaction. It also adds the preferred contractor-use right. The edits are targeted and preserve the location, fee, exclusivity, and use restrictions. It does not reach the full preferred position because it does not make paid-up licences perpetual and irrevocable or limit termination of subscription licences to uncured material breach.",
+          "satisfies_rule": true
+        },
+        "f-nosolicit-bbdf68fe": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline appropriately makes the restriction mutual, removes the affiliate no-hire, limits it to personnel directly involved in the services, and adds the required general-advertising and unsolicited-approach carve-outs. However, it runs during the entire Agreement term and for one year thereafter, rather than for 12 months from the end of each individual's involvement. This could restrict solicitation of personnel long after their involvement has ended, so it does not fully reach the fallback position.",
+          "satisfies_rule": false
+        },
+        "f-transition-b665621d": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The added operative language reaches the preferred position: transition assistance is available for up to six months at then-current rates, Sparkling data must be returned in a commonly used machine-readable format within 30 days, and Garman must subsequently delete and certify deletion of that data. The addition leaves the existing termination rights and customer return obligations intact and changes no more than necessary. Drafting is professional, though the 30-day period could be made slightly clearer by stating expressly that it runs from expiry or termination.",
+          "satisfies_rule": true
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 0,
+          "invalidReferences": [],
+          "rate": 0,
+          "references": 20
+        },
+        "detection": {
+          "ambiguousItems": 2,
+          "ambiguousMatches": 2,
+          "escalations": 5,
+          "f1": 0.7692307692307692,
+          "fn": 2,
+          "fp": 1,
+          "precision": 0.8333333333333334,
+          "recall": 0.7142857142857143,
+          "tp": 5
+        },
+        "deviationAccuracy": {
+          "accuracy": 0.5,
+          "correct": 5,
+          "located": 10
+        },
+        "integrity": {
+          "applied": 5,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 5
+        },
+        "minimality": {
+          "eligible": 5,
+          "passing": 1,
+          "rate": 0.2
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 5,
+            "passing": 5,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 5,
+            "passing": 4,
+            "rate": 0.8
+          },
+          "eligible": 5,
+          "judge": {
+            "eligible": 5,
+            "passing": 2,
+            "rate": 0.4
+          },
+          "valid": {
+            "eligible": 5,
+            "passing": 2,
+            "rate": 0.4
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 891,
+          "cacheWriteTokens": 0,
+          "calls": 1,
+          "costUsd": 0.3899455,
+          "inputTokens": 16340,
+          "latencyMs": 133852,
+          "outputTokens": 12312,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "synth-11",
+      "judgements": {
+        "f-audit-32443d92": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language reaches the preferred position: one audit per 12 months, 30 days’ written notice, business-hours timing, an independent auditor subject to confidentiality, Vendor-paid costs unless underpayment exceeds 5%, and no direct or remote systems access. It also preserves the existing exclusions and payment of the undisputed shortfall. However, requiring off-site conduct wherever practicable and minimising disruption goes beyond the stated playbook requirements, so the revision is not strictly minimal. The drafting is professional, though the systems-access prohibition is duplicative across Sections 22.1 and 22.2.",
+          "satisfies_rule": true
+        },
+        "f-exclusivity-78da53f5": {
+          "drafting_quality": 5,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The blank rendered clause deletes the sole-supplier obligation entirely, achieving the preferred no-exclusivity position. Because the original sentence addressed only exclusivity, full deletion is the minimal change and does not disturb unrelated commercial terms. The margin comment accurately explains the deletion and fallback, although the operative deletion—not the comment—is what satisfies the rule.",
+          "satisfies_rule": true
+        },
+        "f-ld-e4497af0": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": false,
+          "reason": "The operative language reaches the preferred position by eliminating liquidated damages and penalties. However, it goes beyond the playbook by making schedule relief Vendor’s sole remedy and excluding all “other charges,” potentially waiving non-liquidated contractual or actual-damages remedies. A narrower revision should remove only the liquidated-damages/penalty obligation. The drafting is otherwise clear and professional, though “reasonable, equitable extension” is somewhat subjective.",
+          "satisfies_rule": true
+        },
+        "f-mfn-240f6001": {
+          "drafting_quality": 5,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The clause is deleted in full, achieving the preferred position of no Customer-side MFN. The deletion is limited to the burdensome MFN obligation, does not alter unrelated commercial terms, and the margin comment accurately explains the change.",
+          "satisfies_rule": true
+        },
+        "f-nosolicit-0d12d799": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The clause otherwise tracks the fallback: it is mutual, limited to personnel directly involved in the Services, contains the required recruitment and unsolicited-approach carve-outs, and removes any no-hire restriction. However, “During the term and for twelve months after the end of a person's involvement” can restrict solicitation throughout the entire contract term even where that person’s involvement ended more than 12 months earlier. The fallback requires the restriction to expire 12 months after each person’s involvement ends. It should instead apply during that person’s involvement and for 12 months thereafter. The unsupported Section 12.3 comment does not cure the operative overbreadth.",
+          "satisfies_rule": false
+        },
+        "f-renewal-1a3830ee": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The 30-day notice period, 12-month renewal term, and 60-day Vendor reminder meet the preferred renewal mechanics. However, the clause does not cap Fee increases at the lesser of CPI and 3%, or even at the fallback maximum of 5%. Merely requiring notice of a proposed increase does not satisfy the pricing requirement. The revisions are otherwise targeted and professionally drafted.",
+          "satisfies_rule": false
+        },
+        "f-t4c-2cdb3920": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language reaches the preferred position: Customer receives a 30-day termination-for-convenience right, prepaid Fees attributable to the post-termination period are refunded, no early-termination fee applies, and Vendor receives no convenience right. Existing cause-based termination rights and Order Form separability provisions are preserved. However, “in whole or in part” arguably creates an unnecessary and potentially ambiguous right to terminate only portions of the Agreement or an Order Form, exceeding the stated playbook requirement. Otherwise, the drafting is professional, though expressly stating that the refund is pro rata would track the playbook more precisely.",
+          "satisfies_rule": true
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 0,
+          "invalidReferences": [],
+          "rate": 0,
+          "references": 24
+        },
+        "detection": {
+          "ambiguousItems": 3,
+          "ambiguousMatches": 1,
+          "escalations": 0,
+          "f1": 1,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1,
+          "recall": 1,
+          "tp": 7
+        },
+        "deviationAccuracy": {
+          "accuracy": 1,
+          "correct": 7,
+          "located": 7
+        },
+        "integrity": {
+          "applied": 7,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 7
+        },
+        "minimality": {
+          "eligible": 7,
+          "passing": 0,
+          "rate": 0
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 7,
+            "passing": 7,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 7,
+            "passing": 5,
+            "rate": 0.7142857142857143
+          },
+          "eligible": 7,
+          "judge": {
+            "eligible": 7,
+            "passing": 5,
+            "rate": 0.7142857142857143
+          },
+          "valid": {
+            "eligible": 7,
+            "passing": 5,
+            "rate": 0.7142857142857143
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 891,
+          "cacheWriteTokens": 0,
+          "calls": 1,
+          "costUsd": 0.2626055,
+          "inputTokens": 19157,
+          "latencyMs": 70074,
+          "outputTokens": 6655,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "synth-12",
+      "judgements": {
+        "f-govlaw-4a18e833": {
+          "drafting_quality": 5,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline adopts the preferred New York governing law and retains exclusive jurisdiction in the state and federal courts located in New York County. The change is narrowly confined to replacing Singapore law with New York law; the conflict-of-laws clarification is standard. It preserves the existing jurisdiction, submission, waiver, and limited temporary-injunctive-relief provisions and is professionally drafted.",
+          "satisfies_rule": true
+        },
+        "f-indemn-314f2254": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative language substantially reaches the preferred position: Vendor covers third-party IP, legal-compliance, Vendor-caused data, and gross-negligence/wilful-misconduct claims; Customer and Affiliates are protected; standard defence procedures and IP remedies are included; and Customer's indemnity is narrowly scoped. The changes are germane and preserve unrelated terms. Drafting quality is reduced because Section 9.3 still points to Section 20.5 rather than the new Section 21.5, the data-breach limb covers only unauthorised access or disclosure rather than all data breaches, and the claims procedure does not address prejudice from delayed notice or claims indemnified by Customer.",
+          "satisfies_rule": true
+        },
+        "f-ip-0a7e1044": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline appropriately assigns Deliverables to Customer, preserves Vendor Technology ownership, avoids joint ownership, and makes only targeted changes. However, it does not state that Customer retains all rights in Customer Data. It also relies on Section 13.2 for the embedded Vendor Technology licence without confirming that the licence is irrevocable and royalty-free, as required by the preferred position. The margin comment cannot cure these omissions from the operative language.",
+          "satisfies_rule": false
+        },
+        "f-mfn-625c4148": {
+          "drafting_quality": 5,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline fully achieves the preferred position by eliminating the Customer’s disclosure and matching obligations. Because the original clause consists solely of the prohibited Vendor-favouring MFN, omitting it is the narrowest effective change and does not disturb unrelated commercial terms. “Intentionally omitted” is clear and professionally drafted.",
+          "satisfies_rule": true
+        },
+        "f-mincommit-cd369e6c": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline removes the three-year USD 2 million take-or-pay obligation and adopts the permitted fallback: any commitment is confined to the current 12-month term, reducible on 30 days’ notice, with a true-up rather than a penalty. It otherwise leaves unrelated rights unchanged. Drafting quality is reduced because “true-up of Fees for Services actually ordered” does not clearly explain how a minimum shortfall is calculated or settled, and Section 12.3’s categorical statement that no minimum-volume commitment exists could conflict with a minimum later included in an Order Form.",
+          "satisfies_rule": true
+        },
+        "f-noncompete-fb0a0e9b": {
+          "drafting_quality": 5,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative redline deletes the non-compete entirely, achieving the preferred position and resolving the conflict with Section 12.3. It changes only Section 12.4, preserves the existing unrelated language, and professionally retains the numbering with an intentional-omission notation. The margin comment does not undermine the compliant operative language.",
+          "satisfies_rule": true
+        },
+        "f-nosolicit-66bf4720": {
+          "drafting_quality": 3,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The clause largely matches the fallback: it is mutual, limited to directly involved personnel, excludes targeted no-hire restrictions, and includes the required general-recruitment and unsolicited-approach carve-outs. However, “during the term and for twelve months after the end of an individual's involvement” can extend the restriction beyond 12 months after that individual’s involvement if the involvement ends before the term expires. It should apply during the individual’s involvement and for 12 months thereafter.",
+          "satisfies_rule": false
+        },
+        "f-t4c-75ca90eb": {
+          "drafting_quality": 5,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The added Section 9.6 achieves the preferred position: Customer may terminate on 30 days’ written notice, receives a pro-rata refund of prepaid fees for the post-termination period, and owes no further fees for terminated Services. Vendor is expressly denied a convenience-termination right during a committed term. The amendment is narrowly confined to the required termination right, leaves the existing term and breach provisions intact, and is professionally drafted.",
+          "satisfies_rule": true
+        },
+        "f-transition-143c9960": {
+          "drafting_quality": 3,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The six-month transition assistance at then-current rates meets the preferred position, and the addition is otherwise targeted. However, data return is required within 30 days of Customer's request, not within 30 days after expiry or termination, so Vendor has no export or subsequent deletion obligation absent a request. In addition, the margin comment incorrectly states that the Section 16.5 cross-reference was fixed; it still refers only to Sections 11 and 15 and omits new Section 10.3.",
+          "satisfies_rule": false
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 5,
+          "invalidReferences": [
+            "20.5",
+            "20.5",
+            "11",
+            "11",
+            "20.5"
+          ],
+          "rate": 0.11904761904761904,
+          "references": 42
+        },
+        "detection": {
+          "ambiguousItems": 5,
+          "ambiguousMatches": 1,
+          "escalations": 0,
+          "f1": 1,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1,
+          "recall": 1,
+          "tp": 9
+        },
+        "deviationAccuracy": {
+          "accuracy": 1,
+          "correct": 9,
+          "located": 9
+        },
+        "integrity": {
+          "applied": 9,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 9
+        },
+        "minimality": {
+          "eligible": 9,
+          "passing": 0,
+          "rate": 0
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 9,
+            "passing": 9,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 9,
+            "passing": 8,
+            "rate": 0.8888888888888888
+          },
+          "eligible": 9,
+          "judge": {
+            "eligible": 9,
+            "passing": 6,
+            "rate": 0.6666666666666666
+          },
+          "valid": {
+            "eligible": 9,
+            "passing": 6,
+            "rate": 0.6666666666666666
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 891,
+          "cacheWriteTokens": 0,
+          "calls": 1,
+          "costUsd": 0.3024605,
+          "inputTokens": 18113,
+          "latencyMs": 89502,
+          "outputTokens": 8458,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "synth-13",
+      "judgements": {
+        "f-exclusivity-78da53f5": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The operative language fully removes the sole-supplier obligation and reaches the preferred position. However, the added right to procure “services of any kind” is broader than necessary to address the hosted analytics exclusivity; deleting the original sentence or limiting the clarification to hosted analytics services would be more precise. No unrelated intent within the original clause is otherwise disturbed, and the drafting is generally clear and professional.",
+          "satisfies_rule": true
+        },
+        "f-indemn-7e9af459": {
+          "drafting_quality": 5,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline reaches the preferred position: it provides Vendor indemnity for third-party IP claims, Vendor legal violations, Vendor-caused data breaches, and gross negligence or wilful misconduct; limits Customer's indemnity to Customer-provided content and legal violations; and adds standard notice, defence control, settlement-consent, and cooperation procedures. The changes are appropriately confined to the indemnity allocation and are professionally drafted.",
+          "satisfies_rule": true
+        },
+        "f-license-8dd04f65": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The clause reaches the preferred position: subscription use extends to Affiliates and contractors acting on Customer’s behalf, termination is tied to Section 13.3’s uncured material-breach standard, paid-up and embedded licences remain perpetual and irrevocable, and transfer to a successor is permitted under Section 24. The revisions are confined to the licence-scope deficiencies and preserve the broader commercial structure. Drafting is professional, though Section 13.3’s phrase “except during a material uncured ... breach” is slightly awkward and could more directly address termination rather than only revocation or suspension.",
+          "satisfies_rule": true
+        },
+        "f-lol-cap-cb7a2001": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The clause adopts the preferred mutual cap amount, but the supplied operative language does not define “Excluded Claims” or establish the required uncapped carve-outs; the margin comment cannot substitute for operative language. It also does not provide the required mutual exclusion of indirect/consequential damages or clarify that Customer payment obligations are not damages subject to the cap. The edits are otherwise targeted and professionally drafted.",
+          "satisfies_rule": false
+        },
+        "f-mincommit-f959336d": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative language reaches the fallback: it limits the commitment to the then-current 12-month term, permits reduction on 30 days’ written notice, and characterizes any shortfall settlement as a true-up rather than a penalty. It also appropriately eliminates the original three-year take-or-pay obligation without altering unrelated terms. Drafting is professional, though the phrase “true-up of Fees for Services actually ordered” could be clearer about how any post-reduction shortfall is calculated.",
+          "satisfies_rule": true
+        },
+        "f-noncompete-af343113": {
+          "drafting_quality": 5,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline fully achieves the preferred position by deleting the non-compete restriction. Because the entire clause consists solely of the prohibited restriction, omission is appropriately limited and does not alter unrelated commercial terms. “Intentionally omitted” is clear and professionally drafted; the margin comment does not undermine the operative deletion.",
+          "satisfies_rule": true
+        },
+        "f-transition-3e7ce3f7": {
+          "drafting_quality": 5,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative language reaches the preferred position: it provides up to six months of reasonable transition assistance at then-current rates, requires return of Customer Data in a machine-readable format within 30 days of request, and requires secure deletion with written certification thereafter. The revision appropriately replaces the contradictory immediate-discontinuation and deletion requirement while leaving the already-compliant data-return and deletion provisions unchanged. It is clear and professionally drafted.",
+          "satisfies_rule": true
+        },
+        "f-warranty-f85b8746": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline minimally and professionally achieves the fallback 90-day conformance warranty for Deliverables and preserves the repair, replacement, re-performance, or refund remedies. However, the supplied operative language does not establish the required professional-and-workmanlike services warranty, a 30-day services warranty period, compliance with laws, or absence of malicious code. Section 19.1 cannot be credited because its text is not provided. Accordingly, the full playbook position is not reached.",
+          "satisfies_rule": false
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 0,
+          "invalidReferences": [],
+          "rate": 0,
+          "references": 27
+        },
+        "detection": {
+          "ambiguousItems": 4,
+          "ambiguousMatches": 0,
+          "escalations": 0,
+          "f1": 1,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1,
+          "recall": 1,
+          "tp": 8
+        },
+        "deviationAccuracy": {
+          "accuracy": 1,
+          "correct": 8,
+          "located": 8
+        },
+        "integrity": {
+          "applied": 8,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 8
+        },
+        "minimality": {
+          "eligible": 8,
+          "passing": 1,
+          "rate": 0.125
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 8,
+            "passing": 8,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 8,
+            "passing": 7,
+            "rate": 0.875
+          },
+          "eligible": 8,
+          "judge": {
+            "eligible": 8,
+            "passing": 6,
+            "rate": 0.75
+          },
+          "valid": {
+            "eligible": 8,
+            "passing": 6,
+            "rate": 0.75
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 891,
+          "cacheWriteTokens": 0,
+          "calls": 1,
+          "costUsd": 0.2448055,
+          "inputTokens": 18447,
+          "latencyMs": 60808,
+          "outputTokens": 6085,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    },
+    {
+      "contractId": "synth-hardcase",
+      "judgements": {
+        "f-ld-c858a260": {
+          "drafting_quality": 4,
+          "minimal": false,
+          "preserves_intent": false,
+          "reason": "The operative language reaches the preferred position by eliminating liquidated damages and penalties and replacing them with ordinary late-payment interest. However, it is not minimal: it extends the delinquency period from 10 to 30 days, adds an undisputed-invoice condition, and makes interest Vendor’s sole late-payment remedy. That sole-remedy language may unintentionally eliminate suspension, termination, collection-cost, or other contractual remedies, so the original commercial intent is not fully preserved. The drafting is otherwise clear and professional.",
+          "satisfies_rule": true
+        },
+        "f-lol-cap-95c244f8": {
+          "drafting_quality": 4,
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline cleanly and minimally implements the preferred mutual cap formula by using all fees paid or payable over the preceding 12 months with a USD 1,000,000 floor. However, the supplied operative language does not establish what constitutes “Excluded Claims,” so the required carve-outs cannot be verified from the margin comment alone. It also does not show a mutual exclusion of indirect/consequential damages or clarify that Customer payment obligations are not damages. Accordingly, the rendered language does not demonstrably reach either the preferred position or the fallback, although the amendment itself is otherwise professionally drafted and preserves unrelated intent.",
+          "satisfies_rule": false
+        }
+      },
+      "metrics": {
+        "citations": {
+          "hallucinations": 0,
+          "invalidReferences": [],
+          "rate": 0,
+          "references": 24
+        },
+        "detection": {
+          "ambiguousItems": 1,
+          "ambiguousMatches": 1,
+          "escalations": 0,
+          "f1": 1,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1,
+          "recall": 1,
+          "tp": 2
+        },
+        "deviationAccuracy": {
+          "accuracy": 1,
+          "correct": 5,
+          "located": 5
+        },
+        "integrity": {
+          "applied": 2,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 2
+        },
+        "minimality": {
+          "eligible": 2,
+          "passing": 1,
+          "rate": 0.5
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 2,
+            "passing": 2,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 2,
+            "passing": 2,
+            "rate": 1
+          },
+          "eligible": 2,
+          "judge": {
+            "eligible": 2,
+            "passing": 1,
+            "rate": 0.5
+          },
+          "valid": {
+            "eligible": 2,
+            "passing": 1,
+            "rate": 0.5
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 891,
+          "calls": 1,
+          "costUsd": 0.21632375,
+          "inputTokens": 19411,
+          "latencyMs": 47335,
+          "outputTokens": 4548,
+          "retries": 0,
+          "toolCalls": 0
+        }
+      }
+    }
+  ]
+}
