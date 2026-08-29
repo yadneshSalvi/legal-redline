@@ -37,7 +37,7 @@ optional `paper → sheet` top-to-bottom wash on the landing hero.
 
 **Type.**
 - UI: **Inter** (via `next/font/google`), 13 px base in dense panels, 14 px in forms, 12 px small-caps
-  labels (`letter-spacing: 0.08em`, uppercase, `ink.faint`).
+  labels (`letter-spacing: 0.08em`, uppercase, `ink.muted` — `ink.faint` is below 4.5:1 at that size and is reserved for icons, list markers and disabled text).
 - Document ("the paper"): **Source Serif 4** 15.5 px / 1.65 line-height, max column 760 px, 64 px
   horizontal padding, headings 600 weight with their original numbering preserved.
 - Mono (JSON, tokens, ids, cost): **Geist Mono** or system monospace, 12 px, `font-variant-numeric: tabular-nums`.

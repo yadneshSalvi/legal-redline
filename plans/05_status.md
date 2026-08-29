@@ -35,7 +35,14 @@
 - Sun 00:20 — `review-agent` (Sol max): revise, 12 fixes → `agent-core-r2` running. `dataset-eval` r2+r3 landed (inline-clause split, hard-case
   gold, one-item-per-rule + ambiguous, lead decisions applied); r4 running (adds + promote all 8).
 
-## Queued for agent-core r3 (after r2 lands)
+- Sun 00:48 — **Eval campaign launched** (`plans/harness/campaign.sh 3`, pid 81309, logs `plans/harness/logs/campaign-*.log`, monitor task
+  bznrp1pu2): configs b1-prompt → b0-chat → i1 → i2 → i3 → i4 → final → x-monolith, live + judge live, concurrency 3, then `pnpm report`.
+  Pre-launch: agent-core r2 (12 fixes) + r3 (per-finding cost/time, short sectionRef, engine diff in UI) merged; engine r3 + op reconciliation;
+  verifier hard/soft checks (hard = anchors/render/proposal; compliant findings keep rule checks; minimality advisory); playbook regexes relaxed.
+  **No playbook/prompt/tool-schema edits until the campaign completes** (cache keys). LibreOffice available from this shell (campaign runs here).
+- `review-ui` (Opus): revise, 12 fixes → `ui-workspace-r2` running (port 3101). `ui-evidence` still running in worktree (port 3102).
+
+## Queued for agent-core r3 (after r2 lands) — DONE (merged 4762588)
 - `Finding.costUsd?` / `Finding.durationMs?` (per-rule figures survive reload; UI card shows them) — contract change in `src/agent/types.ts`.
 - `sectionRef` must be short: "§ 14.2 Intellectual Property" (number + heading), never a sentence.
 - UI `src/ui/lib/redline.ts` should import `wordDiff`/`renderParagraph` from `@/src/engine/diff` so preview == docx (assign to UI polish round).
