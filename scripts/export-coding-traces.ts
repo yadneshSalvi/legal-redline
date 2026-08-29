@@ -224,10 +224,30 @@ function claudeMetadata(contents: string, fallback: string): ClaudeMetadata {
   };
 }
 
+/** Opus builder/reviewer sessions run through the Claude Agent SDK store their transcripts next to the lead's. */
+async function opusTranscriptLabels(root: string): Promise<Map<string, string>> {
+  try {
+    const raw = JSON.parse(await readFile(path.join(root, "plans/harness/sessions.json"), "utf8")) as Record<
+      string,
+      { kind?: string; id?: string }
+    >;
+    const labels = new Map<string, string>();
+    for (const [label, record] of Object.entries(raw)) {
+      if (record?.kind === "opus" && typeof record.id === "string") labels.set(record.id, label);
+    }
+    return labels;
+  } catch {
+    return new Map();
+  }
+}
+
 async function exportClaudeCode(root: string): Promise<{ sessions: IndexSession[]; skipped: string[] }> {
   const sessions: IndexSession[] = [];
   const skipped: string[] = [];
+  const opusLabels = await opusTranscriptLabels(root);
   for (const source of await filesIn(CLAUDE_PROJECT, ".jsonl")) {
+    const sessionId = path.basename(source, ".jsonl");
+    const opusLabel = opusLabels.get(sessionId);
     const details = await stat(source);
     if (details.size > MAX_CLAUDE_TRANSCRIPT_BYTES) {
       skipped.push(`${path.basename(source)} (${(details.size / 1024 / 1024).toFixed(1)} MB)`);
@@ -238,14 +258,14 @@ async function exportClaudeCode(root: string): Promise<{ sessions: IndexSession[
     const destination = path.join(root, "trajectories/coding-agents/claude-code", path.basename(source));
     await atomicWrite(destination, redactSubmissionText(contents));
     sessions.push({
-      label: `lead-${path.basename(source, ".jsonl").slice(0, 8)}`,
-      model: "Claude Fable 5",
-      harness: "Claude Code",
+      label: opusLabel ? `${opusLabel} (SDK transcript)` : `lead-${sessionId.slice(0, 8)}`,
+      model: opusLabel ? "Claude Opus 5" : "Claude Fable 5",
+      harness: opusLabel ? "Claude Agent SDK" : "Claude Code",
       started: metadata.started,
       startedMs: metadata.startedMs,
       duration: metadata.duration,
       cost: "—",
-      briefReport: "lead orchestration → —",
+      briefReport: opusLabel ? "same session as the harness row above (full SDK transcript)" : "lead orchestration (this transcript)",
       trace: link("trace", sourceLink("claude-code", source)),
     });
   }
