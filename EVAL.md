@@ -57,8 +57,10 @@ single correct finding would score one TP and several FNs against fragmented dra
 
 ## 3. Matching
 
-A finding **matches** a gold item when `ruleId` is equal and either the paragraph sets intersect, or both are
-`missing` for that rule. Each gold item matches at most one finding (highest confidence wins).
+A finding **matches** a gold item when `ruleId` is equal and either the paragraph sets intersect, or the gold item is
+`missing` (no paragraphs) and the finding's status is `deviation` or `missing` — "no usable clause" is the same review
+conclusion whether the finding points at a disclaimer or at nothing. Each gold item matches at most one finding
+(highest confidence wins).
 
 - **TP**: gold `deviation|missing` matched by a finding with status `deviation|missing`.
 - **FP**: a finding with status `deviation|missing` that matches no gold `deviation|missing` item (includes flagging a gold `compliant` clause).

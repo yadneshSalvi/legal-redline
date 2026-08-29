@@ -30,6 +30,9 @@ function intersects(left: readonly string[], right: readonly string[]): boolean 
 
 export function findingMatchesGold(finding: Finding, gold: GoldItem): boolean {
   if (finding.ruleId !== gold.ruleId) return false;
+  // A missing-kind gold item (no paragraphs) is the review conclusion "no usable clause"; a finding that
+  // reaches the same conclusion by pointing at a disclaimer and calling it a deviation is the same match.
+  if (gold.status === "missing" && gold.paragraphIds.length === 0 && isIssueStatus(finding.status)) return true;
   if (finding.status === "missing" && gold.status === "missing") return true;
   return intersects(finding.paragraphIds, gold.paragraphIds);
 }

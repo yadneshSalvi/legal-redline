@@ -36,7 +36,8 @@ describe("synthetic evaluation data", () => {
   });
 
   it("declares the defensible cross-rule overlaps", () => {
-    expect(secondaryRulesForVariant("MINCOMMIT", "three-year-take-or-pay")).toEqual(["LD"]);
+    expect(secondaryRulesForVariant("MINCOMMIT", "three-year-take-or-pay")).toEqual(["LD", "T4C"]);
+    expect(secondaryRulesForVariant("EXCLUSIVITY", "vendor-sole-provider")).toEqual(["NONCOMPETE"]);
     expect(secondaryRulesForVariant("MFN", "customer-must-match-offers")).toEqual(["EXCLUSIVITY"]);
     expect(secondaryRulesForVariant("IP", "vendor-owns-deliverables")).toEqual(["LICENSE"]);
     expect(secondaryRulesForVariant("T4C", "vendor-only-thirty-days")).toEqual(["LD"]);

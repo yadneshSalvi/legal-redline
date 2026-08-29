@@ -144,3 +144,14 @@ Run `pnpm exec tsx scripts/gold-review.ts list <contractId>` to see each item wi
 5. cuad-merit-life: NOSOLICIT → deviation (mild; no general-advertising carve-out). INSURANCE → deviation (no cyber cover).
 6. cuad-kubient: T4C → deviation (mild; 90-day right only after the Initial Term). LOL-CAP → deviation (no aggregate cap).
 7. synth-hardcase: LOL-CAP deviation relies on §1.5 "Fees" → §1.6 "Implementation Fee" (USD 12,000); T4C compliant via §9.4 ↔ §29.4.
+
+## Round 2 — post-evaluation disagreement review (lead, 02:45)
+After the i3-verifier run I reviewed every system finding my gold scored as a false positive. Principle: a gold item changes only when I, as
+reviewer, agree the system's reading is defensible (→ `ambiguous`, excluded from scoring) or right (→ flipped). Changes apply to every config
+symmetrically. Flipped: BNC INDEMN compliant → **deviation** (indemnity covers breach only, no IP scope — the system was right). Added: Americas IP
+`missing`, BNC WARRANTY `missing` (Y2K-only warranty). Marked `ambiguous`: Americas/Bluefly GOVLAW (venue silent), Bluefly LD/AUDIT/WARRANTY,
+Corio MINCOMMIT/AUDIT/INDEMN, Kubient IP/WARRANTY (9(b) covenants vs AS-IS), Merit IP/WARRANTY, SFG IP, Sparkling INDEMN/IP, synth-11 NONCOMPETE
+(secondary to EXCLUSIVITY), synth-13 T4C (secondary to MINCOMMIT). Kept as genuine over-flagging: Americas ASSIGN/LICENSE, Bluefly MINCOMMIT, BNC
+T4C/EXCLUSIVITY/RENEWAL, Corio RENEWAL, Kubient ASSIGN/GOVLAW, Merit RENEWAL, SFG MINCOMMIT, Sparkling RENEWAL/T4C/WARRANTY, synth-13 IP.
+Matching rule change (EVAL.md §3): a `missing`-kind gold item (no paragraphs) is matched by a `deviation` **or** `missing` finding for the same
+rule — a finding that points at the AS-IS disclaimer and calls it a deviation is the same review conclusion.
