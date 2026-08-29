@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 
 import { getConfig } from "@/src/agent/configs";
 import { runReview } from "@/src/agent/orchestrator";
-import type { ReviewRun } from "@/src/agent/types";
+import type { Finding, ReviewRun } from "@/src/agent/types";
 import { createTrajectoryWriter } from "@/src/agent/trajectory";
 import { parseText } from "@/src/engine";
 import { loadPlaybook } from "@/src/playbook/loader";
@@ -59,17 +59,33 @@ describe("orchestrator", () => {
     const run = queuedRun(document, config.id);
     await store.putBytes(run.sourceKey, new TextEncoder().encode("source"));
     const progress: string[] = [];
+    const streamedFindings: Finding[] = [];
     const llm = new FakeLlmClient(
       (request) => plannerOrMemo(request),
       async (request) => { await callTool(request, "submit_finding", { status: "compliant", paragraphIds: ["p0001"], quote: "Vendor liability is capped at three months of fees.", rationale: "Test compliant result", confidence: 0.8 }); },
     );
-    const reviewed = await runReview({ run, originalBytes: new TextEncoder().encode("source"), playbook: oneRule(), config, store, llm, trajectory: createTrajectoryWriter(store, run.id), onProgress: (event) => progress.push(event.type) });
+    const reviewed = await runReview({
+      run, originalBytes: new TextEncoder().encode("source"), playbook: oneRule(), config, store, llm,
+      trajectory: createTrajectoryWriter(store, run.id),
+      onProgress: (event) => {
+        progress.push(event.type);
+        if (event.type === "finding") streamedFindings.push(event.finding);
+      },
+    });
     expect(reviewed.status).toBe("awaiting_review");
     expect(reviewed.findings).toHaveLength(1);
     expect(reviewed.stats.findings).toBe(1);
     expect(reviewed.stats.llmCalls).toBeGreaterThanOrEqual(3);
+    expect(reviewed.stats.perRule?.["LOL-CAP"]).toMatchObject({ costUsd: 0.001, llmCalls: 1, retries: 0 });
+    expect(reviewed.findings[0]).toMatchObject({ costUsd: 0.001, durationMs: expect.any(Number) });
+    expect(reviewed.stats.perRule?.["LOL-CAP"]?.durationMs).toBe(reviewed.findings[0]?.durationMs);
+    expect(streamedFindings[0]).toMatchObject({ costUsd: 0.001, durationMs: expect.any(Number) });
     expect(progress).toContain("finding");
-    expect(await store.getJson(`runs/${run.id}/run.json`)).toMatchObject({ status: "awaiting_review" });
+    expect(await store.getJson(`runs/${run.id}/run.json`)).toMatchObject({
+      status: "awaiting_review",
+      stats: { perRule: { "LOL-CAP": { costUsd: 0.001, llmCalls: 1 } } },
+      findings: [{ costUsd: 0.001, durationMs: expect.any(Number) }],
+    });
     const trajectory = new TextDecoder().decode((await store.getBytes(`runs/${run.id}/trajectory.jsonl`)) ?? new Uint8Array());
     expect(trajectory).toContain("llm_request");
     expect(trajectory).toContain("checkpoint");
@@ -99,6 +115,11 @@ describe("orchestrator", () => {
     expect(draftCalls).toBe(2);
     expect(reviewed.findings[0]?.verification?.verdict).toBe("repaired");
     expect(reviewed.findings[0]?.status).toBe("deviation");
+    expect(reviewed.stats.perRule?.["LOL-CAP"]).toMatchObject({
+      costUsd: 0.004,
+      llmCalls: 4,
+      retries: 1,
+    });
   });
 
   it("marks a finding needs_review when repair rounds are exhausted", async () => {

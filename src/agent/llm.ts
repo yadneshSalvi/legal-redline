@@ -271,16 +271,21 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
       } else {
         data = text as T;
       }
-      const usage = result.replayed ? { ...EMPTY_USAGE } : messageUsage(model, message);
+      const recordedUsage = messageUsage(model, message);
+      const usage = result.replayed ? { ...EMPTY_USAGE } : recordedUsage;
+      const durationMs = result.replayed ? (result.cached?.durationMs ?? 0) : Date.now() - started;
       totals.calls += result.replayed ? 0 : 1;
       addUsage(totals.usage, usage);
+      if (!result.replayed && (options.mode === "record" || (options.mode === "replay" && options.allowLive))) {
+        await writeCache(body, { response: message, durationMs });
+      }
       await emit({
         ...context,
         type: "llm_response",
         title: `${req.agent} LLM response${result.replayed ? " (replay)" : ""}`,
         payload: message,
-        usage,
-        durationMs: Date.now() - started,
+        usage: recordedUsage,
+        durationMs,
       });
       return { data, text, usage, stopReason: message.stop_reason, raw: message };
     },
@@ -307,17 +312,22 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
         const message = result.value as Anthropic.Beta.BetaMessage;
         finalRaw = message;
         assertStop(message);
-        const usage = result.replayed ? { ...EMPTY_USAGE } : messageUsage(model, message);
+        const recordedUsage = messageUsage(model, message);
+        const usage = result.replayed ? { ...EMPTY_USAGE } : recordedUsage;
+        const durationMs = result.replayed ? (result.cached?.durationMs ?? 0) : Date.now() - started;
         totals.calls += result.replayed ? 0 : 1;
         addUsage(totals.usage, usage);
         addUsage(aggregate, usage);
+        if (!result.replayed && (options.mode === "record" || (options.mode === "replay" && options.allowLive))) {
+          await writeCache(body, { response: message, durationMs });
+        }
         await emit({
           ...context,
           type: "llm_response",
           title: `${req.agent} tool-loop response ${iterations + 1}${result.replayed ? " (replay)" : ""}`,
           payload: message,
-          usage,
-          durationMs: Date.now() - started,
+          usage: recordedUsage,
+          durationMs,
         });
         const calls = message.content.filter((block): block is Anthropic.Beta.BetaToolUseBlock => block.type === "tool_use");
         messages.push({ role: "assistant", content: message.content });
@@ -370,7 +380,7 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
           throw new ReplayDrift("tool_result_count", req.ruleId, `expected ${result.cached?.toolResults?.length ?? 0}, received ${observedToolResults.length}`);
         }
         if (!result.replayed && (options.mode === "record" || (options.mode === "replay" && options.allowLive))) {
-          await writeCache(body, { response: message, toolResults: observedToolResults });
+          await writeCache(body, { response: message, toolResults: observedToolResults, durationMs });
         }
         messages.push({ role: "user", content: results });
       }

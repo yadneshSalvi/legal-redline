@@ -84,6 +84,19 @@ describe("configuration fidelity", () => {
     expect((await execute("x-monolith")).run.stats.llmCalls).toBe(1);
   });
 
+  it.each([
+    ["b1-prompt", 0.001, 1],
+    ["b0-chat", 0.002, 2],
+  ] as const)("attributes shared baseline resources for %s", async (configId, costUsd, llmCalls) => {
+    const { run } = await execute(configId);
+    expect(run.stats.perRule?.["*"]).toMatchObject({ costUsd, llmCalls, retries: 0 });
+    expect(run.findings).toHaveLength(2);
+    expect(run.findings.reduce((sum, finding) => sum + (finding.costUsd ?? 0), 0)).toBeCloseTo(costUsd, 8);
+    expect(run.findings.every((finding) => finding.durationMs !== undefined)).toBe(true);
+    expect(run.findings.reduce((sum, finding) => sum + (finding.durationMs ?? 0), 0))
+      .toBe(run.stats.perRule?.["*"]?.durationMs);
+  });
+
   it.each(["b1-prompt", "x-monolith"] as const)("checkpoints %s after each finding", async (configId) => {
     const { run, store } = await execute(configId);
     expect(store.findingSnapshots).toContain(1);

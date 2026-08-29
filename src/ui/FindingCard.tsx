@@ -118,7 +118,9 @@ export function FindingCard({
   }
 
   const preview = hasRedline ? proposalPreview(doc, ops, expanded ? 1600 : 240) : [];
-  const seconds = formatSeconds(meta?.durationMs);
+  const costUsd = finding.costUsd ?? meta?.costUsd;
+  const seconds = formatSeconds(finding.durationMs ?? meta?.durationMs);
+  const costAndTime = costUsd !== undefined && seconds ? `$${costUsd.toFixed(2)} · ${seconds}` : "—";
 
   return (
     <article
@@ -246,8 +248,7 @@ export function FindingCard({
           </Button>
         </div>
         <p className="mono mt-2 flex items-center gap-1.5 text-[11px] text-ink-muted">
-          {meta ? <span>${meta.costUsd.toFixed(2)}</span> : null}
-          {seconds ? <span>· {seconds}</span> : null}
+          <span>{costAndTime}</span>
           <Link
             href={trajectoryHref(runId, finding.id)}
             onClick={(event) => event.stopPropagation()}

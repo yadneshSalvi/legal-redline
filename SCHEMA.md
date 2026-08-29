@@ -121,3 +121,10 @@ the 60-second lease timeout. This polling fallback is not a transactional distri
 `runs/<runId>/trajectory.jsonl` — one `TrajectoryEvent` per line, `seq` monotonic. `scripts/export-trajectories.ts`
 copies representative runs into `trajectories/app/<config>/<contractId>/` with secrets redacted, plus
 `trajectories/coding-agents/` (Codex JSONL, Opus SDK logs, Claude Code session) for the submission.
+
+Each persisted and streamed `Finding` carries deterministic display metadata: `sectionRef` is derived from
+its first valid paragraph's enclosing section as `§ {number?} {heading}` (heading capped at 60 characters),
+with the planner's first candidate section used for an unanchored missing clause and `§ —` as the fallback.
+When available, `costUsd` and `durationMs` cover only that rule's drafter, verifier, and repair work. The same
+figures are retained in `ReviewRun.stats.perRule` with LLM-call and retry counts. Whole-contract shared calls
+use the `"*"` entry and distribute their cost and elapsed time across the findings they produced.

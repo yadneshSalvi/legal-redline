@@ -1,7 +1,40 @@
 import type { Finding, FindingStatus, RunStats, Severity } from "@/src/agent/types";
 import type { LlmTotals } from "@/src/agent/llm";
+import type { DocumentModel, Section } from "@/src/engine/types";
 
 const SEVERITY_ORDER: Record<Severity, number> = { critical: 0, high: 1, medium: 2, low: 3 };
+const MAX_SECTION_HEADING_LENGTH = 60;
+
+function shortHeading(heading: string): string {
+  const normalized = heading.trim().replace(/\s+/gu, " ");
+  if (normalized.length <= MAX_SECTION_HEADING_LENGTH) return normalized;
+  return `${normalized.slice(0, MAX_SECTION_HEADING_LENGTH - 1).trimEnd()}…`;
+}
+
+function formatSectionReference(section: Section | undefined): string {
+  if (!section) return "§ —";
+  const heading = shortHeading(section.heading);
+  return ["§", section.number, heading].filter(Boolean).join(" ");
+}
+
+/** Add a compact, document-derived location after a model has submitted its finding. */
+export function withSectionReference(
+  document: DocumentModel,
+  finding: Finding,
+  suggestedInsertionSectionId?: string,
+): Finding {
+  const paragraph = finding.paragraphIds
+    .map((id) => document.paragraphs.find((candidate) => candidate.id === id))
+    .find((candidate) => candidate !== undefined);
+  const sectionId = paragraph?.sectionId ??
+    (finding.status === "missing" && !paragraph ? suggestedInsertionSectionId : undefined);
+  const section = document.sections.find((candidate) => candidate.id === sectionId);
+  return {
+    ...finding,
+    sectionId: section?.id,
+    sectionRef: formatSectionReference(section),
+  };
+}
 
 function overlaps(left: Finding, right: Finding): boolean {
   if (left.ruleId !== right.ruleId) return false;
@@ -29,7 +62,13 @@ export function assembleFindings(findings: Finding[]): Finding[] {
   );
 }
 
-export function statsFor(startedAt: string, findings: Finding[], totals: LlmTotals, finishedAt?: string): RunStats {
+export function statsFor(
+  startedAt: string,
+  findings: Finding[],
+  totals: LlmTotals,
+  finishedAt?: string,
+  perRule?: NonNullable<RunStats["perRule"]>,
+): RunStats {
   const bySeverity: Record<Severity, number> = { critical: 0, high: 0, medium: 0, low: 0 };
   const byStatus: Record<FindingStatus, number> = { deviation: 0, missing: 0, compliant: 0, needs_review: 0 };
   for (const finding of findings) {
@@ -49,5 +88,8 @@ export function statsFor(startedAt: string, findings: Finding[], totals: LlmTota
     findings: findings.length,
     bySeverity,
     byStatus,
+    ...(perRule
+      ? { perRule: Object.fromEntries(Object.entries(perRule).map(([ruleId, stats]) => [ruleId, { ...stats }])) }
+      : {}),
   };
 }
