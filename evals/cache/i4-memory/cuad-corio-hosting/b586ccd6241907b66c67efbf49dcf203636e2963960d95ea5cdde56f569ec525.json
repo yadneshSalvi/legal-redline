@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXjM5qReF654QKieph9c",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll start by getting the document structure and checking the key candidate sections."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_011fregAGDStFTHAaXgs1qnG",
+        "name": "list_sections",
+        "input": {},
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01PiFaxRnsUDKSBz7CVdX6cY",
+        "name": "search",
+        "input": {
+          "query": "ownership",
+          "limit": 30
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 815,
+      "cache_read_input_tokens": 2953,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 815,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 116,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "list_sections",
+      "ruleId": "IP",
+      "sha256": "79f3edd02a609ede3482477ce99e722ffb086e029a5e3fd90b96b5b007ca2831"
+    },
+    {
+      "name": "search",
+      "ruleId": "IP",
+      "sha256": "5ccb9f5d92a2966ba84d031e9c5cbdbd91c1677d94b280ea549f0de64daac557"
+    }
+  ],
+  "durationMs": 3016
+}

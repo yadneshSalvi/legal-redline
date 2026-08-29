@@ -1,0 +1,33 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXk1B9Tx3fFsDZVW9kKw",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "**Finding submitted: `missing` (INSURANCE), confidence 0.90**\n\n**What I found**\n\nThe Agreement has no insurance obligation at all — a full-text search for \"insurance\" returned zero hits, and Section 20 (General Matters, subsections (a)–(j)) covers time of the essence, notices, waiver, assignment, independent contractor, force majeure, severability, governing law, headings and entire agreement, with no coverage covenant.\n\n**Why the rule bites**\n\nGarman is not a hands-off licensor:\n- **§ 4(a)** — Garman delivers copies and *installs the Software on the applicable AS400's at each Authorized Location* (on-premises work).\n- **§ 4(b)** — Garman performs *\"conversion of Sparkling's data ... from its current electronic form\"* for future installations (data processing).\n- **§ 9(a)** — we must supply information about our operations and internal/external procedures.\n\nThat premises-plus-data profile is squarely the playbook trigger, and \"no insurance for a vendor that processes personal data or works on our premises\" is the walk-away position. The gap is compounded by **§ 15 (Limitation of Garman's Liability)** — with Garman's liability capped and no insurance behind it, uninsured exposure from on-site work or a data-conversion incident lands on us.\n\n**Direction check:** the covenant runs against the counterparty (Garman), so this is not an obligation benefiting them that I should leave alone.\n\n**The edit** (validated `ok:true` before submission)\n\nA single new **Section 20(k)** inserted after the entire-agreement subsection (p0149) — placed at the end of the general provisions so it doesn't split the notices block at p0136–p0140. It tracks the model language: CGL USD 1M per occurrence / 2M aggregate, E&O USD 2M, cyber USD 5M where Garman processes or accesses Sparkling's data, statutory workers' compensation, certificates on request, surviving one year post-term.\n\nTwo drafting notes worth your attention:\n- I used **\"Sparkling's data\"** rather than \"Customer Data\" as the cyber trigger, because this Agreement has no defined \"Customer Data\" term — the phrase mirrors § 4(b)'s own wording so the trigger is self-contained.\n- I kept **USD** limits per the playbook even though this is a Nova Scotia / Canadian-law agreement. If Garman's policies are CAD-denominated, expect a currency counter; that's a low-stakes concession.\n\nThe comment flags the fallback (E&O USD 1M / cyber USD 2M) as available if Garman can't source the preferred limits."
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1170,
+      "cache_read_input_tokens": 9936,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1170,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 870,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "durationMs": 13583
+}

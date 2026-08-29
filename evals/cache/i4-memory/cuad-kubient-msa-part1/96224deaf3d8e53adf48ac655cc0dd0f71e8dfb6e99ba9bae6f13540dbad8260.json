@@ -1,0 +1,67 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXjK9ozBtxNNpR2TtjAJ",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01CUvGiMPk4r5H919ccNa7oq",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0016"
+          ],
+          "quote": "This Agreement will automatically renew for additional 1-year terms unless earlier terminated pursuant to this Agreement's express provisions (together with the Initial Term, such additional periods the \"Term\"). Neither Party may terminate this Agreement during the Initial Term except as set forth in paragraph 4(b) or any Exhibit. Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice to the other Party.",
+          "rationale": "Paragraph 4(a) provides indefinite automatic 1-year renewals with no non-renewal mechanism: the only exit is a for-convenience termination on ninety (90) days' written notice available only after the Initial Term, so Customer's effective opt-out window is 90 days — at the walk-away boundary and well beyond the preferred 30 days (fallback 60 days). There is also no vendor renewal reminder. Renewal term length (12 months) is compliant, and the revenue-share fee model in paragraph 5 contains no price-uplift language, so no uplift cap is needed. Redline adds a 30-day Customer non-renewal right and a 60-day Kubient reminder while leaving the existing termination rights untouched.",
+          "confidence": 0.82,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0016",
+                "oldText": "This Agreement will automatically renew for additional 1-year terms unless earlier terminated pursuant to this Agreement's express provisions (together with the Initial Term, such additional periods the \"Term\").",
+                "newText": "This Agreement will automatically renew for additional 1-year terms unless Customer gives written notice of non-renewal at least thirty (30) days prior to the end of the then-current term, or this Agreement is earlier terminated pursuant to this Agreement's express provisions (together with the Initial Term, such additional periods the \"Term\"). Kubient shall notify Customer of each upcoming renewal at least sixty (60) days prior to the end of the then-current term."
+              }
+            ],
+            "comment": "[Playbook] We added a 30-day non-renewal right for Customer plus a 60-day renewal reminder from Kubient, since today the only exit from an auto-renewing term is a 90-day convenience notice. Our playbook position is renewals that Customer can exit on 30 days' notice; we can accept a 60-day non-renewal window as a fallback.",
+            "level": "preferred",
+            "precedentId": "seed-renewal",
+            "summary": "Add 30-day Customer non-renewal right and 60-day vendor renewal reminder to the auto-renewing 1-year term."
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1120,
+      "cache_read_input_tokens": 6824,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1120,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1008,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "RENEWAL",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9933
+}

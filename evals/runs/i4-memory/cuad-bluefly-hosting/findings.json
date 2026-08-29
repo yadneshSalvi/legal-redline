@@ -1,0 +1,911 @@
+[
+  {
+    "confidence": 0.82,
+    "costUsd": 0.2576085,
+    "durationMs": 74252,
+    "id": "f-indemn-3ae0e695",
+    "paragraphIds": [
+      "p0089",
+      "p0091",
+      "p0101"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] IBM's indemnity currently covers only IP infringement, so we added the standard heads for IBM's breach of law, IBM-caused unauthorised access to our data, and its gross negligence or wilful misconduct, and we narrowed our own indemnity so we do not underwrite third-party claims arising from IBM's own Services. If helpful, we can accept the additional IBM heads being subject to a super-cap of 3x annual charges.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "5.",
+          "paragraphId": "p0096",
+          "text": "In addition to the foregoing, IBM will defend, indemnify and hold harmless Customer, its Enterprise and their respective employees, officers, agents and directors from and against any third party claim, and all resulting damages, costs and expenses (including reasonable attorneys' fees), to the extent arising out of (i) IBM's breach of applicable law; (ii) any unauthorised access to, or use or disclosure of, Customer's Content or other Customer data caused by IBM, its Affiliates or Subcontractors; or (iii) IBM's gross negligence or wilful misconduct. The notice, control and cooperation provisions of Subsections 8.1(a) and 8.1(b) apply to claims under this paragraph, and the exclusions and remedies limitations set out above (including the statement that Section 8.1 is IBM's entire obligation) apply only to claims of infringement."
+        },
+        {
+          "kind": "replace",
+          "newText": "3. that is brought by a Services Recipient and arises out of Customer's breach of applicable law or Customer's breach of this Agreement; or",
+          "oldText": "3. that is brought by a Services Recipient and is related, directly or indirectly, to the Services; or",
+          "paragraphId": "p0101"
+        }
+      ],
+      "precedentId": "seed-indemn-2",
+      "summary": "Extend IBM's indemnity beyond IP to breach of law, IBM-caused data breach and wilful misconduct/gross negligence, and narrow Customer's Services Recipient indemnity"
+    },
+    "quote": "This is IBM's entire obligation to Customer with regard to any claim of infringement.",
+    "rationale": "Section 8.1 gives an IBM IP indemnity for Materials and Base Components with usual exclusions and procure/modify/replace/credit remedies, which meets the fallback for IP only. However, the preferred position's other heads are absent: there is no IBM indemnity for its breach of applicable law, for unauthorised access to or disclosure of Customer data caused by IBM, or for IBM's gross negligence or wilful misconduct (and Section 9.1(c)(1)-(2) expressly excludes third-party claims and data loss outside 8.1). Conversely, Customer's indemnity in Section 8.2(a)(3) is materially broader than the playbook allows, covering any Services Recipient claim \"related, directly or indirectly, to the Services\" - effectively a one-way Customer indemnity for IBM's own Services (a walk-away item, only partly mitigated by the relief in 8.2(c)). We therefore added the missing IBM indemnity heads inside Section 8.1 (so they benefit from the uncapped treatment in Section 9.1(a) and the existing notice/control/cooperation procedure) and narrowed our reverse indemnity to Customer's breach of law or of this Agreement.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-8.1",
+    "sectionRef": "§ 8.1 Indemnification by IBM",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": false
+        },
+        {
+          "detail": "changed-character ratio=0.640 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0101",
+          "ok": false
+        }
+      ],
+      "notes": "The deviation call is supported: p0089/p0091 provide only an IP-infringement indemnity (expressly stated to be 'IBM's entire obligation' for infringement claims), with no heads for breach of law, IBM-caused data compromise, or gross negligence/wilful misconduct, and p0101 makes Customer indemnify IBM for any Services Recipient claim 'related, directly or indirectly, to the Services' — a one-way Customer indemnity for Vendor's own services, close to the walk-away. Redline is actionable and directionally correct: it inserts the missing Vendor heads (breach of law, unauthorised access/disclosure of Customer data, gross negligence/wilful misconduct) inside Section 8.1 so the existing notice/control/cooperation procedure applies, and expressly confines the infringement-specific exclusions, remedies and 'entire obligation' language to IP claims — a necessary carve-out rather than surplus drafting. Narrowing of p0101 to claims arising from Customer's breach of law or of the Agreement matches the playbook's requirement that Customer's indemnity stay narrow; the 0.64 changed-character ratio reflects a rule-mandated rewrite of an over-broad limb, not gratuitous redrafting. Failed 'vendor indemnity for IP infringement present' regex is a heuristic mismatch: the IP indemnity already exists in p0089 and correctly was not duplicated in the inserted paragraph. Comment is accurate, concise, in the required voice with the [Playbook] prefix, states what changed and why, and offers the 3x annual fees super-cap fallback.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.2908825,
+    "durationMs": 87827,
+    "id": "f-ip-a0394db7",
+    "paragraphIds": [
+      "p0082",
+      "p0085",
+      "p0086"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We own what we pay for, so Materials created during the Services should default to Type I (Customer-owned) rather than IBM-owned, and the licence to IBM's pre-existing Type II Materials embedded in deliverables should let us modify them for our business. We have also added a confirmation that we retain all rights in our Content and Customer Components, with no assignment or joint ownership; if IBM cannot move the default, our fallback is a perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense the Materials for our business.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "If not specified, Materials will be considered Type I Materials.",
+          "oldText": "If not specified, Materials will be considered Type II Materials.",
+          "paragraphId": "p0082"
+        },
+        {
+          "kind": "replace",
+          "newText": "IBM grants Customer a perpetual, irrevocable, nonexclusive, worldwide, paid-up license to use, execute, reproduce, display, perform, distribute, and prepare derivative works based on copies of Type II Materials, within Customer's Enterprise and for the operation of Customer's business.",
+          "oldText": "IBM grants Customer an irrevocable, nonexclusive, worldwide, paid-up license to use, execute, reproduce, display, perform, and distribute, within Customer's Enterprise only, copies of Type II Materials.",
+          "paragraphId": "p0085"
+        },
+        {
+          "kind": "insert_after",
+          "numbering": "e.",
+          "paragraphId": "p0086",
+          "text": "e. As between the parties, Customer retains all right, title, and interest (including all intellectual property rights) in and to the Content and the Customer Components, and nothing in this Agreement assigns or transfers any such rights to IBM or creates any joint ownership of them."
+        }
+      ],
+      "precedentId": "seed-ip",
+      "summary": "Default Materials to Customer-owned Type I, broaden the Type II licence to include modification, and confirm Customer ownership of Content and Customer Components."
+    },
+    "quote": "a. IBM will specify Materials to be delivered to Customer. IBM will identify them as being \"Type I Materials,\" \"Type II Materials,\" or otherwise as Customer and IBM agree in writing. If not specified, Materials will be considered Type II Materials.",
+    "rationale": "Section 7 defaults all delivered Materials to Type II, i.e. IBM (or third-party) owned, with the Customer receiving only an internal-Enterprise licence and no right to modify. That reverses our position that we own deliverables created for us, with IBM retaining only pre-existing IP under a perpetual, irrevocable, royalty-free licence back. The Agreement also nowhere confirms that we retain all rights in our Content and Customer Components (Content is only addressed as our responsibility at 11.6, and 14.17 grants no rights beyond those expressly stated). Redline flips the default to Type I, extends the Type II licence to modification and use for our business, and adds an express Customer ownership / no-joint-ownership statement.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-5.4",
+    "sectionRef": "§ 5.4 Other Disclaimers",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 3 applies",
+          "ok": true
+        },
+        {
+          "name": "no assignment of Customer Data/IP to Vendor remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.015 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0082",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.448 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0085",
+          "ok": true
+        }
+      ],
+      "notes": "Directionally correct: flipping the p0082 default from Type II (IBM-owned) to Type I (Customer-owned) reverses the ownership default in our favour with a one-word edit, and Type I in this agreement vests title in Customer, so the edit reaches the playbook's preferred position. The p0085 amendment keeps IBM's ownership of pre-existing/third-party Materials (permitted by the rule) while upgrading the licence-back to perpetual, irrevocable, royalty-free with the right to prepare derivative works and use for Customer's business — squarely the preferred/fallback licence position; the higher changed-character ratio is justified because the licence grant itself had to be rewritten. New paragraph (e) supplies the missing Customer Data/IP ownership statement for Content and Customer Components and expressly negates assignment and joint ownership, matching the redline guidance and closing the gap left by the 'no rights beyond those expressly stated' clause. No residual assignment of Customer IP or data to IBM, and no joint ownership is created; deterministic checks all pass. Comment is accurate, correctly prefixed, concise, states what changed and why, and offers the perpetual/irrevocable/modify-and-sublicense licence as the fallback if IBM will not move the default.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.27471475,
+    "durationMs": 87541,
+    "id": "f-lol-cap-bfb06f6d",
+    "paragraphIds": [
+      "p0112",
+      "p0114",
+      "p0119",
+      "p0123"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Our position is a mutual cap at the greater of twelve months' charges (paid or payable) and USD 1,000,000, so we raised the $100,000 floor on both sides and removed IBM's blanket exclusion of liability for loss of Customer records or data, which is unacceptable in a hosting arrangement. We also confirmed that indemnification, confidentiality/data protection and security breaches, gross negligence, wilful misconduct, fraud and IP infringement sit outside the cap; if needed we can fall back to a straight twelve months' charges cap with those carve-outs retained.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "up to the greater of $1,000,000 or the charges paid or payable by Customer to IBM for the Services in the twelve (12) months",
+          "oldText": "up to the greater of $100,000 or the charges paid by Customer to IBM for the Services in the twelve (12) months",
+          "paragraphId": "p0112"
+        },
+        {
+          "kind": "delete_paragraph",
+          "paragraphId": "p0114"
+        },
+        {
+          "kind": "replace",
+          "newText": "up to the greater of $1,000,000 or the charges paid or payable by Customer to IBM for the Services in the twelve (12) months",
+          "oldText": "up to the greater of $100,000 or the charges paid by Customer to IBM for the Services in the twelve (12) months",
+          "paragraphId": "p0119"
+        },
+        {
+          "kind": "insert_after",
+          "numbering": "9.3",
+          "paragraphId": "p0121",
+          "text": "9.3 Excluded Claims. The limitations in Sections 9.1 and 9.2 do not apply to Excluded Claims, for which each party remains fully liable. \"Excluded Claims\" means a party's breach of its confidentiality, data protection or security obligations, its indemnification obligations under Section 8, its gross negligence, wilful misconduct or fraud, and its infringement of the other party's intellectual property rights. Customer's obligation to pay amounts owing under this Agreement is not subject to the limitations in Sections 9.1, 9.2 or 10."
+        }
+      ],
+      "precedentId": "seed-lol-2",
+      "summary": "Raise mutual cap floor to $1,000,000 on fees paid or payable, add uncapped Excluded Claims, delete IBM's data-loss exclusion"
+    },
+    "quote": "c. the amount of any other actual direct damages, up to the greater of $100,000 or the charges paid by Customer to IBM for the Services in the twelve (12) months immediately preceding the accrual of the first claim related to the Services.",
+    "rationale": "The cap is mutual and set at 12 months' charges (Sections 9.1(c)/9.2(c)), and indemnification and bodily-injury claims already sit outside it, but it deviates from our preferred position in three respects: (i) the fixed floor is $100,000 rather than USD 1,000,000 and is measured on charges \"paid\" only rather than \"paid or payable\"; (ii) there are no carve-outs for breach of confidentiality/data protection and security obligations, gross negligence, wilful misconduct, fraud or infringement of the other party's IP; and (iii) Section 9.1(2) wholly excludes IBM liability for loss of or damage to Customer's records or data — a one-sided exclusion that guts our remedy in a hosting deal. The mutual consequential-damages exclusion in Section 10 with its carve-out for Customer's payment obligations is acceptable. Redline raises the floor on both sides, adds a mutual Excluded Claims provision, and deletes the data-loss exclusion.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-9.1",
+    "sectionRef": "§ 9.1 IBM's Limitation of Liability",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 3 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 4 applies",
+          "ok": true
+        },
+        {
+          "name": "cap references 12 months of fees or a fixed floor",
+          "ok": true
+        },
+        {
+          "name": "no unlimited Customer liability language remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.105 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0112",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.105 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0119",
+          "ok": true
+        }
+      ],
+      "notes": "Status is correctly classified as a deviation: the cap exists and is mutual at 12 months' charges, but the $100,000 floor (vs. USD 1,000,000), the 'paid' only basis, the absence of confidentiality/data-protection, gross negligence, wilful misconduct, fraud and IP carve-outs, and the blanket exclusion of liability for loss of Customer records/data all fall short of the preferred position. Redline is directionally correct and symmetrical: the floor is raised to $1,000,000 and the basis changed to 'paid or payable' in both the IBM cap (p0112) and the Customer cap (p0119), preserving mutuality as the rule requires. Deleting the item excluding liability for 'loss of, or damage to, Customer's ... records or data' is within scope (detection guidance covers exclusion-of-damages language) and necessary in a hosting deal, since that exclusion is effectively a zero cap on the core risk. New Section 9.3 supplies the required mutual Excluded Claims sentence (confidentiality/data protection/security, indemnification, gross negligence, wilful misconduct, fraud, IP infringement) plus the payment-obligations clarification, matching the model language without rewriting the surrounding section; changed-character ratios (~0.10) confirm a minimal edit. Comment is accurate, cites the playbook position and offers the 12-months-fees fallback in the required tone; only minor caveat is to confirm the 'indemnification obligations under Section 8' cross-reference and any list renumbering after the deleted sub-item.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.129157,
+    "durationMs": 42491,
+    "id": "f-assign-67988114",
+    "paragraphIds": [
+      "p0188"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We added our customary right to assign without consent to an affiliate or to a successor by merger, acquisition or sale of substantially all assets, and made the consent restriction reciprocal so IBM cannot assign to a Customer competitor. If helpful, we can accept a mutual right to assign to successors on written notice, with consent for other assignments not unreasonably withheld.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Customer will not assign this Agreement or any of its rights hereunder without the prior written consent of IBM, such consent not to be unreasonably withheld. Notwithstanding the foregoing, Customer may assign this Agreement without IBM's consent to an affiliate or to a successor organization by merger, consolidation, acquisition or sale of substantially all of its assets. IBM will not assign this Agreement or any of its rights hereunder without Customer's prior written consent, such consent not to be unreasonably withheld, and in no event to a competitor of Customer.",
+          "oldText": "Customer will not assign this Agreement or any of its rights hereunder without the prior written consent of IBM, such consent not to be unreasonably withheld. Notwithstanding the foregoing, Customer may assign this Agreement to a successor organization by merger, consolidation or acquisition.",
+          "paragraphId": "p0188"
+        }
+      ],
+      "precedentId": "seed-assign",
+      "summary": "Add affiliate/asset-sale carve-out for Customer assignment and reciprocal consent restriction on IBM assignment."
+    },
+    "quote": "Customer will not assign this Agreement or any of its rights hereunder without the prior written consent of IBM, such consent not to be unreasonably withheld. Notwithstanding the foregoing, Customer may assign this Agreement to a successor organization by merger, consolidation or acquisition.",
+    "rationale": "Section 14.10 restricts only Customer assignment. The M&A carve-out is partial: it omits assignment to affiliates and to a purchaser of substantially all assets, and it is unclear whether the carve-out dispenses with IBM's consent. The clause imposes no reciprocal restriction on IBM, so IBM could freely assign, including to a Customer competitor. No change-of-control termination right exists for IBM (§3.3 is breach-only), so no deletion is needed there. Redline adds the affiliate/asset-sale carve-out without consent and a reciprocal, reasonableness-qualified consent requirement on IBM with a competitor prohibition; fallback of mutual successor assignment on notice offered in the comment.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-14.10",
+    "sectionRef": "§ 14.10 Assignment",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "successor/affiliate carve-out for Customer present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.497 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0188",
+          "ok": true
+        }
+      ],
+      "notes": "Deviation is correctly identified: original ¶p0188 binds only Customer, offers a partial successor carve-out of ambiguous consent effect, and imposes no restriction on IBM's assignment. Redline reaches the preferred position with targeted edits: it adds the affiliate/sale-of-substantially-all-assets carve-out expressly 'without IBM's consent' and inserts a reciprocal, reasonableness-qualified consent requirement on IBM with a Customer-competitor prohibition; existing void-assignment and continuing-liability sentences are preserved. No change-of-control termination right against Customer appears in the cited text, so the absence of a deletion is consistent with the rule rather than an omission. Comment is accurate, in-house voice, prefixed correctly, states what changed and why, and offers the playbook fallback (mutual successor assignment on written notice with reasonable consent for others). Changed-character ratio (~0.50) is explained by the required insertion of a new reciprocal obligation and is not evidence of over-editing; deterministic checks otherwise pass.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.11877325,
+    "durationMs": 33309,
+    "id": "f-exclusivity-d65818de",
+    "paragraphIds": [
+      "p0200"
+    ],
+    "producedBy": "drafter",
+    "quote": "Each party is free to enter into similar agreements with others.",
+    "rationale": "Searches for exclusivity language (\"exclusive\", \"sole\", \"requirements from\", \"procure ... from any third party\", minimum-purchase commitments) surface no sole-supply or exclusive-dealing obligation on Bluefly. The only \"exclusive\" uses are the warranty-disclaimer heading (§ 5.2) and nonexclusive license grants in our favour (§§ 5.4, 12.1), and § 14.16 (Freedom of Action) expressly confirms each party may enter into similar agreements with others, so we remain free to source hosting and related services elsewhere. Section 11.5 (Capacity Planning) and § 13.1 (Services) impose no single-source requirement, and § 14.11 restricts resale only, not our right to buy from other suppliers. This meets the preferred position; no redline needed.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-14.16",
+    "sectionRef": "§ 14.16 Freedom of Action",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no requirements/sole-supplier obligation on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and the cited paragraph ('Each party is free to enter into similar agreements with others.') directly supports the preferred position that no exclusivity or sole-supplier obligation binds the Customer. No redline or counterparty comment was proposed, which is the correct output for a compliant finding; the rendered text is identical to the original. Deterministic check confirms no residual requirements/sole-supplier obligation on Customer; rationale's treatment of 'exclusive' uses (warranty disclaimer heading, nonexclusive license grants in our favour) and the resale-only restriction is consistent with the rule's detection guidance.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.220879,
+    "durationMs": 79334,
+    "id": "f-ld-4a057e05",
+    "paragraphIds": [
+      "p0046",
+      "p0123"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Our position is that no liquidated damages or penalties are payable by us, so we have capped the open-ended early termination charges at three months' recurring charges as the sole amount due on a convenience termination. This keeps our termination right meaningful while accepting the accepted fallback cap rather than deleting the charge entirely.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "b. paying the applicable early termination charges, if any, specified in Attachment A and applicable Service Option Attachments, provided that such charges will not exceed, in the aggregate, three (3) months' recurring charges for the terminated Services and will be Customer's sole payment obligation and IBM's sole remedy arising from such termination.",
+          "oldText": "b. paying the applicable early termination charges, if any, specified in Attachment A and applicable Service Option Attachments.",
+          "paragraphId": "p0046"
+        }
+      ],
+      "precedentId": "seed-ld",
+      "summary": "Cap Customer's early termination charges at three months' recurring charges as the sole termination amount."
+    },
+    "quote": "b. paying the applicable early termination charges, if any, specified in Attachment A and applicable Service Option Attachments.",
+    "rationale": "Section 3.4(b) requires Customer to pay uncapped \"early termination charges\" set out in Attachment A/Service Option Attachments as a condition of terminating for convenience — a Customer-payable liquidated amount of unknown size, with no stated ceiling (and Section 10 further preserves IBM's ability to claim amounts for Services \"that would have been rendered but for Customer's breach\"). Our preferred position is no liquidated damages or penalties payable by Customer; because the convenience-termination right is the counterweight to this charge, we applied the accepted fallback and capped the charge at three months' recurring charges as the sole amount due on such termination. No service credits or Vendor-payable LDs are affected.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-3.4",
+    "sectionRef": "§ 3.4 Termination for Convenience",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.638 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0046",
+          "ok": false
+        }
+      ],
+      "notes": "The identified clause is a genuine Customer-payable, open-ended termination charge (Section 3.4(b) referencing unspecified amounts in Attachment A / Service Option Attachments), so the deviation call under rule LD is correct and direction (Customer pays) is right. The redline implements the accepted fallback verbatim in substance — an aggregate cap of three months' recurring charges, expressed as the sole amount/remedy arising from the convenience termination — and is scoped to termination-related amounts so it does not disturb accrued fees for Services actually rendered. The failed 'minimal edit' check is an artifact of a very short source sentence; the change is an appended proviso only, with no deletion or rewording of the original obligation, which is the smallest edit that reaches the playbook position. The comment is accurate, correctly cites the preferred position and the fallback applied, and matches the tone requirements (concise, first person plural, [Playbook] prefix). Minor gap (not disqualifying): the rationale flags the Section 10 carve-out preserving IBM's claim for Services 'that would have been rendered but for Customer's breach' but no edit is proposed to p0123; consider a follow-on edit there so the three-month cap is not undercut by a lost-revenue claim on termination for cause.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.171263,
+    "durationMs": 54823,
+    "id": "f-license-10f35953",
+    "paragraphIds": [
+      "p0149"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We extended the Base Components licence to our Affiliates and to contractors using the Services on our behalf, and removed \"revocable\" so the licence cannot be pulled at will — it should end only when this Agreement or the relevant Services terminate. If helpful, we can accept affiliate coverage on written notice as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "IBM grants Customer, its Affiliates and its contractors acting on Customer's behalf a nonexclusive license to use the Base Components solely in connection with the Services as provided under this Agreement. Such license is irrevocable during the term of the applicable Services and may be terminated only upon expiration or termination of this Agreement or the applicable Service Option Attachment in accordance with Section 3.",
+          "oldText": "IBM grants Customer a nonexclusive, revocable license to use the Base Components solely in connection with the Services as provided under this Agreement.",
+          "paragraphId": "p0149"
+        }
+      ],
+      "summary": "Extend Base Components licence to Customer Affiliates and contractors and remove revocability at will"
+    },
+    "quote": "IBM grants Customer a nonexclusive, revocable license to use the Base Components solely in connection with the Services as provided under this Agreement.",
+    "rationale": "The § 12.1 grant is expressly \"revocable\" with no stated standard, so IBM could withdraw use rights at will, and it runs to \"Customer\" only — Affiliates (a defined term in the preamble) and contractors operating the Services on our behalf are not covered, and § 14.17 confirms no rights beyond those expressly granted. Successor transfer is already protected by § 14.10 (assignment to a successor by merger, consolidation or acquisition), so the minimal edit adds affiliate/contractor scope and ties revocation to expiration or termination under Section 3.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-12.1",
+    "sectionRef": "§ 12.1 License",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "affiliates covered by the licence",
+          "ok": true
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.689 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0149",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation is correctly identified: the § 12.1 grant is expressly 'revocable' with no standard and runs only to 'Customer', matching the rule's detection cues (revocable grant, affiliates/contractors unnamed). Redline reaches the playbook position: it adds Affiliates and contractors acting on Customer's behalf, deletes 'revocable', and ties cessation of the licence to expiration/termination under Section 3 rather than Vendor discretion. Successor transfer is reasonably not re-added because § 14.10 already permits assignment to a successor by merger/consolidation/acquisition, keeping the edit minimal. The failed 'minimal edit' heuristic (ratio 0.689) is explained by the necessary added sentence replacing the at-will revocation right; the original operative restrictions (copying/reverse engineering) and 'solely in connection with the Services' limitation are preserved. Comment is accurate, in-house tone, states what changed and why, and offers the affiliates-on-written-notice fallback. Minor: the rationale asserts 'Affiliates' is defined in the preamble but the resolved definitions only show 'Customer'; if no such definition exists, the term should be defined or replaced with a descriptive phrase (e.g., entities controlled by Customer).",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.11885175,
+    "durationMs": 37564,
+    "id": "f-noncompete-6ee08d40",
+    "paragraphIds": [
+      "p0200",
+      "p0190",
+      "p0202"
+    ],
+    "producedBy": "drafter",
+    "quote": "Each party is free to enter into similar agreements with others.",
+    "rationale": "The Agreement contains no non-compete or field-of-use covenant binding Customer. § 14.16 (Freedom of Action) affirmatively preserves each party's ability to enter into similar agreements with others, and searches for \"compet*\", \"exclusiv*\", \"shall not develop\", and \"Customer shall not\" surface no restraint on the businesses we operate or the products we may buy or build. The only Customer-side prohibitions are § 14.11 (no resale of the Services) and the licence-scope limits in §§ 12.1 and 14.17, which restrict use/redistribution of IBM's own Services and IP rather than our freedom to compete or to procure or develop alternatives. § 14.19 is a limit on IBM's delivery territory, not on us. This satisfies the preferred position, so no redline is required.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-14.16",
+    "sectionRef": "§ 14.16 Freedom of Action",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no open-ended compete restriction on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant; the cited paragraphs support it — p0200 (Freedom of Action) affirmatively preserves each party's right to enter similar agreements, and no cited text restricts Customer's ability to operate businesses, buy or build competing products. The only Customer-side prohibitions cited (no resale of the Services in p0190; license-scope limits in p0202) govern use/redistribution of IBM's own Services and IP, not competitive activity, so they fall outside the NONCOMPETE rule's scope. No redline or comment is expected or provided for a compliant finding; the rendered text is unchanged and the deterministic check confirms no open-ended compete restriction on Customer remains. Rationale is accurate and non-overreaching, correctly noting that a territory limit on IBM's delivery is a vendor-side restriction and therefore acceptable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.54768125,
+    "durationMs": 178510,
+    "id": "f-audit-4e1e0cd8",
+    "paragraphIds": [
+      "p0132",
+      "p0137",
+      "p0138",
+      "p0052"
+    ],
+    "producedBy": "drafter",
+    "quote": "IBM reserves the right to investigate potential violations of the representations and warranties in Subsection 11.2(b).",
+    "rationale": "No issue: the AUDIT rule has no target in this agreement. There is no usage-, metering- or licence-compliance audit right binding Customer — no clause uses audit, inspect, verify, examine or records-access language against us; § 4.1/4.2 (p0052) have IBM meter and invoice its own usage Charges with no verification right against Customer's books; and § 12.1 grants the Base Components licence with no compliance-verification right. The only inspection-flavoured provision, § 11.3 (p0132), is an abuse/acceptable-use enforcement right — IBM investigating suspected breaches of the content warranties in § 11.2(b) — i.e. a security and illegal-content mechanism, not a commercial audit, with p0137's emergency/required-by-law notice standard and p0138's information obligation as its counterparts. Because an audit right against Customer is inherently adverse to us, its absence is more favourable than the playbook preferred position, so this is compliant rather than a missing-protection deviation, and no redline is warranted. The failing deterministic check ('audit frequency limited') is an expected artefact of there being no audit clause to parameterise, not a defect: grafting frequency, notice, a 5% underpayment cost-shift and a no-systems-access bar onto the abuse-investigation clause would contradict p0137's emergency carve-out and p0138, bar IBM from responding to a second security or abuse incident, and import an inoperative payment trigger in a hosting deal where IBM operates the environment. Flagged for follow-up: apply the AUDIT parameters if a Service Option Attachment or Order Form later introduces usage verification.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-11.3",
+    "sectionRef": "§ 11.3 Suspected Violations",
+    "severity": "medium",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 3,
+      "checks": [
+        {
+          "name": "audit frequency limited",
+          "ok": false
+        }
+      ],
+      "notes": "audit frequency limited: failed Claimed status is compliant and the cited text supports it: none of p0052, p0132, p0137 or p0138 creates a usage-, metering- or licence-compliance audit, inspection or records-access right running against Customer, so the AUDIT rule has no adverse target in the agreement. The characterisation of § 11.3 (p0132) as an acceptable-use/abuse investigation right tied to the § 11.2(b) content warranties — with p0137's notice attempt and p0138's information obligation as its counterparts — is a reasonable reading; it is not a commercial usage-verification audit, and no direct access to Customer systems or books is granted. Because an audit right against Customer is inherently adverse, its absence is at least as favourable as the preferred position, so 'compliant' is directionally correct rather than a missing-protection deviation, and the absence of any redline or counterparty comment is expected for a compliant finding. The failed 'audit frequency limited' deterministic check is adequately explained as an artefact of there being no audit clause to parameterise; grafting frequency/notice/5% cost-shift/no-systems-access terms onto the abuse-investigation clause would conflict with p0137's emergency and required-by-law carve-out and would be inoperative in a hosting deal where the Vendor operates the environment. The follow-up note to apply the AUDIT parameters if a later Service Option Attachment or Order Form introduces usage verification is appropriate and preserves the rule's value without an unwarranted edit.",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.1063325,
+    "durationMs": 36833,
+    "id": "f-govlaw-b39f640d",
+    "paragraphIds": [
+      "p0171"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] New York law already matches our position, so we have only added exclusive venue in the state and federal courts in New York County to remove any doubt about forum. This keeps disputes in a single accepted court and avoids litigation in an unspecified or foreign venue.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "This Agreement will be governed by the substantive laws of the State of New York, without regard for its conflict of laws provisions. The parties submit to the exclusive jurisdiction of the state and federal courts located in New York County, New York for any dispute arising out of or related to this Agreement.",
+          "oldText": "This Agreement will be governed by the substantive laws of the State of New York, without regard for its conflict of laws provisions.",
+          "paragraphId": "p0171"
+        }
+      ],
+      "precedentId": "seed-govlaw",
+      "summary": "Add exclusive New York County court venue to the New York choice-of-law clause."
+    },
+    "quote": "This Agreement will be governed by the substantive laws of the State of New York, without regard for its conflict of laws provisions.",
+    "rationale": "Section 14.3 selects New York substantive law, which is our preferred governing law, and there is no arbitration provision (no hits for \"arbitration\") and no venue or forum clause anywhere in the agreement (no hits for \"venue\"; jurisdiction references are only generic \"court of competent jurisdiction\" in §§ 8.2 and 14.5). The rule's preferred position requires both New York law and exclusive jurisdiction of the state and federal courts in New York County, so the missing forum element is a deviation. Minimal fix: append exclusive New York County venue language to § 14.3, leaving the existing choice-of-law sentence intact.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-14.3",
+    "sectionRef": "§ 14.3 Choice of Law",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "governing law within the accepted set",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.574 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0171",
+          "ok": true
+        }
+      ],
+      "notes": "The cited clause (p0171) selects New York substantive law but contains no forum/venue provision, and the rationale notes no arbitration or venue language elsewhere; the preferred position requires both accepted law and exclusive New York County courts, so treating the missing forum element as a deviation is defensible and actionable. The redline is directionally correct and minimal: it leaves the existing choice-of-law sentence untouched and appends a single sentence conferring exclusive jurisdiction on the state and federal courts in New York County, exactly matching the preferred position and the redline guidance to change only jurisdiction/forum wording. Deterministic checks confirm the governing law is within the accepted set and the edit is minimal; the 0.574 changed-character ratio is an artifact of appending one sentence to a short paragraph, not an over-broad rewrite. The comment is accurate, concise, in first-person plural with the required [Playbook] prefix, correctly states that New York law already matches our position and explains that only exclusive venue was added and why.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.09326525,
+    "durationMs": 29167,
+    "id": "f-mfn-44800b59",
+    "paragraphIds": [
+      "p0052",
+      "p0200"
+    ],
+    "producedBy": "drafter",
+    "quote": "Each party is free to enter into similar agreements with others.",
+    "rationale": "No most-favoured-nation obligation is imposed on us anywhere in the agreement. The Charges provision (§ 4.1) simply provides that charges are set in Service Option Attachments and Order Forms, with no requirement that we extend IBM terms no less favourable than those given to third parties or match third-party offers; searches for MFN-style language (\"most favoured/favored\", \"no less favorable\", \"best price/terms\", \"discount\", \"exclusive\") returned no customer-side pricing or terms-parity obligation. Section 14.16 (Freedom of Action) confirms each party may contract freely with others. This meets the preferred position (no MFN burden on Customer), so no redline is proposed; the absence of a vendor-granted MFN in our favour is a commercial upside item to raise in negotiation rather than a playbook deviation.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-4.1",
+    "sectionRef": "§ 4.1 Charges",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant, and the cited text supports it: § 4.1 (p0052) simply points to Service Option Attachments/Order Forms for Charges and contains no terms-parity, price-matching, or 'no less favorable' obligation on Customer. p0200 (Freedom of Action) reinforces the conclusion that neither party is constrained to extend the other its best or comparable third-party terms, consistent with the preferred position (no MFN burden on Customer). Correctly no redline and no counterparty comment for a compliant finding; the redline output is unchanged from the original paragraphs and no deterministic checks failed. Rationale appropriately notes the absence of a Vendor-granted MFN in our favour is a commercial upside to raise separately rather than a playbook deviation, which matches the rule's direction-based detection guidance.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.76,
+    "costUsd": 0.1452585,
+    "durationMs": 40530,
+    "id": "f-mincommit-25ce1e50",
+    "paragraphIds": [
+      "p0052",
+      "p0044",
+      "p0046",
+      "p0142"
+    ],
+    "producedBy": "drafter",
+    "quote": "Charges for applicable Services will be specified in Service Option Attachments and Order Forms. Charges can be specified as one-time, installment, recurring, or usage. IBM will invoice such Charges when they begin or are due as set forth in Service Option Attachments.",
+    "rationale": "No minimum purchase commitment, committed volume, take-or-pay or shortfall mechanic appears anywhere in the Base Terms: searches for \"minimum\", \"commit\", \"shortfall\" and \"volume\" return nothing on point. Under § 4.1 Charges are only for Services ordered under Service Option Attachments and Order Forms (one-time, installment, recurring or usage), i.e. fees for usage or ordered services only, which matches our preferred position. § 11.5 Capacity Planning imposes no usage floor or cap on Customer — it merely allocates responsibility to Customer for sizing and requesting capacity changes. Customer also retains an exit under § 3.4, terminating the Agreement or any Service Option Attachment for convenience at month end on one month's notice, subject only to early termination charges \"if any\" specified in Attachment A / Service Option Attachments (not part of this document). No redline required; we would review Attachment A and each Order Form for any committed volumes or early termination charges before signature.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-4.1",
+    "sectionRef": "§ 4.1 Charges",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the rendered redline is byte-identical to the originals with no comment, which is the expected output for a compliant finding. Cited text supports the preferred position: § 4.1 (p0052) ties Charges solely to Services specified in Service Option Attachments/Order Forms (one-time, installment, recurring or usage), with no minimum, committed volume, take-or-pay or shortfall mechanic. p0142 (Capacity Planning) allocates sizing responsibility to Customer but imposes no usage floor or volume cap, so it is correctly read as out of scope for MINCOMMIT. Exit right is corroborated: p0044/p0046 give Customer termination for convenience at month end, with early termination charges only 'if any' in Attachment A / Service Option Attachments; the rationale properly flags those documents (and Order Forms) for pre-signature review rather than overstating compliance. No deterministic check failures; nothing in the supplied paragraphs indicates a deviation requiring an actionable edit.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.28326775,
+    "durationMs": 91711,
+    "id": "f-nosolicit-bee4e1bc",
+    "paragraphIds": [
+      "p0182",
+      "p0184",
+      "p0200"
+    ],
+    "producedBy": "drafter",
+    "quote": "Each party is free to enter into similar agreements with others.",
+    "rationale": "Compliant with the preferred position (\"No non-solicit on Customer\"): the Base Terms impose no non-solicitation, no-hire or inducement restriction on Bluefly. § 14.8 Personnel deals only with each party's supervision of its own personnel, IBM's right to assign its personnel and IBM's right to subcontract; § 14.16 Freedom of Action goes the other way, confirming \"Each party is free to enter into similar agreements with others.\" I also read the Preamble and definitions in full (pp0000-p0036) and ran full-text searches for \"solicit\", \"hire\", \"employ\", \"induce\", \"recruit\" and \"personnel\"; the only \"employ\" hits are the Content Administrator definition and the indemnity clauses. No restrictive covenant exists. Accordingly no redline and no counterparty comment are proposed - inserting a 12-month cap or a general-solicitation carve-out would require first drafting in a restriction against ourselves, which is worse than the status quo. The failed sub-checks on duration and general-solicitation carve-out are therefore non-probative. Residual scope note: the Agreement also incorporates Order Forms, Attachment A (Facilities Services) and the Service Option Attachments, which are not part of the reviewed text; if any of those contains a hiring restriction we would negotiate to the fallback (mutual, limited to personnel directly involved in the Services, 12 months from the end of their involvement, with general-advertising and unsolicited-approach carve-outs, and no no-hire).",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-14.8",
+    "sectionRef": "§ 14.8 Personnel",
+    "severity": "medium",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 3,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-solicit duration ≤ 12 months",
+          "ok": false
+        },
+        {
+          "name": "general-solicitation carve-out present",
+          "ok": false
+        }
+      ],
+      "notes": "general-solicitation carve-out present: failed Claimed status is 'compliant' and the cited text supports it: § 14.8 addresses only each party's supervision/assignment of its own personnel and IBM's subcontracting rights, and § 14.16 ('Each party is free to enter into similar agreements with others.') is permissive rather than restrictive — none of the quoted paragraphs impose a non-solicit, no-hire or inducement restriction on the Customer. This matches the rule's preferred position ('No non-solicit on Customer'), so no redline and no counterparty comment are expected or appropriate; the rendered redline is correctly identical to the original. The failed deterministic sub-checks (duration ≤ 12 months, general-solicitation carve-out) are non-probative here because those elements only apply where a restrictive covenant exists; drafting a capped non-solicit into an agreement that has none would worsen the Customer's position. The rationale documents the search methodology and appropriately flags the residual scope limitation (Order Forms, Attachment A, Service Option Attachments not reviewed) with the fallback position to apply if a hiring restriction appears there — retained as internal evidence, not a negotiation issue.",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.13691725,
+    "durationMs": 50776,
+    "id": "f-renewal-ed5c7f10",
+    "paragraphIds": [
+      "p0040"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We shortened the non-renewal notice window from 90 to 30 days, fixed renewal terms at twelve months, and capped any renewal price increase at the lesser of CPI and 3%, consistent with our position that renewals be easy to exit and predictably priced. If helpful, we can accept a 60-day window with a 5% uplift cap as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Each Service Option Attachment will renew automatically for an additional term of twelve (12) months unless either party notifies the other party in writing at least thirty (30) days prior to the end of the then-current term for the applicable Service Option Attachment that it has elected to terminate such Service Option Attachment. IBM will notify Customer in writing of the upcoming renewal and the Charges applicable to the renewal term at least sixty (60) days prior to the end of the then-current term. Charges for any renewal term will not increase by more than the lesser of (i) the increase in the Consumer Price Index over the preceding twelve (12) months and (ii) three percent (3%) over the Charges for the then-current term.",
+          "oldText": "Each Service Option Attachment will renew automatically for an additional term equal in duration to the previous term of the applicable Service Option Attachment unless either party notifies the other party in writing at least ninety (90) days prior to the end of the then-current term for the applicable Service Option Attachment that it has elected to terminate such Service Option Attachment.",
+          "paragraphId": "p0040"
+        }
+      ],
+      "precedentId": "seed-renewal",
+      "summary": "Limit auto-renewal to 12 months, shorten Customer's non-renewal notice to 30 days with a 60-day IBM reminder, and cap renewal price increases."
+    },
+    "quote": "Each Service Option Attachment will renew automatically for an additional term equal in duration to the previous term of the applicable Service Option Attachment unless either party notifies the other party in writing at least ninety (90) days prior to the end of the then-current term",
+    "rationale": "§ 3.2 auto-renews each Service Option Attachment for a term equal to the prior term (which, where an Order Form specifies a multi-year initial term, produces automatic multi-year renewals at the walk-away boundary) and requires a 90-day non-renewal notice, exceeding both the preferred 30-day and fallback 60-day windows. Neither § 3.2 nor § 4.1 (Charges) constrains renewal pricing, leaving uplift uncapped. Redline fixes renewal terms at 12 months, shortens Customer's opt-out to 30 days, adds a 60-day IBM renewal reminder, and caps uplift at the lesser of CPI and 3%.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-3.2",
+    "sectionRef": "§ 3.2 Renewal",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "detail": "number not found",
+          "name": "non-renewal notice window ≤ 60 days",
+          "ok": false
+        },
+        {
+          "detail": "changed-character ratio=0.663 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0040",
+          "ok": false
+        }
+      ],
+      "notes": "Finding is directionally correct: original § 3.2 imposes a 90-day non-renewal notice window (worse than both the 30-day preferred and 60-day fallback) and renews for a term equal to the prior term, which permits automatic multi-year renewals at the walk-away boundary, with no cap on renewal pricing. Redline reaches the preferred position on each element: renewal term fixed at twelve (12) months, notice window shortened to thirty (30) days, a 60-day vendor renewal/pricing reminder added, and uplift capped at the lesser of CPI and 3%. Failed deterministic check 'non-renewal notice window ≤ 60 days (number not found)' is a phrasing artifact — the redline plainly states 'at least thirty (30) days prior' — and the 0.663 changed-character ratio is justified because the rule requires inserting a reminder obligation and an uplift cap that have no counterpart in the original sentence. Comment is accurate, in the required voice and prefix, explains the change and rationale, and offers the 60-day / 5% fallback. Note for negotiation (not a defect): the notice provision remains mutual, so shortening it to 30 days also lets IBM exit on 30 days' notice; if continuity matters, consider making the 30-day right Customer-only while leaving IBM at 90 days.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.1881175,
+    "durationMs": 56388,
+    "id": "f-t4c-f914c426",
+    "paragraphIds": [
+      "p0044",
+      "p0045",
+      "p0046"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Our position is that a convenience exit must be penalty-free with a pro-rata refund of prepaid charges, so we removed the open-ended early termination charges cross-referenced to Attachment A and added the refund. If a charge is essential, we can accept a cap of three months' charges for the terminated Services as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "b. paying all charges accrued for Services rendered through the effective date of termination. Customer will not be liable for any early termination charge, penalty, or similar fee, and IBM will refund to Customer, within thirty (30) days after the effective date of termination, any prepaid charges allocable to the period after that date.",
+          "oldText": "b. paying the applicable early termination charges, if any, specified in Attachment A and applicable Service Option Attachments.",
+          "paragraphId": "p0046"
+        }
+      ],
+      "precedentId": "seed-t4c",
+      "summary": "Remove uncapped early termination charges from Customer's convenience right and add pro-rata refund of prepaid charges."
+    },
+    "quote": "b. paying the applicable early termination charges, if any, specified in Attachment A and applicable Service Option Attachments.",
+    "rationale": "Section 3.4 does give Customer a convenience right on roughly 30 days' notice (one month's notice, effective at month end), and IBM has no convenience right anywhere in the Agreement (3.3 is for-cause only), which matches our preferred position. However, the right is conditioned on paying open-ended early termination charges cross-referenced to Attachment A and the Service Option Attachments, and there is no refund of prepaid charges (3.5 only accelerates Customer's payment obligations). That makes the exit penalty-bearing and uncapped, short of the preferred \"without penalty plus pro-rata refund\" position. Redline deletes the uncapped charge and adds a 30-day pro-rata refund, with a 3-months'-charges cap offered as fallback.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-3.4",
+    "sectionRef": "§ 3.4 Termination for Convenience",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "Customer convenience termination present",
+          "ok": false
+        },
+        {
+          "detail": "changed-character ratio=0.824 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0046",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation classification is correct on the substance: Section 3.4 gives Customer a convenience right (~one month's notice) and IBM has no convenience right, but subsection (b) conditions exit on open-ended early termination charges cross-referenced to Attachment A and the Service Option Attachments, with no pro-rata refund — short of the preferred penalty-free exit with refund. Redline is targeted and actionable: it replaces only the offending payment condition in p0046 with (i) payment of charges accrued through the termination date, (ii) an express bar on early termination charges/penalties, and (iii) a 30-day pro-rata refund of prepaid charges. It correctly leaves the existing notice mechanics in p0044–p0045 alone rather than duplicating a convenience right. Failed deterministic checks are explained by the fact pattern, not by a defect: the 'Customer convenience termination present' regex misses because the right already exists in p0044 (no need to insert model language), and the 0.824 changed-character ratio reflects the fact that the whole point of the edit is to substitute the early-termination-charge obligation, which cannot be achieved with a smaller edit. Comment is accurate, in-voice, cites the playbook position, and offers the fallback (3 months' charges cap) consistent with the rule's fallback tier. Minor, non-blocking gap: the redline does not address the 'end of any calendar month' timing restriction in p0044, which can push an exit slightly beyond 30 days; worth flagging in the comment but it does not undermine the edit.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.181961,
+    "durationMs": 60229,
+    "id": "f-transition-bd9b719f",
+    "paragraphIds": [
+      "p0049",
+      "p0169"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We added an orderly exit right: up to six months of transition assistance at IBM's then-current rates, return of our Content in a machine-readable format within thirty days, and certified deletion thereafter, since the Effect of Termination section is currently silent on data return. If six months is too long, we can accept ninety days of assistance with the same thirty-day export window.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0049",
+          "text": "Upon expiration or termination of this Agreement or any Service Option Attachment for any reason, IBM shall: (a) at Customer's request, provide reasonable transition assistance for up to six (6) months following the effective date of termination, at IBM's then-current rates; (b) within thirty (30) days of Customer's request, return to Customer, or make available for retrieval by Customer, all Content in a commonly used, machine-readable format; and (c) thereafter delete all Content remaining in IBM's systems and certify such deletion to Customer in writing."
+        }
+      ],
+      "precedentId": "seed-transition",
+      "summary": "Insert transition assistance and Content return/deletion obligations into Section 3.5 (Effect of Termination)."
+    },
+    "quote": "Upon the date of termination, all Customer payment obligations accrued hereunder through the date of termination will become due and payable. The termination of selected Service Option Attachments will not affect Customer's obligation to pay charges under other Service Option Attachments.",
+    "rationale": "Section 3.5 (Effect of Termination) addresses only Customer's payment obligations; the Agreement contains no transition assistance, Content return/export, or deletion-certification obligation anywhere (searches for \"transition\", \"delete\" and \"return\" surface nothing relevant, and 14.18 Data Protection is limited to contact information). In a hosting agreement where all Customer data resides in IBM's e-business Hosting Environment, this leaves us with no exit path for our Content. We inserted the playbook transition clause into 3.5, which already survives termination under 14.2, so no survival amendment is needed.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-3.5",
+    "sectionRef": "§ 3.5 Effect of&sbsp;Termination",
+    "severity": "medium",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "data return/transition present",
+          "ok": true
+        }
+      ],
+      "notes": "Missing-clause claim is supported: p0049 (Effect of Termination) addresses only payment obligations, and no transition assistance, data return/export, or deletion-certification obligation appears in the cited text. Redline is a pure insertion into the termination section with no alteration of existing language — the smallest edit that reaches the playbook position, and it tracks the model language closely (6 months' assistance at then-current rates, 30-day machine-readable return, certified deletion thereafter). Party and defined-term adaptation is correct (IBM as Vendor, 'Content' as the customer-data term, extension to Service Option Attachments), and survival is already secured because Section 3.5 is enumerated in the survival clause at p0169, so no additional amendment is needed. Comment is accurate, concise, in our voice, cites the playbook position, and offers the 90-day fallback with the same 30-day export window; deterministic checks confirm the operation applied and the transition/data-return language is present. Minor, non-blocking drafting nuance: clause (b) conditions the 30-day return on 'Customer's request', slightly narrower than the unconditional model language, but this remains actionable and within the preferred position.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.83,
+    "costUsd": 0.2728505,
+    "durationMs": 81190,
+    "id": "f-warranty-b9c96a6b",
+    "paragraphIds": [
+      "p0061",
+      "p0062",
+      "p0063",
+      "p0074"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 5.1 gives us a services standard but no warranty that Materials conform to their documentation, no malicious code warranty and no remedy, and § 5.4(c) puts all Materials \"AS IS\", which swallows the express warranty. We added a 90-day conformance and malicious code warranty with re-performance, repair, replacement or refund, and carved the § 5.1 warranties out of the disclaimer; we can discuss a shorter conformance period if needed.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "c.",
+          "paragraphId": "p0062",
+          "text": "c. for a period of ninety (90) days following delivery, each Deliverable and item of Materials will conform in all material respects to its documentation and to the applicable Service Option Attachment; and"
+        },
+        {
+          "kind": "insert_after",
+          "numbering": "d.",
+          "paragraphId": "p0062",
+          "text": "d. the Services, Materials and e-business Hosting Environment will not knowingly contain any virus, worm, time bomb or other malicious code introduced by IBM. Customer's remedy for breach of the warranties in this Section 5.1 is, at IBM's option, re-performance of the non-conforming Services, repair or replacement of the non-conforming Materials, or a refund of the charges paid for the non-conforming Services or Materials."
+        },
+        {
+          "kind": "replace",
+          "newText": "c. EXCEPT AS EXPRESSLY WARRANTED IN SECTION 5.1, IBM PROVIDES ALL MATERIALS AND ALL NON-IBM SERVICES",
+          "oldText": "c. IBM PROVIDES ALL MATERIALS AND ALL NON-IBM SERVICES",
+          "paragraphId": "p0074"
+        }
+      ],
+      "precedentId": "seed-warranty",
+      "summary": "Add deliverable conformance warranty, no-malicious-code warranty and a repair/replace/refund remedy to § 5.1, and carve the express warranties out of the § 5.4(c) \"AS IS\" disclaimer."
+    },
+    "quote": "c. IBM PROVIDES ALL MATERIALS AND ALL NON-IBM SERVICES, PRODUCTS, DATA, APPARATUS AND SOFTWARE \"AS IS\", WITHOUT WARRANTY OF ANY KIND, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY, SATISFACTORY QUALITY, AND FITNESS FOR&sbsp;A PARTICULAR PURPOSE.",
+    "rationale": "§ 5.1 contains only a \"reasonable care and skill\" services standard (broadly equivalent to professional and workmanlike) plus authority and a narrow law-compliance covenant. There is no warranty that Materials/deliverables conform to documentation, no malicious code warranty, and no repair/replace/refund or re-performance remedy anywhere in the agreement (searches for \"conform\", \"malicious\" and \"remedy\" return nothing relevant). Worse, § 5.4(c) provides all Materials \"AS IS\" with no carve-out, so the disclaimer swallows any deliverable-level protection — close to the walk-away position. Redline adds a 90-day conformance warranty, a malicious code warranty and an at-IBM's-option re-performance/repair/replacement/refund remedy, and carves the § 5.1 warranties out of the \"AS IS\" disclaimer.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-5.1",
+    "sectionRef": "§ 5.1 IBM Representations and Warranties",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 3 applies",
+          "ok": true
+        },
+        {
+          "name": "warranty period ≥ 90 days or expressed in months/years",
+          "ok": false
+        },
+        {
+          "detail": "changed-character ratio=0.460 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0074",
+          "ok": true
+        }
+      ],
+      "notes": "Deviation is correctly characterized: § 5.1 gives only a reasonable-care services standard plus authority/law-compliance, with no documentation-conformance warranty, no malicious code warranty and no repair/replace/refund or re-performance remedy, while p0074 puts all Materials 'AS IS' with no express-warranty carve-out — materially below the playbook position and close to walk-away. Redline is actionable and reaches the rule's model language: adds a 90-day conformance warranty on Deliverables/Materials, a malicious code warranty, and an at-IBM's-option re-performance/repair/replacement/refund remedy, and inserts 'EXCEPT AS EXPRESSLY WARRANTED IN SECTION 5.1' into the disclaimer so it no longer swallows the express warranty. The failed 'warranty period ≥ 90 days' check is a regex false negative: the inserted text reads 'for a period of ninety (90) days following delivery', which satisfies the rule (and matches the rule's own model language and fallback for services/deliverables). The 0.460 changed-character ratio on p0074 reflects only a short prefixed carve-out on an otherwise untouched all-caps disclaimer; that is the smallest edit that achieves the playbook position. Comment is accurate, correctly cites §§ 5.1 and 5.4(c), states what changed and why, and offers a shorter-period fallback in the required tone. Minor drafting nits only (not fatal): p0062's terminal period was not converted to '; and' before the new items (c)/(d), and the remedy sentence is appended inside item (d) rather than standing alone; the 'knowingly ... introduced by IBM' qualifier also slightly weakens the malicious code warranty relative to the preferred position and could be tightened in negotiation.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.16601575,
+    "durationMs": 53469,
+    "id": "f-insurance-85b546a2",
+    "paragraphIds": [
+      "p0192"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] The Agreement has no insurance provision, so we added our standard coverage requirements (CGL USD 1M/2M, E&O USD 2M, and cyber USD 5M since IBM hosts and processes Customer Data and personal data on our behalf under §§ 5.3 and 14.18), plus certificates on request. If needed, we can accept E&O of USD 1M and cyber of USD 2M.",
+      "level": "preferred",
+      "ops": [
+        {
+          "asHeading": true,
+          "kind": "insert_after",
+          "numbering": "14.12A",
+          "paragraphId": "p0192",
+          "text": "Insurance"
+        },
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0192",
+          "text": "IBM shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; cyber liability insurance of not less than USD 5,000,000; and workers' compensation insurance as required by applicable law. IBM shall provide certificates of insurance to Customer on request."
+        }
+      ],
+      "precedentId": "seed-insurance",
+      "summary": "Insert vendor insurance covenant after § 14.12 Risk of Loss"
+    },
+    "quote": "Risk of loss for all Base Components shall at all times remain with IBM. Risk of loss for all Customer Components shall at all times remain with Customer.",
+    "rationale": "A full-text search for \"insurance\" returns no results and the section outline contains no insurance provision, so the Agreement is silent on vendor coverage. IBM is a hosting vendor that operates the e-business Hosting Environment and holds Customer Components (§ 14.12) and processes personal information on Customer's behalf (§ 14.18), which triggers the playbook's cyber/privacy requirement and makes the walk-away position (no insurance for a vendor processing personal data) applicable. We inserted a short insurance covenant as new § 14.12A, adjacent to the existing risk-allocation provision in the miscellaneous article, at the preferred levels (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, statutory workers' compensation, certificates on request), with the E&O USD 1M / cyber USD 2M fallback offered in the comment.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-14.12",
+    "sectionRef": "§ 14.12 Risk of Loss",
+    "severity": "low",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "insurance obligation present",
+          "ok": true
+        }
+      ],
+      "notes": "The finding is correctly typed as 'missing': the supplied text shows no insurance provision, and the proposal inserts one rather than editing unrelated language. The inserted paragraph matches the playbook preferred position exactly (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, statutory workers' comp, certificates on request, term plus one year) and is correctly directed at IBM as the vendor. Placement is appropriate — appended in the miscellaneous/risk-allocation area adjacent to p0192 — and the original paragraph text is left untouched, so this is the smallest edit that reaches the position. Comment follows tone and prefix rules, states what was added and why (hosting/personal-data processing triggers cyber coverage), and offers the E&O USD 1M / cyber USD 2M fallback; all deterministic checks pass. Minor, non-blocking: the comment cites § 5.3 while the rationale cites § 14.12 for the hosting/Customer Components point — the drafter should confirm the cross-reference before sending.",
+      "verdict": "pass"
+    }
+  }
+]

@@ -1,0 +1,779 @@
+[
+  {
+    "confidence": 0.95,
+    "costUsd": 0.4454725,
+    "durationMs": 100751,
+    "id": "f-indemn-d9f43413",
+    "paragraphIds": [
+      "p0080",
+      "p0038"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 20 currently contains only a broad Customer indemnity in Vendor's favour, so we added Vendor's defence and indemnity for third-party IP infringement, breach of Applicable Law, Vendor-caused Customer Data incidents and gross negligence or wilful misconduct, together with standard claim procedure and the infringement remedies Section 9.3 already assumes exist in Section 20.5. We also narrowed Customer's indemnity to Customer-provided content and Customer's breach of law; if needed, we can discuss a 3x annual Fees super-cap on Vendor's indemnity as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "20.1 Customer shall defend, indemnify, and hold harmless Vendor from and against any third-party claim to the extent arising out of (a) content or materials Customer provides to Vendor for use in the Services, or (b) Customer's breach of Applicable Law.",
+          "oldText": "20.1 Customer shall defend, indemnify, and hold harmless Vendor from every claim relating in any way to Customer's use of the Services.",
+          "paragraphId": "p0080"
+        },
+        {
+          "kind": "insert_after",
+          "numbering": "20.2",
+          "paragraphId": "p0080",
+          "text": "20.2 Vendor shall defend, indemnify, and hold harmless Customer and its Affiliates from and against any third-party claim, and all resulting damages, costs, and expenses (including reasonable attorneys' fees), to the extent arising out of (a) an allegation that the Services, Deliverables, or Vendor Technology infringe or misappropriate any intellectual property right; (b) Vendor's breach of Applicable Law; (c) any unauthorized access to, or disclosure of, Customer Data caused by Vendor; or (d) Vendor's gross negligence or wilful misconduct. 20.3 The indemnified Party shall give the indemnifying Party prompt written notice of the claim, tender control of the defence and settlement, and provide reasonable cooperation at the indemnifying Party's expense; no settlement imposing a non-monetary obligation on, or an admission by, the indemnified Party may be made without its written consent, and the indemnified Party may participate with its own counsel at its own expense. 20.4 Vendor's obligation under Section 20.2(a) does not apply to the extent a claim arises from Customer's modification of the Services or Deliverables contrary to Vendor's documentation, combination with materials not supplied or recommended by Vendor, or Vendor's compliance with Customer's written specifications. 20.5 If a claim described in Section 20.2(a) arises or is reasonably likely, Vendor shall, at its expense, procure the right for Customer to continue using the affected item or modify or replace it with a functionally equivalent, non-infringing item. If Vendor cannot do so within thirty days, Customer may terminate the affected Services or Deliverables and receive a refund of Fees paid for them, including prepaid Fees for the terminated period."
+        }
+      ],
+      "precedentId": "seed-indemn-1",
+      "summary": "Add Vendor IP/misconduct indemnity, indemnity procedure and IP remedies (Section 20.5); narrow Customer's indemnity"
+    },
+    "quote": "20. INDEMNIFICATION 20.1 Customer shall defend, indemnify, and hold harmless Vendor from every claim relating in any way to Customer's use of the Services.",
+    "rationale": "Section 20 is entirely one-sided: the only indemnity runs from Customer to Vendor and covers \"every claim relating in any way to Customer's use of the Services\". There is no Vendor indemnity for third-party IP infringement, breach of Applicable Law, Vendor-caused Customer Data incidents, or gross negligence/wilful misconduct, and no claim-handling procedure. Section 9.3 confirms the gap by cross-referencing infringement remedies \"required by Section 20.5\", which does not exist. Section 21.3 already treats indemnification obligations and IP infringement as Excluded Claims, so the missing Vendor indemnity is the operative gap. We inserted the preferred Vendor indemnity with standard procedure, customary IP exclusions and procure/modify/replace/refund remedies as Section 20.5, and narrowed Customer's indemnity to Customer-provided content and Customer's breach of law.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-20",
+    "sectionRef": "§ 20 INDEMNIFICATION 20.1 Customer shall defend, indemnify, and…",
+    "severity": "critical",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.593 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0080",
+          "ok": true
+        }
+      ],
+      "notes": "Status is correctly diagnosed as missing: p0080 contains only a Customer-to-Vendor indemnity ('every claim relating in any way to Customer's use of the Services') with no Vendor indemnity for IP infringement, breach of law, data incidents, or gross negligence/wilful misconduct. The redline reaches the preferred position: it inserts Vendor's defence/indemnity for third-party IP infringement, breach of Applicable Law, Vendor-caused Customer Data incidents, and gross negligence/wilful misconduct, plus standard notice/control/cooperation procedure, customary IP exclusions, and procure/modify/replace/refund remedies. Customer's indemnity is narrowed exactly to the playbook scope (Customer-provided content and Customer's breach of Applicable Law), which is permitted by the redline guidance for one-sided clauses. The inserted remedies are numbered 20.5, curing the dangling cross-reference in Section 9.3 to 'the remedies required by Section 20.5' — internally consistent with the surrounding contract. Advisory changed-character ratio of 0.593 is justified: the one-sided Customer indemnity had to be rewritten rather than tweaked, and no unnecessary language was touched. Comment is accurate, concise, first-person plural, prefixed, cites the playbook position and offers the 3x annual Fees super-cap fallback. Minor nit only: 'Vendor Technology' is used without confirmation it is a defined term in this agreement; confirm or delete to avoid an undefined reference.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.173271,
+    "durationMs": 45014,
+    "id": "f-ip-47aa7581",
+    "paragraphIds": [
+      "p0057",
+      "p0058",
+      "p0059",
+      "p0060",
+      "p0053",
+      "p0006",
+      "p0010",
+      "p0062"
+    ],
+    "producedBy": "drafter",
+    "quote": "14.2 Upon creation and subject to payment of the applicable Fees, Customer owns each Deliverable created specifically for Customer. Vendor hereby assigns to Customer all worldwide right, title, and interest in those Deliverables and shall obtain equivalent assignments from its personnel. Vendor will execute further documents reasonably needed to confirm ownership.",
+    "rationale": "The IP package meets our preferred position in full. § 14.1 confirms Customer owns Customer Data, Customer Confidential Information and Customer-provided and pre-existing IP, with no transfer to Vendor beyond a processing right limited to delivering the Services for us; § 15.1 reinforces this by barring sale, advertising use, data combination and model training without our written consent. § 14.2 vests ownership of each Deliverable in Customer on creation with a present assignment, personnel assignments and further-assurance covenant. § 14.3 lets Vendor keep only Vendor Technology (defined in § 1.8 to exclude Customer Data and our pre-existing IP) and channels embedded Vendor Technology into the § 13.2 perpetual, irrevocable, worldwide, royalty-free, fully paid licence to use, modify, create derivative works and permit contractor support for our business — the licence-back the rule requires. § 14.4 expressly negates joint ownership absent a signed instrument setting exploitation rights, and keeps our unrestricted right to use our own feedback. The only mild narrowing is that § 1.4 ties Deliverables to items an Order Form identifies as created specifically for Customer, which is ordinary scoping we manage at the Order Form level and does not warrant a redline on a compliant clause set.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-14.1",
+    "sectionRef": "§ 14.1 As between the Parties, Customer owns all Customer Data, Cu…",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no assignment of Customer Data/IP to Vendor remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and the cited text supports it: § 14.1 confirms Customer ownership of Customer Data and pre-existing IP with only a limited processing right to Vendor, § 14.2 contains a present assignment of Deliverables (plus personnel assignments and further assurances), § 14.3 limits Vendor to Vendor Technology and channels embedded Vendor IP into the § 13.2 perpetual, irrevocable, worldwide, royalty-free licence, and § 14.4 negates joint ownership absent a signed instrument setting exploitation rights. The § 1.8 Vendor Technology definition expressly excludes Customer Data and Customer pre-existing IP, and § 15.1 bars sale, advertising use, data combination and model training without consent — no walk-away trigger (no assignment of Customer IP/data to Vendor, no unrestricted joint ownership) is present. Consistent with a compliant finding, no redline or counterparty comment is proposed, and the deterministic check ('no assignment of Customer Data/IP to Vendor remains') passes. The rationale's acknowledged narrowing (Deliverables limited to items an Order Form identifies as created specifically for Customer; ownership subject to payment of Fees) is ordinary scoping that does not fall below the preferred position and is correctly flagged as not warranting a redline.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.17961075,
+    "durationMs": 54332,
+    "id": "f-lol-cap-48c632ad",
+    "paragraphIds": [
+      "p0082"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We raised the mutual cap to the greater of twelve months' Fees paid or payable and USD 1,000,000, as a one-month cap is not a meaningful remedy. We also removed \"without exception\" so that the Excluded Claims in Section 21.3 — including indemnification, confidentiality, data-protection and security breaches — sit outside the cap; if needed, we can accept a straight twelve months' Fees cap with those carve-outs preserved.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Except for Excluded Claims, each Party's aggregate liability shall not exceed the greater of (a) Fees paid or payable by Customer under this Agreement in the twelve (12) months immediately preceding the event giving rise to the claim and (b) USD 1,000,000.",
+          "oldText": "Each Party's aggregate liability shall not exceed Fees actually paid in the one month preceding the event, without exception.",
+          "paragraphId": "p0082"
+        }
+      ],
+      "precedentId": "seed-lol-2",
+      "summary": "Raise mutual cap to greater of 12 months' Fees and USD 1,000,000 and subject it to the Excluded Claims carve-outs"
+    },
+    "quote": "21.1 Each Party's aggregate liability shall not exceed Fees actually paid in the one month preceding the event, without exception.",
+    "rationale": "The cap is mutual but set at only one month of Fees \"actually paid\", far below the walk-away floor of six months' fees and below the preferred greater of 12 months' Fees and USD 1,000,000. Worse, \"without exception\" overrides the otherwise well-drafted Excluded Claims regime in 21.2–21.3, pulling indemnities, confidentiality, data-protection/security breaches, gross negligence, wilful misconduct, fraud and IP infringement inside a one-month cap. The redline raises the basis to the greater of 12 months' Fees paid or payable and USD 1,000,000 and restores the Excluded Claims carve-out; 21.3 already contains the required carve-outs and confirms Customer's payment obligations are not damages, so no further edit is needed.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-21.1",
+    "sectionRef": "§ 21.1 Each Party's aggregate liability shall not exceed Fees actu…",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "cap references 12 months of fees or a fixed floor",
+          "ok": true
+        },
+        {
+          "name": "no unlimited Customer liability language remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.660 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0082",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation is correctly identified: a mutual cap at one month of Fees 'actually paid' falls below the walk-away floor (6 months) and the preferred greater-of-12-months/USD 1,000,000 basis, and 'without exception' collapses all carve-outs into that cap. The redline reaches the preferred position with a targeted edit to the single cap sentence: it keeps mutuality ('each Party'), changes the basis to the greater of 12 months' Fees paid or payable and USD 1,000,000, and removes 'without exception' by re-opening the Excluded Claims carve-out. Reliance on the existing Excluded Claims regime in 21.2–21.3 (rather than restating carve-outs) is consistent with the redline guidance to edit rather than rewrite the section; the rationale confirms those clauses already cover indemnification, confidentiality, data protection/security, gross negligence, wilful misconduct, fraud and IP, plus the payment-obligations point. The 0.660 changed-character ratio is acceptable here — the sentence is short and the rule requires replacing the cap basis and the 'without exception' override, so no smaller edit would reach the position. Comment is accurate, first-person plural, states the position, explains both changes, and offers the sensible 12-months-fees fallback with carve-outs preserved. Minor residual risk: if 'Excluded Claims' is not in fact a defined term in 21.2/21.3, the inserted reference would be undefined — worth a confirmation against the surrounding sections, but the finding's cited context supports it.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.12347875,
+    "durationMs": 31916,
+    "id": "f-assign-835d3730",
+    "paragraphIds": [
+      "p0092",
+      "p0093",
+      "p0094",
+      "p0095",
+      "p0054"
+    ],
+    "producedBy": "drafter",
+    "quote": "24.1 Customer may assign this Agreement or an Order Form without Vendor's consent to an Affiliate or to a successor in a merger, reorganization, acquisition, or sale of all or substantially all assets or business to which the Agreement relates. Customer shall give prompt written notice, and the assignee shall assume the applicable obligations.",
+    "rationale": "Section 24 meets the preferred position in full. § 24.1 lets us assign to an Affiliate (as defined in § 1.1) or an M&A/asset-sale successor without Vendor consent, subject only to prompt notice and assumption of obligations. § 24.2 binds Vendor asymmetrically: no assignment, delegation of material performance, or transfer by change of control without our prior written consent (reasonableness qualified only in Vendor's favour on capability/financial standing), and never to a direct Customer competitor. § 24.3 is expressly scoped to \"other assignments,\" so the residual mutual consent requirement does not swallow the § 24.1 carve-out. § 24.4 expressly denies Vendor any right to terminate, suspend, reprice, accelerate Fees, or reduce service on our change of control and requires cooperation with successor administrative changes. § 13.3 aligns licence transfer with a Section 24 permitted assignment and limits Vendor's revocation/suspension rights. No change-of-control termination or re-pricing right appears elsewhere; § 9.2 is a standard insolvency clause that expressly excludes a lawful non-impairing reorganization. No redline needed.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-24.1",
+    "sectionRef": "§ 24.1 Customer may assign this Agreement or an Order Form without…",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "successor/affiliate carve-out for Customer present",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and the cited text supports it: § 24.1 gives Customer a consent-free affiliate/successor (M&A, asset-sale) carve-out subject only to notice and assumption of obligations, matching the preferred position. § 24.2 binds Vendor asymmetrically (no assignment, delegation of material performance, or transfer by change of control without our prior written consent; no assignment to a direct Customer competitor), and § 24.3 is expressly limited to 'other assignments' so it does not erode the § 24.1 carve-out. § 24.4 expressly negates any Vendor right to terminate, suspend, reprice, accelerate Fees, or reduce service on our change of control, so the walk-away trigger is absent; § 13.3 aligns licence transfer with a Section 24 permitted assignment. No redline or counterparty comment is proposed, which is the correct output for a compliant finding, and the deterministic carve-out check passes. Minor, non-disqualifying nuance: the competitor bar in § 24.2 is qualified by 'without Customer's consent' and limited to 'direct' competitors, but since consent rests with us this does not fall below the preferred position.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.95,
+    "costUsd": 0.12389425,
+    "durationMs": 41076,
+    "id": "f-exclusivity-75577550",
+    "paragraphIds": [
+      "p0013",
+      "p0049"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We removed the sole and exclusive provider commitment so that Vendor is engaged on a non-exclusive basis; our playbook does not permit exclusivity or sole-supplier obligations on us, and this also conflicted with Section 12.3. If some exclusivity is essential, we could consider a single named product category capped at 12 months and terminating automatically on any service-level or delivery failure.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Vendor will be a non-exclusive provider of hosted analytics services, and Customer may procure the same or similar services from any third party at any time.",
+          "oldText": "Vendor will be Customer's sole and exclusive provider of hosted analytics services throughout the term.",
+          "paragraphId": "p0013"
+        }
+      ],
+      "precedentId": "seed-exclusive",
+      "summary": "Make Vendor a non-exclusive provider, removing the sole-supplier commitment on Customer"
+    },
+    "quote": "2.2 Vendor will be Customer's sole and exclusive provider of hosted analytics services throughout the term.",
+    "rationale": "Section 2.2 imposes a full-term sole-supplier obligation on Customer for hosted analytics services, with no product-category limit, no time limit, and no performance-based exit. That is the walk-away position under the rule and directly contradicts Section 12.3, in which Vendor acknowledges Customer has made no exclusivity commitment. Combined with the take-or-pay volume commitment in Section 2.1, it eliminates our ability to source elsewhere. The exclusivity runs against us (not in our favour), so it is a deviation. Redline converts Vendor to a non-exclusive provider and expressly preserves our right to buy from third parties, per the preferred position; fallback (single category, 12 months, automatic termination on SLA/delivery failure) offered in the comment.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-2.2",
+    "sectionRef": "§ 2.2 Vendor will be Customer's sole and exclusive provider of ho…",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "no requirements/sole-supplier obligation on Customer remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.650 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0013",
+          "ok": false
+        }
+      ],
+      "notes": "Directionally correct: Section 2.2 imposes a full-term sole-supplier obligation on Customer with no category limit, time limit, or performance exit — the rule's walk-away position — so 'deviation' is the right status. The redline reaches the preferred position by converting Vendor to a non-exclusive provider and expressly preserving our right to source from third parties; no residual requirements/exclusivity obligation on Customer remains, and no exclusivity running in Customer's favour was removed. The failed 'minimal edit' check (0.650 changed-character ratio) is not disqualifying here: the clause is a single short sentence whose entire operative content is the exclusivity grant, so removing it necessarily rewrites most of the text. The added third-party procurement right is a reasonable, narrow confirmation consistent with Section 12.3. Comment is accurate and correctly scoped: it states what changed, cites the playbook prohibition, flags the Section 12.3 conflict, and offers the fallback (single category, 12 months, automatic termination on SLA/delivery failure) without lecturing; tone and prefix conform.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.314813,
+    "durationMs": 71806,
+    "id": "f-ld-62b62338",
+    "paragraphIds": [
+      "p0012"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We removed the take-or-pay commitment that would require us to pay for Services we do not take or that we terminate, because our position is that no liquidated damages, penalties, or minimum termination fees are payable by Customer. If a volume commitment is commercially necessary, we can discuss an early-termination fee capped at three months' Fees as the sole liquidated amount, preserving our termination rights in Sections 9.3, 9.4, and 27.3.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Customer's purchase commitments, if any, are those stated in the applicable Order Form. Customer pays only for Services actually ordered and received and owes no take-or-pay amount, minimum fee, liquidated damages, penalty, or early-termination charge, and this Section does not limit Customer's reduction or termination rights under this Agreement.",
+          "oldText": "Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+          "paragraphId": "p0012"
+        }
+      ],
+      "summary": "Remove take-or-pay penalty; Customer pays only for Services ordered and received, with no liquidated damages or early-termination fee"
+    },
+    "quote": "Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+    "rationale": "No express liquidated damages clause exists, but Section 2.1 imposes a USD 2,000,000 annual take-or-pay commitment \"without reduction or termination rights,\" which functions as a Customer-payable liquidated amount: we would owe the full committed spend for Services never taken, including after termination, and it conflicts with our termination rights in Sections 9.3, 9.4, and 27.3. Our preferred position is no liquidated damages or penalties payable by Customer, so we deleted the take-or-pay penalty and limited payment to Services actually ordered and received; the fallback is an early-termination fee capped at three months' Fees as the sole liquidated amount.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-2.1",
+    "sectionRef": "§ 2.1 Customer commits to purchase at least USD 2,000,000 of Serv…",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.788 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0012",
+          "ok": false
+        }
+      ],
+      "notes": "The take-or-pay commitment 'without reduction or termination rights' is properly within scope of rule LD: it is a Customer-payable minimum amount that survives termination, matching the detection cue 'minimum fees on termination' even though no clause is labelled 'liquidated damages'. The redline reaches the preferred position (no liquidated damages, penalty, minimum or early-termination charge payable by Customer) and limits payment to Services actually ordered and received; the high changed-character ratio is justified because the rule requires deleting the take-or-pay obligation, which cannot be done with a surgical word change. The comment is accurate, concise, first-person plural, cites the playbook position, and offers the sanctioned fallback (early-termination fee capped at three months' Fees), so it is actionable for negotiation. Minor drafting tension worth tightening on the next pass: the first sentence preserves 'purchase commitments, if any, ... stated in the applicable Order Form' while the second denies any 'minimum fee', which a counterparty could argue is internally inconsistent; consider clarifying that Order Form commitments remain subject to Customer's termination/reduction rights.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.157399,
+    "durationMs": 55560,
+    "id": "f-license-6b57f2c0",
+    "paragraphIds": [
+      "p0052"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We extended the § 13.1 grant to our Affiliates and to contractors acting on our behalf and replaced revocation at Vendor's sole discretion with the uncured-material-breach limit and successor transfer already agreed in § 13.3, so the subscription grant matches the paid-up licence in § 13.2. If helpful, we can accept Affiliate coverage on written notice as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Customer, its Affiliates, and contractors acting on Customer's behalf a licence to use the Services, which Vendor may not revoke or suspend except as permitted by Section 13.3 and which Customer may transfer to an Affiliate or successor in accordance with Section 13.3.",
+          "oldText": "Customer alone a non-transferable licence, revocable at Vendor's sole discretion, to use the Services without Affiliates or contractors.",
+          "paragraphId": "p0052"
+        }
+      ],
+      "summary": "Extend § 13.1 grant to Affiliates and contractors and remove revocation at Vendor's discretion"
+    },
+    "quote": "13.1 Vendor grants Customer alone a non-transferable licence, revocable at Vendor's sole discretion, to use the Services without Affiliates or contractors.",
+    "rationale": "§ 13.1 grants the Services licence to Customer alone, expressly excludes Affiliates and contractors, and makes the licence revocable at Vendor's sole discretion — the walk-away position under the LICENSE rule. It also conflicts with § 13.2 (Affiliates and contractors covered for paid-up material) and § 13.3 (revocation only for uncured material breach; transfer to Affiliate or successor). The redline extends the grant to Affiliates and contractors acting on our behalf and ties revocation and transfer to the already-agreed § 13.3 limits, reaching the preferred position with a minimal edit.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-13.1",
+    "sectionRef": "§ 13.1 Vendor grants Customer alone a non-transferable licence, re…",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "affiliates covered by the licence",
+          "ok": true
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.807 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0052",
+          "ok": false
+        }
+      ],
+      "notes": "The redline reaches the preferred LICENSE position: the grant now expressly extends to Customer's Affiliates and to contractors acting on Customer's behalf, at-will revocation ('revocable at Vendor's sole discretion') is removed and limited to the § 13.3 grounds, and transfer to an Affiliate or successor is added by deleting 'non-transferable'. The high changed-character ratio (0.807) is justified here: nearly every operative element of the original one-sentence grant ('Customer alone', 'non-transferable', 'revocable at Vendor's sole discretion', 'without Affiliates or contractors') is the deviation, so a whole-clause rewrite is the smallest edit that cures it. Using cross-references to § 13.3 rather than restating revocation and transfer terms is a genuinely minimal, internally consistent approach and avoids creating conflicting standards with §§ 13.2–13.3. The comment is accurate, first-person plural, concise, correctly cites the playbook position and offers the Affiliates-on-written-notice fallback; it does not misstate the contract.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.95,
+    "costUsd": 0.21293925,
+    "durationMs": 40967,
+    "id": "f-mincommit-f959336d",
+    "paragraphIds": [
+      "p0012"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We removed the three-year USD 2,000,000 take-or-pay commitment and replaced it with payment for Services used or ordered, consistent with our position against minimum commitments without an exit. It also conflicted with Sections 9.4 (termination for convenience) and 12.3 (no minimum-volume commitment); if a commitment is essential, we can consider one limited to the current 12-month term, reducible on 30 days' notice with a true-up rather than a penalty.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Customer will pay only for Services used or ordered during the applicable term. Customer has no minimum purchase, take-or-pay, or shortfall obligation.",
+          "oldText": "Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+          "paragraphId": "p0012"
+        }
+      ],
+      "precedentId": "seed-mincommit",
+      "summary": "Replace the three-year take-or-pay minimum with pay-for-what-is-ordered/used"
+    },
+    "quote": "Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+    "rationale": "Section 2.1 imposes a multi-year take-or-pay minimum on us (USD 2,000,000 per year for three years) expressly with no reduction or termination right — the playbook walk-away position. It also contradicts Section 9.4 (our termination for convenience on 30 days' notice with fees only for conforming Services provided) and Section 12.3 (Vendor acknowledges Customer has made no minimum-volume commitment). We propose deleting the commitment so fees are payable only for Services used or ordered, with the 12-month reducible commitment plus true-up available as a fallback.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-2.1",
+    "sectionRef": "§ 2.1 Customer commits to purchase at least USD 2,000,000 of Serv…",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=1.006 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0012",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation is correctly identified: Section 2.1 is an express multi-year (three-year, USD 2,000,000/yr) take-or-pay with no reduction or termination right, which is the rule's walk-away position. The redline reaches the preferred position (fees for Services used or ordered only; no minimum, take-or-pay, or shortfall obligation) and, because the entire operative obligation must be removed, the 100% changed-character ratio is expected rather than a minimality failure. The replacement language is directionally correct for the Customer and internally consistent with the defined terms (Customer, Services); it does not introduce new obligations on us. The comment is accurate, concise, in the required voice with the [Playbook] prefix, explains the change, and offers the 12-month reducible commitment with true-up as the fallback. Minor caveat: the cross-references to Sections 9.4 and 12.3 are not verifiable from the supplied paragraphs — confirm those section numbers before sending, but the substance of the edit stands regardless.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.95,
+    "costUsd": 0.09014725,
+    "durationMs": 30005,
+    "id": "f-noncompete-768576ee",
+    "paragraphIds": [
+      "p0050",
+      "p0049"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We cannot accept restrictions on the businesses we operate or the products we develop, buy or sell, so we have deleted the 24-month worldwide non-compete in § 12.4, which also directly contradicts § 12.3. If Copperleaf needs protection, we could consider a narrow alternative limited to a single named competing product during the term only (max 12 months), with carve-outs for internal development and acquisitions.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "delete_paragraph",
+          "paragraphId": "p0050"
+        }
+      ],
+      "precedentId": "seed-noncompete",
+      "summary": "Delete § 12.4 non-compete binding Customer"
+    },
+    "quote": "12.4 During the term and for twenty-four months thereafter, Customer shall not develop, market, sell, or acquire any product or service that competes with Vendor in any territory.",
+    "rationale": "§ 12.4 binds us (Customer) with an undefined-scope, worldwide non-compete extending 24 months post-term — beyond the walk-away threshold (post-term restriction over 12 months and \"any product or service that competes\"). It also contradicts § 12.3, which confirms we have made no non-compete or exclusivity commitment. Preferred position is no field-of-use or non-compete restriction on Customer, so we delete § 12.4; the fallback (single named product, term only, capped at 12 months, with internal development and acquisition carve-outs) is offered in the comment.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-12.4",
+    "sectionRef": "§ 12.4 During the term and for twenty-four months thereafter, Cust…",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "no open-ended compete restriction on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "The finding correctly identifies § 12.4 as a Customer-binding non-compete with undefined scope ('any product or service that competes'), worldwide territory, and a 24-month post-term tail — squarely within the rule's walk-away band, so 'deviation' at high severity is right. The redline deletes p0050 in full, which is exactly the preferred position (no non-compete or field-of-use restriction on Customer) and the minimal edit that reaches it; no residual restriction remains and deterministic checks confirm this. The comment is accurate: it states what was removed, notes the direct contradiction with § 12.3 (which confirms no non-compete/exclusivity commitment), cites the playbook position, and offers the fallback (single named product, term only, 12-month cap, internal development and acquisition carve-outs) without lecturing. Tone and prefix conform to instructions (concise, first person plural, '[Playbook]' prefix); the high changed-character ratio is justified because the rule requires deleting the offending obligation rather than rewording it.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.8,
+    "costUsd": 0.19709975,
+    "durationMs": 57311,
+    "id": "f-t4c-c3725a9a",
+    "paragraphIds": [
+      "p0012",
+      "p0039"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We conformed the three-year take-or-pay minimum to our termination rights so it cannot override the 30-day convenience termination and pro-rata refund we agreed in Section 9.4. Our playbook requires a customer convenience exit without penalty in any multi-year term; if helpful, we can instead cap the exposure on early exit at three months' fees.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "on a take-or-pay basis. This commitment is subject to Customer's termination and reduction rights under this Agreement, including Section 9.4, and the annual minimum will be reduced pro rata for any Services terminated or reduced in accordance with those rights.",
+          "oldText": "on a take-or-pay basis, without reduction or termination rights.",
+          "paragraphId": "p0012"
+        }
+      ],
+      "precedentId": "seed-t4c",
+      "summary": "Make the § 2.1 take-or-pay commitment subject to Customer's § 9.4 convenience termination, with pro-rata reduction of the minimum."
+    },
+    "quote": "2.1 Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+    "rationale": "Section 9.4 on its own meets the preferred position: Customer may terminate for convenience on thirty days' notice with a refund of prepaid Fees, and Vendor has no reciprocal convenience right during a committed term. However, Section 2.1 imposes a three-year, USD 2,000,000-per-year take-or-pay commitment expressly \"without reduction or termination rights,\" which conflicts with and could be read to override Section 9.4, leaving us locked into a multi-year spend with no effective convenience exit (the walk-away position). There is no order-of-precedence clause to resolve the conflict. The minimal fix is to make the Section 2.1 minimum expressly subject to our termination rights and reduce it pro rata on termination, leaving Section 9.4 intact.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-2.1",
+    "sectionRef": "§ 2.1 Customer commits to purchase at least USD 2,000,000 of Serv…",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "Customer convenience termination present",
+          "ok": false
+        },
+        {
+          "detail": "changed-character ratio=0.779 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0012",
+          "ok": false
+        }
+      ],
+      "notes": "Directionally correct and pro-Customer: the redline strikes the 'without reduction or termination rights' carve-out in Section 2.1 and subordinates the three-year take-or-pay minimum to Customer's termination rights, with pro-rata reduction — this removes the only obstacle to the 30-day convenience exit and preserves the already-compliant Section 9.4. Deviation classification is defensible: Section 9.4 alone meets the preferred position, but an unqualified multi-year take-or-pay expressly disclaiming termination rights, with no order-of-precedence clause, is effectively the walk-away outcome (locked-in multi-year spend with no effective convenience exit). High severity is appropriate. Failed check 'Customer convenience termination present' is a false negative here: the convenience right already exists in p0039, which is correctly left untouched; the edit is properly targeted at the conflicting commitment clause. Changed-character ratio of 0.779 on p0012 is acceptable given the paragraph is a single short sentence — deleting the disclaimer alone would leave the annual minimum payable notwithstanding termination, so the added pro-rata reduction sentence is necessary to make the exit meaningful. Comment is accurate, concise, in the required voice with the [Playbook] prefix, explains what changed and why, cites the playbook position (convenience exit without penalty in a multi-year term), and offers the three-months'-fees fallback.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.2404785,
+    "durationMs": 46287,
+    "id": "f-audit-a71ed49f",
+    "paragraphIds": [
+      "p0087",
+      "p0088",
+      "p0089"
+    ],
+    "producedBy": "drafter",
+    "quote": "22.1 Vendor may audit Customer's compliance with licence quantities no more than once in any twelve-month period, on at least thirty days' prior written notice, during normal business hours, and in a manner that does not unreasonably disrupt Customer. An audit will be conducted off-site where practicable by an independent auditor bound by confidentiality.",
+    "rationale": "Section 22 is the only audit/verification right binding us as Customer, and it meets or exceeds every element of the preferred position: frequency capped at once in any twelve-month period (22.1); thirty days' prior written notice (22.1); normal business hours with no unreasonable disruption (22.1); off-site where practicable by an independent auditor bound by confidentiality (22.1); Vendor bears audit costs unless the audit establishes underpayment exceeding five percent, and then only reasonable costs plus the undisputed shortfall (22.2); and an express bar on Vendor or its auditor accessing Customer systems directly, unrelated Customer Data, privileged material, or another supplier's confidential information (22.2). Section 22.3 adds further customer-favourable protection by making audit findings Customer Confidential Information, restricting use to enforcement, requiring delivery of the final report, and making payment of a shortfall resolve the audited quantity issue absent fraud or demonstrable error. I confirmed there is no separate or overlapping audit right elsewhere: a full-text search for audit/inspect/verify/monitor/records/examine/assurance surfaced no other clause imposing verification obligations on us, and Section 23 (\"RECORDS AND CUSTOMER ASSURANCE\"), which the planner flagged as a risk, contains only the heading paragraph with no operative text. Section 26.4 runs the other way (Vendor must follow our policies when accessing our facilities or systems) and so benefits us. No redline is warranted.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-22.1",
+    "sectionRef": "§ 22.1 Vendor may audit Customer's compliance with licence quantit…",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "audit frequency limited",
+          "ok": true
+        }
+      ],
+      "notes": "Cited Section 22 text satisfies every element of the preferred position: audit no more than once in any twelve-month period, at least thirty days' prior written notice, normal business hours without unreasonable disruption, off-site where practicable by an independent auditor bound by confidentiality (22.1). Cost allocation matches the preferred threshold exactly — Vendor bears audit costs unless underpayment exceeds five percent, and then only reasonable costs plus the undisputed shortfall (22.2). The no-system-access requirement is expressly met: Vendor and its auditor may not access Customer systems directly, unrelated Customer Data, privileged material, or another supplier's confidential information (22.2), and 22.3 adds further Customer-favourable protections. Consistent with a compliant finding, the redline is identical to the original paragraphs and no counterparty comment is proposed; the deterministic frequency check also passes. No actionable edit is warranted.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.95,
+    "costUsd": 0.05649225,
+    "durationMs": 19408,
+    "id": "f-govlaw-7f10df38",
+    "paragraphIds": [
+      "p0108",
+      "p0109",
+      "p0110"
+    ],
+    "producedBy": "drafter",
+    "quote": "28.1 This Agreement and each dispute arising from it are governed by the laws of the State of New York, without regard to conflict-of-law principles.",
+    "rationale": "Section 28.1 selects New York law and Section 28.2 gives exclusive jurisdiction to the state and federal courts in New York County, which is precisely our preferred position. No arbitration provision appears anywhere in the document (search for \"arbitration\" returned no results), so there is no foreign seat concern. The pre-filing escalation in 28.3 is mutual and expressly does not delay urgent relief or limitations-preserving filings, and 28.2 preserves each Party's ability to seek temporary injunctive relief elsewhere to protect confidential information or IP. No redline needed.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-28.1",
+    "sectionRef": "§ 28.1 This Agreement and each dispute arising from it are governe…",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "governing law within the accepted set",
+          "ok": true
+        }
+      ],
+      "notes": "Cited text matches the preferred position exactly: p0108 selects New York law and p0109 grants exclusive jurisdiction to state and federal courts in New York County. No arbitration seat or foreign venue is imposed; the carve-out for temporary injunctive relief and the mutual pre-filing escalation in p0110 do not displace the accepted forum. Consistent with a compliant finding, the redline is unchanged and no comment is proposed; deterministic check confirms the governing law is within the accepted set.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.18612625,
+    "durationMs": 33206,
+    "id": "f-mfn-161552fc",
+    "paragraphIds": [
+      "p0049",
+      "p0026",
+      "p0034"
+    ],
+    "producedBy": "drafter",
+    "quote": "Vendor acknowledges that Customer has made no exclusivity, non-compete, most-favoured-customer, minimum-volume, or no-hire commitment.",
+    "rationale": "The agreement contains no most-favoured-nation or best-terms undertaking running against Customer. Section 12.3 expressly confirms Customer has made no most-favoured-customer commitment, and the pricing provisions (§ 7.1 fixed Fees; § 7.2–7.5; § 8.3 capped renewal uplift) impose no obligation on Customer to extend Vendor terms given to third parties or to match third-party offers. A full-text search for \"most-favoured\", \"favourable/favorable\", \"no less favourable\", \"best price\", \"benchmark\", and third-party matching language returned no obligation burdening Customer. The only pricing-related constraints run against Vendor, which is in our favour. No redline required for this rule (other clauses such as §§ 2.1, 2.2 and 12.4 raise separate exclusivity/non-compete issues addressed under different rules).",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-12.3",
+    "sectionRef": "§ 12.3 Nothing restricts Customer from developing, acquiring, lice…",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the cited text supports it: § 12.3 expressly states Customer has made no most-favoured-customer commitment, and §§ 7.1 and 8.3 constrain only Vendor's pricing, imposing no third-party-matching or best-terms obligation on Customer. Consistent with the rule's detection guidance (flag only where Customer must offer Vendor terms no less favourable than those given to others), no redline or comment is expected or provided; the paragraphs are returned unmodified. Rationale correctly scopes out adjacent exclusivity/non-compete issues as handled by other rules, so no rule-completeness gap for MFN. Deterministic checks are empty, consistent with a no-edit compliant finding.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.24920875,
+    "durationMs": 80358,
+    "id": "f-nosolicit-9ac0f612",
+    "paragraphIds": [
+      "p0049"
+    ],
+    "producedBy": "drafter",
+    "quote": "Nothing restricts Customer from developing, acquiring, licensing, selling, or using any product or service, engaging any supplier, hiring any person who responds to general recruitment, or conducting business in any field or territory. Vendor acknowledges that Customer has made no exclusivity, non-compete, most-favoured-customer, minimum-volume, or no-hire commitment.",
+    "rationale": "Compliant with the preferred position: no non-solicitation, no-hire, or anti-inducement covenant binds Meridian Fieldworks anywhere in the Agreement. Searches for \"solicit\" (no hits), \"induce\" (no hits), \"recruit\", \"hire\", \"no-hire\", and \"employ\" surface only § 12.3 (p0049) plus unrelated references (§ 1.2 employment law, § 18.1 employer's liability insurance) and \"personnel\" provisions (§§ 1.4, 3.1, 14.2, 30.1) that allocate Vendor's responsibility for its own staff rather than restrict our hiring. § 12.3 goes further in our favour: it preserves our right to hire any person responding to general recruitment — the equivalent of, and broader than, the fallback's general-advertising carve-out — and records that we have made no no-hire commitment. The fallback parameters (12-month duration, general-solicitation and unsolicited-approach carve-outs, no no-hire) are conditions for narrowing a covenant that binds us; because none exists, those deterministic checks are non-probative here and cannot be \"fixed\" without manufacturing a restriction on ourselves. No redline is proposed, since any edit would be adverse to our client.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-12.3",
+    "sectionRef": "§ 12.3 Nothing restricts Customer from developing, acquiring, lice…",
+    "severity": "medium",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 3,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-solicit duration ≤ 12 months",
+          "ok": false
+        },
+        {
+          "name": "general-solicitation carve-out present",
+          "ok": false
+        }
+      ],
+      "notes": "general-solicitation carve-out present: failed Claimed status is 'compliant' and the cited § 12.3 (p0049) squarely supports it: it affirms Customer may hire any person responding to general recruitment and that Customer has made no no-hire commitment, matching the rule's preferred position of no non-solicit on Customer. No redline or counterparty comment is proposed, which is correct for a compliant finding; any edit here would introduce a restriction adverse to our client. The failed deterministic checks (12-month duration, general-solicitation carve-out) are non-probative because they presuppose an existing covenant binding Customer; there is no such covenant to narrow, so the regex misses are phrasing/context artifacts rather than defects. Rationale documents a reasonable search (no hits for 'solicit' or 'induce'; 'personnel' clauses allocate Vendor staff responsibility rather than restrict our hiring), supporting the absence conclusion.",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.92,
+    "costUsd": 0.0888585,
+    "durationMs": 25184,
+    "id": "f-renewal-efa4e44f",
+    "paragraphIds": [
+      "p0033",
+      "p0034"
+    ],
+    "producedBy": "drafter",
+    "quote": "8.2 Each Order Form has the initial term stated in it and thereafter renews for successive twelve-month periods unless Customer gives Vendor at least thirty days' written notice of non-renewal. Vendor shall remind Customer of an upcoming renewal at least sixty days beforehand. Failure to send the reminder extends Customer's opt-out deadline until thirty days after the reminder is received.",
+    "rationale": "§ 8.2 matches our preferred position exactly: automatic renewals are limited to successive twelve-month periods, Customer may opt out on only thirty days' written notice, and Vendor must send a renewal reminder sixty days beforehand — with the opt-out deadline extended if the reminder is missed, which is better than our ask. § 8.3 caps renewal uplift at the lesser of US CPI and three percent, with ninety days' notice and no increase on prepaid periods, meeting the preferred price-predictability requirement. No auto-renewal escalator or longer notice window appears elsewhere (searches for \"renew\" and \"increase\" return only §§ 8.1–8.3), and § 8.1's three-year term is the initial term, not a multi-year auto-renewal. No redline needed.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-8.2",
+    "sectionRef": "§ 8.2 Each Order Form has the initial term stated in it and there…",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "detail": "value=30",
+          "name": "non-renewal notice window ≤ 60 days",
+          "ok": true
+        }
+      ],
+      "notes": "Cited §8.2 text supports the compliant claim: renewals are successive twelve-month periods (no multi-year auto-renewal), Customer may opt out on thirty days' written notice (≤30-day preferred window), and Vendor must send a renewal reminder sixty days in advance, with the deadline tolled if the reminder is missed. Cited §8.3 satisfies the price-predictability element of the preferred position: uplift capped at the lesser of US CPI and three percent, ninety days' notice, and no increase on prepaid periods. Deterministic check confirms notice window = 30 days, within the preferred ≤30-day threshold; no walk-away trigger (no >90-day window, no multi-year renewal) is present. Consistent with a compliant status, no redline or counterparty comment is proposed, which is appropriate — this is retained as internal evidence rather than a negotiation issue.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.21201525,
+    "durationMs": 41926,
+    "id": "f-transition-9e65ae1c",
+    "paragraphIds": [
+      "p0045"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We replaced the immediate cut-off and deletion of Customer Data with up to six months of transition assistance at Vendor's then-current rates, which works with the existing data-return and certified-deletion steps in Sections 11.2 and 11.3 and the transition period contemplated by Section 10.1. If six months is difficult, we can accept ninety days as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "11.1 Upon expiry or termination of this Agreement or any Order Form for any reason, Vendor shall, at Customer's request, provide reasonable transition assistance, including export and migration support, for up to six months after the effective date of expiry or termination at Vendor's then-current rates. Vendor shall not discontinue assistance or delete Customer Data except in accordance with Sections 11.2 and 11.3.",
+          "oldText": "11.1 Immediately on termination Vendor shall discontinue all assistance and permanently delete Customer Data without offering an export or migration support.",
+          "paragraphId": "p0045"
+        }
+      ],
+      "precedentId": "seed-transition",
+      "summary": "Replace immediate cessation/deletion in 11.1 with up to six months of priced transition assistance"
+    },
+    "quote": "11.1 Immediately on termination Vendor shall discontinue all assistance and permanently delete Customer Data without offering an export or migration support.",
+    "rationale": "Sections 11.2 and 11.3 already provide machine-readable data return within thirty days and certified deletion, but Section 11.1 contradicts them and sits at our walk-away position: assistance stops immediately on termination, Customer Data is permanently deleted, and export/migration support is expressly excluded. Section 10.1 also assumes an \"agreed transition period\" that nothing in the document supplies. We therefore replaced 11.1 with up to six months of transition assistance at Vendor's then-current rates and subordinated any deletion to the 11.2/11.3 return-and-certification process, reaching the preferred position with a single-paragraph edit; ninety days is the available fallback.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-11.1",
+    "sectionRef": "§ 11.1 Immediately on termination Vendor shall discontinue all ass…",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "data return/transition present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.850 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0045",
+          "ok": false
+        }
+      ],
+      "notes": "The cited original text (11.1: immediate discontinuation of assistance and permanent deletion of Customer Data with no export or migration support) sits at the playbook walk-away position, so a deviation finding with an insert/replace redline is directionally correct. The redline reaches the preferred position: up to six months of transition assistance at Vendor's then-current rates, express export/migration support, and deletion permitted only per Sections 11.2/11.3 (which per the rationale already supply machine-readable return within 30 days and certified deletion), avoiding duplication of those mechanics. The failed 'minimal edit' check (0.850 changed-character ratio) is expected and acceptable here: the original clause is an outright cut-off and deletion provision that cannot be salvaged by a narrow tweak, and the replacement is a single compact paragraph. Comment is accurate, in the required tone and prefix, explains the change, ties it to Sections 10.1/11.2/11.3, and offers the 90-day fallback.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.2402245,
+    "durationMs": 52784,
+    "id": "f-warranty-85187a7f",
+    "paragraphIds": [
+      "p0076"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We extended the conformance warranty to twelve months for Deliverables and delivered software and ninety days for Services, and removed the clause cutting off Vendor's correction and refund obligations, which otherwise gutted the Section 19.4 remedy after fifteen days. Our playbook requires a meaningful warranty period with repair, replacement, re-performance or refund; we can discuss ninety days for software and thirty days for Services as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "For twelve months after delivery, each Deliverable and any software delivered to Customer will materially conform to its documentation, and for ninety days after performance the Services will materially conform to their documentation. For any nonconformity Customer reports during the applicable period, Vendor's correction, replacement, and refund obligations under Section 19.4 apply.",
+          "oldText": "For fifteen days after delivery, each Deliverable will materially conform to its documentation; after that date Vendor has no correction or refund obligation.",
+          "paragraphId": "p0076"
+        }
+      ],
+      "precedentId": "seed-warranty",
+      "summary": "Extend Deliverable/software conformance warranty to twelve months (ninety days for Services) and delete the sunset of Vendor's correction and refund obligations."
+    },
+    "quote": "For fifteen days after delivery, each Deliverable will materially conform to its documentation; after that date Vendor has no correction or refund obligation.",
+    "rationale": "Sections 19.1, 19.3, 19.4 and 19.5 largely meet the playbook (professional and workmanlike standard, malicious code and legal compliance warranties, repair/replace/re-perform/refund remedy, and a disclaimer that expressly preserves express warranties). The deviation is 19.2: a fifteen-day conformance period for Deliverables, far short of the preferred 12 months (software) / 90 days (services), coupled with an express sunset stating Vendor has no correction or refund obligation after that date, which also strips the Section 19.4 remedy. Redline extends the period and deletes the sunset while preserving the existing remedy structure.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-19.2",
+    "sectionRef": "§ 19.2 For fifteen days after delivery, each Deliverable will mate…",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "warranty period ≥ 90 days or expressed in months/years",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.658 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0076",
+          "ok": false
+        }
+      ],
+      "notes": "The claimed deviation is correct: p0076's fifteen-day conformance window plus the express sunset ('after that date Vendor has no correction or refund obligation') falls far short of the preferred 12-month/90-day position and neutralizes the Section 19.4 remedy, so an actionable edit is warranted. The redline reaches the playbook position: it sets twelve months for Deliverables/delivered software and ninety days for Services conformance, deletes the sunset, and affirmatively preserves the existing Section 19.4 correction/replacement/refund remedy rather than duplicating it — directionally correct for the customer. The failed 'minimal edit' check (ratio 0.658) is advisory and justified here: the sentence is short and both the period and the sunset clause had to be replaced, so a whole-sentence rewrite is the smallest edit that achieves the position; no unrelated terms were introduced. Adding the ninety-day Services conformance and 'software delivered to Customer' language tracks the preferred position's express software/services split rather than expanding scope beyond the rule. Comment is accurate and compliant with tone rules: correct [Playbook] prefix, first person plural, explains the two changes and why (the sunset gutted 19.4), cites the playbook position, and offers the 90-day/30-day fallback without lecturing.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.95,
+    "costUsd": 0.05907175,
+    "durationMs": 18637,
+    "id": "f-insurance-32e72a01",
+    "paragraphIds": [
+      "p0072",
+      "p0073"
+    ],
+    "producedBy": "drafter",
+    "quote": "18.1 Vendor shall maintain, at its own expense throughout the term and for one year afterward, commercial general liability insurance of at least USD 1,000,000 per occurrence and USD 2,000,000 aggregate, workers' compensation as required by law, employer's liability of USD 1,000,000, professional errors and omissions insurance of USD 2,000,000, and cyber and privacy liability insurance of USD 5,000,000.",
+    "rationale": "§ 18.1 obligates Vendor (Copperleaf) to carry, at its own expense for the term plus one year, CGL of USD 1M per occurrence / USD 2M aggregate, workers' compensation as required by law, E&O of USD 2M, and cyber/privacy liability of USD 5M — matching the preferred position line by line, with employer's liability of USD 1M as additional cover in our favour. § 18.2 adds certificates and evidence of coverage on request, reputable insurers, primary-coverage and cancellation-notice undertakings, and confirms insurance does not limit Vendor's liabilities, so the cap/liability interaction is preserved. All obligations run against the counterparty and benefit us; nothing requires amendment.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-18.1",
+    "sectionRef": "§ 18.1 Vendor shall maintain, at its own expense throughout the te…",
+    "severity": "low",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "insurance obligation present",
+          "ok": true
+        }
+      ],
+      "notes": "The cited §18.1 matches the preferred position line by line: CGL USD 1M/2M, E&O USD 2M, cyber/privacy USD 5M, workers' compensation as required by law, plus term-plus-one-year duration. §18.2 supplies certificates/evidence on request and confirms insurance does not limit Vendor's liabilities, satisfying the remaining preferred elements. Obligations run against Vendor (Copperleaf) and benefit Customer (Meridian), so no redline or comment is needed for a compliant finding; deterministic check confirms an insurance obligation is present.",
+      "verdict": "pass"
+    }
+  }
+]
