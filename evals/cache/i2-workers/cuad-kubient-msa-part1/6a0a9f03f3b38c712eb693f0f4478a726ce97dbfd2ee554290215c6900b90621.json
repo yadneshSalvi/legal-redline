@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXqm5SUbaQWhC8L8aaDA",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01GeN4cyNePey56XqXdYHYDH",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0016"
+          ],
+          "quote": "This Agreement will automatically renew for additional 1-year terms unless earlier terminated pursuant to this Agreement's express provisions (together with the Initial Term, such additional periods the \"Term\"). Neither Party may terminate this Agreement during the Initial Term except as set forth in paragraph 4(b) or any Exhibit. Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice to the other Party.",
+          "rationale": "The Agreement auto-renews for successive 1-year terms (renewal length is acceptable and not multi-year), but the only route out after the Initial Term is convenience termination on ninety (90) days' written notice. That is the effective non-renewal window, and it exceeds the fallback ceiling of 60 days, so the clause fails the fallback on a material term (it is at, not beyond, the walk-away threshold). We propose shortening the window to 30 days (preferred), with 60 days as an acceptable fallback, and clarifying that the notice also operates as non-renewal notice. Separately noted but not flagged: there is no renewal reminder mechanic and no renewal price-uplift cap (fees here are transaction/revenue-share based under the Exhibits), which are rationale notes only under this rule.",
+          "confidence": 0.8,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0016",
+                "oldText": "Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice to the other Party.",
+                "newText": "Either Party may terminate this Agreement or elect not to renew any renewal term for any reason following the Initial Term upon thirty (30) days written notice to the other Party."
+              }
+            ],
+            "comment": "[Playbook] We have shortened the post-Initial Term notice period from 90 to 30 days and confirmed it covers non-renewal, since our playbook requires auto-renewing terms to be exitable on 30 days' notice (60 days at the outside). We are happy to land at 60 days if that is easier for you.",
+            "level": "preferred",
+            "summary": "Reduce non-renewal/termination notice window after Initial Term from 90 days to 30 days."
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 893,
+      "cache_read_input_tokens": 5929,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 893,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 870,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "RENEWAL",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9551
+}

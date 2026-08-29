@@ -1,0 +1,74 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXqPu1LV26kveCMUFTLM",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01M7cuRzDqhmsecsVYMRjJKM",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0192",
+            "p0068",
+            "p0204"
+          ],
+          "quote": "Risk of loss for all Base Components shall at all times remain with IBM. Risk of loss for all Customer Components shall at all times remain with Customer.",
+          "rationale": "The Agreement contains no insurance clause anywhere: a full-text search for \"insurance\" returns no results, and the section outline has no insurance heading. The nearest risk-allocation provisions (§ 14.12 Risk of Loss, § 5.3 Security) address allocation of loss and security features but impose no obligation on IBM to carry coverage.\n\nIBM is squarely within the rule's scope: it operates the e-business Hosting Environment, holds \"Content\" (defined at p0017 as the information, software and data Customer provides), and under § 14.18 processes personal information on Customer's behalf. A hosting vendor that processes personal data with no insurance at all is the rule's walk-away scenario, not merely a shortfall against the fallback (E&O USD 1M / cyber USD 2M), so this is a \"missing\" finding requiring insertion.\n\nRedline inserts a new § 14.12A adjacent to Risk of Loss at the preferred position: CGL USD 1M per occurrence / 2M aggregate, E&O USD 2M, cyber/privacy USD 5M, workers' compensation as required by law, and certificates on request. I used the document's own defined term \"Content\" plus the § 14.18 personal-information language rather than the playbook's \"Customer Data\", which is not a defined term in this agreement. The obligation runs against IBM only and does not create any burden on our party. The comment offers the E&O USD 1M / cyber USD 2M fallback as a landing zone. Severity is low.",
+          "confidence": 0.9,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert a new Section 14.12A requiring IBM to maintain CGL, professional liability (E&O) and cyber liability insurance, with certificates on request.",
+            "comment": "[Playbook] IBM hosts our environment and processes our Content and personal information, but the Agreement contains no insurance requirement, so we have added a standard provision (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, workers' compensation, certificates on request). If helpful, we can accept E&O of USD 1M and cyber of USD 2M as a fallback.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0192",
+                "text": "IBM shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: (a) commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; (b) professional liability (errors and omissions) insurance of not less than USD 2,000,000; (c) cyber and privacy liability insurance of not less than USD 5,000,000, covering IBM's handling of Content and of personal information processed by IBM on Customer's behalf; and (d) workers' compensation insurance as required by applicable law. IBM shall provide Customer with certificates of insurance evidencing such coverage upon request."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0192",
+                "numbering": "14.12A",
+                "text": "Insurance",
+                "asHeading": true
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1082,
+      "cache_read_input_tokens": 9820,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1082,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1232,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13064
+}

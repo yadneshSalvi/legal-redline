@@ -1,0 +1,92 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXqpuqtHZG1KZADRE44P",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "thinking",
+        "thinking": "",
+        "signature": "CAISnAQKjgEIERgCKkC1oNbe1NtjrplJLjwrmTQ5nyIKcCUCVrYpVgNd1XfKi1nZMqTVSK3d1/whqfouI3Xc0achWLTzvSYh+ZQV8cF2Mg1jbGF1ZGUtb3B1cy01OAFCCHRoaW5raW5nWiQ0NDcyZGFmNS1lOTVkLTQzNzMtOWEzZS01ZDRhMTA3ZGJhNmWoAYu/zdQGEgzIsO4CGWfvxg5VDmgaDI+3FHy/pNFwRT9w4iIwkjBABAaQphO1qU51OdiVcmTtnRNeWsQ6cka4UnvuWKEN/0wuI/4d37t5M6kdQYCUKroCjrtHWom2A3rTHTMoeRoy3R/bVWOiEaw0d4QLYQymQZ+40C5NZZpaCXX0Ih0RoOWwUlYKstyFhwGMbagjJA2f9K38S29l9JHxTZE9MjPI+i5vml8Nwl7fVNxpWdvnYBwtMTxdzBcEDhgv5ewgekxxhbKRbtps9NwNklfIQ3Bb4unI3IsURlJzrSc+NADtibQyinA8XzFbrzk1IXPO5AxVRSbqh3wblbItDsLgO4GweTwdmkGa6oGFXPCfRWLuXECBK55LRWHradV511/d9iQDtfpo9hI5YmKg7t89cUBcdmfDFJhiEufMvVdariGYzFe9EliwbxV3oR8ujj1EWdUqeoedVAE4GIrkhQ2nDsAcx1VafuBWGgYD7rJGqePC2pQCaF/wXk9Vwz0HomDwcSd6crLPbcjWZ+JGbVEYAQ=="
+      },
+      {
+        "type": "text",
+        "text": "No competing-business language so far. Let me check for solicitation, exclusivity, and field-of-use style restrictions on Company."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01SkLExhduhzvtBSkVHJTWLf",
+        "name": "search",
+        "input": {
+          "query": "exclusiv",
+          "limit": 20
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_012KDM41VJZEthAj5my7ttif",
+        "name": "search",
+        "input": {
+          "query": "solicit",
+          "limit": 20
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_018m6VkuDxsvbRnYYZekUa3E",
+        "name": "search",
+        "input": {
+          "query": "engage in|similar services|restrict|field of use|develop.{0,40}competing",
+          "regex": true,
+          "limit": 30
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2770,
+      "cache_read_input_tokens": 4678,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2770,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 389,
+      "output_tokens_details": {
+        "thinking_tokens": 100
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "search",
+      "ruleId": "NONCOMPETE",
+      "sha256": "3fcbe6cfb168ccdfa07bda0acadc593193c4e87aa08437b03887a7a3de42d8fc"
+    },
+    {
+      "name": "search",
+      "ruleId": "NONCOMPETE",
+      "sha256": "659340b8428a9c262549f5b6df498014b360931533f9d44a344e3190e2d32403"
+    },
+    {
+      "name": "search",
+      "ruleId": "NONCOMPETE",
+      "sha256": "578e8266d085edeaf424e72a013b381a6cbb46bcc37d548573ad4f37f3ae5136"
+    }
+  ],
+  "durationMs": 5700
+}
