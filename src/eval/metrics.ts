@@ -1,3 +1,6 @@
+import { readFile, readdir } from "node:fs/promises";
+import { join, resolve } from "node:path";
+
 import { diffChars } from "diff";
 
 import type { Finding, RunStats } from "@/src/agent/types";
@@ -226,6 +229,22 @@ export function humanReviewLoad(sessions: readonly unknown[]): HumanReviewLoadMe
     }
   }
   return { findings, accepts, edits, rejects, load: ratio(edits + rejects, findings) };
+}
+
+/** Read the committed observational sessions exported by scripts/export-human-sessions.ts. */
+export async function readHumanReviewLoad(
+  root = resolve("trajectories/human"),
+): Promise<HumanReviewLoadMetrics> {
+  let files: string[];
+  try {
+    files = (await readdir(root)).filter((file) => file.endsWith(".json")).sort();
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") return humanReviewLoad([]);
+    throw error;
+  }
+  const sessions = await Promise.all(files.map(async (file) =>
+    JSON.parse(await readFile(join(root, file), "utf8")) as unknown));
+  return humanReviewLoad(sessions);
 }
 
 function resources(stats: RunStats): ContractMetrics["resources"] {

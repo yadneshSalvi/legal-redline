@@ -8,7 +8,8 @@ trajectories/
 ├─ app/                      product agents (exported by `pnpm export-trajectories`)
 │  ├─ final/<contractId>/    planner → drafters (one per rule) → verifier (+ repair rounds) → assembler → memo → human decisions → apply
 │  │   ├─ trajectory.jsonl   one TrajectoryEvent per line (llm_request / llm_response / tool_call / tool_result / validation / retry / human_decision …)
-│  │   ├─ findings.json
+│  │   ├─ run.json + findings.json
+│  │   ├─ prompts.md         exact first system prompt used by each model-backed agent
 │  │   └─ README.md          a narrated walk-through of the run: what each agent did, how tools responded, what the verifier sent back
 │  ├─ b1-prompt/<contractId>/ the baseline's single call and naive apply
 │  └─ judge/                 independent GPT-5.6 judge calls used in the evaluation
@@ -17,6 +18,7 @@ trajectories/
    ├─ briefs/                the instructions given to each builder/reviewer agent (from plans/harness/briefs)
    ├─ codex/                 GPT-5.6 Sol sessions (Codex CLI JSONL event streams, one file per session)
    ├─ opus/                  Claude Opus 5 sessions (Claude Agent SDK tool logs + final reports)
+   ├─ reports/               final harness reports, linked to their briefs in INDEX.md
    └─ claude-code/           the lead orchestrator's Claude Code session transcript (Fable 5)
 ```
 

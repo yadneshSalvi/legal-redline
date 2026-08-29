@@ -72,6 +72,21 @@ Gold files are committed; `scripts/label-assist.ts` regenerates the LLM drafts (
 pnpm eval --all --live --judge live     # ≈ {{LIVE_EVAL_RUNTIME}} h wall-clock, ≈ {{LIVE_EVAL_COST}} USD
 ```
 
-## 8. Versions
+## 8. Trajectories
+
+```bash
+pnpm export-trajectories --config b1-prompt --contracts synth-hardcase
+pnpm export-trajectories --all-final       # b1-prompt + final, all 12 contracts
+pnpm export-human-sessions                 # review decisions → trajectories/human
+pnpm export-coding-traces                  # harness + lead traces, with redaction
+pnpm render-docs                           # result-backed README/changelog values + docs/results.md
+```
+
+For a local product run, use `pnpm export-trajectories --run <runId>`; add `--contract <id>` only to override
+its destination label. Each app export includes the redacted raw JSONL, final run and findings, an exact-system-prompt
+appendix, and a seq-linked narrated `README.md`. Missing campaign directories fail explicit exports instead of
+silently creating evidence. Coding transcripts over 50 MB are skipped and identified in their generated index.
+
+## 9. Versions
 
 {{VERSIONS_TABLE}}

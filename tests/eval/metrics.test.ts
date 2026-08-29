@@ -1,8 +1,12 @@
+import { mkdtemp } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import type { Finding } from "@/src/agent/types";
 import type { GoldFile } from "@/src/eval/gold";
-import { aggregateMetrics, computeContractMetrics, humanReviewLoad } from "@/src/eval/metrics";
+import { aggregateMetrics, computeContractMetrics, humanReviewLoad, readHumanReviewLoad } from "@/src/eval/metrics";
+import { atomicWriteJson } from "@/src/eval/io";
 import type { Rule } from "@/src/playbook/schema";
 
 import { documentFixture, findingFixture, statsFixture } from "./fixture";
@@ -76,6 +80,22 @@ describe("evaluation metrics", () => {
         { findings: [{}, {}, {}], decisions: [{ action: "accept" }, { action: "edit" }, { action: "reject" }] },
       ]),
     ).toEqual({ findings: 3, accepts: 1, edits: 1, rejects: 1, load: 2 / 3 });
+  });
+
+  it("reads exported observational sessions", async () => {
+    const root = await mkdtemp(path.join(tmpdir(), "redliner-human-sessions-"));
+    await atomicWriteJson(path.join(root, "run-1.json"), {
+      runId: "run-1",
+      decisions: [{ action: "accept" }, { action: "edit" }],
+      counts: { accept: 1, edit: 1, reject: 0 },
+    });
+    await expect(readHumanReviewLoad(root)).resolves.toEqual({
+      findings: 2,
+      accepts: 1,
+      edits: 1,
+      rejects: 0,
+      load: 0.5,
+    });
   });
 
   it("reports ambiguous items and matches without scoring them", () => {

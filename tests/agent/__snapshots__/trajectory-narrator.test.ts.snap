@@ -1,0 +1,167 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`trajectory narrator > renders a deterministic walk-through snapshot with trimmed tool results 1`] = `
+"# Trajectory: fixture-contract
+
+| Run | Value |
+|---|---|
+| Contract | fixture-contract — Test contract |
+| Config | final |
+| Parties | Customer (our party) ↔ Vendor |
+| Playbook | Fixture playbook (fixture-playbook) |
+| Wall clock | 1.5s (1,500 ms) |
+| Calls | 3 LLM · 4 tool · 1 retries |
+| Tokens | 100 input · 20 output · 30 cache read · 10 cache write |
+| Cost | $0.250000 |
+
+## How to read this
+
+Read the timeline first, then follow each playbook rule from the exact instructions through tool responses, validation, verifier feedback, the human checkpoint, and applied operations. Every \`seq\` link opens the corresponding raw JSONL line. Tool results are whitespace-compacted and capped at 400 characters here; \`trajectory.jsonl\` is the complete redacted record. Exact first system prompts are in \`prompts.md\`.
+
+## Stage timeline
+
+| Stage | Events | LLM calls | Tool calls | Outcome | Raw events |
+|---|---:|---:|---:|---|---|
+| ingest | 1 | 0 | 0 | — | [seq 1](trajectory.jsonl#L1)–[seq 1](trajectory.jsonl#L1) |
+| planner | 0 | 0 | 0 | — | — |
+| drafters | 7 | 1 | 3 | 1 submitted finding(s) | [seq 2](trajectory.jsonl#L2)–[seq 8](trajectory.jsonl#L8) |
+| verifier | 1 | 0 | 0 | 1 verdict(s) | [seq 9](trajectory.jsonl#L9)–[seq 9](trajectory.jsonl#L9) |
+| assembler | 1 | 0 | 0 | — | [seq 10](trajectory.jsonl#L10)–[seq 10](trajectory.jsonl#L10) |
+| memo | 0 | 0 | 0 | — | — |
+| human | 1 | 0 | 0 | 1 decision(s) | [seq 11](trajectory.jsonl#L11)–[seq 11](trajectory.jsonl#L11) |
+| apply | 1 | 0 | 0 | output written | [seq 12](trajectory.jsonl#L12)–[seq 12](trajectory.jsonl#L12) |
+
+## LOL-CAP — Liability cap
+
+### Drafter instructions
+
+[drafter system prompt](prompts.md#prompt-drafter) · [seq 2](trajectory.jsonl#L2)
+
+\`\`\`text
+ID: LOL-CAP
+Title: Liability cap
+Kind: parametric
+Summary: Use a meaningful mutual cap.
+\`\`\`
+
+### Tool trace
+
+- [seq 3](trajectory.jsonl#L3) **drafter → read_section**
+
+\`\`\`json
+{"sectionId":"sec-1"}
+\`\`\`
+
+- [seq 4](trajectory.jsonl#L4) **read_section result**
+
+\`\`\`json
+{"ok":true,"text":"Cap is three months. context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context…
+\`\`\`
+
+- [seq 5](trajectory.jsonl#L5) **drafter → propose_redline**
+
+\`\`\`json
+{"level":"preferred","summary":"Raise the cap.","comment":"[Playbook] We raised the cap.","ops":[{"kind":"replace","paragraphId":"p0001","oldText":"three","newText":"twelve"}]}
+\`\`\`
+
+- [seq 6](trajectory.jsonl#L6) **propose_redline result** — **validation accepted**
+
+\`\`\`json
+{"ok":true,"errors":[]}
+\`\`\`
+
+- [seq 7](trajectory.jsonl#L7) **drafter → submit_finding**
+
+\`\`\`json
+{"status":"deviation","quote":"Cap is three months."}
+\`\`\`
+
+- [seq 8](trajectory.jsonl#L8) **submit_finding result**
+
+\`\`\`json
+{"ok":true}
+\`\`\`
+
+### Submitted finding
+
+- Source: [seq 7](trajectory.jsonl#L7)
+- Finding: \`f-cap\` · **deviation** · confidence 0.95
+- Location: § 1 Liability
+- Quote: “Cap is three months.”
+- Rationale: The cap is below the preferred position.
+- Proposal: **preferred** — Raise the cap.
+- Comment: [Playbook] We raised the cap.
+- Proposed ops:
+
+\`\`\`json
+[
+  {
+    "kind": "replace",
+    "paragraphId": "p0001",
+    "oldText": "three",
+    "newText": "twelve"
+  }
+]
+\`\`\`
+
+### Verifier and repair feedback
+
+- [seq 9](trajectory.jsonl#L9) **Verdict: pass** — Valid and minimal. Checks: {"name":"operation applies","ok":true}.
+
+### Human checkpoint and applied ops
+
+- [seq 11](trajectory.jsonl#L11): **accept** by Fixture reviewer at 2026-01-01T00:01:00.000Z
+- Applied ops:
+
+\`\`\`json
+[
+  {
+    "kind": "replace",
+    "paragraphId": "p0001",
+    "oldText": "three",
+    "newText": "twelve"
+  }
+]
+\`\`\`
+
+## Memo
+
+No memo LLM call was made; this configuration used the deterministic memo renderer.
+
+\`\`\`markdown
+# Fixture memo
+\`\`\`
+
+## Apply and validation
+
+- [seq 12](trajectory.jsonl#L12) **Output validation passed**
+
+\`\`\`json
+{"ok":true,"trackedInsertions":1}
+\`\`\`
+
+- Final \`run.json\` validation report
+
+\`\`\`json
+{
+  "ok": true,
+  "trackedInsertions": 1
+}
+\`\`\`
+"
+`;
+
+exports[`trajectory narrator > snapshots exact first system prompts 1`] = `
+"# Exact system prompts
+
+The first \`llm_request\` for each model-backed agent is reproduced below after credential redaction.
+
+<a id="prompt-drafter"></a>
+## drafter — seq 2
+
+\`\`\`text
+You are the fixture drafter.
+Keep anchors verbatim.
+\`\`\`
+"
+`;
