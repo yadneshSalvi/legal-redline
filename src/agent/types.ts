@@ -61,6 +61,10 @@ export interface Finding {
   /** 0..1 */
   confidence: number;
   producedBy: AgentName;
+  /** Model spend attributable to this finding's drafter/verifier work. */
+  costUsd?: number;
+  /** Wall-clock time attributable to this finding's drafter/verifier work. */
+  durationMs?: number;
 }
 
 export type DecisionAction = "accept" | "reject" | "edit";
@@ -130,6 +134,7 @@ export interface RunStats {
   findings: number;
   bySeverity: Record<Severity, number>;
   byStatus: Record<FindingStatus, number>;
+  perRule?: Record<string, { costUsd: number; durationMs: number; llmCalls: number; retries: number }>;
 }
 
 export type RunStatus = "queued" | "running" | "awaiting_review" | "applied" | "failed";

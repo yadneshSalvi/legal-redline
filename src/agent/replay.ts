@@ -9,6 +9,8 @@ export interface CachedToolResult {
 export interface CachedResponse {
   response: unknown;
   toolResults?: CachedToolResult[];
+  /** Original model-call latency, retained so replayed finding metadata is deterministic. */
+  durationMs?: number;
 }
 
 export class ReplayCacheMiss extends Error {

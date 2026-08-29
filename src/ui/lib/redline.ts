@@ -2,16 +2,12 @@
  * Turns findings + human decisions into the segment stream the paper renders. Word-level, so a
  * rewritten sentence shows as the handful of words that actually changed (STYLE.md §2).
  */
-import { diffWords } from "diff";
 import type { Decision, Finding } from "@/src/agent/types";
-import type { DocumentModel, Paragraph, RedlineOp } from "@/src/engine/types";
+import { renderParagraph, wordDiff } from "@/src/engine/diff";
+import type { DiffSegment, DocumentModel, Paragraph, RedlineOp } from "@/src/engine/types";
 
-export type SegmentType = "equal" | "insert" | "delete";
-
-export interface Segment {
-  type: SegmentType;
-  text: string;
-}
+export type SegmentType = DiffSegment["type"];
+export type Segment = DiffSegment;
 
 export type ParagraphState = "clean" | "proposed" | "accepted" | "edited" | "rejected";
 
@@ -71,77 +67,6 @@ function mergeSegments(segments: Segment[]): Segment[] {
   return out;
 }
 
-/** Retained text shorter than this does not break a change run — see `wordDiffSegments`. */
-const SIGNIFICANT_RETAINED = 6;
-
-/**
- * Word-level diff, coarsened the way Word coarsens a comparison so a lawyer can read it.
- *
- * Two adjustments to the raw `diffWords` output:
- *  - when the two texts share almost nothing (< 30 % retained), show one deletion then one insertion
- *    rather than interleaving a wholly new sentence with the old one;
- *  - otherwise collapse each run of changes into a single strike followed by a single insertion,
- *    treating scraps of retained text ("and", "to", "a") as part of the change. Long common runs
- *    still break the diff, so the edit stays visibly surgical.
- */
-function wordDiffSegments(oldText: string, newText: string): Segment[] {
-  const parts = diffWords(oldText, newText);
-  const retained = parts
-    .filter((part) => !part.added && !part.removed)
-    .reduce((total, part) => total + part.value.trim().length, 0);
-  const longest = Math.max(oldText.trim().length, newText.trim().length);
-  if (longest > 0 && retained / longest < 0.3) {
-    return [
-      { type: "delete", text: oldText },
-      { type: "insert", text: newText },
-    ];
-  }
-
-  const out: Segment[] = [];
-  let removed = "";
-  let added = "";
-  const flush = () => {
-    if (removed.length === 0 && added.length === 0) return;
-    // Hoist words the two sides share at the front of the run back out as retained text, so an
-    // unchanged article does not appear struck and re-inserted.
-    const removedWords = removed.split(" ");
-    const addedWords = added.split(" ");
-    let shared = 0;
-    while (
-      shared < removedWords.length - 1 &&
-      shared < addedWords.length - 1 &&
-      removedWords[shared] === addedWords[shared]
-    ) {
-      shared += 1;
-    }
-    if (shared > 0) {
-      out.push({ type: "equal", text: `${removedWords.slice(0, shared).join(" ")} ` });
-      removed = removedWords.slice(shared).join(" ");
-      added = addedWords.slice(shared).join(" ");
-    }
-    if (removed.length > 0) out.push({ type: "delete", text: removed });
-    if (added.length > 0) out.push({ type: "insert", text: added });
-    removed = "";
-    added = "";
-  };
-
-  for (const part of parts) {
-    if (part.added) {
-      added += part.value;
-    } else if (part.removed) {
-      removed += part.value;
-    } else if (part.value.trim().length >= SIGNIFICANT_RETAINED) {
-      flush();
-      out.push({ type: "equal", text: part.value });
-    } else {
-      removed += part.value;
-      added += part.value;
-    }
-  }
-  flush();
-  return out;
-}
-
 function resolveState(touching: DecidedFinding[]): ParagraphState {
   if (touching.length === 0) return "clean";
   if (touching.some((t) => t.action === "edit")) return "edited";
@@ -191,21 +116,8 @@ export function renderDocument(doc: DocumentModel, decided: DecidedFinding[]): P
     if (deleted.has(paragraph.id)) {
       segments = [{ type: "delete", text: paragraph.text }];
     } else {
-      const ops = (replaceOps.get(paragraph.id) ?? [])
-        .map(({ op }) => ({ start: paragraph.text.indexOf(op.oldText), op }))
-        .filter((entry) => entry.start >= 0)
-        .sort((a, b) => a.start - b.start);
-
-      const built: Segment[] = [];
-      let cursor = 0;
-      for (const { start, op } of ops) {
-        if (start < cursor) continue;
-        if (start > cursor) built.push({ type: "equal", text: paragraph.text.slice(cursor, start) });
-        built.push(...wordDiffSegments(op.oldText, op.newText));
-        cursor = start + op.oldText.length;
-      }
-      if (cursor < paragraph.text.length) built.push({ type: "equal", text: paragraph.text.slice(cursor) });
-      segments = built;
+      const ops = (replaceOps.get(paragraph.id) ?? []).map(({ op }) => op);
+      segments = renderParagraph(doc, paragraph.id, ops);
     }
 
     rows.push({
@@ -273,7 +185,7 @@ export function proposalPreview(doc: DocumentModel, ops: RedlineOp[], limit = 16
       segments.push({ type: "equal", text: "\n" });
     }
     previousParagraph = op.paragraphId;
-    if (op.kind === "replace") segments.push(...wordDiffSegments(op.oldText, op.newText));
+    if (op.kind === "replace") segments.push(...wordDiff(op.oldText, op.newText));
     else if (op.kind === "insert_after") segments.push({ type: "insert", text: op.text });
     else segments.push({ type: "delete", text: byId.get(op.paragraphId)?.text ?? "" });
   }
