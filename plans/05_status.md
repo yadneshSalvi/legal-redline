@@ -11,6 +11,12 @@
   - `ui-workspace` (Opus xhigh, port 3101) → `src/tokens.ts`, `app/globals.css`, `app/layout.tsx`, `app/page.tsx`, `app/review/[runId]`, `app/runs`, `src/ui/**`
 - LibreOffice: `brew install --cask libreoffice` running in background (log `data/raw/libreoffice-install.log`).
 
+- Sat 23:34 — `engine` landed (20 min, 12 tests). Lead smoke: OOXML correct (w:ins/w:del/comments; LibreOffice PDF + docx round-trip keep
+  15/15/2), but numbered sub-clauses classified as headings, `"Term" means` definitions missed, choppy word diff on heavy rewrites.
+- Sat 23:45 — `review-engine` (Sol max): **revise**, 8 required fixes (destroys bookmarks/fields/SDTs in edited paragraphs; id→node mapping
+  breaks after inserts; overlapping anchors; numbering/headings; definitions; dates; XML control chars; validateDocx too lenient).
+  `engine-r2` sent (reviewer's 8 + lead's 4 + LibreOffice round-trip test). LibreOffice 26.8 installed.
+
 ## Decisions
 - Stack: TypeScript monorepo (Next 16.3 + pure-TS OOXML engine + Anthropic TS SDK), one `pnpm` toolchain — chosen over Python for a
   single reproducible runtime and Vercel deploy. Vercel team `yadneshsalvis-projects` (Pro → 800 s functions).
