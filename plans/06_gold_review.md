@@ -133,3 +133,14 @@ Every reviewed item → labeler `cuad+human` / `human`, reviewedBy "lead (legal 
 | g011–g014 | LOL-CAP | deviation ×4 | merge → deviation (p0035, p0036) | Contractor cap = fees paid for the particular Services; carve-out only for ¶9; consequential exclusion without carve-outs |
 | g015 | INSURANCE | deviation | deviation (low) | CGL/E&O $1M present, no cyber cover |
 | g016, g017 | INDEMN, TRANSITION | missing | missing | heading without operative indemnity |
+
+## Spot-check for the author (≈15 min) — the judgment calls most worth a second legal eye
+Run `pnpm exec tsx scripts/gold-review.ts list <contractId>` to see each item with its paragraph text. If you disagree, use
+`set <contractId> <itemId> --status … --note "…" --by author` then `promote <contractId>`; the log records your confirmation.
+1. cuad-americas: GOVLAW → compliant (NY law, venue silent). T4C → deviation (90-day exit but Net-Sales termination payment).
+2. cuad-bluefly: LOL-CAP merged deviation (greater of $100k / 12 months' charges *paid*, carve-outs thin). INDEMN → ambiguous (exclusive-remedy cap). WARRANTY → compliant ("reasonable care and skill").
+3. cuad-corio: GOVLAW → ambiguous (California law + AAA arbitration). IP → ambiguous. AUDIT → compliant ("reasonable notice", once yearly).
+4. cuad-sparkling: NOSOLICIT → deviation (mutual 12-month *no-hire* of involved staff). LOL-CAP → deviation (no aggregate cap at all).
+5. cuad-merit-life: NOSOLICIT → deviation (mild; no general-advertising carve-out). INSURANCE → deviation (no cyber cover).
+6. cuad-kubient: T4C → deviation (mild; 90-day right only after the Initial Term). LOL-CAP → deviation (no aggregate cap).
+7. synth-hardcase: LOL-CAP deviation relies on §1.5 "Fees" → §1.6 "Implementation Fee" (USD 12,000); T4C compliant via §9.4 ↔ §29.4.

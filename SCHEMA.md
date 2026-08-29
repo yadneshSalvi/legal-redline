@@ -112,6 +112,10 @@ Baselines: `b1-prompt` = one `messages.parse` with the numbered paragraphs + pla
 Run state is persisted after every finding, so a page reload during a run shows partial results and can
 re-attach to the stream (`?after=<seq>`).
 
+Execution is single-instance at any moment via a best-effort lease in `run.json`; another instance polls
+persisted findings/stats every two seconds while the lease is fresh, and may resume incomplete rules after
+the 60-second lease timeout. This polling fallback is not a transactional distributed job queue.
+
 ## 7. Trajectories
 
 `runs/<runId>/trajectory.jsonl` — one `TrajectoryEvent` per line, `seq` monotonic. `scripts/export-trajectories.ts`

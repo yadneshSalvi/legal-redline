@@ -1,6 +1,8 @@
+import { resolve } from "node:path";
+
 import { describe, expect, it } from "vitest";
 
-import { assertEvaluationLabelers, carryDraftLabels, GoldFileSchema } from "@/src/eval/gold";
+import { assertEvaluationLabelers, carryDraftLabels, GoldFileSchema, loadGold } from "@/src/eval/gold";
 
 describe("GoldFileSchema", () => {
   it("accepts a well-formed gold file", () => {
@@ -100,5 +102,22 @@ describe("GoldFileSchema", () => {
       items: [{ id: "g01", ruleId: "T4C", paragraphIds: [], status: "missing", labeler: "synthetic-exact" }],
     });
     expect(() => assertEvaluationLabelers("synth-example", synthetic)).not.toThrow();
+  });
+
+  it("accepts every promoted CUAD contract through the evaluation labeler gate", async () => {
+    const contractIds = [
+      "cuad-americas-shopping-mall-hosting",
+      "cuad-bluefly-hosting",
+      "cuad-bnc-mortgage-hosting",
+      "cuad-corio-hosting",
+      "cuad-kubient-msa-part1",
+      "cuad-merit-life-master-services",
+      "cuad-sfg-financial-license",
+      "cuad-sparkling-spring-license",
+    ];
+    for (const contractId of contractIds) {
+      const gold = await loadGold(resolve("data/contracts", contractId, "gold.json"));
+      expect(() => assertEvaluationLabelers(contractId, gold)).not.toThrow();
+    }
   });
 });

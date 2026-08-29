@@ -274,7 +274,12 @@ async function appendPromotionLog(contractId: string, draft: GoldFile): Promise<
     existing = "# Gold-label promotion log\n\n";
   }
   const reviewers = [...new Set(draft.items.map((item) => item.reviewedBy ?? "unrecorded"))].sort().join(", ");
-  const line = `- ${new Date().toISOString()} · ${contractId} · ${draft.items.length} items · ${reviewers}\n`;
+  const count = (status: GoldItem["status"]): number => draft.items.filter((item) => item.status === status).length;
+  const distinct = draft.items.filter((item) => item.distinct === true).length;
+  const line =
+    `- ${new Date().toISOString()} · ${contractId} · ${draft.items.length} items ` +
+    `(deviation ${count("deviation")}, compliant ${count("compliant")}, missing ${count("missing")}, ` +
+    `ambiguous ${count("ambiguous")}; distinct ${distinct}) · reviewedBy: ${reviewers}\n`;
   await atomicWrite(LOG_PATH, `${existing.trimEnd()}\n${line}`);
 }
 
