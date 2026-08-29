@@ -83,3 +83,7 @@
   ok everywhere, $0.35/contract, 105 s/contract. Strategic reframing for the changelog: detection is near-saturated for a frontier model with full
   context; the pipeline must win on validity / minimality / hallucination / escalation quality and on cost per *valid* redline, not on F1 alone.
 - Sun 01:25 — `ui-workspace` r2 landed ($17.84): all 12 review fixes with measurements; committed `ed6854d`, pushed. Curated screenshots → `docs/screenshots/`.
+- Sun 01:35 — `ui-evidence` landed ($26.03): /evals, /trajectories/[runId], /precedents, /runs polish — merged (3 conflicts resolved by lead), all
+  routes 200 locally. `submission-pack` landed: trajectory narrator (README per run + prompts.md), `render-docs`, `export-coding-traces`
+  (redacted), `export-human-sessions` — merged `8a63b62`, 121 tests, pushed. Worktrees removed. Campaign: i1-docmodel 6/12 at 01:35.
+  TODO: fix coding-trace INDEX attribution (Opus SDK transcripts in ~/.claude/projects are labelled as lead sessions).
