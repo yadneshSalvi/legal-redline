@@ -103,3 +103,6 @@
 - Sun 02:10 — i2-workers: F1 0.840 (P 0.76 / R **0.96**, FN 4), esc 1, validity 47 %, minimality 26 %, halluc 4.6 %, $3.26/contract.
   Validity components (passing/eligible): applies 100 % in every config; checks ~82 %; **judge** b0 27 % → b1 46 % → i1 49 % → i2 59 %;
   judge drafting_quality mean 2.84 → 3.46 → 3.48 → 3.70. The independent judge is the discriminating component — narrative for the changelog.
+- Sun 02:15 — `video-pipeline` landed: `plans/video/bin/{tts,record.sh,cards,word-still,assemble}`; placeholder render 3:19 (16 narrated beats,
+  1080p30 h264/aac). Final cut TODO: fill `plans/video/narration.json` + card data with real numbers, re-record `workspace-run`/`findings-arrive`
+  against a real `final` run, choose a redline-heavy Word page for the cold open, hot-take line.
