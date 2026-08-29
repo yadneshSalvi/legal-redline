@@ -142,6 +142,16 @@ function wordDiffSegments(oldText: string, newText: string): Segment[] {
   return out;
 }
 
+/**
+ * A word-level diff between two plain clauses, for anything that is not a document paragraph — the
+ * precedent bank's before → after, for instance.
+ */
+export function diffSegments(before: string, after: string): Segment[] {
+  if (before.trim() === "") return mergeSegments([{ type: "insert", text: after }]);
+  if (after.trim() === "") return mergeSegments([{ type: "delete", text: before }]);
+  return mergeSegments(wordDiffSegments(before, after));
+}
+
 function resolveState(touching: DecidedFinding[]): ParagraphState {
   if (touching.length === 0) return "clean";
   if (touching.some((t) => t.action === "edit")) return "edited";

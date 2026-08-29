@@ -17,6 +17,14 @@ const groups: { title: string; items: { keys: string[]; label: string }[] }[] = 
     ],
   },
   {
+    title: "Reading a trajectory",
+    items: [
+      { keys: ["J"], label: "Next event" },
+      { keys: ["K"], label: "Previous event" },
+      { keys: ["Enter"], label: "Expand or collapse the selected event's payload" },
+    ],
+  },
+  {
     title: "Everywhere",
     items: [
       { keys: ["?"], label: "Open this list" },

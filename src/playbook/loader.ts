@@ -21,6 +21,31 @@ export async function loadPlaybook(idOrPath: string): Promise<Playbook> {
   return PlaybookSchema.parse(parseYaml(raw));
 }
 
+/**
+ * Thrown when a playbook id does not resolve to a file in `data/playbooks`, so the API can answer
+ * 404 rather than 500. Imported by `app/api/runs/route.ts`.
+ */
+export class PlaybookNotFound extends Error {
+  constructor(readonly id: string) {
+    super(`Unknown playbook: ${id}`);
+    this.name = "PlaybookNotFound";
+  }
+}
+
+/**
+ * Loads a playbook by **id only** — never a path — so a request parameter can never be turned into
+ * an arbitrary file read. Unknown ids raise `PlaybookNotFound`.
+ */
+export async function loadPlaybookById(id: string): Promise<Playbook> {
+  if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,80}$/.test(id)) throw new PlaybookNotFound(id);
+  try {
+    return await loadPlaybook(id);
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") throw new PlaybookNotFound(id);
+    throw error;
+  }
+}
+
 export async function listPlaybooks(): Promise<Playbook[]> {
   const files = (await readdir(PLAYBOOK_DIR))
     .filter((file) => file.endsWith(".yaml") || file.endsWith(".yml"))
