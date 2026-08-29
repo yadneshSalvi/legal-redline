@@ -193,7 +193,7 @@ rules:
         max: 12
       - type: regex_present
         label: general-solicitation carve-out present
-        pattern: "general (solicitation|advertis)"
+        pattern: "(general(ly)?[- ](solicitation|advertis|public)|job (posting|board|advertisement)|not (specifically |directly )?target|unsolicited)"
         flags: i
 
   - id: T4C
@@ -251,7 +251,7 @@ rules:
     checks:
       - type: number_max
         label: non-renewal notice window ≤ 60 days
-        pattern: "(\\d{2,3})\\s*(?:\\(\\d{2,3}\\)\\s*)?days['’]? (?:prior |before |advance )?(?:written )?notice"
+        pattern: "(\\d{1,3})\\s*(?:\\(\\d{1,3}\\)\\s*)?[- ]?days?['’]?[^.;]{0,40}?notice"
         max: 60
 
   - id: GOVLAW
@@ -370,7 +370,7 @@ rules:
     checks:
       - type: regex_present
         label: audit frequency limited
-        pattern: "(once|one time|one \\(1\\) time) (per|in any|every|each) (twelve \\(12\\) months|12 months|year|calendar year)"
+        pattern: "(once|one time|one \\(1\\) time|a single audit)[^.]{0,20}?(per|in any|every|each|during any|within any) (twelve[- ]\\(?12\\)?[- ]?months?|12[- ]months?|twelve[- ]month|year|calendar year|annual period|contract year)"
         flags: i
 
   - id: LD
@@ -412,10 +412,10 @@ rules:
       all material respects to its documentation. Customer's remedy for breach of this warranty is, at Vendor's option,
       re-performance, repair or replacement, or a refund of the fees paid for the non-conforming Services or Deliverable.
     checks:
-      - type: number_min
-        label: warranty period ≥ 90 days (or expressed in months)
-        pattern: "(\\d{2,3})\\s*(?:\\(\\d{2,3}\\)\\s*)?days"
-        min: 90
+      - type: regex_present
+        label: warranty period ≥ 90 days or expressed in months/years
+        pattern: "\\b(9\\d|[1-9]\\d{2,})\\s*(?:\\(\\d+\\)\\s*)?days|\\b(\\d+|one|two|three|six|twelve)\\s*(?:\\(\\d+\\)\\s*)?(?:months?|years?)"
+        flags: i
 
   - id: INSURANCE
     title: Vendor insurance

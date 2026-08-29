@@ -68,12 +68,21 @@ function deterministicChecks(document: DocumentModel, rule: Rule, finding: Findi
       .filter((part) => part.added || part.removed)
       .reduce((sum, part) => sum + part.value.length, 0);
     const ratio = changed / Math.max(op.oldText.length, op.newText.length, 1);
-    checks.push({ name: `minimal edit ${op.paragraphId}`, ok: ratio <= 0.6, detail: `changed-character ratio=${ratio.toFixed(3)}` });
+    checks.push({
+      name: `minimal edit ${op.paragraphId}`,
+      ok: ratio <= 0.6,
+      detail: `changed-character ratio=${ratio.toFixed(3)} (advisory: whole-clause rewrites are acceptable when the rule requires them)`,
+    });
   }
   if ((finding.status === "deviation" || finding.status === "missing") && !finding.proposal) {
     checks.push({ name: "proposal present", ok: false, detail: "Deviation/missing finding has no proposal" });
   }
   return { checks, rendered };
+}
+
+/** Checks whose failure blocks a finding regardless of the model's verdict. */
+function isHardCheck(name: string): boolean {
+  return /^operation \d+ applies$/.test(name) || name === "redline renders" || name === "proposal present";
 }
 
 function originalContext(document: DocumentModel, finding: Finding): string {
@@ -127,10 +136,17 @@ export async function verifyFinding(input: {
     ],
     schema: VerifierOutputSchema,
   });
+  // Hard gates are mechanical facts (anchors resolve, the redline renders, a deviation carries a proposal).
+  // Rule regexes and the minimality ratio are heuristics: they are evidence for the verifier model, not verdicts.
   const failedChecks = deterministic.checks.filter((check) => !check.ok);
-  const pass = response.data.verdict === "pass" && failedChecks.length === 0;
+  // A finding labelled compliant must satisfy the rule's own checks on the untouched clause; a failure there
+  // sends it back to the drafter (which may re-classify it as a deviation, or escalate it after repairs).
+  const hardFailures = failedChecks.filter(
+    (check) => isHardCheck(check.name) || (input.finding.status === "compliant" && !check.name.startsWith("minimal edit")),
+  );
+  const pass = response.data.verdict === "pass" && hardFailures.length === 0;
   const reasons = [
-    ...failedChecks.map((check) => `${check.name}: ${check.detail ?? "failed"}`),
+    ...hardFailures.map((check) => `${check.name}: ${check.detail ?? "failed"}`),
     ...response.data.reasons,
   ];
   const severity = (response.data.severityAdjustment ?? input.finding.severity) as Severity;
