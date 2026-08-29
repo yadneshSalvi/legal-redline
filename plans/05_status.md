@@ -74,3 +74,7 @@
 - Sun 01:05 — campaign b1-prompt aborted at scoring (transient: r5 was editing synthetic gold mid-run); caches intact; gate now passes; b1 re-scored
   via `--allow-live` (log `campaign-b1-prompt-rescore.log`). Campaign continues with b0-chat → … Synthetic gold r5: 9 `ambiguous` overlap items.
   Verifier smoke after soft-check fix: 16 pass / 1 repaired / 1 fail (was 7 fails); written-number parsing added (code only, no cache impact).
+- Sun 01:10 — `scripts/export-trajectories.ts --run <id> --contract <id>` works (trajectory.jsonl + run.json) but does **not** write the narrated per-run
+  README promised in `trajectories/README.md` → add a deterministic narrator (submission brief). Docker daemon was down; started Docker Desktop, build queued.
+- Sun 01:20 — Docker clean-env image builds (4.4 GB, LibreOffice 7.4 inside); `docker run --rm playbook-redliner pnpm test` → 117/117 pass.
+  Opus builders (`ui-workspace` r2, `ui-evidence`) were killed with their task wrappers → resumed detached (nohup); b1 re-score relaunched detached.
