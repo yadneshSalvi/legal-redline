@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXfYipFGzvWpvPyNaHSY",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01JFcKcDbLTuWzSg79aRUqEx",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0047"
+          ],
+          "quote": "13. NON-SOLICITATION OF EMPLOYEES. Neither party shall, during the term of this Agreement and for one (1) year after its termination, solicit for hire as an employee, consultant or otherwise any of the other party's personnel who have had direct involvement with the Services, without such other party's express written consent, which shall not be unreasonably withheld.",
+          "rationale": "Section 13 binds Clear Capital (as well as RadialSpark) to a non-solicit. It is already close to our fallback: mutual, limited to personnel with direct involvement in the Services, and only 12 months post-termination, with no no-hire prohibition (it restricts soliciting for hire, not hiring as such). The single gap is the absence of carve-outs for general advertisements/job postings and unsolicited approaches, which our playbook requires. Because the clause is mutual and narrowly scoped, insisting on the preferred position (no non-solicit at all) is disproportionate; we propose the minimal fallback edit adding the carve-out sentence.",
+          "confidence": 0.86,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Add general-advertising and unsolicited-approach carve-outs to the mutual non-solicitation clause.",
+            "comment": "[Playbook] We accept a mutual, narrowly scoped non-solicit, but we need the standard carve-outs so ordinary hiring activity is not caught: general advertisements and job postings not targeted at the other party's personnel, and responses to unsolicited approaches. This keeps the clause at our fallback position without changing its 12-month duration or its limitation to personnel directly involved in the Services.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0047",
+                "oldText": "without such other party's express written consent, which shall not be unreasonably withheld.",
+                "newText": "without such other party's express written consent, which shall not be unreasonably withheld. Notwithstanding the foregoing, nothing in this section shall restrict either party from (i) placing general advertisements or job postings not specifically targeted at the other party's personnel, or hiring any person who responds to such advertisements or postings, or (ii) hiring any person who approaches that party on an unsolicited basis or who is no longer employed or engaged by the other party."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1261,
+      "cache_read_input_tokens": 5758,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1261,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 893,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10089
+}

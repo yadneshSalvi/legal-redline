@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXfAGbZ6yJVdGCWFvqVy",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll start by inspecting the document structure and the candidate sections."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01GbJQwq1NMZ6PM762sLU2K7",
+        "name": "list_sections",
+        "input": {},
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_012rgZpAPnYHmjkhFdPLSt3C",
+        "name": "search",
+        "input": {
+          "query": "indemnif",
+          "limit": 30
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1013,
+      "cache_read_input_tokens": 2953,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1013,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 116,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "list_sections",
+      "ruleId": "INDEMN",
+      "sha256": "79f3edd02a609ede3482477ce99e722ffb086e029a5e3fd90b96b5b007ca2831"
+    },
+    {
+      "name": "search",
+      "ruleId": "INDEMN",
+      "sha256": "00ab2abcf8da80ba73944a54f5371a229fb9418f4d435906b3c83df3a7923817"
+    }
+  ],
+  "durationMs": 2519
+}

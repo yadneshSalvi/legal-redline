@@ -1,0 +1,74 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXgFc7oxHU1TqSb4VxGS",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "thinking",
+        "thinking": "",
+        "signature": "CAISkwQKjgEIERgCKkDEb3W+cfdBgbEcyAX3fKAaLUQq7MLu9LkFL5vc5W7wV6kwWi62ZJWib2hiBZDz9oTFJ3bhr3KCd61yJ1idQym/Mg1jbGF1ZGUtb3B1cy01OAFCCHRoaW5raW5nWiQ0NDcyZGFmNS1lOTVkLTQzNzMtOWEzZS01ZDRhMTA3ZGJhNmWoAZ6EzdQGEgyI9sbhs/EQG99HXcYaDJC16yAh9VXL9uDXYyIw9u/O82pQpr15d9RmpYw63JKgeWzVAE95IfcOqlJz62JU8wfPp9QTW5XbdGEeE/f/KrEC4TpbhA6zuGRISEGmqaV0JdI3z4CYFVK1rrqIWbz2FifTnwd/8koqcp56GGjb59NbYIr+lBN3VZbaahrywm5OHvs0gZ4f0T6d3xLjwDSQvj7uRp1i+/50Dw+pj+gxN1NDjDmWfJK8tLK1N/x0lRElZLLFj0KkVJWWvbNUSvsAVVST4qmwc+yyJgcE2cSfWJfdAq1VAP+H5W8AbRLyUIKdZGNEVoh7c4UixJVeTFj49oE1vkuS+f+DI+gFKguZuavcDgXexyJZFznAVHlqlXYVJPUh1J/ke2j8pqGRcqtWH9XrS2CTmEpljRwk6hQZpvXLIs0+NwljrSrvlhYHeHeCQo/NzqRO7Udsb8hLIfZEDnhZ2U2BJ84xFYaFhl1CB+XSoGGVBd2YiqE6v9DugGSS8bIYAQ=="
+      },
+      {
+        "type": "text",
+        "text": "Customer's 30-day convenience right with refund looks aligned. Now let me check Section 10 for early-termination charges and search for any Vendor convenience right."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01PxmGhGYQ8SfmGCJ4ZXJG1j",
+        "name": "read_section",
+        "input": {
+          "sectionId": "sec-10"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01Pm9QGJ6m5iPnuM5hKAZvgo",
+        "name": "search",
+        "input": {
+          "query": "without cause|for convenience|early termination|termination fee|terminate this Agreement",
+          "regex": true,
+          "limit": 30
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1066,
+      "cache_read_input_tokens": 6146,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1066,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 311,
+      "output_tokens_details": {
+        "thinking_tokens": 95
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "read_section",
+      "ruleId": "T4C",
+      "sha256": "fee9c283480f97790bf478062cf11e30479daa099b7d3e77671f49adf40dbe3e"
+    },
+    {
+      "name": "search",
+      "ruleId": "T4C",
+      "sha256": "6ea01690eb46c876b0d29f62c9eba99770b4de260c99c7a43df889de430d8e4f"
+    }
+  ],
+  "durationMs": 4887
+}

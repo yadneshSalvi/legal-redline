@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXerRfFvnNXQTzWVeMWo",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_0188U41DwhpqaaPscMwk3Ucv",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0132",
+            "p0137"
+          ],
+          "quote": "IBM reserves the right to investigate potential violations of the representations and warranties in Subsection 11.2(b).",
+          "rationale": "There is no standalone audit clause, but § 11.3 gives IBM an open-ended right to investigate Customer's compliance with the § 11.2(b) warranties. The right is unlimited in frequency, requires no advance notice of the investigation itself (p0137's best-efforts notice applies only before restricting access or removing Content), is not limited to business hours, is not performed by an independent auditor under confidentiality, allocates no cost, and does not exclude access to Customer systems. Unlimited/unannounced investigation of our usage sits at the playbook walk-away line, so we insert the standard frequency, notice, business-hours, confidentiality, cost and no-system-access limits by a single added paragraph, with a 15-day/10% fallback available.",
+          "confidence": 0.72,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Add frequency, notice, business-hours, confidentiality, cost and no-system-access limits on IBM's investigation right in § 11.3.",
+            "comment": "[Playbook] IBM's investigation right in 11.3 is currently unlimited and unannounced, so we have added our standard audit guardrails: once per 12 months, 30 days' notice (with an emergency carve-out), business hours, an independent auditor under confidentiality, IBM's cost unless a breach or a >5% underpayment is found, and no access to our systems. We can accept 15 days' notice and a 10% underpayment threshold as a fallback.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0137",
+                "text": "Any investigation under this Subsection 11.3 will be conducted no more than once in any twelve (12) month period, upon at least thirty (30) days' prior written notice to Customer (except where IBM reasonably believes immediate action is necessary to prevent material harm), during Customer's normal business hours, and by an independent third-party auditor bound by written confidentiality obligations no less protective than those of this Agreement. IBM will bear all costs of each such investigation unless it establishes a breach by Customer of Subsection 11.2(b) or an underpayment by Customer exceeding five percent (5%) of amounts due. IBM will have no right of access to, and Customer will not be required to provide remote access to, Customer's systems, networks or facilities; Customer will instead cooperate reasonably by providing relevant records and information."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1319,
+      "cache_read_input_tokens": 9253,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1319,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 970,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "AUDIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9959
+}

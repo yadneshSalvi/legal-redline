@@ -1,0 +1,57 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXetYAUup2PiKYAPau3a",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01JDjYKEDMugfA3nFGcgVQ39",
+        "name": "propose_redline",
+        "input": {
+          "ops": [
+            {
+              "kind": "replace",
+              "paragraphId": "p0026",
+              "oldText": "(a) In the event the Company terminates this Agreement, the Company shall pay to HDI a termination payment, (the \"Termination Payment\") the amount of which shall be an amount equal to the aggregate Net Sales for the twelve (12) months preceding the Termination Date less $800,000, the balance of which shall be divided by two.",
+              "newText": "(a) In the event the Company terminates this Agreement for convenience pursuant to Section 4.1, the Company shall pay to HDI a termination payment (the \"Termination Payment\") in an amount equal to the aggregate payments made by the Company to HDI under Section 3.1 in respect of the three (3) calendar months immediately preceding the Termination Date. The Termination Payment shall be HDI's sole and exclusive monetary remedy in respect of such termination, and no Termination Payment, penalty, liquidated damages or other stipulated amount shall be payable by the Company where the Company terminates this Agreement as a result of HDI's breach of this Agreement or pursuant to Section 1.6."
+            }
+          ],
+          "comment": "[Playbook] We do not accept liquidated damages or penalties payable by the Company, so we have replaced the Termination Payment formula (50% of trailing twelve-month Net Sales above $800,000) with our fallback cap of three months' fees under Section 3.1. Recognising that HDI bears the Site development costs under Section 1.2, we are content to leave a capped early-termination fee, but it must be the sole remedy and cannot be triggered where we terminate for HDI's breach or under Section 1.6.",
+          "level": "fallback",
+          "summary": "Cap the Customer-payable Termination Payment at three months' fees and disapply it on termination for HDI's breach."
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1167,
+      "cache_read_input_tokens": 12209,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1167,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 692,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "propose_redline",
+      "ruleId": "LD",
+      "sha256": "32ad750ec253ef81c0853d81d96cc220b3ba6ada77144787a5cdcf195a77c52d"
+    }
+  ],
+  "durationMs": 7573
+}
