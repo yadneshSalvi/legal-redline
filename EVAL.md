@@ -24,12 +24,12 @@ HOSTING`, `SFGFINANCIALCORP…SOFTWARE LICENSE AND MAINTENANCE` [alternates: `DY
 `GlobalTechnologiesGroup…Content License`, `DYNAMEXINC…TRANSPORTATION SERVICES`].
 `ourParty` is the customer/licensee/client side of each contract.
 
-**Hard case** (`synth-hardcase`, fixed construction, not random): (a) the liability cap reads "12 months' Fees"
-but "Fees" is *defined* elsewhere as the one-off Implementation Fee (illusory cap → deviation, only visible by
-resolving the definition); (b) a non-compete that binds the **Vendor** (decoy → compliant); (c) an MFN in
-Customer's favour (decoy → compliant); (d) Customer's convenience-termination right split across two sections
-via a cross-reference (compliant, but naive readers flag it as missing); (e) a Customer-payable early-termination
-fee buried in the fees schedule (deviation, LD).
+**Hard case** (`synth-hardcase`, fixed construction, not random): (a) the liability cap refers to twelve months of
+"Fees", which resolves through a separate definition to a USD 12,000 one-off Implementation Fee (illusory cap →
+deviation); (b) a non-compete that binds the **Vendor** (decoy → compliant); (c) an MFN in Customer's favour
+(decoy → compliant); (d) Customer's convenience-termination right split across two sections via a cross-reference
+(compliant, but naive readers flag it as missing); (e) punitive Customer-payable weekly liquidated damages for a
+late invoice, independent of the termination right (deviation, LD).
 
 ## 2. Gold format (`gold.json`)
 
@@ -46,7 +46,14 @@ fee buried in the fees schedule (deviation, LD).
   ]
 }
 ```
-`status ∈ deviation | missing | compliant`. Compliant items exist so that over-flagging is penalised.
+`status ∈ deviation | missing | compliant | ambiguous`. Compliant items exist so that over-flagging is penalised.
+`ambiguous` marks clauses where two careful lawyers could reasonably differ; they are **excluded from scoring**
+(findings matching them are neither TP nor FP) and their count is reported.
+
+**One gold item per rule per contract.** A rule is a single review question, so the gold carries one item per
+rule with the union of the relevant paragraph ids (and CUAD categories), unless the human reviewer marks items
+`distinct: true` because they are genuinely separate clauses (e.g. two different non-competes). Without this a
+single correct finding would score one TP and several FNs against fragmented drafts.
 
 ## 3. Matching
 
@@ -57,6 +64,7 @@ A finding **matches** a gold item when `ruleId` is equal and either the paragrap
 - **FP**: a finding with status `deviation|missing` that matches no gold `deviation|missing` item (includes flagging a gold `compliant` clause).
 - **FN**: gold `deviation|missing` with no matching finding of status `deviation|missing`.
 - `needs_review` findings count as neither TP nor FP for F1 but are reported separately ("escalations").
+- Findings that match an `ambiguous` gold item are ignored for TP/FP/FN (reported as "ambiguous matches").
 
 ## 4. Metrics (per contract, then macro-average; micro also reported)
 

@@ -42,3 +42,7 @@
 ## Open items / risks
 - Background-task timeout: verify the four builder processes survive > 10 min; if killed, relaunch with `nohup … &` and `--resume`.
 - `radix-ui` pinned 1.4.3 (installed fine; latest 1.6.7).
+
+## UI notes for review (lead, Sun 00:15)
+- Workspace pass1d looks on-spec. Watch: disabled "Export .docx" button text nearly invisible on navy (contrast); verify keyboard nav; the
+  dense-change grouping in the preview should match the engine's post-r2 rendering.
