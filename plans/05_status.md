@@ -78,3 +78,7 @@
   README promised in `trajectories/README.md` → add a deterministic narrator (submission brief). Docker daemon was down; started Docker Desktop, build queued.
 - Sun 01:20 — Docker clean-env image builds (4.4 GB, LibreOffice 7.4 inside); `docker run --rm playbook-redliner pnpm test` → 117/117 pass.
   Opus builders (`ui-workspace` r2, `ui-evidence`) were killed with their task wrappers → resumed detached (nohup); b1 re-score relaunched detached.
+- Sun 01:15 — **b1-prompt baseline results** (12 contracts, Opus 5 single prompt + playbook): macro F1 **0.85** (P 0.81 / R 0.91), micro TP 84 / FP 24 /
+  FN 10, synthetic 4/4 at 100 % (incl. hard case), redline validity **41 %**, minimality **18 %**, citation hallucination **10.8 %** (30/279), integrity
+  ok everywhere, $0.35/contract, 105 s/contract. Strategic reframing for the changelog: detection is near-saturated for a frontier model with full
+  context; the pipeline must win on validity / minimality / hallucination / escalation quality and on cost per *valid* redline, not on F1 alone.
