@@ -87,3 +87,6 @@
   routes 200 locally. `submission-pack` landed: trajectory narrator (README per run + prompts.md), `render-docs`, `export-coding-traces`
   (redacted), `export-human-sessions` — merged `8a63b62`, 121 tests, pushed. Worktrees removed. Campaign: i1-docmodel 6/12 at 01:35.
   TODO: fix coding-trace INDEX attribution (Opus SDK transcripts in ~/.claude/projects are labelled as lead sessions).
+- Sun 01:45 — coding-trace INDEX fixed (Opus SDK transcripts labelled; ui-evidence/submission-pack recovered from SDK/Codex stores after worktree
+  removal deleted their gitignored logs). `trajectories/coding-agents/` (92 MB; lead transcript 14 MB, ui-workspace transcript 42 MB) is NOT
+  committed yet — commit once at submission time. Campaign: i1-docmodel 7/12 at 01:45.
