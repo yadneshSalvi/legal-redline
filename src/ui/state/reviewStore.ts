@@ -37,6 +37,9 @@ export interface WorkerChip {
 
 export const boardOrder: AgentName[] = ["ingest", "planner", "drafter", "verifier", "assembler"];
 
+/** A `ProgressEvent` as it arrives on the wire: the stream route prefixes a monotonic `seq`. */
+export type SequencedProgressEvent = ProgressEvent & { seq?: number };
+
 interface ReviewState {
   run: ReviewRun | null;
   loading: boolean;
@@ -53,6 +56,8 @@ interface ReviewState {
   hoveredId: string | null;
   expanded: string[];
   editing: string | null;
+  /** Highest stream `seq` applied; frames at or below it are replays and are dropped. */
+  lastSeq: number;
   /** Set once the docx has been produced by POST /api/runs/[id]/apply. */
   exported: boolean;
   persist: boolean;
@@ -64,7 +69,7 @@ interface ReviewState {
   setStreamOpen: (open: boolean) => void;
   setPrecedents: (precedents: Precedent[]) => void;
   setWorkerStats: (stats: Record<string, { costUsd: number; durationMs: number }>) => void;
-  applyEvent: (event: ProgressEvent) => void;
+  applyEvent: (event: SequencedProgressEvent) => void;
 
   setFilter: (filter: FilterId) => void;
   select: (findingId: string | null) => void;
@@ -94,6 +99,7 @@ const emptyState = {
   hoveredId: null,
   expanded: [] as string[],
   editing: null,
+  lastSeq: 0,
   exported: false,
   persist: false,
 };
@@ -134,16 +140,35 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
       persist: options?.persist ?? s.persist,
       decisions: Object.keys(s.decisions).length > 0 ? s.decisions : run.decisions,
       selectedId: s.selectedId ?? orderFindings(run.findings)[0]?.id ?? null,
+      // `stats.perRule` is what a re-attached run has instead of live `worker` frames, so the cards
+      // can still show cost and time.
+      workerStats: {
+        ...Object.fromEntries(
+          Object.entries(run.stats.perRule ?? {}).map(([ruleId, entry]) => [
+            ruleId,
+            { costUsd: entry.costUsd, durationMs: entry.durationMs },
+          ]),
+        ),
+        ...s.workerStats,
+      },
     })),
 
   applyEvent: (event) =>
     set((s) => {
+      // A backoff reconnect asks for `?after=<lastSeq>`, but a server that replays more than we
+      // asked for must not duplicate log lines or re-apply a stale `stats` frame.
+      if (typeof event.seq === "number" && event.seq <= s.lastSeq) return {};
+      const seqPatch = typeof event.seq === "number" ? { lastSeq: event.seq } : {};
       switch (event.type) {
         case "status":
-          return { run: s.run ? { ...s.run, status: event.status as RunStatus } : s.run };
+          return { ...seqPatch, run: s.run ? { ...s.run, status: event.status as RunStatus } : s.run };
         case "stage":
           return {
-            stages: { ...s.stages, [event.agent]: { agent: event.agent, state: event.state, label: event.label, durationMs: event.durationMs } },
+            ...seqPatch,
+            stages: {
+              ...s.stages,
+              [event.agent]: { agent: event.agent, state: event.state, label: event.label, durationMs: event.durationMs },
+            },
           };
         case "worker": {
           const next = [...s.workers];
@@ -163,24 +188,31 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
             event.costUsd !== undefined && event.durationMs !== undefined
               ? { ...s.workerStats, [event.ruleId]: { costUsd: event.costUsd, durationMs: event.durationMs } }
               : s.workerStats;
-          return { workers: next, workerStats };
+          return { ...seqPatch, workers: next, workerStats };
         }
         case "finding": {
           if (!s.run) return {};
-          if (s.run.findings.some((f) => f.id === event.finding.id)) return {};
+          if (s.run.findings.some((f) => f.id === event.finding.id)) return seqPatch;
           const findings = [...s.run.findings, event.finding];
-          return { run: { ...s.run, findings }, selectedId: s.selectedId ?? event.finding.id };
+          return { ...seqPatch, run: { ...s.run, findings }, selectedId: s.selectedId ?? event.finding.id };
         }
-        case "log":
-          return { logs: [...s.logs, `${event.agent} · ${event.line}`].slice(-24) };
+        case "log": {
+          const line = `${event.agent} · ${event.line}`;
+          if (s.logs[s.logs.length - 1] === line) return seqPatch;
+          return { ...seqPatch, logs: [...s.logs.filter((entry) => entry !== line), line].slice(-24) };
+        }
         case "stats":
-          return { run: s.run ? { ...s.run, stats: event.stats } : s.run };
+          return { ...seqPatch, run: s.run ? { ...s.run, stats: event.stats } : s.run };
         case "done":
-          return { run: { ...event.run, findings: mergeFindings(s.run?.findings ?? [], event.run.findings) }, loading: false };
+          return {
+            ...seqPatch,
+            run: { ...event.run, findings: mergeFindings(s.run?.findings ?? [], event.run.findings) },
+            loading: false,
+          };
         case "error":
-          return { error: event.message };
+          return { ...seqPatch, error: event.message };
         default:
-          return {};
+          return seqPatch;
       }
     }),
 

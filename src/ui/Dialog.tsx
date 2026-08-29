@@ -15,7 +15,6 @@ export function Dialog({
   children,
   footer,
   width = 640,
-  labelledBy,
   onOpenAutoFocus,
 }: {
   open: boolean;
@@ -25,7 +24,6 @@ export function Dialog({
   children: ReactNode;
   footer?: ReactNode;
   width?: number;
-  labelledBy?: string;
   onOpenAutoFocus?: (event: Event) => void;
 }) {
   return (
@@ -33,7 +31,6 @@ export function Dialog({
       <RadixDialog.Portal>
         <RadixDialog.Overlay className={overlay} />
         <RadixDialog.Content
-          aria-labelledby={labelledBy}
           onOpenAutoFocus={onOpenAutoFocus}
           className="rl-rise fixed top-1/2 left-1/2 z-50 flex max-h-[86vh] w-[calc(100vw-64px)] -translate-x-1/2 -translate-y-1/2 flex-col rounded-card border border-hairline-strong bg-sheet shadow-overlay"
           style={{ maxWidth: width }}

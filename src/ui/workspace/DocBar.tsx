@@ -46,6 +46,7 @@ export function DocBar({
   playbookName,
   progress,
   outline,
+  persisted,
   onMemo,
   onExport,
 }: {
@@ -53,6 +54,8 @@ export function DocBar({
   playbookName: string;
   progress: { done: number; total: number } | null;
   outline: ReactNode;
+  /** False for the packaged demo runs, which have no store behind them. */
+  persisted: boolean;
   onMemo: () => void;
   onExport: () => void;
 }) {
@@ -99,6 +102,11 @@ export function DocBar({
       <Tag className="hidden shrink-0 wide:inline-flex">
         config <span className="mono">{configShortLabel(run.config)}</span>
       </Tag>
+      {persisted ? null : (
+        <span className="hidden shrink-0 text-[12px] whitespace-nowrap text-ink-muted lg:inline">
+          prepared example — decisions are not saved
+        </span>
+      )}
 
       <div className="flex shrink-0 items-center gap-3 pl-1">
         <span className="flex items-center gap-1.5 whitespace-nowrap text-[12px] text-ink-muted">

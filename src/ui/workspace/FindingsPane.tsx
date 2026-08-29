@@ -10,6 +10,7 @@ import { EmptyState } from "../EmptyState";
 import { FindingCard } from "../FindingCard";
 import { ProgressBoard } from "../ProgressBoard";
 import { SkeletonLines } from "../Skeleton";
+import { useBoard } from "../state/board";
 import { useReviewStore, type FilterId } from "../state/reviewStore";
 import { useCounts, useDecided, useVisible } from "../state/useDecided";
 import { outputDocxUrl } from "../lib/api";
@@ -41,7 +42,6 @@ export function FindingsPane({
   const expanded = useReviewStore((s) => s.expanded);
   const precedents = useReviewStore((s) => s.precedents);
   const workerStats = useReviewStore((s) => s.workerStats);
-  const stages = useReviewStore((s) => s.stages);
   const workers = useReviewStore((s) => s.workers);
   const logs = useReviewStore((s) => s.logs);
   const exported = useReviewStore((s) => s.exported);
@@ -55,14 +55,15 @@ export function FindingsPane({
 
   const decided = useDecided();
   const counts = useCounts(decided);
+  const board = useBoard();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const visible = useVisible(decided, filter);
 
   if (!run) return null;
   const running = run.status === "running" || run.status === "queued";
-  const rulesChecked = workers.length || Object.keys(workerStats).length;
-  const rulesDone = workers.filter((w) => w.state === "done" || w.state === "failed").length;
+  const rulesChecked = board.rulesTotal || Object.keys(workerStats).length;
+  const rulesDone = board.rulesDone;
   const applied = run.status === "applied" || exported;
 
   return (
@@ -123,7 +124,16 @@ export function FindingsPane({
           </div>
         ) : null}
 
-        {running ? <ProgressBoard stages={stages} workers={workers} logs={logs} /> : null}
+        {running ? (
+          <ProgressBoard
+            stages={board.stages}
+            workers={workers}
+            logs={logs}
+            resumed={board.resumed}
+            rulesDone={board.rulesDone}
+            rulesTotal={board.rulesTotal}
+          />
+        ) : null}
 
         <div className="space-y-3 p-4">
           {visible.length === 0 ? (

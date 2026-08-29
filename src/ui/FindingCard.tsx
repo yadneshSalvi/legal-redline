@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookMarked, Check, ExternalLink, Undo2 } from "lucide-react";
+import { BookMarked, Check, ExternalLink, Undo2, X } from "lucide-react";
 import type { Finding, Precedent } from "@/src/agent/types";
 import type { DocumentModel } from "@/src/engine/types";
 import { Button } from "./Button";
@@ -77,43 +77,50 @@ export function FindingCard({
 
   if (decidedQuietly) {
     return (
-      <article
-        data-finding={finding.id}
-        onMouseEnter={() => onHover(true)}
-        onMouseLeave={() => onHover(false)}
-        className={cn(
-          "rl-fade flex items-center gap-2 rounded-card border bg-sheet px-3 py-2 transition-colors duration-200",
-          selected ? "border-navy" : "border-hairline",
-          action === "reject" && "opacity-60",
-        )}
-      >
-        <button
-          type="button"
-          onClick={onSelect}
-          onDoubleClick={onToggle}
-          className="flex min-w-0 flex-1 items-center gap-2 text-left"
-        >
-          {action === "accept" ? (
-            <Check size={13} strokeWidth={2.25} className="shrink-0 text-verified" aria-hidden />
-          ) : (
-            <Undo2 size={13} strokeWidth={2} className="shrink-0 text-ink-faint" aria-hidden />
+      // The cross-fade lives on the wrapper: an animation with `fill-mode: both` on the same element
+      // permanently outranks the declarative `opacity-60` a rejected card needs (STYLE §4).
+      <div className="rl-fade">
+        <article
+          data-finding={finding.id}
+          data-decision={action}
+          aria-current={selected ? "true" : undefined}
+          tabIndex={selected ? 0 : -1}
+          onMouseEnter={() => onHover(true)}
+          onMouseLeave={() => onHover(false)}
+          className={cn(
+            "flex items-center gap-2 rounded-card border border-l bg-sheet px-3 py-2 transition-colors duration-200",
+            selected ? "border-navy border-l-2" : "border-hairline",
+            action === "reject" && "opacity-60",
           )}
-          <span
-            className={cn(
-              "truncate text-[13px]",
-              action === "reject" ? "text-ink-muted line-through" : "text-ink",
-            )}
+        >
+          <button
+            type="button"
+            onClick={onSelect}
+            onDoubleClick={onToggle}
+            className="flex min-w-0 flex-1 items-center gap-2 text-left"
           >
-            {finding.ruleTitle}
-          </span>
-          <span className="mono ml-auto shrink-0 text-[11px] text-ink-muted">
-            {shortRef(finding.sectionRef, finding.ruleId)}
-          </span>
-        </button>
-        <Button variant="quiet" size="sm" onClick={onUndo} aria-label={`Undo decision on ${finding.ruleTitle}`}>
-          Undo
-        </Button>
-      </article>
+            {action === "accept" ? (
+              <Check size={13} strokeWidth={2.25} className="shrink-0 text-verified" aria-hidden />
+            ) : (
+              <Undo2 size={13} strokeWidth={2} className="shrink-0 text-ink-faint" aria-hidden />
+            )}
+            <span
+              className={cn(
+                "truncate text-[13px]",
+                action === "reject" ? "text-ink-muted line-through" : "text-ink",
+              )}
+            >
+              {finding.ruleTitle}
+            </span>
+            <span className="mono ml-auto shrink-0 text-[11px] text-ink-muted">
+              {shortRef(finding.sectionRef, finding.ruleId)}
+            </span>
+          </button>
+          <Button variant="quiet" size="sm" onClick={onUndo} aria-label={`Undo decision on ${finding.ruleTitle}`}>
+            Undo
+          </Button>
+        </article>
+      </div>
     );
   }
 
@@ -125,12 +132,15 @@ export function FindingCard({
   return (
     <article
       data-finding={finding.id}
+      data-decision={action}
+      aria-current={selected ? "true" : undefined}
+      tabIndex={selected ? 0 : -1}
       onMouseEnter={() => onHover(true)}
       onMouseLeave={() => onHover(false)}
       onClick={onSelect}
       className={cn(
-        "rl-enter rounded-card border bg-sheet transition-colors duration-200",
-        selected ? "border-navy shadow-sheet" : "border-hairline",
+        "rl-enter rounded-card border border-l bg-sheet transition-colors duration-200",
+        selected ? "border-navy border-l-2 shadow-sheet" : "border-hairline",
       )}
     >
       <header className="flex items-start gap-2 px-3.5 pt-3">
@@ -207,7 +217,7 @@ export function FindingCard({
               type="button"
               onClick={(event) => event.stopPropagation()}
               aria-label={`Precedent used: ${precedent.title}, from ${precedent.source}`}
-              className="inline-flex h-6 max-w-full items-center gap-1.5 rounded-full border border-verified/40 bg-sheet px-2 text-[11px] text-verified transition-colors duration-150 hover:border-verified hover:bg-verified-soft"
+              className="inline-flex h-6 max-w-full items-center gap-1.5 rounded-full border border-verified/40 bg-sheet px-2 text-[11px] text-verified transition-colors duration-150 hover:border-verified"
             >
               <BookMarked size={11} strokeWidth={1.75} aria-hidden />
               <span className="truncate">From precedent: {precedent.source}</span>
@@ -224,9 +234,12 @@ export function FindingCard({
             {finding.verification.checks
               .filter((check) => !check.ok)
               .map((check) => (
-                <li key={check.name} className="mono text-[11px] text-deletion">
-                  ✗ {check.name}
-                  {check.detail ? <span className="text-ink-muted"> — {check.detail}</span> : null}
+                <li key={check.name} className="mono flex items-baseline gap-1 text-[11px] text-deletion">
+                  <X size={10} strokeWidth={2.5} aria-hidden className="translate-y-[1.5px]" />
+                  <span>
+                    {check.name}
+                    {check.detail ? <span className="text-ink-muted"> — {check.detail}</span> : null}
+                  </span>
                 </li>
               ))}
           </ul>

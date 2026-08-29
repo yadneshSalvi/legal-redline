@@ -22,8 +22,8 @@ export function Paper({
   footer?: ReactNode;
 }) {
   return (
-    <div className="pane flex-1 bg-paper">
-      <div className="mx-auto w-full max-w-[860px] px-8 py-8">
+    <div className="pane flex-1 bg-paper" role="document" aria-label="The contract, with proposed redlines">
+      <div className="mx-auto w-full max-w-[824px] px-8 py-8">
         <article className="paper-sheet rounded-card border border-hairline bg-sheet py-14 shadow-sheet">
           {rows.map((row) => (
             <Paragraph

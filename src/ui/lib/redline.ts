@@ -173,22 +173,19 @@ export function sectionSeverities(doc: DocumentModel, findings: Finding[]): Map<
 }
 
 /**
- * A compact preview of a proposal: the changed words only. Ops in different paragraphs are separated
- * by a newline (render with `whitespace-pre-line`) so two clauses never run into each other.
+ * A compact preview of a proposal: the changed words only. Every pair of ops is separated by a
+ * newline (render with `whitespace-pre-line`) so two edits never run into each other — including two
+ * insertions that share one anchor paragraph.
  */
 export function proposalPreview(doc: DocumentModel, ops: RedlineOp[], limit = 160): Segment[] {
   const byId = new Map(doc.paragraphs.map((p) => [p.id, p]));
   const segments: Segment[] = [];
-  let previousParagraph: string | null = null;
-  for (const op of ops) {
-    if (previousParagraph !== null && previousParagraph !== op.paragraphId) {
-      segments.push({ type: "equal", text: "\n" });
-    }
-    previousParagraph = op.paragraphId;
+  ops.forEach((op, index) => {
+    if (index > 0) segments.push({ type: "equal", text: "\n" });
     if (op.kind === "replace") segments.push(...wordDiff(op.oldText, op.newText));
     else if (op.kind === "insert_after") segments.push({ type: "insert", text: op.text });
     else segments.push({ type: "delete", text: byId.get(op.paragraphId)?.text ?? "" });
-  }
+  });
   const merged = mergeSegments(segments);
   let total = 0;
   const clipped: Segment[] = [];

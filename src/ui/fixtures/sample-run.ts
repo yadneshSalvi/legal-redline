@@ -3,7 +3,7 @@
  * board and the finding cards read. `/review/sample-running` replays the same run as a live stream
  * (see `simulate.ts`). Everything here is shaped exactly like the real API payloads in SCHEMA.md §6.
  */
-import type { ReviewRun, RunStats } from "@/src/agent/types";
+import type { Finding, ReviewRun, RunStats } from "@/src/agent/types";
 import { sampleDocument } from "./sample-document";
 import { sampleFindings } from "./sample-findings";
 
@@ -45,6 +45,16 @@ export const sampleWorkers: WorkerResult[] = [
 export const sampleWorkerStats: Record<string, { costUsd: number; durationMs: number }> = Object.fromEntries(
   sampleWorkers.map((w) => [w.ruleId, { costUsd: w.costUsd, durationMs: w.durationMs }]),
 );
+
+/**
+ * The findings as the API would return them: `Finding.costUsd`/`durationMs` carry the per-rule spend
+ * so a card reads the same whether it arrived over SSE or came back from `GET /api/runs/[id]`.
+ */
+export const sampleRunFindings: Finding[] = sampleFindings.map((finding) => ({
+  ...finding,
+  costUsd: sampleWorkerStats[finding.ruleId]?.costUsd,
+  durationMs: sampleWorkerStats[finding.ruleId]?.durationMs,
+}));
 
 export const sampleMemo = `# Issues memo — Web Site Hosting and Managed Services Agreement
 
@@ -120,6 +130,17 @@ const stats: RunStats = {
   findings: 9,
   bySeverity: { critical: 3, high: 2, medium: 3, low: 1 },
   byStatus: { deviation: 5, missing: 2, compliant: 1, needs_review: 1 },
+  perRule: Object.fromEntries(
+    sampleWorkers.map((w) => [
+      w.ruleId,
+      {
+        costUsd: w.costUsd,
+        durationMs: w.durationMs,
+        llmCalls: w.state === "failed" ? 4 : 2,
+        retries: w.ruleId === "INDEMN" ? 1 : w.state === "failed" ? 2 : 0,
+      },
+    ]),
+  ),
 };
 
 export const sampleRun: ReviewRun = {
@@ -130,7 +151,7 @@ export const sampleRun: ReviewRun = {
   playbookId: "customer-vendor-services-v1",
   document: sampleDocument,
   sourceKey: "runs/sample/source.docx",
-  findings: sampleFindings,
+  findings: sampleRunFindings,
   decisions: {},
   memo: sampleMemo,
   stats,

@@ -194,11 +194,13 @@
     }
   }
 
-  /* The paper. 64 px gutters at the design width (STYLE.md §1); a little tighter below it so the
-     measure stays readable when the outline pane is collapsed. Paragraph rows bleed to the sheet
-     edge with the same value, so the two can never drift apart. */
+  /* The paper: 760 px column with 64 px horizontal padding at every width (STYLE.md §1, §3).
+     Paragraph rows bleed to the sheet edge with the same gutter value, so the sheet padding and the
+     highlight/left-rule bleed can never drift apart. These are the canonical numbers — src/tokens.ts
+     no longer duplicates them. */
   .paper-sheet {
-    --paper-gutter: 40px;
+    --paper-gutter: 64px;
+    max-width: calc(760px + 2 * var(--paper-gutter));
     padding-inline: var(--paper-gutter);
   }
 
@@ -207,9 +209,11 @@
     padding-inline: var(--paper-gutter);
   }
 
-  @media (width >= 1440px) {
+  /* Below the three-pane breakpoint the pane is narrow enough that the cap never binds; keep the
+     gutter so the measure matches the design at 1024 and above. */
+  @media (width < 1024px) {
     .paper-sheet {
-      --paper-gutter: 64px;
+      --paper-gutter: 40px;
     }
   }
 
@@ -228,6 +232,12 @@
 
   .rl-pulse {
     animation: rl-pulse 1600ms ease-in-out infinite;
+  }
+
+  /* Belt and braces for the rejected fade: even if an `rl-*` class lands on the card itself, the
+     animation must not hold opacity at 1 (STYLE §4 wants 60 %). */
+  [data-decision="reject"] {
+    animation: none;
   }
 
   /* -webkit-line-clamp ignores padding-bottom, so clamped text must be unpadded. */

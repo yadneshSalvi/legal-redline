@@ -69,7 +69,7 @@ export const sampleFindings: Finding[] = [
     ruleTitle: "Indemnification by Vendor",
     severity: "critical",
     status: "missing",
-    paragraphIds: ["p0036"],
+    paragraphIds: ["p0036", "p0037"],
     sectionId: "sec-8",
     sectionRef: "§ 8 Indemnification",
     quote:
@@ -85,9 +85,17 @@ export const sampleFindings: Finding[] = [
           text:
             "8.2 Indemnity by Vendor. Vendor shall defend, indemnify and hold harmless Customer and its Affiliates from and against any third-party claim, and all resulting damages, costs and expenses (including reasonable legal fees), to the extent arising out of (a) an allegation that the Hosting Services or Deliverables infringe or misappropriate any intellectual property right; (b) Vendor’s breach of applicable law; (c) any unauthorised access to or disclosure of Customer Data caused by Vendor; or (d) Vendor’s gross negligence or wilful misconduct.",
         },
+        {
+          // Inserting 8.2 pushes the vendor's procedure clause down; renumbering it is part of the
+          // redline rather than a silent edit to their document.
+          kind: "replace",
+          paragraphId: "p0037",
+          oldText: "8.2 Procedure.",
+          newText: "8.3 Procedure.",
+        },
       ],
       comment:
-        "[Playbook] The agreement indemnifies Vendor but not Customer. We require a reciprocal Vendor indemnity covering IP infringement, breach of law, data breach and wilful misconduct, added here as new Section 8.2 — please renumber the following subsection. Fallback: an IP indemnity with the usual exclusions (Customer modifications, combinations, specifications) and remedies, subject to a super-cap of three times annual fees.",
+        "[Playbook] The agreement indemnifies Vendor but not Customer. We require a reciprocal Vendor indemnity covering IP infringement, breach of law, data breach and wilful misconduct, added here as new Section 8.2, with the existing procedure clause renumbered to 8.3. Fallback: an IP indemnity with the usual exclusions (Customer modifications, combinations, specifications) and remedies, subject to a super-cap of three times annual fees.",
       level: "preferred",
       summary: "Insert a Vendor indemnity for IP infringement, breach of law, data breach and wilful misconduct.",
     },
@@ -100,6 +108,7 @@ export const sampleFindings: Finding[] = [
         { name: "ops_apply", ok: true, detail: "anchor p0036 exists; renders as a tracked paragraph insertion" },
         { name: "vendor indemnity for IP infringement present", ok: true },
         { name: "placement", ok: true, detail: "inserted inside § 8 Indemnification" },
+        { name: "no duplicate clause numbering", ok: true, detail: "existing 8.2 Procedure renumbered to 8.3" },
       ],
     },
     confidence: 0.88,

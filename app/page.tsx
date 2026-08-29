@@ -73,7 +73,7 @@ export default function Home() {
 
       <footer className="mt-auto bg-paper">
         <div className="mx-auto flex w-full max-w-[1240px] flex-wrap items-baseline justify-between gap-4 px-8 py-7">
-          <p className="max-w-[70ch] text-[12px] leading-[1.6] text-ink-faint">
+          <p className="max-w-[70ch] text-[12px] leading-[1.6] text-ink-muted">
             Evaluation contracts from CUAD, The Atticus Project, CC BY 4.0. Synthetic agreements are generated
             from a template in this repository; no private documents are used.
           </p>

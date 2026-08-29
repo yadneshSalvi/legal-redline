@@ -1,5 +1,6 @@
 "use client";
 
+import { isRenderedHeading } from "./lib/heading";
 import type { ParagraphRender } from "./lib/redline";
 import { RedlineText } from "./RedlineText";
 import { cn } from "./cn";
@@ -27,9 +28,7 @@ export function Paragraph({
   const { paragraph, segments, state, commentNumbers, findingIds, anchorId } = render;
   const interactive = findingIds.length > 0;
   const isTitle = paragraph.style === "Title";
-  // Real contracts trip heading detection on long ALL-CAPS definitions; anything this long reads as
-  // body text, so it is set as body text.
-  const isHeading = paragraph.isHeading && paragraph.text.length <= 72;
+  const isHeading = isRenderedHeading(paragraph);
 
   const shared = cn(
     "paper-row border-l-2 transition-colors duration-[160ms] ease-out",

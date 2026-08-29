@@ -32,6 +32,12 @@ const statusLabel: Record<RunStatus, string> = {
   failed: "failed",
 };
 
+/** Backend failures can carry absolute paths; the table shows the message, not the machine. */
+function tidyError(message: string): string {
+  const withoutPaths = message.replace(/(?:\/[\w.@+-]+){2,}/g, (match) => match.split("/").pop() ?? "");
+  return withoutPaths.length > 110 ? `${withoutPaths.slice(0, 109).trimEnd()}…` : withoutPaths;
+}
+
 const dateFormat = new Intl.DateTimeFormat("en-GB", {
   day: "2-digit",
   month: "short",
@@ -107,6 +113,11 @@ export function RunsTable() {
             {["Contract", "Playbook", "Config", "Status", "Findings", "Cost", "Reviewed"].map((head) => (
               <th key={head} className="label-caps px-3 py-2.5 whitespace-nowrap">
                 {head}
+                {head === "Findings" ? (
+                  <span className="ml-1 normal-case tracking-normal text-ink-muted">
+                    (critical · high · medium · low)
+                  </span>
+                ) : null}
               </th>
             ))}
           </tr>
@@ -137,15 +148,15 @@ export function RunsTable() {
               <td className="px-3 py-2.5">
                 <Tag tone={statusTone[run.status]}>{statusLabel[run.status]}</Tag>
                 {run.error ? (
-                  <span className="mt-1 block max-w-[220px] truncate text-[11px] text-ink-muted" title={run.error}>
-                    {run.error}
+                  <span className="mt-1 block max-w-[220px] truncate text-[11px] text-ink-muted">
+                    {tidyError(run.error)}
                   </span>
                 ) : null}
               </td>
               <td className="px-3 py-2.5">
                 <span className="flex items-center gap-2.5">
                   {severities.map((severity) => (
-                    <span key={severity} className="flex items-center gap-1" title={`${severity} findings`}>
+                    <span key={severity} className="relative flex items-center gap-1">
                       <SeverityDot severity={severity} />
                       <span
                         className={cn(
@@ -155,6 +166,7 @@ export function RunsTable() {
                       >
                         {run.stats.bySeverity[severity]}
                       </span>
+                      <span className="sr-only">{severity} findings</span>
                     </span>
                   ))}
                 </span>

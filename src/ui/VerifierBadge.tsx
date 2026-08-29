@@ -32,7 +32,7 @@ export function VerifierBadge({
       <Icon size={10} strokeWidth={2.25} aria-hidden />
       {badge.label}
       {verification && verification.attempts > 1 ? (
-        <span className="mono text-[10px] opacity-70">×{verification.attempts}</span>
+        <span className="mono text-[10px] text-ink-muted">×{verification.attempts}</span>
       ) : null}
     </span>
   );

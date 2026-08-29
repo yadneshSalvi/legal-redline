@@ -3,6 +3,7 @@
 import { Check, TriangleAlert } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { AgentName } from "@/src/agent/types";
+import { RESUMED_STAGE_LABEL } from "./state/board";
 import { boardOrder, type StageState, type WorkerChip } from "./state/reviewStore";
 import { cn } from "./cn";
 
@@ -17,7 +18,9 @@ const stageNames: Record<string, string> = {
 const chipStyles: Record<WorkerChip["state"], string> = {
   queued: "border-hairline bg-paper text-ink-muted",
   running: "rl-pulse border-navy/30 text-ink",
-  verifying: "border-comment/30 bg-comment-soft text-ink",
+  // A crisp navy ring, not a wash: distinct from the pulsing `running` state, and amber stays
+  // reserved for comments and high severity (STYLE §1).
+  verifying: "border-navy bg-sheet text-ink",
   done: "border-hairline bg-sheet text-ink-muted",
   failed: "border-deletion/25 bg-deletion-soft text-ink",
 };
@@ -68,14 +71,20 @@ export function ProgressBoard({
   stages,
   workers,
   logs,
+  resumed = false,
+  rulesDone,
+  rulesTotal,
 }: {
   stages: Partial<Record<AgentName, StageState>>;
   workers: WorkerChip[];
   logs: string[];
+  /** Rows were reconstructed from the persisted run: label unknown stages honestly. */
+  resumed?: boolean;
+  rulesDone: number;
+  rulesTotal: number;
 }) {
   const liveWorkers = workers.some((w) => w.state === "running" || w.state === "verifying");
   const now = useTicker(liveWorkers);
-  const doneCount = workers.filter((w) => w.state === "done" || w.state === "failed").length;
   const chipList = useRef<HTMLUListElement | null>(null);
 
   // Keep the wave that is currently working in view without hiding the rest of the pipeline.
@@ -83,7 +92,7 @@ export function ProgressBoard({
     chipList.current?.querySelector<HTMLElement>('[data-state="running"]')?.scrollIntoView({
       block: "nearest",
     });
-  }, [doneCount]);
+  }, [rulesDone]);
 
   return (
     <section aria-label="Agent progress" className="border-b border-hairline bg-sheet px-4 py-4">
@@ -107,9 +116,9 @@ export function ProgressBoard({
                   {stageNames[agent]}
                 </span>
                 <span className="min-w-0 flex-1 truncate text-[12px] text-ink-muted">
-                  {isDrafters && stage?.state === "start"
-                    ? `${doneCount} of ${workers.length} rules finished`
-                    : (stage?.label ?? "waiting")}
+                  {isDrafters && stage?.state === "start" && workers.length > 0
+                    ? `${rulesDone} of ${rulesTotal} rules finished`
+                    : (stage?.label ?? (resumed ? RESUMED_STAGE_LABEL : "waiting"))}
                 </span>
                 {stage?.durationMs !== undefined ? (
                   <span className="mono shrink-0 text-[11px] text-ink-muted">
@@ -146,9 +155,11 @@ export function ProgressBoard({
         })}
       </ol>
 
-      {logs.length > 0 ? (
+      {logs.length > 0 || resumed ? (
         <p className="mono mt-3 border-t border-hairline pt-2.5 text-[11px] leading-[1.6] text-ink-muted">
-          {logs[logs.length - 1]}
+          {logs.length > 0
+            ? logs[logs.length - 1]
+            : "reattached to a run already in progress — stage detail resumes with the next event"}
         </p>
       ) : null}
     </section>

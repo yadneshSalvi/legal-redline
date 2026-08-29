@@ -3,8 +3,7 @@
  * same code path as a live SSE run (5× compressed). Nothing here is used once the API is wired up.
  */
 import type { ProgressEvent, RunStats } from "@/src/agent/types";
-import { sampleFindings } from "./sample-findings";
-import { sampleRun, sampleRunningRun, sampleWorkers, type WorkerResult } from "./sample-run";
+import { sampleRun, sampleRunFindings, sampleRunningRun, sampleWorkers, type WorkerResult } from "./sample-run";
 
 export interface ScheduledEvent {
   at: number;
@@ -16,7 +15,7 @@ const COMPRESS = 5;
 const CONCURRENCY = 6;
 const WAVE_START = 2500;
 
-const findingByRule = new Map(sampleFindings.map((f) => [f.ruleId, f]));
+const findingByRule = new Map(sampleRunFindings.map((f) => [f.ruleId, f]));
 
 function statsAt(completed: WorkerResult[], elapsedMs: number): RunStats {
   const findings = completed.map((w) => findingByRule.get(w.ruleId)).filter((f) => f !== undefined);

@@ -12,6 +12,7 @@ import { MemoDrawer } from "../MemoDrawer";
 import { useRun } from "../data/useRun";
 import { defaultPlaybook } from "../fixtures/samples";
 import { renderDocument, sectionSeverities } from "../lib/redline";
+import { useBoard } from "../state/board";
 import { useReviewStore } from "../state/reviewStore";
 import { useDecided, useVisible } from "../state/useDecided";
 import { DocBar } from "./DocBar";
@@ -33,8 +34,8 @@ export function Workspace({ runId }: { runId: string }) {
   const error = useReviewStore((s) => s.error);
   const filter = useReviewStore((s) => s.filter);
   const selectedId = useReviewStore((s) => s.selectedId);
+  const decisions = useReviewStore((s) => s.decisions);
   const hoveredId = useReviewStore((s) => s.hoveredId);
-  const workers = useReviewStore((s) => s.workers);
   const persist = useReviewStore((s) => s.persist);
   const select = useReviewStore((s) => s.select);
   const hover = useReviewStore((s) => s.hover);
@@ -44,6 +45,7 @@ export function Workspace({ runId }: { runId: string }) {
   const setExported = useReviewStore((s) => s.setExported);
 
   const decided = useDecided();
+  const board = useBoard();
   const visible = useVisible(decided, filter);
   const visibleIds = useMemo(() => visible.map((d) => d.finding.id), [visible]);
 
@@ -103,6 +105,7 @@ export function Workspace({ runId }: { runId: string }) {
   // Follow the selection, but only when it actually changes: the first selection is automatic, and
   // findings arriving mid-run must not drag the pane away from the progress board.
   const lastSelected = useRef<string | null>(null);
+  const focusFollows = useRef(false);
   useEffect(() => {
     if (!selectedId) return;
     if (lastSelected.current === null || lastSelected.current === selectedId) {
@@ -110,14 +113,27 @@ export function Workspace({ runId }: { runId: string }) {
       return;
     }
     lastSelected.current = selectedId;
-    listRef.current?.querySelector<HTMLElement>(`[data-finding="${selectedId}"]`)?.scrollIntoView({
-      block: "nearest",
-    });
+    const card = listRef.current?.querySelector<HTMLElement>(`[data-finding="${selectedId}"]`);
+    card?.scrollIntoView({ block: "nearest" });
+    // Selection follows focus: the card the next A/R/E acts on is the focused element.
+    card?.focus({ preventScroll: true });
+    focusFollows.current = true;
     const paragraphId = useReviewStore
       .getState()
       .run?.findings.find((finding) => finding.id === selectedId)?.paragraphIds[0];
     if (paragraphId) scrollToParagraph(paragraphId);
   }, [selectedId]);
+
+  // A decision swaps the card for its collapsed form, unmounting the focused node. Put focus back on
+  // the selected card so a keyboard review is never interrupted mid-list.
+  useEffect(() => {
+    if (!focusFollows.current || !selectedId) return;
+    const active = window.document.activeElement;
+    if (active && active !== window.document.body && listRef.current?.contains(active)) return;
+    listRef.current
+      ?.querySelector<HTMLElement>(`[data-finding="${selectedId}"]`)
+      ?.focus({ preventScroll: true });
+  }, [decisions, selectedId]);
 
   const rows = useMemo(() => (run ? renderDocument(run.document, decided) : []), [run, decided]);
   const findingsBySection = useMemo(
@@ -196,7 +212,7 @@ export function Workspace({ runId }: { runId: string }) {
   );
   const progress =
     run.status === "running" || run.status === "queued"
-      ? { done: workers.filter((w) => w.state === "done" || w.state === "failed").length, total: workers.length || 18 }
+      ? { done: board.rulesDone, total: board.rulesTotal }
       : null;
   const editing = decided.find((d) => d.finding.id === editingId) ?? null;
 
@@ -207,6 +223,7 @@ export function Workspace({ runId }: { runId: string }) {
         playbookName={defaultPlaybook.name.replace("Customer-side ", "")}
         progress={progress}
         outline={outline}
+        persisted={persist}
         onMemo={() => setMemoOpen(true)}
         onExport={() => setExportOpen(true)}
       />

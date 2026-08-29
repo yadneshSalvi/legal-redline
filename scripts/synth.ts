@@ -8,22 +8,14 @@ import {
   buildHardCase,
   type EvalParagraph,
 } from "@/src/eval/deviations";
-import type { GoldFile, GoldStatus } from "@/src/eval/gold";
+import type { GoldFile } from "@/src/eval/gold";
 import { atomicWrite, atomicWriteJson } from "@/src/eval/io";
 import { applySeededDeviations } from "@/src/eval/seed";
-import { paragraphId, splitParagraphs } from "@/src/engine/text";
+import { buildSyntheticGold } from "@/src/eval/synthetic-gold";
+import { splitParagraphs } from "@/src/engine/text";
 
 interface EngineModule {
   textToDocx?: (text: string, options?: { title?: string }) => Promise<Uint8Array>;
-}
-
-interface SyntheticItem {
-  ruleId: string;
-  paragraphKeys: string[];
-  status: GoldStatus;
-  expectedFix?: string;
-  note: string;
-  variant?: string;
 }
 
 const PARTY_PAIRS = [
@@ -44,29 +36,6 @@ function renameParties(text: string, customer: string, vendor: string): string {
     .replaceAll("NORTHWIND ANALYTICS, INC.", customer.toLocaleUpperCase("en-US"))
     .replaceAll("Brightline Cloud Services Ltd.", vendor)
     .replaceAll("BRIGHTLINE CLOUD SERVICES LTD.", vendor.toLocaleUpperCase("en-US"));
-}
-
-function keyToParagraphIds(paragraphs: readonly EvalParagraph[], keys: readonly string[]): string[] {
-  return keys.map((key) => {
-    const index = paragraphs.findIndex((paragraph) => paragraph.key === key);
-    if (index < 0) throw new Error(`Injected paragraph key disappeared: ${key}`);
-    return paragraphId(index);
-  });
-}
-
-function toGold(contractId: string, paragraphs: readonly EvalParagraph[], items: readonly SyntheticItem[]): GoldFile {
-  return {
-    contractId,
-    items: items.map((item, index) => ({
-      id: `g${String(index + 1).padStart(2, "0")}`,
-      ruleId: item.ruleId,
-      paragraphIds: keyToParagraphIds(paragraphs, item.paragraphKeys),
-      status: item.status,
-      labeler: "synthetic-exact",
-      note: item.note,
-      expectedFix: item.expectedFix,
-    })),
-  };
 }
 
 async function loadTextToDocx(): Promise<EngineModule["textToDocx"]> {
@@ -109,7 +78,7 @@ async function writeSeeded(template: string, seed: number, textToDocx: EngineMod
     id,
     title,
     text,
-    gold: toGold(id, renamed, generated.items),
+    gold: buildSyntheticGold(id, renamed, generated.items),
     meta: {
       id,
       source: "synthetic",
@@ -135,7 +104,7 @@ async function writeHardCase(template: string, textToDocx: EngineModule["textToD
     id,
     title,
     text,
-    gold: toGold(id, generated.paragraphs, generated.items),
+    gold: buildSyntheticGold(id, generated.paragraphs, generated.items),
     meta: {
       id,
       source: "synthetic",

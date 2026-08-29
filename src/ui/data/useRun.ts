@@ -6,7 +6,7 @@ import { fixtureRun, sampleWorkerStats } from "../fixtures/sample-run";
 import { samplePrecedents } from "../fixtures/sample-findings";
 import { playSampleTimeline } from "../fixtures/simulate";
 import { getPrecedents, getRun } from "../lib/api";
-import { useReviewStore } from "../state/reviewStore";
+import { useReviewStore, type SequencedProgressEvent } from "../state/reviewStore";
 
 const MAX_RECONNECTS = 6;
 
@@ -29,7 +29,7 @@ export function useRun(runId: string): { retry: () => void } {
     let reconnects = 0;
     let lastSeq = 0;
 
-    const apply = (event: ProgressEvent) => {
+    const apply = (event: SequencedProgressEvent) => {
       if (cancelled) return;
       useReviewStore.getState().applyEvent(event);
       if (event.type === "done" || event.type === "error") closeStream();
@@ -50,10 +50,12 @@ export function useRun(runId: string): { retry: () => void } {
         useReviewStore.getState().setStreamOpen(true);
       };
       source.onmessage = (message) => {
-        const seq = Number(message.lastEventId);
-        if (Number.isFinite(seq) && seq > 0) lastSeq = seq;
         try {
-          apply(JSON.parse(message.data) as ProgressEvent);
+          // The route writes `data: {seq, ...event}` and no `id:` line, so the cursor for
+          // `?after=<seq>` has to come out of the payload (SCHEMA §6).
+          const payload = JSON.parse(message.data) as ProgressEvent & { seq?: number };
+          if (typeof payload.seq === "number" && payload.seq > lastSeq) lastSeq = payload.seq;
+          apply(payload);
         } catch {
           /* a malformed frame must not take the workspace down */
         }
