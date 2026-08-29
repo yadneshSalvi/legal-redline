@@ -145,14 +145,15 @@ export function hasOnlyHumanLabels(gold: GoldFile): boolean {
 
 /** Reject assisted CUAD drafts while retaining exact, generated labels for synthetic fixtures. */
 export function assertEvaluationLabelers(contractId: string, gold: GoldFile): void {
-  const valid = contractId.startsWith("synth-")
-    ? gold.items.every((item) => item.labeler === "synthetic-exact")
-    : hasOnlyHumanLabels(gold);
-  if (!valid) {
-    const invalid = [...new Set(gold.items.map((item) => item.labeler).filter((labeler) =>
-      contractId.startsWith("synth-")
-        ? labeler !== "synthetic-exact"
-        : labeler !== "human" && labeler !== "cuad+human",
+  const synthetic = contractId.startsWith("synth-");
+  const approved = (item: GoldItem): boolean => synthetic
+    ? item.labeler === "synthetic-exact" || (item.labeler === "human" && item.reviewedBy !== undefined)
+    : item.labeler === "human" || item.labeler === "cuad+human";
+  if (!gold.items.every(approved)) {
+    const invalid = [...new Set(gold.items.filter((item) => !approved(item)).map((item) =>
+      item.labeler === "human" && item.reviewedBy === undefined
+        ? "human (missing reviewedBy)"
+        : item.labeler,
     ))].sort();
     throw new Error(
       `${contractId}: gold.json contains unapproved labelers (${invalid.join(", ")}). ` +

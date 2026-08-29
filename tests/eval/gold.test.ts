@@ -91,7 +91,7 @@ describe("GoldFileSchema", () => {
     });
   });
 
-  it("rejects non-human CUAD gold but accepts exact synthetic gold", () => {
+  it("rejects non-human CUAD gold but accepts exact and reviewed synthetic gold", () => {
     const draft = GoldFileSchema.parse({
       contractId: "cuad-example",
       items: [{ id: "g001", ruleId: "T4C", paragraphIds: [], status: "missing", labeler: "llm-draft" }],
@@ -102,6 +102,23 @@ describe("GoldFileSchema", () => {
       items: [{ id: "g01", ruleId: "T4C", paragraphIds: [], status: "missing", labeler: "synthetic-exact" }],
     });
     expect(() => assertEvaluationLabelers("synth-example", synthetic)).not.toThrow();
+    const reviewedSynthetic = GoldFileSchema.parse({
+      contractId: "synth-example",
+      items: [{
+        id: "g02",
+        ruleId: "WARRANTY",
+        paragraphIds: ["p0002"],
+        status: "ambiguous",
+        labeler: "human",
+        reviewedBy: "lead",
+      }],
+    });
+    expect(() => assertEvaluationLabelers("synth-example", reviewedSynthetic)).not.toThrow();
+    const unreviewedSynthetic = structuredClone(reviewedSynthetic);
+    delete unreviewedSynthetic.items[0].reviewedBy;
+    expect(() =>
+      assertEvaluationLabelers("synth-example", unreviewedSynthetic),
+    ).toThrow(/missing reviewedBy/);
   });
 
   it("accepts every promoted CUAD contract through the evaluation labeler gate", async () => {

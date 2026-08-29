@@ -1,4 +1,9 @@
-import { DEVIATION_VARIANTS, type EvalParagraph, variantsForRule } from "./deviations";
+import {
+  DEVIATION_VARIANTS,
+  type EvalParagraph,
+  variantsForRule,
+} from "./deviations";
+import { secondaryRulesForVariant } from "./deviation-overlaps";
 import type { GoldStatus } from "./gold";
 
 export interface SeededDeviation {
@@ -8,6 +13,7 @@ export interface SeededDeviation {
   expectedFix: string;
   note: string;
   variant: string;
+  secondaryRuleIds: readonly string[];
 }
 
 export function mulberry32(seed: number): () => number {
@@ -49,6 +55,7 @@ export function applySeededDeviations(
       expectedFix: result.expectedFix,
       note: result.note,
       variant: variant.name,
+      secondaryRuleIds: secondaryRulesForVariant(ruleId, variant.name),
     });
   }
   return { paragraphs, items };
