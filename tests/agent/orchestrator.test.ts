@@ -92,7 +92,7 @@ describe("orchestrator", () => {
   });
 
   it("continues the same drafter loop after verifier failure and passes a repair", async () => {
-    const text = "9. Limitation of Liability\n\nVendor liability is capped at three months of fees.";
+    const text = "9. Limitation of Liability\n\nVendor liability is capped at three months of fees. Customer's liability shall be unlimited.";
     const document = parseText(text, "contract.txt");
     const store = new MemoryStore();
     const config = { ...getConfig("i3-verifier"), concurrency: 1, maxRepairRounds: 1 };
@@ -123,7 +123,7 @@ describe("orchestrator", () => {
   });
 
   it("marks a finding needs_review when repair rounds are exhausted", async () => {
-    const text = "9. Limitation of Liability\n\nVendor liability is capped at three months of fees.";
+    const text = "9. Limitation of Liability\n\nVendor liability is capped at three months of fees. Customer's liability shall be unlimited.";
     const document = parseText(text, "contract.txt");
     const store = new MemoryStore();
     const config = { ...getConfig("i3-verifier"), concurrency: 1, maxRepairRounds: 1 };
@@ -142,7 +142,7 @@ describe("orchestrator", () => {
   });
 
   it("does not pass a noncompliant three-month cap labelled compliant", async () => {
-    const text = "9. Limitation of Liability\n\nVendor liability is capped at three months of fees.";
+    const text = "9. Limitation of Liability\n\nVendor liability is capped at three months of fees. Customer's liability shall be unlimited.";
     const document = parseText(text, "contract.txt");
     const store = new MemoryStore();
     const config = { ...getConfig("i3-verifier"), concurrency: 1, maxRepairRounds: 0 };
@@ -151,7 +151,7 @@ describe("orchestrator", () => {
       (request) => plannerOrMemo(request, () => "pass"),
       async (request) => {
         await callTool(request, "submit_finding", {
-          status: "compliant", paragraphIds: ["p0001"], quote: "Vendor liability is capped at three months of fees.",
+          status: "compliant", paragraphIds: ["p0001"], quote: "Customer's liability shall be unlimited.",
           rationale: "Incorrectly claims compliance", confidence: 0.9,
         });
       },
@@ -163,7 +163,7 @@ describe("orchestrator", () => {
     expect(reviewed.findings[0]?.verification?.verdict).toBe("fail");
     expect(reviewed.findings[0]?.status).toBe("needs_review");
     expect(reviewed.findings[0]?.verification?.checks).toContainEqual(expect.objectContaining({
-      name: "cap references 12 months of fees or a fixed floor", ok: false,
+      name: "no unlimited Customer liability language remains", ok: false,
     }));
   });
 });

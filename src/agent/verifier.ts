@@ -164,11 +164,12 @@ export async function verifyFinding(input: {
   // "number not found" is inconclusive (phrasing), not a contradiction — it stays advisory even for compliant findings.
   // Rule checks can only gate a compliant finding that cites a clause; "compliant because no such clause exists"
   // has nothing for a regex to inspect, so those checks stay advisory.
+  // For a compliant finding only an objective contradiction gates: forbidden language present in the cited clause
+  // (`regex_absent`). Presence-style regexes cannot tell "clause absent" from "phrasing differs", so they are evidence.
   const citesClause = input.finding.paragraphIds.length > 0;
+  const absentChecks = new Set(rule.checks.filter((check) => check.type === "regex_absent").map((check) => check.label));
   const hardFailures = failedChecks.filter(
-    (check) =>
-      isHardCheck(check.name) ||
-      (input.finding.status === "compliant" && citesClause && !check.name.startsWith("minimal edit") && check.detail !== "number not found"),
+    (check) => isHardCheck(check.name) || (input.finding.status === "compliant" && citesClause && absentChecks.has(check.name)),
   );
   const pass = response.data.verdict === "pass" && hardFailures.length === 0;
   const reasons = [
