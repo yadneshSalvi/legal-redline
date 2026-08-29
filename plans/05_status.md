@@ -17,6 +17,12 @@
   breaks after inserts; overlapping anchors; numbering/headings; definitions; dates; XML control chars; validateDocx too lenient).
   `engine-r2` sent (reviewer's 8 + lead's 4 + LibreOffice round-trip test). LibreOffice 26.8 installed.
 
+- Sun 00:00 — `agent-core` landed (34 min): typecheck/lint/tests clean; live smokes: clean template 18/18 compliant ($3.30, 183 s);
+  deviation contract 7 dev / 3 missing / 6 compliant / 2 needs_review ($5.81, 407 s); replay $0 in 1.6 s. Memo is lawyer-grade. `review-agent` (Sol max) launched.
+- Sun 00:05 — Vercel: project `playbook-redliner` (prj_BIzhMqPeRfToSYVTGzVIJMbnFl1D, team yadneshsalvis-projects), first deploy OK
+  https://playbook-redliner-l4oxd5loz-yadneshsalvis-projects.vercel.app ; SSO deployment protection **disabled** (was 302 for everyone);
+  env ANTHROPIC/OPENAI keys + REDLINER_LLM_MODE=replay set for prod+preview; GitHub `yadneshSalvi/legal-redline` (public) pushed → push-to-deploy.
+
 ## Decisions
 - Stack: TypeScript monorepo (Next 16.3 + pure-TS OOXML engine + Anthropic TS SDK), one `pnpm` toolchain — chosen over Python for a
   single reproducible runtime and Vercel deploy. Vercel team `yadneshsalvis-projects` (Pro → 800 s functions).
