@@ -100,3 +100,6 @@
 4. Deploy (push) → `/evals` shows real data; smoke the deployed routes.
 5. Final video with real numbers + a real `final` run recording; Fable gate review; REPRODUCE numbers (runtime/cost); submit.
 6. Ask the user: 15-min gold spot-check (`plans/06_gold_review.md` §Spot-check) + one real review session on the deployed app for the human-load metric.
+- Sun 02:10 — i2-workers: F1 0.840 (P 0.76 / R **0.96**, FN 4), esc 1, validity 47 %, minimality 26 %, halluc 4.6 %, $3.26/contract.
+  Validity components (passing/eligible): applies 100 % in every config; checks ~82 %; **judge** b0 27 % → b1 46 % → i1 49 % → i2 59 %;
+  judge drafting_quality mean 2.84 → 3.46 → 3.48 → 3.70. The independent judge is the discriminating component — narrative for the changelog.
