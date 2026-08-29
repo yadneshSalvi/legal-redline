@@ -71,3 +71,6 @@
 ## UI notes for review (lead, Sun 00:15)
 - Workspace pass1d looks on-spec. Watch: disabled "Export .docx" button text nearly invisible on navy (contrast); verify keyboard nav; the
   dense-change grouping in the preview should match the engine's post-r2 rendering.
+- Sun 01:05 — campaign b1-prompt aborted at scoring (transient: r5 was editing synthetic gold mid-run); caches intact; gate now passes; b1 re-scored
+  via `--allow-live` (log `campaign-b1-prompt-rescore.log`). Campaign continues with b0-chat → … Synthetic gold r5: 9 `ambiguous` overlap items.
+  Verifier smoke after soft-check fix: 16 pass / 1 repaired / 1 fail (was 7 fails); written-number parsing added (code only, no cache impact).
