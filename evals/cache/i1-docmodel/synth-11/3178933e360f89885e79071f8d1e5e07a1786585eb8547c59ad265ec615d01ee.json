@@ -1,0 +1,109 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXdrV23wbjMYgGtq7oR5",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_015UJnQ2rxsHcbSYtLyCbSvM",
+        "name": "propose_redline",
+        "input": {
+          "ruleId": "NOSOLICIT",
+          "ops": [
+            {
+              "kind": "replace",
+              "paragraphId": "p0051",
+              "oldText": "For eighteen months after termination Customer will not solicit or engage any person employed by Vendor at any time during the term.",
+              "newText": "For twelve months after a person's involvement in the Services ends, neither Party will knowingly solicit for employment any of the other Party's personnel who were directly involved in performing or receiving the Services. This does not restrict general advertisements or other recruitment not targeted at the other Party's personnel, responses to them, or the hiring of any person who approaches a Party on an unsolicited basis, and neither Party is restricted from hiring any person."
+            }
+          ],
+          "comment": "[Playbook] We accept only a mutual, narrow non-solicit: 12 months from the end of a person's involvement, limited to personnel directly involved in the Services, with general-advertising and unsolicited-approach carve-outs and no no-hire. The 18-month, all-personnel, \"engage\" restriction binding only us is not acceptable and conflicts with Section 12.3.",
+          "level": "fallback",
+          "summary": "Make non-solicit mutual, 12 months, involved personnel only, with carve-outs and no no-hire."
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_014LK1SGQy3TxCHkKSBqcizv",
+        "name": "propose_redline",
+        "input": {
+          "ruleId": "AUDIT",
+          "ops": [
+            {
+              "kind": "replace",
+              "paragraphId": "p0093",
+              "oldText": "Vendor may audit Customer at any time without notice and may remotely access Customer's systems and records for that purpose.",
+              "newText": "No more than once in any twelve-month period, on at least thirty days' prior written notice and during normal business hours, Vendor may engage an independent auditor bound by confidentiality obligations to verify Customer's usage of the Services by reviewing relevant usage records Customer provides. Vendor and its auditor have no right of access to Customer's systems, whether remote or on-site."
+            }
+          ],
+          "comment": "[Playbook] Audits of our usage must be no more than annual, on 30 days' notice, records-based and conducted by an independent auditor, with no access to our systems. As drafted, unlimited unannounced audits with remote system access is a walk-away and already contradicts the access limits in Section 22.2.",
+          "level": "preferred",
+          "summary": "Limit audits to annual, 30 days' notice, independent auditor, records only, no system access."
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01QXEQ16wQek5z93ve4QrRsS",
+        "name": "propose_redline",
+        "input": {
+          "ruleId": "T4C",
+          "ops": [
+            {
+              "kind": "insert_after",
+              "paragraphId": "p0041",
+              "numbering": "9.6",
+              "text": "Customer may terminate this Agreement or any Order Form for convenience, in whole or in part, upon thirty days' prior written notice to Vendor, without penalty or early-termination charge, in which case Vendor shall refund prepaid Fees for the period after the effective date of termination in accordance with Section 10.2. Vendor has no right to terminate this Agreement or an Order Form for convenience during a committed term."
+            }
+          ],
+          "comment": "[Playbook] Section 9 contains no convenience right, which we cannot accept in a three-year term (Section 8.1). We have added a Customer-only termination for convenience on 30 days' notice with a pro-rata refund keyed to Section 10.2; our fallback is 60-90 days' notice.",
+          "level": "preferred",
+          "summary": "Insert Customer termination for convenience on 30 days' notice with pro-rata refund."
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1928,
+      "cache_read_input_tokens": 30084,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1928,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1408,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "propose_redline",
+      "sha256": "5402f0b2092e5f290c4d8484eaa6affac0854fc1fa6187e741a6c9fb875f53fc"
+    },
+    {
+      "name": "propose_redline",
+      "sha256": "5402f0b2092e5f290c4d8484eaa6affac0854fc1fa6187e741a6c9fb875f53fc"
+    },
+    {
+      "name": "propose_redline",
+      "sha256": "5402f0b2092e5f290c4d8484eaa6affac0854fc1fa6187e741a6c9fb875f53fc"
+    }
+  ],
+  "durationMs": 15435
+}

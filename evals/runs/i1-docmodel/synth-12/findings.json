@@ -1,0 +1,500 @@
+[
+  {
+    "confidence": 0.92,
+    "costUsd": 0.06238199,
+    "durationMs": 10672,
+    "id": "f-indemn-02b1d663",
+    "paragraphIds": [
+      "p0075",
+      "p0038"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] The Agreement has no indemnification section even though Sections 9.3, 21.3 and 30.5 assume one exists (9.3 cross-refers to Section 20.5). We have inserted our standard Vendor indemnity covering IP infringement, breach of law, Vendor-caused data incidents and wilful misconduct, with the usual notice/control procedure and IP remedies; per Section 21.3 indemnification obligations sit outside the liability cap.",
+      "level": "preferred",
+      "ops": [
+        {
+          "asHeading": true,
+          "kind": "insert_after",
+          "numbering": "20",
+          "paragraphId": "p0075",
+          "text": "INDEMNIFICATION"
+        },
+        {
+          "kind": "insert_after",
+          "numbering": "20.1",
+          "paragraphId": "p0075",
+          "text": "Vendor shall defend, indemnify and hold harmless Customer and its Affiliates from and against any third-party claim, and all resulting damages, costs and expenses (including reasonable attorneys' fees), to the extent arising out of (a) an allegation that the Services or Deliverables infringe or misappropriate any intellectual property right; (b) Vendor's breach of Applicable Law; (c) any unauthorized access to or disclosure of Customer Data caused by Vendor; or (d) Vendor's gross negligence or wilful misconduct."
+        },
+        {
+          "kind": "insert_after",
+          "numbering": "20.2",
+          "paragraphId": "p0075",
+          "text": "Customer shall defend and indemnify Vendor against third-party claims to the extent arising out of Customer-provided content or Customer's breach of Applicable Law. The indemnified Party shall give prompt written notice of a claim, the indemnifying Party shall control the defence with counsel of its choice, and the indemnified Party shall provide reasonable cooperation at the indemnifying Party's expense. No settlement that imposes a non-monetary obligation or admission on the indemnified Party may be made without its prior written consent."
+        },
+        {
+          "kind": "insert_after",
+          "numbering": "20.5",
+          "paragraphId": "p0075",
+          "text": "If an infringement claim is made or reasonably anticipated, Vendor shall at its expense procure the necessary rights, or modify or replace the affected Services or Deliverables with a functionally equivalent, non-infringing alternative; if none is reasonably available, Customer may terminate the affected Order Form and Vendor shall refund prepaid Fees and Fees paid for affected Deliverables."
+        }
+      ],
+      "summary": "Insert missing Vendor indemnity as new Section 20 and repair the broken cross-reference in 9.3"
+    },
+    "quote": "Customer may terminate an Order Form immediately if Vendor suffers a material Security Incident, repeatedly misses a critical service level, violates Applicable Law in performing the Services, or infringes a third party's intellectual property and cannot provide the remedies required by Section 20.5.",
+    "rationale": "There is no indemnification section at all: the outline jumps from Section 19 (Warranties) to Section 21 (Limitation of Liability), yet Sections 9.3, 19.4, 21.3 and 30.5 all assume indemnities exist and 9.3 cross-references a non-existent Section 20.5. We inserted a new Section 20 with a Vendor IP/breach-of-law/data-incident/wilful-misconduct indemnity, a narrow Customer indemnity limited to Customer-provided content and its breach of law, standard notice/control/cooperation procedure, and the procure-modify-replace-refund remedies (which also repairs the 9.3 cross-reference).",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-19.5",
+    "sectionRef": "§ 19.5 Except for the express warranties in this Agreement, neithe…",
+    "severity": "critical",
+    "status": "missing"
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.06238199,
+    "durationMs": 10671,
+    "id": "f-ip-85161c72",
+    "paragraphIds": [
+      "p0054",
+      "p0053",
+      "p0055"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] We own the work product we pay for, so Vendor assigns each Deliverable to us; Vendor keeps its pre-existing Vendor Technology under Section 14.3 with the perpetual licence in Section 13.2. Our fallback is Vendor ownership plus a perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense Deliverables.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "14.2 Customer exclusively owns every Deliverable created for Customer, and Vendor hereby assigns to Customer all right, title, and interest in each such Deliverable upon creation. To the extent any such assignment is ineffective, Vendor grants Customer a perpetual, irrevocable, worldwide, royalty-free, fully paid, transferable licence to use, modify, and sublicense the Deliverable for Customer's business.",
+          "oldText": "14.2 Vendor exclusively owns every Deliverable created for Customer. Customer receives a revocable, non-transferable licence to use a Deliverable only during the applicable Order Form term.",
+          "paragraphId": "p0054"
+        }
+      ],
+      "summary": "Flip Deliverable ownership to Customer with Vendor assignment; delete the revocable term licence"
+    },
+    "quote": "14.2 Vendor exclusively owns every Deliverable created for Customer. Customer receives a revocable, non-transferable licence to use a Deliverable only during the applicable Order Form term.",
+    "rationale": "Section 14.1 correctly leaves Customer Data and our pre-existing IP with us and 14.4 bars joint ownership, but 14.2 reverses our position on paid-for work product: Vendor owns every Deliverable and we get only a revocable, non-transferable term licence, so we lose access to what we paid for on expiry. We flipped ownership to Customer with an assignment (and a perpetual, irrevocable, transferable fallback licence); Vendor still retains Vendor Technology under 14.3 with the Section 13.2 perpetual licence.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-14.2",
+    "sectionRef": "§ 14.2 Vendor exclusively owns every Deliverable created for Custo…",
+    "severity": "critical",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.06238199,
+    "durationMs": 10672,
+    "id": "f-lol-cap-a1fe08c1",
+    "paragraphIds": [
+      "p0077",
+      "p0078",
+      "p0079",
+      "p0080"
+    ],
+    "producedBy": "monolith",
+    "quote": "Except for Excluded Claims, each Party's total aggregate liability arising out of or relating to this Agreement shall not exceed the greater of the Fees paid or payable by Customer during the twelve months preceding the event giving rise to the claim and USD 1,000,000. The cap is mutual and applies regardless of the form of action or number of claims.",
+    "rationale": "Section 21 matches our preferred position: a mutual cap at the greater of 12 months' Fees (paid or payable) and USD 1,000,000, a mutual exclusion of indirect/consequential damages with restoration and incident-response costs treated as direct damages, and Excluded Claims in 21.3 covering confidentiality, data protection, security, indemnification, gross negligence, wilful misconduct, fraud and IP infringement. \"Fees\" (1.5) is the full recurring/professional/usage fee stream, so the cap is not illusory, and Customer's payment obligation is expressly not \"damages\". No redline needed; note that the Excluded Claims reference to \"indemnification obligations\" only has effect once the missing indemnity (INDEMN) is added.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-21.1",
+    "sectionRef": "§ 21.1 Except for Excluded Claims, each Party's total aggregate li…",
+    "severity": "critical",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.06238199,
+    "durationMs": 10671,
+    "id": "f-assign-90aa4ec8",
+    "paragraphIds": [
+      "p0087",
+      "p0088",
+      "p0089",
+      "p0090"
+    ],
+    "producedBy": "monolith",
+    "quote": "Customer's change of control does not give Vendor a right to terminate, suspend, reprice, accelerate Fees, or reduce service.",
+    "rationale": "Section 24 tracks our preferred position: Customer may assign freely to an Affiliate or an M&A successor on notice (24.1); Vendor needs our consent for assignment, delegation or change of control and may never assign to a Customer competitor (24.2); other assignments require consent not unreasonably withheld (24.3); and Vendor gets no termination, suspension or repricing right on our change of control (24.4). Section 13.3 consistently permits transfer of licence rights with a permitted assignment. No redline needed.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-24.1",
+    "sectionRef": "§ 24.1 Customer may assign this Agreement or an Order Form without…",
+    "severity": "high",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.06238199,
+    "durationMs": 10672,
+    "id": "f-exclusivity-eb0f9f73",
+    "paragraphIds": [
+      "p0026",
+      "p0044"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] We must remain free to buy from other suppliers, and conditioning that freedom on disclosing and matching offers is a de facto exclusivity/right of first refusal; we have deleted it, consistent with Section 12.3's acknowledgement that Customer has made no exclusivity commitment.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "delete_paragraph",
+          "paragraphId": "p0026"
+        }
+      ],
+      "summary": "Delete the disclose-and-match precondition to engaging another provider"
+    },
+    "quote": "Before engaging another provider, Customer must disclose and match for Vendor any more favourable commercial offer it receives.",
+    "rationale": "Conditioning our engagement of any other provider on disclosing and matching offers operates as a right of first refusal and de facto exclusive dealing for the full term, with no performance-based exit — our walk-away position, and inconsistent with Section 12.3's no-exclusivity acknowledgement (reinforced by the take-or-pay lock-in in Section 2.1). We deleted the clause.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-7.2",
+    "sectionRef": "§ 7.2 Before engaging another provider, Customer must disclose an…",
+    "severity": "high",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.8,
+    "costUsd": 0.06238199,
+    "durationMs": 10671,
+    "id": "f-ld-6024f5b8",
+    "paragraphIds": [
+      "p0007",
+      "p0101",
+      "p0012"
+    ],
+    "producedBy": "monolith",
+    "quote": "Fees do not include taxes, reimbursable expenses, service credits, interest, damages, or a one-time implementation charge unless an Order Form expressly states otherwise.",
+    "rationale": "No liquidated damages, penalty or early-termination charge is payable by Customer anywhere in the Agreement: service credits are referenced only as amounts flowing to us (Section 1.5), Section 7.3 lets us withhold disputed amounts, and Section 27.3 permits termination \"without penalty\" with a refund. Compliant as drafted; the take-or-pay in Section 2.1 is addressed under MINCOMMIT, and our termination-for-convenience insert states expressly that no early-termination charge applies so it cannot be recharacterised as a penalty.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-1.5",
+    "sectionRef": "§ 1.5 “Fees” means the recurring subscription fees, professional…",
+    "severity": "high",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.8,
+    "costUsd": 0.06238199,
+    "durationMs": 10671,
+    "id": "f-license-905ac90b",
+    "paragraphIds": [
+      "p0048",
+      "p0049",
+      "p0050"
+    ],
+    "producedBy": "monolith",
+    "quote": "Vendor grants Customer, its Affiliates, and contractors acting on their behalf a worldwide, non-exclusive right during the subscription term to access and use the hosted Services and documentation",
+    "rationale": "The grant in Section 13 meets our preferred position: it covers Affiliates and contractors acting on our behalf, paid-up and embedded Vendor Technology is licensed perpetually and irrevocably (13.2), licence rights are transferable to an Affiliate or successor (13.3), and Vendor may only suspend or revoke during a material uncured payment or use breach after notice and a cure opportunity. The one revocable, non-transferable licence (Section 14.2, Deliverables) is addressed by our IP redline rather than duplicated here.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-13.1",
+    "sectionRef": "§ 13.1 Subject to payment of applicable Fees, Vendor grants Custom…",
+    "severity": "high",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.95,
+    "costUsd": 0.06238199,
+    "durationMs": 10672,
+    "id": "f-noncompete-fb0a0e9b",
+    "paragraphIds": [
+      "p0046",
+      "p0044"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] We cannot accept any restriction on the products or services we may develop, buy or sell, so we have deleted this clause; it also directly contradicts Section 12.3, in which Vendor acknowledges that Customer has made no non-compete commitment.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "delete_paragraph",
+          "paragraphId": "p0046"
+        }
+      ],
+      "summary": "Delete the 24-month worldwide non-compete on Customer"
+    },
+    "quote": "During the term and for twenty-four months thereafter, Customer shall not develop, market, sell, or acquire any product or service that competes with Vendor in any territory.",
+    "rationale": "This is an undefined-scope, worldwide, 24-month post-term non-compete binding Customer — our walk-away position. It also contradicts Section 12.3, in which Vendor acknowledges Customer has made no non-compete commitment. We deleted it; if Vendor needs protection we could consider a term-only restriction on one named competing product with carve-outs for internal development and acquisitions.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-12.4-2",
+    "sectionRef": "§ 12.4 During the term and for twenty-four months thereafter, Cust…",
+    "severity": "high",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.06238199,
+    "durationMs": 10672,
+    "id": "f-t4c-9fcd88b6",
+    "paragraphIds": [
+      "p0038",
+      "p0012",
+      "p0031"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] Section 9 gives us no right to exit a three-year term without cause (the numbering even skips 9.4), so we have added a Customer convenience right on 30 days' notice with a pro-rata refund of prepaid Fees; Vendor takes no reciprocal mid-term exit.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "9.4",
+          "paragraphId": "p0038",
+          "text": "Customer may terminate this Agreement or any Order Form for convenience, in whole or in part, upon thirty days' prior written notice to Vendor, without penalty, early-termination charge, or further volume or payment obligation, in which case Vendor shall refund any prepaid Fees for the period after the effective date of termination. Vendor has no right to terminate this Agreement or an Order Form for convenience during a term."
+        }
+      ],
+      "summary": "Add a Customer-only termination for convenience on 30 days' notice with pro-rata refund"
+    },
+    "quote": "Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+    "rationale": "Section 9 provides only termination for breach, insolvency and Vendor performance failures (numbering skips 9.4) — there is no convenience right for Customer in a three-year term, and Section 2.1 expressly denies termination rights, which is our walk-away position. We inserted a new Section 9.4 giving Customer a 30-day convenience right with pro-rata refund of prepaid Fees and no early-termination charge, and confirming Vendor has no mid-term convenience exit.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-9.3",
+    "sectionRef": "§ 9.3 Customer may terminate an Order Form immediately if Vendor…",
+    "severity": "high",
+    "status": "missing"
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.06238199,
+    "durationMs": 10671,
+    "id": "f-audit-b84b2075",
+    "paragraphIds": [
+      "p0082",
+      "p0083",
+      "p0084",
+      "p0085"
+    ],
+    "producedBy": "monolith",
+    "quote": "Vendor may audit Customer's compliance with licence quantities no more than once in any twelve-month period, on at least thirty days' prior written notice, during normal business hours",
+    "rationale": "Section 22 matches our preferred position: once per 12 months, 30 days' notice, business hours, off-site where practicable, independent auditor under confidentiality, Vendor bears cost unless underpayment exceeds 5%, and no direct access to Customer systems, unrelated Customer Data or privileged material. Section 23 (Records and Customer Assurance) contains no additional inspection right binding us. No redline needed.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-22.1",
+    "sectionRef": "§ 22.1 Vendor may audit Customer's compliance with licence quantit…",
+    "severity": "medium",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.95,
+    "costUsd": 0.06238199,
+    "durationMs": 10671,
+    "id": "f-govlaw-a859aa45",
+    "paragraphIds": [
+      "p0103",
+      "p0104"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] Our accepted governing laws are New York, Delaware, California or England and Wales, and Section 28.1 also directly conflicts with the exclusive New York County venue in Section 28.2; we have changed the governing law to New York and left 28.2 to govern venue.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "This Agreement is governed exclusively by the laws of the State of New York, without regard to its conflict-of-laws rules.",
+          "oldText": "This Agreement is governed exclusively by Singapore law, and the courts of Singapore have exclusive jurisdiction.",
+          "paragraphId": "p0103"
+        }
+      ],
+      "summary": "Replace Singapore law/venue with New York law, aligning with Section 28.2"
+    },
+    "quote": "This Agreement is governed exclusively by Singapore law, and the courts of Singapore have exclusive jurisdiction.",
+    "rationale": "Singapore law with exclusive Singapore jurisdiction is outside our accepted list (New York, Delaware, California, England and Wales) and directly conflicts with Section 28.2, which gives the New York County state and federal courts exclusive jurisdiction. We replaced 28.1 with New York governing law and left Sections 28.2 and 28.3 intact so venue and the escalation process are unchanged.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-28.1",
+    "sectionRef": "§ 28.1 This Agreement is governed exclusively by Singapore law, an…",
+    "severity": "medium",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.06238199,
+    "durationMs": 10672,
+    "id": "f-mfn-fa0982e0",
+    "paragraphIds": [
+      "p0026",
+      "p0044"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] An MFN in our favour is welcome, but we do not accept an obligation to disclose and match third-party offers for Vendor's benefit; we have struck it and rely on Section 12.3's no-most-favoured-customer acknowledgement.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "delete_paragraph",
+          "paragraphId": "p0026"
+        }
+      ],
+      "summary": "Delete the MFN running against Customer"
+    },
+    "quote": "Before engaging another provider, Customer must disclose and match for Vendor any more favourable commercial offer it receives.",
+    "rationale": "The MFN runs the wrong way: Customer must disclose and match any more favourable third-party offer for Vendor's benefit, an open-ended obligation to extend better terms to Vendor. We deleted it and rely on Section 12.3's acknowledgement that Customer has made no most-favoured-customer commitment; MFN pricing granted to us would be welcome.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-7.2",
+    "sectionRef": "§ 7.2 Before engaging another provider, Customer must disclose an…",
+    "severity": "medium",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.06238199,
+    "durationMs": 10671,
+    "id": "f-mincommit-b4ab0b09",
+    "paragraphIds": [
+      "p0012",
+      "p0044"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] We do not accept multi-year take-or-pay with no reduction or exit; we have limited any commitment to the current 12-month term, made it reducible on 30 days' notice, replaced the shortfall with a true-up carry-forward of credits, and confirmed it ends on termination — consistent with Section 12.3's no-minimum-volume acknowledgement. Our preference remains deletion, with Fees payable for Services actually ordered.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "2.1 Customer has no minimum purchase commitment, and Fees are payable only for Services and Deliverables Customer actually orders under an Order Form. If an Order Form states a volume commitment, that commitment applies only to the then-current twelve-month term, may be reduced by Customer on thirty days' written notice, terminates on termination or expiry of the Agreement or the applicable Order Form, and any shortfall is addressed by a credit carried forward to the following period rather than by any penalty or take-or-pay payment.",
+          "oldText": "2.1 Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+          "paragraphId": "p0012"
+        }
+      ],
+      "summary": "Replace the three-year take-or-pay with a single-year, reducible commitment with true-up"
+    },
+    "quote": "2.1 Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+    "rationale": "A USD 2,000,000 per year, three-year take-or-pay with no reduction or termination rights is our walk-away position and contradicts Section 12.3, where Vendor acknowledges we have made no minimum-volume commitment. We replaced it with our fallback: no standing commitment, any Order Form commitment limited to the current 12-month term, reducible on 30 days' notice, ending on termination, and any shortfall handled by a carry-forward true-up rather than a penalty.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-2.1",
+    "sectionRef": "§ 2.1 Customer commits to purchase at least USD 2,000,000 of Serv…",
+    "severity": "medium",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.92,
+    "costUsd": 0.06238199,
+    "durationMs": 10672,
+    "id": "f-nosolicit-66bf4720",
+    "paragraphIds": [
+      "p0045"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] We do not accept one-way no-hire provisions; we have made the restriction mutual, limited it to personnel directly involved in the Services for 12 months, and added the standard general-advertising and unsolicited-applicant carve-out (which Section 12.3 already preserves).",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "12.4 During the term and for twelve months after the end of an individual's involvement in the Services, neither Party shall knowingly solicit for employment any employee of the other Party who was directly involved in performing or receiving the Services. This Section does not restrict either Party from hiring a person who responds to a general advertisement or other general recruitment effort not targeted at the other Party's personnel, or who approaches the hiring Party on an unsolicited basis.",
+          "oldText": "12.4 Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+          "paragraphId": "p0045"
+        }
+      ],
+      "summary": "Narrow the non-solicit to a mutual, 12-month restriction on involved personnel with advertising carve-out and no no-hire"
+    },
+    "quote": "Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+    "rationale": "This is a one-way 24-month no-hire covering all Vendor employees and expressly capturing people who apply on their own initiative — our walk-away position. We narrowed it to our fallback: mutual, limited to personnel directly involved in the Services, 12 months from the end of their involvement, with carve-outs for general advertising and unsolicited approaches, and no \"hire or employ\" prohibition.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-12.4",
+    "sectionRef": "§ 12.4 Customer shall not solicit, hire, or employ any Vendor empl…",
+    "severity": "medium",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.92,
+    "costUsd": 0.06238199,
+    "durationMs": 10672,
+    "id": "f-renewal-69f0a957",
+    "paragraphIds": [
+      "p0033",
+      "p0034"
+    ],
+    "producedBy": "monolith",
+    "quote": "thereafter renews for successive twelve-month periods unless Customer gives Vendor at least thirty days' written notice of non-renewal. Vendor shall remind Customer of an upcoming renewal at least sixty days beforehand.",
+    "rationale": "Renewals are 12 months (not multi-year), the non-renewal window is only 30 days and runs against Customer alone, Vendor must send a 60-day reminder with the deadline tolled if it fails, and Section 8.3 caps renewal uplift at the lesser of CPI and 3% with 90 days' notice and no increase on prepaid periods. This matches our preferred position; no redline needed.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-8.2",
+    "sectionRef": "§ 8.2 Each Order Form has the initial term stated in it and there…",
+    "severity": "medium",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.06238192,
+    "durationMs": 10671,
+    "id": "f-transition-b629bfd2",
+    "paragraphIds": [
+      "p0041",
+      "p0042",
+      "p0067"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] Section 10.1 assumes an \"agreed transition period\" but nothing obliges Vendor to provide exit help or to return our data (and Section 16.5 cross-refers to an absent Section 11); we have added six months of transition assistance at then-current rates, data return in a machine-readable format within 30 days, and certified deletion thereafter.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "10.3",
+          "paragraphId": "p0042",
+          "text": "On expiry or termination of this Agreement or an Order Form for any reason, Vendor shall (a) at Customer's request, provide reasonable transition assistance for up to six months at Vendor's then-current rates and continue the affected Services during that period on the existing terms; (b) within thirty days of Customer's request, return or export all Customer Data in a commonly used, machine-readable format at no additional charge; and (c) thereafter delete Customer Data from its systems, subject to routine backups and legal retention requirements, and certify the deletion in writing."
+        }
+      ],
+      "summary": "Insert transition assistance and Customer Data return/deletion obligations in Section 10"
+    },
+    "quote": "On expiry or termination, Customer's right to access terminated subscription Services ends after any agreed transition period.",
+    "rationale": "Section 10 assumes an \"agreed transition period\" but no clause obliges Vendor to provide exit assistance or to return or export Customer Data in a usable format, and Section 16.5 defers Customer Data to an absent Section 11 — leaving us exposed to loss of access to hosted health data on exit. We inserted a new Section 10.3 requiring up to six months' transition assistance at then-current rates, return/export of Customer Data in a machine-readable format within 30 days, and certified deletion thereafter.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-10.1",
+    "sectionRef": "§ 10.1 On expiry or termination, Customer's right to access termin…",
+    "severity": "medium",
+    "status": "missing"
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.06238199,
+    "durationMs": 10671,
+    "id": "f-warranty-540182c8",
+    "paragraphIds": [
+      "p0071",
+      "p0072",
+      "p0073",
+      "p0074",
+      "p0075"
+    ],
+    "producedBy": "monolith",
+    "quote": "For ninety days after delivery or acceptance, whichever is later, each Deliverable will materially conform to its documentation and acceptance criteria. Hosted Services will conform throughout the subscription term.",
+    "rationale": "Section 19 meets our preferred position: professional and workmanlike performance, material conformance to documentation for Deliverables for 90 days (and for hosted Services throughout the subscription term, which is better than a 12-month software warranty), no malicious code, compliance with Applicable Law, and a re-perform/repair/replace-or-refund remedy in 19.4 that is expressly non-exclusive for fraud, infringement, confidentiality, privacy, security and indemnified claims. The 19.5 disclaimer expressly does not cut down express warranties. No redline needed.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-19.1",
+    "sectionRef": "§ 19.1 Vendor warrants that Services will be performed in a profes…",
+    "severity": "medium",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.92,
+    "costUsd": 0.06238199,
+    "durationMs": 10671,
+    "id": "f-insurance-c27d1706",
+    "paragraphIds": [
+      "p0068",
+      "p0069"
+    ],
+    "producedBy": "monolith",
+    "quote": "commercial general liability insurance of at least USD 1,000,000 per occurrence and USD 2,000,000 aggregate, workers' compensation as required by law, employer's liability of USD 1,000,000, professional errors and omissions insurance of USD 2,000,000, and cyber and privacy liability insurance of USD 5,000,000",
+    "rationale": "Section 18 meets our preferred programme in full — CGL USD 1M/2M, workers' compensation and employer's liability, E&O USD 2M and cyber/privacy USD 5M, maintained through the term plus one year, with certificates on request, cancellation notice and confirmation that insurance does not limit Vendor's liabilities. No redline needed.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-18.1",
+    "sectionRef": "§ 18.1 Vendor shall maintain, at its own expense throughout the te…",
+    "severity": "low",
+    "status": "compliant"
+  }
+]
