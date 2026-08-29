@@ -121,3 +121,5 @@
 - Sun 05:00 — calibrated i2 F1 0.944 (P 0.97 / R 0.93), i3 0.941 (P 0.94 / R 0.94) but 21 escalations: 19 were compliant findings failed by
   presence regexes with no clause to inspect (verifier model itself said "compliant"). Fix: for compliant findings only `regex_absent`
   contradictions gate (deterministic post-processing → all configs re-scored in replay at the end for consistency). i4 running.
+- Sun 05:05 — replay check with the new gating: verifier verdicts replay deterministically, but the **memo** request embeds verification notes →
+  cache miss after a gating change. Final re-score of all configs must use `--allow-live --judge live` (records only memo calls + any new judge calls).
