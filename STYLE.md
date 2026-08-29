@@ -54,8 +54,10 @@ shadow is needed: `0 1px 2px rgba(27,27,31,.06), 0 8px 24px -12px rgba(27,27,31,
 - Proposed (not yet accepted) changes render at 100 % with a 2 px `hairline.strong` left rule on the
   paragraph; accepted → left rule `verified`; rejected → change hidden, original text restored,
   paragraph rule removed. Hovering a finding card highlights its paragraph (`navy.soft` wash, 160 ms).
-- Comment anchors: a numbered pill (`comment.soft` bg, `comment` text, 11 px mono) at the end of the
-  anchored text; the comment body lives in the finding card, and in the exported docx.
+- Comment anchors: a numbered pill (`comment.soft` bg, **`ink` text**, `comment` border/dot, 11 px mono) at the end of
+  the anchored text; the comment body lives in the finding card, and in the exported docx. Amber (`comment`) is never
+  used as text on white or on `comment.soft` (3.1:1) — it is a border, wash or dot colour; the same rule applies to the
+  High severity pill. `verified` text sits on `sheet`, not on `verified.soft`.
 - A word-level diff (`diff` package, `diffWords`) drives rendering; never show a whole-paragraph
   replace as one strike + one insert when a word diff is possible.
 

@@ -3,7 +3,8 @@ import { nanoid } from "nanoid";
 import { getConfig } from "@/src/agent/configs";
 import type { ReviewRun } from "@/src/agent/types";
 import { parseDocx, parseText } from "@/src/engine";
-import { loadPlaybook } from "@/src/playbook/loader";
+import { loadPlaybookById, PlaybookNotFound } from "@/src/playbook/loader";
+import { loadPackagedSample } from "@/app/api/_samples";
 import { initialStats, jsonError, MAX_UPLOAD_BYTES, safeId, store } from "@/app/api/_shared";
 
 export const runtime = "nodejs";
@@ -11,12 +12,9 @@ export const dynamic = "force-dynamic";
 
 async function sampleBytes(sampleId: string): Promise<{ bytes: Uint8Array; filename: string }> {
   const id = safeId(sampleId);
-  const fs = store();
-  const docx = await fs.getBytes(`contracts/${id}/contract.docx`);
-  if (docx) return { bytes: docx, filename: `${id}.docx` };
-  const text = await fs.getBytes(`contracts/${id}/contract.txt`);
-  if (text) return { bytes: text, filename: `${id}.txt` };
-  throw new Error(`Unknown sample: ${id}`);
+  const sample = await loadPackagedSample(id);
+  if (!sample) throw new Error("Unknown sample");
+  return sample;
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -25,7 +23,12 @@ export async function POST(request: Request): Promise<Response> {
     const configId = String(form.get("config") ?? "final");
     const playbookId = String(form.get("playbookId") ?? "customer-vendor-services-v1");
     getConfig(configId);
-    await loadPlaybook(playbookId);
+    try {
+      await loadPlaybookById(playbookId);
+    } catch (error) {
+      if (error instanceof PlaybookNotFound) return jsonError("Playbook not found", 404);
+      throw error;
+    }
     const upload = form.get("file");
     const sampleId = form.get("sampleId");
     let source: { bytes: Uint8Array; filename: string };
@@ -55,7 +58,7 @@ export async function POST(request: Request): Promise<Response> {
       sourceKey,
       findings: [],
       decisions: {},
-      stats: initialStats(createdAt),
+      stats: initialStats(),
       ...(typeof sampleId === "string" && sampleId ? { tags: [sampleId] } : {}),
     };
     const fs = store();

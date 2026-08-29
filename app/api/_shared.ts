@@ -17,9 +17,9 @@ export function safeId(id: string): string {
   return id;
 }
 
-export function initialStats(at: string): RunStats {
+export function initialStats(): RunStats {
   return {
-    startedAt: at,
+    startedAt: "",
     llmCalls: 0,
     toolCalls: 0,
     retries: 0,

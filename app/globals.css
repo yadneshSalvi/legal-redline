@@ -1,26 +1,307 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------------------------------------------------------------------------
+   Theme — mirrors src/tokens.ts. Default Tailwind palettes are deliberately
+   erased so that a stray `bg-zinc-100` simply does not compile (STYLE.md §6).
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-*: initial;
+
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-paper: #fbfaf7;
+  --color-sheet: #ffffff;
+  --color-ink: #1b1b1f;
+  --color-ink-muted: #5c5b66;
+  --color-ink-faint: #8a8994;
+  --color-hairline: #e6e3dc;
+  --color-hairline-strong: #d5d1c7;
+  --color-navy: #1e2a47;
+  --color-navy-soft: #e9edf6;
+  --color-deletion: #b3261e;
+  --color-deletion-soft: #fbe9e7;
+  --color-insertion: #1e5aa8;
+  --color-insertion-soft: #e7f0fb;
+  --color-comment: #b98a1f;
+  --color-comment-soft: #fff4d6;
+  --color-verified: #2a7f6f;
+  --color-verified-soft: #e4f3ef;
+  --color-medium: #4a5b8c;
+  --color-low: #6b6b75;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --radius-field: 6px;
+  --radius-card: 10px;
+
+  --shadow-sheet: 0 1px 2px rgba(27, 27, 31, 0.06), 0 8px 24px -12px rgba(27, 27, 31, 0.18);
+  --shadow-overlay: 0 1px 2px rgba(27, 27, 31, 0.08), 0 24px 64px -24px rgba(27, 27, 31, 0.34);
+
+  --ease-out-quiet: cubic-bezier(0.22, 0.75, 0.25, 1);
+
+  /* Three-pane workspace starts at 1440 (STYLE.md §3). */
+  --breakpoint-wide: 1440px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* ---------------------------------------------------------------------------
+   Base. Everything here must sit in @layer base: unlayered rules outrank every
+   Tailwind utility, which would silently defeat `text-sheet`, `font-semibold`
+   and friends on elements matched by these selectors.
+   --------------------------------------------------------------------------- */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-navy-soft);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-navy);
+    outline-offset: 2px;
+  }
+
+  /* Radix puts tabindex="-1" on content wrappers; they should not show a ring. */
+  [data-radix-focus-guard],
+  [tabindex="-1"]:focus-visible {
+    outline: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  del,
+  ins {
+    text-decoration: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------------------------------------------------------------------------
+   Component classes — in @layer components so utilities still win over them.
+   --------------------------------------------------------------------------- */
+@layer components {
+  /* 12 px small-caps label (STYLE.md §1). */
+  .label-caps {
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 12px;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Independently scrolling workspace pane. */
+  .pane {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-hairline-strong) transparent;
+  }
+
+  .pane::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .pane::-webkit-scrollbar-thumb {
+    background-color: var(--color-hairline-strong);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 999px;
+  }
+
+  /* The one permitted gradient: the landing hero wash (STYLE.md §1). */
+  .hero-wash {
+    background-image: linear-gradient(180deg, var(--color-paper) 0%, var(--color-sheet) 100%);
+  }
+
+  /* Review workspace metrics (STYLE.md §3), written as plain media queries so the
+     pane widths cannot be reordered by utility-class sorting. */
+  .workspace {
+    display: flex;
+    flex-direction: column;
+    /* Not `flex-1`: a flex-basis would override the explicit height below. */
+    flex: 0 0 auto;
+    min-height: 0;
+  }
+
+  .outline-pane {
+    display: none;
+  }
+
+  .findings-pane {
+    width: 100%;
+  }
+
+  @media (width >= 1024px) {
+    .workspace {
+      height: calc(100dvh - 56px);
+      overflow: hidden;
+    }
+    .findings-pane {
+      width: 380px;
+    }
+  }
+
+  @media (width >= 1440px) {
+    .outline-pane {
+      display: flex;
+      width: 240px;
+    }
+    .findings-pane {
+      width: 420px;
+    }
+  }
+
+  /* The paper. 64 px gutters at the design width (STYLE.md §1); a little tighter below it so the
+     measure stays readable when the outline pane is collapsed. Paragraph rows bleed to the sheet
+     edge with the same value, so the two can never drift apart. */
+  .paper-sheet {
+    --paper-gutter: 40px;
+    padding-inline: var(--paper-gutter);
+  }
+
+  .paper-row {
+    margin-inline: calc(var(--paper-gutter) * -1);
+    padding-inline: var(--paper-gutter);
+  }
+
+  @media (width >= 1440px) {
+    .paper-sheet {
+      --paper-gutter: 64px;
+    }
+  }
+
+  /* Motion (STYLE.md §5). */
+  .rl-enter {
+    animation: rl-slide-in 200ms var(--ease-out-quiet) both;
+  }
+
+  .rl-fade {
+    animation: rl-fade-in 200ms var(--ease-out-quiet) both;
+  }
+
+  .rl-rise {
+    animation: rl-rise 220ms var(--ease-out-quiet) both;
+  }
+
+  .rl-pulse {
+    animation: rl-pulse 1600ms ease-in-out infinite;
+  }
+
+  /* -webkit-line-clamp ignores padding-bottom, so clamped text must be unpadded. */
+  .clamp-box {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@keyframes rl-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rl-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rl-pulse {
+  0%,
+  100% {
+    background-color: var(--color-sheet);
+  }
+  50% {
+    background-color: var(--color-navy-soft);
+  }
+}
+
+/* Reduced motion keeps the fades and drops every movement (STYLE.md §5). */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes rl-slide-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes rl-rise {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .rl-pulse {
+    animation: none;
+    background-color: var(--color-navy-soft);
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
 }
