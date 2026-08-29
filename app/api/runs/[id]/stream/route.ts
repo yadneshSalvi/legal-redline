@@ -100,6 +100,7 @@ async function execute(id: string, run: ReviewRun, state: ActiveRun): Promise<vo
 }
 
 async function claim(id: string, run: ReviewRun, existing: BufferedProgress[]): Promise<ActiveRun> {
+  if (run.status === "queued") run.stats.startedAt = new Date().toISOString();
   run.status = "running";
   run.lease = { owner: INSTANCE_ID, heartbeatAt: new Date().toISOString() };
   await store().putJson(`runs/${id}/run.json`, run);

@@ -6,6 +6,14 @@ import { PlaybookSchema } from "@/src/playbook/schema";
 import type { Playbook, Rule } from "@/src/playbook/schema";
 
 const PLAYBOOK_DIR = path.resolve(process.cwd(), "data/playbooks");
+const PLAYBOOK_ID = /^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$/;
+
+export class PlaybookNotFound extends Error {
+  constructor() {
+    super("Playbook not found");
+    this.name = "PlaybookNotFound";
+  }
+}
 
 function playbookPath(idOrPath: string): string {
   if (idOrPath.includes("/") || idOrPath.endsWith(".yaml") || idOrPath.endsWith(".yml")) {
@@ -19,6 +27,26 @@ export async function loadPlaybook(idOrPath: string): Promise<Playbook> {
   const filename = playbookPath(idOrPath);
   const raw = await readFile(filename, "utf8");
   return PlaybookSchema.parse(parseYaml(raw));
+}
+
+/** Public/API resolver: ids are constrained to packaged playbooks; explicit paths remain CLI-only. */
+export async function loadPlaybookById(id: string): Promise<Playbook> {
+  if (!PLAYBOOK_ID.test(id)) throw new PlaybookNotFound();
+  const candidates = id === "customer-vendor-services-v1"
+    ? ["customer-vendor-services.yaml", `${id}.yaml`]
+    : [`${id}.yaml`];
+  for (const filename of candidates) {
+    try {
+      const raw = await readFile(path.join(PLAYBOOK_DIR, filename), "utf8");
+      const playbook = PlaybookSchema.parse(parseYaml(raw));
+      if (playbook.id === id || filename === `${id}.yaml`) return playbook;
+    } catch (error) {
+      if (error instanceof Error && "code" in error && error.code === "ENOENT") continue;
+      if (error instanceof PlaybookNotFound) throw error;
+      throw new PlaybookNotFound();
+    }
+  }
+  throw new PlaybookNotFound();
 }
 
 export async function listPlaybooks(): Promise<Playbook[]> {

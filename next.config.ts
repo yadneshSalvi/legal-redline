@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/samples": ["./data/contracts/*/meta.json", "./data/contracts/*/contract.docx", "./data/contracts/*/contract.txt"],
     "/api/runs": ["./data/contracts/*/meta.json", "./data/contracts/*/contract.docx", "./data/contracts/*/contract.txt", "./data/playbooks/*.yaml"],
-    "/api/runs/*": ["./data/playbooks/*.yaml", "./data/precedents/seed.json"],
+    "/api/runs/**": ["./data/playbooks/*.yaml", "./data/precedents/seed.json"],
     "/api/precedents": ["./data/precedents/seed.json"],
   },
 };

@@ -13,6 +13,8 @@ function safeKey(key: string): string {
 }
 
 export class FsStore implements Store {
+  private readonly appendQueues = new Map<string, Promise<void>>();
+
   constructor(private readonly root: string) {}
 
   private resolve(key: string): string {
@@ -50,9 +52,18 @@ export class FsStore implements Store {
   }
 
   async appendLine(key: string, line: string): Promise<void> {
-    const target = this.resolve(key);
-    await mkdir(path.dirname(target), { recursive: true });
-    await appendFile(target, `${line.replace(/[\r\n]+$/g, "")}\n`, "utf8");
+    const previous = this.appendQueues.get(key) ?? Promise.resolve();
+    const next = previous.catch(() => undefined).then(async () => {
+      const target = this.resolve(key);
+      await mkdir(path.dirname(target), { recursive: true });
+      await appendFile(target, `${line.replace(/[\r\n]+$/g, "")}\n`, { encoding: "utf8", flag: "a" });
+    });
+    this.appendQueues.set(key, next);
+    try {
+      await next;
+    } finally {
+      if (this.appendQueues.get(key) === next) this.appendQueues.delete(key);
+    }
   }
 
   async list(prefix: string): Promise<string[]> {

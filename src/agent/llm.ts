@@ -1,13 +1,22 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import type { BetaRunnableTool } from "@anthropic-ai/sdk/lib/tools/BetaRunnableTool";
-import { createHash, randomUUID } from "node:crypto";
+import { randomUUID } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { z } from "zod";
 
 import { usageWithCost } from "@/src/agent/pricing";
+import {
+  ReplayCacheMiss,
+  ReplayDrift,
+  requestHash,
+  type CachedResponse,
+  type CachedToolResult,
+} from "@/src/agent/replay";
 import type { AgentName, Effort, TrajectoryEventType, Usage } from "@/src/agent/types";
+
+export { canonicalRequest, isReplayFailure, ReplayCacheMiss, ReplayDrift, requestHash } from "@/src/agent/replay";
 
 export type LlmMode = "live" | "record" | "replay";
 export type RunnableTool = BetaRunnableTool;
@@ -93,34 +102,16 @@ export interface CreateLlmClientOptions {
   model?: string;
   allowLive?: boolean;
   onEvent?: (event: LlmEvent) => void | Promise<void>;
+  /** Network-free transport seam used by regression tests. */
+  transport?: LlmTransport;
 }
 
-interface CachedResponse {
-  response: unknown;
+export interface LlmTransport {
+  complete(body: Anthropic.MessageCreateParamsNonStreaming, structured: boolean): Promise<unknown>;
+  tools(body: Anthropic.Beta.MessageCreateParamsNonStreaming): Promise<unknown>;
 }
 
 const EMPTY_USAGE: Usage = { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, cacheWriteTokens: 0, costUsd: 0 };
-
-function canonicalize(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(canonicalize);
-  if (value && typeof value === "object") {
-    return Object.fromEntries(
-      Object.entries(value)
-        .filter(([, item]) => item !== undefined && typeof item !== "function")
-        .sort(([left], [right]) => left.localeCompare(right))
-        .map(([key, item]) => [key, canonicalize(item)]),
-    );
-  }
-  return value;
-}
-
-export function canonicalRequest(value: unknown): string {
-  return JSON.stringify(canonicalize(value));
-}
-
-export function requestHash(value: unknown): string {
-  return createHash("sha256").update(canonicalRequest(value)).digest("hex");
-}
 
 function addUsage(target: Usage, addition: Usage): void {
   target.inputTokens += addition.inputTokens;
@@ -171,7 +162,9 @@ function delay(ms: number): Promise<void> {
 export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
   const modelDefault = options.model ?? "claude-opus-5";
   const cacheDir = path.resolve(options.cacheDir ?? "evals/cache");
-  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, maxRetries: 5, timeout: 10 * 60 * 1000 });
+  const anthropic = options.transport
+    ? undefined
+    : new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, maxRetries: 5, timeout: 10 * 60 * 1000 });
   const totals: LlmTotals = { calls: 0, toolCalls: 0, retries: 0, usage: { ...EMPTY_USAGE } };
   let attachedEventHandler: ((event: LlmEvent) => void | Promise<void>) | undefined;
 
@@ -182,21 +175,20 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
 
   const cachePath = (body: unknown): string => path.join(cacheDir, `${requestHash(body)}.json`);
 
-  const readCache = async (body: unknown): Promise<unknown | null> => {
+  const readCache = async (body: unknown): Promise<CachedResponse | null> => {
     try {
-      const raw = JSON.parse(await readFile(cachePath(body), "utf8")) as CachedResponse;
-      return raw.response;
+      return JSON.parse(await readFile(cachePath(body), "utf8")) as CachedResponse;
     } catch (error) {
       if (error instanceof Error && "code" in error && error.code === "ENOENT") return null;
       throw error;
     }
   };
 
-  const writeCache = async (body: unknown, response: unknown): Promise<void> => {
+  const writeCache = async (body: unknown, record: CachedResponse): Promise<void> => {
     const filename = cachePath(body);
     await mkdir(path.dirname(filename), { recursive: true });
     const temp = `${filename}.${randomUUID()}.tmp`;
-    await writeFile(temp, `${JSON.stringify({ response }, null, 2)}\n`, "utf8");
+    await writeFile(temp, `${JSON.stringify(record, null, 2)}\n`, "utf8");
     await rename(temp, filename);
   };
 
@@ -222,15 +214,30 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
     body: unknown,
     context: Omit<LlmEvent, "type" | "title">,
     create: () => Promise<T>,
-  ): Promise<{ value: T; replayed: boolean }> => {
+  ): Promise<{ value: T; replayed: boolean; cached?: CachedResponse }> => {
     if (options.mode === "replay") {
       const cached = await readCache(body);
-      if (cached !== null) return { value: cached as T, replayed: true };
-      if (!options.allowLive) throw new Error(`Replay cache miss: ${cachePath(body)}`);
+      if (cached !== null) return { value: cached.response as T, replayed: true, cached };
+      if (!options.allowLive) throw new ReplayCacheMiss(cachePath(body));
     }
     const value = await withRetry(create, context);
-    if (options.mode === "record" || (options.mode === "replay" && options.allowLive)) await writeCache(body, value);
+    if (options.mode === "record" || (options.mode === "replay" && options.allowLive)) {
+      await writeCache(body, { response: value });
+    }
     return { value, replayed: false };
+  };
+
+  const createComplete = async (body: Anthropic.MessageCreateParamsNonStreaming, structured: boolean): Promise<unknown> => {
+    if (options.transport) return options.transport.complete(body, structured);
+    if (!anthropic) throw new Error("Anthropic client is unavailable");
+    if (body.max_tokens > 16_000) return anthropic.messages.stream(body).finalMessage();
+    return structured ? anthropic.messages.parse(body) : anthropic.messages.create(body);
+  };
+
+  const createToolMessage = async (body: Anthropic.Beta.MessageCreateParamsNonStreaming): Promise<unknown> => {
+    if (options.transport) return options.transport.tools(body);
+    if (!anthropic) throw new Error("Anthropic client is unavailable");
+    return anthropic.beta.messages.create(body);
   };
 
   return {
@@ -254,11 +261,7 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
       const context = { agent: req.agent, ruleId: req.ruleId, findingId: req.findingId };
       await emit({ ...context, type: "llm_request", title: `${req.agent} LLM request`, payload: body });
       const started = Date.now();
-      const result = await getOrCreate(body, context, async () => {
-        if ((req.maxTokens ?? 16_000) > 16_000) return anthropic.messages.stream(body).finalMessage();
-        if (req.schema) return anthropic.messages.parse(body);
-        return anthropic.messages.create(body);
-      });
+      const result = await getOrCreate(body, context, () => createComplete(body, Boolean(req.schema)));
       const message = result.value as Anthropic.Message & { parsed_output?: T | null };
       assertStop(message);
       const text = textFromContent(message.content);
@@ -292,7 +295,7 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
           model,
           max_tokens: req.maxTokens ?? 16_000,
           system: req.system,
-          messages,
+          messages: [...messages],
           tools: req.tools.map(apiTool),
           cache_control: { type: "ephemeral" },
           output_config: { effort: req.effort },
@@ -300,7 +303,7 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
         const context = { agent: req.agent, ruleId: req.ruleId, findingId: req.findingId };
         await emit({ ...context, type: "llm_request", title: `${req.agent} tool-loop request ${iterations + 1}`, payload: body });
         const started = Date.now();
-        const result = await getOrCreate(body, context, () => anthropic.beta.messages.create(body));
+        const result = await getOrCreate(body, context, () => createToolMessage(body));
         const message = result.value as Anthropic.Beta.BetaMessage;
         finalRaw = message;
         assertStop(message);
@@ -318,9 +321,18 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
         });
         const calls = message.content.filter((block): block is Anthropic.Beta.BetaToolUseBlock => block.type === "tool_use");
         messages.push({ role: "assistant", content: message.content });
-        if (!calls.length) break;
+        if (!calls.length) {
+          if (message.stop_reason === "pause_turn") {
+            if (iterations + 1 >= req.maxIterations) {
+              throw new Error(`Tool loop remained paused after ${req.maxIterations} iterations`);
+            }
+            continue;
+          }
+          break;
+        }
         const results: Anthropic.Beta.BetaToolResultBlockParam[] = [];
-        for (const call of calls) {
+        const observedToolResults: CachedToolResult[] = [];
+        for (const [callIndex, call] of calls.entries()) {
           totals.toolCalls += 1;
           await emit({ ...context, type: "tool_call", title: `${req.agent} → ${call.name}`, payload: call.input });
           const runnable = req.tools.find((tool) => tool.name === call.name);
@@ -342,14 +354,32 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
             // A tool may intentionally return plain text.
           }
           await req.onToolCall?.(call.name, call.input, parsedOutput);
+          const observed = { name: call.name, ruleId: req.ruleId, sha256: requestHash({ output: parsedOutput, isError }) };
+          observedToolResults.push(observed);
+          if (result.replayed) {
+            // Tool handlers are deterministic: replay re-executes them, then proves their result did not drift.
+            const expected = result.cached?.toolResults?.[callIndex];
+            if (!expected || expected.name !== observed.name || expected.sha256 !== observed.sha256) {
+              throw new ReplayDrift(call.name, req.ruleId, `expected ${expected?.sha256 ?? "missing hash"}, received ${observed.sha256}`);
+            }
+          }
           await emit({ ...context, type: "tool_result", title: `${call.name} result`, payload: parsedOutput });
           results.push({ type: "tool_result", tool_use_id: call.id, content: output, is_error: isError });
+        }
+        if (result.replayed && (result.cached?.toolResults?.length ?? 0) !== observedToolResults.length) {
+          throw new ReplayDrift("tool_result_count", req.ruleId, `expected ${result.cached?.toolResults?.length ?? 0}, received ${observedToolResults.length}`);
+        }
+        if (!result.replayed && (options.mode === "record" || (options.mode === "replay" && options.allowLive))) {
+          await writeCache(body, { response: message, toolResults: observedToolResults });
         }
         messages.push({ role: "user", content: results });
       }
       if (!finalRaw) throw new Error("Tool loop did not execute");
       if (iterations >= req.maxIterations && finalRaw.stop_reason === "tool_use") {
         throw new Error(`Tool loop exceeded ${req.maxIterations} iterations`);
+      }
+      if (iterations >= req.maxIterations && finalRaw.stop_reason === "pause_turn") {
+        throw new Error(`Tool loop remained paused after ${req.maxIterations} iterations`);
       }
       return {
         text: textFromContent(finalRaw.content),

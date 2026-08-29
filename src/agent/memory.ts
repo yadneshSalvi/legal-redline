@@ -5,10 +5,24 @@ import { nanoid } from "nanoid";
 import type { Decision, Finding, Precedent, ReviewRun } from "@/src/agent/types";
 import type { RedlineOp } from "@/src/engine/types";
 import { normalizeForMatch } from "@/src/engine/text";
+import { renderParagraph } from "@/src/engine";
 import type { Store } from "@/src/store";
 
 const INDEX_KEY = "precedents/index.json";
 const SEED_PATH = path.resolve(process.cwd(), "data/precedents/seed.json");
+const indexQueues = new WeakMap<Store, Promise<void>>();
+
+async function withIndexLock<T>(store: Store, work: () => Promise<T>): Promise<T> {
+  const previous = indexQueues.get(store) ?? Promise.resolve();
+  const result = previous.catch(() => undefined).then(work);
+  const next = result.then(() => undefined, () => undefined);
+  indexQueues.set(store, next);
+  try {
+    return await result;
+  } finally {
+    if (indexQueues.get(store) === next) indexQueues.delete(store);
+  }
+}
 
 function tokens(text: string): Set<string> {
   return new Set(
@@ -26,10 +40,17 @@ function jaccard(left: Set<string>, right: Set<string>): number {
   return intersection / (left.size + right.size - intersection || 1);
 }
 
-function opText(op: RedlineOp, before: boolean): string {
-  if (op.kind === "replace") return before ? op.oldText : op.newText;
-  if (op.kind === "insert_after") return before ? "" : op.text;
-  return before ? "Deleted paragraph" : "";
+function renderedAfter(run: ReviewRun, finding: Finding, ops: RedlineOp[]): string {
+  const ids = [...new Set([...finding.paragraphIds, ...ops.map((op) => op.paragraphId)])];
+  return ids.flatMap((id) => {
+    const visible = renderParagraph(run.document, id, ops)
+      .filter((segment) => segment.type !== "delete")
+      .map((segment) => segment.text)
+      .join("");
+    const inserted = ops.flatMap((op) => op.kind === "insert_after" && op.paragraphId === id ? [op.text] : []);
+    const full = [visible, ...inserted].filter(Boolean).join("\n");
+    return full ? [full] : [];
+  }).join("\n");
 }
 
 export class PrecedentMemory {
@@ -57,16 +78,25 @@ export class PrecedentMemory {
   }
 
   async put(precedent: Precedent): Promise<void> {
-    const existing = await this.store.getJson<Precedent[]>(INDEX_KEY);
-    const without = (existing ?? []).filter((item) => item.id !== precedent.id);
-    await this.store.putJson(INDEX_KEY, [...without, precedent]);
+    await withIndexLock(this.store, async () => {
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        const existing = await this.store.getJson<Precedent[]>(INDEX_KEY);
+        const without = (existing ?? []).filter((item) => item.id !== precedent.id);
+        await this.store.putJson(INDEX_KEY, [...without, precedent]);
+        const verified = await this.store.getJson<Precedent[]>(INDEX_KEY);
+        if (verified?.some((item) => item.id === precedent.id)) return;
+      }
+      throw new Error(`Precedent index update was lost for ${precedent.id}`);
+    });
   }
 
   async delete(id: string): Promise<boolean> {
-    const existing = await this.store.getJson<Precedent[]>(INDEX_KEY);
-    if (!existing?.some((item) => item.id === id)) return false;
-    await this.store.putJson(INDEX_KEY, existing.filter((item) => item.id !== id));
-    return true;
+    return withIndexLock(this.store, async () => {
+      const existing = await this.store.getJson<Precedent[]>(INDEX_KEY);
+      if (!existing?.some((item) => item.id === id)) return false;
+      await this.store.putJson(INDEX_KEY, existing.filter((item) => item.id !== id));
+      return true;
+    });
   }
 
   async promote(run: ReviewRun, finding: Finding, decision?: Decision): Promise<Precedent | null> {
@@ -81,8 +111,8 @@ export class PrecedentMemory {
       ruleId: finding.ruleId,
       title: finding.ruleTitle,
       source: run.document.title,
-      clauseBefore: contextParagraphs.join("\n") || ops.map((op) => opText(op, true)).join("\n"),
-      clauseAfter: ops.map((op) => opText(op, false)).join("\n"),
+      clauseBefore: contextParagraphs.join("\n"),
+      clauseAfter: renderedAfter(run, finding, ops),
       comment: decision?.comment ?? proposal?.comment ?? "",
       level: proposal?.level ?? "preferred",
       approvedAt: decision?.at ?? new Date().toISOString(),

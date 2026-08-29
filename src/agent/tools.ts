@@ -82,6 +82,65 @@ function uniqueParagraphIds(ops: RedlineOp[]): string[] {
   return [...new Set(ops.map((op) => op.paragraphId))];
 }
 
+export function validateProposal(
+  document: DocumentModel,
+  config: PipelineConfig,
+  state: DrafterToolState,
+  proposal: NonNullable<WorkerSubmission["proposal"]>,
+): { ok: boolean; errors: string[]; rendered: Array<{ paragraphId: string; segments: ReturnType<typeof renderParagraph> }> } {
+  if (!config.toolValidation) {
+    state.validatedProposal = proposal;
+    return { ok: true, errors: [], rendered: [] };
+  }
+  const errors = proposal.ops
+    .map((op) => validateOp(document, op).error)
+    .filter((error): error is string => Boolean(error));
+  const first = proposal.ops[0];
+  if (first) {
+    const comment = validateComment(document, {
+      paragraphId: first.paragraphId,
+      anchorText: first.kind === "replace" ? first.oldText : undefined,
+      text: proposal.comment,
+    });
+    if (!comment.ok && comment.error) errors.push(comment.error);
+  }
+  const rendered = uniqueParagraphIds(proposal.ops).flatMap((paragraphId) => {
+    try {
+      return [{ paragraphId, segments: renderParagraph(document, paragraphId, proposal.ops) }];
+    } catch (error) {
+      errors.push(error instanceof Error ? error.message : String(error));
+      return [];
+    }
+  });
+  if (!errors.length) state.validatedProposal = proposal;
+  return { ok: !errors.length, errors, rendered };
+}
+
+export function validateSubmission(
+  document: DocumentModel,
+  state: DrafterToolState,
+  submission: WorkerSubmission,
+): { ok: boolean; errors: string[] } {
+  const errors: string[] = [];
+  if (state.submission) errors.push("submit_finding already succeeded for this rule");
+  if (submission.quote.length > 600) errors.push("quote exceeds 600 characters");
+  for (const id of submission.paragraphIds) {
+    if (!document.paragraphs.some((paragraph) => paragraph.id === id)) errors.push(`Unknown paragraph: ${id}`);
+  }
+  if (submission.quote && !submission.paragraphIds.some((id) => document.paragraphs.find((p) => p.id === id)?.text.includes(submission.quote))) {
+    errors.push("quote is not a verbatim substring of a cited paragraph");
+  }
+  const needsProposal = submission.status === "deviation" || submission.status === "missing";
+  if (needsProposal && !state.validatedProposal) errors.push("Call propose_redline successfully before submit_finding");
+  if (submission.proposal && state.validatedProposal && json(submission.proposal) !== json(state.validatedProposal)) {
+    errors.push("Submitted proposal differs from the validated proposal");
+  }
+  if (!errors.length) {
+    state.submission = { ...submission, proposal: needsProposal ? state.validatedProposal : undefined };
+  }
+  return { ok: !errors.length, errors };
+}
+
 export function createDrafterTools(options: CreateDrafterToolsOptions): { tools: RunnableTool[]; state: DrafterToolState } {
   const { document, config, ruleId, memory } = options;
   const state = options.state ?? {};
@@ -187,32 +246,7 @@ export function createDrafterTools(options: CreateDrafterToolsOptions): { tools:
       run: (proposal) =>
         safe(() => {
           const typedProposal = { ...proposal, ops: proposal.ops as RedlineOp[] };
-          if (!config.toolValidation) {
-            state.validatedProposal = typedProposal;
-            return { ok: true, errors: [], rendered: [] };
-          }
-          const errors = typedProposal.ops
-            .map((op) => validateOp(document, op).error)
-            .filter((error): error is string => Boolean(error));
-          const first = typedProposal.ops[0];
-          if (first) {
-            const comment = validateComment(document, {
-              paragraphId: first.paragraphId,
-              anchorText: first.kind === "replace" ? first.oldText : undefined,
-              text: typedProposal.comment,
-            });
-            if (!comment.ok && comment.error) errors.push(comment.error);
-          }
-          const rendered = uniqueParagraphIds(typedProposal.ops).flatMap((paragraphId) => {
-            try {
-              return [{ paragraphId, segments: renderParagraph(document, paragraphId, typedProposal.ops) }];
-            } catch (error) {
-              errors.push(error instanceof Error ? error.message : String(error));
-              return [];
-            }
-          });
-          if (!errors.length) state.validatedProposal = typedProposal;
-          return { ok: !errors.length, errors, rendered };
+          return validateProposal(document, config, state, typedProposal);
         }),
     }),
     betaZodTool({
@@ -220,28 +254,7 @@ export function createDrafterTools(options: CreateDrafterToolsOptions): { tools:
       description: "Submit the final finding for this rule. After a successful call, stop calling tools.",
       inputSchema: SubmissionSchema,
       run: (submission) =>
-        safe(() => {
-          const errors: string[] = [];
-          if (submission.quote.length > 600) errors.push("quote exceeds 600 characters");
-          for (const id of submission.paragraphIds) {
-            if (!document.paragraphs.some((paragraph) => paragraph.id === id)) errors.push(`Unknown paragraph: ${id}`);
-          }
-          if (submission.quote && !submission.paragraphIds.some((id) => document.paragraphs.find((p) => p.id === id)?.text.includes(submission.quote))) {
-            errors.push("quote is not a verbatim substring of a cited paragraph");
-          }
-          const needsProposal = submission.status === "deviation" || submission.status === "missing";
-          if (needsProposal && !state.validatedProposal) errors.push("Call propose_redline successfully before submit_finding");
-          if (submission.proposal && state.validatedProposal && json(submission.proposal) !== json(state.validatedProposal)) {
-            errors.push("Submitted proposal differs from the validated proposal");
-          }
-          if (errors.length) return { ok: false, errors };
-          state.submission = {
-            ...submission,
-            paragraphIds: submission.paragraphIds,
-            proposal: needsProposal ? state.validatedProposal : undefined,
-          };
-          return { ok: true, errors: [] };
-        }),
+        safe(() => validateSubmission(document, state, { ...submission, paragraphIds: submission.paragraphIds })),
     }),
   ];
 

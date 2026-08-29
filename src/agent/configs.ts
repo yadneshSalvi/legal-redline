@@ -11,12 +11,12 @@ const BASE = {
 
 export const CONFIGS: Record<ConfigId, PipelineConfig> = {
   "b0-chat": {
-    ...BASE, id: "b0-chat", label: "Chat baseline", description: "Whole contract, no playbook, free-text review.",
+    ...BASE, id: "b0-chat", label: "Chat baseline", description: "One free-text review call without the playbook, plus one cheap extraction call; deterministic memo.",
     singlePrompt: true, playbookInContext: false, docModel: false, planner: false, perRuleWorkers: false,
     toolValidation: false, verifier: false, precedentMemory: false, monolith: false,
   },
   "b1-prompt": {
-    ...BASE, id: "b1-prompt", label: "Prompt baseline", description: "One structured prompt with the full playbook.",
+    ...BASE, id: "b1-prompt", label: "Prompt baseline", description: "Exactly one structured findings call with the full playbook; deterministic memo.",
     singlePrompt: true, playbookInContext: true, docModel: false, planner: false, perRuleWorkers: false,
     toolValidation: false, verifier: false, precedentMemory: false, monolith: false,
   },
@@ -41,9 +41,9 @@ export const CONFIGS: Record<ConfigId, PipelineConfig> = {
     toolValidation: true, verifier: true, precedentMemory: true, monolith: false,
   },
   "x-monolith": {
-    ...BASE, id: "x-monolith", label: "Monolith", description: "One tool loop handles the entire playbook.",
+    ...BASE, id: "x-monolith", label: "Monolith", description: "Exactly one validated tool loop handles and self-checks every rule; no independent verifier or memo call.",
     singlePrompt: false, playbookInContext: true, docModel: true, planner: false, perRuleWorkers: false,
-    toolValidation: true, verifier: true, precedentMemory: false, monolith: true,
+    toolValidation: true, verifier: false, precedentMemory: false, monolith: true,
   },
   final: {
     ...BASE, id: "final", label: "Final", description: "Planner, validated workers, verifier repair, and precedent memory.",

@@ -31,7 +31,8 @@ function postEditText(document: DocumentModel, paragraphId: string, ops: Redline
 }
 
 function deterministicChecks(document: DocumentModel, rule: Rule, finding: Finding): { checks: VerificationCheck[]; rendered: string } {
-  const ops = finding.proposal?.ops ?? [];
+  // A compliant finding is judged on the untouched clause, never on an attached/proposed edit.
+  const ops = finding.status === "compliant" ? [] : finding.proposal?.ops ?? [];
   const checks: VerificationCheck[] = ops.map((op, index) => {
     const validation = validateOp(document, op);
     return { name: `operation ${index + 1} applies`, ok: validation.ok, detail: validation.error };
@@ -126,7 +127,7 @@ export async function verifyFinding(input: {
     ],
     schema: VerifierOutputSchema,
   });
-  const failedChecks = input.finding.status === "compliant" ? [] : deterministic.checks.filter((check) => !check.ok);
+  const failedChecks = deterministic.checks.filter((check) => !check.ok);
   const pass = response.data.verdict === "pass" && failedChecks.length === 0;
   const reasons = [
     ...failedChecks.map((check) => `${check.name}: ${check.detail ?? "failed"}`),

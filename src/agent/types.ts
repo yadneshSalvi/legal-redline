@@ -148,6 +148,8 @@ export interface ReviewRun {
   /** Markdown issues memo. */
   memo?: string;
   stats: RunStats;
+  /** Best-effort execution ownership for SSE reconnects and stale-run takeover. */
+  lease?: { owner: string; heartbeatAt: string };
   output?: { docxKey: string; memoKey: string; validation?: unknown; appliedAt: string };
   error?: string;
   /** Free-form labels (e.g. eval contract id) */

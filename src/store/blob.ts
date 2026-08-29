@@ -3,6 +3,8 @@ import { del, get, list, put } from "@vercel/blob";
 import type { Store } from "@/src/store";
 
 export class BlobStore implements Store {
+  private readonly appendQueues = new Map<string, Promise<void>>();
+
   private token(): string {
     const token = process.env.BLOB_READ_WRITE_TOKEN;
     if (!token) throw new Error("BLOB_READ_WRITE_TOKEN is required for blob storage");
@@ -35,9 +37,26 @@ export class BlobStore implements Store {
   }
 
   async appendLine(key: string, line: string): Promise<void> {
-    const current = await this.getBytes(key);
-    const prefix = current ? new TextDecoder().decode(current) : "";
-    await this.putBytes(key, new TextEncoder().encode(`${prefix}${line.replace(/[\r\n]+$/g, "")}\n`), "application/x-ndjson");
+    const normalized = `${line.replace(/[\r\n]+$/g, "")}\n`;
+    const previous = this.appendQueues.get(key) ?? Promise.resolve();
+    const next = previous.catch(() => undefined).then(async () => {
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        const current = await this.getBytes(key);
+        const prefix = current ? new TextDecoder().decode(current) : "";
+        const proposed = `${prefix}${normalized}`;
+        await this.putBytes(key, new TextEncoder().encode(proposed), "application/x-ndjson");
+        const verified = await this.getBytes(key);
+        const text = verified ? new TextDecoder().decode(verified) : "";
+        if (text === proposed || text.startsWith(proposed)) return;
+      }
+      throw new Error(`Blob append lost a concurrent update for ${key}`);
+    });
+    this.appendQueues.set(key, next);
+    try {
+      await next;
+    } finally {
+      if (this.appendQueues.get(key) === next) this.appendQueues.delete(key);
+    }
   }
 
   async list(prefix: string): Promise<string[]> {

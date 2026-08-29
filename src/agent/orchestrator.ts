@@ -3,9 +3,9 @@ import pLimit from "p-limit";
 import { assembleFindings, statsFor } from "@/src/agent/assembler";
 import { runBaseline } from "@/src/agent/baseline";
 import { draftRule } from "@/src/agent/drafter";
-import type { LlmClient } from "@/src/agent/llm";
+import { isReplayFailure, type LlmClient } from "@/src/agent/llm";
 import { createPrecedentMemory } from "@/src/agent/memory";
-import { createMemo } from "@/src/agent/memo";
+import { createDeterministicMemo, createMemo } from "@/src/agent/memo";
 import { runMonolith } from "@/src/agent/monolith";
 import { deterministicPlan, planReview } from "@/src/agent/planner";
 import type { Parties, PlannerOutput } from "@/src/agent/planner";
@@ -124,6 +124,7 @@ async function runWorker(input: RunReviewInput, rule: Rule, plan: PlannerOutput[
     emit(input, { type: "worker", runId: input.run.id, ruleId: rule.id, ruleTitle: rule.title, state: "done", durationMs: Date.now() - started });
     return finding;
   } catch (error) {
+    if (isReplayFailure(error)) throw error;
     const finding = failedFinding(rule, error);
     await input.trajectory.event("drafter", "error", `Worker ${rule.id} failed`, { ruleId: rule.id, payload: { error: finding.rationale } });
     emit(input, { type: "worker", runId: input.run.id, ruleId: rule.id, ruleTitle: rule.title, state: "failed", note: finding.rationale, durationMs: Date.now() - started });
@@ -131,42 +132,53 @@ async function runWorker(input: RunReviewInput, rule: Rule, plan: PlannerOutput[
   }
 }
 
-function fallbackMemo(run: ReviewRun): string {
-  const rows = run.findings.map((finding) => `| ${finding.severity} | ${finding.ruleTitle} | ${finding.status} | ${finding.sectionRef ?? "—"} |`).join("\n");
-  return `# Issues memo\n\n## Executive summary\n\n${run.findings.length} playbook findings require review.\n\n## Findings\n\n| Severity | Rule | Status | Section |\n|---|---|---|---|\n${rows}\n\n## Walk-away items\n\nReview all critical findings.\n\n## Next steps\n\nAccept, edit, or reject each finding before applying tracked changes.\n`;
-}
-
 export async function runReview(input: RunReviewInput): Promise<ReviewRun> {
   const { run, trajectory, llm } = input;
   llm.setEventHandler?.(async (event) => {
     await trajectory.event(event.agent, event.type, event.title, event);
   });
+  const beginsExecution = run.status === "queued" || !run.stats.startedAt;
   run.status = "running";
-  if (!run.stats.startedAt) run.stats.startedAt = new Date().toISOString();
+  if (beginsExecution) run.stats.startedAt = new Date().toISOString();
   await input.store.putJson(`runs/${run.id}/run.json`, run);
   await trajectory.event("ingest", "run_start", `Review started with ${input.config.id}`, { payload: { config: input.config, source: run.document.source } });
   emit(input, { type: "status", runId: run.id, status: "running" });
 
   try {
+    let checkpoint = Promise.resolve();
+    const checkpointFinding = (finding: Finding): Promise<void> => {
+      checkpoint = checkpoint.then(async () => {
+        const prior = run.findings.filter((candidate) => candidate.id !== finding.id);
+        run.findings = assembleFindings([...prior, finding]);
+        run.stats = statsFor(run.stats.startedAt, run.findings, llm.getTotals());
+        emit(input, { type: "finding", runId: run.id, finding });
+        emit(input, { type: "stats", runId: run.id, stats: run.stats });
+        await input.store.putJson(`runs/${run.id}/run.json`, run);
+        await trajectory.event("assembler", "checkpoint", `Persisted ${run.findings.length} findings`, { payload: { findings: run.findings.length } });
+      });
+      return checkpoint;
+    };
+    const completedRuleIds = new Set(run.findings.map((finding) => finding.ruleId));
     let findings: Finding[];
     if (input.config.singlePrompt) {
-      findings = await stage(input, "baseline", "Whole-contract baseline", () =>
+      const baselineFindings = await stage(input, "baseline", "Whole-contract baseline", () =>
         runBaseline({ document: run.document, playbook: input.playbook, config: input.config, llm }),
       );
-      for (const finding of findings) emit(input, { type: "finding", runId: run.id, finding });
+      for (const finding of baselineFindings) await checkpointFinding(finding);
+      findings = [...run.findings];
     } else if (input.config.monolith) {
-      findings = await stage(input, "monolith", "Monolithic playbook review", () =>
-        runMonolith({ document: run.document, playbook: input.playbook, config: input.config, llm, memory: createPrecedentMemory(input.store) }),
-      );
-      if (input.config.verifier) {
-        findings = await Promise.all(findings.map(async (finding) => {
-          const rule = input.playbook.rules.find((candidate) => candidate.id === finding.ruleId);
-          if (!rule) return finding;
-          const verified = await verifyFinding({ document: run.document, playbook: input.playbook, rule, finding, config: input.config, llm, attempt: 1 });
-          return verified.finding.verification?.verdict === "fail" ? { ...verified.finding, status: "needs_review" } : verified.finding;
+      const remaining = input.playbook.rules.filter((rule) => !completedRuleIds.has(rule.id));
+      if (remaining.length) {
+        await stage(input, "monolith", "Monolithic playbook review", () => runMonolith({
+          document: run.document,
+          playbook: { ...input.playbook, rules: remaining },
+          config: input.config,
+          llm,
+          memory: input.config.precedentMemory ? createPrecedentMemory(input.store) : undefined,
+          onFinding: checkpointFinding,
         }));
       }
-      for (const finding of findings) emit(input, { type: "finding", runId: run.id, finding });
+      findings = [...run.findings];
     } else {
       const planned = await stage(input, "planner", "Map rules to document", () =>
         input.config.planner
@@ -174,48 +186,54 @@ export async function runReview(input: RunReviewInput): Promise<ReviewRun> {
           : Promise.resolve(deterministicPlan(run.document, input.playbook, input.parties)),
       );
       if (!input.config.perRuleWorkers) {
-        findings = await stage(input, "monolith", "Single document-model agent", () =>
-          runMonolith({ document: run.document, playbook: input.playbook, config: input.config, llm, planner: planned }),
-        );
-        for (const finding of findings) emit(input, { type: "finding", runId: run.id, finding });
+        const remaining = input.playbook.rules.filter((rule) => !completedRuleIds.has(rule.id));
+        if (remaining.length) {
+          await stage(input, "monolith", "Single document-model agent", () => runMonolith({
+            document: run.document,
+            playbook: { ...input.playbook, rules: remaining },
+            config: input.config,
+            llm,
+            planner: planned,
+            onFinding: checkpointFinding,
+          }));
+        }
+        findings = [...run.findings];
       } else {
         const limit = pLimit(input.config.concurrency);
-        let checkpoint = Promise.resolve();
-        const tasks = input.playbook.rules.map((rule) => {
+        const tasks = input.playbook.rules.filter((rule) => !completedRuleIds.has(rule.id)).map((rule) => {
           emit(input, { type: "worker", runId: run.id, ruleId: rule.id, ruleTitle: rule.title, state: "queued" });
           const plan = planned.plans.find((candidate) => candidate.ruleId === rule.id) ?? deterministicPlan(run.document, { ...input.playbook, rules: [rule] }).plans[0];
           return limit(async () => {
             const finding = await runWorker(input, rule, plan, planned.parties);
-            run.findings.push(finding);
-            run.findings = assembleFindings(run.findings);
-            run.stats = statsFor(run.stats.startedAt, run.findings, llm.getTotals());
-            emit(input, { type: "finding", runId: run.id, finding });
-            emit(input, { type: "stats", runId: run.id, stats: run.stats });
-            checkpoint = checkpoint.then(async () => {
-              await input.store.putJson(`runs/${run.id}/run.json`, run);
-              await trajectory.event("assembler", "checkpoint", `Persisted ${run.findings.length} findings`, { payload: { findings: run.findings.length } });
-            });
-            await checkpoint;
+            await checkpointFinding(finding);
             return finding;
           });
         });
-        findings = await Promise.all(tasks);
+        await Promise.all(tasks);
+        await checkpoint;
+        findings = [...run.findings];
       }
     }
 
     run.findings = await stage(input, "assembler", "Deduplicate and order findings", async () => assembleFindings(findings));
     run.stats = statsFor(run.stats.startedAt, run.findings, llm.getTotals());
-    try {
-      run.memo = await stage(input, "memo", "Draft issues memo", () => createMemo({
-        findings: run.findings,
-        playbook: input.playbook,
-        config: input.config,
-        llm,
-        documentTitle: run.document.title,
-      }));
-    } catch (error) {
-      run.memo = fallbackMemo(run);
-      await trajectory.event("memo", "error", "Memo call failed; used deterministic memo", { payload: { error: error instanceof Error ? error.message : String(error) } });
+    if (input.config.singlePrompt || input.config.monolith) {
+      run.memo = await stage(input, "memo", "Render deterministic issues memo", async () =>
+        createDeterministicMemo(run.findings, run.document.title));
+    } else {
+      try {
+        run.memo = await stage(input, "memo", "Draft issues memo", () => createMemo({
+          findings: run.findings,
+          playbook: input.playbook,
+          config: input.config,
+          llm,
+          documentTitle: run.document.title,
+        }));
+      } catch (error) {
+        if (isReplayFailure(error)) throw error;
+        run.memo = createDeterministicMemo(run.findings, run.document.title);
+        await trajectory.event("memo", "error", "Memo call failed; used deterministic memo", { payload: { error: error instanceof Error ? error.message : String(error) } });
+      }
     }
     run.status = "awaiting_review";
     const finishedAt = new Date().toISOString();

@@ -28,6 +28,19 @@
   `libreoffice.ok = true`. `review-engine` r2 verification (Sol max) launched. dataset-eval r2 running (inline-clause split, hard-case gold, review CLI);
   r3 brief staged (one-item-per-rule merge, `ambiguous`, apply `plans/06_gold_review.md`).
 
+- Sun 00:27 — `ui-workspace` landed (72 min, $42.63, 219 turns): design system, shell, landing, workspace (paper + findings + approvals +
+  SSE board), runs page, fixtures; 3 verification passes; zero console errors; live against the real API. Committed `8761c76`, pushed (deploy).
+  STYLE.md updated: amber never as text (contrast). `review-ui` (Opus reviewer, port 3201) launched; `ui-evidence` (evals/trajectory/precedents)
+  launched in worktree `../legal-redline-wt/ui-evidence` (branch `wt/ui-evidence`, port 3102).
+- Sun 00:20 — `review-agent` (Sol max): revise, 12 fixes → `agent-core-r2` running. `dataset-eval` r2+r3 landed (inline-clause split, hard-case
+  gold, one-item-per-rule + ambiguous, lead decisions applied); r4 running (adds + promote all 8).
+
+## Queued for agent-core r3 (after r2 lands)
+- `Finding.costUsd?` / `Finding.durationMs?` (per-rule figures survive reload; UI card shows them) — contract change in `src/agent/types.ts`.
+- `sectionRef` must be short: "§ 14.2 Intellectual Property" (number + heading), never a sentence.
+- UI `src/ui/lib/redline.ts` should import `wordDiff`/`renderParagraph` from `@/src/engine/diff` so preview == docx (assign to UI polish round).
+- Screenshots for README: copy curated PNGs to `docs/screenshots/` at submission time (logs dir is gitignored).
+
 ## Decisions
 - Stack: TypeScript monorepo (Next 16.3 + pure-TS OOXML engine + Anthropic TS SDK), one `pnpm` toolchain — chosen over Python for a
   single reproducible runtime and Vercel deploy. Vercel team `yadneshsalvis-projects` (Pro → 800 s functions).

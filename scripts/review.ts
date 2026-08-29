@@ -57,7 +57,7 @@ async function main(): Promise<void> {
     sourceKey,
     findings: [],
     decisions: {},
-    stats: initialStats(createdAt),
+    stats: initialStats(),
   };
   const store = createStore("fs");
   await Promise.all([store.putBytes(sourceKey, bytes), store.putJson(`runs/${runId}/run.json`, run)]);
@@ -75,6 +75,7 @@ async function main(): Promise<void> {
     parties: options.party ? { ourParty: options.party } : undefined,
     onProgress: logProgress,
   });
+  await store.putJson(`runs/${runId}/findings.json`, reviewed.findings);
   if (options.acceptAll) {
     for (const finding of reviewed.findings) {
       if (!finding.proposal || !["deviation", "missing"].includes(finding.status)) continue;
@@ -98,6 +99,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((error: unknown) => {
-  console.error(error instanceof Error ? error.message : String(error));
+  console.error(error instanceof Error ? `${error.name}: ${error.message}` : String(error));
   process.exitCode = 1;
 });

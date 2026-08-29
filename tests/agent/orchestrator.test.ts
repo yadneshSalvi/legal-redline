@@ -119,4 +119,30 @@ describe("orchestrator", () => {
     expect(reviewed.findings[0]?.status).toBe("needs_review");
     expect(reviewed.findings[0]?.verification?.attempts).toBe(2);
   });
+
+  it("does not pass a noncompliant three-month cap labelled compliant", async () => {
+    const text = "9. Limitation of Liability\n\nVendor liability is capped at three months of fees.";
+    const document = parseText(text, "contract.txt");
+    const store = new MemoryStore();
+    const config = { ...getConfig("i3-verifier"), concurrency: 1, maxRepairRounds: 0 };
+    const run = queuedRun(document, config.id);
+    const llm = new FakeLlmClient(
+      (request) => plannerOrMemo(request, () => "pass"),
+      async (request) => {
+        await callTool(request, "submit_finding", {
+          status: "compliant", paragraphIds: ["p0001"], quote: "Vendor liability is capped at three months of fees.",
+          rationale: "Incorrectly claims compliance", confidence: 0.9,
+        });
+      },
+    );
+    const reviewed = await runReview({
+      run, originalBytes: new TextEncoder().encode(text), playbook: oneRule(), config, store, llm,
+      trajectory: createTrajectoryWriter(store, run.id),
+    });
+    expect(reviewed.findings[0]?.verification?.verdict).toBe("fail");
+    expect(reviewed.findings[0]?.status).toBe("needs_review");
+    expect(reviewed.findings[0]?.verification?.checks).toContainEqual(expect.objectContaining({
+      name: "cap references 12 months of fees or a fixed floor", ok: false,
+    }));
+  });
 });

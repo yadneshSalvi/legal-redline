@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { createHash } from "node:crypto";
 
 import type { AgentName, TrajectoryEvent, TrajectoryEventType, Usage } from "@/src/agent/types";
 import type { Store } from "@/src/store";
@@ -10,6 +11,8 @@ export interface EventOptions {
   usage?: Usage;
   durationMs?: number;
   parentId?: string;
+  /** Stable key for events that may be attempted by both an API route and an in-process CLI. */
+  idempotencyKey?: string;
 }
 
 export interface TrajectoryWriter {
@@ -19,13 +22,19 @@ export interface TrajectoryWriter {
 }
 
 function redact(value: unknown): unknown {
-  if (typeof value === "string") return value.replace(/sk-[A-Za-z0-9_-]{8,}/g, "[REDACTED]");
+  if (typeof value === "string") {
+    return value
+      .replace(/sk-[A-Za-z0-9_-]{8,}/g, "[REDACTED]")
+      .replace(/Bearer\s+[^\s"']+/gi, "Bearer [REDACTED]");
+  }
   if (Array.isArray(value)) return value.map(redact);
   if (value && typeof value === "object") {
     return Object.fromEntries(
-      Object.entries(value).map(([key, item]) =>
-        /api[-_]?key|authorization|token|secret/i.test(key) ? [key, "[REDACTED]"] : [key, redact(item)],
-      ),
+      Object.entries(value).map(([key, item]) => {
+        const normalized = key.replace(/[-_]/g, "").toLowerCase();
+        const sensitive = normalized === "apikey" || normalized === "authorization" || normalized === "xapikey";
+        return sensitive ? [key, "[REDACTED]"] : [key, redact(item)];
+      }),
     );
   }
   return value;
@@ -56,16 +65,22 @@ export function createTrajectoryWriter(store: Store, runId: string): TrajectoryW
     },
     async event(agent, type, title, options = {}) {
       await initialize;
+      const { idempotencyKey, ...eventOptions } = options;
+      const stableId = idempotencyKey
+        ? `evt-${createHash("sha256").update(idempotencyKey).digest("hex").slice(0, 24)}`
+        : undefined;
+      const existing = stableId ? mirror.find((candidate) => candidate.id === stableId) : undefined;
+      if (existing) return existing;
       const item: TrajectoryEvent = {
-        id: nanoid(),
+        id: stableId ?? nanoid(),
         runId,
         seq: ++sequence,
         t: new Date().toISOString(),
         agent,
         type,
         title,
-        ...options,
-        payload: redact(options.payload),
+        ...eventOptions,
+        payload: redact(eventOptions.payload),
       };
       mirror.push(item);
       pending = pending.then(() => store.appendLine(`runs/${runId}/trajectory.jsonl`, JSON.stringify(item)));
