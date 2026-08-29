@@ -1,10 +1,12 @@
 import { wordDiff } from "./diff";
-import { auditDocx, preservationStructures } from "./docx-audit";
-import type { DocxAudit, RevisionAudit } from "./docx-audit";
+import { auditCommentPlacements } from "./comment-placement";
+import { auditDocx } from "./docx-audit";
+import type { DocxAudit } from "./docx-audit";
 import { parseDocx } from "./docx-read";
 import { validateWithLibreOffice } from "./libreoffice";
+import { revisionKey, validatePackageAudits } from "./package-validation";
 import { insertedParagraphText } from "./redline-insert";
-import { isRfc3339DateTime } from "./revision-meta";
+import { insertionSpans } from "./revision-context";
 import type {
   ApplyRequest,
   DocxValidationReport,
@@ -66,7 +68,26 @@ function validateAnchor(
 
 /** Validate paragraph existence and the exactly-once verbatim anchor invariant for one operation. */
 export function validateOp(doc: DocumentModel, op: RedlineOp): OpValidation {
-  if (op.kind === "replace") return validateAnchor(doc, op.paragraphId, op.oldText, "oldText");
+  if (op.kind === "replace") {
+    const validation = validateAnchor(doc, op.paragraphId, op.oldText, "oldText");
+    if (!validation.ok) return validation;
+    const paragraph = doc.paragraphs.find(({ id }) => id === op.paragraphId);
+    const start = paragraph?.text.indexOf(op.oldText) ?? -1;
+    const foreign = insertionSpans(
+      doc,
+      op.paragraphId,
+      start,
+      start + op.oldText.length,
+    ).find((span) => !span.engineOwned);
+    if (foreign) {
+      return {
+        ok: false,
+        error: `anchor overlaps an existing tracked insertion by ${foreign.author}; accept or reject that change first`,
+        occurrences: 1,
+      };
+    }
+    return validation;
+  }
   const paragraph = doc.paragraphs.find((candidate) => candidate.id === op.paragraphId);
   if (!paragraph) return { ok: false, error: `paragraph ${op.paragraphId} not found`, occurrences: 0 };
   if (op.kind === "insert_after" && op.text.trim().length === 0) {
@@ -140,104 +161,98 @@ function expectedText(paragraph: Paragraph, ops: RedlineOp[]): string {
   return result;
 }
 
-function revisionKey(revision: RevisionAudit): string {
-  return `${revision.kind}:${revision.id ?? "<missing>"}`;
-}
-
-function exactCommentAnchor(audit: DocxAudit, id: string): boolean {
-  return (
-    audit.commentStarts.get(id) === 1 &&
-    audit.commentEnds.get(id) === 1 &&
-    audit.commentReferences.get(id) === 1
-  );
-}
-
-function validatePackageAudits(
-  original: DocxAudit,
-  redlined: DocxAudit,
-  req: ApplyRequest,
-  errors: string[],
-): void {
-  const ids = redlined.revisions.map((revision) => revision.id);
-  if (ids.some((id) => id === undefined || id === "")) {
-    errors.push("every w:ins, w:del, and comment must carry a w:id");
-  }
-  const duplicate = ids.find((id, index) => id !== undefined && ids.indexOf(id) !== index);
-  if (duplicate !== undefined) errors.push(`duplicate revision/comment w:id ${duplicate}`);
-
-  const originalByKey = new Map(original.revisions.map((revision) => [revisionKey(revision), revision]));
-  const redlinedByKey = new Map(redlined.revisions.map((revision) => [revisionKey(revision), revision]));
-  for (const prior of original.revisions) {
-    const preserved = redlinedByKey.get(revisionKey(prior));
-    if (!preserved) errors.push(`prior revision ${revisionKey(prior)} is missing`);
-    else if (preserved.content !== prior.content) {
-      errors.push(`prior revision ${revisionKey(prior)} content changed`);
-    } else if (preserved.author !== prior.author || preserved.date !== prior.date) {
-      errors.push(`prior revision ${revisionKey(prior)} metadata changed`);
-    }
-  }
-
-  const expectedAuthor = sanitizeXmlText(req.author);
-  for (const revision of redlined.revisions) {
-    if (originalByKey.has(revisionKey(revision))) continue;
-    if (revision.author !== expectedAuthor) {
-      errors.push(`new ${revision.kind} ${revision.id ?? "<missing>"} has author "${revision.author ?? ""}", expected "${expectedAuthor}"`);
-    }
-    if (!revision.date || !isRfc3339DateTime(revision.date)) {
-      errors.push(`new ${revision.kind} ${revision.id ?? "<missing>"} has a missing or invalid RFC 3339 date`);
-    } else if (req.date && revision.date !== req.date) {
-      errors.push(`new ${revision.kind} ${revision.id ?? "<missing>"} has date "${revision.date}", expected "${req.date}"`);
-    }
-  }
-
-  const expectedComments = original.comments + req.comments.length;
-  if (redlined.comments !== expectedComments) {
-    errors.push(`expected ${req.comments.length} new comments but found ${redlined.comments - original.comments}`);
-  }
-  const commentIds = redlined.revisions
-    .filter((revision) => revision.kind === "comment")
-    .map((revision) => revision.id ?? "");
-  for (const id of commentIds) {
-    if (!exactCommentAnchor(redlined, id)) {
-      errors.push(`comment ${id || "<missing>"} must have exactly one range start, range end, and reference`);
-    }
-  }
-  const definitionIds = new Set(commentIds);
-  for (const [kind, counts] of [
-    ["range start", redlined.commentStarts],
-    ["range end", redlined.commentEnds],
-    ["reference", redlined.commentReferences],
-  ] as const) {
-    for (const id of counts.keys()) {
-      if (!definitionIds.has(id)) errors.push(`orphan comment ${kind} for id ${id || "<missing>"}`);
-    }
-  }
-  if (req.comments.length > 0 && !redlined.commentsWired) {
-    errors.push("comments.xml is not wired through content types and document relationships");
-  }
-
-  const insertedParagraphs = req.ops.filter((op) => op.kind === "insert_after").length;
-  for (const name of preservationStructures()) {
-    const expected =
-      name === "bookmarkStart" || name === "bookmarkEnd"
-        ? original.structures[name] + insertedParagraphs
-        : original.structures[name];
-    if (redlined.structures[name] !== expected) {
-      errors.push(`structural change: ${name} count ${original.structures[name]} -> ${redlined.structures[name]} (expected ${expected})`);
-    }
-  }
-}
-
-function requiredChangeKinds(req: ApplyRequest): { insertion: boolean; deletion: boolean } {
+function requiredChangeKinds(req: ApplyRequest, doc: DocumentModel): { insertion: boolean; deletion: boolean } {
   let insertion = req.ops.some((op) => op.kind === "insert_after");
   let deletion = req.ops.some((op) => op.kind === "delete_paragraph");
   for (const op of req.ops) {
     if (op.kind !== "replace") continue;
+    const paragraph = doc.paragraphs.find(({ id }) => id === op.paragraphId);
+    const start = paragraph?.text.indexOf(op.oldText) ?? -1;
+    const end = start + op.oldText.length;
+    const ownSpans = insertionSpans(doc, op.paragraphId, start, end)
+      .filter((span) => span.author === sanitizeXmlText(req.author))
+      .sort((left, right) => left.start - right.start);
+    let coveredThrough = start;
+    for (const span of ownSpans) {
+      if (span.start > coveredThrough) break;
+      coveredThrough = Math.max(coveredThrough, span.end);
+    }
+    if (coveredThrough >= end) {
+      continue;
+    }
     const diff = wordDiff(op.oldText, op.newText);
     insertion ||= diff.some((segment) => segment.type === "insert");
     deletion ||= diff.some((segment) => segment.type === "delete");
   }
   return { insertion, deletion };
+}
+
+function reconciledInsertionKeys(doc: DocumentModel, req: ApplyRequest): Set<string> {
+  const keys = new Set<string>();
+  const author = sanitizeXmlText(req.author);
+  for (const op of req.ops) {
+    if (op.kind !== "replace") continue;
+    const paragraph = doc.paragraphs.find(({ id }) => id === op.paragraphId);
+    const start = paragraph?.text.indexOf(op.oldText) ?? -1;
+    for (const span of insertionSpans(doc, op.paragraphId, start, start + op.oldText.length)) {
+      if (span.author === author) keys.add(`ins:${span.id}`);
+    }
+  }
+  return keys;
+}
+
+async function validateCommentPlacement(
+  redlined: Uint8Array,
+  originalAudit: DocxAudit,
+  redlinedAudit: DocxAudit,
+  originalDoc: DocumentModel,
+  req: ApplyRequest,
+  errors: string[],
+): Promise<void> {
+  const originalKeys = new Set(originalAudit.revisions.map(revisionKey));
+  const newComments = redlinedAudit.revisions.filter(
+    (revision) => revision.kind === "comment" && !originalKeys.has(revisionKey(revision)),
+  );
+  const projection = await auditCommentPlacements(redlined, originalKeys);
+  for (const [index, comment] of req.comments.entries()) {
+    const audited = newComments[index];
+    if (!audited?.id) continue;
+    const placement = projection.placements.get(audited.id);
+    if (!placement || placement.starts.length !== 1 || placement.ends.length !== 1 || placement.references.length !== 1) {
+      errors.push(`comment ${audited.id} markers could not be resolved to one source-view range and reference`);
+      continue;
+    }
+    const start = placement.starts[0];
+    const end = placement.ends[0];
+    const reference = placement.references[0];
+    const locations = new Set([start.paragraphId, end.paragraphId, reference.paragraphId]);
+    if (locations.size !== 1 || !locations.has(comment.paragraphId)) {
+      errors.push(
+        `comment ${audited.id} markers are in ${[...locations].join(", ")}, expected ${comment.paragraphId}`,
+      );
+      continue;
+    }
+    const paragraph = originalDoc.paragraphs.find(({ id }) => id === comment.paragraphId);
+    if (!paragraph) continue;
+    const validation = validateComment(originalDoc, comment);
+    const expectedAnchor = validation.ok && comment.anchorText !== undefined
+      ? comment.anchorText
+      : paragraph.text;
+    const expectedStart = validation.ok && comment.anchorText !== undefined
+      ? paragraph.text.indexOf(comment.anchorText)
+      : 0;
+    const projected = projection.textByParagraph.get(comment.paragraphId) ?? "";
+    const enclosed = start.offset <= end.offset ? projected.slice(start.offset, end.offset) : "";
+    if (
+      start.offset !== expectedStart ||
+      end.offset !== expectedStart + expectedAnchor.length ||
+      enclosed !== expectedAnchor
+    ) {
+      errors.push(
+        `comment ${audited.id} range encloses "${nearestText(enclosed)}", expected "${nearestText(expectedAnchor)}" in ${comment.paragraphId}`,
+      );
+    }
+  }
 }
 
 /** Validate package wiring, tracked-change effects, paragraph integrity, and optional LibreOffice conversion. */
@@ -268,7 +283,24 @@ export async function validateDocx(
     comments = redlinedCounts.comments;
     for (const op of req.ops) {
       const validation = validateOp(originalDoc, op);
-      if (!validation.ok) errors.push(`invalid requested operation: ${validation.error}`);
+      const replace = op.kind === "replace" ? op : undefined;
+      const start = replace
+        ? originalDoc.paragraphs.find(({ id }) => id === replace.paragraphId)?.text.indexOf(replace.oldText) ?? -1
+        : -1;
+      const spans = replace && validation.occurrences === 1
+        ? insertionSpans(originalDoc, replace.paragraphId, start, start + replace.oldText.length)
+        : [];
+      const conflict = spans.find((span) => span.author !== sanitizeXmlText(req.author));
+      if (conflict) {
+        errors.push(
+          `invalid requested operation: anchor overlaps an existing tracked insertion by ${conflict.author}; accept or reject that change first`,
+        );
+      } else if (
+        !validation.ok &&
+        !validation.error?.startsWith("anchor overlaps an existing tracked insertion by ")
+      ) {
+        errors.push(`invalid requested operation: ${validation.error}`);
+      }
     }
     for (const comment of req.comments) {
       const validation = validateComment(originalDoc, comment);
@@ -319,14 +351,28 @@ export async function validateDocx(
       else if (inserted.text !== expected) errors.push(`inserted paragraph ${inserted.id} text does not match the request`);
     }
 
-    const required = requiredChangeKinds(req);
+    const required = requiredChangeKinds(req, originalDoc);
     if (required.insertion && redlinedCounts.insertions <= originalCounts.insertions) {
       errors.push("no new w:ins elements were found for insertion operations");
     }
     if (required.deletion && redlinedCounts.deletions <= originalCounts.deletions) {
       errors.push("no new w:del elements were found for deletion operations");
     }
-    validatePackageAudits(originalCounts, redlinedCounts, req, errors);
+    validatePackageAudits(
+      originalCounts,
+      redlinedCounts,
+      req,
+      errors,
+      reconciledInsertionKeys(originalDoc, req),
+    );
+    await validateCommentPlacement(
+      redlined,
+      originalCounts,
+      redlinedCounts,
+      originalDoc,
+      req,
+      errors,
+    );
     if (collateralParagraphIds.length > 0) {
       errors.push(`collateral paragraph changes: ${collateralParagraphIds.join(", ")}`);
     }

@@ -1,5 +1,5 @@
 import type { Finding } from "@/src/agent/types";
-import { applyRedlines, validateDocx } from "@/src/engine";
+import { applyRedlines, reconcileOps, validateDocx } from "@/src/engine";
 import type { ApplyRequest, DocumentModel } from "@/src/engine/types";
 
 export interface DocumentIntegrityMetrics {
@@ -23,7 +23,7 @@ export async function evaluateDocumentIntegrity(input: {
 }): Promise<DocumentIntegrityMetrics> {
   const tp = new Set(input.truePositiveFindingIds);
   const selected = input.findings.filter((finding) => tp.has(finding.id) && finding.proposal !== undefined);
-  const ops = selected.flatMap((finding) => finding.proposal?.ops ?? []);
+  const ops = reconcileOps(input.document, selected.flatMap((finding) => finding.proposal?.ops ?? [])).ops;
   const comments = selected.flatMap((finding) => {
     const first = finding.proposal?.ops[0];
     if (first === undefined || finding.proposal === undefined) return [];

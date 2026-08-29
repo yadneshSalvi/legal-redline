@@ -15,6 +15,7 @@ import type { DocumentModel } from "./types";
 import { addComments, rewriteParagraph } from "./redline-dom";
 import type { AppliedCounts, AssignedComment, IdAllocator } from "./redline-dom";
 import { insertTrackedParagraph } from "./redline-insert";
+import { insertionSpans } from "./revision-context";
 import {
   CONTENT_TYPES_NS,
   elementsByLocalName,
@@ -127,9 +128,32 @@ function updateZipFile(zip: JSZip, path: string, content: string): void {
 }
 
 function validateRequest(doc: DocumentModel, req: ApplyRequest): void {
-  const errors: string[] = [
-    ...req.ops.map((op) => validateOp(doc, op).error),
-  ].filter((error): error is string => error !== undefined);
+  const errors: string[] = [];
+  const author = sanitizeXmlText(req.author);
+  for (const op of req.ops) {
+    const validation = validateOp(doc, op);
+    if (op.kind !== "replace") {
+      if (!validation.ok && validation.error) errors.push(validation.error);
+      continue;
+    }
+    const paragraph = doc.paragraphs.find(({ id }) => id === op.paragraphId);
+    const start = paragraph?.text.indexOf(op.oldText) ?? -1;
+    const spans = validation.occurrences === 1
+      ? insertionSpans(doc, op.paragraphId, start, start + op.oldText.length)
+      : [];
+    const conflict = spans.find((span) => span.author !== author);
+    if (conflict) {
+      errors.push(
+        `anchor overlaps an existing tracked insertion by ${conflict.author}; accept or reject that change first`,
+      );
+    } else if (
+      !validation.ok &&
+      validation.error &&
+      !validation.error.startsWith("anchor overlaps an existing tracked insertion by ")
+    ) {
+      errors.push(validation.error);
+    }
+  }
   for (const comment of req.comments) {
     const validation = validateComment(doc, comment);
     const mayFallback =

@@ -1,5 +1,6 @@
 import JSZip from "jszip";
 
+import { mapBodyParagraphs } from "./paragraph-map";
 import { elementsByLocalName, OFFICE_REL_NS, parseXml, wordAttribute } from "./xml";
 
 export interface RevisionAudit {
@@ -8,6 +9,7 @@ export interface RevisionAudit {
   author?: string;
   date?: string;
   content: string;
+  paragraphId?: string;
 }
 
 const STRUCTURES = [
@@ -52,12 +54,24 @@ function revisionContent(element: Element, kind: RevisionAudit["kind"]): string 
   return elementsByLocalName(element, "t").map((node) => node.textContent ?? "").join("");
 }
 
+function owningParagraphId(element: Element, ids: Map<Element, string>): string | undefined {
+  for (let node: Node | null = element; node; node = node.parentNode) {
+    if (node.nodeType === 1 && (node as Element).localName === "p") {
+      return ids.get(node as Element);
+    }
+  }
+  return undefined;
+}
+
 /** Inspect revision metadata, comment wiring, and preservation-sensitive main-part structures. */
 export async function auditDocx(bytes: Uint8Array): Promise<DocxAudit> {
   const zip = await JSZip.loadAsync(bytes);
   const documentXml = await zip.file("word/document.xml")?.async("string");
   if (!documentXml) throw new Error("Invalid DOCX: word/document.xml is missing");
   const document = parseXml(documentXml, "word/document.xml");
+  const paragraphIds = new Map(
+    mapBodyParagraphs(document).map(({ id, node }) => [node, id]),
+  );
   const commentsXml = await zip.file("word/comments.xml")?.async("string");
   const commentsDocument = commentsXml ? parseXml(commentsXml, "word/comments.xml") : undefined;
   const comments = commentsDocument ? elementsByLocalName(commentsDocument, "comment") : [];
@@ -70,6 +84,7 @@ export async function auditDocx(bytes: Uint8Array): Promise<DocxAudit> {
       author: wordAttribute(element, "author"),
       date: wordAttribute(element, "date"),
       content: revisionContent(element, "ins"),
+      paragraphId: owningParagraphId(element, paragraphIds),
     })),
     ...deletions.map((element) => ({
       kind: "del" as const,
@@ -77,6 +92,7 @@ export async function auditDocx(bytes: Uint8Array): Promise<DocxAudit> {
       author: wordAttribute(element, "author"),
       date: wordAttribute(element, "date"),
       content: revisionContent(element, "del"),
+      paragraphId: owningParagraphId(element, paragraphIds),
     })),
     ...comments.map((element) => ({
       kind: "comment" as const,

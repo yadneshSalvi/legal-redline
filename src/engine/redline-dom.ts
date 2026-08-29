@@ -1,4 +1,5 @@
 import { wordDiff } from "./diff";
+import { ensureParagraphMarkChange } from "./redline-paragraph";
 import { newRun, trackedWrapper } from "./redline-runs";
 import type { RedlineComment, RedlineOp } from "./types";
 import {
@@ -7,6 +8,7 @@ import {
   elementsByLocalName,
   sanitizeXmlText,
   setWordAttribute,
+  wordAttribute,
   XML_NS,
 } from "./xml";
 
@@ -38,9 +40,16 @@ interface Boundary {
   before: Node | null;
 }
 
-function hasAncestor(node: Node, stop: Node, localName: string): boolean {
+function ancestorElement(node: Node, stop: Node, localName: string): Element | undefined {
   for (let parent = node.parentNode; parent && parent !== stop; parent = parent.parentNode) {
-    if (parent.nodeType === 1 && (parent as Element).localName === localName) return true;
+    if (parent.nodeType === 1 && (parent as Element).localName === localName) return parent as Element;
+  }
+  return undefined;
+}
+
+function isWithin(node: Node, ancestor: Node): boolean {
+  for (let current: Node | null = node; current; current = current.parentNode) {
+    if (current === ancestor) return true;
   }
   return false;
 }
@@ -133,9 +142,15 @@ function splitRun(carrier: Carrier, offset: number): Boundary {
   return { parent, before: suffixRun };
 }
 
-function paragraphBoundary(paragraph: Element, offset: number): Boundary {
+function paragraphBoundary(
+  paragraph: Element,
+  offset: number,
+  preferFollowing = false,
+): Boundary {
   const carriers = textCarriers(paragraph);
-  const match = carriers.find((carrier) => offset >= carrier.start && offset <= carrier.end);
+  const match = preferFollowing
+    ? carriers.find((carrier) => offset >= carrier.start && offset < carrier.end)
+    : carriers.find((carrier) => offset >= carrier.start && offset <= carrier.end);
   if (match) return splitRun(match, offset);
   const pPr = directChild(paragraph, "pPr");
   if (offset <= 0) return { parent: paragraph, before: pPr?.nextSibling ?? paragraph.firstChild };
@@ -144,6 +159,26 @@ function paragraphBoundary(paragraph: Element, offset: number): Boundary {
 
 function insertAt(boundary: Boundary, node: Node): void {
   boundary.parent.insertBefore(node, boundary.before);
+}
+
+function boundaryForStartContext(
+  paragraph: Element,
+  boundary: Boundary,
+  allowed: Set<Element>,
+  anchor: Node,
+): Boundary {
+  for (let node: Node | null = boundary.parent; node && node !== paragraph; node = node.parentNode) {
+    if (node.nodeType !== 1) continue;
+    const wrapper = node as Element;
+    if (!["hyperlink", "ins"].includes(wrapper.localName) || allowed.has(wrapper)) continue;
+    return anchor.parentNode ? { parent: anchor.parentNode, before: anchor } : boundary;
+  }
+  for (const wrapper of allowed) {
+    if (["hyperlink", "ins"].includes(wrapper.localName) && !isWithin(boundary.parent, wrapper)) {
+      return anchor.parentNode ? { parent: anchor.parentNode, before: anchor } : boundary;
+    }
+  }
+  return boundary;
 }
 
 function commentMarker(document: Document, name: "commentRangeStart" | "commentRangeEnd", id: number): Element {
@@ -175,7 +210,10 @@ export function addComments(paragraph: Element, comments: AssignedComment[]): vo
     const endBoundary = paragraphBoundary(paragraph, end);
     insertAt(endBoundary, commentMarker(paragraph.ownerDocument, "commentRangeEnd", assigned.id));
     insertAt(endBoundary, commentReference(paragraph.ownerDocument, assigned.id));
-    insertAt(paragraphBoundary(paragraph, start), commentMarker(paragraph.ownerDocument, "commentRangeStart", assigned.id));
+    insertAt(
+      paragraphBoundary(paragraph, start, true),
+      commentMarker(paragraph.ownerDocument, "commentRangeStart", assigned.id),
+    );
   }
 }
 
@@ -210,7 +248,7 @@ function deleteRange(
 ): number {
   if (start >= end) return 0;
   paragraphBoundary(paragraph, end);
-  paragraphBoundary(paragraph, start);
+  paragraphBoundary(paragraph, start, true);
   const runs = new Set(
     textCarriers(paragraph)
       .filter((carrier) => carrier.start >= start && carrier.end <= end && carrier.end > carrier.start)
@@ -218,9 +256,17 @@ function deleteRange(
   );
   let count = 0;
   for (const run of runs) {
-    if (hasAncestor(run, paragraph, "del")) continue;
-    if (hasAncestor(run, paragraph, "ins")) {
-      throw new Error("Cannot replace text inside a pre-existing tracked insertion");
+    if (ancestorElement(run, paragraph, "del")) continue;
+    const insertion = ancestorElement(run, paragraph, "ins");
+    if (insertion) {
+      const insertionAuthor = wordAttribute(insertion, "author") ?? "unknown author";
+      if (insertionAuthor !== author) {
+        throw new Error(
+          `anchor overlaps an existing tracked insertion by ${insertionAuthor}; accept or reject that change first`,
+        );
+      }
+      run.parentNode?.removeChild(run);
+      continue;
     }
     for (const name of ["t", "tab", "br"] as const) {
       for (const element of elementsByLocalName(run, name)) replaceTextElement(element);
@@ -239,6 +285,7 @@ interface EditAction {
   position: number;
   end?: number;
   text?: string;
+  marker?: Comment;
 }
 
 function replaceRange(
@@ -251,6 +298,24 @@ function replaceRange(
   date: string,
 ): { insertions: number; deletions: number } {
   const style = formatAt(paragraph, start);
+  const anchorCarrier = textCarriers(paragraph).find(
+    (carrier) => carrier.start <= start && carrier.end > start,
+  );
+  const anchorInsertion = anchorCarrier
+    ? ancestorElement(anchorCarrier.run, paragraph, "ins")
+    : undefined;
+  const directInsertion =
+    anchorInsertion && wordAttribute(anchorInsertion, "author") === author
+      ? anchorInsertion
+      : undefined;
+  const startContext = new Set<Element>();
+  if (anchorCarrier) {
+    for (let node = anchorCarrier.run.parentNode; node && node !== paragraph; node = node.parentNode) {
+      if (node.nodeType === 1) startContext.add(node as Element);
+    }
+  }
+  const anchorMarker = paragraph.ownerDocument.createComment("playbook-redliner-anchor");
+  insertAt(paragraphBoundary(paragraph, start, true), anchorMarker);
   const actions: EditAction[] = [];
   let cursor = start;
   for (const segment of wordDiff(oldText, newText)) {
@@ -261,46 +326,40 @@ function replaceRange(
     } else actions.push({ position: cursor, text: segment.text });
   }
   actions.sort((left, right) => right.position - left.position);
+  for (const action of actions) {
+    if (action.text === undefined) continue;
+    action.marker = paragraph.ownerDocument.createComment("playbook-redliner-insert");
+    insertAt(paragraphBoundary(paragraph, action.position, true), action.marker);
+  }
   let insertions = 0;
   let deletions = 0;
   for (const action of actions) {
     if (action.end !== undefined) {
       deletions += deleteRange(paragraph, action.position, action.end, allocator, author, date);
-    } else if (action.text !== undefined && action.text.length > 0) {
-      const run = newRun(paragraph.ownerDocument, action.text, style, false);
-      insertAt(
-        paragraphBoundary(paragraph, action.position),
-        trackedWrapper(paragraph.ownerDocument, "ins", run, allocator, author, date),
-      );
-      insertions += 1;
     }
   }
+  for (const action of actions) {
+    if (action.text !== undefined && action.text.length > 0 && action.marker?.parentNode) {
+      const run = newRun(paragraph.ownerDocument, action.text, style, false);
+      let boundary: Boundary = { parent: action.marker.parentNode, before: action.marker };
+      if (directInsertion) {
+        if (!isWithin(boundary.parent, directInsertion)) {
+          boundary = { parent: directInsertion, before: null };
+        }
+        insertAt(boundary, run);
+      } else {
+        boundary = boundaryForStartContext(paragraph, boundary, startContext, anchorMarker);
+        insertAt(
+          boundary,
+          trackedWrapper(paragraph.ownerDocument, "ins", run, allocator, author, date),
+        );
+        insertions += 1;
+      }
+    }
+    action.marker?.parentNode?.removeChild(action.marker);
+  }
+  anchorMarker.parentNode?.removeChild(anchorMarker);
   return { insertions, deletions };
-}
-
-/** Add a tracked paragraph-mark property change without replacing existing paragraph properties. */
-export function ensureParagraphMarkChange(
-  paragraph: Element,
-  kind: "ins" | "del",
-  allocator: IdAllocator,
-  author: string,
-  date: string,
-): void {
-  let pPr = directChild(paragraph, "pPr");
-  if (!pPr) {
-    pPr = createWordElement(paragraph.ownerDocument, "pPr");
-    paragraph.insertBefore(pPr, paragraph.firstChild);
-  }
-  let rPr = directChild(pPr, "rPr");
-  if (!rPr) {
-    rPr = createWordElement(paragraph.ownerDocument, "rPr");
-    pPr.appendChild(rPr);
-  }
-  const change = createWordElement(paragraph.ownerDocument, kind);
-  setWordAttribute(change, "id", String(allocator.next()));
-  setWordAttribute(change, "author", sanitizeXmlText(author));
-  setWordAttribute(change, "date", date);
-  rPr.appendChild(change);
 }
 
 /** Surgically redline only intersecting runs; unrelated paragraph children retain identity and order. */

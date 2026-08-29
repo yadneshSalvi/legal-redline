@@ -1,4 +1,4 @@
-import { applyRedlines, textToDocx, validateDocx } from "@/src/engine";
+import { applyRedlines, reconcileOps, textToDocx, validateDocx } from "@/src/engine";
 import type { ApplyRequest, RedlineComment, RedlineOp } from "@/src/engine/types";
 import { createPrecedentMemory } from "@/src/agent/memory";
 import type { ReviewRun } from "@/src/agent/types";
@@ -37,7 +37,13 @@ export async function applyDecisions(input: { run: ReviewRun; originalBytes: Uin
     promotions.push({ finding, decision });
   }
 
-  const request: ApplyRequest = { ops, comments, author: playbook.style.author, date: new Date().toISOString() };
+  const reconciled = reconcileOps(run.document, ops);
+  if (reconciled.dropped.length > 0) {
+    await trajectory.event("apply", "validation", `Reconciled ${reconciled.dropped.length} conflicting operation(s)`, {
+      payload: reconciled.dropped.map((entry) => ({ reason: entry.reason, op: entry.op })),
+    });
+  }
+  const request: ApplyRequest = { ops: reconciled.ops, comments, author: playbook.style.author, date: new Date().toISOString() };
   const originalDocx = run.document.source.kind === "txt"
     ? await textToDocx(new TextDecoder().decode(input.originalBytes), { title: run.document.title })
     : input.originalBytes;

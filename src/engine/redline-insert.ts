@@ -1,8 +1,28 @@
-import { ensureParagraphMarkChange } from "./redline-dom";
 import type { IdAllocator } from "./redline-dom";
+import { ensureParagraphMarkChange } from "./redline-paragraph";
 import { newRun, trackedWrapper } from "./redline-runs";
 import type { RedlineOp } from "./types";
-import { createWordElement, directChild, setWordAttribute } from "./xml";
+import { createWordElement, directChild, elementsByLocalName, setWordAttribute } from "./xml";
+
+function stripInheritedParagraphMetadata(pPr: Element): void {
+  for (const name of ["ins", "del"] as const) {
+    for (const revision of elementsByLocalName(pPr, name)) {
+      revision.parentNode?.removeChild(revision);
+    }
+  }
+  const visit = (element: Element): void => {
+    for (let index = element.attributes.length - 1; index >= 0; index -= 1) {
+      const attribute = element.attributes.item(index);
+      if (attribute?.localName.toLocaleLowerCase().startsWith("rsid")) {
+        element.removeAttributeNode(attribute);
+      }
+    }
+    for (let child = element.firstChild; child; child = child.nextSibling) {
+      if (child.nodeType === 1) visit(child as Element);
+    }
+  };
+  visit(pPr);
+}
 
 /** Add an explicit numbering label unless the inserted text already starts with that full label. */
 export function insertedParagraphText(op: Extract<RedlineOp, { kind: "insert_after" }>): string {
@@ -32,6 +52,7 @@ export function insertTrackedParagraph(
     pPr = createWordElement(document, "pPr");
     paragraph.appendChild(pPr);
   }
+  stripInheritedParagraphMetadata(pPr);
   if (op.numbering) {
     const numPr = directChild(pPr, "numPr");
     if (numPr) pPr.removeChild(numPr);

@@ -6,6 +6,7 @@ import { buildDocumentModel } from "./model";
 import type { ParagraphInput } from "./model";
 import { resolveNumberingLabels } from "./docx-numbering";
 import { mapBodyParagraphs } from "./paragraph-map";
+import { registerRevisionContext } from "./revision-context";
 import type { DocumentModel, RunSpan } from "./types";
 import {
   directChild,
@@ -134,10 +135,12 @@ export async function parseDocx(bytes: Uint8Array, filename: string): Promise<Do
     paragraphInput(node, stylesById, labels[index], inserted ? id : undefined),
   );
 
-  return buildDocumentModel(inputs, {
+  const model = buildDocumentModel(inputs, {
     kind: "docx",
     filename,
     sha256: createHash("sha256").update(bytes).digest("hex"),
     bytes: bytes.byteLength,
   });
+  registerRevisionContext(model, mapped);
+  return model;
 }
