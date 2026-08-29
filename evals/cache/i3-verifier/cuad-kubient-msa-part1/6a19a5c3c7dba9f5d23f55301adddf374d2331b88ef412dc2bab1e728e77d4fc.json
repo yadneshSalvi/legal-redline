@@ -1,0 +1,69 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXhKamgSiPEyCsWJA26D",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01QzhrUQuNZihKA5ZLFcxTHe",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0019",
+            "p0020",
+            "p0021",
+            "p0022"
+          ],
+          "quote": "(c) Upon termination of the Agreement:",
+          "rationale": "The termination-effects provision (Section 4(c), p0019–p0022) only requires Kubient to cease the Services, revokes the license, requires Customer to stop using the platform, and requires each Party to return or destroy the other's Confidential Information. There is no transition/wind-down assistance, no obligation to return Customer's Content, Requests or visitor data in a usable format, and no deletion certification — and no such terms appear elsewhere (searches for \"transition\", \"Customer Data\" and \"machine-readable\" return nothing). For a hosted auction-platform service where Kubient collects and stores our data (p0035), this is a material gap, so we insert the playbook transition-assistance, data-return and deletion-certification language into Section 4(c).",
+          "confidence": 0.85,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert transition assistance, data return and deletion certification into termination effects",
+            "comment": "[Playbook] We have added a wind-down subsection so that, on exit, Kubient provides up to six months of transition assistance at its then-current rates, returns our data in a machine-readable format within 30 days, and then deletes and certifies deletion. Our playbook requires data return and transition support on termination; we can accept 90 days of assistance as a fallback.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0022",
+                "numbering": "(v)",
+                "text": "(v) at Customer's request, Kubient will provide reasonable transition assistance for a period of up to six (6) (or, if requested, any shorter) months following termination or expiration at Kubient's then-current rates, and within thirty (30) days of termination or expiration will return to Customer all Content, Requests, and other data of Customer or its visitors collected, maintained, processed or stored by Kubient in connection with the Services or the Auction Platform, in a commonly used, machine-readable format; and (vi) thereafter Kubient will delete such Content, Requests and data from its systems and certify such deletion to Customer in writing."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 581,
+      "cache_read_input_tokens": 8839,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 581,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 841,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "TRANSITION",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10086
+}

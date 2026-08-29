@@ -1,0 +1,67 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXghEJ7upkidaHvzAyEV",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01VJQvL2kdfSCdAU6MUcxM6Q",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0132",
+            "p0137",
+            "p0138"
+          ],
+          "quote": "IBM reserves the right to investigate potential violations of the representations and warranties in Subsection 11.2(b).",
+          "rationale": "§ 11.3 is the only inspection/verification right binding Customer, and it is unqualified: IBM may investigate potential AUP breaches at any frequency, without prior notice (p0137 only requires attempted notice before restricting access or removing Content), with no limits on access to Customer systems, no independent-auditor or confidentiality requirement, and no cost allocation, while p0138 obliges Customer to hand over all relevant information on request. That sits at the playbook walk-away position (unlimited/unannounced investigation with potential system access), so we inserted the standard guardrails: once per 12 months, 30 days' written notice, business hours, independent auditor under confidentiality, off-site where practicable with no direct system access, and IBM's cost unless an underpayment exceeds 5%.",
+          "confidence": 0.72,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Add frequency, notice, business-hours, independent-auditor, cost and no-system-access limits to IBM's investigation right in § 11.3.",
+            "comment": "[Playbook] IBM's investigation right in 11.3 is currently unlimited, unannounced and at our cost, so we have added our standard audit guardrails: once per 12 months, 30 days' written notice, business hours, an independent auditor under confidentiality, off-site review where practicable with no direct access to our systems, and IBM's cost unless an underpayment exceeds 5%. We can fall back to 15 days' notice and a 10% underpayment threshold if needed.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0137",
+                "text": "Any investigation under this Subsection 11.3 that requires access to Customer's records, facilities or systems will be conducted: (i) no more than once in any twelve (12) month period; (ii) upon at least thirty (30) days' prior written notice to Customer; (iii) during Customer's normal business hours and in a manner that does not unreasonably disrupt Customer's business; (iv) by an independent third-party auditor bound by written confidentiality obligations no less protective than those of this Agreement; (v) remotely or off-site wherever practicable, and IBM will have no direct access to Customer systems or Customer Components; and (vi) at IBM's expense, unless the investigation reveals an underpayment by Customer exceeding five percent (5%) of the amounts due for the period reviewed, in which case Customer will reimburse IBM's reasonable costs of the investigation."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1199,
+      "cache_read_input_tokens": 9333,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1199,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1007,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "AUDIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10798
+}

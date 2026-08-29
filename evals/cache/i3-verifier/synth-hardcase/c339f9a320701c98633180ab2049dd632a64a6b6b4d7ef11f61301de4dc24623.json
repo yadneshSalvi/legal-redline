@@ -1,0 +1,62 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXiLGUErHxRRc7iM5fwn",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "thinking",
+        "thinking": "",
+        "signature": "CAISwgMKjgEIERgCKkAha7cFt3pm5VTuwJ0j8MEvnurc5K5VsreckLF8lVnhp3qSGQ/P60PUL4QdJVL9tuxcciO/sk6ki6LSBzgV3gamMg1jbGF1ZGUtb3B1cy01OAFCCHRoaW5raW5nWiQ0NDcyZGFmNS1lOTVkLTQzNzMtOWEzZS01ZDRhMTA3ZGJhNmWoAYORzdQGEgzDjtt7KDglDBBod0IaDEd+iEW7UPHPZIEoXyIwRrhMtzEU84pSDR+SP5/FVtvRbP9R1kyHRhmPa7hdG7Xca4n+lMyWdx18Fb/fc4ztKuABr0ZJNtE/XtABURDHt0js5eskVZsP/6WHkwz9O0gE8j716ZfmC2hIostzJ6V4nfpSk2Brc/G8tpus+ZkqA0PJ4UE3BYz1V6sBP2vhF/x+iab/9T7tHojK6gN+BVrM5zhIl8w/jiJkMhMaoP2UnNnZdeXu104suzfzjGjaaJ+61ChCZfnTg7f/+e0pxoHnUgZrOesPYi/oouOh+jJ0ZqlA2mpCoKRfd2GrNS60RsZlUs9waIpnWK8PO3Thr9LNnWKlocM4otrXl301xTd00uTM3aZuqHEse+ncczJL0qoZ768YAQ=="
+      },
+      {
+        "type": "text",
+        "text": "The sweep confirms nothing further. Resubmitting the compliant finding with a rationale that expressly addresses the failed deterministic checks."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01BdenRFwVbExdtYD1S9XeuN",
+        "name": "submit_finding",
+        "input": {
+          "status": "compliant",
+          "paragraphIds": [
+            "p0051"
+          ],
+          "quote": "Nothing restricts Customer from developing, acquiring, licensing, selling, or using any product or service, engaging any supplier, hiring any person who responds to general recruitment, or conducting business in any field or territory. Vendor acknowledges that Customer has made no exclusivity, non-compete, most-favoured-customer, minimum-volume, or no-hire commitment.",
+          "rationale": "Preferred position is met: no non-solicitation, no-hire, or anti-poaching covenant binds Customer anywhere in the Agreement. I searched the detection triggers (\"solicit\", \"hire\", \"employ\", \"induce\", \"recruit\", \"personnel\") and read every plausible location: § 12 Customer Responsibilities, § 16 Confidentiality, § 30 General, and § 11 Transition Assistance (a common home for restrictions on hiring Vendor staff at exit). The word \"solicit\" does not appear in the document, and the only \"no-hire\" reference is the negative confirmation in § 12.3. Every \"personnel\" hit imposes duties on Vendor as to its own staff (§ 3.x responsibility for personnel, § 14 assignments, § 19 qualified personnel, § 30.1 compensation and taxes) rather than restricting Customer's hiring.\n\nSection 12.3 affirmatively secures the preferred outcome: it preserves Customer's freedom to hire \"any person who responds to general recruitment\" and has Vendor acknowledge Customer has made no no-hire commitment. That is stronger than the playbook fallback, so no redline is proposed and none is permitted for a compliant finding.\n\nOn the two failed deterministic checks (duration <= 12 months; general-solicitation carve-out present): both are non-probative here because each presupposes an existing non-solicit covenant on Customer. There is no such covenant to measure a duration against or to carve out from, so the absence of carve-out wording is the correct and most favourable outcome, not a gap. Inserting a mutual 12-month non-solicit to satisfy those checks would create a restrictive covenant on Customer where none exists and would move us off the preferred position.\n\nExcluded from this rule: § 12.4 restricts Vendor from developing or marketing a service competing with Customer's proprietary analytics products during the term. That covenant binds the counterparty and benefits our party, so it is not a restrictive covenant on Customer.",
+          "confidence": 0.93
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1969,
+      "cache_read_input_tokens": 9386,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1969,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1043,
+      "output_tokens_details": {
+        "thinking_tokens": 75
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13333
+}

@@ -1,0 +1,828 @@
+[
+  {
+    "confidence": 0.92,
+    "costUsd": 0.23727975,
+    "durationMs": 69096,
+    "id": "f-indemn-d178f051",
+    "paragraphIds": [
+      "p0034",
+      "p0035",
+      "p0036",
+      "p0037"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] The Agreement contains no indemnity at all (Section 7's heading even promises indemnification of Contractor), so we have added a Contractor indemnity for third-party IP infringement claims, breach of law, Contractor-caused data or confidentiality breaches, and gross negligence or wilful misconduct, with standard notice/control/cooperation procedure. Our playbook requires this protection to sit with the party that controls the Services and IP; if needed we can accept the usual IP exclusions (our modifications, combinations, specifications) and procure/modify/replace/refund remedies, with the indemnity capped at 3x annual fees.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(d)",
+          "paragraphId": "p0037",
+          "text": "(d) INDEMNIFICATION BY CONTRACTOR. Contractor shall defend, indemnify and hold harmless Company and its affiliates from and against any third-party claim, and all resulting damages, costs and expenses (including reasonable attorneys' fees), to the extent arising out of (i) an allegation that the Services or Works infringe or misappropriate any intellectual property right; (ii) Contractor's breach of applicable law; (iii) any unauthorized access to or disclosure of Company's Confidential Information or data caused by Contractor; or (iv) Contractor's gross negligence or wilful misconduct. Company shall give Contractor prompt written notice of the claim, Contractor shall have control of the defense and settlement (provided that no settlement that imposes any obligation, payment or admission on Company shall be made without Company's prior written consent), and Company shall provide reasonable cooperation at Contractor's expense. Notwithstanding Sections 7(a) and 7(c), Contractor's obligations under this Section 7(d) are not subject to the limitation of liability in Section 7(a) or the waiver of attorneys' fees in Section 7(c)."
+        }
+      ],
+      "summary": "Insert a Contractor (Vendor) indemnity as new Section 7(d) covering IP infringement, breach of law, data/confidentiality breach and gross negligence or wilful misconduct, with standard defence procedure and carve-out from the Section 7(a) cap and 7(c) fee waiver."
+    },
+    "quote": "7. LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.",
+    "rationale": "Section 7 is headed \"INDEMNIFICATION OF CONTRACTOR\" but contains no operative indemnity language at all; a full-text search for \"indemnif\" and \"hold harmless\" returns only the heading. There is therefore no Contractor/Vendor indemnity for third-party IP infringement, breach of law, data breach, or gross negligence/wilful misconduct. Section 5(c) gives only a non-infringement warranty, which is subject to the Section 7(a) fees cap and the Section 7(c) attorneys' fee waiver and does not provide defence of third-party claims. This falls at the playbook walk-away position (no Vendor IP indemnity). We insert the preferred Vendor indemnity as new Section 7(d), with standard notice/control/cooperation procedure and a carve-out from the Section 7(a) cap and 7(c) fee waiver. No Customer indemnity exists, so nothing needs narrowing.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-7",
+    "sectionRef": "§ 7 LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.",
+    "severity": "critical",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": true
+        }
+      ],
+      "notes": "The rule is correctly triggered: Section 7 has only a heading referencing indemnification (and in Contractor's favour at that) with no operative indemnity language, and the cited limitation-of-liability/attorneys'-fee provisions confirm no Vendor defence obligation exists — this is the walk-away scenario for a critical rule. The inserted Section 7(d) tracks the playbook preferred position closely: IP infringement, breach of law, Contractor-caused unauthorised access/disclosure of Company data, and gross negligence/wilful misconduct, plus standard notice, control-of-defence (with consent for adverse settlements) and cooperation procedure. Placement is consistent with the redline guidance (appended after the limitation-of-liability subsections as a new 7(d)) and is additive only — no existing language is deleted or distorted, so the edit is the smallest one that reaches the position. No Customer/Company indemnity exists in the cited text, so the rationale's statement that nothing needs narrowing is accurate; the carve-out from the Section 7(a) cap and 7(c) fee waiver is necessary for the indemnity to have practical effect and is a coherent ask given 7(a) already excepts Paragraph 9. Comment is accurate, in the required voice with the [Playbook] prefix, states what changed and why, and offers the documented fallback (usual IP exclusions, procure/modify/replace/refund, 3x annual fees super-cap). Minor, non-blocking drafting points to confirm on cleanup: the clause uses the capitalised term \"Works\" (verify it is defined in the agreement, otherwise use \"deliverables\" as used in Section 1(a)), and the Section 7 heading \"INDEMNIFICATION OF CONTRACTOR\" should be conformed to reflect the new Contractor-side obligation.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.201116,
+    "durationMs": 63480,
+    "id": "f-ip-adf951f9",
+    "paragraphIds": [
+      "p0017",
+      "p0021",
+      "p0022"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We own what we pay for and everything we put in, so we have made the Works vest in us on creation with an express assignment rather than only for paid invoice periods, and confirmed that our data and pre-existing IP remain ours with no joint ownership. We also made the licence to any Contractor materials embedded in the Works irrevocable and worldwide; if Contractor prefers, we can accept a payment-triggered assignment coupled with a perpetual, irrevocable, royalty-free licence to use, modify and sublicense the Works in the interim.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "are the sole and exclusive property of Company and shall vest in Company upon creation. Contractor hereby irrevocably assigns to Company all right, title and interest, including all intellectual property rights, in and to the Works, and such assignment is not conditioned upon payment of any invoice.",
+          "oldText": "are the property of Company to the extent that such Works were created by Contractor for Company over a time period for which Company has been invoiced and said invoice has been paid.",
+          "paragraphId": "p0017"
+        },
+        {
+          "kind": "replace",
+          "newText": "a royalty-free, worldwide, non-exclusive, perpetual and irrevocable license",
+          "oldText": "a royalty-free, non- exclusive perpetual license",
+          "paragraphId": "p0021"
+        },
+        {
+          "kind": "insert_after",
+          "numbering": "(e)",
+          "paragraphId": "p0022",
+          "text": "(e) Company retains all right, title and interest in and to all data, materials, software and intellectual property provided or made available by Company to Contractor and all data generated or processed for Company in the course of the Services (\"Company Data\"). Nothing in this Agreement assigns, transfers or licenses to Contractor any ownership of Company Data or of Company's intellectual property, and Contractor may access and use Company Data solely as necessary to perform the Services. No Works or Company Data shall be jointly owned by the parties."
+        }
+      ],
+      "summary": "Vest Works in Clear Capital on creation with an irrevocable assignment (not conditioned on payment), make the embedded-Contractor-IP licence irrevocable and worldwide, and add ownership of Company Data with no joint ownership."
+    },
+    "quote": "are the property of Company to the extent that such Works were created by Contractor for Company over a time period for which Company has been invoiced and said invoice has been paid.",
+    "rationale": "Section 4(a) makes our ownership of the Works contingent on invoices having been issued and paid, so title to unpaid or in-progress work product stays with Contractor and there is no express assignment. The licence-back for embedded Contractor's Information in 4(c) is perpetual and royalty-free but not irrevocable or worldwide, and the Agreement nowhere confirms that Clear Capital retains ownership of its own data and pre-existing IP (Section 8 treats our data only as Confidential Information). Redline vests the Works in us on creation with an irrevocable assignment, strengthens the embedded-IP licence, and adds a Company Data ownership sentence with no joint ownership; Contractor's retained proprietary tools under 4(b) are untouched.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-4",
+    "sectionRef": "§ 4 OWNERSHIP OF MATERIALS RELATED TO SERVICES; ACCEPTANCE.",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 3 applies",
+          "ok": true
+        },
+        {
+          "name": "no assignment of Customer Data/IP to Vendor remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.837 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0017",
+          "ok": false
+        },
+        {
+          "detail": "changed-character ratio=0.387 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0021",
+          "ok": true
+        }
+      ],
+      "notes": "The cited text supports the deviation: original 4(a) makes Company's ownership of the Works contingent on invoices being issued and paid and contains no express assignment, which falls short of the preferred position (Customer owns deliverables, Vendor assigns). The redline reaches the playbook position: vesting on creation plus an irrevocable assignment in p0017, adding 'irrevocable' and 'worldwide' to the embedded Contractor's Information licence in p0021, and a new (e) confirming Company ownership of Company Data and pre-existing IP with an express no-joint-ownership sentence. Contractor's retained proprietary tools/platform (4(b)) are left untouched, consistent with the guidance that Vendor keeping ownership of its own IP is acceptable. The failed 'minimal edit p0017' check is advisory only; removing the payment-conditioned ownership carve-out and inserting an express assignment necessarily rewrites that sentence, and the defined-term list and surrounding language are preserved. Comment is accurate, correctly prefixed, in the required tone, states what changed and why, and offers a sensible fallback (payment-triggered assignment with an interim perpetual, irrevocable licence).",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.339224,
+    "durationMs": 93054,
+    "id": "f-lol-cap-4db99cd9",
+    "paragraphIds": [
+      "p0035",
+      "p0036"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have made the cap mutual and set it at the greater of twelve (12) months' fees or USD 1,000,000, because a cap limited to the fees paid under a single Statement of Work leaves us without a meaningful remedy. We also added the standard uncapped carve-outs (confidentiality, data protection/security, indemnification, gross negligence, willful misconduct, fraud and IP infringement) in place of the prior cross-reference to Paragraph 9, which is the independent contractor clause, and confirmed our fee payments are not \"damages\" subject to the cap.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "(a) EXCEPT FOR EXCLUDED CLAIMS, EACH PARTY'S TOTAL AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT SHALL NOT EXCEED THE GREATER OF (I) THE FEES PAID OR PAYABLE BY COMPANY UNDER THIS AGREEMENT IN THE TWELVE (12) MONTHS IMMEDIATELY PRECEDING THE EVENT GIVING RISE TO THE CLAIM AND (II) ONE MILLION U.S. DOLLARS (USD 1,000,000). \"EXCLUDED CLAIMS\" MEANS A PARTY'S BREACH OF ITS CONFIDENTIALITY, DATA PROTECTION OR SECURITY OBLIGATIONS, ITS INDEMNIFICATION OBLIGATIONS, ITS GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD, AND ITS INFRINGEMENT OF THE OTHER PARTY'S INTELLECTUAL PROPERTY RIGHTS. COMPANY'S OBLIGATION TO PAY FEES DUE UNDER THIS AGREEMENT SHALL NOT BE CONSIDERED DAMAGES SUBJECT TO THIS LIMITATION.",
+          "oldText": "(a) EXCEPT WITH RESPECT TO CONTRACTOR'S OBLIGATIONS PURSUANT TO PARAGRAPH 9 HEREOF, CONTRACTOR'S MAXIMUM LIABILITY TO COMPANY ARISING FOR ANY REASON RELATING TO CONTRACTOR'S PERFORMANCE OF SERVICES UNDER A STATEMENT OF WORK SHALL BE LIMITED TO THE AMOUNT OF FEES PAID TO CONTRACTOR FOR THE PERFORMANCE OF SUCH SERVICES. COMPANYS' MAXIMUM LIABILITY TO CONTRACTOR FOR ANY REASON ARISING OUT OF THIS AGREEMENT SHALL BE LIMITED TO THE AMOUNT OF FEES PAID TO CONTRACTOR.",
+          "paragraphId": "p0035"
+        }
+      ],
+      "summary": "Make the liability cap mutual at the greater of 12 months' fees or USD 1,000,000 and add uncapped carve-outs."
+    },
+    "quote": "(a) EXCEPT WITH RESPECT TO CONTRACTOR'S OBLIGATIONS PURSUANT TO PARAGRAPH 9 HEREOF, CONTRACTOR'S MAXIMUM LIABILITY TO COMPANY ARISING FOR ANY REASON RELATING TO CONTRACTOR'S PERFORMANCE OF SERVICES UNDER A STATEMENT OF WORK SHALL BE LIMITED TO THE AMOUNT OF FEES PAID TO CONTRACTOR FOR THE PERFORMANCE OF SUCH SERVICES.",
+    "rationale": "The cap in § 7(a) is set at fees actually paid (Contractor's cap is limited further to fees paid under the particular Statement of Work), with no 12-month look-back, no USD 1,000,000 floor and no \"paid or payable\" language, so Contractor's exposure can be far below the playbook minimum. The only carve-out cross-references \"Paragraph 9\", which is the Independent Contractor clause (the Agreement contains no indemnification section despite the § 7 caption), so there are effectively no carve-outs for confidentiality (§ 8), IP infringement warranty (§ 5(c)), gross negligence, willful misconduct or fraud, and nothing confirms that Company's fee payments sit outside the cap. The mutual exclusion of indirect/consequential damages in § 7(b) is acceptable. Redline conforms § 7(a) to the preferred position: mutual cap at the greater of 12 months' fees or USD 1,000,000, uncapped Excluded Claims, and payment obligations excluded from the cap. Fallback: 12 months' fees with carve-outs at least for indemnification, confidentiality, gross negligence and willful misconduct.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-7",
+    "sectionRef": "§ 7 LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "cap references 12 months of fees or a fixed floor",
+          "ok": true
+        },
+        {
+          "name": "no unlimited Customer liability language remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.940 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0035",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation is correctly identified: the original § 7(a) caps Contractor at fees actually paid under a single Statement of Work with no 12-month look-back, no USD 1,000,000 floor, no 'paid or payable' basis, and its only carve-out is a cross-reference (Paragraph 9) that does not deliver confidentiality/IP/gross negligence/fraud carve-outs — below the walk-away threshold on Vendor cap and carve-outs. Redline reaches the preferred position: mutual aggregate cap at the greater of 12 months' fees paid or payable and USD 1,000,000, an uncapped 'Excluded Claims' definition covering confidentiality, data protection/security, indemnification, gross negligence, willful misconduct, fraud and IP infringement, plus confirmation that Company's fee payments are not damages subject to the cap. The 0.940 changed-character ratio is acceptable here: the whole of § 7(a) is the cap language, and changing the basis, making it mutual and inserting the carve-out sentence necessarily replaces those two sentences; scope is confined to the cap sentence and § 7(b)'s mutual consequential-damages exclusion is left intact. Drafting is directionally correct for the Customer (broadens 'arising out of or relating to this Agreement', removes the SOW-only limitation, keeps ALL-CAPS formatting and uses (I)/(II) to avoid conflicting with the subsection lettering); the modest increase in Company's own cap to the USD 1,000,000 floor is the playbook's own preferred mutual formulation. Comment is accurate, concise and on-tone: it explains the mutual cap, the reason the SOW-limited cap is inadequate, the substitution of real carve-outs for the broken Paragraph 9 cross-reference, and the payment-obligations clarification, and the fallback is preserved in the rationale for negotiation.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.144079,
+    "durationMs": 44797,
+    "id": "f-assign-47014adb",
+    "paragraphIds": [
+      "p0042"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We added our customary carve-out allowing us to assign to an affiliate or to a successor in a merger or sale of substantially all assets, barred assignment by Contractor to our competitors, and confirmed that a change of control of Company gives Contractor no termination or re-pricing right. Mutual consent (not unreasonably withheld) is preserved for all other assignments.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "which will not be unreasonably withheld; provided that Company may assign this Agreement, without Contractor's consent, to an affiliate or to a successor in connection with a merger, acquisition, reorganization or sale of all or substantially all of its assets, and Contractor shall not assign this Agreement to a competitor of Company. No change of control of Company shall give Contractor any right to terminate, suspend or re-price this Agreement or any Statement of Work.",
+          "oldText": "which will not be unreasonably withheld.",
+          "paragraphId": "p0042"
+        }
+      ],
+      "summary": "Add Customer affiliate/successor assignment carve-out, no assignment to Customer competitors, and no Vendor rights on Customer change of control."
+    },
+    "quote": "10. NONASSIGNABILITY. Neither party shall assign, transfer, or subcontract this Agreement or any of its obligations hereunder without the other party's express, prior written consent, which will not be unreasonably withheld.",
+    "rationale": "Section 10 imposes a symmetric consent requirement (not unreasonably withheld) on all assignments, so it meets the fallback but not the preferred position: it gives us no carve-out to assign to an affiliate or to a successor in a merger, acquisition or sale of substantially all assets, and it does not prevent Contractor from assigning to one of our competitors. Section 6 contains no change-of-control termination or re-pricing trigger (searches for \"change of control\" return nothing), so no deletion is needed; we add a confirming sentence to foreclose that argument. Minimal edit appends the carve-out to the existing sentence and preserves the mutual consent standard for other assignments.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-7",
+    "sectionRef": "§ 7 LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "successor/affiliate carve-out for Customer present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.916 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0042",
+          "ok": false
+        }
+      ],
+      "notes": "The cited clause (p0042) genuinely deviates from the preferred position: it is a symmetric consent-based restriction with no affiliate/successor carve-out for Company and no bar on Contractor assigning to a Customer competitor, matching only the fallback. The redline reaches the preferred position with a minimal append: the original mutual consent sentence is preserved verbatim and a proviso adds (i) Company's consent-free assignment to an affiliate or successor in a merger/acquisition/reorganization/sale of substantially all assets, (ii) a prohibition on Contractor assigning to a Company competitor, and (iii) a confirming no-change-of-control-trigger sentence. The failed 'minimal edit' check is advisory only — the high changed-character ratio reflects added proviso text on a short clause, not a rewrite; no existing language was deleted or weakened. The comment is accurate (correctly notes no existing change-of-control trigger, so the added sentence is confirmatory), uses the required prefix and first-person plural tone, and explains what changed and why without lecturing.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.1335975,
+    "durationMs": 38293,
+    "id": "f-exclusivity-2b0a50f6",
+    "paragraphIds": [
+      "p0004",
+      "p0010",
+      "p0047"
+    ],
+    "producedBy": "drafter",
+    "quote": "Company agrees to retain Contractor to perform the consulting services for Company, on a task by task basis (the \"Services\"), and Contractor agrees to furnish the Services on the terms and subject to the conditions set forth in this Agreement.",
+    "rationale": "The Agreement contains no exclusivity, sole-source or requirements commitment binding Clear Capital. Section 1(a) engages Contractor only \"on a task by task basis\" under individual Statements of Work, with no obligation to route any minimum volume or category of work to Contractor and no restriction on procuring similar services elsewhere. The only \"exclusive\" references are (i) Contractor's ownership of its pre-existing materials (p0020) and (ii) the boilerplate entire-agreement clause (p0051), neither of which restricts our sourcing freedom. The mutual non-solicitation of employees (p0047) addresses hiring, not purchasing, and is reciprocal. This matches the preferred position, so no redline is required.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-1",
+    "sectionRef": "§ 1 PURPOSE OF ENGAGEMENT.",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no requirements/sole-supplier obligation on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and the cited text supports it: Section 1(a) retains Contractor only 'on a task by task basis' under individual Statements of Work, with no requirements commitment, minimum volume, sole-source designation, or restriction on Company procuring similar services elsewhere. The only 'exclusive' references identified (Contractor's ownership of pre-existing materials; entire-agreement boilerplate) and the reciprocal employee non-solicitation in p0047 do not constrain Customer's sourcing freedom, consistent with the rule's detection guidance. Redline is unchanged and no counterparty comment is present, which is the expected output for a compliant finding; the deterministic check ('no requirements/sole-supplier obligation on Customer remains') confirms no residual exclusivity language. No exclusivity benefiting Customer was removed, so the redline guidance is not implicated.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.16899325,
+    "durationMs": 41088,
+    "id": "f-ld-6ef3a7ef",
+    "paragraphIds": [
+      "p0033",
+      "p0044",
+      "p0013",
+      "p0035"
+    ],
+    "producedBy": "drafter",
+    "quote": "Upon any such termination, Contractor will be paid all fees and expenses that have been incurred or earned in connection with the performance of the Services through the effective date of such termination.",
+    "rationale": "The Agreement contains no liquidated damages, penalty, late-payment charge, minimum-commitment or early-termination fee payable by Clear Capital. Compensation (§ 3) is strictly time-and-materials plus actual out-of-pocket expenses, and both termination provisions (§ 6(b) and the mis-numbered § 7(c)) limit Company's post-termination payment obligation to fees and expenses actually incurred or earned through the effective date of termination — an accrued-amounts formulation, not a liquidated sum. Section 7 addresses only liability caps, consequential damages waiver and attorneys' fees; it imposes no stipulated damages on Company (and § 5 even relieves Company of any fee obligation on certain terminations). Nothing to flag; the preferred position (no Customer-payable liquidated damages or penalties) is already met, so no redline is proposed.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-6",
+    "sectionRef": "§ 6 TERMINATION.",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant, and the cited paragraphs support it: compensation is time-and-materials plus actual expenses (p0013), and both termination clauses (p0033, p0044) limit Company's payment to fees/expenses actually incurred or earned through termination — an accrued-amounts formulation, not a stipulated or liquidated sum. No liquidated damages, penalty, minimum-commitment, or early-termination fee payable by Customer appears in the quoted text; the liability provision (p0035) caps rather than creates Customer-payable damages, so the preferred position (no Customer-payable LDs) is met. No redline or counterparty comment is expected for a compliant finding, and none was proposed; deterministic checks are empty and the original and rendered text are identical, consistent with a no-edit compliant record.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.16301275,
+    "durationMs": 53955,
+    "id": "f-license-33da57c6",
+    "paragraphIds": [
+      "p0021"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have extended the § 4(c) licence in Contractor's Information to our affiliates and to contractors acting on our behalf, and made it irrevocable and transferable to a successor to our business, since our playbook requires that a paid-up licence be perpetual and irrevocable and usable by the group and service providers who actually operate the deliverables. If helpful, we can accept covering affiliates on written notice and transferability limited to an M&A successor.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Contractor hereby grants to Company and its affiliates a royalty-free, non- exclusive, irrevocable, perpetual license (including the right to grant a sublicense and to permit contractors acting on Company's behalf to exercise this license), transferable to any successor to Company's business or assets, to use",
+          "oldText": "Contractor hereby grants to Company a royalty-free, non- exclusive perpetual license (including the right to grant a sublicense) to use",
+          "paragraphId": "p0021"
+        }
+      ],
+      "summary": "Extend § 4(c) licence to Company's affiliates and contractors, make it irrevocable, and permit transfer to a successor."
+    },
+    "quote": "Contractor hereby grants to Company a royalty-free, non- exclusive perpetual license (including the right to grant a sublicense) to use, copy, modify, create, derivative version, publicly perform and publicly display such Contractor's Information in connection with Company's business operations.",
+    "rationale": "Section 4(c) is the operative licence-back of Contractor's Information embedded in the Works. It is royalty-free, perpetual and sublicensable (good), but it runs to \"Company\" only: our affiliates and contractors acting on our behalf are not named, the licence is not stated to be irrevocable, and it is silent on transfer while § 10 (p0042) bars assignment or transfer without consent — leaving the licence arguably untransferable to a successor. That falls short of the preferred position (affiliates and contractors covered; paid-up licence perpetual and irrevocable; transferable to successors). Minimal redline adds affiliates and contractors, \"irrevocable\", and successor transferability without disturbing the rest of the grant.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-4",
+    "sectionRef": "§ 4 OWNERSHIP OF MATERIALS RELATED TO SERVICES; ACCEPTANCE.",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "affiliates covered by the licence",
+          "ok": true
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.565 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0021",
+          "ok": true
+        }
+      ],
+      "notes": "Correctly identifies § 4(c) as the operative licence grant running to us and flags the three preferred-position gaps (no affiliates/contractors, silent on irrevocability, silent on transfer against the § 10 anti-assignment bar) — a genuine deviation, not a walk-away. Redline is directionally correct for the customer: adds 'and its affiliates', 'irrevocable', a sublicence/exercise right for contractors acting on our behalf, and successor transferability, while preserving the existing royalty-free, non-exclusive, perpetual sublicensable grant and the original operative verbs. Insertions are grammatically clean and surgical; the 0.565 changed-character ratio reflects the three distinct elements the rule requires rather than an unnecessary rewrite of the clause. Comment is accurate, uses the [Playbook] prefix and first-person plural, states what changed and the playbook basis, and offers the fallback (affiliates on written notice, M&A successor transfer) without lecturing. Minor, non-blocking: 'affiliates' is lowercase and the agreement may not define the term; if an 'Affiliate' definition exists elsewhere, capitalising it would tighten the edit.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.182966,
+    "durationMs": 51126,
+    "id": "f-noncompete-add761e1",
+    "paragraphIds": [
+      "p0019",
+      "p0020",
+      "p0047"
+    ],
+    "producedBy": "drafter",
+    "quote": "(b) Company acknowledges that Contractor provides consulting and development services to other clients, and agrees that nothing in this Agreement shall be deemed or construed to prevent Contractor from delivering on such business.",
+    "rationale": "The Agreement contains no non-compete or field-of-use restriction binding Clear Capital, so the preferred position is met and no redline is needed. Section 1 is limited to SOW and scope mechanics with no limitation on competing products or services, and a full-text scan for \"compet\", \"shall not develop/engage/market/sell\", \"field of use\", \"exclusiv\", and \"restrict\" surfaced no restraint on our business (hits were only \"court of competent jurisdiction\", \"sole and exclusive property\", and \"complete and exclusive agreement\"). The only restrictive covenant, Section 13 (p0047), is a mutual, employee-only non-solicit of one year with consent not to be unreasonably withheld; it is a personnel non-solicit rather than a non-compete or field-of-use restraint, and it binds both parties reciprocally. The single \"Company shall not\" in p0020 is a license-scope limit on Contractor's own pre-existing proprietary materials and Contractor's Information (\"shall not resell or make use of said property in any other manner other than in connection with the software Company receives\"); that constrains reuse of vendor-owned IP rather than the businesses we may operate or the products we may buy or build, so it falls under IP/license-scope review rather than this rule. Paragraph p0019 runs in the opposite direction, preserving Contractor's freedom to serve other clients, which is a restriction-free provision benefiting the counterparty and not something to flag under this rule.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-4",
+    "sectionRef": "§ 4 OWNERSHIP OF MATERIALS RELATED TO SERVICES; ACCEPTANCE.",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no open-ended compete restriction on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and the cited text supports it: none of p0019, p0020, or p0047 imposes a non-compete, field-of-use, or territory restriction on Clear Capital (the Customer). p0047 is a mutual, personnel-only non-solicit (one year, consent not unreasonably withheld), which falls outside this rule's scope (non-compete/field-of-use restraints), and p0019 expressly preserves Contractor's freedom to serve others — a restriction on neither party's business lines. The 'Company shall not resell or make use of said property' language in p0020 is a license-scope limit on Contractor-owned IP, not a restraint on the businesses we operate or products we may buy or build; correctly triaged to IP/license review rather than NONCOMPETE. Consistent with a compliant finding, the redline is unchanged and no counterparty comment is proposed; the deterministic check confirms no open-ended compete restriction on Customer remains.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.19113,
+    "durationMs": 65542,
+    "id": "f-t4c-9f1dc6bd",
+    "paragraphIds": [
+      "p0032",
+      "p0011"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have added a Company right to terminate the Agreement or any Statement of Work for convenience on 30 days' notice with a refund of prepaid fees, since as drafted we cannot exit while any Statement of Work is outstanding even though the term is open-ended. We have also moved Contractor's convenience right to 90 days' notice and only between Statements of Work so Contractor cannot walk away mid-engagement; if helpful, we can discuss 60 days for our notice period.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "(a) Company may terminate this Agreement or any Statement of Work, in whole or in part, for any or no reason upon thirty (30) days advance written notice to Contractor, in which case Contractor shall refund any prepaid fees for the period after the effective date of termination and Company shall have no further liability other than for Services performed through the effective date of termination. At any time that there is no uncompleted Statement of Work outstanding, Contractor may terminate this Agreement for any or no reason upon ninety (90) days advance written notice to Company.",
+          "oldText": "(a) At any time that there is no uncompleted Statement of Work outstanding, either party may terminate this Agreement for any or no reason upon fifteen (15) days advance notice to the other.",
+          "paragraphId": "p0032"
+        }
+      ],
+      "summary": "Give Company a 30-day convenience right (including mid-SOW) with refund of prepaid fees, and limit Contractor's convenience right to 90 days' notice when no SOW is outstanding."
+    },
+    "quote": "(a) At any time that there is no uncompleted Statement of Work outstanding, either party may terminate this Agreement for any or no reason upon fifteen (15) days advance notice to the other.",
+    "rationale": "The term is open-ended (§ 2: continues until terminated under § 6), so this is effectively a term longer than 12 months. The only convenience right in § 6(a) is available solely when no Statement of Work is outstanding, so Company has no right to exit an in-flight engagement for convenience and no refund of prepaid fees — the missing-behaviour deviation contemplated by the rule. Conversely, Contractor may walk on 15 days' notice, far below the 90-day floor. The redline adds a Company 30-day convenience right over the Agreement or any SOW with a refund of prepaid amounts, and restricts Contractor's convenience right to 90 days' notice between Statements of Work.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-6",
+    "sectionRef": "§ 6 TERMINATION.",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "Customer convenience termination present",
+          "ok": false
+        },
+        {
+          "detail": "changed-character ratio=0.756 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0032",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation is correctly identified: the term is open-ended (§2 runs until terminated under §6), yet the only convenience right in p0032 is conditioned on there being no uncompleted Statement of Work, so Company has no ability to exit an in-flight engagement — the missing-behaviour deviation the rule contemplates — and there is no prepaid-fee refund. The Contractor-side call is also supportable: a 15-day convenience right sits below the rule's 90-day floor, and the redline moves it to 90 days' notice and keeps it limited to periods between Statements of Work, matching the fallback/preferred stance that Vendor cannot walk mid-term. The redline reaches the preferred position with a coherent single-clause rewrite: Company may terminate the Agreement or any SOW, in whole or in part, on 30 days' written notice with refund of prepaid fees and no early-termination penalty. Failed check 'Customer convenience termination present' is a phrasing artefact — the added sentence uses the contract's existing 'for any or no reason' formulation rather than the words 'for convenience', and 'Company' is a Customer alias; substance is present. Changed-character ratio of 0.756 is justified here because the rule requires both inserting a new Customer right and re-scoping the existing mutual 15-day right; the surrounding SOW-conditioned language is preserved for Contractor only. Comment is accurate, correctly explains the two changes and the open-ended-term rationale, and offers the 60-day fallback; tone and prefix conform. Minor, non-blocking: the rewrite also drops Company's existing 15-day exit when no SOW is outstanding (replacing it with the 30-day right) and adds a 'no further liability' sentence beyond the model language — both are net-favourable to us but could be trimmed if a strictly minimal edit is preferred.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0,
+    "costUsd": 0.2360475,
+    "durationMs": 90212,
+    "id": "f-audit-1e864570",
+    "paragraphIds": [],
+    "producedBy": "drafter",
+    "quote": "",
+    "rationale": "Worker failed and requires manual review: Drafter AUDIT stopped without a successful submit_finding call",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionRef": "§ —",
+    "severity": "medium",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Drafter AUDIT stopped without a successful submit_finding call",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.18108,
+    "durationMs": 56068,
+    "id": "f-govlaw-29d875f8",
+    "paragraphIds": [
+      "p0043",
+      "p0056"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have changed the governing law from Arizona to New York and replaced the mandatory arbitration forum with the exclusive jurisdiction of the state and federal courts in New York County, since our playbook accepts only New York, Delaware, California or England and Wales law with a court forum rather than arbitration. If New York is difficult for you, we can accept Delaware or California law and courts as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "the laws of the State of New York, without regard to the conflict of laws provisions thereof.",
+          "oldText": "the laws of the Arizona, without regard to the conflict of laws provisions thereof.",
+          "paragraphId": "p0043"
+        },
+        {
+          "kind": "replace",
+          "newText": "will be subject to the exclusive jurisdiction of the state and federal courts located in New York County, New York, and each party irrevocably consents to the personal jurisdiction of such courts and waives any objection to venue therein.",
+          "oldText": "will be subject to and resolved by binding arbitration pursuant to the Arbitration Rules of U.S. Arbitration & Mediation, (www.usam.com). Any award or order rendered by the arbitrator may be confirmed as a judgment or order in any state or federal court of competent jurisdiction, which includes within the federal judicial district of the residence of the party against whom such award or order was entered.",
+          "paragraphId": "p0056"
+        }
+      ],
+      "summary": "Switch governing law from Arizona to New York and replace mandatory arbitration with exclusive jurisdiction of the courts in New York County"
+    },
+    "quote": "This Agreement shall be governed by and construed in accordance with the laws of the Arizona, without regard to the conflict of laws provisions thereof.",
+    "rationale": "Section 11 selects Arizona law, which is outside the accepted list (New York, Delaware, California, England and Wales), and Section 19 sends all Disputes to mandatory binding arbitration under U.S. Arbitration & Mediation rules rather than to a court forum, with no agreed venue. The redline moves governing law to New York and substitutes exclusive jurisdiction of the state and federal courts in New York County, matching the preferred position, while leaving the surrounding severability and dispute-scope language intact. Delaware or California law and courts remain available as a fallback.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-7",
+    "sectionRef": "§ 7 LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "governing law within the accepted set",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.237 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0043",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.882 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0056",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation is correctly identified: Section 11 selects Arizona law (outside the accepted New York/Delaware/California/England and Wales set) and Section 19 mandates binding arbitration instead of a court forum. p0043 edit is minimal and directionally correct — only the jurisdiction words are swapped ('laws of the Arizona' → 'laws of the State of New York'), leaving severability and conflict-of-laws language intact. p0056 rewrite reaches the preferred position (exclusive jurisdiction of state and federal courts in New York County with consent to personal jurisdiction/venue waiver); the high changed-character ratio is justified because removing mandatory arbitration necessarily replaces the arbitration mandate and the now-inapplicable award-confirmation sentence, and the replacement grammatically continues the 'Disputes' sentence. Comment is accurate, concise, in first person plural, explains the change, cites the playbook position, and offers the Delaware/California fallback.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.098896,
+    "durationMs": 36242,
+    "id": "f-mfn-8c97d479",
+    "paragraphIds": [
+      "p0013",
+      "p0014"
+    ],
+    "producedBy": "drafter",
+    "quote": "(a) During the term of this Agreement, Company agrees to compensate Contractor as set forth in each Statement of Work. Contractor will be compensated on a time and materials.",
+    "rationale": "Section 3 (Contractor's Compensation) sets rates by Statement of Work on a time-and-materials basis, with the only pricing mechanic being Contractor's right to change rates on 30 days' notice. Searches for most-favoured-nation style language (\"most favoured\", \"favorable\", \"no less\", \"pricing\", \"other customer\", \"terms offered\") returned no hits anywhere in the Agreement, and no other section imposes a benchmarking or price-matching duty. There is therefore no obligation requiring Clear Capital to offer RadialSpark terms no less favourable than those given to third parties or to match third-party offers, which is the preferred position under this rule. Because this is a direction rule and the absent obligation would only have burdened us, no redline is warranted.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-3",
+    "sectionRef": "§ 3 CONTRACTOR'S COMPENSATION.",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant, and the cited compensation paragraphs (p0013–p0014) contain no most-favoured-nation, benchmarking, or price-matching obligation on the Customer — rates are set per Statement of Work on a time-and-materials basis, with only a Contractor-side rate-change right. This matches the rule's preferred position ('No MFN obligation on Customer'), so the absence of any burdening MFN clause properly supports a compliant classification for this direction rule. Consistent with a compliant finding, no redline was proposed and no counterparty comment was added; the rendered text is identical to the original, which is the expected output. Rationale is accurate and does not overstate: it notes the only pricing mechanic is Contractor's 30-day rate-change right, which is a separate issue and not mischaracterised as an MFN burden.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.13396675,
+    "durationMs": 41030,
+    "id": "f-mincommit-76c60d2f",
+    "paragraphIds": [
+      "p0013",
+      "p0004",
+      "p0033"
+    ],
+    "producedBy": "drafter",
+    "quote": "(a) During the term of this Agreement, Company agrees to compensate Contractor as set forth in each Statement of Work. Contractor will be compensated on a time and materials.",
+    "rationale": "The Agreement contains no minimum purchase commitment, take-or-pay, shortfall or volume restriction binding Clear Capital. Section 3(a) compensates Contractor on a time-and-materials basis solely as set forth in each Statement of Work, and Section 1(a) engages Contractor \"on a task by task basis,\" so fees are payable only for services actually ordered and performed — our preferred position. A targeted regex search for \"minimum\", \"shortfall\", \"take-or-pay\", \"retainer\", \"guarantee\", \"commit\", \"volume\" and \"non-refundable\" returned only unrelated hits (exclusive-property and entire-agreement language in Sections 4 and 7). Section 6(b) caps amounts on termination at \"all fees and expenses that have been incurred or earned ... through the effective date of such termination,\" which is a true-up rather than a penalty, and no early-termination or cancellation fee appears. Section 6(a)'s limit on convenience termination while an SOW is outstanding is a term/exit-right issue rather than a purchase commitment, and it creates no obligation to buy a minimum quantity. Residual risk sits in individual Statements of Work, which are not before us; helpfully, Section 1(a) provides that this Agreement controls over conflicting SOW provisions. No redline required.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-3",
+    "sectionRef": "§ 3 CONTRACTOR'S COMPENSATION.",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and no redline or comment was proposed, which is the expected output; the rendered paragraphs are unchanged from the originals. Cited text supports compliance: p0013 compensates Contractor on a time-and-materials basis 'as set forth in each Statement of Work' and p0004 engages Contractor 'on a task by task basis,' so fees are payable only for services actually ordered — matching the preferred position of no minimum commitment. No take-or-pay, minimum volume, shortfall or usage-cap language appears in the supplied paragraphs or definitions, and p0033 limits termination payment to fees 'incurred or earned ... through the effective date,' i.e., a true-up rather than a penalty. Rationale appropriately flags residual risk in unseen Statements of Work while noting the Agreement controls over conflicting SOW terms; the incidental section-label references (e.g., calling p0033 'Section 6(b)' and citing a convenience-termination limit not in the excerpt) are immaterial to the compliance conclusion.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.83,
+    "costUsd": 0.1536885,
+    "durationMs": 55225,
+    "id": "f-nosolicit-32d65825",
+    "paragraphIds": [
+      "p0047"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We can live with this mutual, narrowly scoped non-solicit, but we need the standard carve-outs so that general job postings, recruiter searches not targeted at the other party, and unsolicited approaches by individuals do not create a breach. This tracks our playbook fallback position of a 12-month non-solicit limited to personnel involved in the Services with a general-advertising exclusion.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "without such other party's express written consent, which shall not be unreasonably withheld. Notwithstanding the foregoing, nothing in this Section shall restrict either party from (a) placing or responding to general advertisements, job postings or other recruiting efforts not specifically targeted at the other party's personnel, including engaging search firms that conduct such general efforts, or (b) hiring or engaging any individual who approaches such party on an unsolicited basis or who responds to any such general recruiting effort.",
+          "oldText": "without such other party's express written consent, which shall not be unreasonably withheld.",
+          "paragraphId": "p0047"
+        }
+      ],
+      "summary": "Add general-advertising and unsolicited-approach carve-outs to the mutual non-solicitation clause."
+    },
+    "quote": "13. NON-SOLICITATION OF EMPLOYEES. Neither party shall, during the term of this Agreement and for one (1) year after its termination, solicit for hire as an employee, consultant or otherwise any of the other party's personnel who have had direct involvement with the Services, without such other party's express written consent, which shall not be unreasonably withheld.",
+    "rationale": "Section 13 binds us (Clear Capital) as well as RadialSpark, so the preferred position of no non-solicit on the Customer is not met. However, the restriction is already mutual, is limited to personnel with direct involvement in the Services, runs only one (1) year post-termination (well inside the 24-month walk-away limit), and is a solicitation restraint rather than a no-hire, so it substantially matches our fallback. The single missing fallback element is the carve-out for general advertisements and unsolicited approaches, which creates real breach risk from ordinary job postings and inbound candidates. Given the existing mutual bargain, deleting the clause outright would be disproportionate, so we propose the minimal fallback edit adding the carve-out sentence.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-7",
+    "sectionRef": "§ 7 LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "detail": "number not found",
+          "name": "non-solicit duration ≤ 12 months",
+          "ok": false
+        },
+        {
+          "name": "general-solicitation carve-out present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.830 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0047",
+          "ok": false
+        }
+      ],
+      "notes": "The claimed deviation is correct: Section 13 binds the Customer as well as the Contractor, so the preferred 'no non-solicit on Customer' position is not met, and the clause lacks the general-advertising/unsolicited-approach carve-out required by the fallback. The redline is additive only — the original mutual, 12-month, Services-personnel-limited solicitation restraint is untouched and a standard two-part carve-out sentence (general advertisements/non-targeted recruiting and unsolicited approaches) is appended, which is the smallest edit that reaches the fallback under the redline guidance. No no-hire language exists ('solicit for hire' is a solicitation restraint), so nothing needed deletion; duration (one (1) year) and scope (personnel with direct involvement with the Services) already conform to the fallback and are well inside the 24-month walk-away limit. Failed deterministic checks are not substantive: the duration regex missed the spelled-out 'one (1) year' (= 12 months), and the 0.830 changed-character ratio reflects the appended carve-out sentence rather than any rewrite or deletion of negotiated text. Comment is accurate, on-tone, correctly prefixed, and cites the playbook fallback position without overstating the issue.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.18647625,
+    "durationMs": 64844,
+    "id": "f-renewal-130e944f",
+    "paragraphIds": [
+      "p0011",
+      "p0014"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] The term is evergreen, so we have capped Contractor's unilateral rate changes at the lesser of CPI and 3% once per year with 60 days' notice, and fixed rates for the duration of each Statement of Work, consistent with our position that continuing engagements must be predictably priced. We can accept a 5% annual cap if that is easier for you.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Rates set forth in a Statement of Work are fixed for the duration of that Statement of Work. Contractor may change rates for future Statements of Work no more than once in any twelve (12) month period, upon at least sixty (60) days prior written notice to Company, and any such increase shall not exceed the lesser of (i) the increase in the Consumer Price Index over the preceding twelve (12) months and (ii) three percent (3%).",
+          "oldText": "Contractor reserves the right to change rates with 30 days notice to Company.",
+          "paragraphId": "p0014"
+        }
+      ],
+      "summary": "Cap Contractor's unilateral rate increases at lesser of CPI and 3% per year and fix rates within each SOW."
+    },
+    "quote": "Contractor reserves the right to change rates with 30 days notice to Company.",
+    "rationale": "There is no automatic renewal mechanism: the term is evergreen (\"shall continue until terminated by either party pursuant to Paragraph 6\"), and Section 6(a) lets either party exit on fifteen (15) days' notice when no Statement of Work is outstanding, which is better than our 30-day opt-out and involves no multi-year renewal or non-renewal notice window. The pricing limb of the rule fails, however: because the term rolls on indefinitely, Contractor's unilateral right in Section 3(b) to \"change rates with 30 days notice\" is an uncapped, unlimited-frequency escalator, contrary to our position that continuing/renewal pricing be capped at the lesser of CPI and 3%. Redline fixes rates within each SOW and caps increases at the lesser of CPI and 3%, once per 12 months on 60 days' notice, with a 5% fallback.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-1",
+    "sectionRef": "§ 1 PURPOSE OF ENGAGEMENT.",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "detail": "value=60",
+          "name": "non-renewal notice window ≤ 60 days",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.867 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0014",
+          "ok": false
+        }
+      ],
+      "notes": "Scope is defensible: the rule's summary and detection guidance cover renewal/continuation price uplift language, and with an evergreen term (Para. 2 continues until terminated) Contractor's unilateral right in 3(b) to 'change rates with 30 days notice' is the functional equivalent of an uncapped renewal escalator, so treating the pricing limb as a deviation is reasonable. Rationale correctly identifies that the exit limb is already at or better than the playbook position (15-day termination, no multi-year auto-renewal, no non-renewal notice window) and does not attempt an unnecessary edit to the term clause (p0011). Redline is directionally correct and actionable for the customer: it fixes SOW rates for the SOW duration, limits increases to once per 12 months on 60 days' notice, and caps uplift at the lesser of CPI and 3%, matching the preferred position. Comment is accurate, in the required first-person-plural tone with the [Playbook] prefix, explains the change, cites the position, and offers the 5% fallback. Failed 'minimal edit' heuristic (ratio 0.867) is acceptable here: the uncapped escalator sentence had to be replaced to reach the playbook cap, and the surrounding invoicing language was left intact.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.22037525,
+    "durationMs": 67985,
+    "id": "f-transition-da44b0df",
+    "paragraphIds": [
+      "p0032",
+      "p0033"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 6 covers notice and final fees but says nothing about exit: we have no right to wind-down help and no assurance our data and Confidential Information come back or are deleted. We have added a new Section 6(c) giving us up to six months of transition assistance at Contractor's then-current rates, return of our data in a machine-readable format within thirty days, and certified deletion thereafter. If six months is an issue, we can accept ninety days of assistance provided the thirty-day export and deletion certificate remain.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(c)",
+          "paragraphId": "p0033",
+          "text": "(c) Upon expiry or termination of this Agreement or any Statement of Work for any reason, Contractor shall (i) at Company's request, provide reasonable transition assistance for up to six (6) months at Contractor's then-current rates; (ii) within thirty (30) days of such expiry or termination, return to Company all Works, Confidential Information and other Company data and materials then in Contractor's possession or control, in a commonly used, machine-readable format; and (iii) thereafter delete all such Confidential Information, data and materials from its systems and certify such deletion to Company in writing."
+        }
+      ],
+      "summary": "Insert transition assistance, data return and certified deletion obligations in Section 6 (Termination)."
+    },
+    "quote": "Upon any such termination, Contractor will be paid all fees and expenses that have been incurred or earned in connection with the performance of the Services through the effective date of such termination. Contractor shall provide to Company, and hereby assigns to Company, all right, title and interest to any Works in progress.",
+    "rationale": "Section 6 (Termination) addresses only termination notice, payment of Contractor's accrued fees, and assignment of Works in progress. It contains no post-termination transition assistance, no obligation to return Company data or Confidential Information, and no deletion/certification requirement. Section 4 (Ownership) establishes that Works are Company property and Section 8 restricts use of Confidential Information, but neither creates any return, export or destruction obligation on exit — a targeted search for \"return\", \"transition\", \"export\", \"delete\", \"destroy\" and \"migrat\" returned no results anywhere in the agreement. On a services/development engagement where Contractor holds Company records, data and Works, this absence is a deviation warranting insertion. The proposed new Section 6(c) tracks the preferred position (six months of assistance at Contractor's then-current rates, return within thirty days in machine-readable format, certified deletion thereafter) and uses the agreement's existing defined terms (\"Works\", \"Confidential Information\") for consistency. Fallback of ninety days' assistance is offered in the comment.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-6",
+    "sectionRef": "§ 6 TERMINATION.",
+    "severity": "medium",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "data return/transition present",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status (missing) is supported: the cited termination paragraphs address only notice, accrued fees and assignment of Works in progress, with no transition assistance, data return, or deletion/certification obligation anywhere in the agreement. The inserted Section 6(c) tracks the preferred position precisely — up to six (6) months of transition assistance at Contractor's then-current rates, return within thirty (30) days in a commonly used machine-readable format, and certified deletion thereafter — and is placed in the correct (termination) section. Edit is minimal and additive: existing paragraphs p0032/p0033 are untouched, and the new text reuses the agreement's defined terms ('Works', 'Confidential Information', 'Statement of Work') for internal consistency. Comment is accurate, in the required voice and prefix, explains what changed and why in two sentences, and offers the ninety-day fallback while preserving the thirty-day export and deletion certificate. Deterministic checks pass and the changed-character volume is inherent to inserting a missing clause rather than an over-broad rewrite.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.245109,
+    "durationMs": 72865,
+    "id": "f-warranty-91273c50",
+    "paragraphIds": [
+      "p0024",
+      "p0025",
+      "p0026",
+      "p0030",
+      "p0005"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 5 contains rights and compliance reps but no warranty that the Services and Works will actually conform to the Specifications, and no remedy if they do not, so we have added a conformance warranty (12 months for software deliverables, 90 days for Services), a no-malicious-code warranty, and a re-perform/repair/refund remedy, and confirmed the disclaimer in 5(e) does not cut it back. If the longer software period is an issue, we can fall back to 90 days for software and 30 days for Services with the same remedies.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(f)",
+          "paragraphId": "p0030",
+          "text": "(f) Contractor represents and warrants to Company that: (i) the Services will be performed in a professional and workmanlike manner in accordance with industry standards; (ii) for a period of twelve (12) months following delivery, each deliverable consisting of software and the Works will conform in all material respects to the applicable Specifications and accompanying documentation, and for a period of ninety (90) days following performance the Services will conform in all material respects to the requirements of the applicable Statement of Work; and (iii) the Works will not contain any virus, malicious code, back door or other disabling device. For breach of the warranties in clauses (ii) and (iii), Contractor shall, at its option, re-perform the non-conforming Services or repair or replace the non-conforming deliverable or Works, or, if Contractor fails to do so within thirty (30) days of notice, refund the fees paid for the non-conforming Services, deliverable or Works. The express warranties in this Paragraph 5 are not limited, waived or disclaimed by Paragraph 5(e)."
+        }
+      ],
+      "summary": "Add express performance/conformance warranty with repair-replace-refund remedy and carve it out of the disclaimer"
+    },
+    "quote": "(e) THE EXPRESS WARRANTIES IN THIS AGREEMENT SHALL BE IN LIEU OF ALL OTHER WARRANTIES, EXPRESS OR IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE.",
+    "rationale": "Section 5 gives only compliance-with-law (5(a)), authority/rights (5(b)), non-infringement (5(c)) and anti-bribery (5(d)) warranties. There is no express warranty that the Services or Works will conform to the Specifications or documentation, no warranty period, no no-malicious-code warranty, and no repair/replace/refund remedy. The workmanlike standard in Paragraph 1(b) is a bare performance covenant with no stated remedy, and Section 4's \"ACCEPTANCE\" heading has no acceptance mechanics to fall back on. Because 5(e) puts the express warranties \"in lieu of all other warranties, express or implied,\" the implied warranties of merchantability and fitness are disclaimed while nothing conformance-related replaces them, leaving Clear Capital close to the walk-away \"AS IS\" position. The redline inserts a conformance warranty (12 months for software deliverables, 90 days for Services), a no-malicious-code warranty, and an at-Contractor's-option re-perform/repair/replace-or-refund remedy, and confirms the disclaimer does not swallow the express warranties; the 90/30-day fallback remains available.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-5",
+    "sectionRef": "§ 5 CONTRACTOR'S REPRESENTATIONS AND WARRANTIES AND WARRANTY DI…",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "warranty period ≥ 90 days or expressed in months/years",
+          "ok": true
+        }
+      ],
+      "notes": "The claimed deviation is supported by the cited text: Section 5(a)-(d) contain only compliance, authority/rights and non-infringement reps, with no conformance warranty, warranty period, malicious-code warranty or remedy, while 5(e) disclaims implied warranties — leaving the customer near the 'AS IS' walk-away position. The inserted subsection (f) reaches the preferred playbook position with a targeted addition: workmanlike standard, 12-month conformance for software/Works, 90-day conformance for Services, no-malicious-code warranty, and a re-perform/repair/replace-or-refund remedy; compliance with laws already exists in 5(a) so no duplication was needed. The edit expressly states that Paragraph 5(e) does not limit or waive the new express warranties, satisfying the redline guidance to carve the express warranty out of the disclaimer; existing p0030 text is left intact (minimal edit). Comment is accurate, correctly cites the playbook position, and offers the 90/30-day fallback with the same remedies; tone and prefix conform. Minor, non-blocking: the new warranty is appended after the all-caps disclaimer rather than before it (drafting order/formatting), and the remedy makes refund a backstop after 30 days rather than a pure vendor-option — both are within the playbook's customer-side latitude.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.2469415,
+    "durationMs": 73495,
+    "id": "f-insurance-982d8a99",
+    "paragraphIds": [
+      "p0048"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Contractor personnel may work at our facilities and access our systems and Confidential Information, so we have aligned the limits with our standard position: general liability of USD 1M per occurrence / 2M aggregate, E&O of USD 2M, and cyber liability of USD 5M, maintained through the term and for one year after. If USD 5M cyber is not available on Contractor's program, we can accept E&O of USD 1M and cyber of USD 2M as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Throughout the term of this Agreement and for one (1) year thereafter, Contractor shall maintain, at its own expense, workers compensation insurance in the amount required by statute, comprehensive general liability insurance with coverage of at least one million dollars ($1,000,000) per occurrence and two million dollars ($2,000,000) in the aggregate, professional errors and omissions insurance for bodily injury, property damage or other losses with coverage of at least two million dollars ($2,000,000), and, where Contractor processes, stores or has access to Company data or Confidential Information, cyber liability insurance with coverage of at least five million dollars ($5,000,000), in connection with the provision of Services by Contractor pursuant to the terms of this Agreement.",
+          "oldText": "Throughout the term of this Agreement, Contractor shall maintain workers compensation insurance in the amount required by statute, comprehensive general liability insurance with coverage of at least one million dollars ($1,000,000) and professional errors and omissions insurance for bodily injury, property damage or other losses with coverage of at least one million dollars ($1,000,000), in connection with the provision of Services by Contractor pursuant to the terms of this Agreement.",
+          "paragraphId": "p0048"
+        }
+      ],
+      "summary": "Bring Contractor's insurance limits up to playbook levels: CGL 1M/2M aggregate, E&O 2M, add cyber liability 5M, and extend coverage one year post-term."
+    },
+    "quote": "14. INSURANCE. Throughout the term of this Agreement, Contractor shall maintain workers compensation insurance in the amount required by statute, comprehensive general liability insurance with coverage of at least one million dollars ($1,000,000) and professional errors and omissions insurance for bodily injury, property damage or other losses with coverage of at least one million dollars ($1,000,000), in connection with the provision of Services by Contractor pursuant to the terms of this Agreement.",
+    "rationale": "An insurance clause is present at Section 14 (p0048), so this is a partial-coverage deviation rather than a missing clause. It already satisfies two elements of the preferred position — workers' compensation as required by statute, and certificates of insurance on request with notice of material change. Three gaps remain: (i) CGL states only a $1,000,000 limit with no $2,000,000 aggregate; (ii) professional E&O is $1,000,000 against our preferred $2,000,000; and (iii) there is no cyber/privacy liability coverage at all. Cyber coverage is squarely warranted here: Section 1(c) (p0007) contemplates Contractor personnel working at Company facilities and accessing Company computer systems, and Section 8 (p0038) confirms Contractor obtains Company data, records and Confidential Information in performing the Services. A vendor with premises access and access to our data and systems with no cyber coverage sits at the playbook walk-away line. The document defines no \"Customer Data\" term, so the redline ties the cyber trigger to Company data and Confidential Information as defined in Section 8. We also added the one-year post-term tail and \"at its own expense\" from the model language, since E&O and cyber claims are typically made after the engagement ends. The edit is a single in-place amendment to the existing limits sentence, leaving the workers' compensation, certificate and notice provisions untouched. We did not challenge the \"or self-insurance\" language, which is a lower-value point at this severity. Fallback of E&O $1M (already met) plus cyber $2M is offered in the comment, since the cyber limit is the element we most need.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-7",
+    "sectionRef": "§ 7 LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.",
+    "severity": "low",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "insurance obligation present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.386 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0048",
+          "ok": true
+        }
+      ],
+      "notes": "Status is correctly characterized: Section 14 contains an insurance obligation but only partially meets the playbook (no CGL aggregate, E&O at $1M, no cyber), so a partial-coverage deviation with an in-place amendment is the right treatment rather than an insert. Redline reaches the preferred position on all three gaps — $1M per occurrence / $2M aggregate CGL, E&O raised to $2M, and cyber liability of $5M — plus the one-year tail and 'at its own expense' from the model language. Edit is appropriately minimal and directionally correct for the customer: workers' compensation, certificate-on-request and notice-of-material-change provisions are left intact, and the changed-character ratio (0.386) reflects targeted limit amendments rather than a rewrite. Cyber trigger is sensibly adapted to the document's own vocabulary ('Company data or Confidential Information') because no 'Customer Data' term is defined, and the premises/system-access facts cited justify requiring cyber coverage. Comment is accurate, states what changed and why, cites the playbook limits, and offers the documented fallback (E&O $1M / cyber $2M) in the correct tone and with the required prefix. Minor, non-blocking: the 'and for one (1) year thereafter' tail now literally extends to workers' compensation as well, and the counterparty-friendly 'or self-insurance' language was deliberately left unchallenged — both acceptable at this low severity.",
+      "verdict": "pass"
+    }
+  }
+]

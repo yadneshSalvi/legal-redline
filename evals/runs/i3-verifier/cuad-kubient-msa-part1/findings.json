@@ -1,0 +1,764 @@
+[
+  {
+    "confidence": 0.86,
+    "costUsd": 0.2455315,
+    "durationMs": 73713,
+    "id": "f-indemn-3630af09",
+    "paragraphIds": [
+      "p0046",
+      "p0047",
+      "p0048",
+      "p0049",
+      "p0050",
+      "p0051",
+      "p0053",
+      "p0054",
+      "p0055",
+      "p0033",
+      "p0027"
+    ],
+    "producedBy": "drafter",
+    "quote": "(a) Kubient agrees to indemnify, defend, and hold harmless Customer and its officers, directors, managers, members, agents, and employees from all third-party allegations, claims, actions, losses, expenses, damages, costs (including, without limitation, reasonable attorneys' fees) or liabilities (\"Claims\") arising out of or in connection with:",
+    "rationale": "The planner flagged this rule as likely absent, but Section 10(a) (p0047-p0051) contains a broad Vendor indemnity in AP's favour that satisfies the preferred position. Kubient defends, indemnifies and holds harmless Customer and its officers, directors, managers, members, agents and employees against third-party Claims arising out of (i) the Services, (ii) the Auction Platform, (iii) Creative placed via the Auction Platform, (iv) Kubient's breach of any representation or warranty, and (v) the acts or omissions of Kubient or its subcontractors. IP infringement is covered twice over: the \"Services\" and \"Auction Platform\" prongs are unqualified and contain no IP carve-out, and prong (iv) captures Kubient's express warranty at p0033 that the Service and deliverables \"do not and shall not infringe, misappropriate or violate any patent, copyright, trademark, trade secret, publicity, privacy or other rights of any third party.\" Prong (v) also reaches Kubient's negligence and wilful misconduct, and p0035 plus prong (iv) cover data-security failures by Kubient. Section 11 (p0053-p0055) supplies standard procedure: prompt written notice with express confirmation that delay does not relieve the indemnifying party, indemnitor control of defence and settlement subject to no admission of liability against the indemnified party without consent, and cooperation at the indemnifying party's cost. Commercially, the indemnity is stronger than our fallback: p0027 expressly carves indemnification out of the mutual consequential-damages waiver, and a search for any aggregate liability cap returned nothing, so Kubient's indemnity is uncapped rather than limited to 3x annual fees. The only divergence from the preferred position is that Customer's indemnity at p0052 is reciprocal in structure (unauthorised use of the Services/Platform, breach of rep or warranty, Content and Properties, and acts or omissions of Customer) rather than narrowed to Customer-provided content and Customer's breach of law. That mirrors Kubient's own prongs, and Customer already accepts sole responsibility for Content and Properties at p0025 and warrants their non-infringement at p0043-p0044, so the allocation is symmetric. Given the Vendor-side indemnity is uncapped and broader than our model language, reopening this balanced clause to trim Customer's side would be disproportionate and risks unravelling a bargain that favours us. No redline proposed.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and the cited text supports it: Section 10(a) contains a broad Vendor (Kubient) defend/indemnify/hold-harmless obligation running to Customer and its officers/agents, covering the Services, the Auction Platform, breach of any representation or warranty (which incorporates the express IP non-infringement warranty at p0033), and Kubient's or its subcontractors' acts or omissions. Detection guidance triggers are not met: the Vendor indemnity is present, is not one-way in Customer's favour, and contains no IP carve-out, so 'missing' would be the wrong call. Standard indemnification procedure is present at Section 11 (prompt notice with no-prejudice for delay, indemnitor control of defence/settlement with consent protection, cooperation at indemnitor's cost), and p0027 expressly carves indemnification out of the consequential-damages waiver, so the clause meets or exceeds the preferred position on the Vendor side. Consistent with a compliant finding, no redline or counterparty comment was proposed, and the rendered text is unchanged from the original paragraphs; the deterministic check ('vendor indemnity for IP infringement present') corroborates. The only divergence noted (Customer's reciprocal rather than narrow indemnity) is accurately identified and reasonably not raised, since it mirrors Customer's existing Content/Properties responsibility and warranties and does not defeat the rule's core requirement.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.23373625,
+    "durationMs": 69200,
+    "id": "f-lol-cap-a715a548",
+    "paragraphIds": [
+      "p0026",
+      "p0027"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 7 excludes indirect damages but sets no cap on direct liability, so both parties are exposed without limit. We have added a mutual cap at the greater of amounts paid or payable in the preceding 12 months and USD 1,000,000, with indemnification, confidentiality/data protection and security breaches, gross negligence, willful misconduct, fraud and IP infringement sitting outside the cap; a straight 12-month fee cap with carve-outs for indemnification, confidentiality, gross negligence and willful misconduct is our fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(b)",
+          "paragraphId": "p0027",
+          "text": "(b) EXCEPT FOR EXCLUDED CLAIMS, EACH PARTY'S TOTAL AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT SHALL NOT EXCEED THE GREATER OF (i) THE AGGREGATE AMOUNTS PAID OR PAYABLE BETWEEN THE PARTIES UNDER THIS AGREEMENT IN THE TWELVE (12) MONTHS IMMEDIATELY PRECEDING THE EVENT GIVING RISE TO THE CLAIM AND (ii) USD 1,000,000. \"EXCLUDED CLAIMS\" MEANS A PARTY'S BREACH OF ITS CONFIDENTIALITY, DATA PROTECTION OR SECURITY OBLIGATIONS, ITS INDEMNIFICATION OBLIGATIONS, ITS GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD, AND ITS INFRINGEMENT OF THE OTHER PARTY'S INTELLECTUAL PROPERTY RIGHTS. AMOUNTS OWED BY A PARTY UNDER SECTION 5 (FEES AND PAYMENT) SHALL NOT BE CONSIDERED DAMAGES SUBJECT TO THIS SECTION 7(b)."
+        }
+      ],
+      "summary": "Add mutual liability cap (greater of 12 months' amounts or USD 1,000,000) with standard uncapped carve-outs to § 7"
+    },
+    "quote": "7. Limitation of Liability.",
+    "rationale": "Section 7 contains only a mutual exclusion of consequential/indirect damages (carved out for indemnification and confidentiality breaches); there is no monetary cap on either party's direct liability anywhere in the Agreement (no \"aggregate liability\" or fee-based limit appears). The playbook requires a mutual cap at the greater of 12 months' amounts paid/payable and USD 1,000,000 with uncapped carve-outs. Because the fee model is a revenue share under Section 5 (Kubient pays Customer), a cap keyed only to fees \"paid by Customer\" would be illusory, so the inserted cap is keyed to amounts paid or payable between the Parties with a USD 1,000,000 floor, and Section 5 payment obligations are excluded from the cap. Carve-outs mirror the existing Section 7(a) exceptions and extend to data protection/security, gross negligence, willful misconduct, fraud and IP infringement.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "critical",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "cap references 12 months of fees or a fixed floor",
+          "ok": true
+        },
+        {
+          "name": "no unlimited Customer liability language remains",
+          "ok": true
+        }
+      ],
+      "notes": "The cited Section 7 contains only a mutual consequential-damages exclusion with no monetary cap on direct liability, so the 'missing' classification is correct for a parametric rule that requires a mutual cap. The redline is a minimal additive edit: it leaves 7(a) untouched and inserts a new 7(b) tracking the model language (greater of 12 months' amounts and USD 1,000,000, mutual, with the full Excluded Claims list including confidentiality, data protection/security, indemnification, gross negligence, willful misconduct, fraud and IP infringement). Keying the cap to 'amounts paid or payable between the Parties' is a defensible, well-explained adaptation to the revenue-share model where Vendor pays Customer, avoiding an illusory cap, and the USD 1,000,000 floor preserves a meaningful amount; excluding Section 5 payment obligations from 'damages' matches the playbook's payment-obligations carve-out (extended mutually, consistent with the payment direction). Drafting style (all caps) matches the surrounding clause, and the comment accurately describes the gap, the change, the playbook position and the fallback in the required tone and prefix; deterministic checks all pass.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.085869,
+    "durationMs": 28108,
+    "id": "f-exclusivity-98ad9633",
+    "paragraphIds": [
+      "p0001"
+    ],
+    "producedBy": "drafter",
+    "quote": "Nothing herein is intended nor shall be construed as creating an exclusive arrangement between Customer and Kubient. This Agreement will not restrict Customer offering Inventory via other agents or otherwise selling Inventory to any third parties.",
+    "rationale": "The Services clause expressly disclaims any exclusive arrangement and confirms that the Agreement does not restrict AP from offering or selling Inventory through other agents or third parties, which matches our preferred position of no exclusivity or sole-supplier obligation on the Customer. A full-text review found no \"sole provider\", requirements-purchase, non-compete or \"shall not procure from any third party\" language binding AP; the remaining uses of \"exclusive\" relate to the non-exclusive license granted to us, exclusive jurisdiction, each Party's own trademark ownership, and third-party beneficiary limits, none of which restrict our freedom to buy from other suppliers. No redline required.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no requirements/sole-supplier obligation on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Cited paragraph p0001 expressly states that nothing creates an exclusive arrangement and that the Agreement will not restrict Customer from offering Inventory via other agents or selling to third parties, directly supporting the preferred position of no exclusivity or sole-supplier obligation on Customer. Rationale correctly characterizes remaining 'exclusive' usages (non-exclusive license to Customer, exclusive jurisdiction, trademark ownership, third-party beneficiary limits) as non-deviations under the detection guidance. Consistent with a compliant status: no redline text was altered and no counterparty comment was added; deterministic check confirming no requirements/sole-supplier obligation on Customer passed.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.26796625,
+    "durationMs": 71192,
+    "id": "f-ip-ef95457a",
+    "paragraphIds": [
+      "p0025"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] The Agreement has no ownership provision, so we have added one confirming that AP retains all rights in its Content, Properties and data and that Kubient assigns any deliverables created for us (with a license back for any embedded Kubient IP); Kubient keeps its Auction Platform and pre-existing IP. Our playbook requires that we own what we pay for and what we put in, with no assignment of our IP or data to a vendor and no joint ownership.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(b)",
+          "paragraphId": "p0025",
+          "text": "(b) Proprietary Rights. As between the Parties, Customer exclusively owns and retains all right, title and interest in and to the Content, the Properties, the Requests and all other data and information provided by, or collected or generated on behalf of, Customer in connection with the Services (collectively, \"Customer Data\"), together with all intellectual property rights therein. Kubient retains all right, title and interest in the Auction Platform and in its other pre-existing intellectual property. Kubient hereby assigns to Customer all right, title and interest in and to any deliverables, reports, work product or other materials created for Customer under this Agreement, and to the extent any pre-existing Kubient intellectual property is embedded therein, Kubient grants Customer a perpetual, irrevocable, worldwide, royalty-free license to use, modify and sublicense the same for Customer's business purposes. Nothing in this Agreement assigns or transfers to Kubient any Customer intellectual property or Customer Data, and no joint ownership of any intellectual property is created. Kubient may use Customer Data solely as necessary to provide the Services to Customer."
+        }
+      ],
+      "summary": "Add a proprietary rights subsection confirming AP owns its Content, Properties and data, and that Kubient assigns deliverables with a license back for embedded Kubient IP."
+    },
+    "quote": "Customer shall be responsible and solely liable for all the Content (including without limitation all intellectual property rights therein) and the Properties.",
+    "rationale": "The Agreement contains no proprietary rights/ownership article. The only IP-adjacent provisions are Kubient's warranty that it owns the Service and Auction Platform (p0039–p0040), AP's warranty that it owns the Content and Properties (p0043), the trademark carve-out in 14(b) (p0065), and p0025, which imposes liability on AP for the Content without confirming AP's ownership. Nothing addresses ownership of deliverables/work product created for AP, ownership of the Requests and visitor data that Kubient collects, stores and measures (p0011, p0035), or the absence of joint ownership. While there is no affirmative assignment of AP IP to Kubient (so no walk-away trigger), the playbook's preferred position is not met: we need an express statement that AP owns its Content, Properties and data, that Kubient assigns deliverables created for AP with a perpetual, royalty-free license back for any embedded Kubient IP, and that no joint ownership is created. Added as a new subsection 6(b) immediately after the existing use-of-Service and Content/Properties definitions.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "high",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "no assignment of Customer Data/IP to Vendor remains",
+          "ok": true
+        }
+      ],
+      "notes": "The gap is correctly identified: p0025 only makes Customer liable for the Content and IP therein, and the cited warranty/trademark provisions do not allocate ownership of deliverables, work product or Customer-supplied data, so no proprietary-rights article exists. The inserted subsection reaches the playbook's preferred position with a single, self-contained addition: Customer retains all right, title and interest in Content, Properties, Requests and other Customer Data; Kubient retains the Auction Platform and pre-existing IP (consistent with its own ownership warranty, so no internal conflict); Kubient assigns deliverables/work product created for Customer; a perpetual, irrevocable, worldwide, royalty-free licence back covers embedded Kubient IP; and joint ownership and any assignment of Customer IP/data to Kubient are expressly excluded. No existing operative text was altered, so the high changed-character footprint is attributable solely to the necessary new clause, and the deterministic checks confirm no residual assignment of Customer IP/data to the vendor. The narrow vendor-side use right ('solely as necessary to provide the Services') is a proportionate, protective addition rather than scope creep, and keeps the clause workable given Kubient must process Requests and visitor data (p0011, p0035). Comment is accurate, concise, in first person plural, correctly cites the playbook position, and does not overstate the deviation. Minor drafting caveat for the drafter (not disqualifying): confirm the host section does not already contain a subsection (b) so the new lettering does not collide; renumber if it does.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.18104375,
+    "durationMs": 51731,
+    "id": "f-ld-f0e77df4",
+    "paragraphIds": [
+      "p0016",
+      "p0023"
+    ],
+    "producedBy": "drafter",
+    "quote": "Except for termination for material breach as detailed in paragraph 4(b), Kubient shall be entitled to all fees generated during the termination period regardless of which Party terminates the Agreement",
+    "rationale": "The agreement contains no liquidated damages, penalty, or early-termination fee payable by AP. Searches for \"liquidated damages\", \"penalty\", \"damages\", \"minimum\" and \"shall pay\" return nothing running against the Customer. Compensation is purely a revenue share of amounts actually generated (§5, p0023), and §13 expressly disclaims any minimum revenue guarantee. The only termination-related payment right (p0016) entitles Kubient to fees generated during the 90-day notice period — i.e., revenue actually earned from services rendered, not a pre-estimated or penal sum, and there is no lump-sum or remaining-term payment on early termination. This satisfies the preferred position (no Customer-payable liquidated damages or penalties), so no redline is required.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant, and the cited text supports it: §5 (p0023) provides only a revenue share of amounts actually generated, with no minimum, penalty, or pre-estimated sum payable by the Customer. The sole termination-related payment (p0016) gives Kubient 'all fees generated during the termination period' — revenue actually earned during the 90-day notice period, not a lump-sum early-termination fee or remaining-term payout, so it is not a Customer-payable liquidated damages or penalty under the rule. No redline or counterparty comment is expected or provided for a compliant finding; the rendered paragraphs are unchanged and no deterministic check failures were reported. Rationale is accurate and directionally correct (rule applies only where Customer pays); retaining as internal evaluation evidence is appropriate.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.83,
+    "costUsd": 0.2170775,
+    "durationMs": 70895,
+    "id": "f-license-2b2c9cd1",
+    "paragraphIds": [
+      "p0002",
+      "p0021",
+      "p0072"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have extended the Auction Platform licence to our affiliates and to contractors acting on our behalf, since they operate our sites and ad stack, and replaced the at-will \"revocable/non-transferable\" language with irrevocability for the Term (revocation only on termination under paragraph 4) plus transfer to a successor, consistent with the assignment right in paragraph 9(h). If helpful, we can accept affiliate coverage on written notice to Kubient as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Kubient hereby grants to Customer, its affiliates and its contractors acting on Customer's behalf a limited, royalty-free, non-exclusive license, without right of sublicense, transferable to any successor by way of merger, stock sale, consolidation or sale of all or substantially all of Customer's assets related to the subject matter of this Agreement, and irrevocable except upon termination of this Agreement in accordance with paragraph 4, to access, participate in and use to the full extent the Auction Platform",
+          "oldText": "Kubient hereby grants to Customer a limited, royalty-free, non-exclusive, non-transferable, non-assignable, without right of sublicense, revocable license to access, participate in and use to the full extent the Auction Platform",
+          "paragraphId": "p0002"
+        }
+      ],
+      "summary": "Extend Auction Platform licence to AP affiliates and contractors, remove at-will revocability, and permit transfer to a successor"
+    },
+    "quote": "Kubient hereby grants to Customer a limited, royalty-free, non-exclusive, non-transferable, non-assignable, without right of sublicense, revocable license to access, participate in and use to the full extent the Auction Platform as hosted by Kubient",
+    "rationale": "The only licence to us (paragraph 2) is granted to \"Customer\" alone, with no coverage for AP affiliates or contractors who in practice operate our websites and ad stack, and it is expressly \"revocable\" and \"non-transferable, non-assignable\" — i.e. Kubient could pull platform access at will mid-Term, contrary to the playbook requirement that a subscription licence be revocable only for uncured material breach/termination. Paragraph 4 already gives both parties defined termination rights (30-day cure for material breach; 90 days after the Initial Term) and paragraph 9(h) already lets either party assign to an affiliate or M&A successor, so making the licence irrevocable except on termination under paragraph 4 and transferable to a successor is consistent with the existing bargain; paragraph 21(c)(ii) continues to revoke the licence on termination. Redline adds affiliate/contractor coverage, deletes \"revocable\", and adds successor transfer while retaining the no-sublicense restriction.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "affiliates covered by the licence",
+          "ok": true
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.637 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0002",
+          "ok": false
+        }
+      ],
+      "notes": "The redline reaches the playbook's preferred position: the grant now runs to Customer, its affiliates and contractors acting on its behalf, the at-will 'revocable' (and 'non-transferable, non-assignable') language is removed, and transfer to an M&A successor is expressly permitted. Revocation is not deleted outright but tied to termination under paragraph 4, which preserves the existing bargain (30-day cure / post-Initial-Term notice) and remains consistent with paragraph 21(c)(ii) revoking the licence on termination; the no-sublicense restriction is retained, so the edit is proportionate rather than over-reaching. The high changed-character ratio (0.637) is explained by the need to restructure the adjective string in the grant sentence ('non-transferable, non-assignable ... revocable license'); the operative second sentence and all other terms are untouched, so this is an acceptable whole-clause rewrite, not scope creep. Replacing 'non-transferable, non-assignable' with successor-only transferability does not create a broader assignment loophole, since general assignment remains governed by paragraph 9(h) as cited. The comment is accurate, first-person plural, concise, correctly cites the playbook rationale and offers the affiliates-on-written-notice fallback.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.92,
+    "costUsd": 0.10059325,
+    "durationMs": 34354,
+    "id": "f-noncompete-95b59958",
+    "paragraphIds": [
+      "p0001"
+    ],
+    "producedBy": "drafter",
+    "quote": "Nothing herein is intended nor shall be construed as creating an exclusive arrangement between Customer and Kubient. This Agreement will not restrict Customer offering Inventory via other agents or otherwise selling Inventory to any third parties.",
+    "rationale": "Searches for non-compete, competing products, exclusivity, field-of-use and prohibitory language (\"shall not\", \"agrees not to\", \"restrict\", \"solicit\") return no covenant binding the Customer. To the contrary, Section 1 expressly disclaims exclusivity and confirms the Agreement will not restrict AP from offering or selling Inventory through other agents or third parties, which matches our preferred position of no non-compete or field-of-use restriction on Customer. The remaining \"shall not\" provisions bind Kubient (IP warranties) or are mutual/neutral terms, and the content-standards undertaking in p0041 is a compliance obligation rather than a restraint on our business. No redline required.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no open-ended compete restriction on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant; cited p0001 expressly disclaims exclusivity and confirms the Agreement will not restrict Customer from offering Inventory via other agents or selling to third parties, which directly supports the preferred position of no non-compete or field-of-use restriction on Customer. No redline or comment is expected or provided for a compliant finding, and the rendered redline is identical to the original text — consistent with the claimed status. Deterministic check confirms no open-ended compete restriction binding Customer remains; rationale correctly notes remaining 'shall not' language binds Kubient or is neutral/compliance-related rather than a restraint on our business. Minor wording slip in the rationale (referring to 'AP' rather than the defined Customer) does not affect substance, as AP is the Customer.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.83,
+    "costUsd": 0.224494,
+    "durationMs": 70656,
+    "id": "f-t4c-15f79b43",
+    "paragraphIds": [
+      "p0016"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have added our right to terminate for convenience on thirty (30) days' notice with a refund of prepaid fees and no early-termination penalty, and limited Kubient's convenience right so it cannot exit mid-term. Our position is that the customer can exit on notice without penalty while the vendor is committed for the term; if helpful, we can move to 60 days' notice for our termination and keep Kubient's 90-day notice at the end of a Term.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Customer may terminate this Agreement or any Exhibit for convenience, in whole or in part, at any time (including during the Initial Term) upon thirty (30) days' prior written notice to Kubient, in which case Kubient shall refund to Customer any prepaid fees for the period after the effective date of termination and no early termination fee or penalty shall apply. Kubient may not terminate this Agreement for convenience during the Initial Term or any renewal term, but may terminate this Agreement effective at the end of the then-current Term upon ninety (90) days' prior written notice to Customer. Except for termination for material breach as detailed in paragraph 4(b), Kubient shall be entitled to fees generated only through the effective date of termination,",
+          "oldText": "Neither Party may terminate this Agreement during the Initial Term except as set forth in paragraph 4(b) or any Exhibit. Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice to the other Party. Except for termination for material breach as detailed in paragraph 4(b), Kubient shall be entitled to all fees generated during the termination period regardless of which Party terminates the Agreement,",
+          "paragraphId": "p0016"
+        }
+      ],
+      "summary": "Add Customer 30-day convenience termination with pro-rata refund; limit Kubient convenience right to end of Term"
+    },
+    "quote": "Neither Party may terminate this Agreement during the Initial Term except as set forth in paragraph 4(b) or any Exhibit. Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice to the other Party. Except for termination for material breach as detailed in paragraph 4(b), Kubient shall be entitled to all fees generated during the termination period regardless of which Party terminates the Agreement,",
+    "rationale": "Paragraph 4(a) gives AP no convenience termination right during the Initial Term (and the agreement auto-renews into successive 1-year terms, so the committed period is effectively multi-year), while Kubient obtains a symmetric \"for any reason\" exit on 90 days' notice that operates mid-renewal-term. There is also no pro-rata refund of prepaid fees, and Kubient is expressly entitled to all fees generated during the termination period regardless of which party terminates, which functions as an early-termination penalty. Preferred position is a 30-day customer convenience right with refund of prepaid fees and no vendor convenience right during a committed term; redline adds that right, removes the fee entitlement beyond the effective date, and confines Kubient's convenience termination to the end of the then-current Term on 90 days' notice.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "Customer convenience termination present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.695 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0016",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation call is supported: p0016 bars any Customer convenience exit during the Initial Term, gives Kubient a symmetric 'for any reason' exit that operates mid-renewal-term on 90 days' notice, provides no pro-rata refund, and entitles Kubient to all fees generated during the termination period (an effective early-termination penalty) — all short of the preferred position. Redline reaches the preferred position with directionally correct, customer-favourable changes: a 30-day Customer convenience right (expressly including the Initial Term), refund of prepaid fees, no early-termination penalty, Kubient's convenience right confined to effect at the end of the then-current Term on 90 days' notice, and the fee entitlement trimmed to fees through the effective date. Deletion of the 'Neither Party may terminate during the Initial Term' sentence is necessary because it directly contradicts the new Customer right, and Kubient's restriction is expressly re-stated, so no counterparty right is inadvertently expanded; breach/insolvency rights in 4(b) are untouched. Failed 'minimal edit' heuristic (0.695 changed-character ratio) is acceptable here — the rule requires restructuring the reciprocal convenience/fee sentences, and the edit is confined to those sentences. Comment is accurate, correctly states what changed and why, cites the playbook position, and offers the 60-day / vendor 90-day end-of-term fallback in the required tone and prefix.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.19954175,
+    "durationMs": 68904,
+    "id": "f-assign-1b04afd4",
+    "paragraphIds": [
+      "p0072"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We are comfortable with the mutual affiliate/successor carve-out, but our playbook does not permit the Vendor to assign this Agreement to one of our competitors without our consent, so we have added that limited exception. All other assignment mechanics, including our own right to assign in a merger or sale of assets, are unchanged.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "or to any successor by way of merger, stock sale, consolidation or similar transaction, provided further that Kubient may not assign this Agreement or any rights or obligations under it to a competitor of Customer without Customer's prior written consent.",
+          "oldText": "or to any successor by way of merger, stock sale, consolidation or similar transaction.",
+          "paragraphId": "p0072"
+        }
+      ],
+      "summary": "Bar Kubient from assigning to an AP competitor without consent, preserving the mutual affiliate/successor carve-out"
+    },
+    "quote": "(h) Neither Party may assign (voluntarily, by operation of law, or otherwise) this Agreement or any rights or obligations under this Agreement without the other Party's prior written consent, which shall not be unreasonably withheld, provided however, that either Party may assign this Agreement without approval or consent to any affiliate or purchaser of all or substantially all of said Party's assets related to the subject matter of this Agreement or to any successor by way of merger, stock sale, consolidation or similar transaction.",
+    "rationale": "Paragraph 8(h) is the only assignment provision. It already delivers most of our preferred position: AP may assign without consent to an affiliate, to a purchaser of substantially all relevant assets, or to a successor by merger/stock sale/consolidation, and other assignments require consent that cannot be unreasonably withheld. The termination provisions (4(a)-(b), p0016-p0017) contain no change-of-control termination or re-pricing right against AP, and no clause deems a change of control an assignment, so the walk-away risks are absent. The single gap is that the mutual carve-out lets Kubient assign the Agreement (including to an AP competitor) with no consent at all. Because the mutual carve-out is a reasonable existing bargain we also benefit from, we take the fallback approach and add only a narrow prohibition on Kubient assigning to an AP competitor without our consent, rather than subjecting all Vendor assignments to consent.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "successor/affiliate carve-out for Customer present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.659 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0072",
+          "ok": false
+        }
+      ],
+      "notes": "The redline is a true insertion: the only change to p0072 is the added proviso barring Kubient from assigning to a Customer competitor without our consent; all Customer-favourable mechanics (affiliate/successor carve-out, 'not unreasonably withheld' consent standard, binding-on-successors language) are preserved, so the failed changed-character ratio check is an artefact and not a substantive over-edit. Directionally correct and actionable: it closes the only identified gap (Vendor's unconsented ability to assign to a competitor via the mutual carve-out) without giving up the existing mutual bargain, consistent with the rule's fallback plus the preferred 'never to a Customer competitor' element. Rationale is verified against the cited text: the clause already grants Customer affiliate/M&A assignment rights and there is no change-of-control termination, re-pricing, or 'deemed an assignment' trigger, so no walk-away condition exists and no further deletion is required. Comment is accurate, correctly prefixed, concise and in first person plural; it states what changed, why, and confirms Customer's own assignment rights are untouched. Residual risk after the edit is narrow (Vendor assignment to a competitor now needs our consent), so the high severity overstates the remaining exposure; medium is more apt.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.12705475,
+    "durationMs": 44668,
+    "id": "f-govlaw-898c0902",
+    "paragraphIds": [
+      "p0064",
+      "p0028"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have changed the governing law from Delaware to New York so that it aligns with the exclusive New York venue already agreed in the same sentence; our playbook position is New York law with the state and federal courts in New York County. Please also note that the mandatory AAA arbitration in Section 8 is inconsistent with this exclusive court jurisdiction, and we would ask that Section 8 be conformed so disputes proceed in the New York courts.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "the laws of the State of New York",
+          "oldText": "the laws of the State of Delaware",
+          "paragraphId": "p0064"
+        }
+      ],
+      "summary": "Change governing law from Delaware to New York to match the agreed New York exclusive venue."
+    },
+    "quote": "(a) This Agreement is governed in all respects by the laws of the State of Delaware without giving effect to its conflict of laws principles. Each Party hereby irrevocably submits for all disputes to the exclusive jurisdiction and venue of the state and federal courts located in New York, New York.",
+    "rationale": "Section 14(a) selects Delaware law (fallback-only under the playbook) while conferring exclusive jurisdiction on New York courts — an internally mismatched pairing. Since venue is already New York, the minimal edit to reach the preferred position is to change the governing law to New York. Venue is compliant (state and federal courts in New York, New York), and the arbitration in Section 8 is AAA-administered (not seated abroad), so no walk-away trigger; however Section 8's mandatory arbitration conflicts with the exclusive court jurisdiction and is flagged in the comment for conforming.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "governing law within the accepted set",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.303 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0064",
+          "ok": true
+        }
+      ],
+      "notes": "The redline makes the minimal, correct edit: it swaps only the jurisdiction words ('State of Delaware' → 'State of New York') and leaves the remainder of Section 14(a), including the already-compliant exclusive New York state and federal court venue, intact — exactly as the rule's redline guidance directs. Directionally correct for the customer: the result is the playbook's preferred position (New York law + New York County courts) rather than the fallback (Delaware), and it also cures the internal law/venue mismatch in the same sentence. Status of 'deviation' is defensible: Delaware is fallback-only, so the clause as drafted is not at the preferred position, and the pairing with New York venue is inconsistent. Comment is accurate, concise, in the required voice and prefix, correctly cites the playbook position, and appropriately notes (without over-editing) that Section 8's mandatory AAA arbitration conflicts with the exclusive court jurisdiction; the AAA arbitration is not seated abroad, so no walk-away trigger is mis-asserted. Deterministic checks all pass; the 0.303 changed-character ratio reflects the single jurisdiction substitution and is not evidence of an over-broad rewrite.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.147607,
+    "durationMs": 32488,
+    "id": "f-mfn-6f5e2bd0",
+    "paragraphIds": [
+      "p0001",
+      "p0023"
+    ],
+    "producedBy": "drafter",
+    "quote": "Nothing herein is intended nor shall be construed as creating an exclusive arrangement between Customer and Kubient. This Agreement will not restrict Customer offering Inventory via other agents or otherwise selling Inventory to any third parties.",
+    "rationale": "No most-favoured-nation obligation appears anywhere in the Agreement. The only commercial terms clause (§5 Fees and Payment, p0023) provides for revenue sharing as detailed in each Exhibit and contains no requirement that Customer offer Kubient terms no less favourable than those given to third parties, nor any obligation to match third-party offers. To the contrary, §1 (p0001) expressly disclaims exclusivity and preserves Customer's right to offer Inventory via other agents or sell to third parties, which is inconsistent with any implied MFN burden on Customer. There is also no Vendor-granted MFN in Customer's favour to preserve. The preferred position (no MFN obligation on Customer) is therefore met and no redline is warranted.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the redline is byte-identical to the original paragraphs with no comment, which is the expected output for a compliant finding. The cited text supports compliance: §5 (p0023) sets fees via revenue sharing per Exhibit with no obligation for Customer to extend Kubient terms no less favourable than those given to third parties or to match third-party offers. §1 (p0001) expressly disclaims exclusivity and preserves Customer's right to use other agents or sell Inventory to third parties, reinforcing that no MFN burden is imposed on Customer. No Vendor-granted MFN in Customer's favour exists that would need to be preserved, so the preferred position (no MFN obligation on Customer) is met and no negotiation issue should be raised.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.87,
+    "costUsd": 0.14204275,
+    "durationMs": 41647,
+    "id": "f-mincommit-b482b0d9",
+    "paragraphIds": [
+      "p0001",
+      "p0023"
+    ],
+    "producedBy": "drafter",
+    "quote": "Nothing herein is intended nor shall be construed as creating an exclusive arrangement between Customer and Kubient. This Agreement will not restrict Customer offering Inventory via other agents or otherwise selling Inventory to any third parties.",
+    "rationale": "The rule seeks the absence of minimum purchase commitments or volume restrictions on the Customer. Searches for \"minimum\", \"commit\", \"shortfall\", \"volume\" and \"exclusive\" surface no take-or-pay or spend floor binding AP. The only \"minimum\" references are the Winning Bid Price floor that AP itself sets (p0014) and Kubient's disclaimer that no minimum revenue is guaranteed (p0062) — neither imposes a purchase obligation on us. Fees under §5 (p0023) are a revenue share on actual activity generated through the Auction Platform, with no committed spend or usage, and §1 (p0001) expressly negates exclusivity and preserves AP's right to sell Inventory elsewhere. The one-year initial term lock in §4(a) restricts termination timing but creates no purchase or volume commitment, so it is outside this rule. Position satisfied at the preferred level; no redline needed.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the cited text supports it: §1 (p0001) expressly disclaims exclusivity and preserves Customer's right to sell Inventory through other agents or third parties, and §5 (p0023) sets fees as a revenue share on activity actually generated, with no spend floor, volume cap, take-or-pay or shortfall mechanic. Rationale correctly distinguishes non-triggering 'minimum' references (Customer-set Winning Bid Price floor; Vendor's no-guaranteed-revenue disclaimer) and correctly treats the one-year initial term as a termination-timing issue outside MINCOMMIT's scope. Consistent with a compliant finding, no redline or counterparty comment is proposed; the rendered text is identical to the original and deterministic checks are clean, so nothing to remediate.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.34511225,
+    "durationMs": 100984,
+    "id": "f-nosolicit-b4ef4ada",
+    "paragraphIds": [
+      "p0056",
+      "p0061",
+      "p0063",
+      "p0066",
+      "p0070"
+    ],
+    "producedBy": "drafter",
+    "quote": "(c) The relationship of the Parties is that of independent contractors, and nothing herein is intended, nor should be construed, to create a partnership, agency, joint venture or employment relationship. No act or statement of either Party will operate to bind the other and neither Party will hold itself out or have any authority as an agent of the other for any purposes whatsoever.",
+    "rationale": "Exhaustive review: we read all 75 paragraphs of the Agreement in full (not keyword search alone) and confirm there is no non-solicitation, no-hire, anti-poaching or inducement covenant anywhere. The General Provisions block (p0063-p0073) and the Confidentiality section (p0056-p0061) - the two places such a covenant customarily sits - contain none; the survival list at p0070 likewise identifies no restrictive covenant. Literal searches for \"solicit\", \"employ\", \"hire\", \"induce\", \"recruit\", \"engage\", \"personnel\" and \"non-compete\", plus a regex for \"(shall|will) not (solicit|hire|employ|engage|induce)\", return nothing responsive. The only employment-related provisions are the independent-contractor/no-agency clause quoted above (p0066), the mutual indemnities covering third parties \"hired by, employed, retained or under\" a party's control (p0051-p0052), and the need-to-know disclosure limit at p0061; none restricts The Associated Press from soliciting or hiring Kubient personnel. Our preferred position - no non-solicit binding the Customer - is therefore already met, so no redline is proposed and the rendered text is identical to the original. The deterministic sub-checks for a general-solicitation carve-out and a duration of 12 months or less cannot pass and are non-probative: both presuppose an existing covenant, and satisfying them would require inserting a non-solicit that does not exist, which would create a new restriction against our own client. We will not add one. If Kubient later proposes a non-solicit, our fallback is a mutual clause limited to personnel directly involved in the Services, 12 months from the end of that involvement, with carve-outs for general advertisements and unsolicited approaches, and no no-hire.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "medium",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 3,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-solicit duration ≤ 12 months",
+          "ok": false
+        },
+        {
+          "name": "general-solicitation carve-out present",
+          "ok": false
+        }
+      ],
+      "notes": "general-solicitation carve-out present: failed Claimed status is compliant and the cited paragraphs (confidentiality, independent-contractor, severability/survival) contain no non-solicitation, no-hire, anti-poaching or inducement covenant, so the preferred position ('No non-solicit on Customer') is met on the face of the text. Consistent with a compliant finding, the rendered text is identical to the original and no counterparty comment is proposed — the correct outcome, since adding a non-solicit would create a new restriction on our own client. The failed deterministic sub-checks (duration ≤ 12 months; general-solicitation carve-out) are non-probative here: both presuppose an existing covenant and cannot be satisfied by absence, so they do not undermine the verdict. Rationale is accurate and internally consistent, documents the fallback for future negotiation, and correctly notes that the survival list at p0070 identifies no restrictive covenant.",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.8,
+    "costUsd": 0.1852765,
+    "durationMs": 54851,
+    "id": "f-renewal-5c736b12",
+    "paragraphIds": [
+      "p0016"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have shortened the notice required to exit or decline renewal after the Initial Term from ninety (90) to thirty (30) days and added a Kubient reminder sixty (60) days before each renewal, consistent with our position that auto-renewals must be easy to exit. If helpful, we can accept sixty (60) days' notice as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Either Party may terminate this Agreement for any reason following the Initial Term upon thirty (30) days written notice to the other Party, and either Party may elect not to renew this Agreement by giving written notice to the other Party at least thirty (30) days prior to the end of the then-current term. Kubient shall notify Customer in writing at least sixty (60) days prior to the end of the then-current term of the upcoming automatic renewal.",
+          "oldText": "Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice to the other Party.",
+          "paragraphId": "p0016"
+        }
+      ],
+      "summary": "Shorten post-Initial Term exit/non-renewal notice from 90 to 30 days and add a 60-day Kubient renewal reminder."
+    },
+    "quote": "This Agreement will automatically renew for additional 1-year terms unless earlier terminated pursuant to this Agreement's express provisions (together with the Initial Term, such additional periods the \"Term\"). Neither Party may terminate this Agreement during the Initial Term except as set forth in paragraph 4(b) or any Exhibit. Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice to the other Party.",
+    "rationale": "The Agreement auto-renews for successive 1-year terms (acceptable length), but the only exit after the Initial Term requires ninety (90) days' written notice, which sits at the walk-away boundary and well outside the preferred 30-day (fallback 60-day) window; there is also no express non-renewal right and no Vendor reminder before renewal. Redline shortens the notice to 30 days, adds an express non-renewal election, and requires Kubient to give a 60-day renewal reminder. No renewal price-uplift cap is proposed because compensation is a revenue share set in each Exhibit rather than a fixed fee subject to uplift.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "detail": "value=30",
+          "name": "non-renewal notice window ≤ 60 days",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.707 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0016",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation is correctly identified: the clause auto-renews for successive 1-year terms but the only post-Initial-Term exit requires 90 days' notice, which is at the walk-away boundary and outside the preferred 30-day / fallback 60-day window, and there is no express non-renewal right or renewal reminder. Redline reaches the preferred position: notice shortened to thirty (30) days, an express non-renewal election added at 30 days before the end of the then-current term, and a Kubient reminder 60 days before renewal; renewal term already 12 months so no change needed. Omission of a price-uplift cap is justified on the record — compensation is a revenue share set in each Exhibit rather than a fixed fee subject to renewal uplift — so the edit is not rule-incomplete. Comment is accurate, correctly attributed to the playbook, states what changed and why in the required tone, and offers the 60-day fallback. The advisory 0.707 changed-character ratio reflects the added non-renewal and reminder sentences the rule expressly requires; the substantive edit remains surgical (surrounding termination-for-breach and fee language untouched). Minor drafting note for the negotiator (not disqualifying): shortening the mutual for-convenience notice from 90 to 30 days also lets Kubient exit on 30 days' notice; a tighter alternative is to leave the for-convenience period intact and rely solely on the new Customer non-renewal election.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.16780325,
+    "durationMs": 55209,
+    "id": "f-transition-0f780f51",
+    "paragraphIds": [
+      "p0019",
+      "p0020",
+      "p0021",
+      "p0022"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have added a wind-down subsection so that, on exit, Kubient provides up to six months of transition assistance at its then-current rates, returns our data in a machine-readable format within 30 days, and then deletes and certifies deletion. Our playbook requires data return and transition support on termination; we can accept 90 days of assistance as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(v)",
+          "paragraphId": "p0022",
+          "text": "(v) at Customer's request, Kubient will provide reasonable transition assistance for a period of up to six (6) (or, if requested, any shorter) months following termination or expiration at Kubient's then-current rates, and within thirty (30) days of termination or expiration will return to Customer all Content, Requests, and other data of Customer or its visitors collected, maintained, processed or stored by Kubient in connection with the Services or the Auction Platform, in a commonly used, machine-readable format; and (vi) thereafter Kubient will delete such Content, Requests and data from its systems and certify such deletion to Customer in writing."
+        }
+      ],
+      "summary": "Insert transition assistance, data return and deletion certification into termination effects"
+    },
+    "quote": "(c) Upon termination of the Agreement:",
+    "rationale": "The termination-effects provision (Section 4(c), p0019–p0022) only requires Kubient to cease the Services, revokes the license, requires Customer to stop using the platform, and requires each Party to return or destroy the other's Confidential Information. There is no transition/wind-down assistance, no obligation to return Customer's Content, Requests or visitor data in a usable format, and no deletion certification — and no such terms appear elsewhere (searches for \"transition\", \"Customer Data\" and \"machine-readable\" return nothing). For a hosted auction-platform service where Kubient collects and stores our data (p0035), this is a material gap, so we insert the playbook transition-assistance, data-return and deletion-certification language into Section 4(c).",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "medium",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "data return/transition present",
+          "ok": true
+        }
+      ],
+      "notes": "The cited termination-effects provision (p0019–p0022) indeed contains no transition assistance, no return/export of Customer Content or data, and no deletion certification, so the 'missing' status is correctly characterized for a hosted auction-platform service that stores Customer data. The inserted subsections (v)–(vi) track the playbook preferred position closely: up to six months of transition assistance at Kubient's then-current rates, return of Customer Content/Requests/visitor data in a commonly used machine-readable format within 30 days, and subsequent deletion with written certification. The edit is directionally correct (pro-Customer), minimally invasive (appended as new clauses continuing the existing (i)–(iv) enumeration in the termination section), and consistent with the existing clause (iv) Confidential Information return/destroy obligation. The comment accurately describes the change, cites the playbook position, and offers the 90-day fallback in the required tone and prefix. Minor drafting nit (not disqualifying): the parenthetical 'up to six (6) (or, if requested, any shorter) months' is redundant with 'up to' and could be deleted for clarity.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.206488,
+    "durationMs": 66089,
+    "id": "f-warranty-6056cee1",
+    "paragraphIds": [
+      "p0032",
+      "p0034",
+      "p0038",
+      "p0041",
+      "p0062"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have added a professional and workmanlike performance warranty and, more importantly, an express remedy (re-performance, repair/replacement or refund of fees for the non-conforming Service or deliverable), because Section 9(b) currently gives us warranties with no stated consequence for breach. Our playbook requires a real warranty remedy; we are content that it be at Kubient's option and non-exclusive of our other rights.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(xii)",
+          "paragraphId": "p0041",
+          "text": "(xii) the Service and any deliverables shall be performed and provided in a professional and workmanlike manner consistent with industry standards. Customer's remedy for breach of the warranties in this Section 9(b) shall be, at Kubient's option, re-performance of the non-conforming Service, repair or replacement of the non-conforming deliverable, or a refund of the fees paid for the non-conforming Service or deliverable, which remedy shall not limit any other right or remedy available to Customer under this Agreement or at Law."
+        }
+      ],
+      "summary": "Add professional/workmanlike performance warranty and a repair-replace-or-refund remedy for breach of Kubient's warranties."
+    },
+    "quote": "(ii) the Service will perform in all material respects to industry standards;",
+    "rationale": "Section 9(b) contains a reasonable set of Kubient warranties that run for the whole Term with no expiry (performance to industry standards, services free from errors materially affecting utility, no malicious code, compliance with Laws, non-infringement), so duration and scope meet or exceed the preferred position, and the Section 13 disclaimer expressly carves out the warranties \"set forth in this Agreement\" so it does not swallow them. The gap is that there is no warranty remedy anywhere in the Agreement (no \"refund\", \"repair\", \"replace\" or re-performance language) and no professional and workmanlike standard for performance of the Services. Redline inserts a new Section 9(b)(xii) adding the workmanlike warranty plus a repair/replace/re-perform-or-refund remedy at Kubient's option, expressed as non-exclusive of our other remedies. No change to the disclaimer is needed.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "warranty period ≥ 90 days or expressed in months/years",
+          "ok": false
+        }
+      ],
+      "notes": "The claimed deviation is supported by the cited text: Section 9(b) contains substantive warranties (industry standards, error-free, Laws compliance) running for the Term, and Section 13's disclaimer expressly carves out warranties 'set forth in this Agreement', so the only real gap is the absence of any express remedy and of a professional/workmanlike performance standard — exactly what the redline addresses. The insert is minimal and correctly located: a new sub-clause (xii) appended after existing (xi) in p0041, continuing the existing numbering of the Section 9(b) list, with no unnecessary rewriting of surrounding text or of the disclaimer (which needs no change given the express carve-out). The added language reaches the playbook position: workmanlike/industry-standard performance warranty plus repair, replacement, re-performance or refund of fees, and it is expressly non-exclusive of Customer's other rights, which is more favorable to us than the model language's default. The failed deterministic check on a 90-day/12-month period is a phrasing artifact, not a substantive defect — the existing warranties run 'throughout the Term' with no expiry, which exceeds the preferred 12-month/90-day durations, so no period needs to be inserted. The comment is accurate, correctly attributes the change to the missing warranty remedy, cites the playbook position, concedes the Vendor-option point as a sensible fallback, and complies with the required prefix and concise first-person-plural tone. Minor, non-blocking: embedding the remedy sentence inside warranty item (xii) is structurally awkward (a remedy housed in a list of warranties); a standalone sentence after the list would read more cleanly, but the drafting is unambiguous and enforceable as written.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.49083675,
+    "durationMs": 147860,
+    "id": "f-audit-0f2bde49",
+    "paragraphIds": [
+      "p0025"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] The Agreement imposes use restrictions on us in paragraph 6 but says nothing about how Kubient may verify compliance, so we have added our standard limits: once per twelve months, 30 days' notice, an independent auditor under confidentiality, off-site review, no access to our systems, and Kubient's cost unless an underpayment exceeds 5%. We can accept 15 days' notice and a 10% cost-shift threshold if that is easier for you.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(b)",
+          "paragraphId": "p0025",
+          "text": "Verification. If Kubient wishes to verify Customer's compliance with the use restrictions in this paragraph 6, Kubient may do so no more than once in any twelve (12) month period, upon not less than thirty (30) days' prior written notice, during Customer's normal business hours, and only through an independent third-party auditor bound by written confidentiality obligations no less protective than paragraph 12. Any such verification shall be conducted off-site by review of records and written responses provided by Customer wherever practicable, shall not include any direct, remote or on-site access to Customer's systems, networks, databases or facilities, and shall be at Kubient's sole cost and expense unless it reveals an underpayment by Customer exceeding five percent (5%) of the amounts properly due."
+        }
+      ],
+      "summary": "Add a verification subsection to paragraph 6 capping any Kubient audit of Customer compliance at once per 12 months on 30 days' notice, off-site, by an independent auditor, at Kubient's cost, with no access to Customer systems."
+    },
+    "quote": "Customer agrees that it will not transfer or (unless expressly and specifically approved by Kubient in advance and in writing) allow third-party access to the Service.",
+    "rationale": "Searches for \"audit\", \"inspect\", \"records\", \"verif\", \"examine\" and \"books\" return no hits, and a full read of §§ 1-14 confirms the Agreement contains no express audit right against AP: p0001 is service-delivery cooperation, p0002 our inbound licence, p0025 a use-restriction covenant, and p0035/p0045 database-security reps. The rule is therefore unsatisfied by absence rather than by adverse drafting, and I am reporting it as missing rather than compliant so the playbook's parameters actually appear on the page. The reason this is worth an edit: paragraph 6(a) imposes substantive, audit-prone use restrictions on us (no transfer, no third-party access, no reverse engineering, no service-bureau use, privacy-policy requirements) and makes us \"responsible and solely liable\" for Content and Properties, but is silent on how Kubient may verify compliance. Silence is not protection - it leaves the frequency, notice, cost and system-access questions open to be resolved by demand or by implication, which is the walk-away risk this rule guards against. The redline inserts a new paragraph 6(b) fixing the preferred position with a single minimal insertion and no change to existing text: one verification per twelve months, 30 days' prior written notice, business hours, independent third-party auditor under confidentiality no less protective than paragraph 12, off-site review of records wherever practicable, express exclusion of any direct, remote or on-site access to our systems, networks, databases or facilities, and Kubient's sole cost unless an underpayment by us exceeds 5%. The comment offers the fallback (15 days' notice, 10% threshold). Out of scope for this rule but noted for a vendor-side records rule: Impressions are measured by Kubient (p0009) and revenue share depends on Kubient's collections (§ 5), yet we have no reciprocal verification right - a gap in our favour to pursue separately.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "low",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 3,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "audit frequency limited",
+          "ok": true
+        }
+      ],
+      "notes": "Directionally wrong for our side: the rationale itself confirms the Agreement contains no audit, inspection or verification right against Customer, yet the redline affirmatively grants Kubient a new verification right. AUDIT is a constraining rule on a vendor right; where that right is absent, the customer is already better off than the preferred position and no edit is warranted. The premise that 'silence is not protection' is not supportable — absent an express grant, Kubient has no contractual basis to demand audits or system access, so the walk-away risk (unlimited/unannounced audits, remote access) is not live. Creating the right and then bounding it hands the counterparty leverage it did not have. Correct handling is to record this as compliant/not-applicable internal evidence (no redline, no counterparty comment), not as a 'missing' deviation requiring an insertion. The comment invites negotiation on notice period and cost-shift threshold for an audit right the counterparty never asked for, which risks anchoring a worse outcome than the current silence. Deterministic checks passing (frequency limited, operation applies) only confirm the inserted text matches the parameter template; they do not cure the fact that the insertion is adverse to the party we represent.",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.19373225,
+    "durationMs": 43926,
+    "id": "f-insurance-37cf773e",
+    "paragraphIds": [
+      "p0063",
+      "p0073"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have added a short insurance provision in the General Provisions, as the Agreement currently requires no coverage from Kubient even though it hosts the Auction Platform and collects and stores visitor data and our Confidential Information. Our position is commercial general liability of USD 1M per occurrence / USD 2M aggregate, E&O of USD 2M and cyber of USD 5M, with certificates on request; we can discuss E&O of USD 1M and cyber of USD 2M if limits are an issue.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(j)",
+          "paragraphId": "p0073",
+          "text": "(j) Kubient shall maintain, at its own expense, throughout the Term and for one (1) year thereafter: commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; cyber liability insurance of not less than USD 5,000,000 covering Kubient's collection, maintenance, management and storage of visitor information (data) and Customer's Confidential Information; and workers' compensation insurance as required by applicable Law. Kubient shall provide certificates of insurance to Customer on request."
+        }
+      ],
+      "summary": "Insert vendor insurance paragraph (CGL, E&O, cyber, workers' comp) in General Provisions."
+    },
+    "quote": "14. General Provisions.",
+    "rationale": "The Agreement contains no insurance provision (searches for \"insurance\" and \"coverage\" return nothing, and the single-article outline confirms no insurance clause). Kubient is a hosting/services vendor that collects, maintains and stores visitor information (data) and Customer Confidential Information (p0035, p0056), and indemnifies Customer for Service-related third-party Claims (p0047) with an uncapped liability regime. Without minimum coverage, those indemnity and data-security obligations are unsupported. We insert a short paragraph at the end of General Provisions requiring CGL USD 1M/2M, E&O USD 2M, cyber USD 5M and statutory workers' compensation, with certificates on request; fallback is E&O USD 1M and cyber USD 2M.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "low",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "insurance obligation present",
+          "ok": true
+        }
+      ],
+      "notes": "Missing-clause finding is well supported: no insurance provision exists anywhere in the Agreement, and Kubient is a hosting/services vendor that stores visitor data and Customer Confidential Information, so the playbook's insurance rule is squarely triggered. The inserted subsection (j) is appended to the existing General Provisions list with correct sequential lettering and does not alter p0073's original text, so it is the smallest edit that reaches the playbook position. Coverage lines match the preferred position exactly (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M for Customer Data processing, statutory workers' comp, certificates on request), with the cyber limit sensibly tied to the data-handling activities described in the document. Comment is accurate, concise, in the required voice and prefix, states the rationale (uncapped indemnity/data obligations unsupported) and offers the E&O USD 1M / cyber USD 2M fallback. Minor drafting nit only (not disqualifying): confirm 'Term' and 'Law' are defined terms in this Agreement; if not, use lower-case 'term' and 'applicable law'.",
+      "verdict": "pass"
+    }
+  }
+]

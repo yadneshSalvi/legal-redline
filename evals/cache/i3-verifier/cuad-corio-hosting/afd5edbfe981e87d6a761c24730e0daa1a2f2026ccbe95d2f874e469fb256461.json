@@ -1,0 +1,73 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXhL4pdy9ZJiChnEratu",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01Qe9KUfexuRt7ABsY5rHSdH",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0132",
+            "p0133"
+          ],
+          "quote": "14.9 Bankruptcy. The parties hereto agree that Corio, as a licensee of Commerce One's intellectual property, shall be afforded all of the protections afforded to a licensee under Section 365(n) of the United States Bankruptcy Code",
+          "rationale": "The Agreement contains no insurance provision (a text search returns only an incidental reference to insurance in the Net Revenue definition), yet Commerce One is a services/hosting vendor: it supplies on-site operations consultants and professional services under Sections 5.1, 5.2 and 5.6 and its hosted Software/MarketSite.net Service handles Corio's and its Customers' data. Under the playbook we require CGL of USD 1M/2M, E&O of USD 2M, cyber of USD 5M, statutory workers' compensation and certificates on request. Inserted as new Section 14.10 in Miscellaneous, with the existing entire-agreement clause renumbered 14.11.",
+          "confidence": 0.85,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert an insurance covenant as new Section 14.10 requiring Commerce One to carry CGL, E&O, cyber and workers' compensation coverage and to furnish certificates.",
+            "comment": "[Playbook] The Agreement has no insurance provision even though Commerce One personnel provide on-site installation, implementation and professional services and its hosted MarketSite.net Service handles Corio's and its Customers' data, so we have added a standard insurance covenant (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, statutory workers' compensation, certificates on request). If these limits are an issue we can fall back to E&O of USD 1,000,000 and cyber liability of USD 2,000,000.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0132",
+                "numbering": "14.10",
+                "text": "14.10 Insurance. Commerce One shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: (a) commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; (b) professional liability (errors and omissions) insurance of not less than USD 2,000,000; (c) where Commerce One processes or has access to Corio's or its Customers' data, cyber and privacy liability insurance of not less than USD 5,000,000; and (d) workers' compensation insurance as required by applicable law. Commerce One shall provide Corio with certificates of insurance evidencing such coverage upon request."
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0133",
+                "oldText": "14.10 Complete Understanding.",
+                "newText": "14.11 Complete Understanding."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1152,
+      "cache_read_input_tokens": 11107,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1152,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1076,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10731
+}

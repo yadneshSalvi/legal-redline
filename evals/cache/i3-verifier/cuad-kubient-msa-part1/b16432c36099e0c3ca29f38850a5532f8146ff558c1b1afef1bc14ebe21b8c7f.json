@@ -1,0 +1,75 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXhLmxeusTA47RDhhtgg",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "thinking",
+        "thinking": "",
+        "signature": "CAISxwQKjgEIERgCKkC5kHxwTPMHZNjSwYbMDHJsEmPfxBcSR8CsQKr1EBrEiSdS8Z1hZyxGDf6rx3hzUduZGDktoC8hVg84ibVSCiNAMg1jbGF1ZGUtb3B1cy01OAFCCHRoaW5raW5nWiQ0NDcyZGFmNS1lOTVkLTQzNzMtOWEzZS01ZDRhMTA3ZGJhNmWoAfeKzdQGEgyrky3YWoXVfEbKPSUaDJQYc6yqGuUW8i7RwiIwy1WoFDmsXV7RdCee3YphsB28j4qfAQHfPeoY7vfSEcrnWesLYWJFpeHp9iNzMcyQKuUCjGLzY1Emg1QAfKraBWGc/jnaaaN4LG9dsqHdaO1ZlmavsjsqdbtuImH9Q3Zy/UH3O6Lmx0VHqUyYOCNwzAPAbB6kvGECn2oYLG9I4Ht7Ipnf5Wm4cPUXiNxiElMCiJFpRFV7DAUacOoPuo9zcDUXFdm3ENDwYqNJJ++1i6Pv6GyKSJXNDcrX9UPftl1Mtxm2l53BMUkXpW/3rGLnANHGJB7SotVS/WNdDi5ZoyNC+r0mTl2pYEn/vRikIDuDI5l79pArcnccvtavSdJp9GDCWGNy3PvowXhNmmcFP7GG4YxvOM2aA2C/EDYv4LEARSPmOCl/OUSfi1XfATJSsejeaJJ6OidAmoGGv0P/+lroth4k4DBUcXbbOB6IbQMIhnbyPPvoZfZQPRjs2ZXG9zXlokPjLY00wPW7lHIP+819GnlJWGyceXnsrVgieOg7v8HhX8K61AGB+xqkyp8hesL/v2tcLC57GAE="
+      },
+      {
+        "type": "text",
+        "text": "Redline validated (`ok:true`). Submitting as a protective gap-fill so the frequency/notice/cost limits are actually on the page."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01T4gTScSCocnJ1u3Nxz3VTh",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0025"
+          ],
+          "quote": "Customer agrees that it will not transfer or (unless expressly and specifically approved by Kubient in advance and in writing) allow third-party access to the Service.",
+          "rationale": "Searches for \"audit\", \"inspect\", \"records\", \"verif\", \"examine\" and \"books\" return no hits, and a full read of §§ 1-14 confirms the Agreement contains no express audit right against AP: p0001 is service-delivery cooperation, p0002 our inbound licence, p0025 a use-restriction covenant, and p0035/p0045 database-security reps. The rule is therefore unsatisfied by absence rather than by adverse drafting, and I am reporting it as missing rather than compliant so the playbook's parameters actually appear on the page. The reason this is worth an edit: paragraph 6(a) imposes substantive, audit-prone use restrictions on us (no transfer, no third-party access, no reverse engineering, no service-bureau use, privacy-policy requirements) and makes us \"responsible and solely liable\" for Content and Properties, but is silent on how Kubient may verify compliance. Silence is not protection - it leaves the frequency, notice, cost and system-access questions open to be resolved by demand or by implication, which is the walk-away risk this rule guards against. The redline inserts a new paragraph 6(b) fixing the preferred position with a single minimal insertion and no change to existing text: one verification per twelve months, 30 days' prior written notice, business hours, independent third-party auditor under confidentiality no less protective than paragraph 12, off-site review of records wherever practicable, express exclusion of any direct, remote or on-site access to our systems, networks, databases or facilities, and Kubient's sole cost unless an underpayment by us exceeds 5%. The comment offers the fallback (15 days' notice, 10% threshold). Out of scope for this rule but noted for a vendor-side records rule: Impressions are measured by Kubient (p0009) and revenue share depends on Kubient's collections (§ 5), yet we have no reciprocal verification right - a gap in our favour to pursue separately.",
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0025",
+                "numbering": "(b)",
+                "text": "Verification. If Kubient wishes to verify Customer's compliance with the use restrictions in this paragraph 6, Kubient may do so no more than once in any twelve (12) month period, upon not less than thirty (30) days' prior written notice, during Customer's normal business hours, and only through an independent third-party auditor bound by written confidentiality obligations no less protective than paragraph 12. Any such verification shall be conducted off-site by review of records and written responses provided by Customer wherever practicable, shall not include any direct, remote or on-site access to Customer's systems, networks, databases or facilities, and shall be at Kubient's sole cost and expense unless it reveals an underpayment by Customer exceeding five percent (5%) of the amounts properly due."
+              }
+            ],
+            "comment": "[Playbook] The Agreement imposes use restrictions on us in paragraph 6 but says nothing about how Kubient may verify compliance, so we have added our standard limits: once per twelve months, 30 days' notice, an independent auditor under confidentiality, off-site review, no access to our systems, and Kubient's cost unless an underpayment exceeds 5%. We can accept 15 days' notice and a 10% cost-shift threshold if that is easier for you.",
+            "level": "preferred",
+            "summary": "Add a verification subsection to paragraph 6 capping any Kubient audit of Customer compliance at once per 12 months on 30 days' notice, off-site, by an independent auditor, at Kubient's cost, with no access to Customer systems."
+          },
+          "confidence": 0.78
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1666,
+      "cache_read_input_tokens": 18896,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1666,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1555,
+      "output_tokens_details": {
+        "thinking_tokens": 114
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "AUDIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 17320
+}

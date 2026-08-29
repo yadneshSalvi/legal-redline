@@ -1,0 +1,80 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXhFci9Q5GtRrmT1xFJk",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_018BBzpdviM3d73CF1BJsZP3",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0017",
+            "p0021",
+            "p0022"
+          ],
+          "quote": "are the property of Company to the extent that such Works were created by Contractor for Company over a time period for which Company has been invoiced and said invoice has been paid.",
+          "rationale": "Section 4(a) makes our ownership of the Works contingent on invoices having been issued and paid, so title to unpaid or in-progress work product stays with Contractor and there is no express assignment. The licence-back for embedded Contractor's Information in 4(c) is perpetual and royalty-free but not irrevocable or worldwide, and the Agreement nowhere confirms that Clear Capital retains ownership of its own data and pre-existing IP (Section 8 treats our data only as Confidential Information). Redline vests the Works in us on creation with an irrevocable assignment, strengthens the embedded-IP licence, and adds a Company Data ownership sentence with no joint ownership; Contractor's retained proprietary tools under 4(b) are untouched.",
+          "confidence": 0.85,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Vest Works in Clear Capital on creation with an irrevocable assignment (not conditioned on payment), make the embedded-Contractor-IP licence irrevocable and worldwide, and add ownership of Company Data with no joint ownership.",
+            "comment": "[Playbook] We own what we pay for and everything we put in, so we have made the Works vest in us on creation with an express assignment rather than only for paid invoice periods, and confirmed that our data and pre-existing IP remain ours with no joint ownership. We also made the licence to any Contractor materials embedded in the Works irrevocable and worldwide; if Contractor prefers, we can accept a payment-triggered assignment coupled with a perpetual, irrevocable, royalty-free licence to use, modify and sublicense the Works in the interim.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0017",
+                "oldText": "are the property of Company to the extent that such Works were created by Contractor for Company over a time period for which Company has been invoiced and said invoice has been paid.",
+                "newText": "are the sole and exclusive property of Company and shall vest in Company upon creation. Contractor hereby irrevocably assigns to Company all right, title and interest, including all intellectual property rights, in and to the Works, and such assignment is not conditioned upon payment of any invoice."
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0021",
+                "oldText": "a royalty-free, non- exclusive perpetual license",
+                "newText": "a royalty-free, worldwide, non-exclusive, perpetual and irrevocable license"
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0022",
+                "numbering": "(e)",
+                "text": "(e) Company retains all right, title and interest in and to all data, materials, software and intellectual property provided or made available by Company to Contractor and all data generated or processed for Company in the course of the Services (\"Company Data\"). Nothing in this Agreement assigns, transfers or licenses to Contractor any ownership of Company Data or of Company's intellectual property, and Contractor may access and use Company Data solely as necessary to perform the Services. No Works or Company Data shall be jointly owned by the parties."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2099,
+      "cache_read_input_tokens": 6922,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2099,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1221,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "IP",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11846
+}
