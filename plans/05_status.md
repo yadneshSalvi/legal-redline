@@ -90,3 +90,13 @@
 - Sun 01:45 — coding-trace INDEX fixed (Opus SDK transcripts labelled; ui-evidence/submission-pack recovered from SDK/Codex stores after worktree
   removal deleted their gitignored logs). `trajectories/coding-agents/` (92 MB; lead transcript 14 MB, ui-workspace transcript 42 MB) is NOT
   committed yet — commit once at submission time. Campaign: i1-docmodel 7/12 at 01:45.
+- Sun 01:45 — i1-docmodel recorded: F1 0.824 (P 0.77 / R 0.91), escalations 1 (b1: 14), validity 43 %, minimality 31 %, $1.29/contract. Citation
+  scanner fixed (accepted only section numbers → flagged valid sub-clause refs); corrected hallucination: b0 4.4 %, b1 3.2 %, i1 5.4 %. All three
+  re-scored in replay ($0). Campaign at i2-workers (01:42). Video-pipeline builder running (Sol).
+## Final-round checklist (after x-monolith completes)
+1. `pnpm eval --all` (replay, judge replay) → consistent results with final gold/metrics; `pnpm report`; `pnpm render-docs`.
+2. Write changelog "learning" cells, hard-case analysis, main failure mode, hot take from the numbers (lead, by hand).
+3. `pnpm export-trajectories --all-final`; `pnpm export-human-sessions`; `pnpm export-coding-traces`; commit caches/results/trajectories once.
+4. Deploy (push) → `/evals` shows real data; smoke the deployed routes.
+5. Final video with real numbers + a real `final` run recording; Fable gate review; REPRODUCE numbers (runtime/cost); submit.
+6. Ask the user: 15-min gold spot-check (`plans/06_gold_review.md` §Spot-check) + one real review session on the deployed app for the human-load metric.
