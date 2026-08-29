@@ -116,3 +116,5 @@
   Fix: classification semantics in the shared playbook preamble (all configs incl. b1): preferred-or-fallback = compliant; deviation only when
   the fallback fails on a material term; verifier fails "fallback → preferred" upgrades. Campaign killed; pre-calibration ladder archived
   (`evals/results/pre-calibration/`, `evals/cache-precalibration/`); calibrated ladder re-runs b1 i1 i2 i3 i4 final x-monolith (b0 unchanged).
+- Sun 03:35 — calibrated ladder: b1-prompt F1 0.915 (P 0.98 / R 0.87, FN 13), validity 46 %, minimality 11 %, halluc 2.9 %, $0.35 (pre-calib
+  0.949 / P 0.93 / R 0.97). Campaign continues i1 → i2 → i3 → i4 → final → x-monolith (ETA ≈ 06:45 IST).
