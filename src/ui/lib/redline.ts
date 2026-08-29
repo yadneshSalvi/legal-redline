@@ -197,3 +197,8 @@ export function proposalPreview(doc: DocumentModel, ops: RedlineOp[], limit = 16
   }
   return clipped;
 }
+
+/** Word-level diff between two free-text clauses (precedent before → after), grouped exactly like the engine. */
+export function diffSegments(before: string, after: string): Segment[] {
+  return wordDiff(before, after).map((segment) => ({ type: segment.type, text: segment.text }));
+}

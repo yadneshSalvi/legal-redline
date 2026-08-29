@@ -22,6 +22,8 @@ const nav = [
 
 function isActive(pathname: string, href: string): boolean {
   if (href === "/") return pathname === "/" || pathname.startsWith("/review");
+  // A trajectory belongs to a run, so it keeps Runs lit.
+  if (href === "/runs" && pathname.startsWith("/trajectories")) return true;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -126,19 +128,32 @@ export function TopBar() {
                   ))}
                   <DropdownMenu.Separator className="my-1.5 h-px bg-hairline" />
                   <DropdownMenu.Label className="label-caps px-2 py-1.5">Prepared examples</DropdownMenu.Label>
-                  <DropdownMenu.Item
-                    onSelect={() => router.push("/review/sample")}
-                    className="cursor-default rounded-field px-2 py-1.5 text-[13px] text-ink outline-none data-[highlighted]:bg-navy-soft"
-                  >
-                    Reviewed example — Brightline hosting
-                    <span className="mono mt-0.5 block text-[11px] text-ink-muted">9 findings awaiting review</span>
+                  <DropdownMenu.Item asChild>
+                    <Link
+                      href="/review/sample"
+                      className="block cursor-default rounded-field px-2 py-1.5 text-[13px] text-ink outline-none data-[highlighted]:bg-navy-soft"
+                    >
+                      Reviewed example — Brightline hosting
+                      <span className="mono mt-0.5 block text-[11px] text-ink-muted">9 findings awaiting review</span>
+                    </Link>
                   </DropdownMenu.Item>
-                  <DropdownMenu.Item
-                    onSelect={() => router.push("/review/sample-running")}
-                    className="cursor-default rounded-field px-2 py-1.5 text-[13px] text-ink outline-none data-[highlighted]:bg-navy-soft"
-                  >
-                    Live run — watch the agents work
-                    <span className="mono mt-0.5 block text-[11px] text-ink-muted">planner → 18 drafters → verifier</span>
+                  <DropdownMenu.Item asChild>
+                    <Link
+                      href="/review/sample-running"
+                      className="block cursor-default rounded-field px-2 py-1.5 text-[13px] text-ink outline-none data-[highlighted]:bg-navy-soft"
+                    >
+                      Live run — watch the agents work
+                      <span className="mono mt-0.5 block text-[11px] text-ink-muted">planner → 18 drafters → verifier</span>
+                    </Link>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item asChild>
+                    <Link
+                      href="/trajectories/sample"
+                      className="block cursor-default rounded-field px-2 py-1.5 text-[13px] text-ink outline-none data-[highlighted]:bg-navy-soft"
+                    >
+                      Example trajectory — every step of that run
+                      <span className="mono mt-0.5 block text-[11px] text-ink-muted">215 events · 49 model calls</span>
+                    </Link>
                   </DropdownMenu.Item>
                 </DropdownMenu.Content>
               </DropdownMenu.Portal>

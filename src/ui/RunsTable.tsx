@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import type { ReviewRun, RunStatus, Severity } from "@/src/agent/types";
+import type { ReviewRun, RunStatus } from "@/src/agent/types";
+import { Button } from "./Button";
 import { Tag } from "./Chip";
 import { EmptyState } from "./EmptyState";
-import { SeverityDot } from "./SeverityPill";
+import { SeverityBar } from "./SeverityBar";
 import { Skeleton } from "./Skeleton";
 import { cn } from "./cn";
 import { sampleRunList } from "./fixtures/runs";
@@ -13,8 +14,6 @@ import { getRuns } from "./lib/api";
 import { configShortLabel } from "./lib/configs";
 import { prettyContractTitle } from "./lib/contractTitle";
 import { defaultPlaybook } from "./fixtures/samples";
-
-const severities: Severity[] = ["critical", "high", "medium", "low"];
 
 const statusTone: Record<RunStatus, "neutral" | "navy" | "comment" | "verified"> = {
   queued: "neutral",
@@ -80,13 +79,32 @@ export function RunsTable() {
 
   if (runs.length === 0) {
     return (
-      <EmptyState
-        title="No reviews yet"
-        body="Upload a vendor contract or pick one of the sample agreements, and the run will appear here with its findings, cost and output."
-      />
+      <div className="rounded-card border border-hairline bg-sheet py-4">
+        <EmptyState
+          title="No reviews yet"
+          body="Upload a vendor contract or pick one of the sample agreements, and the run will appear here with its findings, cost and the document it wrote."
+          action={
+            <div className="flex gap-2">
+              <Link href="/review/sample">
+                <Button variant="secondary">See a reviewed example</Button>
+              </Link>
+              <Link href="/">
+                <Button variant="primary">Start a review</Button>
+              </Link>
+            </div>
+          }
+        />
+      </div>
     );
   }
 
+  const playbooks = new Set(runs.map((run) => run.playbookId));
+  const playbookLabel =
+    playbooks.size === 1
+      ? runs[0].playbookId === defaultPlaybook.id
+        ? `Vendor Services v${defaultPlaybook.version}`
+        : runs[0].playbookId
+      : `${playbooks.size} playbooks`;
   const applied = runs.filter((run) => run.status === "applied").length;
   const spend = runs.reduce((total, run) => total + run.stats.usage.costUsd, 0);
   const findings = runs.reduce((total, run) => total + run.stats.findings, 0);
@@ -96,6 +114,7 @@ export function RunsTable() {
       <dl className="mb-4 flex flex-wrap gap-x-10 gap-y-3 border-y border-hairline py-3.5">
         {[
           { term: "Reviews", value: `${runs.length}` },
+          { term: "Playbook", value: playbookLabel },
           { term: "Findings raised", value: `${findings}` },
           { term: "Documents written", value: `${applied}` },
           { term: "Model spend", value: `$${spend.toFixed(2)}` },
@@ -110,14 +129,13 @@ export function RunsTable() {
       <table className="w-full border-collapse text-left">
         <thead>
           <tr className="border-b border-hairline bg-paper">
-            {["Contract", "Playbook", "Config", "Status", "Findings", "Cost", "Reviewed"].map((head) => (
-              <th key={head} className="label-caps px-3 py-2.5 whitespace-nowrap">
-                {head}
-                {head === "Findings" ? (
-                  <span className="ml-1 normal-case tracking-normal text-ink-muted">
-                    (critical · high · medium · low)
-                  </span>
-                ) : null}
+            {["Contract", "Config", "Status", "Findings", "Cost", "Started", ""].map((head, index) => (
+              <th
+                key={head || "actions"}
+                scope="col"
+                className={cn("label-caps px-3 py-2.5 whitespace-nowrap", index === 6 && "text-right")}
+              >
+                {head || <span className="sr-only">Actions</span>}
               </th>
             ))}
           </tr>
@@ -128,7 +146,7 @@ export function RunsTable() {
               <td className="px-3 py-2.5">
                 <Link
                   href={`/review/${run.id}`}
-                  className="group block max-w-[340px]"
+                  className="group block max-w-[420px]"
                   title={run.document.title}
                 >
                   <span className="block truncate font-serif text-[13.5px] font-semibold text-ink group-hover:underline">
@@ -136,14 +154,12 @@ export function RunsTable() {
                   </span>
                   <span className="mono mt-0.5 block truncate text-[11px] text-ink-muted">
                     {run.document.source.filename} · {run.document.stats.words.toLocaleString("en-US")} words
+                    {run.playbookId === defaultPlaybook.id ? "" : ` · playbook ${run.playbookId}`}
                   </span>
                 </Link>
               </td>
-              <td className="px-3 py-2.5 text-[12.5px] text-ink-muted">
-                {run.playbookId === defaultPlaybook.id ? `Vendor Services v${defaultPlaybook.version}` : run.playbookId}
-              </td>
               <td className="px-3 py-2.5">
-                <span className="mono text-[11.5px] text-ink-muted">{configShortLabel(run.config)}</span>
+                <span className="mono text-[11.5px] whitespace-nowrap text-ink-muted">{configShortLabel(run.config)}</span>
               </td>
               <td className="px-3 py-2.5">
                 <Tag tone={statusTone[run.status]}>{statusLabel[run.status]}</Tag>
@@ -154,26 +170,27 @@ export function RunsTable() {
                 ) : null}
               </td>
               <td className="px-3 py-2.5">
-                <span className="flex items-center gap-2.5">
-                  {severities.map((severity) => (
-                    <span key={severity} className="relative flex items-center gap-1">
-                      <SeverityDot severity={severity} />
-                      <span
-                        className={cn(
-                          "mono text-[11.5px]",
-                          run.stats.bySeverity[severity] > 0 ? "text-ink" : "text-ink-muted",
-                        )}
-                      >
-                        {run.stats.bySeverity[severity]}
-                      </span>
-                      <span className="sr-only">{severity} findings</span>
-                    </span>
-                  ))}
-                </span>
+                <SeverityBar bySeverity={run.stats.bySeverity} />
               </td>
               <td className="mono px-3 py-2.5 text-[11.5px] text-ink">${run.stats.usage.costUsd.toFixed(2)}</td>
               <td className="mono px-3 py-2.5 text-[11.5px] whitespace-nowrap text-ink-muted">
                 {dateFormat.format(new Date(run.createdAt))}
+              </td>
+              <td className="px-3 py-2.5 text-right whitespace-nowrap">
+                <span className="inline-flex items-center gap-1">
+                  <Link
+                    href={`/review/${run.id}`}
+                    className="inline-flex h-7 items-center rounded-field border border-hairline-strong bg-sheet px-2.5 text-[12px] text-ink transition-colors duration-150 hover:border-navy hover:bg-navy-soft"
+                  >
+                    Open
+                  </Link>
+                  <Link
+                    href={`/trajectories/${run.id}`}
+                    className="inline-flex h-7 items-center rounded-field border border-transparent px-2 text-[12px] text-ink-muted transition-colors duration-150 hover:border-hairline-strong hover:bg-sheet hover:text-ink"
+                  >
+                    Trajectory
+                  </Link>
+                </span>
               </td>
             </tr>
           ))}
