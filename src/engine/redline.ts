@@ -8,9 +8,11 @@ import type {
   RedlineOp,
 } from "./types";
 import { parseDocx } from "./docx-read";
+import { mapBodyParagraphs } from "./paragraph-map";
+import { isRfc3339DateTime } from "./revision-meta";
 import { validateComment, validateOp } from "./validate";
 import type { DocumentModel } from "./types";
-import { addWholeParagraphComments, rewriteParagraph } from "./redline-dom";
+import { addComments, rewriteParagraph } from "./redline-dom";
 import type { AppliedCounts, AssignedComment, IdAllocator } from "./redline-dom";
 import { insertTrackedParagraph } from "./redline-insert";
 import {
@@ -20,6 +22,7 @@ import {
   parseXml,
   REL_NS,
   serializeXml,
+  sanitizeXmlText,
   setWordAttribute,
   WORD_NS,
   XML_NS,
@@ -39,14 +42,11 @@ async function initialId(zip: JSZip): Promise<number> {
   );
   let max = -1;
   for (const xml of await Promise.all(entries.map((entry) => entry.async("string")))) {
-    for (const match of xml.matchAll(/\b(?:w:)?id=["'](\d+)["']/g)) max = Math.max(max, Number(match[1]));
+    for (const match of xml.matchAll(/\b(?:[\w.-]+:)?id=["'](\d+)["']/g)) {
+      max = Math.max(max, Number(match[1]));
+    }
   }
   return max + 1;
-}
-
-function paragraphNodes(document: Document): Element[] {
-  const body = elementsByLocalName(document, "body")[0];
-  return body ? elementsByLocalName(body, "p") : [];
 }
 
 function commentsDocument(existing: string | undefined): Document {
@@ -67,14 +67,14 @@ function appendCommentPart(
   const root = comments.documentElement;
   const comment = comments.createElementNS(WORD_NS, "w:comment");
   setWordAttribute(comment, "id", String(assigned.id));
-  setWordAttribute(comment, "author", author);
+  setWordAttribute(comment, "author", sanitizeXmlText(author));
   setWordAttribute(comment, "date", date);
   setWordAttribute(comment, "initials", "PR");
   const paragraph = comments.createElementNS(WORD_NS, "w:p");
   const run = comments.createElementNS(WORD_NS, "w:r");
   const text = comments.createElementNS(WORD_NS, "w:t");
   text.setAttributeNS(XML_NS, "xml:space", "preserve");
-  text.appendChild(comments.createTextNode(assigned.comment.text));
+  text.appendChild(comments.createTextNode(sanitizeXmlText(assigned.comment.text)));
   run.appendChild(text);
   paragraph.appendChild(run);
   comment.appendChild(paragraph);
@@ -129,10 +129,19 @@ function updateZipFile(zip: JSZip, path: string, content: string): void {
 function validateRequest(doc: DocumentModel, req: ApplyRequest): void {
   const errors: string[] = [
     ...req.ops.map((op) => validateOp(doc, op).error),
-    ...req.comments.map((comment) => validateComment(doc, comment).error),
   ].filter((error): error is string => error !== undefined);
+  for (const comment of req.comments) {
+    const validation = validateComment(doc, comment);
+    const mayFallback =
+      comment.anchorText !== undefined &&
+      comment.anchorText.length > 0 &&
+      (validation.occurrences === 0 || (validation.occurrences ?? 0) > 1);
+    if (!validation.ok && !mayFallback && validation.error) errors.push(validation.error);
+  }
   if (req.author.trim().length === 0) errors.push("tracked-change author must not be empty");
-  if (req.date && Number.isNaN(Date.parse(req.date))) errors.push("tracked-change date must be ISO 8601");
+  if (req.date && !isRfc3339DateTime(req.date)) {
+    errors.push("tracked-change date must be an RFC 3339 date-time (YYYY-MM-DDTHH:MM:SS(.sss)?Z or ±HH:MM)");
+  }
   const byParagraph = groupByParagraph(req.ops);
   for (const [paragraphId, ops] of byParagraph) {
     if (ops.some((op) => op.kind === "delete_paragraph") && ops.some((op) => op.kind === "replace")) {
@@ -143,13 +152,31 @@ function validateRequest(doc: DocumentModel, req: ApplyRequest): void {
 }
 
 function assignedComments(
+  doc: DocumentModel,
   comments: RedlineComment[],
   allocator: IdAllocator,
+  warnings: string[],
 ): AssignedComment[] {
-  return comments.map((comment) => ({ comment, id: allocator.next() }));
+  return comments.map((comment) => {
+    const validation = validateComment(doc, comment);
+    if (
+      !validation.ok &&
+      comment.anchorText !== undefined &&
+      comment.anchorText.length > 0 &&
+      (validation.occurrences === 0 || (validation.occurrences ?? 0) > 1)
+    ) {
+      warnings.push(
+        validation.occurrences === 0
+          ? `Comment anchor in ${comment.paragraphId} was not found; anchored to the whole paragraph`
+          : `Comment anchor in ${comment.paragraphId} was ambiguous (${validation.occurrences} occurrences); anchored to the whole paragraph`,
+      );
+      return { comment: { ...comment, anchorText: undefined }, id: allocator.next() };
+    }
+    return { comment, id: allocator.next() };
+  });
 }
 
-/** Apply validated operations as native Word tracked changes and comments in a copy of the package. */
+/** Apply native tracked changes; when date is omitted, the current time is used. Invalid ops throw. */
 export async function applyRedlines(
   original: Uint8Array,
   doc: DocumentModel,
@@ -159,7 +186,6 @@ export async function applyRedlines(
   const sourceDoc = await parseDocx(original, doc.source.filename);
   const sourceById = new Map(sourceDoc.paragraphs.map((paragraph) => [paragraph.id, paragraph]));
   for (const paragraph of doc.paragraphs) {
-    if (paragraph.id.includes(".")) continue;
     if (sourceById.get(paragraph.id)?.text !== paragraph.text) {
       throw new Error(`Document model does not match the source DOCX at ${paragraph.id}`);
     }
@@ -171,8 +197,9 @@ export async function applyRedlines(
   const documentEntry = zip.file("word/document.xml");
   if (!documentEntry) throw new Error("Invalid DOCX: word/document.xml is missing");
   const document = parseXml(await documentEntry.async("string"), "word/document.xml");
-  const nodes = paragraphNodes(document);
-  if (nodes.length < doc.paragraphs.filter((paragraph) => !paragraph.id.includes(".")).length) {
+  const mappedNodes = mapBodyParagraphs(document);
+  const nodeById = new Map(mappedNodes.map(({ id, node }) => [id, node]));
+  if (nodeById.size < doc.paragraphs.length) {
     throw new Error("Document model does not match the source DOCX paragraph count");
   }
 
@@ -180,13 +207,12 @@ export async function applyRedlines(
   const allocator: IdAllocator = { next: () => nextId++ };
   const date = req.date ?? new Date().toISOString();
   const ops = groupByParagraph(req.ops);
-  const assigned = assignedComments(req.comments, allocator);
+  const warnings: string[] = [];
+  const assigned = assignedComments(doc, req.comments, allocator, warnings);
   const comments = groupByParagraph(assigned.map((item) => ({ ...item, paragraphId: item.comment.paragraphId })));
   const changes = new Map<string, ParagraphChange>();
-  const warnings: string[] = [];
 
   for (const paragraph of doc.paragraphs) {
-    if (paragraph.id.includes(".")) continue;
     const paragraphOps = ops.get(paragraph.id) ?? [];
     const paragraphComments = (comments.get(paragraph.id) ?? []).map(({ comment, id }) => ({ comment, id }));
     const replacements = paragraphOps.filter(
@@ -194,14 +220,14 @@ export async function applyRedlines(
     );
     const deletion = paragraphOps.some((op) => op.kind === "delete_paragraph");
     if (replacements.length === 0 && !deletion && paragraphComments.length === 0) continue;
-    const node = nodes[paragraph.index];
+    const node = nodeById.get(paragraph.id);
     if (!node) throw new Error(`Source XML paragraph missing for ${paragraph.id}`);
     const wholeParagraphComments = paragraphComments.every(
       ({ comment }) => comment.anchorText === undefined,
     );
     let counts: AppliedCounts;
     if (replacements.length === 0 && !deletion && wholeParagraphComments) {
-      addWholeParagraphComments(node, paragraphComments);
+      addComments(node, paragraphComments);
       counts = { insertions: 0, deletions: 0, comments: paragraphComments.length };
     } else {
       counts = rewriteParagraph(
@@ -220,15 +246,26 @@ export async function applyRedlines(
 
   const lastInserted = new Map<string, Element>();
   const insertedCounts = new Map<string, number>();
+  for (const mapped of mappedNodes) {
+    const match = /^(.*)\.(\d+)$/.exec(mapped.id);
+    if (!match) continue;
+    const ordinal = Number(match[2]);
+    if (ordinal > (insertedCounts.get(match[1]) ?? 0)) {
+      insertedCounts.set(match[1], ordinal);
+      lastInserted.set(match[1], mapped.node);
+    }
+  }
   for (const op of req.ops) {
     if (op.kind !== "insert_after") continue;
     const paragraph = doc.paragraphs.find((candidate) => candidate.id === op.paragraphId);
-    if (!paragraph || paragraph.id.includes(".")) continue;
-    const anchor = lastInserted.get(op.paragraphId) ?? nodes[paragraph.index];
+    if (!paragraph) continue;
+    const sourceNode = nodeById.get(paragraph.id);
+    if (!sourceNode) throw new Error(`Source XML paragraph missing for ${paragraph.id}`);
+    const anchor = lastInserted.get(op.paragraphId) ?? sourceNode;
     const ordinal = (insertedCounts.get(op.paragraphId) ?? 0) + 1;
     insertedCounts.set(op.paragraphId, ordinal);
     const inserted = insertTrackedParagraph(
-      nodes[paragraph.index],
+      sourceNode,
       op,
       `${op.paragraphId}.${ordinal}`,
       allocator,

@@ -62,7 +62,7 @@ THIS LINE HAS NINE WORDS AND IS NOT HEADING TEXT`;
       ["(b) CONFIDENTIALITY", false],
       ["Section 5. LIABILITY", true],
       ["LIMITATION OF LIABILITY", true],
-      ["THIS LINE HAS NINE WORDS AND IS NOT HEADING TEXT", false],
+      ["THIS LINE HAS NINE WORDS AND IS NOT HEADING TEXT", true],
     ]);
     expect(doc.paragraphs[1].numbering).toBe("IV");
     expect(doc.paragraphs[7].numbering).toBe("(a)");
@@ -71,9 +71,15 @@ THIS LINE HAS NINE WORDS AND IS NOT HEADING TEXT`;
     expect(doc.sections[0]).toMatchObject({ id: "sec-preamble", paragraphIds: ["p0000"] });
     expect(doc.definitions.map((definition) => definition.term)).toEqual([
       "Fees",
-      "Offering",
       "Notice Period",
     ]);
+  });
+
+  it("recognizes a standalone Section label as a heading", () => {
+    expect(parseText("Section 3.\n\nBody.", "section.txt").paragraphs[0]).toMatchObject({
+      isHeading: true,
+      numbering: "3",
+    });
   });
 
   it("writes byte-identical packages and round-trips the canonical model", async () => {

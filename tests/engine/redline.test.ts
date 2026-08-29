@@ -232,5 +232,6 @@ describe("redline validation", () => {
     const applied = await applyRedlines(original, doc, request);
     const report = await validateDocx(original, applied.docx, request, { libreoffice: true });
     expect(report.libreoffice).toMatchObject({ attempted: true, ok: true });
+    expect(report.libreoffice?.message).toContain("DOCX round-trip preserved");
   });
 });

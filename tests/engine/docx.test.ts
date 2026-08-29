@@ -10,7 +10,7 @@ describe("DOCX reading", () => {
       "1. Services",
       "Vendor shall maintain reasonable security measures—and Customer’s controls.",
       "See Example policy for details.",
-      "Numbered obligation without a literal label",
+      "Numbered obligation without a literal label.",
       "Table cell obligation must be removed.",
       "Existing insertion",
     ]);
@@ -22,7 +22,8 @@ describe("DOCX reading", () => {
       { text: " measures—and Customer’s controls." },
     ]);
     expect(doc.paragraphs[2].text).toContain("Example policy");
-    expect(doc.paragraphs[3].numbering).toBeUndefined();
+    expect(doc.paragraphs[3].numbering).toBe("1");
+    expect(doc.paragraphs[3].isHeading).toBe(false);
     expect(doc.paragraphs[5].text).not.toContain("hidden deletion");
   });
 });

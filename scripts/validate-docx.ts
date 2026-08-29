@@ -1,8 +1,42 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
+import { z } from "zod";
+
 import { validateDocx } from "../src/engine/index";
 import type { ApplyRequest } from "../src/engine/types";
+
+const redlineOpSchema = z.discriminatedUnion("kind", [
+  z.object({
+    kind: z.literal("replace"),
+    paragraphId: z.string().min(1),
+    oldText: z.string().min(1),
+    newText: z.string(),
+  }),
+  z.object({
+    kind: z.literal("insert_after"),
+    paragraphId: z.string().min(1),
+    text: z.string().min(1),
+    numbering: z.string().optional(),
+    asHeading: z.boolean().optional(),
+  }),
+  z.object({ kind: z.literal("delete_paragraph"), paragraphId: z.string().min(1) }),
+]);
+
+const commentsSchema = z.array(
+  z.object({
+    paragraphId: z.string().min(1),
+    anchorText: z.string().optional(),
+    text: z.string().min(1),
+  }),
+);
+
+const requestSchema = z.object({
+  ops: z.array(redlineOpSchema),
+  comments: commentsSchema.optional().default([]),
+  author: z.string().min(1).optional().default("Playbook Redliner"),
+  date: z.string().optional(),
+});
 
 interface CliOptions {
   original: string;
@@ -45,22 +79,16 @@ async function readRequest(path: string | undefined): Promise<ApplyRequest> {
   const parsed: unknown = JSON.parse(await readFile(path, "utf8"));
   if (Array.isArray(parsed)) {
     return {
-      ops: parsed as ApplyRequest["ops"],
+      ops: z.array(redlineOpSchema).parse(parsed),
       comments: [],
       author: "Playbook Redliner",
     };
   }
-  if (!parsed || typeof parsed !== "object") throw new Error("--ops JSON must be an ApplyRequest object");
-  const candidate = parsed as Partial<ApplyRequest>;
-  if (!Array.isArray(candidate.ops)) {
-    throw new Error("--ops JSON must contain ops[]");
+  const result = requestSchema.safeParse(parsed);
+  if (!result.success) {
+    throw new Error(`--ops JSON is invalid: ${z.prettifyError(result.error)}`);
   }
-  return {
-    ops: candidate.ops,
-    comments: candidate.comments ?? [],
-    author: candidate.author || "Playbook Redliner",
-    ...(candidate.date ? { date: candidate.date } : {}),
-  };
+  return result.data;
 }
 
 async function main(): Promise<void> {

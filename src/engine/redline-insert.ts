@@ -32,6 +32,10 @@ export function insertTrackedParagraph(
     pPr = createWordElement(document, "pPr");
     paragraph.appendChild(pPr);
   }
+  if (op.numbering) {
+    const numPr = directChild(pPr, "numPr");
+    if (numPr) pPr.removeChild(numPr);
+  }
   if (op.asHeading) {
     let pStyle = directChild(pPr, "pStyle");
     if (!pStyle) {
@@ -46,7 +50,7 @@ export function insertTrackedParagraph(
   const bookmarkId = allocator.next();
   const bookmarkStart = createWordElement(document, "bookmarkStart");
   setWordAttribute(bookmarkStart, "id", String(bookmarkId));
-  setWordAttribute(bookmarkStart, "name", `_PlaybookRedliner_${insertedId.replace(".", "_")}`);
+  setWordAttribute(bookmarkStart, "name", `_PlaybookRedliner_${insertedId.replaceAll(".", "_")}`);
   paragraph.appendChild(bookmarkStart);
 
   const visibleText = insertedParagraphText(op);

@@ -13,6 +13,7 @@ import { paragraphId } from "./text";
 export interface ParagraphInput {
   text: string;
   style?: string;
+  numbering?: string;
   runs?: RunSpan[];
   insertedId?: string;
 }
@@ -37,46 +38,44 @@ function cleanHeading(value: string, fallback: string): string {
   return cleaned || fallback.trim();
 }
 
-function headingInfo(text: string, style?: string): HeadingInfo | undefined {
+function textAfterNumbering(text: string, numbering: string): string {
+  const escaped = numbering.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return text.replace(new RegExp(`^(?:(?:Section|ARTICLE)\\s+)?${escaped}(?:[.)])?\\s*`, "i"), "").trim();
+}
+
+function headingInfo(text: string, style?: string, numbering?: string): HeadingInfo | undefined {
   const styleMatch = /^Heading\s*([1-6])$/i.exec(style ?? "");
   if (styleMatch) {
     const level = Number(styleMatch[1]);
-    const numbered = NUMBERED_HEADING.exec(text);
-    if (numbered && !SUB_ITEM.test(text)) {
-      return {
-        heading: cleanHeading(numbered[2], text),
-        level,
-        number: numbered[1],
-      };
-    }
-    return { heading: text, level };
-  }
-
-  const article = ARTICLE_HEADING.exec(text);
-  if (article) {
+    const label = numbering ?? numberingLabel(text);
     return {
-      heading: cleanHeading(article[2] ?? "", text),
+      heading: label ? cleanHeading(textAfterNumbering(text, label), text) : text,
+      level,
+      ...(label ? { number: label } : {}),
+    };
+  }
+  if (/^Title$/i.test(style ?? "")) {
+    const label = numbering ?? numberingLabel(text);
+    return {
+      heading: label ? cleanHeading(textAfterNumbering(text, label), text) : text,
       level: 1,
-      number: article[1],
+      ...(label ? { number: label } : {}),
     };
   }
 
-  const section = SECTION_HEADING.exec(text);
-  if (section) {
-    return {
-      heading: cleanHeading(section[2], text),
-      level: section[1].split(".").length,
-      number: section[1],
-    };
-  }
-
-  if (!SUB_ITEM.test(text)) {
-    const numbered = NUMBERED_HEADING.exec(text);
-    if (numbered) {
+  const label = numbering ?? numberingLabel(text);
+  if (label && !SUB_ITEM.test(text)) {
+    const remaining = textAfterNumbering(text, label);
+    const standaloneSection = remaining.length === 0 && /^Section\b/i.test(text);
+    if (
+      wordCount(remaining) <= 12 &&
+      (remaining.length > 0 || standaloneSection) &&
+      !/[.;]\s*$/u.test(remaining)
+    ) {
       return {
-        heading: cleanHeading(numbered[2], text),
-        level: numbered[1].split(".").length,
-        number: numbered[1],
+        heading: cleanHeading(remaining, text),
+        level: /^ARTICLE\b/i.test(text) ? 1 : Math.max(1, label.split(".").length),
+        number: label,
       };
     }
   }
@@ -85,10 +84,18 @@ function headingInfo(text: string, style?: string): HeadingInfo | undefined {
   const letters = text.match(/\p{L}/gu) ?? [];
   const allCaps =
     !SUB_ITEM.test(text) &&
-    words.length <= 8 &&
+    words.length <= 12 &&
     letters.length > 0 &&
     text === text.toLocaleUpperCase();
-  return allCaps ? { heading: text.trim(), level: 1 } : undefined;
+  if (allCaps) {
+    const article = ARTICLE_HEADING.exec(text);
+    return {
+      heading: article ? cleanHeading(article[2] ?? "", text) : text.trim(),
+      level: 1,
+      ...(label ? { number: label } : {}),
+    };
+  }
+  return undefined;
 }
 
 function numberingLabel(text: string): string | undefined {
@@ -142,7 +149,7 @@ function assignSections(paragraphs: Paragraph[]): Section[] {
         suffix += 1;
       }
       usedIds.add(id);
-      const info = headingInfo(paragraph.text, paragraph.style);
+      const info = headingInfo(paragraph.text, paragraph.style, paragraph.numbering);
       const section: Section = {
         id,
         ...(paragraph.numbering ? { number: paragraph.numbering } : {}),
@@ -178,6 +185,16 @@ function pushDefinition(
   definitions.push({ term: cleaned, paragraphId: paragraph.id, text: paragraph.text });
 }
 
+function definitionText(text: string): string {
+  return text
+    .replace(/^\s*(?:Section\s+)?\d+(?:\.\d+)*(?:[.)])?\s+/i, "")
+    .trim();
+}
+
+function shortAlias(term: string): boolean {
+  return wordCount(term) <= 4;
+}
+
 function extractDefinitions(paragraphs: Paragraph[], sections: Section[]): Definition[] {
   const definitions: Definition[] = [];
   const seen = new Set<string>();
@@ -186,7 +203,7 @@ function extractDefinitions(paragraphs: Paragraph[], sections: Section[]): Defin
   for (const section of sections) {
     let candidate: Section | undefined = section;
     while (candidate) {
-      if (/\b(definitions?|defined terms?|interpretation)\b/i.test(candidate.heading)) {
+      if (/\bdefinitions?\b/i.test(candidate.heading)) {
         definitionsSections.add(section.id);
         break;
       }
@@ -195,18 +212,28 @@ function extractDefinitions(paragraphs: Paragraph[], sections: Section[]): Defin
   }
 
   for (const paragraph of paragraphs) {
-    const text = paragraph.text;
-    const direct = /^[“"]([^”"]{1,120})[”"]\s+(?:means|shall mean|has the meaning\b)/i.exec(text);
+    const text = definitionText(paragraph.text);
+    const direct =
+      /^[“"]([^”"]{1,120})[”"]\s+(?:means\b|shall\s+mean\b|has\s+the\s+meaning\b)/i.exec(text);
     if (direct) pushDefinition(definitions, seen, direct[1], paragraph);
 
-    const aliases = text.matchAll(/\(\s*the\s+[“"]([^”"]{1,120})[”"]\s*\)/gi);
-    for (const alias of aliases) pushDefinition(definitions, seen, alias[1], paragraph);
+    const pointer =
+      /^[“"]([^”"]{1,120})[”"]\s+\(\s*as\s+defined\s+in\s+[^)]+\)(?=\s*[,.;:]|\s*$)/i.exec(text);
+    if (pointer) pushDefinition(definitions, seen, pointer[1], paragraph);
+
+    const aliases = text.matchAll(
+      /\(\s*(?:the\s+)?[“"]([^”"]{1,120})[”"]\s*\)(?=\s*[,.;:])/gi,
+    );
+    for (const alias of aliases) {
+      if (shortAlias(alias[1])) pushDefinition(definitions, seen, alias[1], paragraph);
+    }
 
     if (paragraph.sectionId && definitionsSections.has(paragraph.sectionId)) {
       const colon = /^(?:[“"]([^”"]+)[”"]|([^:]{1,80}))\s*:\s*\S/u.exec(text);
-      if (colon) pushDefinition(definitions, seen, colon[1] ?? colon[2], paragraph);
-      const quoted = /^[“"]([^”"]{1,120})[”"](?:\s|$)/u.exec(text);
-      if (quoted) pushDefinition(definitions, seen, quoted[1], paragraph);
+      const term = colon?.[1] ?? colon?.[2];
+      if (term && !/\b(?:administrative\s+note|note|notice|example|comment)$/i.test(term.trim())) {
+        pushDefinition(definitions, seen, term, paragraph);
+      }
     }
   }
   return definitions;
@@ -226,8 +253,8 @@ export function buildDocumentModel(inputs: ParagraphInput[], source: DocumentSou
     const id = input.insertedId ?? paragraphId(originalIndex);
     const index = originalIndex;
     if (!input.insertedId) originalIndex += 1;
-    const info = headingInfo(input.text, input.style);
-    const numbering = info?.number ?? numberingLabel(input.text);
+    const numbering = input.numbering ?? numberingLabel(input.text);
+    const info = headingInfo(input.text, input.style, numbering);
     return {
       id,
       index,

@@ -101,5 +101,5 @@ export function createWordElement(document: Document, localName: string): Elemen
 
 /** Set a `w:` attribute in the WordprocessingML namespace. */
 export function setWordAttribute(element: Element, name: string, value: string): void {
-  element.setAttributeNS(WORD_NS, `w:${name}`, value);
+  element.setAttributeNS(WORD_NS, `w:${name}`, sanitizeXmlText(value));
 }

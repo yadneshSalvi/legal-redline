@@ -23,6 +23,11 @@
   https://playbook-redliner-l4oxd5loz-yadneshsalvis-projects.vercel.app ; SSO deployment protection **disabled** (was 302 for everyone);
   env ANTHROPIC/OPENAI keys + REDLINER_LLM_MODE=replay set for prod+preview; GitHub `yadneshSalvi/legal-redline` (public) pushed → push-to-deploy.
 
+- Sun 00:10 — `engine-r2` landed (23 min): all 11 fixes; 34/34 engine tests after the lead patched the LibreOffice round-trip check to compare
+  tracked *text* (LibreOffice merges adjacent wrappers). Lead smoke: definitions found, sub-clauses are body text, dense changes grouped,
+  `libreoffice.ok = true`. `review-engine` r2 verification (Sol max) launched. dataset-eval r2 running (inline-clause split, hard-case gold, review CLI);
+  r3 brief staged (one-item-per-rule merge, `ambiguous`, apply `plans/06_gold_review.md`).
+
 ## Decisions
 - Stack: TypeScript monorepo (Next 16.3 + pure-TS OOXML engine + Anthropic TS SDK), one `pnpm` toolchain — chosen over Python for a
   single reproducible runtime and Vercel deploy. Vercel team `yadneshsalvis-projects` (Pro → 800 s functions).

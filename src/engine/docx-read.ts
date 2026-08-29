@@ -4,6 +4,8 @@ import JSZip from "jszip";
 
 import { buildDocumentModel } from "./model";
 import type { ParagraphInput } from "./model";
+import { resolveNumberingLabels } from "./docx-numbering";
+import { mapBodyParagraphs } from "./paragraph-map";
 import type { DocumentModel, RunSpan } from "./types";
 import {
   directChild,
@@ -19,12 +21,20 @@ function isInsideDeletedText(element: Element, paragraph: Element): boolean {
   return false;
 }
 
-function runText(run: Element): string {
+function belongsToParagraph(element: Element, paragraph: Element): boolean {
+  for (let parent = element.parentNode; parent; parent = parent.parentNode) {
+    if (parent.nodeType === 1 && (parent as Element).localName === "p") return parent === paragraph;
+  }
+  return false;
+}
+
+function runText(run: Element, paragraph: Element): string {
   let text = "";
   const visit = (node: Node): void => {
     for (let child = node.firstChild; child; child = child.nextSibling) {
       if (child.nodeType !== 1) continue;
       const element = child as Element;
+      if (element.localName === "p" && element !== paragraph) continue;
       if (element.localName === "del" || element.localName === "delText") continue;
       if (element.localName === "t") text += element.textContent ?? "";
       else if (element.localName === "tab" || element.localName === "br") text += " ";
@@ -45,8 +55,9 @@ function hasRunProperty(rPr: Element | undefined, name: string): boolean {
 function paragraphRuns(paragraph: Element): RunSpan[] {
   const runs: RunSpan[] = [];
   for (const run of elementsByLocalName(paragraph, "r")) {
+    if (!belongsToParagraph(run, paragraph)) continue;
     if (isInsideDeletedText(run, paragraph)) continue;
-    const text = runText(run);
+    const text = runText(run, paragraph);
     if (text.length === 0) continue;
     const rPr = directChild(run, "rPr");
     runs.push({
@@ -76,26 +87,27 @@ function styleMap(styles: Document | undefined): Map<string, string> {
   return stylesById;
 }
 
-function insertedParagraphId(paragraph: Element): string | undefined {
-  for (const bookmark of elementsByLocalName(paragraph, "bookmarkStart")) {
-    const name = wordAttribute(bookmark, "name");
-    const match = /^_PlaybookRedliner_(p\d{4})_(\d+)$/.exec(name ?? "");
-    if (match) return `${match[1]}.${match[2]}`;
-  }
-  return undefined;
-}
-
-function paragraphInput(paragraph: Element, styles: Map<string, string>): ParagraphInput {
+function paragraphInput(
+  paragraph: Element,
+  styles: Map<string, string>,
+  numbering: string | undefined,
+  insertedId?: string,
+): ParagraphInput {
   const runs = paragraphRuns(paragraph);
   const pPr = directChild(paragraph, "pPr");
   const pStyle = pPr ? directChild(pPr, "pStyle") : undefined;
   const styleId = pStyle ? wordAttribute(pStyle, "val") : undefined;
   const text = runs.map((run) => run.text).join("").replace(/\s+$/u, "");
+  const literalNumbering =
+    /^\(([a-zivxlcdm]+|\d+)\)\s+/i.exec(text)?.[0].trim() ??
+    /^(?:Section\s+)?(\d+(?:\.\d+)*)(?:[.)])?\s+/i.exec(text)?.[1] ??
+    /^ARTICLE\s+([IVXLCDM]+|\d+)\b/i.exec(text)?.[1];
   return {
     text,
     ...(styleId ? { style: styles.get(styleId) ?? styleId } : {}),
+    ...(literalNumbering || numbering ? { numbering: literalNumbering ?? numbering } : {}),
     ...(runs.length > 0 ? { runs } : {}),
-    ...(insertedParagraphId(paragraph) ? { insertedId: insertedParagraphId(paragraph) } : {}),
+    ...(insertedId ? { insertedId } : {}),
   };
 }
 
@@ -105,17 +117,21 @@ export async function parseDocx(bytes: Uint8Array, filename: string): Promise<Do
   const documentEntry = zip.file("word/document.xml");
   if (!documentEntry) throw new Error("Invalid DOCX: word/document.xml is missing");
 
-  const [documentXml, stylesXml] = await Promise.all([
+  const [documentXml, stylesXml, numberingXml] = await Promise.all([
     documentEntry.async("string"),
     zip.file("word/styles.xml")?.async("string"),
+    zip.file("word/numbering.xml")?.async("string"),
   ]);
   const document = parseXml(documentXml, "word/document.xml");
   const styles = stylesXml ? parseXml(stylesXml, "word/styles.xml") : undefined;
+  const numbering = numberingXml ? parseXml(numberingXml, "word/numbering.xml") : undefined;
   const body = elementsByLocalName(document, "body")[0];
   if (!body) throw new Error("Invalid DOCX: word/document.xml has no w:body");
   const stylesById = styleMap(styles);
-  const inputs = elementsByLocalName(body, "p").map((paragraph) =>
-    paragraphInput(paragraph, stylesById),
+  const mapped = mapBodyParagraphs(document);
+  const labels = resolveNumberingLabels(mapped.map(({ node }) => node), numbering);
+  const inputs = mapped.map(({ node, id, inserted }, index) =>
+    paragraphInput(node, stylesById, labels[index], inserted ? id : undefined),
   );
 
   return buildDocumentModel(inputs, {

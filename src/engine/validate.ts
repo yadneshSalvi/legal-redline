@@ -1,15 +1,10 @@
-import { execFile } from "node:child_process";
-import { constants } from "node:fs";
-import { access, mkdtemp, rm, writeFile } from "node:fs/promises";
-import { tmpdir } from "node:os";
-import { basename, join } from "node:path";
-import { promisify } from "node:util";
-
-import JSZip from "jszip";
-
 import { wordDiff } from "./diff";
+import { auditDocx, preservationStructures } from "./docx-audit";
+import type { DocxAudit, RevisionAudit } from "./docx-audit";
 import { parseDocx } from "./docx-read";
+import { validateWithLibreOffice } from "./libreoffice";
 import { insertedParagraphText } from "./redline-insert";
+import { isRfc3339DateTime } from "./revision-meta";
 import type {
   ApplyRequest,
   DocxValidationReport,
@@ -20,9 +15,7 @@ import type {
   RedlineOp,
   RunSpan,
 } from "./types";
-import { elementsByLocalName, OFFICE_REL_NS, parseXml, wordAttribute } from "./xml";
-
-const execFileAsync = promisify(execFile);
+import { sanitizeXmlText } from "./xml";
 
 function occurrences(text: string, anchor: string): number {
   if (anchor.length === 0) return 0;
@@ -32,7 +25,7 @@ function occurrences(text: string, anchor: string): number {
     const found = text.indexOf(anchor, offset);
     if (found < 0) break;
     count += 1;
-    offset = found + anchor.length;
+    offset = found + 1;
   }
   return count;
 }
@@ -139,107 +132,99 @@ function expectedText(paragraph: Paragraph, ops: RedlineOp[]): string {
     .map((op) => ({ op, start: paragraph.text.indexOf(op.oldText) }))
     .sort((left, right) => right.start - left.start);
   for (const { op, start } of replacements) {
-    result = result.slice(0, start) + op.newText + result.slice(start + op.oldText.length);
+    result =
+      result.slice(0, start) +
+      sanitizeXmlText(op.newText) +
+      result.slice(start + op.oldText.length);
   }
   return result;
 }
 
-async function partCounts(bytes: Uint8Array): Promise<{
-  insertions: number;
-  deletions: number;
-  comments: number;
-  commentStarts: number;
-  commentEnds: number;
-  commentReferences: number;
-  commentsConsistent: boolean;
-  commentsWired: boolean;
-}> {
-  const zip = await JSZip.loadAsync(bytes);
-  const documentXml = await zip.file("word/document.xml")?.async("string");
-  if (!documentXml) throw new Error("Invalid DOCX: word/document.xml is missing");
-  const document = parseXml(documentXml, "word/document.xml");
-  const commentsXml = await zip.file("word/comments.xml")?.async("string");
-  const commentElements = commentsXml
-    ? elementsByLocalName(parseXml(commentsXml, "word/comments.xml"), "comment")
-    : [];
-  const comments = commentElements.length;
-  const starts = elementsByLocalName(document, "commentRangeStart");
-  const ends = elementsByLocalName(document, "commentRangeEnd");
-  const references = elementsByLocalName(document, "commentReference");
-  const ids = (elements: Element[]): Set<string | undefined> =>
-    new Set(elements.map((element) => wordAttribute(element, "id")));
-  const definitionIds = ids(commentElements);
-  const startIds = ids(starts);
-  const endIds = ids(ends);
-  const referenceIds = ids(references);
-  const contentTypesXml = await zip.file("[Content_Types].xml")?.async("string");
-  const relsXml = await zip.file("word/_rels/document.xml.rels")?.async("string");
-  const contentTypeWired = contentTypesXml
-    ? elementsByLocalName(parseXml(contentTypesXml, "[Content_Types].xml"), "Override").some(
-        (element) => element.getAttribute("PartName") === "/word/comments.xml",
-      )
-    : false;
-  const relationshipWired = relsXml
-    ? elementsByLocalName(parseXml(relsXml, "document.xml.rels"), "Relationship").some(
-        (element) => element.getAttribute("Type") === `${OFFICE_REL_NS}/comments`,
-      )
-    : false;
-  return {
-    insertions: elementsByLocalName(document, "ins").length,
-    deletions: elementsByLocalName(document, "del").length,
-    comments,
-    commentStarts: starts.length,
-    commentEnds: ends.length,
-    commentReferences: references.length,
-    commentsConsistent: [...definitionIds].every(
-      (id) => id !== undefined && startIds.has(id) && endIds.has(id) && referenceIds.has(id),
-    ),
-    commentsWired: comments === 0 || (contentTypeWired && relationshipWired),
-  };
+function revisionKey(revision: RevisionAudit): string {
+  return `${revision.kind}:${revision.id ?? "<missing>"}`;
 }
 
-async function libreOfficeExecutable(): Promise<string | undefined> {
-  const macPath = "/Applications/LibreOffice.app/Contents/MacOS/soffice";
-  try {
-    await access(macPath, constants.X_OK);
-    return macPath;
-  } catch {
-    try {
-      await execFileAsync("soffice", ["--version"], { timeout: 5_000 });
-      return "soffice";
-    } catch {
-      return undefined;
+function exactCommentAnchor(audit: DocxAudit, id: string): boolean {
+  return (
+    audit.commentStarts.get(id) === 1 &&
+    audit.commentEnds.get(id) === 1 &&
+    audit.commentReferences.get(id) === 1
+  );
+}
+
+function validatePackageAudits(
+  original: DocxAudit,
+  redlined: DocxAudit,
+  req: ApplyRequest,
+  errors: string[],
+): void {
+  const ids = redlined.revisions.map((revision) => revision.id);
+  if (ids.some((id) => id === undefined || id === "")) {
+    errors.push("every w:ins, w:del, and comment must carry a w:id");
+  }
+  const duplicate = ids.find((id, index) => id !== undefined && ids.indexOf(id) !== index);
+  if (duplicate !== undefined) errors.push(`duplicate revision/comment w:id ${duplicate}`);
+
+  const originalByKey = new Map(original.revisions.map((revision) => [revisionKey(revision), revision]));
+  const redlinedByKey = new Map(redlined.revisions.map((revision) => [revisionKey(revision), revision]));
+  for (const prior of original.revisions) {
+    const preserved = redlinedByKey.get(revisionKey(prior));
+    if (!preserved) errors.push(`prior revision ${revisionKey(prior)} is missing`);
+    else if (preserved.content !== prior.content) {
+      errors.push(`prior revision ${revisionKey(prior)} content changed`);
+    } else if (preserved.author !== prior.author || preserved.date !== prior.date) {
+      errors.push(`prior revision ${revisionKey(prior)} metadata changed`);
     }
   }
-}
 
-async function validateWithLibreOffice(bytes: Uint8Array): Promise<{
-  attempted: boolean;
-  ok: boolean;
-  message?: string;
-}> {
-  const executable = await libreOfficeExecutable();
-  if (!executable) return { attempted: false, ok: false, message: "LibreOffice soffice was not found" };
-  const directory = await mkdtemp(join(tmpdir(), "playbook-redliner-"));
-  const input = join(directory, "redlined.docx");
-  try {
-    await writeFile(input, bytes);
-    const { stderr } = await execFileAsync(
-      executable,
-      ["--headless", "--convert-to", "pdf", "--outdir", directory, input],
-      { timeout: 30_000 },
-    );
-    const pdf = join(directory, `${basename(input, ".docx")}.pdf`);
-    await access(pdf, constants.R_OK);
-    return { attempted: true, ok: true, ...(stderr.trim() ? { message: stderr.trim() } : {}) };
-  } catch (error) {
-    return {
-      attempted: true,
-      ok: false,
-      message: error instanceof Error ? error.message : String(error),
-    };
-  } finally {
-    await rm(directory, { recursive: true, force: true });
+  const expectedAuthor = sanitizeXmlText(req.author);
+  for (const revision of redlined.revisions) {
+    if (originalByKey.has(revisionKey(revision))) continue;
+    if (revision.author !== expectedAuthor) {
+      errors.push(`new ${revision.kind} ${revision.id ?? "<missing>"} has author "${revision.author ?? ""}", expected "${expectedAuthor}"`);
+    }
+    if (!revision.date || !isRfc3339DateTime(revision.date)) {
+      errors.push(`new ${revision.kind} ${revision.id ?? "<missing>"} has a missing or invalid RFC 3339 date`);
+    } else if (req.date && revision.date !== req.date) {
+      errors.push(`new ${revision.kind} ${revision.id ?? "<missing>"} has date "${revision.date}", expected "${req.date}"`);
+    }
+  }
+
+  const expectedComments = original.comments + req.comments.length;
+  if (redlined.comments !== expectedComments) {
+    errors.push(`expected ${req.comments.length} new comments but found ${redlined.comments - original.comments}`);
+  }
+  const commentIds = redlined.revisions
+    .filter((revision) => revision.kind === "comment")
+    .map((revision) => revision.id ?? "");
+  for (const id of commentIds) {
+    if (!exactCommentAnchor(redlined, id)) {
+      errors.push(`comment ${id || "<missing>"} must have exactly one range start, range end, and reference`);
+    }
+  }
+  const definitionIds = new Set(commentIds);
+  for (const [kind, counts] of [
+    ["range start", redlined.commentStarts],
+    ["range end", redlined.commentEnds],
+    ["reference", redlined.commentReferences],
+  ] as const) {
+    for (const id of counts.keys()) {
+      if (!definitionIds.has(id)) errors.push(`orphan comment ${kind} for id ${id || "<missing>"}`);
+    }
+  }
+  if (req.comments.length > 0 && !redlined.commentsWired) {
+    errors.push("comments.xml is not wired through content types and document relationships");
+  }
+
+  const insertedParagraphs = req.ops.filter((op) => op.kind === "insert_after").length;
+  for (const name of preservationStructures()) {
+    const expected =
+      name === "bookmarkStart" || name === "bookmarkEnd"
+        ? original.structures[name] + insertedParagraphs
+        : original.structures[name];
+    if (redlined.structures[name] !== expected) {
+      errors.push(`structural change: ${name} count ${original.structures[name]} -> ${redlined.structures[name]} (expected ${expected})`);
+    }
   }
 }
 
@@ -274,8 +259,8 @@ export async function validateDocx(
     const [originalDoc, redlinedDoc, originalCounts, redlinedCounts] = await Promise.all([
       parseDocx(original, "original.docx"),
       parseDocx(redlined, "redlined.docx"),
-      partCounts(original),
-      partCounts(redlined),
+      auditDocx(original),
+      auditDocx(redlined),
     ]);
     parsedParagraphs = redlinedDoc.paragraphs.length;
     trackedInsertions = redlinedCounts.insertions;
@@ -287,7 +272,11 @@ export async function validateDocx(
     }
     for (const comment of req.comments) {
       const validation = validateComment(originalDoc, comment);
-      if (!validation.ok) errors.push(`invalid requested comment: ${validation.error}`);
+      const canFallback =
+        comment.anchorText !== undefined &&
+        comment.anchorText.length > 0 &&
+        (validation.occurrences === 0 || (validation.occurrences ?? 0) > 1);
+      if (!validation.ok && !canFallback) errors.push(`invalid requested comment: ${validation.error}`);
     }
     const targets = new Set(req.ops.map((op) => op.paragraphId));
     const redlinedById = new Map(redlinedDoc.paragraphs.map((paragraph) => [paragraph.id, paragraph]));
@@ -311,12 +300,21 @@ export async function validateDocx(
     }
 
     const insertionOrdinal = new Map<string, number>();
+    for (const paragraph of originalDoc.paragraphs) {
+      const match = /^(.*)\.(\d+)$/.exec(paragraph.id);
+      if (match) {
+        insertionOrdinal.set(
+          match[1],
+          Math.max(insertionOrdinal.get(match[1]) ?? 0, Number(match[2])),
+        );
+      }
+    }
     for (const op of req.ops) {
       if (op.kind !== "insert_after") continue;
       const ordinal = (insertionOrdinal.get(op.paragraphId) ?? 0) + 1;
       insertionOrdinal.set(op.paragraphId, ordinal);
       const inserted = redlinedById.get(`${op.paragraphId}.${ordinal}`);
-      const expected = insertedParagraphText(op);
+      const expected = sanitizeXmlText(insertedParagraphText(op));
       if (!inserted) errors.push(`inserted paragraph ${op.paragraphId}.${ordinal} is missing`);
       else if (inserted.text !== expected) errors.push(`inserted paragraph ${inserted.id} text does not match the request`);
     }
@@ -328,22 +326,7 @@ export async function validateDocx(
     if (required.deletion && redlinedCounts.deletions <= originalCounts.deletions) {
       errors.push("no new w:del elements were found for deletion operations");
     }
-    if (redlinedCounts.comments < originalCounts.comments + req.comments.length) {
-      errors.push(`expected ${req.comments.length} new comments but found ${redlinedCounts.comments - originalCounts.comments}`);
-    }
-    if (
-      redlinedCounts.commentStarts < originalCounts.commentStarts + req.comments.length ||
-      redlinedCounts.commentEnds < originalCounts.commentEnds + req.comments.length ||
-      redlinedCounts.commentReferences < originalCounts.commentReferences + req.comments.length
-    ) {
-      errors.push("one or more comments are missing a range start, range end, or reference");
-    }
-    if (req.comments.length > 0 && !redlinedCounts.commentsWired) {
-      errors.push("comments.xml is not wired through content types and document relationships");
-    }
-    if (req.comments.length > 0 && !redlinedCounts.commentsConsistent) {
-      errors.push("one or more comment ids are not connected to matching ranges and references");
-    }
+    validatePackageAudits(originalCounts, redlinedCounts, req, errors);
     if (collateralParagraphIds.length > 0) {
       errors.push(`collateral paragraph changes: ${collateralParagraphIds.join(", ")}`);
     }
