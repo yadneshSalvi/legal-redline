@@ -1,35 +1,64 @@
 [
   {
-    "confidence": 0.83,
-    "costUsd": 0.333483,
-    "durationMs": 95240,
-    "id": "f-ip-e046001f",
+    "confidence": 0.85,
+    "costUsd": 0.8531205,
+    "durationMs": 296413,
+    "id": "f-indemn-ac175751",
+    "paragraphIds": [
+      "p0087",
+      "p0090",
+      "p0091",
+      "p0092",
+      "p0093",
+      "p0105"
+    ],
+    "producedBy": "drafter",
+    "quote": "hold it harmless from any and all losses, damages and expenses including without limitation, court costs, arbitration fees, penalties, fines, amounts paid in settlement of claims and reasonable legal fees and expenses of investigation (collectively the \"Losses\") which Sparkling or any of its respective officers or directors may incur due to a breach of this warranty. Sparkling shall notify Garman in writing of any such claim within ten calendar days of a responsible officer of Sparkling becoming aware of such claim. If the Work or any portion thereof is held to constitute an infringement",
+    "rationale": "Section 13 (headed \"13. INTELLECTUAL PROPERTY INDEMNITY\", continuing at p0090-p0093) contains a genuine Vendor-side IP infringement indemnity running from Garman to us, so the rule is satisfied at the fallback and we do not redline. Its three limbs are: (i) \"Garman represents and warrants that it owns or controls all rights necessary to grant the rights to Sparkling\" and that no lien, encumbrance, security interest or other third-party right against the Work will interfere with our rights; (ii) \"Garman agrees to indemnify Sparkling and hold it harmless\" from all Losses - expressly including court costs, arbitration fees, amounts paid in settlement of claims and reasonable legal fees and expenses of investigation - incurred by us or our officers and directors from breach of that warranty (so third-party IP claims and the cost of resisting them are covered); and (iii) the customary infringement remedies, triggered where \"the Work or any portion thereof is held to constitute an infringement of another Person's rights\", requiring Garman at its own election and expense to procure the right to use the infringing element, procure a functionally equivalent element, or replace/modify so the infringing portion no longer infringes (p0091-p0093). The indemnity is framed as an indemnity for breach of the IP ownership/non-infringement warranty rather than in the model words \"infringe or misappropriate\"; that is a phrasing difference, not an absence of the obligation, and a single quotation cannot span both the \"indemnify\" verb and the \"infringement\" trigger because the ten-day notice sentence sits between them (about 617 characters apart), hence the quote above captures the hold-harmless covenant together with the infringement trigger. There is no reciprocal, one-way or any other Sparkling indemnity in the agreement (searches for \"indemn\" and \"harmless\" return only this clause), and Section 15 provides that the damages limitation \"shall not apply to breaches of Sections 13 and 14\", so the Vendor indemnity is uncapped - better than the fallback's 3x annual fees super-cap and far from walk-away territory. Flagging would over-flag an acceptable fallback. Noted as sub-elements short of preferred, not deviations: no express duty to defend or control the defence, no refund remedy, no extension to Vendor's breach of law, Vendor-caused unauthorised access to Customer Data or gross negligence/wilful misconduct, and a ten calendar day notice period tighter than our usual \"prompt notice\" standard.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-13",
+    "sectionRef": "§ 13 INTELLECTUAL PROPERTY INDEMNITY",
+    "severity": "critical",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 3,
+      "checks": [
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": false
+        }
+      ],
+      "notes": "vendor indemnity for IP infringement present: failed The cited Section 13 contains a genuine Vendor-side (Garman) indemnity — 'Garman agrees to indemnify Sparkling and hold it harmless from any and all losses, damages and expenses ... due to a breach of this warranty' — tied to the IP ownership/non-interference warranty, plus the customary infringement remedies (procure right, procure equivalent, replace/modify), so the clause meets the fallback position on its material terms. No one-way or reciprocal Customer indemnity exists, and Section 15 expressly disapplies the damages limitation to breaches of Section 13, leaving the Vendor indemnity uncapped — better than the fallback's 3x super-cap and not walk-away territory. Consistent with a compliant finding, no redline was proposed (redline is identical to the original) and no counterparty comment was raised; the noted gaps (no express duty to defend/control, no refund remedy, no breach-of-law/data-breach/gross-negligence limbs, ten-day notice) are correctly characterised as sub-elements short of preferred rather than material deviations. The failed deterministic regex ('vendor indemnity for IP infringement present') is a phrasing artefact: the indemnity verb and the infringement trigger are separated by the notice sentence, and the rationale explains this accurately; the substance of the obligation is present in the cited text.",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.32320725,
+    "durationMs": 98095,
+    "id": "f-ip-2809cabd",
     "paragraphIds": [
       "p0088",
-      "p0042"
+      "p0042",
+      "p0028"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] We have limited Garman's ownership to its pre-existing Software and Documentation, so that the Modifications and other work product we commission and pay for vest in us (with a perpetual licence back to any Garman IP embedded in them), and we have confirmed that we retain all rights in our data, including data converted under Section 4. Our playbook position is that we own what we fund and everything we put in, with no assignment of our IP or data to the vendor and no joint ownership; if Garman must retain title to modifications of its own code, we can accept a perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense the Modifications for our business instead of the assignment.",
+      "comment": "[Playbook] Section 13 gives Garman ownership of the Work including the Modifications we fund, and the Agreement says nothing about our own data, so we have added a short carve-out confirming we retain all rights in our data and pre-existing IP and that our licence extends to Improvements and Modifications. Our playbook requires that we keep ownership of Customer Data and receive a perpetual, royalty-free licence to anything created for us; we are content for Garman to retain ownership of its underlying software.",
       "level": "preferred",
       "ops": [
         {
-          "kind": "replace",
-          "newText": "Garman is the owner of all intellectual property rights in the Work as it exists independently of this Agreement, including all related materials, logos, and names provided pursuant to the terms of this Agreement. Except as expressly provided in this Agreement, no title to the intellectual property in the Work is transferred to Sparkling by this Agreement.",
-          "oldText": "Garman is the owner of all intellectual property rights in the Work (including any Improvements or Modifications thereto), including all related materials, logos, and names provided pursuant to the terms of this Agreement. No title to the intellectual property in the Work is transferred to Sparkling by this Agreement.",
-          "paragraphId": "p0088"
-        },
-        {
           "kind": "insert_after",
           "paragraphId": "p0088",
-          "text": "Sparkling is and shall remain the owner of all intellectual property rights in the Modifications and any other work product developed specifically for Sparkling and paid for by Sparkling under this Agreement (collectively, the \"Sparkling Deliverables\"), and Garman hereby assigns to Sparkling all right, title and interest in the Sparkling Deliverables. To the extent any intellectual property of Garman existing independently of this Agreement is embedded in the Sparkling Deliverables, Garman grants Sparkling a perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense such intellectual property as part of the Sparkling Deliverables. Sparkling retains all right, title and interest in Sparkling's data, including data converted pursuant to Section 4, and Garman acquires no rights in such data. No intellectual property is jointly owned under this Agreement."
+          "text": "Notwithstanding the foregoing, Sparkling retains all right, title and interest in and to its data (including data converted pursuant to Section 4) and its pre-existing intellectual property, and nothing in this Agreement assigns or transfers to Garman any ownership of, or licence to use (other than as necessary to perform Garman's obligations hereunder), Sparkling's data or intellectual property. The licence granted in Section 2 extends to all Improvements and Modifications and, subject to Section 17(a), is perpetual, irrevocable and royalty-free."
         }
       ],
       "precedentId": "seed-ip",
-      "summary": "Limit Garman's ownership to its pre-existing Work, give Sparkling ownership of paid-for Modifications with a licence back to embedded Garman IP, and confirm Sparkling owns its data."
+      "summary": "Add Sparkling data/IP ownership carve-out to Section 13 and confirm the Section 2 licence extends to Improvements and Modifications"
     },
     "quote": "Garman is the owner of all intellectual property rights in the Work (including any Improvements or Modifications thereto), including all related materials, logos, and names provided pursuant to the terms of this Agreement. No title to the intellectual property in the Work is transferred to Sparkling by this Agreement.",
-    "rationale": "Section 13 gives Garman ownership of all IP in the Work \"including any Improvements or Modifications thereto\" — i.e. the bespoke Modifications (Schedule \"D\") that Sparkling commissions and pays for — with no licence back beyond the narrow, non-transferable use licence in Section 2. The Agreement contains no ownership provision for Sparkling's data at all, even though Section 4(b) has Garman converting Sparkling's data. That breaches the playbook position that we own what we pay for and retain all rights in our data. Garman's ownership of its pre-existing platform is acceptable, so the redline preserves that while vesting the paid-for Modifications in Sparkling (with a perpetual, irrevocable, royalty-free licence back to any embedded Garman IP), confirming Sparkling's ownership of its data (including converted data), and excluding joint ownership.",
+    "rationale": "Section 13 vests ownership of the whole Work in Garman, expressly including the \"Modifications\" set out in Schedule \"D\" — i.e. the bespoke work we commission and pay for — and states that no title passes to us. The only counterbalance is the narrow Section 2 licence to use the Software and Documentation at Authorized Locations, which does not on its face extend to Improvements or Modifications and carries no modify/sublicence rights (Section 3(c)-(d)). The Agreement is also silent on ownership of our data: Section 4(b) has Garman converting \"Sparkling's data\" and Section 14 treats it only as mutual Confidential Information, with no statement that we retain all rights in it. That falls short of both the preferred position (we own what is created for us; Vendor IP embedded in deliverables is licensed back perpetually) and the fallback (perpetual, irrevocable, royalty-free licence to deliverables), so it is a material deviation on a critical rule. We have not disturbed Garman's ownership of its underlying software, which the playbook accepts; the minimal edit adds a carve-out confirming we retain all rights in our data and pre-existing IP and that our (already perpetual, per Section 17(a)) licence covers Improvements and Modifications.",
     "ruleId": "IP",
     "ruleTitle": "Ownership of deliverables and Customer Data",
     "sectionId": "sec-13",
@@ -44,54 +73,45 @@
           "ok": true
         },
         {
-          "name": "operation 2 applies",
-          "ok": true
-        },
-        {
           "name": "no assignment of Customer Data/IP to Vendor remains",
-          "ok": true
-        },
-        {
-          "detail": "changed-character ratio=0.304 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0088",
           "ok": true
         }
       ],
-      "notes": "Correctly identified deviation: p0088 vests all IP in the Work, expressly including Improvements/Modifications that the Customer commissions and pays for under Schedule \"D\", with no licence back and no Customer Data ownership provision — squarely against the IP rule. Redline is directionally right and complete against the rule: it narrows Vendor ownership to pre-existing IP, assigns the paid-for Modifications/work product to Sparkling, adds a perpetual, irrevocable, worldwide, royalty-free licence back for embedded Garman IP, adds a Customer Data ownership sentence (expressly covering data converted under Section 4(b)), and excludes joint ownership. Vendor's ownership of its own platform is preserved ('as it exists independently of this Agreement'), so the edit is no broader than the rule requires; the 0.304 changed-character ratio reflects a rule-mandated reversal of ownership direction rather than gratuitous rewriting, and the added 'Except as expressly provided in this Agreement' carve-out is needed to reconcile the no-transfer sentence with the new assignment. Comment is accurate, concise, in the required voice and prefix, states what changed and why, and offers the playbook fallback (perpetual licence in lieu of assignment) if Garman must retain title to modifications of its own code; the only imprecision is describing the pre-existing IP as 'Software and Documentation' where the clause says 'Work', which does not mislead.",
+      "notes": "Classification is correct: Section 13 vests ownership of the whole Work — expressly including the Modifications Sparkling commissions under Schedule 'D' — in Garman with no title passing to us, and the only licence (Section 2) is a non-transferable, non-exclusive right to use Software/Documentation at Authorized Locations, with no modify/sublicence rights and no express coverage of Improvements or Modifications. That fails the fallback (perpetual, irrevocable, royalty-free licence to use, modify and sublicense deliverables), so this is a genuine deviation, not an over-flag of an acceptable fallback. The Customer Data gap is real and material: Section 4(b) only describes conversion of 'Sparkling's data' and Section 14 treats it as mutual Confidential Information; there is no statement that we retain all rights in our data, as the rule requires. The redline is directionally correct and minimal: it leaves Garman's ownership of its underlying software intact (which the playbook accepts), adds the required Customer Data / pre-existing IP retention sentence, and extends the Section 2 licence to Improvements and Modifications on a perpetual, irrevocable, royalty-free basis. Deterministic checks confirm no assignment of Customer data/IP to the Vendor remains. Comment is accurate, correctly cites the playbook position (Customer Data ownership plus perpetual royalty-free licence), concedes Vendor platform ownership, and matches tone requirements. Minor gaps worth noting but not disqualifying: the added licence language does not expressly add 'modify and sublicense' or worldwide scope, so the clause still sits below the stated fallback wording; and 'subject to Section 17(a), is perpetual, irrevocable' risks reading as subordinating perpetuity to termination — consider tightening both if negotiating capital allows.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.82,
-    "costUsd": 0.27108125,
-    "durationMs": 76649,
-    "id": "f-lol-cap-765e9607",
+    "confidence": 0.83,
+    "costUsd": 0.21907125,
+    "durationMs": 63590,
+    "id": "f-lol-cap-a5ba2d39",
     "paragraphIds": [
       "p0105"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] Section 15 excludes indirect damages but sets no monetary cap, so direct-damages exposure is unlimited for both parties; our position is a mutual cap at the greater of twelve months' fees and USD 1,000,000. We have kept indemnification, confidentiality, data protection/security, gross negligence, wilful misconduct, fraud and IP infringement (including Sections 13 and 14) outside the cap, and confirmed that Sparkling's fee payments are not \"damages\"; a straight twelve months' fees cap is an acceptable fallback.",
+      "comment": "[Playbook] Section 15 excludes indirect damages but sets no monetary cap, so both parties' direct liability is open-ended; we have added our standard mutual cap at the greater of twelve months' fees and USD 1,000,000. Indemnification, confidentiality/data protection, gross negligence, wilful misconduct, fraud and IP infringement remain outside the cap, and Sparkling's payment obligations are not treated as capped damages; a straight twelve months' fees cap is our fallback.",
       "level": "preferred",
       "ops": [
         {
           "kind": "replace",
-          "newText": "Except for Excluded Claims, each party's total aggregate liability arising out of or relating to this Agreement shall not exceed the greater of (a) the fees paid or payable by Sparkling under this Agreement in the twelve (12) months immediately preceding the event giving rise to the claim and (b) USD 1,000,000. \"Excluded Claims\" means breaches of Sections 13 and 14, a party's breach of its confidentiality, data protection or security obligations, its indemnification obligations, its gross negligence, wilful misconduct or fraud, and its infringement of the other party's intellectual property rights, and the limitations and exclusions of liability in this Section 15 shall not apply to Excluded Claims. Sparkling's obligation to pay fees properly due under this Agreement shall not be treated as damages subject to the cap in this Section 15.",
+          "newText": "Except for Excluded Claims, each party's total aggregate liability arising out of or relating to this Agreement shall not exceed the greater of (a) the fees paid or payable by Sparkling under this Agreement in the twelve (12) months immediately preceding the event giving rise to the claim and (b) USD 1,000,000. \"Excluded Claims\" means a party's breach of its confidentiality, data protection or security obligations, its indemnification obligations, its gross negligence, wilful misconduct or fraud, and its infringement of the other party's intellectual property rights; and Sparkling's obligation to pay fees due under this Agreement shall not be treated as damages for the purposes of this cap. The limitation of liability in this Section 15 shall not apply to breaches of Sections 13 and 14.",
           "oldText": "The limitation of liability in this Section 15 shall not apply to breaches of Sections 13 and 14.",
           "paragraphId": "p0105"
         }
       ],
       "precedentId": "seed-lol-2",
-      "summary": "Add a mutual monetary liability cap (greater of 12 months' fees and USD 1,000,000) with uncapped Excluded Claims and payment obligations excluded from the cap."
+      "summary": "Add a mutual monetary liability cap with uncapped Excluded Claims to Section 15"
     },
     "quote": "The exclusive remedy of either party in a claim against the other under this Agreement shall be the recovery of its direct damages. In no event shall either party be liable to the other for the recovery of any special, indirect or consequential damages even if the defendant party had been advised of the possibility of such damages including but not limited to lost profits, lost revenues, failure to realize expected savings, loss of data and loss of use.",
-    "rationale": "Section 15 contains a mutual exclusion of indirect/consequential damages and already carves Sections 13 (IP ownership/indemnity, see p0090) and 14 (confidentiality) out of the limitation, but it contains no monetary aggregate cap at all. Direct-damages exposure is therefore unlimited for both parties, including for Sparkling as customer, which fails the playbook requirement of a meaningful mutual cap. The redline inserts a mutual cap at the greater of twelve months' fees paid or payable by Sparkling and USD 1,000,000, defines Excluded Claims (retaining Sections 13 and 14 and adding data protection/security, indemnification, gross negligence, wilful misconduct, fraud and IP infringement) as uncapped, and confirms Sparkling's fee obligations are not \"damages\" for cap purposes.",
+    "rationale": "Section 15 is the only liability provision in the agreement (Sections 12 and 13 contain no cap language, and there is no \"aggregate liability\" wording elsewhere). It is mutual and mutually excludes indirect/consequential damages, and it carves out Sections 13 (IP) and 14 (confidentiality), but it contains no monetary cap at all — direct damages are open-ended for both parties, including for Sparkling. That fails the fallback, which requires a mutual cap of twelve months' fees. We therefore added the preferred mutual cap (greater of twelve months' fees paid or payable and USD 1,000,000) with uncapped Excluded Claims (indemnification, confidentiality/data protection/security, gross negligence, wilful misconduct, fraud, IP infringement) and confirmed that Sparkling's fee payment obligations are not capped damages, retaining the existing Section 13/14 carve-out. Note that \"fees\" is not a defined term but is set by the Fee Schedule (Section 11), so the cap basis is the full licence and maintenance fee stream rather than an illusory set-up fee.",
     "ruleId": "LOL-CAP",
     "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
     "sectionId": "sec-15",
     "sectionRef": "§ 15 LIMITATION OF GARMAN'S LIABILITY",
     "severity": "critical",
-    "status": "missing",
+    "status": "deviation",
     "verification": {
       "attempts": 1,
       "checks": [
@@ -108,19 +128,19 @@
           "ok": true
         },
         {
-          "detail": "changed-character ratio=0.914 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "detail": "changed-character ratio=0.878 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
           "name": "minimal edit p0105",
           "ok": false
         }
       ],
-      "notes": "The claimed gap is real: p0105 caps nothing monetarily — it only limits remedies to direct damages and excludes indirect/consequential damages — so direct exposure is unlimited for both parties, which fails LOL-CAP's requirement of a meaningful mutual cap. The redline reaches the preferred position: mutual aggregate cap at the greater of 12 months' fees paid or payable by the customer and USD 1,000,000, a defined 'Excluded Claims' set covering confidentiality, data protection/security, indemnification, gross negligence, wilful misconduct, fraud and IP infringement, plus confirmation that the customer's fee obligations are not 'damages'. The pre-existing carve-out for Sections 13 and 14 is preserved inside the Excluded Claims definition rather than dropped, so no counterparty-favourable regression is introduced and the direction of the edit is correct for the customer. Edit is additive to the existing sentences (first three sentences untouched); the failed 'minimal edit' heuristic reflects the necessary insertion of a cap and carve-out definition where none existed, which the rule expressly requires. Comment is accurate, cites the playbook position, notes indemnities/confidentiality sit outside the cap and offers the 12-months-fees fallback, in the required tone and with the correct prefix.",
+      "notes": "The cited Section 15 contains only an exclusive-remedy/consequential-damages exclusion and a Sections 13/14 carve-out — there is no monetary cap, so it fails the fallback's requirement of a mutual cap of twelve months' fees (and leaves Customer's direct liability open-ended), making the deviation classification correct rather than over-flagging an acceptable fallback. The redline edits the existing paragraph rather than rewriting the section: it inserts the model mutual cap (greater of 12 months' fees paid or payable and USD 1,000,000), the Excluded Claims carve-out set (confidentiality/data protection/security, indemnities, gross negligence, wilful misconduct, fraud, IP infringement), and the payment-obligations-are-not-damages clarification, while preserving the pre-existing Section 13/14 carve-out and the mutual indirect-damages exclusion. Directionality is correct for the Customer side: the cap is mutual and the fee basis is the licence/maintenance fee stream (not an illusory set-up fee), and no unlimited-Customer-liability language remains. The failed minimal-edit heuristic is explained by the necessary insertion of two substantive sentences into a short paragraph; the underlying original wording is left intact, so the edit is still the smallest that reaches the playbook position. The comment is accurate, concise, in the required voice, states the playbook position and offers the straight 12-months'-fees fallback.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.9,
-    "costUsd": 0.209503,
-    "durationMs": 64122,
+    "confidence": 0.88,
+    "costUsd": 0.199174,
+    "durationMs": 56588,
     "id": "f-assign-790f011c",
     "paragraphIds": [
       "p0142",
@@ -128,27 +148,27 @@
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] We added the customary carve-out allowing us to assign to an affiliate or to a successor in a merger, acquisition or sale of substantially all assets without consent, confirmed no Garman right arises on our change of control, and made consent for other assignments subject to a reasonableness standard with no assignment by Garman to our competitors. As a fallback we can accept mutual assignment to successors on written notice with consent for other assignments not unreasonably withheld.",
+      "comment": "[Playbook] We added customary affiliate and transaction successor rights so an internal reorganisation or M&A deal does not require Garman's consent, and made consent for other assignments subject to a reasonableness standard with no assignment to our competitors. We also conformed Section 3(c) to this carve-out.",
       "level": "preferred",
       "ops": [
         {
           "kind": "replace",
-          "newText": "(d) Except as expressly permitted below, neither party may assign this Agreement or any rights and obligations under this Agreement to any third party without the written consent of the other party, which consent shall not be unreasonably withheld or delayed. Sparkling may assign this Agreement, without the consent of Garman, to an affiliate of Sparkling or to a successor in a merger, acquisition, reorganization or sale of all or substantially all of its assets or shares, and no such transaction or change of control of Sparkling shall constitute a breach of this Agreement or entitle Garman to terminate, suspend or re-price this Agreement. Garman may not assign this Agreement to a competitor of Sparkling.",
+          "newText": "(d) Sparkling may assign this Agreement, in whole or in part, without the consent of Garman to an affiliate or to a successor in a merger, acquisition, reorganization or sale of all or substantially all of its assets or of the business to which this Agreement relates, upon written notice to Garman. Garman may not assign this Agreement or any rights or obligations under this Agreement without the prior written consent of Sparkling, which shall not be unreasonably withheld, and in no event to a competitor of Sparkling. Except as set out above, neither party may assign this Agreement or any rights and obligations under this Agreement to any third party without the written consent of the other party, which shall not be unreasonably withheld. No change of control of Sparkling shall give Garman any right to terminate, suspend or re-price this Agreement.",
           "oldText": "(d) Neither party may assign this Agreement or any rights and obligations under this Agreement to any third party without the written consent of the other party.",
           "paragraphId": "p0142"
         },
         {
           "kind": "replace",
-          "newText": "except as permitted by Section 20(d) or as and when authorized to do so by Garman in writing;",
-          "oldText": "except as and when authorized to do so by Garman in writing;",
+          "newText": "(c) except as permitted by Section 20(d), not assign this Agreement or transfer",
+          "oldText": "(c) not assign this Agreement or transfer",
           "paragraphId": "p0033"
         }
       ],
       "precedentId": "seed-assign",
-      "summary": "Add affiliate/successor assignment carve-out for Sparkling, reasonableness standard on consent, no competitor assignment by Garman, and no Garman right arising on our change of control"
+      "summary": "Add affiliate/successor assignment carve-out for Sparkling and a reasonableness standard on Garman assignments"
     },
     "quote": "(d) Neither party may assign this Agreement or any rights and obligations under this Agreement to any third party without the written consent of the other party.",
-    "rationale": "Section 20(d) imposes a blanket assignment prohibition on both parties with no affiliate or M&A successor carve-out for us and no reasonableness standard on consent — the playbook walk-away position. Section 3(c) compounds this by separately barring Sparkling from assigning absent Garman's written consent, and Section 2 grants only a \"non-transferable\" licence. There is no change-of-control termination or re-pricing right elsewhere (Section 17 has no such trigger), so the fix is to add the affiliate/successor carve-out for us, a reasonableness standard for other assignments, a bar on Garman assigning to our competitors, and express confirmation that our change of control gives Garman no termination, suspension or re-pricing right. Section 3(c) is conformed by cross-reference.",
+    "rationale": "Section 20(d) is a blanket bar on assignment by either party absent the other's written consent, with no affiliate or M&A successor carve-out for Sparkling and no reasonableness standard on consent; Section 3(c) reinforces this one-sidedly against Sparkling (and the licence itself is \"non-transferable\" under Section 2). That fails even the fallback (successor assignment on written notice, consent not unreasonably withheld) and sits in walk-away territory for a customer M&A event. Termination triggers in Section 17 contain no change-of-control right for Garman, which is acceptable; the redline preserves that by stating expressly that our change of control gives Garman no termination or re-pricing right, and adds the affiliate/successor carve-out plus a reasonableness standard and no-competitor limit on Garman assignments.",
     "ruleId": "ASSIGN",
     "ruleTitle": "Assignment and change of control",
     "sectionId": "sec-p0137",
@@ -171,34 +191,33 @@
           "ok": true
         },
         {
-          "detail": "changed-character ratio=0.777 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "detail": "changed-character ratio=0.815 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
           "name": "minimal edit p0142",
           "ok": false
         },
         {
-          "detail": "changed-character ratio=0.355 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "detail": "changed-character ratio=0.481 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
           "name": "minimal edit p0033",
           "ok": true
         }
       ],
-      "notes": "Party roles are correct: Sparkling is the licensee/customer (Section 3(c) obligations run to Garman as licensor), and the edit expands Sparkling's rights while constraining Garman's — directionally right for our side. The redline reaches the preferred position in full: affiliate/M&A successor carve-out without consent, express confirmation that our change of control gives Garman no termination, suspension or re-pricing right, a reasonableness standard on other consents, and a bar on Garman assigning to our competitors. The p0142 changed-character ratio (0.777) is advisory only — the original was a single short blanket-prohibition sentence, its operative language is preserved verbatim, and the added content is exactly what the rule requires, so the growth is inherent rather than over-drafting. The p0033 conforming cross-reference to Section 20(d) is a minimal, coherent fix that prevents the licence covenant from re-imposing the prohibition the main edit removes. The comment is accurate on what changed and why, cites the playbook position, offers the fallback (mutual assignment to successors on notice with reasonableness), and uses the required prefix and concise first-person-plural tone.",
+      "notes": "The cited clause (s.20(d)) is a flat mutual consent requirement with no affiliate or M&A successor carve-out and no reasonableness standard, so it fails the fallback (successor assignment on notice; consent not unreasonably withheld) and sits in the rule's walk-away zone for a Customer M&A event — 'deviation' is the correct classification. The redline implements the preferred position directionally in our favour: unilateral Customer right to assign to affiliates/successors on notice, Vendor assignment only with our consent (not unreasonably withheld) and never to a competitor, residual mutual consent softened by a reasonableness standard, and an express no-termination/no-re-pricing statement on Customer change of control, per the redline guidance. The conforming edit to s.3(c) ('except as permitted by Section 20(d)') is necessary because that covenant otherwise re-imposes the bar on Customer assignment; it is narrowly drawn. The failed 'minimal edit p0142' check (ratio 0.815) is acceptable here: the original single sentence had to be restructured into asymmetric assignment rights, which cannot be achieved by insertion alone. Comment is accurate, concise and in the required voice, though it does not expressly mention the added change-of-control sentence; the rationale correctly notes Section 17 contains no Vendor change-of-control trigger, so that sentence is confirmatory rather than a duplicate flag — a minor drafting-scope point, not a defect.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.87,
-    "costUsd": 0.142089,
-    "durationMs": 39341,
-    "id": "f-exclusivity-a892c356",
+    "confidence": 0.9,
+    "costUsd": 0.124639,
+    "durationMs": 35331,
+    "id": "f-exclusivity-ebd1e6b1",
     "paragraphIds": [
       "p0028",
       "p0030",
-      "p0065",
-      "p0084"
+      "p0035"
     ],
     "producedBy": "drafter",
     "quote": "Garman hereby grants to Sparkling, for the use of Sparkling and affiliated companies of Sparkling operating at Authorized Locations, a non-transferable and non-exclusive licence to use: (i) the Software, safely in executable object code format, at each AS400 at each of the Authorized Locations; and (ii) the Documentation.",
-    "rationale": "We reviewed the licence grant (§2), the restrictions on Sparkling's use (§3), maintenance and support (§10, including the Software Repair Service provisions) and fees (§11), and searched the whole agreement for \"exclusive\", \"sole\", \"requirements\", \"third part\" and \"compet\". The only uses of \"exclusive\" are (i) the non-exclusive licence grant to Sparkling in §2, (ii) the perpetual non-exclusive escrow-code licence to Sparkling (p0115), (iii) the exclusive-remedy provision in §15 and (iv) non-exclusive jurisdiction in the governing law clause — none of which is an exclusive-dealing or sole-supplier commitment. Section 3 imposes only software-use restrictions and contains no bar on procuring competing products or services from third parties, and nothing obliges Sparkling to source maintenance, improvements or future modules solely from Garman. Sparkling therefore retains full freedom to buy from other suppliers, which matches the preferred position; no redline is required (adding an affirmative non-exclusivity statement would be an unnecessary edit).",
+    "rationale": "The Agreement imposes no exclusivity or sole-supplier obligation on Sparkling. The only uses of \"exclusive\" are the non-exclusive licence grants (§ 2 and the escrow licence in § 16), the exclusive-remedy provision in § 15 and the non-exclusive jurisdiction clause — none restricts our freedom to source software, maintenance or related services elsewhere. The restrictions in § 3 are ordinary licence-scope limits (no copying, reverse engineering, sublicensing) and contain no requirements-purchase or \"shall not procure from any third party\" covenant, and § 10 maintenance/§ 11 fees do not make Garman our sole provider. Searches for \"sole\", \"requirements from\", \"competing\" and \"third party\" returned nothing of that character. This meets the preferred position (no exclusivity binding Customer), so no redline is required.",
     "ruleId": "EXCLUSIVITY",
     "ruleTitle": "Exclusivity obligations binding Customer",
     "sectionId": "sec-2",
@@ -213,186 +232,49 @@
           "ok": true
         }
       ],
-      "notes": "Claimed status is compliant and the cited text supports it: the only 'exclusive' usage in the quoted grant (p0028) is a non-transferable, non-exclusive licence in Customer's favour, which is not an exclusive-dealing or sole-supplier obligation. No redline or counterparty comment is proposed, which is the correct outcome for a compliant finding; the original and rendered paragraphs are identical, so no unnecessary or directionally wrong edit was introduced. The deterministic check confirms no requirements/sole-supplier obligation on Customer remains, consistent with the rationale's search across 'exclusive', 'sole', 'requirements', 'third part' and 'compet'. Rationale correctly distinguishes non-substantive uses of 'exclusive' (exclusive remedy in §15, non-exclusive jurisdiction, escrow licence) from exclusivity obligations binding Customer, matching the rule's detection guidance.",
-      "verdict": "pass"
-    }
-  },
-  {
-    "confidence": 0.82,
-    "costUsd": 0.3015925,
-    "durationMs": 99057,
-    "id": "f-indemn-7e042c0a",
-    "paragraphIds": [
-      "p0087",
-      "p0090",
-      "p0093"
-    ],
-    "producedBy": "drafter",
-    "proposal": {
-      "comment": "[Playbook] Section 13 gives us a hold-harmless for breach of the IP warranty but no duty to defend, no cover for our affiliates, no claim-handling procedure, and nothing for Garman's own breach of law, data breaches or wilful misconduct. We have added those items and clarified that a late notice only cuts back the indemnity to the extent Garman is materially prejudiced; if Garman prefers, we can accept the indemnity being subject to a super-cap of 3x annual fees instead of the current Section 15 carve-out.",
-      "level": "preferred",
-      "ops": [
-        {
-          "kind": "insert_after",
-          "paragraphId": "p0093",
-          "text": "In addition, Garman shall defend, indemnify and hold harmless Sparkling and its affiliated companies from and against any third-party claim, and all resulting Losses, to the extent arising out of (i) an allegation that the Work, or Sparkling's use of the Work as permitted by this Agreement, infringes or misappropriates any intellectual property right of any Person; (ii) Garman's breach of applicable law; (iii) any unauthorized access to or disclosure of Sparkling's data or Confidential Information caused by Garman; or (iv) Garman's gross negligence or wilful misconduct. Garman shall have control of the defence and settlement of any such claim, provided that Garman shall not settle any claim in a manner that imposes any obligation on, or requires any admission by, Sparkling without Sparkling's prior written consent, and Sparkling may participate in the defence with counsel of its own choosing at its own expense. Sparkling shall provide reasonable cooperation at Garman's expense, and any failure to give notice of a claim under this Section 13 shall relieve Garman of its obligations only to the extent Garman is materially prejudiced by such failure."
-        }
-      ],
-      "precedentId": "seed-indemn-1",
-      "summary": "Add express defence obligation, affiliate coverage, claim-handling procedure and indemnity cover for Garman's breach of law, data breaches and wilful misconduct to Section 13."
-    },
-    "quote": "Garman agrees to indemnify Sparkling and hold it harmless from any and all losses, damages and expenses including without limitation, court costs, arbitration fees, penalties, fines, amounts paid in settlement of claims and reasonable legal fees and expenses of investigation (collectively the \"Losses\") which Sparkling or any of its respective officers or directors may incur due to a breach of this warranty. Sparkling shall notify Garman in writing of any such claim within ten calendar days of a responsible officer of Sparkling becoming aware of such claim.",
-    "rationale": "Section 13 (continuing at p0090) does contain a Garman-side IP indemnity tied to breach of its ownership/non-infringement warranty, with procure/modify/replace remedies (p0091-p0093) and no fee-only refund escape, and Section 15 expressly carves breaches of Section 13 out of the liability cap (p0105) with survival confirmed in Section 18. So the walk-away and the \"indemnity absent / IP excluded\" triggers are not met, and there is no offsetting Sparkling indemnity to narrow. However, the clause falls short of our preferred position in four respects: (1) it is indemnify-and-hold-harmless only, with no obligation to defend third-party claims; (2) it covers only Sparkling and its officers and directors, not our affiliated companies, even though Section 2 licenses the Work for use by Sparkling affiliates at Authorized Locations; (3) there is no claim-handling procedure (control of defence, no settlement binding us without consent, cooperation), and the sole procedural term is a hard ten-calendar-day notice requirement with no materiality or prejudice qualifier, which risks being read as a condition precedent forfeiting the indemnity; and (4) the indemnity is limited to breach of the IP warranty and gives us nothing for Garman's breach of applicable law, unauthorized access to or disclosure of our data or Confidential Information caused by Garman, or Garman's gross negligence or wilful misconduct. The redline inserts a single additional paragraph after p0093 supplying the defence duty, affiliate coverage, the standard notice/control/cooperation procedure and the missing misconduct triggers, leaving the existing warranty indemnity and remedies intact as the smallest edit that reaches the preferred position.",
-    "ruleId": "INDEMN",
-    "ruleTitle": "Indemnification by Vendor",
-    "sectionId": "sec-13",
-    "sectionRef": "§ 13 INTELLECTUAL PROPERTY INDEMNITY",
-    "severity": "high",
-    "status": "deviation",
-    "verification": {
-      "attempts": 1,
-      "checks": [
-        {
-          "name": "operation 1 applies",
-          "ok": true
-        },
-        {
-          "name": "vendor indemnity for IP infringement present",
-          "ok": true
-        }
-      ],
-      "notes": "Detection is correct: Section 13/p0090 contains a Garman IP indemnity (so walk-away and 'indemnity absent/IP excluded' triggers do not apply), but it lacks the preferred-position elements — no duty to defend, no affiliate coverage, no notice/control/cooperation procedure, and no cover for Garman's breach of law, data compromise, or gross negligence/wilful misconduct. Classifying this as a deviation rather than compliant or missing is accurate. Redline is valid and minimally invasive: it appends a single new paragraph after p0093, leaves the existing warranty indemnity and procure/modify/replace remedies untouched, and adds precisely the missing items (defence, affiliates, IP allegation trigger, breach of law, data breach, GN/WM, control-of-defence with no-adverse-settlement consent, cooperation). The added materiality/prejudice qualifier is drafted to apply to 'any failure to give notice of a claim under this Section 13', which correctly neutralises the hard ten-calendar-day condition-precedent risk in p0090 without deleting the existing sentence. Comment is accurate, appropriately scoped, and consistent with the paragraphs cited; tone and prefix conform. Minor: the volunteered fallback of a 3x-annual-fees super-cap is directionally a step backwards here, since Section 15 already carves Section 13 breaches out of the liability cap entirely — recommend dropping that offer (or reserving it for later rounds) so we do not concede an uncapped indemnity unprompted. Severity: the core IP indemnity, remedies, cap carve-out and survival are already present, so the residual gaps are important but not critical — suggest downgrading to high.",
-      "verdict": "pass"
-    }
-  },
-  {
-    "confidence": 0.88,
-    "costUsd": 0.1553095,
-    "durationMs": 42297,
-    "id": "f-ld-bb670a9e",
-    "paragraphIds": [
-      "p0084",
-      "p0118",
-      "p0128"
-    ],
-    "producedBy": "drafter",
-    "quote": "Sparkling may terminate this Agreement at any time upon ninety (90) calendar days written notice to Garman.",
-    "rationale": "The Agreement contains no liquidated damages, penalty, late-payment penalty or minimum/early-termination fee payable by Sparkling. Searches for \"liquidated damages\", \"penalty\", \"interest\" and \"shall pay\" return only Section 11 (payment of fees per the Fee Schedule). Section 17(b) lets Sparkling terminate for convenience on 90 days' notice with no termination charge, Section 17(c) converts the licence to a perpetual, fee-free licence and requires Garman to refund prepaid fees on Garman's default, and Section 8 requires Garman to refund all amounts if Sparkling rejects the Software. Section 19 non-solicitation carries no stipulated payment. All money flows on early exit therefore run in our favour, meeting the preferred position of no Customer-payable liquidated damages or penalties.",
-    "ruleId": "LD",
-    "ruleTitle": "Liquidated damages and penalties payable by Customer",
-    "sectionId": "sec-11",
-    "sectionRef": "§ 11 FEES",
-    "severity": "high",
-    "status": "compliant",
-    "verification": {
-      "attempts": 1,
-      "checks": [],
-      "notes": "Claimed status is compliant, and consistent with that status the proposal contains no redline and no counterparty comment — the rendered text is identical to the originals. The cited paragraphs support compliance: p0084 imposes only ordinary fee payment per the Fee Schedule, p0118 grants Customer (Sparkling) termination for convenience on 90 days' notice with no termination charge or minimum-fee obligation, and p0128 runs money the other way (perpetual fee-free licence plus refund on Vendor default). No Customer-payable liquidated damages, penalty or early-termination/minimum fee appears in the cited text, so the preferred position ('No liquidated damages or penalties payable by Customer') is met and no negotiation issue should be raised. Deterministic checks are empty and no directional error is present; the rationale correctly notes that amounts payable by Garman to Sparkling are compliant under the rule's detection guidance.",
-      "verdict": "pass"
-    }
-  },
-  {
-    "confidence": 0.82,
-    "costUsd": 0.236207,
-    "durationMs": 71580,
-    "id": "f-license-126cf1e0",
-    "paragraphIds": [
-      "p0028",
-      "p0033",
-      "p0142"
-    ],
-    "producedBy": "drafter",
-    "proposal": {
-      "comment": "[Playbook] We extended the licence to our affiliated companies and to contractors and outsourced service providers using the Software on our behalf, and added a successor-transfer right, with conforming changes to Sections 3(c) and 20(d). Our playbook requires operational use by affiliates and contractors and continuity of the licence through a merger or sale of the business; the perpetual term in Section 17(a) is acceptable as drafted.",
-      "level": "preferred",
-      "ops": [
-        {
-          "kind": "replace",
-          "newText": "for the use of Sparkling, affiliated companies of Sparkling and contractors and outsourced service providers acting on Sparkling's behalf, a non-exclusive licence, transferable to a successor to all or substantially all of Sparkling's business or assets, to use",
-          "oldText": "for the use of Sparkling and affiliated companies of Sparkling operating at Authorized Locations, a non-transferable and non-exclusive licence to use",
-          "paragraphId": "p0028"
-        },
-        {
-          "kind": "replace",
-          "newText": "except (i) to affiliated companies of Sparkling and contractors and outsourced service providers acting on Sparkling's behalf as contemplated by Section 2, (ii) to a successor to all or substantially all of Sparkling's business or assets, or (iii) as and when authorized to do so by Garman in writing;",
-          "oldText": "except as and when authorized to do so by Garman in writing;",
-          "paragraphId": "p0033"
-        },
-        {
-          "kind": "replace",
-          "newText": "without the written consent of the other party, except that either party may assign this Agreement, without such consent, to a successor to all or substantially all of its business or assets by merger, reorganization or sale.",
-          "oldText": "without the written consent of the other party.",
-          "paragraphId": "p0142"
-        }
-      ],
-      "precedentId": "seed-license",
-      "summary": "Extend the licence to Sparkling's affiliates and contractors acting on its behalf and permit transfer to a successor in an M&A transaction."
-    },
-    "quote": "Garman hereby grants to Sparkling, for the use of Sparkling and affiliated companies of Sparkling operating at Authorized Locations, a non-transferable and non-exclusive licence to use: (i) the Software, safely in executable object code format, at each AS400 at each of the Authorized Locations; and (ii) the Documentation.",
-    "rationale": "The grant is perpetual and not revocable at will (Section 17(a) keeps the licence in effect perpetually while fees are paid, with termination only on insolvency or uncured 30-day default), so the term aspect is compliant. However, the licence covers only affiliated companies \"operating at Authorized Locations\" and says nothing about contractors or outsourced service providers acting on our behalf, and it is expressly \"non-transferable\", reinforced by Section 3(c) and Section 20(d) which bar assignment without Garman's consent — leaving no successor-transfer path in an M&A transaction. We therefore added affiliates and contractors acting on our behalf, a successor-transfer right, and conforming carve-outs in Sections 3(c) and 20(d).",
-    "ruleId": "LICENSE",
-    "ruleTitle": "Licence grant scope",
-    "sectionId": "sec-2",
-    "sectionRef": "§ 2 GRANT OF LICENSE",
-    "severity": "high",
-    "status": "deviation",
-    "verification": {
-      "attempts": 1,
-      "checks": [
-        {
-          "name": "operation 1 applies",
-          "ok": true
-        },
-        {
-          "name": "operation 2 applies",
-          "ok": true
-        },
-        {
-          "name": "operation 3 applies",
-          "ok": true
-        },
-        {
-          "name": "affiliates covered by the licence",
-          "ok": true
-        },
-        {
-          "name": "no at-will revocation remains",
-          "ok": true
-        },
-        {
-          "detail": "changed-character ratio=0.651 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0028",
-          "ok": false
-        },
-        {
-          "detail": "changed-character ratio=0.801 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0033",
-          "ok": false
-        },
-        {
-          "detail": "changed-character ratio=0.791 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0142",
-          "ok": false
-        }
-      ],
-      "notes": "The finding correctly identifies the deviation: the grant is expressly 'non-transferable', limits affiliate use to Authorized Locations, and is silent on contractors, with Sections 3(c) and 20(d) blocking any successor transfer — squarely short of the preferred position. The redline reaches the playbook position: it adds affiliates plus contractors/outsourced service providers acting on our behalf, strikes 'non-transferable' and adds an express successor-transfer right, and makes conforming carve-outs in Sections 3(c) and 20(d) so the grant is not undercut elsewhere. The changed-character ratios are high only because the grant and assignment sentences must be restructured to insert the licensee-side parties and the successor carve-out; no unrelated concessions or new obligations were introduced, so the advisory minimality flags are acceptable here. Directionally correct for the customer and internally consistent: the Authorized Location limitation survives in clause (i) and the additional-fee sentence, so removing the trailing 'operating at Authorized Locations' phrase from the affiliate reference does not covertly expand geographic scope. Comment is accurate and appropriately scoped — it concedes that the perpetual term in Section 17(a) already satisfies the no-at-will-revocation element, cites the playbook basis, and explains the conforming edits in one or two sentences in the required voice. Minor point to verify on turn: confirm the grant clause is in fact 'Section 2' as cross-referenced in the Section 3(c) carve-out.",
+      "notes": "Claimed status is compliant and, consistent with that, no redline or comment was proposed — the rendered text is identical to the original paragraphs. The cited paragraphs support compliance: § 2's grant is expressly 'non-transferable and non-exclusive' and the § 3 covenants (e.g. 'not use the Work except as authorized herein') are ordinary licence-scope limits, not a requirements-purchase or 'shall not procure from any third party' obligation on Sparkling. No exclusivity, sole-supplier or minimum-requirements covenant binding the Customer appears in the cited text, so the clause meets the preferred position (no exclusivity on Customer); the deterministic check confirms no residual sole-supplier obligation. Rationale is accurate and appropriately notes that other uses of 'exclusive' (exclusive remedy, non-exclusive jurisdiction, escrow licence) do not restrict our freedom to source elsewhere; retained as internal evidence rather than a negotiation issue.",
       "verdict": "pass"
     }
   },
   {
     "confidence": 0.9,
-    "costUsd": 0.135737,
-    "durationMs": 38818,
-    "id": "f-noncompete-792c00ed",
+    "costUsd": 0.146668,
+    "durationMs": 38761,
+    "id": "f-ld-2bbc7e9d",
     "paragraphIds": [
-      "p0029",
+      "p0118",
+      "p0084",
+      "p0128"
+    ],
+    "producedBy": "drafter",
+    "quote": "(b) Sparkling may terminate this Agreement at any time upon ninety (90) calendar days written notice to Garman. If Sparkling terminates this Agreement pursuant to this Section 17(b), Sparkling shall cease using the Software at the end of the ninety (90) day notice period, and shall certify to Garman within thirty (30) calendar days of termination that Sparkling has destroyed or has returned to Garman all Software, Documentation and Codes.",
+    "rationale": "The Agreement contains no liquidated damages, penalty, minimum-fee or early-termination charge payable by Sparkling. Searches for \"liquidated damages\", \"penalty\" and late-payment interest return nothing relevant; Section 11 (p0084) simply requires payment of Fee Schedule fees, and Section 17(b) (p0118) permits Sparkling to terminate for convenience on 90 days' notice with no termination fee or minimum-commitment payment. The only money flowing on default runs in our favour (p0128: converted perpetual licence plus refund of fees for services not rendered), and the single reference to \"penalties\" (p0090) is within Garman's IP indemnity of Sparkling's Losses. This meets the preferred position — no liquidated damages or penalties payable by Customer — so no redline is proposed.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-17",
+    "sectionRef": "§ 17 TERM AND TERMINATION",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant, and no redline or comment was proposed — consistent with the expectation that compliant findings are recorded as evidence rather than negotiated. Cited text supports the conclusion: p0118 gives Sparkling (Customer) a 90-day termination-for-convenience right with no termination fee or minimum commitment; p0084 is a plain obligation to pay Fee Schedule fees with no penalty, minimum or LD mechanic; p0128 runs money in the Customer's favour (perpetual licence conversion plus refund by Garman). No Customer-payable liquidated damages, penalty or early-termination charge is present in the cited clauses, so the preferred position ('no liquidated damages or penalties payable by Customer') is met and no edit is warranted. Deterministic checks are empty and the rendered redline is identical to the original paragraphs, confirming no unintended textual change.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.150178,
+    "durationMs": 40223,
+    "id": "f-noncompete-d06323b8",
+    "paragraphIds": [
+      "p0030",
       "p0035",
-      "p0039",
       "p0133"
     ],
     "producedBy": "drafter",
     "quote": "(e) not use the Work except as authorized herein;",
-    "rationale": "No non-compete or field-of-use covenant binds Sparkling. Section 3 (Restrictions on Use), including the Page 2 continuation at 3(g), is limited to conventional licence-scope restrictions (copying, assignment, reverse engineering, use of the Work, service-bureau use) and does not restrict the businesses Sparkling may operate or competing routing products it may buy or develop. Section 19 is a mutual one-year non-solicitation of employees, not a non-compete, and Section 14 confidentiality contains no residual bar on developing competing software (it expressly carves out independently developed information). Searches for \"compet\", \"exclusiv\", \"similar software\" and \"shall not develop\" returned no restrictive covenant against us, so the preferred position (no non-compete on Customer) is met and no redline is required.",
+    "rationale": "The Agreement contains no non-compete or field-of-use restraint on Sparkling. Section 3 (Restrictions on Use) is limited to conventional software-licence protections (no copying beyond backup, no sublicence/transfer, no reverse engineering, use only as authorized) and does not restrict the businesses we may operate or the products we may buy or build. Section 2 grants a non-exclusive licence with no exclusivity or minimum-purchase commitment on us; Section 14 (Confidentiality) preserves an independent-development carve-out (p0098) rather than a residual-use restraint; and Section 19 is a mutual employee non-solicit (a separate category, and reciprocal). Sweeps for \"compet\", \"similar\", \"exclusive\" and \"shall not develop/market/sell/engage\" returned no restrictive covenant binding us. This meets the preferred position (no non-compete or field-of-use restriction on Customer), so no redline is required.",
     "ruleId": "NONCOMPETE",
     "ruleTitle": "Non-compete restrictions on Customer",
     "sectionId": "sec-3",
@@ -407,78 +289,83 @@
           "ok": true
         }
       ],
-      "notes": "Claimed status is compliant and the cited text supports it: Section 3 restrictions (including 3(e) and 3(g)) are conventional licence-scope limits on use of the Work, not restrictions on the businesses Customer may operate or the products it may buy or build. The service-bureau limit in 3(g) is a use-of-licensed-Work restriction with an affiliate carve-out, not a field-of-use or competing-product covenant, so it does not trigger the NONCOMPETE rule. Section 19 (p0133) is a mutual one-year employee non-solicitation, correctly characterised as outside this rule's scope (non-compete/field-of-use). No redline or counterparty comment is proposed, which is the expected output for a compliant finding; the deterministic check confirms no open-ended compete restriction on Customer remains.",
+      "notes": "Claimed status is compliant and the cited text supports it: p0030/p0035 are ordinary licence-scope restrictions ('not use the Work except as authorized'), which is not a non-compete or field-of-use restraint on our business activities. p0133 is a mutual, reciprocal employee non-hire for one year post-term — a distinct restrictive-covenant category (non-solicit), binding both parties equally, so it is not a Customer non-compete under this rule. No redline or counterparty comment was produced, which is the expected output for a compliant finding; the deterministic check ('no open-ended compete restriction on Customer remains') also passes. Rationale is accurate and appropriately notes the negative sweeps ('compet', 'exclusive', 'shall not develop/market/sell/engage') and the independent-development carve-out in the confidentiality clause, consistent with the preferred position of no restriction at all.",
       "verdict": "pass"
     }
   },
   {
     "confidence": 0.88,
-    "costUsd": 0.136049,
-    "durationMs": 51660,
-    "id": "f-nosolicit-21ea7cc0",
+    "costUsd": 0.328852,
+    "durationMs": 107678,
+    "id": "f-t4c-86241297",
     "paragraphIds": [
-      "p0133"
+      "p0117",
+      "p0118",
+      "p0128"
     ],
     "producedBy": "drafter",
-    "proposal": {
-      "comment": "[Playbook] We cannot accept a no-hire covering all employees, so we have narrowed this to a mutual non-solicitation of personnel directly involved in the services, running 12 months from the end of that involvement, with the customary carve-outs for general advertising and unsolicited approaches. Our preferred position is no non-solicit binding us at all, but we are content with this balanced, mutual formulation.",
-      "level": "fallback",
-      "ops": [
-        {
-          "kind": "replace",
-          "newText": "During the term of this Agreement and for a period of twelve (12) months after the end of an individual's involvement in the provision of services under this Agreement, neither party shall, and neither party shall permit its affiliates to, directly solicit for employment any employee of the other party who was directly involved in the provision of services under this Agreement. Nothing in this Section 19 restricts either party from making general advertisements or other recruitment efforts not specifically targeted at the other party's personnel, or from hiring any person who responds to such advertisements or who approaches that party on an unsolicited basis.",
-          "oldText": "During the term of this Agreement and for a period of one year thereafter, both parties agree not to hire or allow its respective affiliates to hire any employee of the other party, or any person who was an employee of the other party during the previous six months and who was directly involved in the provision of services under this Agreement.",
-          "paragraphId": "p0133"
-        }
-      ],
-      "precedentId": "seed-nosolicit",
-      "summary": "Convert mutual one-year no-hire into a narrow 12-month non-solicit limited to personnel involved in the services, with general-advertising and unsolicited-approach carve-outs."
-    },
-    "quote": "During the term of this Agreement and for a period of one year thereafter, both parties agree not to hire or allow its respective affiliates to hire any employee of the other party, or any person who was an employee of the other party during the previous six months and who was directly involved in the provision of services under this Agreement.",
-    "rationale": "Section 19 binds us as well as the Vendor, but it is a no-hire (\"agree not to hire\"), not merely a non-solicit, and it extends to any employee of the other party regardless of involvement in the services, with no general-advertising or unsolicited-approach carve-out. No-hire provisions and restrictions covering all Vendor personnel are walk-away items under the playbook. The clause is already mutual and one year in length, so rather than deleting it we narrowed it to the fallback: solicitation only, limited to personnel directly involved in the services, 12 months from the end of that involvement, with carve-outs for general advertisements and unsolicited approaches.",
-    "ruleId": "NOSOLICIT",
-    "ruleTitle": "Non-solicitation of employees binding Customer",
-    "sectionId": "sec-19",
-    "sectionRef": "§ 19 NON-SOLICITATION OF EMPLOYEES",
+    "quote": "(b) Sparkling may terminate this Agreement at any time upon ninety (90) calendar days written notice to Garman. If Sparkling terminates this Agreement pursuant to this Section 17(b), Sparkling shall cease using the Software at the end of the ninety (90) day notice period, and shall certify to Garman within thirty (30) calendar days of termination that Sparkling has destroyed or has returned to Garman all Software, Documentation and Codes.",
+    "rationale": "Compliant at the fallback. Section 17(b) (p0118) gives us, the Customer, an unconditional at-will termination right — \"at any time upon ninety (90) calendar days written notice\" — with no cause, trigger, consent or condition attached, and the full clause is quoted above so the whole of the exit mechanic is visible: the only consequences are ceasing use at the end of the notice period and certifying return/destruction of Software, Documentation and Codes. No early-termination fee, penalty, liquidated damages or non-refundability charge appears here or in the fee provisions. Garman, the Vendor, has no convenience right at all: its only triggers are the insolvency events and uncured material default in Section 17(c) (p0128), and Section 10 maintenance simply runs as a renewable one-year term, so the walk-away scenario (Vendor convenience termination on short notice) is not engaged. The clause therefore satisfies every material fallback term — Customer notice within the 60–90 day window, no early-termination fee above three months' fees, no Vendor convenience right. Two points fall short of preferred and are noted rather than redlined, per the playbook's classification semantics: notice is 90 days rather than 30, and the Agreement is silent on a pro-rata refund of prepaid fees on a 17(b) exit (refund of fees for services not yet rendered arises only on termination for Garman's default under 17(c)). Given the penalty-free exit and the perpetual, fee-contingent licence in Section 17(a) rather than a multi-year committed term, a redline would be disproportionate and none is proposed. For the record, the deterministic \"Customer convenience termination present\" check is a keyword false negative: the clause grants the right without using the words \"for convenience\"; we would raise the wording only as an optional clarification in negotiation, not as a redline.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-17",
+    "sectionRef": "§ 17 TERM AND TERMINATION",
     "severity": "high",
-    "status": "deviation",
+    "status": "needs_review",
     "verification": {
-      "attempts": 1,
+      "attempts": 3,
       "checks": [
         {
-          "name": "operation 1 applies",
-          "ok": true
-        },
-        {
-          "detail": "value=12",
-          "name": "non-solicit duration ≤ 12 months",
-          "ok": true
-        },
-        {
-          "name": "general-solicitation carve-out present",
-          "ok": true
-        },
-        {
-          "detail": "changed-character ratio=0.757 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0133",
+          "name": "Customer convenience termination present",
           "ok": false
         }
       ],
-      "notes": "The original text is a mutual no-hire ('agree not to hire') and its first limb reaches 'any employee of the other party' without the 'directly involved' qualifier, so the deviation call is correct: no-hire plus all-personnel scope is a walk-away trigger under NOSOLICIT. The redline lands squarely on the stated fallback: mutual, solicitation-only ('neither party shall ... directly solicit for employment'), scoped to personnel directly involved in the services, 12 months from the end of that involvement, with express carve-outs for general advertisements/non-targeted recruitment and unsolicited approaches. The 'not to hire' language is removed entirely. The failed minimal-edit heuristic (0.757 changed ratio) is acceptable here: converting a no-hire into a scoped non-solicit and adding the carve-out sentence cannot be done with surgical word swaps, and no unnecessary changes (e.g., mutuality, governing section reference) were introduced. The comment is accurate about what changed and why, cites the preferred position (no non-solicit binding us) while accepting the fallback, and matches the required tone and prefix.",
-      "verdict": "pass"
+      "notes": "Customer convenience termination present: failed Cited Section 17(b) gives the Customer (Sparkling) an unconditional at-will termination right on 90 days' written notice, which sits squarely within the fallback window (60–90 days), with no early-termination fee, penalty or non-refundability charge in the quoted text. Vendor (Garman) has no convenience right — its termination triggers in p0128 are insolvency/uncured material default — so the walk-away scenario (Vendor convenience on short notice) is not engaged. Shortfalls versus preferred (90 rather than 30 days' notice; silence on pro-rata refund of prepaid fees on a 17(b) exit) are minor sub-elements correctly noted in the rationale rather than redlined, consistent with the playbook's classification semantics. Consistent with a compliant finding, no redline or counterparty comment is proposed; the rendered redline is identical to the original paragraphs. The failed deterministic check ('Customer convenience termination present') is plausibly a keyword false negative — the clause grants an unconditional 'at any time upon ninety (90) calendar days written notice' right without using the phrase 'for convenience' — and does not undermine the substantive analysis.",
+      "verdict": "fail"
     }
   },
   {
-    "confidence": 0.95,
-    "costUsd": 0.13275125,
-    "durationMs": 38186,
+    "confidence": 0.89,
+    "costUsd": 0.3137085,
+    "durationMs": 105697,
+    "id": "f-audit-37d52b70",
+    "paragraphIds": [
+      "p0029",
+      "p0039",
+      "p0118"
+    ],
+    "producedBy": "drafter",
+    "quote": "(g) not use the Work to act as a service bureau in whole or in part, for any other Person, except for any affiliate of Sparkling operating at the Authorized Locations.",
+    "rationale": "Compliant: the Agreement gives Garman no audit, inspection or verification right against Sparkling. Section 3 (Restrictions on Use) runs from limb (a) to limb (g) as use covenants only, with no right for Garman to audit licence compliance, count copies, enter our sites or access our systems; Section 20 (General Matters) covers only time of the essence and notices; and searches for \"audit\", \"inspect\", \"verify\", \"examine\", \"monitor\", \"premises\", \"remote\" and \"records\" surface no audit-type right binding us. The only examination right runs in our favour (Section 16 escrow: Sparkling may itself or through independent experts examine and test the deposited materials for Garman's compliance). The sole Sparkling-side verification duty is the narrow post-termination self-certification of destruction or return in Section 17(b), which involves no Garman entry, inspection or system access and therefore does not engage this rule's frequency, notice, cost or access parameters. With no Vendor audit right in existence, we are better than the preferred position on every material term, so no redline is proposed: inserting audit parameters would manufacture a Vendor entitlement and increase our exposure. The failed \"audit frequency limited\" deterministic check is a heuristic false signal, as the pattern has no audit clause to match.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-3",
+    "sectionRef": "§ 3 RESTRICTIONS ON USE",
+    "severity": "medium",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 3,
+      "checks": [
+        {
+          "name": "audit frequency limited",
+          "ok": false
+        }
+      ],
+      "notes": "audit frequency limited: failed Claimed status is compliant with no redline and no comment, which is the expected output shape for a compliant finding. The rule protects the Customer by limiting Vendor audit rights; the cited paragraphs (Section 3 use restrictions, Section 17(b) self-certification of destruction/return) contain no Garman audit, inspection, entry or system-access right, so the absence of any such right is more favourable than the preferred position and correctly logged as compliant rather than missing. The Section 17(b) certification is a Customer self-certification with no Vendor entry or system access, so it does not engage the rule's frequency/notice/cost/access parameters, as the rationale states. The failed 'audit frequency limited' deterministic check is a false signal here: the regex has no audit clause to match, and inserting audit parameters would manufacture a Vendor entitlement and worsen our position, so proposing no edit is the correct minimal action.",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.13679325,
+    "durationMs": 40776,
     "id": "f-govlaw-a40612f0",
     "paragraphIds": [
       "p0146"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] We replaced Nova Scotia law and the non-exclusive Nova Scotia courts with New York law and the exclusive jurisdiction of the state and federal courts in New York County, which is our accepted governing-law position. If New York is not workable, we can accept Delaware or California, or the laws of England and Wales with the courts of London.",
+      "comment": "[Playbook] We moved governing law and venue to our accepted New York position, with exclusive jurisdiction in the state and federal courts in New York County. Nova Scotia is outside our accepted list; if helpful, we can accept Delaware, California, or England and Wales (courts of London) as a fallback.",
       "level": "preferred",
       "ops": [
         {
@@ -489,10 +376,10 @@
         }
       ],
       "precedentId": "seed-govlaw",
-      "summary": "Replace Nova Scotia governing law and venue with New York law and exclusive New York County courts"
+      "summary": "Replace Nova Scotia/Canada law and venue with New York law and exclusive New York County courts."
     },
     "quote": "(h) This Agreement shall be governed by the laws of Nova Scotia and the laws of Canada applicable in Nova Scotia. All disputes under this Agreement shall be subject to the non-exclusive jurisdiction of the courts of Nova Scotia.",
-    "rationale": "The governing-law clause selects Nova Scotia/Canadian law with non-exclusive jurisdiction of the Nova Scotia courts. Nova Scotia is outside the accepted list (New York, Delaware, California, England and Wales), and non-exclusive venue leaves us exposed to suit in an unaccepted forum. No arbitration is required, so litigation-in-courts is already satisfied. We moved the clause to the preferred position (New York law, exclusive state and federal courts in New York County) with a minimal edit to the jurisdiction and forum words only, and flagged Delaware/California or England and Wales (London courts) as fallbacks.",
+    "rationale": "The only governing-law/venue provision (§20(h), p0146) selects Nova Scotia and Canadian law with the courts of Nova Scotia — the vendor's home jurisdiction and outside the accepted list of New York, Delaware, California, or England and Wales. It therefore fails both the preferred and the fallback position on a material term. The venue is non-exclusive rather than an exclusive foreign forum, so this stops short of walk-away territory, but the choice of law still requires correction. No arbitration clause exists elsewhere in the document. We propose the smallest edit to the preferred position (New York law; exclusive jurisdiction of the state and federal courts in New York County), keeping the sentence structure intact, and flag Delaware, California, or England and Wales as acceptable fallbacks.",
     "ruleId": "GOVLAW",
     "ruleTitle": "Governing law and venue",
     "sectionId": "sec-p0137",
@@ -516,141 +403,47 @@
           "ok": false
         }
       ],
-      "notes": "The finding correctly identifies Nova Scotia/Canadian law and non-exclusive Nova Scotia venue as outside the accepted jurisdiction set, and notes no arbitration seat is implicated — a genuine deviation under GOVLAW. The redline reaches the preferred position exactly: New York governing law plus exclusive jurisdiction of the state and federal courts in New York County, with both sentences otherwise preserved in structure. The advisory changed-character ratio (0.601) is justified here because the rule requires replacing the jurisdiction words in both the governing-law and forum sentences (including the trailing 'laws of Canada applicable in Nova Scotia' phrase, which cannot survive the substitution); no extraneous terms were added or deleted. The comment accurately describes the change, cites the playbook position, and offers the Delaware/California/England-and-Wales fallback in the required concise first-person-plural tone with the [Playbook] prefix.",
+      "notes": "The cited clause (§20(h)) selects Nova Scotia/Canadian law and Nova Scotia courts, which is outside the accepted set (New York, Delaware, California, England and Wales), so it fails both preferred and fallback on the material choice-of-law term — correctly classified as a deviation, not over-flagging an acceptable fallback. The redline reaches the preferred position exactly (New York law; exclusive jurisdiction of state and federal courts in New York County) while preserving the two-sentence structure and surrounding language, consistent with the redline guidance to replace only the jurisdiction words and forum; deletion of the trailing 'laws of Canada applicable in Nova Scotia' is necessary rather than gratuitous. The failed changed-character-ratio check (0.601) is explained by the rule genuinely requiring replacement of both the governing-law and venue words in a short clause; no smaller edit would reach the playbook position. The comment is accurate (Nova Scotia outside accepted list, correct fallback offer of Delaware/California/England and Wales with London courts), on-tone, concise, and properly prefixed; the rationale correctly notes the venue is non-exclusive so this stops short of walk-away, and confirms no arbitration clause elsewhere. Severity medium is appropriate for the category and the non-exclusive (rather than mandatory foreign arbitration) forum.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.9,
-    "costUsd": 0.14344775,
-    "durationMs": 42647,
-    "id": "f-mfn-3775fee4",
+    "confidence": 0.82,
+    "costUsd": 0.2453125,
+    "durationMs": 74567,
+    "id": "f-license-126cf1e0",
     "paragraphIds": [
-      "p0084",
-      "p0065",
-      "p0077"
-    ],
-    "producedBy": "drafter",
-    "quote": "Sparkling shall pay the fees as set out in the Fee Schedule in accordance with the terms of this Agreement and the Fee Schedule.",
-    "rationale": "The Agreement contains no most-favoured-nation or pricing-parity provision in either direction. Section 11 (Fees) simply requires Sparkling to pay the fees set out in the Fee Schedule, and Section 10 / Page 5 (Maintenance and Support) impose service obligations on Garman with limited chargeable-repair exceptions at Garman's Fee Schedule rates; neither requires Sparkling to offer Garman terms no less favourable than those given to any third party or to match third-party offers. Targeted searches for \"most favoured/favored nation\", \"no less favourable\", \"parity\", \"best price\", \"lowest price\", \"match any\", \"competing offer\" and \"preferential\" returned no results, and the general provisions (Section 20) and other third-party references (Sections 3(f), 14 and the assignment clause) are unrelated to pricing. The preferred position of no MFN obligation burdening the Customer is therefore met; an MFN in our favour would be welcome but its absence is not a burden on us, so per the detection guidance no redline is proposed.",
-    "ruleId": "MFN",
-    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
-    "sectionId": "sec-11",
-    "sectionRef": "§ 11 FEES",
-    "severity": "medium",
-    "status": "compliant",
-    "verification": {
-      "attempts": 1,
-      "checks": [],
-      "notes": "The finding is claimed compliant and correctly proposes no redline and no counterparty comment, which matches the rule's instruction to mark compliant and not redline where no MFN burdens the Customer. The cited paragraphs (p0084 fee payment obligation, p0065 and p0077 maintenance/repair fee provisions) contain no pricing-parity, 'no less favourable', best-price or third-party-offer-matching language, supporting the conclusion that no MFN obligation is imposed on Sparkling (Customer). Redline text is identical to the originals and no deterministic check failures were raised, so there is no directional or drafting error to correct; the preferred position (no MFN burdening Customer) is satisfied and the absence of a Vendor-granted MFN is not a deviation under this rule.",
-      "verdict": "pass"
-    }
-  },
-  {
-    "confidence": 0.85,
-    "costUsd": 0.150053,
-    "durationMs": 38173,
-    "id": "f-mincommit-90fc6bcb",
-    "paragraphIds": [
-      "p0084",
-      "p0065",
-      "p0118"
-    ],
-    "producedBy": "drafter",
-    "quote": "Sparkling shall pay the fees as set out in the Fee Schedule in accordance with the terms of this Agreement and the Fee Schedule.",
-    "rationale": "The Agreement contains no minimum purchase commitment, take-or-pay, shortfall or volume-restriction obligation on Sparkling. Fees are payable only per the Fee Schedule for the licence and services actually taken (§ 11, p0084), and additional locations trigger fees only if we choose to expand (§ 2, p0028). Maintenance runs on a renewable one-year term rather than a multi-year non-cancellable commitment (§ 10, p0065), and Sparkling may terminate the whole Agreement at any time on ninety days' notice (§ 17(b), p0118), so an exit exists. Searches for \"minimum\", \"commit\", \"shortfall\", \"take or pay\", \"volume\" and \"quantity\" returned no commitment language binding us. This meets the preferred position; no redline required.",
-    "ruleId": "MINCOMMIT",
-    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
-    "sectionId": "sec-11",
-    "sectionRef": "§ 11 FEES",
-    "severity": "medium",
-    "status": "compliant",
-    "verification": {
-      "attempts": 1,
-      "checks": [],
-      "notes": "Claimed status is 'compliant', and the redline is identical to the original paragraphs with no comment — correct behaviour for a compliant finding (no negotiation ask raised). The cited text supports compliance: § 11 (p0084) makes fees payable only per the Fee Schedule for what is taken, with no minimum, take-or-pay, shortfall or volume-cap language binding the Customer (Sparkling). p0065 shows maintenance on a renewable one-year term rather than a multi-year non-cancellable commitment, and p0118 gives Sparkling an at-will 90-day termination right, satisfying the rule's requirement that any commitment have an exit; this meets the preferred position. Deterministic checks are empty and no detection keywords ('minimum', 'commit to purchase', 'take or pay', 'shortfall', volume caps) appear in the cited paragraphs, consistent with the compliance conclusion. Residual risk noted but not disqualifying: the Fee Schedule itself is not reproduced, so a minimum commitment could in theory sit there; the rationale is otherwise accurate and appropriately scoped to the provided text.",
-      "verdict": "pass"
-    }
-  },
-  {
-    "confidence": 0.72,
-    "costUsd": 0.22665775,
-    "durationMs": 75957,
-    "id": "f-renewal-a9391460",
-    "paragraphIds": [
-      "p0065",
-      "p0082"
+      "p0028",
+      "p0033",
+      "p0142"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] Section 10 makes the maintenance term \"renewable\" but is silent on how renewal happens, on the notice we must give and on renewal pricing, so we have added standard mechanics: successive twelve-month renewals, a thirty-day opt-out for us, a sixty-day renewal reminder from Garman, and a renewal uplift capped at the lesser of CPI and 3%. If a hard cap is difficult we can accept a 5% ceiling with a sixty-day non-renewal window.",
-      "level": "preferred",
-      "ops": [
-        {
-          "kind": "insert_after",
-          "numbering": "(d)",
-          "paragraphId": "p0082",
-          "text": "(d) MAINTENANCE TERM AND RENEWAL\n\nThe maintenance term shall renew automatically for successive twelve (12) month terms unless Sparkling gives Garman written notice of non-renewal at least thirty (30) calendar days before the end of the then-current maintenance term. Garman shall notify Sparkling in writing of the upcoming renewal, and of the maintenance fees proposed for the renewal term, at least sixty (60) calendar days before the end of the then-current maintenance term. Maintenance fees for any renewal term shall not exceed the fees for the then-current term by more than the lesser of (i) the percentage increase in the Consumer Price Index over the then-current term and (ii) three percent (3%)."
-        }
-      ],
-      "precedentId": "seed-renewal",
-      "summary": "Add maintenance renewal mechanics: 12-month renewals, 30-day customer opt-out, 60-day vendor reminder, uplift capped at lesser of CPI and 3%"
-    },
-    "quote": "For a renewable one-year term commencing upon the Maintenance Commencement Date, subject to payment of maintenance fees in accordance with the Fee Schedule but without additional fees or charges, Garman shall provide the following Maintenance Services:",
-    "rationale": "Section 10 provides only a \"renewable one-year term\" for Maintenance Services and the Agreement contains no renewal mechanics: no renewal term length on renewal, no non-renewal notice window, no vendor renewal reminder, and no cap on maintenance fee uplift (Section 11 simply defers to the Fee Schedule, and no escalation language exists anywhere). The playbook requires renewals be easy to exit and predictably priced, so we add successive twelve-month renewals with a 30-day customer opt-out, a 60-day Garman reminder, and an uplift capped at the lesser of CPI and 3%, with a 5%/60-day fallback available. Directionally this is a customer-protective gap-filler; nothing existing benefits us that is removed.",
-    "ruleId": "RENEWAL",
-    "ruleTitle": "Auto-renewal and non-renewal notice window",
-    "sectionId": "sec-10",
-    "sectionRef": "§ 10 MAINTENANCE AND SUPPORT",
-    "severity": "medium",
-    "status": "missing",
-    "verification": {
-      "attempts": 1,
-      "checks": [
-        {
-          "name": "operation 1 applies",
-          "ok": true
-        },
-        {
-          "detail": "number not found",
-          "name": "non-renewal notice window ≤ 60 days",
-          "ok": false
-        }
-      ],
-      "notes": "The gap is correctly identified: Section 10's 'renewable one-year term' supplies no renewal mechanics, notice window, reminder, or pricing cap, so a 'missing' finding is appropriate. The inserted subsection matches the preferred position precisely — successive twelve-month renewals, a 30-day Customer opt-out, a 60-day Vendor renewal/pricing reminder, and uplift capped at the lesser of CPI and 3% — and is drafted as an addition without stripping anything favourable to us. The failed deterministic check ('non-renewal notice window ≤ 60 days — number not found') is a regex/phrasing artefact; the clause plainly states 'at least thirty (30) calendar days', which satisfies both the preferred (≤30) and fallback (≤60) thresholds. Comment is accurate, correctly attributes the reminder obligation to Garman and the opt-out to Sparkling, cites the playbook position, and offers the 5%/60-day fallback in the required tone. Minor, non-blocking: the new subsection is appended after an exclusions-list item ('(5) ...') and is labelled '(d)', so confirm the lettering and placement align with the existing Section 10 structure when the redline is applied.",
-      "verdict": "pass"
-    }
-  },
-  {
-    "confidence": 0.78,
-    "costUsd": 0.20908,
-    "durationMs": 65805,
-    "id": "f-t4c-45bd70f4",
-    "paragraphIds": [
-      "p0117",
-      "p0118"
-    ],
-    "producedBy": "drafter",
-    "proposal": {
-      "comment": "[Playbook] We shortened our convenience-termination notice from ninety to thirty days and added a pro-rata refund of prepaid fees for the period after termination, consistent with our position that we can exit on 30 days' notice without penalty. If Garman needs longer wind-down, we can live with a 60-day notice period provided the refund of unused prepaid fees remains.",
+      "comment": "[Playbook] We extended the grant to contractors acting on our behalf and added a successor-transfer right, since our playbook requires the licence to survive a merger or sale and to cover the third parties who operate the system for us. We are happy to keep the transfer limited to a genuine M&A successor that assumes our obligations.",
       "level": "preferred",
       "ops": [
         {
           "kind": "replace",
-          "newText": "(b) Sparkling may terminate this Agreement at any time, in whole or in part, for convenience and without penalty or early termination charge, upon thirty (30) calendar days written notice to Garman. If Sparkling terminates this Agreement pursuant to this Section 17(b), Sparkling shall cease using the Software at the end of the thirty (30) day notice period, and shall certify to Garman within thirty (30) calendar days of termination that Sparkling has destroyed or has returned to Garman all Software, Documentation and Codes, and Garman shall refund to Sparkling, within thirty (30) calendar days of the effective date of termination, all prepaid fees (including prepaid maintenance and support fees) for the period after the effective date of termination.",
-          "oldText": "(b) Sparkling may terminate this Agreement at any time upon ninety (90) calendar days written notice to Garman. If Sparkling terminates this Agreement pursuant to this Section 17(b), Sparkling shall cease using the Software at the end of the ninety (90) day notice period, and shall certify to Garman within thirty (30) calendar days of termination that Sparkling has destroyed or has returned to Garman all Software, Documentation and Codes.",
-          "paragraphId": "p0118"
+          "newText": "for the use of Sparkling, affiliated companies of Sparkling and contractors acting on behalf of Sparkling or such affiliated companies, in each case operating at Authorized Locations,",
+          "oldText": "for the use of Sparkling and affiliated companies of Sparkling operating at Authorized Locations,",
+          "paragraphId": "p0028"
+        },
+        {
+          "kind": "replace",
+          "newText": "Notwithstanding Sections 3(c) and 20(d), Sparkling may assign this Agreement and the licence granted under this Section 2, without Garman's consent, to a successor in connection with a merger, amalgamation, acquisition or sale of all or substantially all of its assets, provided such successor assumes Sparkling's obligations under this Agreement. Sparkling's right, if any, to use the Software and Documentation at locations other than the Authorized Locations",
+          "oldText": "Sparkling's right, if any, to use the Software and Documentation at locations other than the Authorized Locations",
+          "paragraphId": "p0028"
         }
       ],
-      "precedentId": "seed-t4c",
-      "summary": "Shorten Sparkling's convenience termination notice to 30 days and add pro-rata refund of prepaid fees"
+      "precedentId": "seed-license",
+      "summary": "Extend the licence to contractors acting on Sparkling's behalf and permit transfer of the licence to a successor in an M&A transaction."
     },
-    "quote": "(b) Sparkling may terminate this Agreement at any time upon ninety (90) calendar days written notice to Garman.",
-    "rationale": "Section 17(b) does give us a convenience termination right and Garman has no convenience right (Garman may terminate only on insolvency events or uncured material default under 17(c)), so the vendor-side limb is compliant. However, the customer limb sits only at our fallback: notice is ninety days rather than thirty, and there is no refund of prepaid fees on a convenience termination (the refund in 17(c)/p0128 applies only where we terminate for Garman's default, and Section 8's full refund applies only on rejection during acceptance). Under a perpetual, fee-based term (17(a)) with prepaid maintenance fees, we should be able to exit on 30 days' notice and recover unused prepaid amounts.",
-    "ruleId": "T4C",
-    "ruleTitle": "Termination for convenience",
-    "sectionId": "sec-17",
-    "sectionRef": "§ 17 TERM AND TERMINATION",
+    "quote": "Garman hereby grants to Sparkling, for the use of Sparkling and affiliated companies of Sparkling operating at Authorized Locations, a non-transferable and non-exclusive licence to use: (i) the Software, safely in executable object code format, at each AS400 at each of the Authorized Locations; and (ii) the Documentation.",
+    "rationale": "The grant is not revocable at Garman's discretion (Section 17(a) makes it perpetual while fees are paid, terminable only for insolvency or uncured material default under Section 17(c)(7)), and affiliates are already covered without a notice condition — so the clause is above walk-away and meets the affiliate limb of the preferred position. However, it fails the fallback on transferability: the licence is expressly \"non-transferable\", Section 3(c) bars assignment or transfer without Garman's written consent, and Section 20(d) repeats that bar with no carve-out for a successor in an M&A transaction. Contractors acting on our behalf are also not covered (and Section 3(f)/3(e) restrict third-party use). We therefore propose a minimal edit to Section 2 adding contractors and a successor-transfer right overriding Sections 3(c) and 20(d).",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-2",
+    "sectionRef": "§ 2 GRANT OF LICENSE",
     "severity": "medium",
     "status": "deviation",
     "verification": {
@@ -661,52 +454,199 @@
           "ok": true
         },
         {
-          "name": "Customer convenience termination present",
-          "ok": false
+          "name": "operation 2 applies",
+          "ok": true
         },
         {
-          "detail": "changed-character ratio=0.434 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0118",
+          "name": "affiliates covered by the licence",
           "ok": true
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.514 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0028",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.755 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0028",
+          "ok": false
         }
       ],
-      "notes": "Detection is sound: Section 17(b) gives Sparkling a convenience exit but only at 90 days' notice with no refund of prepaid fees, which sits at the playbook fallback rather than the preferred 30-day/pro-rata-refund position; the vendor-side limb is correctly assessed as compliant (Garman's termination rights are limited to insolvency/uncured default). Redline is directionally correct and reaches the preferred position with a targeted edit: notice reduced to thirty (30) days in both places it appears in 17(b), 'for convenience and without penalty or early termination charge' clarified, and a pro-rata refund of prepaid (including maintenance) fees added, tracking the model language. Surviving certification/cease-use obligations are preserved. The failed 'Customer convenience termination present' check appears to be a phrasing-variant miss — the operative sentence does read 'Sparkling may terminate this Agreement at any time, in whole or in part, for convenience' — and the 0.434 changed-character ratio is explained by the two notice-period substitutions plus the appended refund sentence, so neither undermines the edit. Comment is accurate, concise, in-house voice, correctly cites the playbook position, and offers the sensible 60-day fallback conditioned on retaining the refund. Severity suggested down to medium: the clause already satisfies the fallback (customer right at 90 days, no vendor convenience right), so the residual gap is preferred-vs-fallback (notice length and refund) rather than a walk-away breach.",
+      "notes": "Classification is correct: affiliates are already covered without a notice condition and the licence is not revocable at will (so above walk-away), but the grant is expressly 'non-transferable' and Sections 3(c)/20(d) bar assignment with no M&A successor carve-out — that is a material failure of the stated fallback ('transferable to a successor in an M&A transaction'), so a deviation finding with a redline is warranted rather than over-flagging. Redline is directionally correct and tracks the rule's redline guidance: it inserts contractors acting on our behalf and adds a consent-free successor-transfer right expressly overriding Sections 3(c) and 20(d), with a reasonable assumption-of-obligations proviso. Leaving the word 'non-transferable' in place is acceptable because the 'Notwithstanding' sentence controls. The failed changed-character ratio on the second operation reflects the insertion of a new successor-transfer sentence, which is unavoidable given the fallback requirement; the edit otherwise preserves the original wording (AS400/Authorized Locations limits, additional-fee sentence) and is not an unnecessary rewrite. Comment is accurate, concise, on-tone, correctly cites the playbook position and offers the M&A-limited fallback; it does not misstate the original clause. Minor nit worth tightening (not disqualifying): the added 'in each case operating at Authorized Locations' now grammatically sweeps in Sparkling itself, whereas the original modifier attached to affiliated companies; consider 'and, in the case of such affiliated companies and contractors, operating at Authorized Locations' to avoid inadvertently narrowing our own use rights.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.14084325,
+    "durationMs": 38194,
+    "id": "f-mfn-58615eb4",
+    "paragraphIds": [
+      "p0084",
+      "p0065"
+    ],
+    "producedBy": "drafter",
+    "quote": "Sparkling shall pay the fees as set out in the Fee Schedule in accordance with the terms of this Agreement and the Fee Schedule.",
+    "rationale": "The Agreement contains no most-favoured-nation or best-terms mechanic in either direction. Pricing provisions (Section 11 Fees, Section 10 maintenance fees, Section 2 additional-location fees, Section 17 perpetuity conditioned on fee payment) simply refer to the Fee Schedule; searches for \"most favoured/favourable\", \"best price\", \"other customers\", \"competitor\" and price/rate matching language returned nothing, and the general provisions (Section 20) contain no such covenant. Sparkling therefore has no obligation to extend Garman terms no less favourable than those given to third parties or to match third-party offers, which is the playbook's preferred position (no MFN burdening the Customer). Nothing to redline; we would of course welcome a Garman-granted MFN in our favour if it can be negotiated.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-11",
+    "sectionRef": "§ 11 FEES",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the redline is identical to the original text with no comment, which is the expected output for a compliant finding. The cited paragraphs (fee payment under the Fee Schedule; maintenance fees) contain no most-favoured-nation, best-price, or third-party-offer-matching mechanic, so no MFN obligation burdens Sparkling (the Customer). Rationale correctly identifies Sparkling as our party and Garman as vendor, and correctly notes that the preferred position (no MFN on Customer) is met; the observation that a vendor-granted MFN would be welcome is properly framed as commentary rather than a deviation. No actionable redline is required, and none is proposed — appropriate under the classification semantics for compliant findings.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.14764375,
+    "durationMs": 41771,
+    "id": "f-mincommit-90fc6bcb",
+    "paragraphIds": [
+      "p0084",
+      "p0065",
+      "p0118"
+    ],
+    "producedBy": "drafter",
+    "quote": "Sparkling shall pay the fees as set out in the Fee Schedule in accordance with the terms of this Agreement and the Fee Schedule.",
+    "rationale": "The agreement contains no minimum purchase commitment, take-or-pay, shortfall or volume-commitment obligation on us: searches for \"minimum\", \"commit\", \"purchase\" and \"renew\" return nothing of that kind. Section 11 simply obliges us to pay the fees set out in the Fee Schedule for the licence and services actually taken, Section 2 charges additional fees only if we elect to use the Software beyond the Authorized Locations, and Section 10 makes maintenance a renewable one-year term (not a multi-year committed spend). We also retain an unconditional right to terminate on ninety (90) days' notice under Section 17(b). This meets the preferred position (no minimum commitment; fees for usage or ordered services only). The only usage limits on us are ordinary licence-scope restrictions in Section 3 (copying, sublicensing, reverse engineering), which are not volume commitments and are noted only for completeness.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-11",
+    "sectionRef": "§ 11 FEES",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the redline is identical to the original with no comment, which is the expected output for a compliant finding. Cited text supports the conclusion: p0084 obliges Sparkling (our party) only to pay fees set out in the Fee Schedule, p0065 makes maintenance a renewable one-year term rather than a multi-year committed spend, and p0118 gives us an unconditional 90-day termination right — no take-or-pay, shortfall or volume commitment on Customer. Rationale correctly treats the Section 3 licence-scope restrictions as ordinary scope limits rather than volume commitments, and notes them only for completeness. No actionable proposal is required; the finding is properly retained as internal evidence rather than a negotiation issue.",
       "verdict": "pass"
     }
   },
   {
     "confidence": 0.88,
-    "costUsd": 0.20689075,
-    "durationMs": 61410,
-    "id": "f-transition-44d76bb1",
+    "costUsd": 0.125613,
+    "durationMs": 42184,
+    "id": "f-nosolicit-21ea7cc0",
+    "paragraphIds": [
+      "p0133"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We cannot accept a no-hire covering all employees, so we have narrowed this to a mutual non-solicitation of personnel directly involved in the services for twelve months after their involvement ends, with the customary carve-outs for general advertising and unsolicited approaches. This reflects our playbook fallback position on restrictive covenants.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "During the term of this Agreement and for a period of twelve (12) months after the end of the relevant individual's involvement in the provision of services under this Agreement, neither party shall directly solicit for employment any employee of the other party who was directly involved in the provision of services under this Agreement. This Section does not restrict either party from hiring any person, and does not apply to general advertisements or other recruitment efforts not specifically targeted at the other party's personnel, or to any person who approaches a party on an unsolicited basis or in response to such general advertisement.",
+          "oldText": "During the term of this Agreement and for a period of one year thereafter, both parties agree not to hire or allow its respective affiliates to hire any employee of the other party, or any person who was an employee of the other party during the previous six months and who was directly involved in the provision of services under this Agreement.",
+          "paragraphId": "p0133"
+        }
+      ],
+      "precedentId": "seed-nosolicit",
+      "summary": "Convert the mutual no-hire covering all employees into a 12-month non-solicitation limited to personnel directly involved in the services, with general-advertising and unsolicited-approach carve-outs."
+    },
+    "quote": "During the term of this Agreement and for a period of one year thereafter, both parties agree not to hire or allow its respective affiliates to hire any employee of the other party, or any person who was an employee of the other party during the previous six months and who was directly involved in the provision of services under this Agreement.",
+    "rationale": "Section 19 binds us as well as the vendor, and it is a no-hire (\"agree not to hire ... any employee of the other party\"), not a non-solicit. It also reaches all employees of the other party, not just personnel involved in the services, extends to affiliates, and has no carve-out for general advertising or unsolicited approaches. No-hire provisions and restrictions covering all vendor personnel are walk-away items under the rule, so this fails the fallback on material terms notwithstanding the acceptable 12-month tail. Because the mutual structure is already part of the bargain, we narrowed to the fallback rather than deleting the clause outright: mutual solicitation-only restriction, limited to personnel directly involved in the services, 12 months from the end of their involvement, with general-advertisement and unsolicited-approach carve-outs.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-19",
+    "sectionRef": "§ 19 NON-SOLICITATION OF EMPLOYEES",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "detail": "value=12",
+          "name": "non-solicit duration ≤ 12 months",
+          "ok": true
+        },
+        {
+          "name": "general-solicitation carve-out present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.763 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0133",
+          "ok": false
+        }
+      ],
+      "notes": "Classification is correct: p0133 is a no-hire ('agree not to hire ... any employee of the other party'), reaches all employees plus affiliates, and lacks any general-advertising or unsolicited-approach carve-out — squarely in the rule's walk-away territory, so it fails the fallback on material terms rather than merely falling short of the preferred wording. The redline reaches the stated fallback precisely: mutual, solicitation-only (with an express statement that hiring is not restricted, killing the no-hire), limited to personnel directly involved in the services, 12 months from the end of involvement, with general-advertisement and unsolicited-approach carve-outs. Deterministic duration and carve-out checks pass. The failed 'minimal edit' heuristic (0.763 changed-character ratio) is justified here: converting a no-hire into a scoped non-solicit and adding carve-outs necessarily rewrites the sentence; no smaller edit would remove the no-hire and the all-employees scope. Comment is accurate, concise, in the required first-person-plural tone with the [Playbook] prefix, explains what changed and cites the fallback position without lecturing. Retaining the mutual structure rather than deleting outright is a reasonable, non-overreaching implementation of the fallback and does not disadvantage us.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.23228375,
+    "durationMs": 69053,
+    "id": "f-renewal-acec7a5b",
+    "paragraphIds": [
+      "p0065",
+      "p0117"
+    ],
+    "producedBy": "drafter",
+    "quote": "For a renewable one-year term commencing upon the Maintenance Commencement Date, subject to payment of maintenance fees in accordance with the Fee Schedule but without additional fees or charges, Garman shall provide the following Maintenance Services:",
+    "rationale": "Compliant at the preferred position. §10 (p0065) provides a \"renewable one-year term\" for maintenance, and the Agreement contains no \"automatically renew\" or \"unless either party gives notice ... days prior\" language anywhere (searches for renewal, term-extension and fee-increase wording return only p0065). Renewal therefore requires the parties' agreement in 12-month periods, which is the preferred outcome, and there is no non-renewal notice window to compute and no multi-year auto-renewal, so neither the fallback (≤60 days) nor the walk-away (>90 days / multi-year) thresholds are engaged. §17(a) (p0117) reinforces this: the licence continues perpetually while fees are paid under the Fee Schedule. The only 90-day figure in the document is §17(b), Sparkling's own termination-for-convenience notice right; that is a customer-side exit right benefiting us, not a non-renewal notice window imposed on us, so it is not a RENEWAL deviation and is not flagged. Noted as a sub-element only: there is no cap on maintenance fee uplift on renewal (§11 simply cross-refers to the Fee Schedule), whereas the preferred position caps increases at the lesser of CPI and 3%; per the playbook a missing price-uplift cap is a rationale note rather than a deviation, and we can pursue it commercially if the Fee Schedule permits unilateral increases.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-10",
+    "sectionRef": "§ 10 MAINTENANCE AND SUPPORT",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 2,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-renewal notice window ≤ 60 days",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant and no redline or comment was proposed, which is the expected output for a compliant finding — the rendered paragraphs are identical to the originals. The cited text supports the classification: §10 (p0065) grants a 'renewable one-year term' with no 'automatically renew' or non-renewal notice language, and §17(a) (p0117) makes the licence perpetual while fees are paid, so there is no auto-renewal, no notice window to compute, and no multi-year renewal — neither the fallback nor walk-away thresholds are engaged. The failed deterministic check ('non-renewal notice window ≤ 60 days: number not found') is consistent with the rationale rather than contradicting it: the absence of a notice-window figure is expected where renewal is not automatic, so it is not evidence of a deviation. The absent price-uplift cap is correctly treated as a rationale note (a minor sub-element short of preferred wording) rather than a deviation, and the customer-side 90-day termination-for-convenience right in §17(b) is correctly excluded as a benefit to our party.",
+      "verdict": "repaired"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.1800465,
+    "durationMs": 53669,
+    "id": "f-transition-de1598cc",
     "paragraphIds": [
       "p0118",
+      "p0128",
       "p0129",
       "p0131"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] We added an orderly exit: Garman provides up to six months of transition assistance at its then-current rates, returns our data and Confidential Information in a machine-readable format within thirty days, and only then deletes and certifies deletion. The Agreement currently obliges us to return Garman's materials on termination but gives us no exit help or data return, which we cannot accept; we can live with a 90-day assistance period if six months is difficult.",
+      "comment": "[Playbook] We added an orderly exit provision: on expiry or termination Garman provides up to six months of transition assistance at its then-current rates, returns our data in a machine-readable format within thirty days and then certifies deletion. Our playbook requires a data-return and exit-help obligation; we can accept ninety days of assistance if six months is difficult.",
       "level": "preferred",
       "ops": [
         {
           "kind": "insert_after",
           "numbering": "(d)",
           "paragraphId": "p0129",
-          "text": "(d) Upon expiry or termination of this Agreement for any reason, Garman shall (i) at Sparkling's request, provide reasonable transition assistance for up to six (6) months at Garman's then-current rates; (ii) within thirty (30) calendar days of Sparkling's request, return to Sparkling all of Sparkling's data and Confidential Information in Garman's possession or control in a commonly used, machine-readable format; and (iii) thereafter delete or destroy all such data and Confidential Information remaining in its systems and certify such deletion in writing to Sparkling."
-        },
-        {
-          "kind": "replace",
-          "newText": "Sections 13, 14, 15, 16(b), 17(d), 18, 19 and 20.",
-          "oldText": "Sections 13, 14, 15, 16(b), 18, 19 and 20.",
-          "paragraphId": "p0131"
+          "text": "(d) Upon expiry or termination of this Agreement for any reason, Garman shall (1) at Sparkling's request, provide reasonable transition assistance for up to six (6) months at Garman's then-current rates; (2) within thirty (30) calendar days of Sparkling's request, return to Sparkling all of Sparkling's data in its possession or control in a commonly used, machine-readable format; and (3) thereafter delete such data from its systems and certify such deletion to Sparkling in writing."
         }
       ],
       "precedentId": "seed-transition",
-      "summary": "Add termination transition assistance, data return and certified deletion obligations on Garman, and confirm survival."
+      "summary": "Insert post-termination transition assistance and data return/deletion obligation as Section 17(d)"
     },
-    "quote": "Sparkling shall cease using the Software at the end of the ninety (90) day notice period, and shall certify to Garman within thirty (30) calendar days of termination that Sparkling has destroyed or has returned to Garman all Software, Documentation and Codes.",
-    "rationale": "Section 17 addresses only our obligations on termination (ceasing use and returning/destroying Garman's Software, Documentation and Codes). There is no transition assistance, no obligation on Garman to return Sparkling's data (Section 4 covers only inbound data conversion), and no deletion/certification obligation; Section 8 return of Confidential Information applies only if the rejection option is exercised, and the Section 16 escrow is at best a partial substitute. We therefore insert a new Section 17(d) matching the preferred position (six months' assistance at then-current rates, machine-readable data return within 30 days, then deletion with written certification) and add it to the survival list in Section 18.",
+    "quote": "(b) Sparkling may terminate this Agreement at any time upon ninety (90) calendar days written notice to Garman. If Sparkling terminates this Agreement pursuant to this Section 17(b), Sparkling shall cease using the Software at the end of the ninety (90) day notice period, and shall certify to Garman within thirty (30) calendar days of termination that Sparkling has destroyed or has returned to Garman all Software, Documentation and Codes.",
+    "rationale": "Section 17 addresses post-termination effects in one direction only: Sparkling must cease use and return or destroy Garman's Software, Documentation and Codes, and on Garman default the license converts to perpetual with a refund of prepaid fees. Nothing anywhere in the Agreement obliges Garman to return Sparkling's data (which Garman handles under Section 4(b) data conversion and in the course of maintenance and support) or to provide any exit or migration assistance; the survival list in Section 18 contains no such obligation, and the Section 16 escrow/on-site Codes only address software continuity, not data return. The rule's fallback (90 days of assistance plus data export within 30 days) is therefore unmet, so we inserted the preferred position as a new Section 17(d): up to six months' transition assistance at then-current rates, return of our data in machine-readable format within thirty days, and certified deletion thereafter.",
     "ruleId": "TRANSITION",
     "ruleTitle": "Post-termination transition assistance and data return",
     "sectionId": "sec-17",
@@ -721,132 +661,75 @@
           "ok": true
         },
         {
-          "name": "operation 2 applies",
-          "ok": true
-        },
-        {
           "name": "data return/transition present",
-          "ok": true
-        },
-        {
-          "detail": "changed-character ratio=0.143 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0131",
           "ok": true
         }
       ],
-      "notes": "Missing-clause finding is substantiated: p0118 shows only Sparkling-side return/certification obligations on termination, and the survival list in p0131 contains no transition or data-return provision, so nothing in the cited text delivers exit assistance, data return, or deletion certification. The inserted Section 17(d) tracks the preferred position closely (six months' assistance at then-current rates, machine-readable return within 30 days, then deletion plus written certification) and is placed in the termination section, with a correctly scoped, minimal conforming addition of '17(d)' to the survival list in p0131 (changed-character ratio 0.143). Comment is accurate, in-house voice, cites the gap (we must return Garman's materials but get no exit help) and offers the 90-day fallback as directed by the playbook. Minor, non-disqualifying deviation: data return is triggered 'within thirty (30) calendar days of Sparkling's request' rather than of termination, and the clause also sweeps in Confidential Information; both are acceptable (arguably beneficial) and do not undercut the playbook position. Note for drafting review: the anchor paragraph p0129 is shown as 'not yet rendered', so the exact sub-section lettering/placement of the new (d) could not be visually confirmed, though the deterministic apply checks pass and the reference to 17(d) in the survival list is internally consistent.",
+      "notes": "The cited termination provisions (p0118, p0128-p0129, p0131) only run one way — Sparkling must cease use and return/destroy Garman's Software, Documentation and Codes — and contain no obligation on Garman to return Sparkling's data or provide exit help, so 'missing' is the correct status and the rule's fallback (90 days assistance plus 30-day export) is genuinely unmet. The inserted Section 17(d) tracks the model language closely and reaches the preferred position with a single additive paragraph placed in the termination section (after the last 17(c) text), which is the smallest edit that achieves the playbook outcome; no existing wording is disturbed. All three required elements are present and correctly directed at the Vendor (Garman): up to six months' transition assistance at then-current rates, return of Customer data in a commonly used machine-readable format within 30 days, and subsequent deletion with written certification. The comment is accurate, concise, in first person plural with the required prefix, explains what changed and why, and offers the 90-day fallback without lecturing. Survival is adequately covered by p0131's 'require or contemplate performance after termination ... include but are not limited to' language, so omitting 17(d) from the enumerated list is not a defect; deterministic checks also pass.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.79,
-    "costUsd": 0.22335,
-    "durationMs": 64903,
-    "id": "f-warranty-6829dac2",
+    "confidence": 0.82,
+    "costUsd": 0.15162425,
+    "durationMs": 43845,
+    "id": "f-warranty-58ee6f27",
     "paragraphIds": [
-      "p0086"
+      "p0086",
+      "p0077",
+      "p0057"
     ],
     "producedBy": "drafter",
-    "proposal": {
-      "comment": "[Playbook] Section 12 warrants Software conformance for a year but gives no stated remedy and says nothing about the services, malicious code or legal compliance, so we added a professional and workmanlike services warranty plus a repair, re-performance or refund remedy. If helpful we can accept a 90-day services warranty period, but we need a real remedy for non-conforming work.",
-      "level": "preferred",
-      "ops": [
-        {
-          "kind": "insert_after",
-          "paragraphId": "p0086",
-          "text": "Garman further warrants that: (a) all services performed under this Agreement, including installation, data conversion, training and the Maintenance Services, will be performed in a professional and workmanlike manner consistent with industry standards by suitably qualified personnel; (b) the Software will be free of viruses, worms, disabling code and other malicious code; and (c) Garman will comply with all laws applicable to its performance under this Agreement. If the Software fails to conform to the warranty in this Section 12, or any services fail to conform to the warranty in (a) above, Garman shall promptly repair or replace the Software, or re-perform the affected services, at no charge to Sparkling; if Garman fails to do so within thirty (30) days of written notice, Garman shall refund the fees paid for the non-conforming Software or services."
-        }
-      ],
-      "precedentId": "seed-warranty",
-      "summary": "Add services/malicious code/compliance warranties and an express repair-replace-or-refund remedy to Section 12"
-    },
     "quote": "For the acceptance period and for a period of one year from the Maintenance Commencement Date, and thereafter for as long as the Software is covered by Maintenance Services and is used by Sparkling in accordance with this Agreement, Garman warrants that the Software shall perform in conformance with the Specifications in all material respects.",
-    "rationale": "The Software conformance warranty duration meets the preferred position (one year from the Maintenance Commencement Date and continuing while under maintenance), and there is no \"AS IS\" disclaimer that would swallow it. However, Section 12 states no remedy for breach: the only repair path is Garman's \"best efforts\" repair under the Maintenance Services (p0077), which is fee-bearing in listed cases and carries no replacement or refund backstop, and the refund/rejection right in Sections 7-8 expires with the acceptance period. Section 12 also omits a professional and workmanlike warranty for Garman's services (installation, data conversion, training, maintenance), a no-malicious-code warranty and a compliance-with-laws warranty. We inserted those warranties and an express repair, replacement or re-performance remedy with a refund if Garman fails to cure within 30 days.",
+    "rationale": "Section 12 gives an express conformance-to-Specifications warranty for the acceptance period plus one year from the Maintenance Commencement Date, and continuing for as long as the Software remains under Maintenance Services — this meets and in fact exceeds the preferred 12-month software warranty. A real remedy exists: Garman must repair non-conforming Software at no additional charge under the Software Repair Service (p0077), and during the acceptance period Sparkling may reject the Software with a full refund of all amounts paid (§§ 7–8, p0057). Critically, the document contains no disclaimer of implied warranties or \"AS IS\" language, so nothing swallows the express warranty, and § 15 preserves recovery of direct damages. Noted but not flagged as deviations (minor sub-elements short of the preferred wording): there is no separate \"professional and workmanlike manner\" warranty for the installation/conversion/training services, no compliance-with-laws warranty, and no no-malicious-code warranty; the repair obligation is also framed as \"best efforts\" rather than an unqualified repair/replace/refund election. These are sub-elements only — the material terms (period and remedy) sit at or above the preferred position, so no redline is warranted.",
     "ruleId": "WARRANTY",
     "ruleTitle": "Performance warranty and duration",
     "sectionId": "sec-12",
     "sectionRef": "§ 12 SPECIFICATIONS AND WARRANTY",
     "severity": "medium",
-    "status": "deviation",
+    "status": "compliant",
     "verification": {
       "attempts": 1,
       "checks": [
-        {
-          "name": "operation 1 applies",
-          "ok": true
-        },
         {
           "name": "warranty period ≥ 90 days or expressed in months/years",
           "ok": true
         }
       ],
-      "notes": "Deviation classification is supported: p0086 provides a 12-month Software conformance warranty (meeting the preferred duration) but states no remedy and omits services (professional/workmanlike), malicious-code and compliance-with-laws warranties, which the rule treats as insertable gaps. The redline is additive and minimal — it leaves the existing conformance sentence untouched and appends only the missing warranties plus a repair/replace/re-perform remedy with a 30-day cure-then-refund backstop, tracking the model language and reaching the preferred position. Comment is accurate, first-person plural, concise, cites the playbook gap (no stated remedy, no services/malicious code/compliance warranties) and offers the 90-day services fallback without lecturing. Deterministic checks pass (operation applies; warranty period expressed in years, ≥ 90 days), and no 'AS IS' disclaimer issue is overstated in the rationale.",
+      "notes": "Claimed status is compliant and the rendered redline leaves all three paragraphs unchanged with no counterparty comment, which is what a compliant finding should look like. Cited text supports the classification: p0086 grants an express conformance-to-Specifications warranty for the acceptance period plus one year from the Maintenance Commencement Date (and longer while under Maintenance), meeting or exceeding the preferred 12-month software warranty; p0077 supplies a no-charge repair remedy and p0057 a full refund during the acceptance period. No 'AS IS' or implied-warranty disclaimer is present in the cited material, so the express warranty is not swallowed — the walk-away scenario does not apply. Shortfalls versus the preferred wording (no professional-and-workmanlike services warranty, no compliance-with-laws or no-malicious-code warranty, 'best efforts' repair rather than an unqualified repair/replace/refund election) are correctly noted in the rationale as minor sub-elements rather than escalated to a deviation, consistent with the playbook's classification semantics. Deterministic warranty-period check passes (period expressed in years), corroborating the substance of the rationale.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.88,
-    "costUsd": 0.34985875,
-    "durationMs": 121644,
-    "id": "f-audit-0a52b635",
-    "paragraphIds": [
-      "p0029",
-      "p0035",
-      "p0039",
-      "p0134"
-    ],
-    "producedBy": "drafter",
-    "quote": "(e) not use the Work except as authorized herein;",
-    "rationale": "Compliant, and no repair is available without worsening our position. The AUDIT rule caps a counterparty-favourable right; the Agreement grants Garman no such right at all. The sections that would host one contain none: § 2 grant (p0028), § 3 use restrictions (p0029-p0039, substantive use limits only, with no verification, reporting, records or access mechanism), § 14 confidentiality, § 17 term and termination, and § 20 general matters (p0134-p0147). Searches for audit, inspect, verify, examine, records, access, premises, remote, report, books and right to enter return no inspection, records-examination, monitoring or system-access right running against Sparkling. The two near-hits are not audit rights: p0114 is an examination and testing right over escrow materials held by Sparkling (in our favour), and p0118 is a one-time post-termination certification that Sparkling has ceased use, not a recurring audit and not access to our systems. Absence is strictly better than the preferred position (once per 12 months, 30 days' notice, independent auditor, Garman's cost unless underpayment exceeds 5%, no system access), so the minimal edit is no edit. The recurring \"audit frequency limited\" check cannot pass on these facts: frequency-limiting words can only exist alongside an audit clause, and inserting them would manufacture an audit right against us that Garman does not currently hold - the opposite of the rule's intent. I am therefore holding the compliant status and flagging the check as not applicable for human override. If Garman later proposes any verification or usage-reporting clause, the preferred parameters should be inserted into § 3 at that time.",
-    "ruleId": "AUDIT",
-    "ruleTitle": "Audit rights against Customer",
-    "sectionId": "sec-3",
-    "sectionRef": "§ 3 RESTRICTIONS ON USE",
-    "severity": "low",
-    "status": "needs_review",
-    "verification": {
-      "attempts": 3,
-      "checks": [
-        {
-          "name": "audit frequency limited",
-          "ok": false
-        }
-      ],
-      "notes": "audit frequency limited: failed Claimed status is compliant, and the cited text supports it: § 3 (p0029, p0035, p0039) contains only substantive use restrictions with no verification, records, reporting or access mechanism, and § 20 (p0134) is a general-matters heading with no inspection right. Absence of any audit/inspection right running against the Customer is strictly more favourable than the preferred position (annual, 30 days' notice, independent auditor, Vendor cost, no system access), so no redline is the correct minimal edit; no comment is expected for a compliant finding. The failing 'audit frequency limited' deterministic check is a false signal here — frequency-capping language can only exist alongside an audit clause, and inserting it would manufacture a counterparty audit right, contrary to the rule's intent. Rationale correctly distinguishes the near-hits (escrow examination/testing right in our favour at p0114; one-time post-termination cessation certification at p0118) from a recurring audit or system-access right, and appropriately notes the preferred parameters should be inserted if Vendor later proposes a verification/usage-reporting clause.",
-      "verdict": "fail"
-    }
-  },
-  {
     "confidence": 0.9,
-    "costUsd": 0.19344625,
-    "durationMs": 61986,
-    "id": "f-insurance-a058c81f",
+    "costUsd": 0.1532625,
+    "durationMs": 42765,
+    "id": "f-insurance-58450f40",
     "paragraphIds": [
-      "p0149",
-      "p0041",
-      "p0042"
+      "p0134",
+      "p0147"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] We added a standard insurance covenant, as Garman installs Software at our Authorized Locations and converts and accesses our data but carries no insurance obligation anywhere in the Agreement. Our position is CGL of USD 1M/2M, E&O of USD 2M and cyber of USD 5M with certificates on request; we can discuss E&O of USD 1M and cyber of USD 2M if the higher limits are unavailable.",
+      "comment": "[Playbook] We added a standard insurance covenant, as none appears in the Agreement, because Garman installs the Software at our Authorized Locations and converts our data. Our position is CGL of USD 1,000,000 per occurrence / USD 2,000,000 aggregate, E&O of USD 2,000,000 and cyber liability of USD 5,000,000 where our data is processed; we can consider E&O of USD 1,000,000 and cyber of USD 2,000,000 if coverage limits are an issue.",
       "level": "preferred",
       "ops": [
         {
           "kind": "insert_after",
-          "numbering": "(k)",
-          "paragraphId": "p0149",
-          "text": "(k) Garman shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; where Garman processes, stores or has access to Sparkling's data, cyber liability insurance of not less than USD 5,000,000; and workers' compensation insurance as required by applicable law. Garman shall provide certificates of insurance to Sparkling on request."
+          "numbering": "(j)",
+          "paragraphId": "p0147",
+          "text": "(j) Garman shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; and, where Garman processes Sparkling's data, cyber liability insurance of not less than USD 5,000,000. Garman shall also maintain workers' compensation insurance as required by applicable law and shall provide certificates of insurance to Sparkling on request."
         }
       ],
       "precedentId": "seed-insurance",
-      "summary": "Insert standard vendor insurance covenant as new Section 20(k)"
+      "summary": "Insert vendor insurance covenant as new Section 20(j) in General Matters"
     },
-    "quote": "(j) This Agreement constitutes the entire Agreement between the parties with respect to its subject matter, and this Agreement supersedes all prior understandings, representations, negotiations and communications between the parties, oral and written.",
-    "rationale": "A full-text search for \"insurance\" returns no results, and the General Matters provisions (Section 20(a)-(j), p0135-p0149) contain no insurance covenant. Insurance is required here because Garman is not a mere shrink-wrap licensor: under Section 4(a) its personnel deliver and install the Software on our AS400s at each Authorized Location (on-premises work), and under Section 4(b) Garman performs conversion of \"Sparkling's data\" for future installations, with Section 9(a) requiring us to provide information about our operations and internal procedures. That combination of premises access and data processing is exactly the profile the playbook requires to be insured, and the walk-away position is no insurance for a vendor that processes data or works on our premises. The gap is aggravated because Section 15 limits Garman's liability, so uninsured exposure would sit with us. The obligation runs against the counterparty, so there is no direction problem. Minimal fix: insert a new Section 20(k) after the entire-agreement subsection tracking the model language (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M where our data is processed, statutory workers' compensation, certificates on request), surviving one year post-term. Fallback of E&O USD 1M / cyber USD 2M is flagged in the comment if Garman cannot obtain the preferred limits.",
+    "quote": "(i) All paragraph headings contained in this Agreement are for convenience only and shall not affect the interpretation of this Agreement.",
+    "rationale": "A full-text search for \"insurance\" returns no results, and Section 20 (General Matters, paragraphs (a)–(i)) ends at headings with no insurance covenant anywhere in the Agreement. Insurance is expected here: under Section 4 Garman installs the Software on our AS400s at each Authorized Location and performs conversion of Sparkling's data, and under Section 9 Garman personnel work with our project manager on implementation — i.e. a vendor that both attends our premises and processes our data, which is the playbook's walk-away scenario if uninsured. We therefore insert the preferred coverage package (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M where our data is processed, workers' compensation as required by law, certificates on request) as a new Section 20(j), the smallest edit that reaches the preferred position; the fallback (E&O USD 1M / cyber USD 2M) is offered in the comment.",
     "ruleId": "INSURANCE",
     "ruleTitle": "Vendor insurance",
-    "sectionId": "sec-p0148",
-    "sectionRef": "§ PAGE 11",
+    "sectionId": "sec-20",
+    "sectionRef": "§ 20 GENERAL MATTERS",
     "severity": "low",
     "status": "missing",
     "verification": {
@@ -861,7 +744,7 @@
           "ok": true
         }
       ],
-      "notes": "Rule is a 'missing' insurance clause and the record supports it: no insurance covenant appears in the General Matters provisions, while Sections 4(a)-(b) show on-premises installation and conversion/processing of Sparkling's data — exactly the vendor profile the playbook requires to be insured. Inserted Section 20(k) tracks the model language and reaches the preferred position (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M where our data is processed, statutory workers' comp, certificates on request, surviving one year post-term), with the obligation correctly running against the counterparty (Garman). Edit is minimal and well-placed: a single new subsection appended to the miscellaneous section with no alteration of the existing entire-agreement text. Comment is accurate, in-tone, prefixed, explains the gap and cites both the preferred position and the E&O USD 1M / cyber USD 2M fallback. Deterministic checks confirm the operation applies and an insurance obligation is present in the redline.",
+      "notes": "The rule is a 'missing' kind and the cited General Matters section (paragraphs (a)-(i), ending with a headings clause) contains no insurance covenant; the rationale states a full-text search for 'insurance' returns nothing, which is consistent with the excerpts provided. Insertion is well-placed as a new Section 20(j) in the miscellaneous section and tracks the playbook's model language closely (CGL 1M/2M, E&O 2M, cyber 5M where Customer Data is processed, workers' compensation, certificates on request), with party names correctly localized to Garman/Sparkling. Applicability is justified: the vendor installs software at Authorized Locations and performs data conversion, so it both attends our premises and processes our data — the walk-away scenario if uninsured. Comment is concise, first-person plural, states what changed and why, cites the preferred limits and offers the fallback (E&O 1M / cyber 2M) as instructed; deterministic checks confirm the insurance obligation is present and the operation applies. Edit is additive only and does not disturb existing text, and it benefits the customer without duplicating another rule's commercial term.",
       "verdict": "pass"
     }
   }

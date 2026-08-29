@@ -1,0 +1,58 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXw6gHLLBcWpr1p8ZFGe",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01JDMzujCRqRrjUW3ESok373",
+        "name": "propose_redline",
+        "input": {
+          "ops": [
+            {
+              "kind": "replace",
+              "paragraphId": "p0012",
+              "oldText": "Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+              "newText": "Customer has no minimum purchase commitment and will pay only for Services used or ordered under an Order Form during the applicable term."
+            }
+          ],
+          "comment": "[Playbook] We removed the three-year USD 2,000,000 take-or-pay commitment, as our playbook does not permit multi-year minimum commitments with no reduction or termination right; this also aligns § 2.1 with the convenience-termination right in § 9.4 and the no-minimum-volume acknowledgement in § 12.3. If a commitment is commercially essential, we can accept one limited to the current 12-month term, reducible on 30 days' notice and settled by true-up rather than penalty.",
+          "level": "preferred",
+          "precedentId": "seed-mincommit",
+          "summary": "Delete take-or-pay commitment; pay only for Services used or ordered."
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 739,
+      "cache_read_input_tokens": 5896,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 739,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 457,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "propose_redline",
+      "ruleId": "MINCOMMIT",
+      "sha256": "81519a55cc22bfd1ee3e07f7b70eabc779f8e736021257d45bfbfce9aaeeea99"
+    }
+  ],
+  "durationMs": 5619
+}

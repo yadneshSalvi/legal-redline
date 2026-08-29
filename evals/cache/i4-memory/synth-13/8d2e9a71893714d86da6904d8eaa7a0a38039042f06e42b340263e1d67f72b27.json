@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXvyv5Mp9wXGHCXxmLWD",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_013jjoLmnmFWeK2s4Haa3GsX",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0050",
+            "p0049"
+          ],
+          "quote": "12.4 During the term and for twenty-four months thereafter, Customer shall not develop, market, sell, or acquire any product or service that competes with Vendor in any territory.",
+          "rationale": "§ 12.4 binds the Customer (Meridian) with a post-term non-compete of twenty-four months, covering \"any product or service that competes with Vendor\" in \"any territory\", with no carve-out for internal development or acquisitions (indeed it expressly bars acquisitions). That is walk-away territory on two counts: post-term duration exceeding 12 months and effectively undefined scope. It also directly contradicts § 12.3, in which Vendor acknowledges Customer has made no non-compete commitment. Preferred position is no restriction at all, so we delete § 12.4 and leave § 12.3 to govern; the narrowed fallback (single named product, term only, with carve-outs) is offered in the comment if Vendor needs some protection.",
+          "confidence": 0.95,
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-noncompete",
+            "summary": "Delete § 12.4 non-compete on Customer",
+            "comment": "[Playbook] We cannot accept any restriction on the businesses we operate or the products we develop, buy or sell, so we have deleted § 12.4; a 24-month, all-product, worldwide post-term non-compete is outside our playbook and directly contradicts § 12.3. If Vendor needs protection for a specific offering, we could discuss a restriction limited to one named competing product during the term only, with carve-outs for internal development and acquisitions.",
+            "ops": [
+              {
+                "kind": "delete_paragraph",
+                "paragraphId": "p0050"
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 461,
+      "cache_read_input_tokens": 5438,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 461,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 706,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NONCOMPETE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 7669
+}

@@ -1,0 +1,67 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXuRXEv7RG1BoNXJPrhh",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01DMjBjUR7Pd6kxQqnJLUdBV",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0171"
+          ],
+          "quote": "This Agreement will be governed by the substantive laws of the State of New York, without regard for its conflict of laws provisions.",
+          "rationale": "§ 14.3 selects New York substantive law, which is our preferred governing law. However, the Agreement designates no dispute forum: there is no venue, jurisdiction or arbitration provision anywhere in the document (searches for \"venue\", \"arbitration\" and \"jurisdiction\" return only an indemnity reference and the severability clause). The forum element is a material term of this rule, so neither the preferred (exclusive New York County courts) nor the fallback (courts of the accepted jurisdiction) position is met, though this is not walk-away territory since no foreign seat or mandatory offshore arbitration is imposed. Minimal fix: add exclusive jurisdiction of the state and federal courts in New York County to the existing sentence, leaving the law unchanged. Noted separately and not double-flagged: § 14.4 jury-trial waiver (mutual) and § 14.14 two-year limitations period (mutual).",
+          "confidence": 0.78,
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-govlaw",
+            "summary": "Add exclusive New York County venue to the New York choice-of-law clause",
+            "comment": "[Playbook] New York law works for us, but the clause names no forum, so we have added exclusive jurisdiction in the state and federal courts in New York County to match our playbook position. We are happy to make venue non-exclusive if that helps.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0171",
+                "oldText": "without regard for its conflict of laws provisions.",
+                "newText": "without regard for its conflict of laws provisions, and each party submits to the exclusive jurisdiction of the state and federal courts located in New York County, New York."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 496,
+      "cache_read_input_tokens": 5695,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 496,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 745,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "GOVLAW",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9385
+}

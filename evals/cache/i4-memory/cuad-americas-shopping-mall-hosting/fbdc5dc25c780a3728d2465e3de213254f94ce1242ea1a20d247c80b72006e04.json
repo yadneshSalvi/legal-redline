@@ -1,0 +1,68 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXuZKFKZRQjnKnJjxt5o",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_013Jcwrj2bmPHd6f8996dHiG",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0059",
+            "p0070"
+          ],
+          "quote": "10.8 Headings; Counterparts. The section headings in this Agreement are for reference purposes only and shall not define, limit or affect the meaning or interpretation of this Agreement.",
+          "rationale": "A full-text search for \"insurance\" returns no results, and Section 10 (General Provisions, p0059–p0070) runs from Notices through Headings/Counterparts with no coverage requirement. HDI develops and hosts the Site and, per Section 8.1, has access to Content, user information and data of the Company, so it is a vendor processing Customer Data with no insurance obligation at all — walk-away territory under the rule. We inserted a new Section 10.9 at the preferred limits (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, workers' compensation as required by law, certificates on request), with the fallback (E&O USD 1M / cyber USD 2M) flagged in the comment as a discussion point.",
+          "confidence": 0.9,
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-insurance",
+            "summary": "Insert an insurance covenant for HDI in Section 10 (General Provisions).",
+            "comment": "[Playbook] We added a standard insurance covenant, as the Agreement contains none and HDI hosts the Site and handles Company and customer data. Our position is commercial general liability of USD 1M/2M, errors and omissions of USD 2M and cyber liability of USD 5M, with certificates on request; we can discuss lower E&O and cyber limits if HDI's existing program requires it.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0070",
+                "numbering": "10.9",
+                "text": "10.9 Insurance. HDI shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: (a) commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; (b) professional liability (errors and omissions) insurance of not less than USD 2,000,000; (c) cyber and privacy liability insurance of not less than USD 5,000,000; and (d) workers' compensation insurance as required by applicable law. HDI shall provide the Company with certificates of insurance evidencing such coverage upon request."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 703,
+      "cache_read_input_tokens": 8845,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 703,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 914,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9079
+}

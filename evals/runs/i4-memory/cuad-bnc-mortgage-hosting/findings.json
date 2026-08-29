@@ -1,9 +1,9 @@
 [
   {
-    "confidence": 0.88,
-    "costUsd": 0.27553825,
-    "durationMs": 80967,
-    "id": "f-indemn-3c735457",
+    "confidence": 0.9,
+    "costUsd": 0.26048825,
+    "durationMs": 72242,
+    "id": "f-indemn-ca59a89c",
     "paragraphIds": [
       "p0073",
       "p0075",
@@ -12,27 +12,20 @@
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] TrueLink's indemnity currently covers only its own breach of the Agreement, so we would carry the risk of third-party claims that the Interface or hosted services infringe IP rights, while our own indemnity is very broad. We added IP infringement, violation of law, TrueLink-caused data compromise and gross negligence/willful misconduct, plus a standard notice-and-control procedure; if TrueLink prefers, we can accept the IP indemnity with customary exclusions (our modifications, combinations and specifications) and procure/modify/replace/refund remedies.",
+      "comment": "[Playbook] TrueLink's indemnity currently covers only its own breach of this Agreement, so we have no protection if the Interface or Hosting Services draw a third-party IP claim. We have added the standard supplier indemnity for IP infringement, breach of law, TrueLink-caused data incidents and wilful misconduct; if preferred, we can accept an IP-only indemnity with the usual modification/combination exclusions and procure/modify/replace/refund remedies.",
       "level": "preferred",
       "ops": [
-        {
-          "kind": "replace",
-          "newText": "claim arising out of (i) any breach by TrueLink of this Agreement or any failure by TrueLink in the performance of any of its obligations or agreements hereunder; (ii) any allegation that the Interface, the Hosting Services, the Support Services or any other software, materials or deliverables provided by TrueLink infringe or misappropriate any patent, copyright, trademark, trade secret or other intellectual property right of any third party; (iii) any violation by TrueLink of any state or federal law, rule or regulation; (iv) any unauthorized access to or disclosure of Client Content, Credit Data or Client Proprietary Information caused by TrueLink; or (v) TrueLink's gross negligence or willful misconduct.",
-          "oldText": "claim arising out of any breach by TrueLink of this Agreement or any failure by TrueLink in the performance of any of its obligations or agreements hereunder.",
-          "paragraphId": "p0075"
-        },
         {
           "kind": "insert_after",
           "numbering": "c.",
           "paragraphId": "p0075",
-          "text": "c. Indemnity Procedure. The party seeking indemnification shall give the indemnifying party prompt written notice of the claim (provided that any delay in notice shall not relieve the indemnifying party except to the extent it is materially prejudiced), shall permit the indemnifying party to control the defense and settlement of the claim (provided that no settlement imposing any liability or obligation on the indemnified party may be entered into without its prior written consent), and shall provide reasonable cooperation at the indemnifying party's expense. The indemnified party may participate in the defense with counsel of its own choosing at its own expense."
+          "text": "c. TrueLink shall further defend, indemnify and hold Client and its affiliates harmless from and against any third-party claim, and all resulting damages, costs and expenses (including reasonable attorneys' fees), to the extent arising out of (i) an allegation that the Interface, the Hosting Services, the Support Services or any deliverable provided by TrueLink infringes or misappropriates any intellectual property right; (ii) TrueLink's breach of any applicable law, rule or regulation; (iii) any unauthorized access to or disclosure of Client Content or other Client data caused by TrueLink; or (iv) TrueLink's gross negligence or wilful misconduct. The indemnified party shall give prompt notice of the claim, the indemnifying party shall control the defense and settlement (provided no settlement imposing liability on the indemnified party shall be made without its consent), and the indemnified party shall provide reasonable cooperation at the indemnifying party's expense."
         }
       ],
-      "precedentId": "seed-indemn-1",
-      "summary": "Expand TrueLink's indemnity in Section 12.b to cover third-party IP infringement claims relating to the Interface and services, TrueLink's violation of law, TrueLink-caused unauthorized access to Client data, and TrueLink's gross negligence or willful misconduct, and add a standard indemnity procedure."
+      "summary": "Add TrueLink indemnity for third-party IP infringement, breach of law, data/security incidents and gross negligence or wilful misconduct."
     },
-    "quote": "claim arising out of any breach by TrueLink of this Agreement or any failure by TrueLink in the performance of any of its obligations or agreements hereunder.",
-    "rationale": "Section 12.b gives us a TrueLink indemnity, but it is limited to TrueLink's breach of the Agreement or failure to perform. It contains no indemnity for third-party claims that the Interface or the hosted/support services infringe or misappropriate intellectual property, nor for TrueLink's violation of law, TrueLink-caused unauthorized access to Client Content/Credit Data, or TrueLink's gross negligence or willful misconduct. By contrast, our indemnity in 12.a is very broad (any breach, all Web Site/Client Content claims expressly \"without regard to any knowledge limitation,\" and product-liability claims for anything transmitted from the Web Site), and Section 8.e only gives an actual-knowledge non-infringement warranty on Client Content — so nothing shifts IP risk in TrueLink's own technology to TrueLink. The agreement also lacks any indemnity procedure (notice, control of defense, consent to settlement, cooperation). Per the detection guidance, a Vendor indemnity that excludes IP infringement is a deviation. We proposed adding the missing indemnity triggers to 12.b and a mutual indemnity procedure, with the customary-exclusions/remedies package available as a fallback.",
+    "quote": "b. TrueLink shall indemnify and hold Client harmless, its affiliates, directors, officers, employees, agents and licensors harmless from and against all claims, actions, expenses, losses, and liabilities, including reasonable attorneys' fees, arising from or relating to any",
+    "rationale": "Section 12(b) gives only a breach-of-contract indemnity from TrueLink (breach of the Agreement or failure to perform its obligations); there is no indemnity anywhere in the document for third-party intellectual property infringement claims relating to the Interface or Hosting/Support Services, nor for TrueLink's breach of law, data incidents or wilful misconduct. By contrast Client's indemnity in 12(a) is broad (Client Content, Web Site, System Agreement breaches, product liability). Absence of any Vendor IP indemnity fails even the fallback position, so we added the standard supplier indemnity with the usual notice/control/cooperation procedure. We did not narrow Client's 12(a) indemnity in this pass, as it is largely tied to Client Content and Client's own web site.",
     "ruleId": "INDEMN",
     "ruleTitle": "Indemnification by Vendor",
     "sectionId": "sec-12",
@@ -47,57 +40,47 @@
           "ok": true
         },
         {
-          "name": "operation 2 applies",
-          "ok": true
-        },
-        {
           "name": "vendor indemnity for IP infringement present",
-          "ok": false
-        },
-        {
-          "detail": "changed-character ratio=0.779 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0075",
-          "ok": false
+          "ok": true
         }
       ],
-      "notes": "Deviation call is correct: Section 12.b's TrueLink indemnity is limited to TrueLink's breach/non-performance and contains no IP infringement, violation-of-law, data-compromise or gross negligence/willful misconduct trigger, which the detection guidance expressly treats as a deviation even though a (broad) Customer indemnity exists in 12.a. Redline is actionable and directionally right: it adds the four preferred-position triggers to 12.b (IP infringement of the Interface/Hosting/Support Services, TrueLink's violation of law, TrueLink-caused unauthorized access to Client Content/Credit Data, gross negligence/willful misconduct) and inserts a balanced notice/control/cooperation/no-adverse-settlement procedure, using the existing 'claim arising out of' sentence structure. Deterministic flags are not disqualifying: the 'vendor indemnity for IP infringement present' regex misses a phrasing variant (the inserted limb plainly covers 'infringe or misappropriate any patent, copyright, trademark, trade secret or other intellectual property right'), and the 0.779 changed-character ratio on p0075 reflects the unavoidable expansion of a single-trigger sentence fragment into an enumerated list. Comment is accurate, in-house voice, cites the playbook position and offers the sanctioned fallback (customary exclusions plus procure/modify/replace/refund). Minor follow-ups, not grounds to fail: the proposal does not actually narrow Customer's 12.a indemnity (notably limb (iii)'s 'without regard to any knowledge limitation' and limb (iv)'s product-liability sweep), which the preferred position contemplates, and the new subsection should be confirmed as the next available letter in Section 12 and that 'Hosting Services'/'Support Services'/'Client Proprietary Information' are defined terms in the agreement.",
+      "notes": "The cited clause is a genuine deviation: TrueLink's indemnity at 12(b) is limited to its own breach of the Agreement/failure to perform, with no third-party IP infringement defence, no breach-of-law, data-incident or wilful-misconduct coverage anywhere — this fails even the fallback (which requires a Vendor IP indemnity), so a redline is warranted. The edit is additive and minimal: a new subsection (c) inserted immediately after the existing TrueLink indemnity, tracking the model language and adding standard notice/control/cooperation mechanics without rewriting the surrounding text. Directionally correct for the customer: it adds Vendor-side protection and does not expand Client's obligations; the drafter reasonably left Client's 12(a) indemnity alone and disclosed that choice in the rationale rather than over-editing. Comment is accurate, concise and in the required voice, correctly states what changed and why, and offers the fallback (IP-only indemnity with usual exclusions and procure/modify/replace/refund remedies). Defined terms used (Interface, Hosting Services, Support Services, Client Content) are consistent with the agreement's terminology; deterministic checks confirm the inserted vendor IP indemnity is present.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.83,
-    "costUsd": 0.25972775,
-    "durationMs": 74589,
-    "id": "f-ip-168fb636",
+    "confidence": 0.72,
+    "costUsd": 0.37369475,
+    "durationMs": 108637,
+    "id": "f-ip-1c62e2f7",
     "paragraphIds": [
       "p0029",
       "p0054",
-      "p0011",
-      "p0012"
+      "p0065"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] The Agreement confirms TrueLink's ownership of the Interface but says nothing about what we own, so we have added a reciprocal provision: we retain all right, title and interest in Client Content, Client's Intellectual Property and our borrower, loan and other data, and we own the results of the Support Services with a licence back to TrueLink's pre-existing IP embedded in them. Our position is that we own what we pay for and everything we put in, with no joint ownership; if TrueLink prefers, we can instead take a perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense those results for our business.",
+      "comment": "[Playbook] Section 2(d) confirms TrueLink's ownership of the Interface but the Agreement never reserves our side, so we have added a matching clause confirming that our content, IP and data remain ours, that results of the Support Services we pay for are ours, and that any TrueLink IP embedded in them is licensed to us on a perpetual, royalty-free basis. If TrueLink prefers, we can accept the fallback of TrueLink retaining its generic tools and know-how so long as we keep that perpetual, worldwide licence to use, modify and sublicense the results.",
       "level": "preferred",
       "ops": [
         {
           "kind": "insert_after",
           "numbering": "e.",
           "paragraphId": "p0029",
-          "text": "e. Client Ownership. Notwithstanding anything to the contrary herein, Client retains all right, title and interest in and to the Client Content, Client's Intellectual Property, the Web Site and all data provided by or on behalf of Client or its customers or borrowers (including borrower and loan data), and TrueLink acquires no ownership right therein, the license granted in Section 8(d) being a limited, nonexclusive license only. All results of the Support Services and any other deliverables, work product, customizations or materials created by TrueLink for Client under this Agreement shall be owned exclusively by Client, and TrueLink hereby assigns all right, title and interest therein to Client; provided that TrueLink retains ownership of TrueLink's Intellectual Property existing prior to or developed independently of such work, and grants Client a perpetual, irrevocable, worldwide, royalty-free license to use, modify and sublicense any TrueLink Intellectual Property embedded in such results or deliverables for Client's business purposes. No item of intellectual property shall be jointly owned by the parties."
+          "text": "e. Client Ownership. Client retains all right, title and interest in and to Client Content, Client's Intellectual Property, Credit Data and all other data and materials provided by or on behalf of Client or generated through Client's use of the Interface, and nothing in this Agreement operates as an assignment or transfer of any ownership interest therein to TrueLink. All results of the Support Services and any other work product prepared specifically for Client are the property of Client, and TrueLink hereby assigns the same to Client; to the extent any TrueLink Intellectual Property is embedded therein, TrueLink grants Client a perpetual, irrevocable, worldwide, royalty-free license to use, modify and sublicense such TrueLink Intellectual Property as part of such results and work product in the ordinary course of Client's business. No intellectual property is jointly owned under this Agreement."
         }
       ],
       "precedentId": "seed-ip",
-      "summary": "Add a Client ownership provision covering Client Content, Client Intellectual Property, Client data and Support Services deliverables, with a licence back for embedded TrueLink IP."
+      "summary": "Add a Client ownership subsection to Section 2 covering Client Content, Client IP and data, ownership of Support Services results, and a licence back to embedded TrueLink IP."
     },
     "quote": "d. Ownership. Notwithstanding the license granted under section 2.1, TrueLink retains all of its ownership and license rights in the Interface.",
-    "rationale": "The only ownership provision (§2(d)) confirms TrueLink's rights in the Interface; nothing in the Agreement confirms that we own Client Content, Client's Intellectual Property, our borrower/loan data or the results of the Support Services (deliverables), which TrueLink's programmer creates for us. Section 10 only treats those items as Client Proprietary Information for confidentiality purposes, which is not an ownership right, and §8(d) grants TrueLink a broad licence (use, resell, exploit) over Credit Data without any statement that we retain title. This is a critical gap under the IP rule, so we insert a reciprocal Client ownership clause with assignment of deliverables, a licence back for embedded TrueLink IP, and no joint ownership. We left the negotiated §8(d) Credit Data licence (already narrowed by the Credit Data definition and the Non-Competition Agreement) intact, clarifying only that it is a licence and not a transfer of ownership.",
+    "rationale": "The only ownership provision (§2(d)) runs one way: TrueLink retains all rights in the Interface, and nothing in the Agreement affirms that we retain rights in Client Content, Client's Intellectual Property or our borrower/loan data, nor does anything address ownership of the Support Services results we pay for. Section 10 only makes Client's Intellectual Property and \"all results of the Hosting and Support Services\" confidential (p0065), which is a secrecy obligation and not an ownership or licence right, and §13's statement that we retain ownership of domains and Client Content applies only on discontinuation of Hosting Services. So neither the preferred position (Customer owns work product, retains all rights in Customer Data) nor the fallback (perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense deliverables) is met on a material term. No assignment of our IP or data to TrueLink and no joint ownership is created, so this is not walk-away territory; the §8(d) licence of narrowly defined, aged Credit Data (p0054) is a non-exclusive licence subject to the Non-Competition Agreement and we have not flagged it. Minimal fix: insert a Client ownership subsection at §2(e) reserving our content, IP and data, assigning Support Services work product to us, and licensing back any embedded TrueLink IP.",
     "ruleId": "IP",
     "ruleTitle": "Ownership of deliverables and Customer Data",
     "sectionId": "sec-2",
     "sectionRef": "§ 2 LICENSE.",
     "severity": "critical",
-    "status": "missing",
+    "status": "deviation",
     "verification": {
       "attempts": 1,
       "checks": [
@@ -110,35 +93,37 @@
           "ok": true
         }
       ],
-      "notes": "The claimed gap is supported: §2(d) only confirms TrueLink's ownership of the Interface, and no paragraph addresses Client ownership of Client Content, Client IP, borrower/loan data or Support Services deliverables, so an insertion is the appropriate remedy for a 'missing' finding. The inserted subsection (e) reaches the preferred position with a single addition: Client retains title to its content, IP and data; TrueLink assigns deliverables/work product; TrueLink keeps pre-existing/independently developed IP with a perpetual, irrevocable, worldwide, royalty-free licence back to Client for embedded IP; and joint ownership is expressly excluded. Existing negotiated language is preserved — §2(d) is untouched and the §8(d) Credit Data licence is left intact, merely characterised as a limited, nonexclusive licence rather than a transfer of title, which is the minimal edit consistent with the walk-away line (no assignment of Customer Data/IP to Vendor). Deterministic checks pass and the comment accurately describes what changed, cites the playbook position ('we own what we pay for and everything we put in, no joint ownership') and offers the licence-only fallback in the required concise, first-person-plural tone. Minor, non-blocking nits: the clause refers to 'Client's Intellectual Property' where the contract's defined term is 'Client Intellectual Property', uses the undefined phrase 'TrueLink's Intellectual Property' (though it is self-qualified as pre-existing/independent), and asserts Client ownership of 'the Web Site', which should be confirmed against the Web Site definition and who builds/hosts it.",
+      "notes": "The rule is genuinely unmet: §2(d) reserves only TrueLink's rights in the Interface, and nothing in the cited text gives Client ownership of Support Services work product or the fallback's perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense results — so the clause fails the fallback on a material term and 'deviation' is the correct classification rather than over-flagging an acceptable fallback. The rationale correctly distinguishes the §10 confidentiality treatment of Client's IP and Support Services results (a secrecy obligation, not ownership) and the §13 reservation limited to discontinuation of Hosting Services, and correctly declines to treat the §8(d) non-exclusive Credit Data licence as a walk-away assignment or to double-flag it. The redline is actionable and tracks the redline guidance with a minimal additive fix: a new §2(e) reserving Client Content/IP/data ownership, assigning Support Services work product to Client, granting a licence-back for embedded TrueLink IP, and barring joint ownership; it leaves the counterparty-favourable §2(d) Interface ownership intact and does not disturb the existing §8(d) licence (retained title is compatible with a non-exclusive licence). The comment is accurate, concise, first-person plural, explains what changed and why, cites the playbook position and offers the fallback; the deterministic checks (operation applies, no residual assignment of Customer IP/Data to Vendor) are consistent with the substance of the edit.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.86,
-    "costUsd": 0.2950685,
-    "durationMs": 88365,
-    "id": "f-lol-cap-657fe724",
+    "confidence": 0.9,
+    "costUsd": 0.314188,
+    "durationMs": 91549,
+    "id": "f-lol-cap-6a63cb36",
     "paragraphIds": [
-      "p0077"
+      "p0077",
+      "p0071",
+      "p0072"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] We made the limitation of liability mutual and meaningful — the greater of twelve months' fees and USD 1,000,000 — rather than a one-way cap that protects only TrueLink while leaving Client's liability unlimited, and we added a mutual exclusion of indirect and consequential damages. Consistent with our playbook, indemnification, confidentiality/data security, gross negligence, wilful misconduct, fraud and IP infringement sit outside the cap, and Client's obligation to pay fees is not capped; if helpful we can fall back to a straight twelve months' fees cap with these carve-outs retained.",
+      "comment": "[Playbook] We made the cap mutual and applicable to the whole Agreement rather than only Sections 3, 4, 7 and 11, since as drafted TrueLink is capped while our liability (including the broad Section 12(a) indemnity) is unlimited. Our position is a mutual cap at the greater of 12 months' fees and USD 1,000,000, with indemnification, confidentiality/data security, gross negligence, wilful misconduct, fraud and IP infringement sitting outside the cap; we can accept a straight 12 months' fees cap as a fallback.",
       "level": "preferred",
       "ops": [
         {
           "kind": "replace",
-          "newText": "EXCEPT FOR EXCLUDED CLAIMS, IN NO EVENT SHALL EITHER PARTY'S TOTAL AGGREGATE LIABILITY FOR ANY MATTER ARISING UNDER OR RELATED TO THIS AGREEMENT EXCEED THE GREATER OF (A) THE FEES PAID OR PAYABLE BY CLIENT UNDER THIS AGREEMENT IN THE TWELVE (12) MONTHS IMMEDIATELY PRECEDING THE EVENT GIVING RISE TO THE CLAIM AND (B) USD 1,000,000, AND NEITHER PARTY SHALL BE LIABLE FOR INDIRECT, INCIDENTAL OR CONSEQUENTIAL DAMAGES. \"EXCLUDED CLAIMS\" MEANS A PARTY'S BREACH OF ITS CONFIDENTIALITY, DATA PROTECTION OR SECURITY OBLIGATIONS, ITS INDEMNIFICATION OBLIGATIONS UNDER SECTION 12, ITS GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD, AND ITS INFRINGEMENT OF THE OTHER PARTY'S INTELLECTUAL PROPERTY RIGHTS; CLIENT'S OBLIGATION TO PAY FEES DUE UNDER THIS AGREEMENT SHALL NOT CONSTITUTE DAMAGES SUBJECT TO THE FOREGOING CAP.",
+          "newText": "EXCEPT FOR EXCLUDED CLAIMS, IN NO EVENT SHALL EITHER PARTY'S TOTAL AGGREGATE LIABILITY FOR ANY MATTER ARISING UNDER OR RELATED TO THIS AGREEMENT EXCEED THE GREATER OF (A) THE TOTAL COMPENSATION PAID OR PAYABLE FOR HOSTING AND SUPPORT SERVICES OVER THE IMMEDIATELY PRECEDING 12 MONTHS PERIOD AND (B) USD 1,000,000, AND NEITHER PARTY SHALL BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, SPECIAL OR PUNITIVE DAMAGES. \"EXCLUDED CLAIMS\" MEANS A PARTY'S BREACH OF ITS CONFIDENTIALITY, DATA PROTECTION OR SECURITY OBLIGATIONS, ITS INDEMNIFICATION OBLIGATIONS UNDER THIS SECTION 12, ITS GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD, AND ITS INFRINGEMENT OF THE OTHER PARTY'S INTELLECTUAL PROPERTY RIGHTS; CLIENT'S OBLIGATION TO PAY COMPENSATION DUE UNDER SECTION 5 IS NOT SUBJECT TO THIS LIMITATION.",
           "oldText": "IN NO EVENT SHALL TRUELINK'S LIABILITY FOR ANY MATTER ARISING UNDER OR RELATED TO SECTION 3, 4, 7 AND 11 THIS AGREEMENT (OTHER THAN DUE TO A BREACH RESULTING FROM TRUELINK'S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT) EXCEED THE TOTAL COMPENSATION PAID FOR HOSTING AND SUPPORT SERVICES OVER THE IMMEDIATELY PRECEDING 12 MONTHS PERIOD.",
           "paragraphId": "p0077"
         }
       ],
       "precedentId": "seed-lol-2",
-      "summary": "Make the liability cap mutual, set it at the greater of 12 months' fees and USD 1,000,000, and place indemnities, confidentiality, gross negligence, wilful misconduct, fraud and IP infringement outside the cap."
+      "summary": "Make the liability cap mutual, extend it to the whole Agreement, add a meaningful floor, exclude indirect damages, and place indemnities/confidentiality outside the cap."
     },
     "quote": "IN NO EVENT SHALL TRUELINK'S LIABILITY FOR ANY MATTER ARISING UNDER OR RELATED TO SECTION 3, 4, 7 AND 11 THIS AGREEMENT (OTHER THAN DUE TO A BREACH RESULTING FROM TRUELINK'S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT) EXCEED THE TOTAL COMPENSATION PAID FOR HOSTING AND SUPPORT SERVICES OVER THE IMMEDIATELY PRECEDING 12 MONTHS PERIOD.",
-    "rationale": "The only liability cap in the agreement (buried at the end of Section 12, Indemnity) is one-sided: it limits TrueLink's liability alone, leaving Client's liability — including its very broad indemnity under Section 12a — entirely uncapped, which is our walk-away position. The cap basis is also narrow (\"total compensation paid\" for Hosting and Support Services only, excluding other agreed services under Section 5a and amounts payable but unpaid), and there is no mutual exclusion of indirect/consequential damages and no carve-out set beyond TrueLink's gross negligence/wilful misconduct. The redline makes the cap mutual at the greater of twelve months' fees paid or payable and USD 1,000,000, adds the mutual consequential-damages exclusion, and places indemnification, confidentiality/data protection and security breaches, gross negligence, wilful misconduct, fraud and IP infringement outside the cap, with Client's payment obligations not treated as capped damages.",
+    "rationale": "The only liability limitation in the Agreement (p0077, buried at the end of the indemnity section) is one-sided: it caps TrueLink alone at 12 months' hosting/support compensation, while Client's liability — including the very broad indemnity in Section 12(a) covering any breach, any Client Content claim and product/service injury claims — is entirely uncapped. That is squarely in the rule's walk-away territory (\"Customer's liability uncapped while Vendor's is capped\"), so it fails the fallback, which requires a mutual 12-month fees cap. The clause is also narrowed to \"Section 3, 4, 7 and 11\", none of which appear as headings in the document, making even the vendor-side cap of uncertain scope; there is no exclusion of indirect or consequential damages anywhere in the Agreement, and no carve-out structure beyond gross negligence/wilful misconduct on TrueLink's side only. Redline makes the cap mutual and Agreement-wide at the greater of 12 months' compensation and USD 1,000,000, excludes indirect damages, and places indemnification, confidentiality/data security, gross negligence, wilful misconduct, fraud and IP infringement outside the cap; Client's payment obligations are preserved outside the limitation. A straight mutual 12 months' fees cap with indemnity/confidentiality/gross negligence carve-outs is the acceptable fallback.",
     "ruleId": "LOL-CAP",
     "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
     "sectionId": "sec-12",
@@ -161,40 +146,40 @@
           "ok": true
         },
         {
-          "detail": "changed-character ratio=0.800 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "detail": "changed-character ratio=0.802 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
           "name": "minimal edit p0077",
           "ok": false
         }
       ],
-      "notes": "The cited text (p0077) is genuinely a one-way cap protecting only TrueLink, leaving Client's liability (including its broad Section 12a indemnity) uncapped — squarely the rule's walk-away scenario, so 'deviation' is correctly claimed. The redline reaches the preferred position: mutual aggregate cap at the greater of 12 months' fees paid or payable and USD 1,000,000, mutual indirect/consequential exclusion, and uncapped Excluded Claims for confidentiality/data protection/security, indemnification, gross negligence, wilful misconduct, fraud and IP infringement, plus the carve-out that Client's fee obligations are not capped damages. The original carve-out for TrueLink's gross negligence/wilful misconduct is preserved (now mutual) within the Excluded Claims definition, and the ALL-CAPS formatting of the source paragraph is retained. The failed 'minimal edit' check is explained by the rule itself: the cap basis, mutuality and carve-out sentence all had to be rewritten; the edit stays within the single existing sentence rather than restructuring the section. Comment is accurate, correctly states the playbook position and the 12-months'-fees fallback with carve-outs retained. Minor note only: the edit drops the original narrowing to Sections 3, 4, 7 and 11, which incidentally extends the cap to TrueLink's other breaches — acceptable here because it matches the model language and is offset by the broad Excluded Claims, but worth flagging to the negotiator.",
+      "notes": "Classification is correct: the only liability limitation (p0077) caps TrueLink alone at 12 months' hosting/support compensation while Client's liability — notably the sweeping Section 12(a) indemnity covering 'any breach by Client of this Agreement' — is uncapped. That is expressly walk-away territory under LOL-CAP ('Customer's liability uncapped while Vendor's is capped') and fails the mutual-cap fallback, so a deviation finding with a redline is warranted, not over-flagging. Redline reaches the preferred position on the material terms: it makes the cap mutual, extends it Agreement-wide rather than the ambiguous 'Section 3, 4, 7 and 11', sets the basis at the greater of 12 months' compensation and USD 1,000,000, adds a mutual exclusion of indirect/consequential damages, and adds a single Excluded Claims sentence covering confidentiality/data protection/security, indemnification, gross negligence, wilful misconduct, fraud and IP infringement, while preserving Client's payment obligations outside the limitation. The vendor's original gross-negligence/wilful-misconduct exception is not lost — it is reproduced (and made mutual) inside Excluded Claims — so the edit does not silently strip counterparty-adverse language or benefit the counterparty. The failed 'minimal edit' check (0.80 changed-character ratio) is acceptable here: converting a one-sided, cross-reference-limited cap into a mutual Agreement-wide cap with a floor, a damages exclusion and a carve-out definition necessarily rewrites the sentence; the drafter still edited the existing clause rather than adding a new section. Comment is accurate, concise and in the required voice: it states what changed, why (unlimited Client exposure via the Section 12(a) indemnity), cites the preferred position and offers the 12-month-fees fallback. Minor points to confirm rather than blockers: (i) the cross-references 'this Section 12' and 'Section 5' are asserted but not evidenced in the supplied paragraphs and should be checked against the executed numbering; (ii) because Section 12(a)(i) indemnifies 'any breach by Client', the uncapped indemnification carve-out leaves much of Client's exposure outside the new cap — consider limiting that carve-out to third-party indemnity claims in negotiation, though as drafted it tracks the playbook's stated position.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.86,
-    "costUsd": 0.16055975,
-    "durationMs": 49260,
+    "confidence": 0.83,
+    "costUsd": 0.1950305,
+    "durationMs": 68019,
     "id": "f-assign-0ba91216",
     "paragraphIds": [
       "p0080"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] We revised the assignment clause so that we may assign to an affiliate or to a successor in a merger, acquisition or sale of substantially all assets without consent, while TrueLink's assignment remains subject to our consent (not unreasonably withheld) and may never be to a competitor of ours. We also confirmed that a change of control of Client gives TrueLink no termination or re-pricing right; if helpful, we can accept a mutual successor-assignment right with written notice instead.",
+      "comment": "[Playbook] We added the customary carve-out allowing us to assign to an affiliate or to a successor in a merger, acquisition or sale of substantially all assets, and a reasonableness standard on consent, so a corporate transaction cannot be blocked. We also confirmed TrueLink may not transfer the Agreement to one of our competitors.",
       "level": "preferred",
       "ops": [
         {
           "kind": "replace",
-          "newText": "Client may assign or transfer this Agreement and any of its rights and obligations hereunder, without the prior approval of TrueLink, to an affiliate or to a successor in a merger, acquisition, reorganization or sale of all or substantially all of its assets. TrueLink shall not assign or transfer any of its rights or obligations under this Agreement without the prior written approval of Client, which approval shall not be unreasonably withheld, and in no event to a competitor of Client. No change of control of Client shall constitute an assignment or give TrueLink any right to terminate, suspend or re-price this Agreement.",
-          "oldText": "Neither party shall assign or transfer any of its rights under this Agreement without the prior written approval of the other party, except no such approval shall be required for an assignment to a financially responsible affiliate.",
+          "newText": "without the prior written approval of the other party, which approval shall not be unreasonably withheld, conditioned or delayed, except no such approval shall be required for an assignment by Client to a financially responsible affiliate or to a successor in connection with a merger, acquisition, reorganization or sale of all or substantially all of its assets. TrueLink shall not assign or transfer this Agreement, in whole or in part, to a competitor of Client.",
+          "oldText": "without the prior written approval of the other party, except no such approval shall be required for an assignment to a financially responsible affiliate.",
           "paragraphId": "p0080"
         }
       ],
       "precedentId": "seed-assign",
-      "summary": "Add Client affiliate/successor assignment carve-out, reasonableness standard on Client consent, no assignment to a Client competitor, and no vendor right arising from Client change of control."
+      "summary": "Add Client affiliate/successor assignment carve-out, reasonableness standard on consent, and bar assignment by TrueLink to a Client competitor."
     },
     "quote": "15. ASSIGNMENT OR TRANSFER. Neither party shall assign or transfer any of its rights under this Agreement without the prior written approval of the other party, except no such approval shall be required for an assignment to a financially responsible affiliate.",
-    "rationale": "Section 15 is a symmetrical consent-based prohibition. It gives Client only a limited \"financially responsible affiliate\" carve-out with no successor/M&A carve-out, so a merger, acquisition or sale of substantially all of Client's assets would require TrueLink's consent, and the consent standard is unqualified (TrueLink could withhold arbitrarily). Conversely, TrueLink's assignment is not barred from going to a Client competitor. There is no change-of-control termination or re-pricing right anywhere in the Agreement (no \"change of control\" language appears), so no walk-away issue, but the clause falls short of the preferred position and is a high-severity assignment deviation. Redline adds the affiliate/successor carve-out for Client, a reasonableness standard on Client's consent to TrueLink assignments, a no-competitor restriction, and confirms a Client change of control triggers no vendor right.",
+    "rationale": "Section 15 is the only assignment provision (the Section 2 licence grant imposes no separate non-transferability restriction, and the Agreement contains no change-of-control clause, so there is no Vendor termination or re-pricing right on our change of control). The clause is mutual and carves out affiliate assignments, but it fails the fallback on two material terms: there is no successor/M&A carve-out, so a merger, acquisition or sale of substantially all of our assets would require TrueLink's approval, and the consent standard is unqualified rather than \"not unreasonably withheld\" — approaching the walk-away position of a prohibition on Customer assignment with no M&A carve-out. Our redline makes the smallest edit to reach the preferred position: it adds the affiliate/successor carve-out for Client, a reasonableness standard on consent, and a bar on TrueLink transferring the Agreement to a Client competitor, while preserving the existing mutual structure.",
     "ruleId": "ASSIGN",
     "ruleTitle": "Assignment and change of control",
     "sectionId": "sec-12",
@@ -213,135 +198,104 @@
           "ok": true
         },
         {
-          "detail": "changed-character ratio=0.784 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "detail": "changed-character ratio=0.670 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
           "name": "minimal edit p0080",
           "ok": false
         }
       ],
-      "notes": "Deviation is correctly characterized: the original clause is a symmetric consent regime with only a 'financially responsible affiliate' carve-out, no successor/M&A carve-out for Client, an unqualified consent standard, and no competitor restriction on Vendor assignments — squarely short of the preferred position. Redline reaches the playbook preferred position with all four required elements: Client free assignment to affiliates/successors in M&A or sale of substantially all assets, Vendor assignment subject to Client consent not unreasonably withheld, no assignment to a Client competitor, and express confirmation that a Client change of control creates no Vendor termination or re-pricing right. The failed minimal-edit heuristic (0.784 changed-character ratio) is justified here: converting a mutual consent prohibition into the asymmetric preferred structure necessarily requires rewriting the single sentence; no unrelated terms were touched. Comment is accurate, first-person plural, concise, explains the change and cites the fallback (mutual successor assignment with written notice) without lecturing. Rationale correctly notes no 'change of control' language elsewhere in the Agreement, so no walk-away trigger; severity 'high' is consistent with the rule.",
+      "notes": "Classification is correct: the original Section 15 requires unqualified prior written approval for Customer assignment with only an affiliate carve-out and no successor/M&A carve-out, so it fails the fallback ('mutual right to assign to successors with written notice; consent not unreasonably withheld') on two material terms and approaches the walk-away position. The redline is actionable and directionally correct: it adds the affiliate/successor carve-out for Client, imposes a 'not unreasonably withheld, conditioned or delayed' standard, and bars TrueLink from transferring to a Client competitor — all squarely within the preferred position; it is grammatically coherent and leaves the mutual structure intact. The rationale correctly confirms no change-of-control termination or re-pricing right exists elsewhere, so no deletion operation is needed for that limb. The failed 'minimal edit' heuristic (0.67 changed-character ratio) is explained by the rule genuinely requiring insertion of the consent standard, the M&A carve-out and the competitor bar into a single-sentence clause; it is not evidence of over-editing. Minor, non-fatal: narrowing the previously mutual affiliate carve-out to Client only (consistent with the preferred position that Vendor may not assign without consent) is not disclosed in the comment — worth adding a clause to the note so the change in Vendor's rights is transparent.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.72,
-    "costUsd": 0.2397925,
-    "durationMs": 71690,
-    "id": "f-exclusivity-598142d0",
+    "confidence": 0.88,
+    "costUsd": 0.1896545,
+    "durationMs": 67927,
+    "id": "f-exclusivity-587b1fd6",
     "paragraphIds": [
-      "p0042",
-      "p0022"
+      "p0022",
+      "p0024",
+      "p0042"
     ],
     "producedBy": "drafter",
-    "proposal": {
-      "comment": "[Playbook] We changed the mandatory credit report order into an option and confirmed TrueLink is a non-exclusive source, because our playbook does not accept sole-supplier or requirements obligations on us. If TrueLink needs volume commitment, we could accept a category-limited commitment capped at 12 months that ends automatically if TrueLink misses the service levels in Section 3.",
-      "level": "preferred",
-      "ops": [
-        {
-          "kind": "replace",
-          "newText": "Subject to the foregoing, Client may order from TrueLink a credit report on each borrower for which an underwriting approval is requested through a System using the Interface, and nothing in this Agreement shall obligate Client to obtain credit reports or similar services exclusively from TrueLink.",
-          "oldText": "Subject to the foregoing, Client shall order TrueLink a credit report on each borrower for which an underwriting approval is requested through a System using the Interface.",
-          "paragraphId": "p0042"
-        }
-      ],
-      "precedentId": "seed-exclusive",
-      "summary": "Make credit report ordering optional so Client is not required to source all Interface-related credit reports from TrueLink."
-    },
-    "quote": "Subject to the foregoing, Client shall order TrueLink a credit report on each borrower for which an underwriting approval is requested through a System using the Interface.",
-    "rationale": "Section 3(i) imposes a requirements-style sourcing obligation on us: we must order the credit report from TrueLink for every borrower underwritten through the Interface, with no category/time limit and no exit for TrueLink's performance failures. Although the license in Section 2(a) is non-exclusive and expressly preserves our right to use alternative systems, that carve-out does not displace this mandatory per-borrower purchase obligation. The playbook preferred position is no sole-supplier obligation on the customer, so we make the order optional and confirm non-exclusivity; the fallback (category-limited, 12 months, terminable on service-level failure) is offered in the comment. The nonexclusive licenses granted to TrueLink in Section 8(d) are not exclusivity against us and are not flagged.",
+    "quote": "Notwithstanding the foregoing, Client is not obligated to utilize the License and is free to acquire, develop, license or otherwise utilize any other hardware, software system, design, formula, procedure or trade secret to provide software and services similar to the ones provided by TrueLink hereunder, so long as such",
+    "rationale": "The agreement imposes no exclusivity or sole-supplier obligation on Mortgage Logic.com, meeting the preferred position. Section 2(a) (p0022/p0024) goes further than mere silence: the licence is expressly \"non-exclusive\" and Client is affirmatively \"not obligated to utilize the License\" and is \"free to acquire, develop, license or otherwise utilize any other hardware, software system... to provide software and services similar to the ones provided by TrueLink,\" subject only to non-infringement of TrueLink's IP and our Section 10 confidentiality obligations — both ordinary carve-outs, not sourcing restrictions. Review of the Client covenants (Section 8), compensation/pricing (Sections 5-6), and the balance of the document found no \"sole and exclusive provider,\" requirements-purchase, or \"shall not procure from any third party\" language binding us. The only \"exclusive\" references run in our favour or are immaterial here: the non-exclusive licence to us (p0022), our grant of a nonexclusive licence in Credit Data to TrueLink (p0054), and an exclusive-forum provision (p0094). Two minor points noted rather than flagged: (i) Section 3(i) (p0042) requires Client to order a TrueLink credit report on each borrower for which underwriting approval is requested through a System using the Interface — a narrow captive-ordering commitment confined to transactions we voluntarily route through the Interface, which we can avoid entirely given we are not obligated to use the licence at all, so it does not amount to an exclusivity or requirements obligation on our purchasing freedom; and (ii) the Credit Data licence to TrueLink is subject to a separate Non-Competition Agreement (p0054) that is not part of this document and should be diligenced separately for any restrictive covenant binding us. No redline required.",
     "ruleId": "EXCLUSIVITY",
     "ruleTitle": "Exclusivity obligations binding Customer",
     "sectionId": "sec-2",
     "sectionRef": "§ 2 LICENSE.",
     "severity": "high",
-    "status": "deviation",
+    "status": "compliant",
     "verification": {
       "attempts": 1,
       "checks": [
         {
-          "name": "operation 1 applies",
-          "ok": true
-        },
-        {
           "name": "no requirements/sole-supplier obligation on Customer remains",
-          "ok": true
-        },
-        {
-          "detail": "changed-character ratio=0.452 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0042",
           "ok": true
         }
       ],
-      "notes": "The cited language in p0042 (\"Client shall order TrueLink a credit report on each borrower for which an underwriting approval is requested through a System using the Interface\") is a mandatory per-borrower sourcing commitment with no category cap, term limit, or performance-based exit, which falls within the rule's detection guidance for requirements/sole-supplier obligations binding Customer; the deviation status is properly claimed. The redline reaches the preferred position with a targeted edit: \"shall order\" becomes \"may order from\" and a short non-exclusivity confirmation is added, leaving the rest of the paragraph (transmission obligation, disclaimer) intact. The higher changed-character ratio reflects the necessary conversion of the obligation plus the clarifying sentence, not gratuitous rewriting. Directionally correct for the Customer: no residual purchase obligation remains, and exclusivity that would benefit us is not implicated (Section 8(d) nonexclusive licenses to TrueLink correctly not flagged). Comment accurately describes the change, cites the playbook position, and offers the 12-month category-limited fallback with a service-level exit; tone and prefix comply. Minor point to verify before sending: the reference to \"the service levels in Section 3\" assumes Section 3 contains service levels — confirm or replace with a generic performance-failure trigger.",
+      "notes": "Claimed status is compliant and the redline is identical to the original paragraphs with no comment, which is the expected output for a compliant finding. Cited text substantively supports compliance with the preferred position: Section 2(a) grants a 'non-exclusive' licence and expressly states Client 'is not obligated to utilize the License' and is 'free to acquire, develop, license or otherwise utilize any other hardware, software system...' — an affirmative non-exclusivity/freedom-to-source provision rather than mere silence. No sole-supplier, requirements-purchase, or 'shall not procure from any third party' obligation binding Customer appears in the cited material; the deterministic check confirms no such obligation remains. The Section 3(i) captive-ordering commitment is correctly treated as a noted minor point rather than a deviation: it applies only to transactions the Customer voluntarily routes through the Interface and does not restrict Customer's general purchasing freedom, so it does not fail the fallback. 'Exclusive' references identified (non-exclusive licence to Client, Client's nonexclusive grant of Credit Data to TrueLink, exclusive forum) correctly run in our favour or are outside this rule's scope, consistent with the detection guidance. Flagging the separate Non-Competition Agreement for diligence is appropriate as rationale rather than a redline, since that document is not before us.",
       "verdict": "pass"
     }
   },
   {
     "confidence": 0.86,
-    "costUsd": 0.1588465,
-    "durationMs": 52168,
-    "id": "f-ld-0b884700",
+    "costUsd": 0.164296,
+    "durationMs": 48430,
+    "id": "f-ld-09e89514",
     "paragraphIds": [
-      "p0045",
-      "p0047",
-      "p0078",
       "p0079",
-      "p0049"
+      "p0045",
+      "p0058"
     ],
     "producedBy": "drafter",
     "quote": "14. TERMINATION. Subject to Section 4 hereof, TrueLink will continue to provide the requested Hosting Services and Support Services until the last day of the month following the month in which Client provides TrueLink with a written notice of its election to terminate this Agreement.",
-    "rationale": "No liquidated damages, penalties, or stipulated-sum charges payable by Client appear anywhere in the Agreement. Searches for \"liquidated damages,\" \"penalt,\" \"damages,\" and \"shall pay\" return nothing, and the spamming provisions (§ 7 and § 8f) impose only conduct restrictions and technical/equitable remedies rather than per-message or fixed monetary charges. The only Client-payable amounts are ordinary fees under § 5(a), including uncontestable minimum monthly fees, which are consideration for services actually delivered rather than damages. Termination under § 14 carries no early-termination fee; Client's exposure is limited to continued fees through the last day of the month following its notice (roughly one to two months), which is within the playbook's 3-month fallback in any event. Direction check confirms no Customer-payable LD exists, so the rule is satisfied and no redline is warranted.",
+    "rationale": "The Agreement contains no liquidated damages, penalty or fixed-sum remedy payable by Client, so it sits at the preferred position. Searches for \"liquidated damages\", \"penalty\", \"damages\" and \"shall pay\" return no Client-payable stipulated amounts. Termination (§14) lets Client terminate on written notice with services simply running to the end of the following month — no early-termination fee or minimum-term buyout. The spamming provisions (§7, §8(f)) impose no per-message or fixed penalties; TrueLink merely reserves its legal and equitable rights. Noted but not flagged: §5(a) contains blank minimum monthly fees (\"not less than $____ per month\") and §6 requires contested amounts to be paid pending resolution; these are ordinary fee-commitment and pay-to-dispute mechanics rather than liquidated damages, though we would want the blanks completed and the minimums confirmed to align with the one-month termination runway.",
     "ruleId": "LD",
     "ruleTitle": "Liquidated damages and penalties payable by Customer",
-    "sectionId": "sec-5",
-    "sectionRef": "§ 5 COMPENSATION.",
+    "sectionId": "sec-12",
+    "sectionRef": "§ 12 INDEMNITY.",
     "severity": "high",
     "status": "compliant",
     "verification": {
       "attempts": 1,
       "checks": [],
-      "notes": "Claimed status is compliant and the cited text supports it: §5(a) fees, §6 minimum monthly fee language, §13 term and §14 termination contain no liquidated damages, penalty, or early-termination/stipulated-sum charge payable by Client. Termination under §14 exposes Client only to fees through the last day of the month following notice (~1-2 months), well inside the 3-month fallback, so no Customer-payable LD trigger exists. Consistent with a compliant finding, the redline is identical to the original paragraphs and no counterparty comment is proposed; deterministic checks are empty, confirming no unintended edits. Minimum monthly fees are correctly characterized as consideration for services rather than damages, so the direction test (Customer pays LD) is not met and no actionable edit is warranted.",
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected output shape; the rendered redline is identical to the original paragraphs, so no unnecessary edits were introduced. Cited text supports the conclusion: §14 permits Client termination on written notice with services running only to the end of the following month, imposing no early-termination fee or minimum-term buyout, and §8(f) reserves only TrueLink's general legal/equitable rights rather than any fixed or per-message penalty payable by Client. The rationale correctly characterizes §5(a) minimum monthly fees and the pay-pending-dispute mechanic as ordinary fee-commitment terms rather than Customer-payable liquidated damages, and appropriately notes the unfilled blanks as an observation rather than flagging a deviation. No deterministic check failures; finding is properly retained as internal evidence rather than raised as a negotiation issue.",
       "verdict": "pass"
     }
   },
   {
     "confidence": 0.82,
-    "costUsd": 0.25469425,
-    "durationMs": 71739,
-    "id": "f-license-e19e5f84",
+    "costUsd": 0.17094075,
+    "durationMs": 49701,
+    "id": "f-license-cc9e26c9",
     "paragraphIds": [
       "p0022",
-      "p0078",
       "p0080"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] We extended the licence to our affiliates and to contractors acting on our behalf, allowed transfer to a successor in a merger or acquisition, and limited the automatic cut-off of the licence to uncured material breaches, so operational use and transaction continuity are protected. If helpful, we can accept affiliate coverage on written notice as a fallback.",
+      "comment": "[Playbook] We extended the licence to our affiliates and to contractors acting on our behalf, since our group and outsourced providers operate the origination process, and we added successor transfer so the licence survives a merger or sale. This matches our playbook position on licence scope and transaction continuity.",
       "level": "preferred",
       "ops": [
         {
           "kind": "replace",
-          "newText": "TrueLink hereby grants to Client, its affiliates and its contractors acting on Client's behalf a non-exclusive license to use the Interface in the ordinary course of its business",
-          "oldText": "TrueLink hereby grants to Client a non-exclusive license to use the Interface in the ordinary course of its business",
+          "newText": "TrueLink hereby grants to Client, its affiliates and contractors acting on its behalf, a non-exclusive license to use the Interface",
+          "oldText": "TrueLink hereby grants to Client a non-exclusive license to use the Interface",
           "paragraphId": "p0022"
         },
         {
           "kind": "replace",
-          "newText": "except no such approval shall be required for an assignment to a financially responsible affiliate or to a successor in connection with a merger, acquisition, reorganization or sale of all or substantially all of the assigning party's assets.",
+          "newText": "except no such approval shall be required for an assignment to a financially responsible affiliate or to a successor in interest in connection with a merger, acquisition or sale of all or substantially all of the assigning party's assets.",
           "oldText": "except no such approval shall be required for an assignment to a financially responsible affiliate.",
           "paragraphId": "p0080"
-        },
-        {
-          "kind": "replace",
-          "newText": "(b) any material breach by Client of Sections 8a - 8c that remains uncured thirty (30) days after written notice thereof",
-          "oldText": "(b) any violations or breach by Client of Sections 8a - 8c",
-          "paragraphId": "p0078"
         }
       ],
       "precedentId": "seed-license",
-      "summary": "Extend licence to Client affiliates and contractors, permit transfer to a successor, and limit licence cut-off to uncured material breach"
+      "summary": "Extend licence to Client's affiliates and contractors and permit transfer to a successor in an M&A transaction"
     },
     "quote": "a. Grant. TrueLink hereby grants to Client a non-exclusive license to use the Interface in the ordinary course of its business of the origination, underwriting, processing and funding of consumer finance receivables in accordance with this Agreement.",
-    "rationale": "The grant in § 2(a) runs to Client only, with no coverage for our affiliates or for contractors acting on our behalf (§ 8(c) only permits access by our officers, employees and approved agents), so affiliate/contractor use is outside the licence. The licence is a term licence lasting until termination (§ 2(c)), and § 13(b) cuts off Sections 2 and 3 promptly for \"any violations or breach\" of §§ 8a–8c with no materiality threshold or cure period — effectively a near-discretionary revocation. § 15 permits assignment to an affiliate but not to a successor in an M&A transaction. Redline extends the grant to affiliates and contractors, limits the licence cut-off to uncured material breach, and adds successor transfer.",
+    "rationale": "The grant in § 2(a) runs to Client alone: neither affiliates nor contractors acting on our behalf are named, and there is no notice mechanic to add them, so the clause fails even the fallback (affiliates covered on written notice). Transfer is also constrained — § 15 permits assignment without consent only to a financially responsible affiliate, so a successor in an M&A transaction would require TrueLink's approval, again short of the fallback. The licence is not walk-away territory: it is not revocable at TrueLink's discretion and § 2(c) runs until the Agreement is terminated under the termination provisions. Minimal redline adds affiliate/contractor scope to the grant and successor transfer to § 15.",
     "ruleId": "LICENSE",
     "ruleTitle": "Licence grant scope",
     "sectionId": "sec-2",
@@ -360,10 +314,6 @@
           "ok": true
         },
         {
-          "name": "operation 3 applies",
-          "ok": true
-        },
-        {
           "name": "affiliates covered by the licence",
           "ok": true
         },
@@ -372,29 +322,24 @@
           "ok": true
         },
         {
-          "detail": "changed-character ratio=0.348 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "detail": "changed-character ratio=0.412 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
           "name": "minimal edit p0022",
           "ok": true
         },
         {
-          "detail": "changed-character ratio=0.591 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "detail": "changed-character ratio=0.584 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
           "name": "minimal edit p0080",
           "ok": true
-        },
-        {
-          "detail": "changed-character ratio=0.683 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0078",
-          "ok": false
         }
       ],
-      "notes": "All three operations are directionally correct and reach the playbook's preferred position: the grant in § 2(a) now extends to Client's affiliates and to contractors acting on its behalf, § 13(b)'s licence cut-off is limited to material breach uncured after 30 days' notice (removing the near-discretionary 'any violations or breach' trigger), and § 15 now permits transfer to a successor in an M&A or substantially-all-assets transaction. Edits are surgical: each inserts or replaces only the operative words needed (grant recipients, materiality/cure qualifier, successor carve-out) and leaves surrounding commercial terms intact. The failed minimal-edit heuristic on p0078 is an artefact of measuring the changed span; substantively only clause (b) of a long paragraph was touched, which the rule requires. Comment is accurate, in the required voice and prefix, explains the three changes and their rationale in one sentence, and correctly offers the fallback (affiliate coverage on written notice) without lecturing. Deviation status is properly supported: the original grant ran to Client alone, revocation of Sections 2 and 3 had no materiality or cure threshold, and § 15 covered only affiliate assignments — no successor transfer. Minor, non-blocking drafting nit: after adding multiple licensees, 'in the ordinary course of its business' in § 2(a) is slightly ambiguous as to whose business; counterparty could be asked to conform it to 'their respective businesses'.",
+      "notes": "Classification is correct: the § 2(a) grant runs to Client alone with no affiliates, no contractors and no notice mechanic to add them, and § 15 permits consent-free assignment only to a financially responsible affiliate — so the clause misses both limbs of the fallback (affiliates on written notice; transfer to an M&A successor), making this a genuine deviation rather than an acceptable fallback being upgraded. Redline is valid and directionally correct: it inserts 'its affiliates and contractors acting on its behalf' into the grant and adds successor-in-interest transfer to the assignment clause, tracking the redline guidance without disturbing surrounding commercial terms. Edits are minimal in substance despite the advisory change ratios — the inserted language is confined to the two operative phrases the rule targets; no unnecessary rewriting of the grant scope, term or the § 2(a) non-exclusivity carve-out. Rule is addressed completely for this contract: revocability was correctly assessed as absent (deterministic check confirms no at-will revocation), and the rationale properly notes this is not walk-away territory rather than over-escalating. Comment is accurate, concise, in first person plural with the [Playbook] prefix, explains the two changes and their commercial reason, and cites the playbook position without lecturing.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.82,
-    "costUsd": 0.1763825,
-    "durationMs": 45231,
+    "confidence": 0.88,
+    "costUsd": 0.1430895,
+    "durationMs": 41117,
     "id": "f-noncompete-81a93eb2",
     "paragraphIds": [
       "p0022",
@@ -403,7 +348,7 @@
     ],
     "producedBy": "drafter",
     "quote": "Notwithstanding the foregoing, Client is not obligated to utilize the License and is free to acquire, develop, license or otherwise utilize any other hardware, software system, design, formula, procedure or trade secret to provide software and services similar to the ones provided by TrueLink hereunder, so long as such",
-    "rationale": "No non-compete or field-of-use restraint binds us. Section 2(a) affirmatively confirms that Client is free to acquire, develop, license or use competing software and services (subject only to non-infringement of TrueLink IP and confidentiality), which exceeds the playbook's preferred position. The Client covenants in Section 8 are limited to legal compliance, access control, non-misrepresentation of underwriting decisions and content warranties — none restrict the businesses we may operate or products we may buy or build. The only \"Non-Competition Agreement\" reference (Section 8(d)) operates as a limitation on TrueLink's licence to use Credit Data, i.e., a restraint on the vendor, which is acceptable. The licence-scope wording in Section 2(a) (\"in the ordinary course of its business of the origination, underwriting, processing and funding of consumer finance receivables\") limits permitted use of TrueLink's Interface rather than our business activities, so it is not a field-of-use restraint on us. No redline required; separately, diligence on the referenced Non-Competition Agreement is advisable since it is not defined here.",
+    "rationale": "The Agreement imposes no non-compete or competitive field-of-use restriction on Mortgage Logic.com (Client), so the rule sits at the preferred position. Section 2(a) goes further in our favour by expressly confirming that Client is not obligated to use the License and is free to acquire, develop, license or otherwise utilize any other system to provide software and services similar to TrueLink's (subject only to non-infringement of TrueLink IP and the Section 10 confidentiality obligations per p0024), and the license itself is non-exclusive. Section 8's covenants on Client are limited to legal compliance, non-misrepresentation of underwriting decisions, access controls, content warranties and anti-spamming — none restricts the businesses we may operate or the products we may buy or build. The only \"Non-Competition Agreement\" reference (p0054) operates as a limitation on TrueLink's licensed use of Credit Data, i.e., a restriction on the counterparty, which the rule expressly treats as acceptable; we note it is a separate instrument not reviewed here, and its terms should be confirmed to contain no reciprocal restraint on Client, but nothing in this document creates one. No redline required.",
     "ruleId": "NONCOMPETE",
     "ruleTitle": "Non-compete restrictions on Customer",
     "sectionId": "sec-2",
@@ -418,29 +363,58 @@
           "ok": true
         }
       ],
-      "notes": "Claimed status is compliant and the cited text supports it: Section 2(a) affirmatively preserves Client's freedom to acquire, develop, license or use competing software and services, subject only to non-infringement of TrueLink IP and confidentiality — this exceeds the playbook's preferred position of 'no non-compete or field-of-use restriction on Customer'. The Section 2(a) license-scope language ('in the ordinary course of its business of the origination, underwriting...') is correctly characterised as a scope limit on permitted use of TrueLink's Interface, not a field-of-use restraint on Customer's business activities. Section 8(d)'s reference to the 'Non-Competition Agreement' is correctly read as a limitation on TrueLink's license to use Credit Data, i.e. a restraint on the vendor, which the rule expressly permits; the finding appropriately flags diligence on the undefined cross-referenced agreement rather than overreaching with a redline. Consistent with a compliant finding, no redline or counterparty comment is proposed, and the deterministic check confirms no open-ended compete restriction on Customer remains.",
+      "notes": "Claimed status is compliant and no redline or comment was proposed, which is the expected output for a compliant finding; the rendered redline is identical to the original paragraphs. The cited text supports the preferred position: Section 2(a) (p0022/p0024) expressly confirms Client is not obligated to use the License and is free to acquire, develop, license or otherwise utilize competing systems, subject only to non-infringement of TrueLink IP and Section 10 confidentiality — i.e., no non-compete or field-of-use restraint binds Customer. The only 'Non-Competition Agreement' reference (p0054) constrains TrueLink's licensed use of Credit Data, a restriction on the counterparty, which the rule expressly treats as acceptable; the rationale correctly notes it is a separate instrument whose terms should be confirmed, without over-flagging. Deterministic check ('no open-ended compete restriction on Customer remains') passes, consistent with the compliant classification; rationale is accurate and appropriately retained as internal evidence rather than a negotiation issue.",
       "verdict": "pass"
     }
   },
   {
     "confidence": 0.88,
-    "costUsd": 0.42027125,
-    "durationMs": 136049,
-    "id": "f-audit-7400f7e2",
+    "costUsd": 0.67307675,
+    "durationMs": 224615,
+    "id": "f-t4c-e7eef682",
     "paragraphIds": [
-      "p0037",
-      "p0047",
-      "p0050",
-      "p0058",
-      "p0060"
+      "p0079",
+      "p0078",
+      "p0045",
+      "p0043"
     ],
     "producedBy": "drafter",
-    "quote": "e. Access. Client will have access to Interface usage statistics and raw log files in real time via the Interface.",
-    "rationale": "No audit, inspection, records-examination or usage-verification right runs against the Client anywhere in this Agreement, so there is no frequency, notice, cost-allocation or system-access parameter to cap and no redline is warranted. Confirmed by keyword searches returning no hits for audit, inspect, verify, records, books, monitor, premises, examine and review, and by full reads of the fee provisions (SS 5-6), Client covenants (S 8), the license grant (S 2) and confidentiality (S 10). Every information flow runs in our favour: S 3(e) gives Client real-time access to Interface usage statistics and raw log files, and S 6 entitles Client to documentation supporting charges plus a right to contest them, so TrueLink has no contractual hook for a usage audit. The two Vendor-side access items are not audit rights: S 8(f) lets TrueLink implement technical anti-spam measures on its own hosted environment, and S 9 requires Client access solely so TrueLink can perform Y2K repairs at TrueLink's sole cost, at Client's request. Neither grants remote or direct access to Customer systems, so the walk-away trigger is absent. The failed deterministic check for an audit-frequency limit is a false signal: the pattern cannot match because no audit clause exists to limit, and silence is more favourable to us than the preferred position. Inserting frequency, notice and cost parameters would require first conceding an audit right we do not currently owe, so we take no action. Retained as internal negotiation discipline rather than a raised issue: if TrueLink later proposes a verification right, hold to once per 12 months, 30 days' written notice, an independent auditor bound by confidentiality, TrueLink's cost unless underpayment exceeds 5 percent, and no direct access to Client systems. Residual caveat: SS 5-6 contain unfilled fee blanks and reference Exhibits A and B, which are not in the extracted text; if those exhibits carry a reporting or verification mechanic, this rule should be re-run against them.",
+    "quote": "14. TERMINATION. Subject to Section 4 hereof, TrueLink will continue to provide the requested Hosting Services and Support Services until the last day of the month following the month in which Client provides TrueLink with a written notice of its election to terminate this Agreement.",
+    "rationale": "COMPLIANT at the preferred position. No redline and no counterparty comment, which is the correct output for a compliant finding.\n\nSTATUS OF THE FAILED CHECK — RECOMMEND HUMAN OVERRIDE; NO FURTHER REPAIR AVAILABLE. The deterministic check \"Customer convenience termination present\" has now failed three times on identical text while every substantive verifier note confirms compliance. I have searched exhaustively for any alternative paragraph that states the right in express terms: \"convenience\" appears exactly once in the document and it is the captions boilerplate at Section 22 (p0088); \"without cause\" and \"for any reason at any time\" return no hits; \"election to terminate\" returns only p0079. The right therefore has no textual home other than Section 14. The check can only be made to pass by amending p0079 to insert the words \"for convenience\" — that is, by redlining a clause that already meets the preferred position. I have declined to do so: the playbook is explicit that a clause meeting preferred is not redlined, and reopening a favourable termination provision to satisfy a keyword pattern would expose us to counterparty counter-proposals on our best exit right for purely cosmetic gain. The check should be waived by the reviewer as a phrasing variant, not cured by an edit.\n\nWHY THE CLAUSE MEETS THE RULE. Section 14 (p0079) operationalises a Client \"election to terminate this Agreement\" that is unqualified by breach, cause, consent or justification — a convenience right expressed functionally rather than by label. (1) Notice: service runs only to the last day of the month following the notice month, an effective ~30–60 days, at or within the preferred 30-day mark and inside the 60–90 day fallback band. (2) Cost: no early-termination fee, penalty, accelerated-fee clawback or termination charge appears anywhere in the agreement. (3) Vendor side: TrueLink has no mid-term convenience exit; its only routes out are for-cause termination of Sections 2 and 3 on Client breach or a System/Credit Repository Agreement default (p0078), plus symmetrical end-of-term non-renewal. (4) Term: 1-year initial term auto-renewing in successive one-year periods (p0078), so the \"multi-year term with no Customer convenience right\" walk-away test is not engaged.\n\nSUB-ELEMENTS NOTED, NOT REDLINED (flagging these would over-flag a clause that benefits us). No express pro-rata refund of prepaid fees — moot, because Section 5a (p0045) has TrueLink invoice monthly with payment due 15 days after receipt, so fees are paid in arrears and no prepayment accrues. The mutual 30-day non-renewal notice is shorter than the fallback's 90 days for a Vendor exit, but it is an end-of-term non-renewal rather than a mid-term convenience right and is symmetrical, so equally available to us. The \"Subject to Section 4 hereof\" carve-out points to the Support Services minimum commitment at p0043, left blank as \"not less than ____ months.\"\n\nNEGOTIATION FOLLOW-UP (no redline under this rule). Section 13 mis-cross-references \"Section 12\" for termination when termination is Section 14 and Section 12 is the indemnity. The Section 4 minimum-commitment blank should be filled at a figure we are comfortable with, since an unfilled or long period could be argued to qualify our Section 14 exit as to Support Services. Both are cleanup items to raise if the article is opened for other reasons.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-12",
+    "sectionRef": "§ 12 INDEMNITY.",
+    "severity": "high",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 3,
+      "checks": [
+        {
+          "name": "Customer convenience termination present",
+          "ok": false
+        }
+      ],
+      "notes": "Customer convenience termination present: failed Compliant classification is supportable on the cited text: Section 14 (p0079) conditions continued service on 'Client provides ... written notice of its election to terminate this Agreement' with no requirement of cause, breach, consent or justification, i.e. a functional Customer convenience exit with an effective ~30-60 day tail, and no early-termination fee, penalty or clawback appears anywhere in the fee or term provisions (p0045, p0078). Vendor side is acceptable: TrueLink's only mid-term exits in p0078 are for-cause (System/Credit Repository Agreement default or Client breach of Sections 8a-8c), so there is no Vendor convenience right during the committed term. Walk-away test is not engaged: the initial term is 1 year with successive one-year renewals, so the 'no Customer convenience right in a multi-year term' trigger and the detection guidance's >12-month threshold do not apply. Correct output form for a compliant finding: no redline (rendered text is byte-identical to the original) and no counterparty comment, consistent with the instruction that a clause meeting preferred or fallback is not reopened. The failed deterministic check is properly treated as a phrasing variant, not cured by an edit. Inserting 'for convenience' into p0079 would redline a clause that already meets the position and would needlessly reopen our best exit right; the check should be waived by the reviewer. Noted rather than flagged, correctly: the mutual 30-day non-renewal notice in p0078 is shorter than the fallback's 90 days for a Vendor end-of-term exit, but it is symmetrical non-renewal (equally available to us) rather than a mid-term convenience right, and is more naturally addressed under an auto-renewal/notice rule than double-flagged here. Minor: the rationale carries process narration about repeated check failures and unrelated cleanup items (Section 13 cross-reference, blank Section 4 commitment). These are legitimate internal notes but should be trimmed to the substantive compliance analysis before the finding is filed as evaluation evidence.",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.35467375,
+    "durationMs": 113809,
+    "id": "f-audit-ddb146fd",
+    "paragraphIds": [
+      "p0047",
+      "p0037"
+    ],
+    "producedBy": "drafter",
+    "quote": "6. DOCUMENTATION AND DISPUTES. Client will be provided upon request with documentation supporting the amount charged (other than the minimum monthly fees listed in Section 4) and will be entitled to contest any charge",
+    "rationale": "Confirmed compliant on re-review; no repair was required and none is made. The Agreement grants TrueLink no audit, inspection, verification or records-examination right against Client and no access to Client systems for usage verification. This was established by exhaustive searching (\"audit\", \"inspect\", \"records\", \"verify\", \"monitor\", \"books\", \"usage\", \"premises\", \"examination\", \"certif\" - all nil or irrelevant) and by reading every section where such a right would conventionally sit: Compensation (§ 5-6), Client covenants and warranties (§ 8) and Confidentiality (§ 10). The only information flows run in our favour: § 6 entitles us to documentation supporting charges and to contest them, and § 2.e gives us real-time access to Interface usage statistics and raw log files. With no audit obligation binding us, our position exceeds the playbook's preferred limits (once per 12 months, 30 days' notice, independent auditor bound by confidentiality, vendor cost, no system access), so there is no negotiation issue and no redline: inserting audit machinery would create a vendor right that does not exist today. \"Missing\" is inapposite because this rule constrains a vendor-favourable right rather than requiring a protective clause. The failed \"audit frequency limited\" deterministic check is an artefact of the total absence of an audit clause, not evidence of a permissive one. Awareness only, not a deviation under this rule: § 8.f lets TrueLink implement technical mechanisms to prevent spamming, which operates on TrueLink's own Interface as an acceptable-use enforcement measure and is not an audit of our records or systems.",
     "ruleId": "AUDIT",
     "ruleTitle": "Audit rights against Customer",
-    "sectionId": "sec-2",
-    "sectionRef": "§ 2 LICENSE.",
+    "sectionId": "sec-5",
+    "sectionRef": "§ 5 COMPENSATION.",
     "severity": "medium",
     "status": "needs_review",
     "verification": {
@@ -451,14 +425,14 @@
           "ok": false
         }
       ],
-      "notes": "audit frequency limited: failed Claimed status is compliant and the cited paragraphs contain no audit, inspection, records-examination or usage-verification right running against the Client, so silence is at least as favourable as the preferred position. No redline or counterparty comment is expected for a compliant finding; the rendered redline is identical to the original text and no comment was issued, which is correct here. The failed 'audit frequency limited' deterministic check is a heuristic false signal: the pattern cannot match because there is no audit clause to cap, and inserting frequency/notice/cost parameters would concede an audit right the Client does not currently owe. The two Vendor-side access items are correctly characterised as non-audit: S 8(f) anti-spam measures operate on TrueLink's hosted environment, and S 9 access is at Client's request for Y2K repairs at TrueLink's cost — neither is remote or direct access to Client systems, so the walk-away trigger is absent. Information flows cited (S 3(e) real-time usage statistics/log access to Client; S 6 supporting documentation and right to contest charges) run in the Client's favour and are properly not treated as Vendor audit hooks. The residual caveat about unfilled fee blanks and unextracted Exhibits A and B is appropriately flagged rather than overstated, and does not undermine the compliant conclusion on the available text.",
+      "notes": "audit frequency limited: failed Claimed status is compliant with no redline and no comment, which is the expected output shape for a compliant finding. The cited paragraphs (§6 documentation/dispute right and §2.e real-time usage statistics access) run in the Customer's favour and contain no audit, inspection or verification right binding the Client, and no Vendor access to Client systems — consistent with the rationale that the document grants TrueLink no audit right. Because AUDIT constrains a vendor-favourable right rather than requiring a protective clause, absence of any audit clause is better than the preferred position; classifying as 'missing' and inserting audit machinery would create a Vendor right that does not exist and would harm our party. The failed 'audit frequency limited' deterministic check is a heuristic artefact of there being no audit clause to match, not evidence of an unlimited audit right; the rationale correctly explains this. The §8.f anti-spam technical-mechanism note is appropriately flagged as awareness only rather than treated as an audit of Client records or systems.",
       "verdict": "fail"
     }
   },
   {
-    "confidence": 0.86,
-    "costUsd": 0.10232975,
-    "durationMs": 35628,
+    "confidence": 0.9,
+    "costUsd": 0.08810975,
+    "durationMs": 31001,
     "id": "f-govlaw-f65d9023",
     "paragraphIds": [
       "p0093",
@@ -466,7 +440,7 @@
     ],
     "producedBy": "drafter",
     "quote": "26. APPLICABLE LAW. This Agreement shall be governed, construed and interpreted in accordance with the laws of the State of California (without respect to principles of conflicts of law).",
-    "rationale": "The Agreement is governed by California law (§ 26) with disputes resolved exclusively in the state or federal courts located in San Luis Obispo County, California (§ 27). California law with California courts sits squarely within the playbook's accepted list (NY preferred; DE, CA or England and Wales acceptable), and dispute resolution is before courts with no arbitration provision anywhere in the Agreement (no arbitration language found on search), so there is no foreign seat or foreign exclusive venue concern. Although venue is in TrueLink's home county rather than our Irvine location, both parties are California entities and the forum remains within an accepted jurisdiction, so no redline is warranted for this rule.",
+    "rationale": "Contrary to the planner hint, governing law and venue are present in the trailing miscellaneous provisions (numbered 26 and 27, carried under the § 12 section ref). Section 26 selects California law, and Section 27 gives exclusive venue in the state or federal courts of San Luis Obispo County, California, with consent to jurisdiction and a waiver of venue/forum objections. This sits squarely at the playbook fallback (California law and California courts) rather than the preferred New York position, so it is acceptable and not redlined. There is no arbitration provision anywhere in the document, and no foreign seat or non-accepted jurisdiction, so walk-away territory is not engaged. Noted but not flagged: the venue is a specific in-state county likely convenient to TrueLink rather than a major commercial forum, and California Civil Code references (§§ 1654, 1717) appear elsewhere consistent with the California choice of law.",
     "ruleId": "GOVLAW",
     "ruleTitle": "Governing law and venue",
     "sectionId": "sec-12",
@@ -481,21 +455,21 @@
           "ok": true
         }
       ],
-      "notes": "Cited text supports compliance: § 26 selects California law and § 27 vests exclusive venue in California state/federal courts, both within the playbook's accepted fallback set (DE/CA law and courts). No arbitration provision is implicated, so the walk-away trigger (mandatory foreign-seated arbitration or foreign exclusive venue) does not apply. Consistent with a compliant finding, no redline or counterparty comment was proposed; original paragraphs are unchanged and the deterministic check confirms the jurisdiction is in the accepted set. Rationale correctly notes that in-state county venue preference is a commercial nicety outside this rule's scope, so no edit is warranted.",
+      "notes": "Cited text (§§ 26–27) selects California substantive law and exclusive venue in California state/federal courts, which matches the playbook fallback (California law and courts); under the team's classification semantics a clause at the fallback is compliant and should not be redlined. No arbitration provision or foreign seat is present, so walk-away territory is not engaged; the deterministic check confirms the jurisdiction is within the accepted set. Consistent with a compliant finding, the redline is identical to the original paragraphs and no counterparty comment is proposed; the rationale correctly notes the deviation from the preferred New York position and the narrow county venue as observations only.",
       "verdict": "pass"
     }
   },
   {
     "confidence": 0.9,
-    "costUsd": 0.10421525,
-    "durationMs": 33030,
+    "costUsd": 0.0836325,
+    "durationMs": 34739,
     "id": "f-mfn-ead09424",
     "paragraphIds": [
       "p0047"
     ],
     "producedBy": "drafter",
     "quote": "TrueLink agrees that the costs for any Hosting Services will not increase for a period of one year from the date of this Agreement and that rates charged for Hosting Services will not exceed that charged by TrueLink to any other party.",
-    "rationale": "The only pricing-parity undertaking in the Agreement runs in our favour: TrueLink (Vendor) commits that Hosting Services rates will not exceed those charged to any other party, plus a one-year price freeze. A review of the Compensation section (sec-5), the Client covenants (sec-8) and full-text searches for MFN language (\"most favored\", \"favorable\", \"no less favorable\", \"best\", \"terms offered\", \"any other party\") found no obligation on Mortgage Logic.com (Client) to extend TrueLink terms no less favourable than those given to third parties or to match third-party offers. Consistent with the rule, a Vendor-granted MFN is welcome and no redline is proposed.",
+    "rationale": "The only most-favoured-nation language in the Agreement runs in our favour: in § 6 (Documentation and Disputes, p0047) TrueLink undertakes that Hosting Services rates will not exceed those charged to any other party, plus a one-year price freeze. Searches for MFN-style formulations (\"favorable\", \"best\", \"any other party\", exclusivity) turned up no reciprocal obligation requiring Mortgage Logic.com to offer TrueLink terms no less favourable than those given to third parties or to match third-party offers, and the Compensation section (§ 5) imposes only ordinary fee-payment duties. This meets the preferred position (no MFN burdening Customer, Vendor-granted MFN welcome), so no redline is proposed.",
     "ruleId": "MFN",
     "ruleTitle": "Most-favoured-nation obligations burdening Customer",
     "sectionId": "sec-5",
@@ -505,87 +479,54 @@
     "verification": {
       "attempts": 1,
       "checks": [],
-      "notes": "The cited paragraph (p0047) contains a pricing-parity undertaking running solely in our favour: TrueLink commits that Hosting Services rates 'will not exceed that charged by TrueLink to any other party', plus a one-year price freeze — squarely the Vendor-granted MFN the rule welcomes. No obligation is imposed on Client to extend TrueLink terms no less favourable than those given to third parties or to match third-party offers, so the rule's flag condition is not triggered. Consistent with the claimed compliant status and the rule's redline guidance ('keep any Vendor-granted MFN'), the redline is unchanged from the original and no counterparty comment is proposed — the expected output for a compliant finding. Deterministic checks are empty and the rendered text matches the original character-for-character, confirming no unintended edits.",
+      "notes": "The cited § 6 MFN runs in the Customer's (Mortgage Logic.com's) favour — TrueLink warrants Hosting Services rates will not exceed those charged to any other party, plus a one-year price freeze — which is exactly the rule's preferred position (no MFN burdening Customer; Vendor-granted MFN welcome). No obligation on Client to extend or match third-party terms appears in the cited text or definitions, supporting the 'compliant' classification rather than a deviation. Consistent with a compliant finding, the rendered redline is byte-identical to the original paragraph and no counterparty comment is proposed; no deterministic checks failed. Rationale is accurate and appropriately records the finding as internal evidence rather than a negotiation issue.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.82,
-    "costUsd": 0.1808305,
-    "durationMs": 58773,
-    "id": "f-mincommit-d5165327",
+    "confidence": 0.72,
+    "costUsd": 0.21080525,
+    "durationMs": 64542,
+    "id": "f-mincommit-0dab4612",
     "paragraphIds": [
       "p0045",
-      "p0047"
+      "p0047",
+      "p0078",
+      "p0079"
     ],
     "producedBy": "drafter",
-    "proposal": {
-      "comment": "[Playbook] We removed the minimum monthly fee floor (currently left blank) so that we pay only for the Hosting Services and Support Services we actually request, consistent with our position against take-or-pay commitments. If a floor is essential, we could accept one limited to the current 12-month term, reducible on 30 days' notice and trued up rather than penalised.",
-      "level": "preferred",
-      "ops": [
-        {
-          "kind": "replace",
-          "newText": "attached hereto. Client will pay only for the Hosting Services and Support Services actually requested by Client, with no minimum purchase or minimum fee commitment. For any other services",
-          "oldText": "attached hereto, (but not less than $____ per month for the Hosting Services and $____ per month for Support Services). For any other services",
-          "paragraphId": "p0045"
-        },
-        {
-          "kind": "replace",
-          "newText": "documentation supporting the amount charged and will be entitled to contest any charge, provided",
-          "oldText": "documentation supporting the amount charged (other than the minimum monthly fees listed in Section 4) and will be entitled to contest any charge (other than the minimum monthly fees listed in Section 4), provided",
-          "paragraphId": "p0047"
-        }
-      ],
-      "precedentId": "seed-mincommit",
-      "summary": "Delete the minimum monthly fee floor so we pay only for Hosting and Support Services actually requested."
-    },
-    "quote": "a. Client will pay TrueLink's fees for requested Hosting Services and Support Services pursuant to the schedule of charges set forth on Exhibits \"A\" and \"B\" attached hereto, (but not less than $____ per month for the Hosting Services and $____ per month for Support Services).",
-    "rationale": "Section 5(a) imposes an open-ended minimum monthly fee on Client (our party) for both Hosting and Support Services, and Section 6 strips our documentation and dispute rights for those minimums, so the amounts (still blank) would be payable regardless of usage. Although the term is one year with an automatic renewal and Client has a convenience termination right in Section 14, the floor is a take-or-pay element that our playbook resists; the minimal fix is to delete the parenthetical floor and the related carve-outs so we pay only for services actually requested. Fallback (a floor limited to the current 12-month term, reducible on 30 days' notice with a true-up) is offered in the comment.",
+    "quote": "Client will pay TrueLink's fees for requested Hosting Services and Support Services pursuant to the schedule of charges set forth on Exhibits \"A\" and \"B\" attached hereto, (but not less than $____ per month for the Hosting Services and $____ per month for Support Services).",
+    "rationale": "There is a minimum commitment on us: Section 5(a) sets a monthly floor (\"not less than $____ per month\") for Hosting and Support Services, and Section 6 makes those minimum monthly fees non-contestable. However, the commitment sits at the playbook fallback rather than in walk-away territory: (i) exposure is confined to the current 12-month term, since Section 13 runs for one year and renews in one-year increments subject to 30 days' notice of non-renewal by either party; (ii) Section 14 gives us a stand-alone right to terminate at any time on written notice, with services (and therefore the minimum) ending the last day of the month following notice — roughly a 30-60 day exit; and (iii) there is no shortfall payment, penalty or accelerated-balance mechanic anywhere in the document, so we pay only monthly minimums for months actually served. Section 2(a) also confirms we are \"not obligated to utilize the License\" and may source equivalent services elsewhere, so there is no volume cap or exclusivity backing the floor. Two drafting points to note but not redline: the dollar amounts and the Section 4 support period are left blank and should be completed before signature, and Section 6's reference to \"the minimum monthly fees listed in Section 4\" is a mis-cross-reference (the minimums are in Section 5(a)); Section 14's \"Subject to Section 4\" should likewise be confirmed as preserving TrueLink's support-availability period rather than qualifying our termination right.",
     "ruleId": "MINCOMMIT",
     "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
     "sectionId": "sec-5",
     "sectionRef": "§ 5 COMPENSATION.",
     "severity": "medium",
-    "status": "deviation",
+    "status": "compliant",
     "verification": {
       "attempts": 1,
-      "checks": [
-        {
-          "name": "operation 1 applies",
-          "ok": true
-        },
-        {
-          "name": "operation 2 applies",
-          "ok": true
-        },
-        {
-          "detail": "changed-character ratio=0.723 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0045",
-          "ok": false
-        },
-        {
-          "detail": "changed-character ratio=0.547 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0047",
-          "ok": true
-        }
-      ],
-      "notes": "Correctly identifies a Customer-side take-or-pay element: the parenthetical minimum monthly fees for Hosting and Support Services in p0045 are payable regardless of usage, which the playbook resists (preferred: pay for usage/ordered services only). The redline reaches the preferred position directionally: the minimum-fee parenthetical is deleted and the consequential Section 6 carve-outs stripping documentation and dispute rights for those minimums are removed, restoring our audit/contest rights. Both edits favour Customer and introduce no new counterparty rights. Comment is accurate (notes the amounts are currently blank), states what changed and why, cites the playbook position, and offers the fallback (floor limited to the current 12-month term, reducible on 30 days' notice, trued up rather than penalised) in the required tone. The 0.723 changed-character ratio on p0045 is explained by the added confirming sentence ('Client will pay only for ... actually requested ... with no minimum purchase or minimum fee commitment'); the surrounding invoicing and other-services language is untouched. Strictly, deleting the parenthetical alone would suffice, so the extra sentence is optional belt-and-braces, but it is consistent with the rule and does not overreach. Minor drafting nit for negotiation: the original Section 6 cross-refers to 'Section 4' minimums while the floor sits in Section 5(a); the finding notes the substance correctly and the deletion removes the stale cross-reference anyway.",
+      "checks": [],
+      "notes": "Claimed status is 'compliant' and the finding correctly leaves the text unmodified with no counterparty comment, which is the expected output for a compliant classification. The cited text supports the fallback position: the minimum monthly floor in Section 5(a) is confined to the current 1-year term (Section 13, auto-renewal with 30 days' non-renewal notice) and Section 14 provides a convenience termination that ends the minimum roughly 30-60 days after notice, so the commitment is reducible on notice. No shortfall payment, penalty or acceleration mechanic appears in the cited paragraphs, so there is no take-or-pay penalty and the clause is not in walk-away territory (multi-year take-or-pay with no exit). Minor sub-elements short of preferred wording (non-contestable minimums under Section 6, blank dollar amounts, and the Section 4/5 mis-cross-reference and 'Subject to Section 4' ambiguity) are appropriately noted in the rationale rather than redlined, per the classification semantics.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.88,
-    "costUsd": 0.29548475,
-    "durationMs": 94779,
-    "id": "f-nosolicit-a105c3f6",
+    "confidence": 0.94,
+    "costUsd": 0.3297395,
+    "durationMs": 106628,
+    "id": "f-nosolicit-68e2b6f2",
     "paragraphIds": [
       "p0050",
+      "p0051",
+      "p0052",
       "p0053",
-      "p0054"
+      "p0054",
+      "p0061",
+      "p0062"
     ],
     "producedBy": "drafter",
     "quote": "c. Limitation on Access. Client will use reasonable commercial efforts consistent with the protection of Client Proprietary Information to restrict access to the Interface to its officers, employees, and agents as may be approved by Client.",
-    "rationale": "No non-solicitation, no-hire or anti-poaching covenant binds Client anywhere in this Agreement, which matches our preferred position (\"No non-solicit on Customer\"), so no redline or comment is proposed and the fallback narrowing edits are correctly not applied. Literal and regex searches for \"solicit\", \"solicitation\", \"no-hire\", \"poach\", \"employ\", \"hire\", \"induce\", \"recruit\", \"personnel\", \"staff\" and \"leave the employ\" return only § 7 (Unsolicited Commercial E-Mail), incidental \"employees\" references in the § 12 indemnities, and § 8(c) as quoted, where \"employees\" appears solely in an access-restriction covenant and imposes no hiring restraint. Full reads of the two candidate locations, § 8 (Covenants and Warranties of Client, p0050-p0058) and § 10 (Confidentiality, p0061-p0068), confirm the absence. § 8(d) (p0054) cross-references a separate \"Non-Competition Agreement\" only as a limitation on TrueLink's licence to use Credit Data, not as a restraint on hiring. The failed deterministic checks (duration of 12 months or less; general-solicitation carve-out) are artifacts of there being no clause to measure rather than defects, since a carve-out cannot exist without a covenant to carve out of. Reviewer note: the separate Non-Competition Agreement is outside this document and should be diligenced separately for any hiring restriction binding us.",
+    "rationale": "Compliant at the preferred position: the agreement imposes no employee non-solicitation, no-hire or anti-poaching covenant on Mortgage Logic.com, which matches the playbook's preferred outcome (\"No non-solicit on Customer\"). No redline is proposed.\n\nBasis: (1) Document-wide searches for the rule's detection triggers (\"solicit\", \"employ\", \"hire\", \"induce\", \"personnel\", \"recruit\", \"solicitation\", \"directly or indirectly\") surface no restrictive covenant. The only hits are § 7's unsolicited commercial e-mail (spam) provision and references to \"employees\" that concern access control (§ 8(c), quoted above) and indemnity beneficiary lists (§ 12) — not hiring or solicitation. (2) Every \"shall not\" obligation on Client is unrelated: anti-spamming (§ 7), underwriting-decision representations (§ 8(b)), and IP non-infringement warranties (§ 8(e)). (3) § 10 Confidentiality, the other likely location, is confined to Proprietary Information and its exceptions. (4) The \"Non-Competition Agreement\" referenced in § 8(d) is invoked only as a limit on the credit-data license grant and does not import any personnel restriction into this agreement; that separate instrument should be checked for an employee non-solicit when it is reviewed.\n\nThe failed deterministic checks (duration <= 12 months; general-solicitation carve-out) test the fallback wording of an existing non-solicit and are non-probative where no such clause exists. Adding a carve-out would require first inserting the very restriction the preferred position rejects, so no edit is warranted. Because the silence favors us, we should not volunteer a mutual non-solicit. If TrueLink raises one, we would hold it to the fallback: personnel directly involved in the services, 12 months from the end of their involvement, carve-outs for general advertisements and unsolicited approaches, and no no-hire. That is recorded as an internal negotiation reserve, not as a point to raise with the counterparty.",
     "ruleId": "NOSOLICIT",
     "ruleTitle": "Non-solicitation of employees binding Customer",
     "sectionId": "sec-8",
@@ -605,121 +546,45 @@
           "ok": false
         }
       ],
-      "notes": "general-solicitation carve-out present: failed Claimed status is compliant, and the cited paragraphs support it: § 8(c) uses 'employees' only in an access-restriction covenant and § 8(d) references a separate Non-Competition Agreement solely as a limitation on TrueLink's licence to use Credit Data — neither imposes any solicitation, hiring or inducement restraint on Client. Consistent with the compliant status, no redline was rendered (redline text is identical to the originals) and no counterparty comment was proposed, which is the correct treatment under the rule's preferred position ('No non-solicit on Customer'). The two failed deterministic checks (duration ≤ 12 months; general-solicitation carve-out) are expected artifacts where no covenant exists to measure, and do not indicate a defective edit. The reviewer note flagging the out-of-document Non-Competition Agreement for separate diligence is appropriate and does not overstate the in-document position.",
+      "notes": "general-solicitation carve-out present: failed Claimed status is 'compliant' and the cited text supports it: §8 covenants on Client cover compliance with laws, notification, access limitation and a credit-data license, and §10 is limited to confidentiality — none imposes an employee non-solicit, no-hire or anti-poaching restriction on the Customer. The rule's preferred position is 'No non-solicit on Customer', so silence in the agreement is the best-case outcome for our side; correctly no redline and no counterparty comment were proposed, and the redline is byte-identical to the original paragraphs. The two failed deterministic checks (duration ≤ 12 months; general-solicitation carve-out) only test the wording of an existing non-solicit and are non-probative here; inserting a carve-out would require first creating the restriction the preferred position rejects. Rationale appropriately records the fallback terms as an internal negotiation reserve rather than a point to raise, and flags the separate Non-Competition Agreement referenced in §8(d) as a follow-up rather than importing a covenant that is not in this document.",
       "verdict": "fail"
     }
   },
   {
-    "confidence": 0.82,
-    "costUsd": 0.1639595,
-    "durationMs": 52284,
-    "id": "f-renewal-24706216",
+    "confidence": 0.86,
+    "costUsd": 0.1059415,
+    "durationMs": 35886,
+    "id": "f-renewal-4d0df6e1",
     "paragraphIds": [
       "p0078",
       "p0047"
     ],
     "producedBy": "drafter",
-    "proposal": {
-      "comment": "[Playbook] The 30-day opt-out and one-year renewal terms work for us, but we need a 60-day renewal reminder from TrueLink and a cap on renewal pricing, so we added an uplift limit of the lesser of CPI and 3%. If a hard cap is difficult, we can accept 5% as a fallback.",
-      "level": "preferred",
-      "ops": [
-        {
-          "kind": "replace",
-          "newText": "written notice of intent not to renew no later than thirty (30) days prior to the end of said year. TrueLink shall notify Client in writing of each upcoming renewal no later than sixty (60) days prior to the end of the then-current term. Fees for any renewal term shall not exceed the fees in effect during the immediately preceding term increased by the lesser of (i) the percentage increase in the U.S. Consumer Price Index over the preceding twelve (12) months and (ii) three percent (3%).",
-          "oldText": "written notice of intent not to renew no later than thirty (30) days prior to the end of said year.",
-          "paragraphId": "p0078"
-        }
-      ],
-      "precedentId": "seed-renewal",
-      "summary": "Add vendor renewal reminder and cap renewal price increases at the lesser of CPI and 3%."
-    },
     "quote": "This Agreement shall renew automatically thereafter for successive one year periods until terminated pursuant to Section 12 herein or unless either Client or TrueLink deliver to the other written notice of intent not to renew no later than thirty (30) days prior to the end of said year.",
-    "rationale": "Section 13 (p0078) gives automatic successive one-year renewals with a 30-day non-renewal notice window, which already meets the preferred position on renewal term length and exit window. However, the agreement lacks the two remaining preferred protections: a vendor reminder ahead of renewal and a cap on renewal price increases. Section 6 (p0047) freezes Hosting Services costs only for the first year, leaving renewal-term uplift uncapped. The redline adds a 60-day TrueLink renewal reminder and caps renewal fees at the lesser of CPI and 3%, with 5% available as a fallback.",
+    "rationale": "The renewal mechanic sits in the Term clause (Section 13, p0078): the initial term is 1 year and the Agreement renews automatically for successive one-year periods, with either party — including us as Client — able to prevent renewal on written notice given no later than 30 days before the end of the then-current year. On the material terms this meets the preferred position: renewal terms are 12 months (not multi-year), and the non-renewal notice window is 30 days, well inside both the preferred 30-day and fallback 60-day limits, and nowhere near the 90-day walk-away threshold. The notice right is mutual, so it does not operate against us. Two preferred sub-elements are absent and are noted only: there is no Vendor obligation to send a renewal reminder 60 days ahead, and there is no CPI/3% cap on renewal price increases — Section 6 (p0047) only freezes Hosting Services costs for the first year and adds a most-favoured-rate commitment, leaving uplift at renewal uncapped. Under the playbook's classification semantics a missing reminder mechanic and a missing price-uplift cap are minor sub-elements short of preferred wording, so no redline is proposed. If the renewal pricing is negotiated elsewhere, we may raise the uplift cap as a low-priority ask alongside the fee schedule rather than under this rule.",
     "ruleId": "RENEWAL",
     "ruleTitle": "Auto-renewal and non-renewal notice window",
     "sectionId": "sec-12",
     "sectionRef": "§ 12 INDEMNITY.",
     "severity": "medium",
-    "status": "deviation",
+    "status": "compliant",
     "verification": {
       "attempts": 1,
       "checks": [
-        {
-          "name": "operation 1 applies",
-          "ok": true
-        },
         {
           "detail": "number not found",
           "name": "non-renewal notice window ≤ 60 days",
           "ok": false
-        },
-        {
-          "detail": "changed-character ratio=0.799 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0078",
-          "ok": false
         }
       ],
-      "notes": "Classification is sound: Section 13 already provides 12-month renewals with a 30-day opt-out (preferred on term/window), but the agreement lacks any vendor renewal reminder and leaves renewal-term pricing uncapped after the one-year freeze in Section 6, so it falls short of both the preferred and fallback price-protection elements. Redline is directionally correct and minimally invasive: two inserted sentences (60-day TrueLink renewal notice; renewal fees capped at the lesser of CPI and 3%) with all original operative language, including the existing thirty (30) day non-renewal window, left intact. Failed deterministic check 'non-renewal notice window ≤ 60 days (number not found)' is a phrasing artifact — the retained 'thirty (30) days prior' already satisfies the parameter, so no edit was required there. High changed-character ratio (0.799) overstates the intervention; the edit is additive insertion into a long clause, and the added protections cannot be achieved without new text. Comment is accurate, in the required voice and prefix, explains what changed and why, cites the playbook cap, and offers the 5% fallback.",
-      "verdict": "pass"
-    }
-  },
-  {
-    "confidence": 0.72,
-    "costUsd": 0.29017725,
-    "durationMs": 104323,
-    "id": "f-t4c-9cbf4297",
-    "paragraphIds": [
-      "p0079",
-      "p0078"
-    ],
-    "producedBy": "drafter",
-    "proposal": {
-      "comment": "[Playbook] We clarified Section 14 as an express right for Client to terminate for convenience on thirty (30) days' written notice, with a refund of any prepaid fees and no early-termination fee, rather than an open-ended \"end of the month following notice\" mechanic tied to a Section 4 that does not appear in the Agreement. Our position is a clean 30-day convenience exit without penalty; we can accept 60 days' notice if TrueLink needs additional transition time.",
-      "level": "preferred",
-      "ops": [
-        {
-          "kind": "replace",
-          "newText": "Client may terminate this Agreement for convenience, in whole or in part, at any time upon thirty (30) days' prior written notice to TrueLink, and TrueLink will continue to provide the requested Hosting Services and Support Services through the effective date of termination. TrueLink shall refund to Client any prepaid fees for the period after the effective date of termination, and no early termination fee, penalty or minimum-fee obligation shall apply in respect of any period after such effective date.",
-          "oldText": "Subject to Section 4 hereof, TrueLink will continue to provide the requested Hosting Services and Support Services until the last day of the month following the month in which Client provides TrueLink with a written notice of its election to terminate this Agreement.",
-          "paragraphId": "p0079"
-        }
-      ],
-      "precedentId": "seed-t4c",
-      "summary": "Make Section 14 an express Client termination-for-convenience right on 30 days' notice with refund of prepaid fees and no early-termination penalty."
-    },
-    "quote": "14. TERMINATION. Subject to Section 4 hereof, TrueLink will continue to provide the requested Hosting Services and Support Services until the last day of the month following the month in which Client provides TrueLink with a written notice of its election to terminate this Agreement.",
-    "rationale": "Section 14 implies a Client election to terminate, but it is drafted as a service-continuation mechanic rather than an express convenience right: it is qualified by a \"Section 4\" that does not appear in the Agreement, the effective date can run up to roughly 60 days (last day of the month following the notice month), and there is no refund of prepaid fees or express bar on early-termination/minimum-fee charges (Section 5(a) imposes monthly minimums). Vendor has no mid-term convenience right (only 30-day non-renewal at the end of each one-year term under Section 13), so no vendor-side edit is needed. We therefore conformed Section 14 to the preferred position: Client convenience termination on 30 days' written notice, refund of prepaid fees, and no penalty.",
-    "ruleId": "T4C",
-    "ruleTitle": "Termination for convenience",
-    "sectionId": "sec-12",
-    "sectionRef": "§ 12 INDEMNITY.",
-    "severity": "medium",
-    "status": "deviation",
-    "verification": {
-      "attempts": 1,
-      "checks": [
-        {
-          "name": "operation 1 applies",
-          "ok": true
-        },
-        {
-          "name": "Customer convenience termination present",
-          "ok": false
-        },
-        {
-          "detail": "changed-character ratio=0.754 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
-          "name": "minimal edit p0079",
-          "ok": false
-        }
-      ],
-      "notes": "Deviation call is supported: Section 14 is drafted as a service-continuation mechanic rather than an express Client convenience right, the effective date can run 30–60 days (last day of the month following the notice month), and there is no pro-rata refund of prepaid fees or bar on the Section 5(a) monthly minimums — all short of the T4C preferred position. The redline reaches the preferred position with substantively correct language: express Client convenience termination on 30 days' written notice, refund of prepaid fees for the post-termination period, and no early-termination fee/penalty/minimum-fee obligation, while preserving the original obligation for TrueLink to keep providing Hosting and Support Services through the effective date. Failed check 'Customer convenience termination present' is a false negative — the clause uses the contract's defined customer alias 'Client' ('Client may terminate this Agreement for convenience ... upon thirty (30) days' prior written notice'), which is an accepted alias. The 0.754 changed-character ratio is justified here: the sentence had to be converted from a continuation-of-services mechanic into an affirmative termination right with refund and no-penalty language; the drafter retained the original service-continuation substance rather than rewriting more than necessary. Vendor-side analysis is adequate: TrueLink has no mid-term convenience right, only end-of-term non-renewal under Section 13, so no vendor deletion was required. Caution: if the playbook is read strictly, the mutual 30-day non-renewal notice in Section 13 is shorter than the 90 days contemplated for vendor end-of-term exits and could be raised (or handled under an auto-renewal/notice rule). Caution on comment accuracy: the assertion that 'Section 4 does not appear in the Agreement' is not verifiable from the supplied text (Sections 2, 3, 5, 8, 12, 13 are all referenced, and 'Support Services' is likely defined in Section 4). Consider softening to 'the cross-reference to Section 4 appears to be a drafting error' before sending, and confirm nothing substantive in Section 4 is lost by deleting the qualifier.",
+      "notes": "The cited Term clause (p0078) provides automatic renewal for successive one-year periods with a mutual non-renewal right exercisable on written notice 'no later than thirty (30) days prior to the end of said year' — 12-month renewal terms and a 30-day window, which satisfies the preferred position's material terms and is far inside the 90-day walk-away threshold. The failed deterministic check ('number not found') is a phrasing artifact: the window is spelled out as 'thirty (30) days' rather than in a form the regex matched; substance confirms a ≤60-day (indeed ≤30-day) window. Consistent with the claimed compliant status, no redline and no counterparty comment were produced — the rendered text is identical to the original. The rationale correctly treats the absent 60-day Vendor reminder and the absent CPI/3% uplift cap as minor sub-elements noted rather than flagged, per the playbook's classification semantics, and correctly identifies the Section 6 first-year price freeze / most-favoured-rate language as not amounting to a renewal uplift cap.",
       "verdict": "pass"
     }
   },
   {
     "confidence": 0.88,
-    "costUsd": 0.2053095,
-    "durationMs": 60042,
+    "costUsd": 0.24686675,
+    "durationMs": 71404,
     "id": "f-transition-1cca7a32",
     "paragraphIds": [
       "p0079",
@@ -727,20 +592,20 @@
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] We added an orderly exit clause to Section 14 so that, on expiry or termination, TrueLink provides up to six months of transition assistance at its then-current rates, returns our Client Content and borrower and loan data in a machine-readable format within thirty days, and only then deletes and certifies deletion. Our playbook requires data return and migration help on exit; we can accept 90 days of assistance if six months is unworkable.",
+      "comment": "[Playbook] We added an exit clause requiring TrueLink, on expiry or termination, to provide up to six months of transition assistance at its then-current rates, return our Content and Credit Data in a machine-readable format within thirty (30) days, and then delete and certify deletion. As TrueLink hosts our Web Site and borrower data, the Agreement currently gives us no right to get that data back or to migrate in an orderly way; we can accept a 90-day assistance period if six months is difficult.",
       "level": "preferred",
       "ops": [
         {
           "kind": "insert_after",
           "paragraphId": "p0079",
-          "text": "Upon the expiration or termination of this Agreement for any reason, TrueLink shall (a) at Client's request, provide reasonable transition assistance for up to six (6) months at TrueLink's then-current rates; (b) within thirty (30) days of such expiration or termination, return to Client all Client Content, Client's Intellectual Property, Client Proprietary Information and other Client data (including borrower and loan data) then in TrueLink's possession or control, in a commonly used, machine-readable format; and (c) thereafter delete all such Client Content, Client's Intellectual Property, Client Proprietary Information and Client data from its systems and certify such deletion to Client in writing."
+          "text": "Upon expiry or termination of this Agreement for any reason, TrueLink shall (a) at Client's request, provide reasonable transition assistance for a period of up to six (6) months at TrueLink's then-current rates, including reasonable assistance in migrating the Web Site, Client Content and Client's data to Client or its designee; (b) within thirty (30) days of Client's request, return to Client all Client Content, Credit Data and other data and materials of Client then in TrueLink's possession or control, in a commonly used, machine-readable format; and (c) thereafter delete such Client Content, Credit Data and other data and materials from its systems and backup media and certify such deletion to Client in writing."
         }
       ],
       "precedentId": "seed-transition",
-      "summary": "Insert post-termination transition assistance, data return and certified deletion into § 14 (Termination)"
+      "summary": "Insert post-termination transition assistance, data return in machine-readable format, and certified deletion into Section 14 (Termination)."
     },
     "quote": "14. TERMINATION. Subject to Section 4 hereof, TrueLink will continue to provide the requested Hosting Services and Support Services until the last day of the month following the month in which Client provides TrueLink with a written notice of its election to terminate this Agreement.",
-    "rationale": "This is a hosting agreement under which TrueLink holds our Client Content and borrower/loan data, but neither § 13 (Term) nor § 14 (Termination) obliges TrueLink to return that data or assist with migration on exit. § 13 only places the burden on us to arrange a new name server within 30 days and a new hosting environment within 60 days, and § 10 contains no return-of-materials mechanic. We therefore inserted the playbook exit clause into § 14: up to six months of transition assistance at then-current rates, return of our data in a machine-readable format within thirty days, and deletion with written certification thereafter. Because §§ 5 through 30 survive termination under § 24, the inserted obligation will remain enforceable post-termination.",
+    "rationale": "This is a web site hosting and support agreement under which TrueLink hosts our Web Site, Client Content, backups (Section 2(f)) and borrower/loan Credit Data, so the rule expects an exit clause. None exists. Section 14 only obliges TrueLink to keep providing Hosting and Support Services until the last day of the month following our termination notice — roughly 30-60 days of continued service, not transition or migration assistance. Section 13 (p0078) confirms we retain ownership of domains and Client Content and gives us 30/60 days to arrange a new name server and hosting environment, but it places that burden entirely on us and imposes no obligation on TrueLink to return, export or delete our data. Section 10 (Confidentiality) contains no return-or-destroy provision at all, so even that partial substitute is absent, and searches for return/export/delete/destroy/transition produced no relevant provision. The fallback (90 days' assistance plus data export within 30 days) therefore also fails. Inserted the preferred position into Section 14: up to six months' transition assistance at then-current rates, return of Client Content and Credit Data in a commonly used machine-readable format within 30 days, then deletion with written certification. Placement in Section 14 is effective post-termination because Section 24 (p0090) provides that Sections 1 and 5 through 30 survive expiration or termination. We would accept 90 days of assistance as a fallback.",
     "ruleId": "TRANSITION",
     "ruleTitle": "Post-termination transition assistance and data return",
     "sectionId": "sec-12",
@@ -759,14 +624,14 @@
           "ok": true
         }
       ],
-      "notes": "The finding is correctly classified as 'missing': neither § 13 (Term) nor § 14 (Termination) imposes any data-return, export, deletion or transition-assistance obligation on TrueLink; § 13 only places migration burdens on Client (new name server within 30 days, new hosting environment within 60 days), confirming the gap in a hosting agreement holding Client Content and borrower/loan data. The inserted paragraph tracks the playbook preferred position element-for-element: (a) up to six months of transition assistance at then-current rates on Client's request, (b) return of Client data in a commonly used machine-readable format within thirty days, and (c) subsequent deletion with written certification. The edit is an addition only — the existing § 14 sentence is left untouched — so it is the smallest edit that reaches the playbook position, and it uses contract-native party names (TrueLink/Client) and existing terminology (Client Content, with a clarifying reference to borrower and loan data) rather than generic Vendor/Customer placeholders. The comment is accurate about what changed and why, cites the playbook requirement, and offers the 90-day fallback in the prescribed concise first-person-plural tone with the correct prefix; deterministic checks confirm the operation applies and the data-return/transition language is present. Minor, non-blocking: the insertion relies on 'Client's Intellectual Property' and 'Client Proprietary Information' as defined terms that are not among the resolved definitions supplied — worth a quick capitalization/defined-term check against §§ 8–10 before sending, but the clause remains operative on 'other Client data' regardless.",
+      "notes": "The rule's expected exit clause is genuinely absent: Section 14 only continues services to the end of the month following notice, and Section 13 places the burden of finding a new name server/hosting entirely on Client while imposing no vendor obligation to return, export or delete Client Content or Credit Data — so neither the preferred nor the 90-day/30-day fallback is met. The insert is actionable and tracks the model language (six months' assistance at then-current rates, machine-readable return within 30 days, deletion plus written certification), correctly mapped to the parties' defined names (TrueLink/Client) and to the document's own data terms (Client Content, Credit Data, Web Site). Placement in Section 14 (Termination) follows the redline guidance and is effective post-termination given the Section 24 survival of Sections 5–30; the original paragraph text is left intact, so the edit is minimal (insertion only). Comment is accurate, in the required voice and prefix, explains the change and the rationale, and offers the 90-day fallback without lecturing; deterministic checks confirm data-return/transition language is present in the redline.",
       "verdict": "pass"
     }
   },
   {
-    "confidence": 0.82,
-    "costUsd": 0.20217325,
-    "durationMs": 58015,
+    "confidence": 0.85,
+    "costUsd": 0.230963,
+    "durationMs": 66127,
     "id": "f-warranty-addbb3a2",
     "paragraphIds": [
       "p0059",
@@ -775,21 +640,20 @@
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] Section 9 currently gives us only a Year 2000 warranty, so we have added the standard performance warranty package - professional and workmanlike services, 12-month conformance of the Interface and software to its documentation, compliance with laws and no malicious code - together with a real repair, replacement, re-performance or refund remedy. If TrueLink prefers, we can fall back to a 90-day software conformance period with the same remedies.",
+      "comment": "[Playbook] Section 9 gives us only a Y2K warranty, so TrueLink currently stands behind neither the Interface nor the Hosting and Support Services, while Section 12 disclaims all implied warranties. We have added our standard performance and conformance warranty with a repair, replacement or refund remedy; we can accept a 90-day software / 30-day services period as a fallback.",
       "level": "preferred",
       "ops": [
         {
           "kind": "insert_after",
-          "numbering": "",
           "paragraphId": "p0060",
-          "text": "TrueLink further represents and warrants that (a) the Hosting Services and Support Services will be performed in a professional and workmanlike manner consistent with industry standards; (b) for a period of twelve (12) months following delivery, the Interface and all related software will conform in all material respects to its documentation and will be free of viruses, worms, Trojan horses and any other malicious code; and (c) TrueLink will comply in all material respects with all laws applicable to its performance under this Agreement. Client's remedy for breach of the warranties in this clause is, at TrueLink's option, re-performance, repair or replacement, or a refund of the fees paid for the non-conforming services, Interface or software."
+          "text": "TrueLink further represents and warrants that (a) the Hosting Services and the Support Services will be performed in a professional and workmanlike manner consistent with industry standards; (b) for a period of twelve (12) months following delivery, the Interface and all related software will conform in all material respects to its documentation and to the specifications agreed by the parties; (c) it will comply in all material respects with all laws applicable to its performance under this Agreement; and (d) the Interface and all related software will, at the time delivered or made available to Client, be free from viruses, worms, Trojan horses and other malicious code. Client's remedy for breach of the foregoing warranties is, at TrueLink's option, re-performance, repair or replacement, or a refund of the compensation paid for the non-conforming services, Interface or software."
         }
       ],
       "precedentId": "seed-warranty",
-      "summary": "Add a TrueLink performance warranty (professional and workmanlike services, 12-month software conformance, legal compliance, no malicious code) with a repair/replace/re-perform/refund remedy."
+      "summary": "Add an express TrueLink performance and conformance warranty with a repair/replace/refund remedy to Section 9."
     },
     "quote": "9. TRUELINK WARRANTIES. TrueLink represents and warrants that the Interface and all related software (i) is designed to be used before, on and after January l, 2000;",
-    "rationale": "Section 9 is TrueLink's only warranty to us and is limited to Year 2000 date processing; there is no warranty that the Hosting/Support Services will be performed in a professional and workmanlike manner, no conformance-to-documentation warranty for the Interface or software, no compliance-with-laws or malicious-code warranty, and no repair/replace/re-perform/refund remedy. By contrast, Section 8 imposes compliance, content and malicious-code warranties on Client, and the disclaimer at p0076 (which is prefaced \"EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT\") leaves us with almost nothing to rely on. We therefore insert the playbook performance warranty and remedy into Section 9; the disclaimer already carves out express warranties, so no change is needed there.",
+    "rationale": "The only TrueLink-side warranty in the Agreement (Section 9, p0059-p0060) is a Y2K date-processing warranty. There is no warranty that the Hosting Services or Support Services will be performed in a professional and workmanlike manner, no conformance-to-documentation warranty for the Interface or related software, no compliance-with-laws or malicious-code warranty running from TrueLink, and no repair/replace/refund remedy. Section 8 by contrast imposes compliance-with-laws, IP and malicious-code warranties on Client, so the warranty burden is effectively one-directional. Section 12 (p0076) then disclaims all implied warranties of merchantability and fitness \"EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT\" - the carve-out is properly worded, but with no express performance warranty to carve out, the practical result approaches the walk-away \"AS IS\" position. This fails the fallback (90 days software / 30 days services with remedies) on a material term, so we insert the express warranty and remedy after p0060 at the preferred period (12 months software, professional and workmanlike services), noting the 90/30-day fallback in the comment.",
     "ruleId": "WARRANTY",
     "ruleTitle": "Performance warranty and duration",
     "sectionId": "sec-8",
@@ -808,21 +672,21 @@
           "ok": true
         }
       ],
-      "notes": "The claimed deviation is supported: Section 9 (p0059-p0060) contains only a Y2K date-processing warranty, with no professional/workmanlike, conformance-to-documentation, compliance-with-laws, malicious-code warranty or any remedy, so an insert is the correct treatment. The redline is a clean additive insert at the end of Section 9 that leaves the existing Y2K language untouched and reaches the preferred position: workmanlike performance of Hosting/Support Services, 12-month conformance of the Interface and software to documentation, no malicious code, compliance with laws, and a repair/replace/re-perform/refund remedy at Vendor's option. The assessment that no change to the p0076 disclaimer is needed is accurate, since it is already prefaced 'EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT' and therefore does not swallow the new express warranty. Comment is accurate, concise, in the required first-person-plural tone with the [Playbook] prefix, and correctly offers the 90-day fallback; deterministic checks (operation applies; period expressed in months) are satisfied.",
+      "notes": "Classification is correct: the only vendor-side warranty is a narrow Y2K date-processing warranty, so there is no professional/workmanlike, conformance, compliance-with-laws or malicious-code warranty and no repair/replace/refund remedy — the clause fails the fallback (90 days software / 30 days services with remedies) rather than merely falling short of preferred. Redline is actionable and well-placed: the new warranty and remedy language is inserted at the end of Section 9 (TrueLink Warranties), leaving existing text intact, and tracks the model language (professional and workmanlike services, conformance for a stated period, compliance with laws, no malicious code, vendor-option re-performance/repair/replacement/refund). Comment is accurate (correctly notes the Section 12 disclaimer carve-out has nothing to carve out), concise, in the required voice with the [Playbook] prefix, and expressly offers the 90/30-day fallback. Minor and acceptable: the inserted conformance warranty adds 'specifications agreed by the parties' and no separate services-warranty duration, small expansions beyond the model wording that do not change the substance or make the edit disproportionate; deterministic checks pass.",
       "verdict": "pass"
     }
   },
   {
     "confidence": 0.9,
-    "costUsd": 0.1890515,
-    "durationMs": 55502,
+    "costUsd": 0.265893,
+    "durationMs": 69811,
     "id": "f-insurance-1c661cbc",
     "paragraphIds": [
       "p0097"
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] TrueLink hosts our web site and processes our and our customers' credit data, so we added our standard insurance requirements (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, workers' compensation, certificates on request) to back the indemnity in Section 12. If these limits are an issue, we can accept E&O of USD 1M and cyber of USD 2M.",
+      "comment": "[Playbook] The Agreement has no insurance covenant even though TrueLink hosts the Web Site and processes Client Content and borrower Credit Data, so we added our standard coverage package (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M) with certificates on request. If helpful we can fall back to E&O of USD 1,000,000 and cyber liability of USD 2,000,000.",
       "level": "preferred",
       "ops": [
         {
@@ -830,14 +694,14 @@
           "kind": "insert_after",
           "numbering": "31",
           "paragraphId": "p0097",
-          "text": "INSURANCE. TrueLink shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; workers' compensation insurance as required by applicable law; and, because TrueLink hosts, transmits and otherwise processes Client Content and other Client and consumer data, cyber liability insurance of not less than USD 5,000,000. TrueLink shall provide Client with certificates of insurance evidencing such coverage upon request."
+          "text": "31. INSURANCE. TrueLink shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: (a) commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; (b) professional liability (errors and omissions) insurance of not less than USD 2,000,000; (c) cyber and privacy liability insurance of not less than USD 5,000,000, covering TrueLink's processing of Client Content, Credit Data and other Client data; and (d) workers' compensation insurance as required by applicable law. TrueLink shall provide Client with certificates of insurance evidencing such coverage upon request."
         }
       ],
       "precedentId": "seed-insurance",
-      "summary": "Insert new Section 31 requiring TrueLink to carry CGL, E&O, cyber and workers' compensation insurance and provide certificates on request."
+      "summary": "Insert new Section 31 requiring TrueLink to carry standard CGL, E&O and cyber liability insurance with certificates on request."
     },
     "quote": "30. FORCE MAJEURE. TrueLink will be excused from delays in performing or from failing to perform its obligations under this Agreement to the extent the delays or failures result from causes beyond the reasonable control or TrueLink.",
-    "rationale": "The Agreement contains no insurance provision anywhere (a search for \"insurance\" returns no results, and the section outline shows no insurance heading). TrueLink is a hosting/services vendor that hosts our Web Site, operates the Interface and transmits Client Content and consumer credit data, and its liability for Sections 3, 4, 7 and 11 is capped at 12 months' hosting/support fees (p0077), so the mutual indemnity in Section 12(b) is unsupported by any coverage. Under the playbook this is a deviation requiring insertion of standard coverage. We inserted a new Section 31 immediately after Section 30 (Force Majeure), the last substantive miscellaneous provision, requiring CGL of USD 1M per occurrence / USD 2M aggregate, E&O of USD 2M, cyber liability of USD 5M (TrueLink processes our data), workers' compensation as required by law, and certificates on request. The obligation binds the counterparty only, so it does not create any burden on us; the fallback (E&O USD 1M / cyber USD 2M) is offered in the comment.",
+    "rationale": "A full-text search for \"insurance\" returns no hits and the outline contains no insurance heading; the miscellaneous provisions run from Section 13 through Section 30 (Force Majeure) and then straight to the signature block, so no insurance covenant exists anywhere in the Agreement. This is material rather than a drafting nicety because TrueLink is a hosting vendor: it hosts the Web Site, receives and uploads Client Content (§ 1.b), and transmits and archives Credit Data consisting of borrower and loan-applicant credit information from TransUnion, Equifax and Experian (§ 1.d). A vendor processing personal financial data with no insurance at all is walk-away territory under the rule, and neither the preferred nor the fallback position (E&O USD 1M / cyber USD 2M) is met. The gap is not cured elsewhere: TrueLink's indemnity in § 12.b is unsupported by any coverage requirement, and § 12 caps its liability for Sections 3, 4, 7 and 11 at 12 months' hosting and support fees, so we have no funded backstop for a data incident. Proposed new Section 31 inserted after § 30, before the signature block, with the preferred package — CGL USD 1M per occurrence / 2M aggregate, E&O USD 2M, cyber USD 5M, workers' compensation as required by law, certificates on request — using the Agreement's own defined terms (Client Content, Credit Data). The fallback of E&O USD 1M and cyber USD 2M is offered in the comment if TrueLink pushes back on limits.",
     "ruleId": "INSURANCE",
     "ruleTitle": "Vendor insurance",
     "sectionId": "sec-12",
@@ -856,7 +720,7 @@
           "ok": true
         }
       ],
-      "notes": "The Agreement contains no insurance clause and TrueLink is a hosting/processing vendor, so the 'missing' classification is correct and an insertion is the appropriate remedy. Inserted language tracks the playbook preferred position precisely (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M for a vendor processing Client data, workers' compensation, certificates on request, term plus one year) and imposes the obligation solely on the counterparty, creating no burden on us. Placement in the miscellaneous tail immediately after Section 30 (Force Majeure) follows the redline guidance; the original paragraph text is left untouched, so the edit is minimal. Comment is accurate, concise, in first person plural, cites the playbook limits and offers the sanctioned fallback (E&O USD 1M / cyber USD 2M). Minor nit only: the inserted heading reads 'INSURANCE.' without the '31.' section number referenced in the rationale; the numbering should be added for consistency with the surrounding numbered headings, but this does not affect substance.",
+      "notes": "The document excerpt confirms the miscellaneous provisions end at § 30 (Force Majeure) with no insurance covenant, and the rule's detection guidance treats an absent insurance clause for a hosting vendor as an insert-type finding. The inserted Section 31 tracks the model language closely (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, workers' compensation, certificates on request), adapts it to the Agreement's actual party name and defined terms (Client Content, Credit Data), and is placed sensibly after § 30 and before the signature block without disturbing existing text. The comment is accurate, concise, first-person plural, correctly cites the playbook position and offers the E&O USD 1M / cyber USD 2M fallback; no over-flagging concern arises since there is no existing clause at preferred or fallback level. Deterministic checks pass and the high change ratio is inherent to an insertion-type remedy.",
       "verdict": "pass"
     }
   }

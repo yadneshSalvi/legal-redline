@@ -1,0 +1,73 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXuYXQ35FJXjdrnWyjWj",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01VoFVVxg5DdNucyxLjfSP49",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0192"
+          ],
+          "quote": "Risk of loss for all Base Components shall at all times remain with IBM. Risk of loss for all Customer Components shall at all times remain with Customer.",
+          "rationale": "The Agreement contains no insurance clause anywhere: a search for \"insurance\" returns nothing, and the sections that might carry a coverage undertaking (5.3 Security, 14.12 Risk of Loss, 14.18 Data Protection) address only security features, allocation of risk of loss and data processing, with no obligation to maintain coverage. IBM is a hosting vendor that operates the e-business Hosting Environment and processes personal information on Customer's behalf, so this falls squarely within the rule (and no coverage for a vendor processing personal data is walk-away territory). We therefore insert the preferred short insurance paragraph (CGL 1M/2M, E&O 2M, cyber 5M, workers' compensation, certificates on request) as new Section 14.12A in the general provisions; the E&O 1M / cyber 2M fallback remains available if IBM pushes back on limits.",
+          "confidence": 0.88,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0192",
+                "numbering": "14.12A",
+                "asHeading": true,
+                "text": "Insurance"
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0192",
+                "text": "IBM shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; cyber liability insurance of not less than USD 5,000,000 covering IBM's processing of Customer data; and workers' compensation insurance as required by applicable law. IBM shall provide certificates of insurance to Customer on request."
+              }
+            ],
+            "comment": "[Playbook] We added a standard insurance provision, as our playbook requires coverage for vendors that host and process our data; certificates are provided on request only. If helpful, we can discuss reduced cyber limits.",
+            "level": "preferred",
+            "summary": "Insert Insurance clause (CGL, E&O, cyber, workers' comp) in Section 14 general provisions.",
+            "precedentId": "seed-insurance"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 622,
+      "cache_read_input_tokens": 8065,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 622,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 915,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9605
+}

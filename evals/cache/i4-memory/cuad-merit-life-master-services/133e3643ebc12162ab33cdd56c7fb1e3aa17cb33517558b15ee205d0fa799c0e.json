@@ -1,0 +1,74 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXuvWzazxpkq5HhfjCcH",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "thinking",
+        "thinking": "",
+        "signature": "CAIS/wIKjgEIERgCKkDNrhn1TNA/KdBHwUlH4zSOSHW3wxtw9jt4UsV/JxjVYYHR83spQ8ocjg0Jkh+2K+fzgROR42Njoo/MdUgRQyyIMg1jbGF1ZGUtb3B1cy01OAFCCHRoaW5raW5nWiQ0NDcyZGFmNS1lOTVkLTQzNzMtOWEzZS01ZDRhMTA3ZGJhNmWoAaHYzdQGEgwtREBKuYSgNH3/q5UaDLaj9IbFFuMLcuw2VyIw4GxifTiltEpkRclZ0IGUGS9z0MODwHOgpDen/VMCDSRE0ia6xI68nUmjlm+LqgTdKp0B+dj1t7G6DALtU1psJrEY5C9kwB7qM3Fh1XctfZ7+FAws41h5YMI4o7BnsaYk0k9bCh3yqduhnv/0Y2oXeGikuoXKywPOmURrsfpbnBty8Qj3fSHPzSYPY1muyftIOl5MwY4fXU/0wVWYit3Ni9p6ZSN3BJs+2yicWSd8HiqpNnwe9vMioyVQQCdsnkjRUIDXJ3poM0hA/K3bl0BHSRgB"
+      },
+      {
+        "type": "text",
+        "text": "No exclusivity language so far. Let me check for non-compete/restrictive covenant language that could bind Company."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_019QQyz9rof1PFBP41QC3VqJ",
+        "name": "search",
+        "input": {
+          "query": "compete|non-compete|solicit|restrict|shall not engage|all of its",
+          "regex": true,
+          "limit": 30
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01723NSHGKD37TGaTHtexBM7",
+        "name": "read_section",
+        "input": {
+          "sectionId": "sec-7"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2948,
+      "cache_read_input_tokens": 4826,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2948,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 252,
+      "output_tokens_details": {
+        "thinking_tokens": 53
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "search",
+      "ruleId": "EXCLUSIVITY",
+      "sha256": "dfae58adc7584b02badf3991783113b483c099526aeb2601f6760bd9ae5208bf"
+    },
+    {
+      "name": "read_section",
+      "ruleId": "EXCLUSIVITY",
+      "sha256": "f33d118659e2fc1be33858c4956ee0d93526c777dbee8f12562f2d6399a9cf40"
+    }
+  ],
+  "durationMs": 4098
+}
