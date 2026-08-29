@@ -1,0 +1,87 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXrvec8hbaweoLzBDXcG",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01Bi4mbx97uyNe8iymfn4VuD",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0055",
+            "p0056",
+            "p0057",
+            "p0058"
+          ],
+          "quote": "9. Warranties.",
+          "rationale": "The Agreement contains no indemnification, defence or hold-harmless provision anywhere: searches for \"indemnif\", \"hold harmless\" and \"defend\" return nothing, and the only reference to infringement (p0046) is a mutual advertising covenant, not a risk-allocation clause. Section 9 (Warranties) is limited to corporate authority reps plus the Globix carve-out, and Section 10 (General Provisions) contains no liability or indemnity terms. That leaves us with no vendor IP indemnity for the Site HDI develops and hosts and no coverage for HDI's breach of law, data incidents or gross negligence/wilful misconduct — walk-away territory under the rule. Redline inserts the HDI indemnity as Section 9(c) with standard notice/control/cooperation procedure (placing it in Section 9 also brings it within the Section 10.7 survival list), and adds a deliberately narrow Company indemnity limited to Company-supplied Content/Marks and our own breach of law.",
+          "confidence": 0.9,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Add HDI indemnity (IP infringement, breach of law, data breach, gross negligence/wilful misconduct) with standard defence procedure, and a narrow Company indemnity limited to Company-provided Content.",
+            "comment": "[Playbook] The Agreement contains no indemnity at all, so we have no protection if the Site HDI develops and hosts infringes a third party's IP or if HDI breaches law, causes a data incident or acts with gross negligence. We have added an HDI indemnity with standard notice/control/cooperation procedure, and kept our reciprocal indemnity narrow (Company-supplied Content only); if helpful we can discuss usual IP exclusions (our modifications, combinations and specifications) and the procure/modify/replace/refund remedies.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0055",
+                "oldText": "9. Warranties.",
+                "newText": "9. Warranties; Indemnification."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0058",
+                "numbering": "(c)",
+                "text": "(c) Indemnification by HDI. HDI shall defend, indemnify and hold harmless the Company and its affiliates from and against any third-party claim, and all resulting damages, costs and expenses (including reasonable attorneys' fees), to the extent arising out of (1) an allegation that the Site, the Services or any materials or technology provided by HDI infringe or misappropriate any intellectual property right (excluding any claim arising solely from Content or Marks provided by the Company); (2) HDI's breach of applicable law; (3) any unauthorized access to or disclosure of Content, user information or Confidential Information of the Company caused by HDI; or (4) HDI's gross negligence or willful misconduct."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0058",
+                "numbering": "(d)",
+                "text": "(d) Indemnification by the Company. The Company shall defend, indemnify and hold harmless HDI from and against any third-party claim, and all resulting damages, costs and expenses (including reasonable attorneys' fees), to the extent arising out of an allegation that the Content or Marks provided by the Company infringe or misappropriate any intellectual property right, or out of the Company's breach of applicable law."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0058",
+                "numbering": "(e)",
+                "text": "(e) Procedure. The indemnified Party shall give the indemnifying Party prompt written notice of any claim for which indemnity is sought, shall permit the indemnifying Party to control the defense and settlement of such claim (provided that no settlement imposing any liability or obligation on the indemnified Party shall be made without its prior written consent), and shall provide reasonable cooperation at the indemnifying Party's expense. A failure to give prompt notice shall relieve the indemnifying Party of its obligations only to the extent it is materially prejudiced thereby."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2021,
+      "cache_read_input_tokens": 11855,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2021,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1492,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INDEMN",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13905
+}

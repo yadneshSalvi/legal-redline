@@ -1,0 +1,99 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXtazTuKJYrPvx8i9X3v",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_0169FKeTsx1sTYpYV6sLegip",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0075",
+            "p0038",
+            "p0079"
+          ],
+          "quote": "Customer may terminate an Order Form immediately if Vendor suffers a material Security Incident, repeatedly misses a critical service level, violates Applicable Law in performing the Services, or infringes a third party's intellectual property and cannot provide the remedies required by Section 20.5.",
+          "rationale": "The Agreement contains no indemnification or hold-harmless provision anywhere: the numbering jumps from Section 19 (Warranties) to Section 21 (Limitation of Liability), and Section 20 — including the Section 20.5 IP remedies cross-referenced in Section 9.3 — is absent. Other clauses presuppose an indemnity (Section 19.4 \"indemnified claims\", Section 21.3 Excluded Claims covering \"its indemnification obligations\", Section 30.5 \"indemnified party\"/\"vested indemnity rights\"), so the omission also leaves dangling cross-references. With no Vendor IP indemnity at all this sits in walk-away territory under the rule, so we have inserted a new Section 20 at the preferred position: Vendor defence/indemnity for third-party IP claims, breach of Applicable Law, Vendor-caused Customer Data breach and gross negligence/wilful misconduct; customary exclusions and procure/modify/replace/refund remedies (restoring the referenced 20.5); a standard notice, control and cooperation procedure; and a Customer indemnity narrowed to Customer-provided content and Customer's breach of law. No super-cap is proposed since Section 21.3 already treats indemnification obligations as Excluded Claims.",
+          "confidence": 0.93,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert a new Section 20 (Indemnification) containing a Vendor indemnity for IP infringement, breach of law, data breach and wilful misconduct, a standard claim procedure, IP remedies (the Section 20.5 already cross-referenced in Section 9.3), and a narrow Customer indemnity.",
+            "comment": "[Playbook] The Agreement has no indemnification section at all, even though Sections 9.3, 19.4, 21.3 and 30.5 already assume one exists (including the missing Section 20.5 IP remedies). We have inserted our standard Vendor indemnity for third-party IP claims, breach of law, Vendor-caused data breach and gross negligence/wilful misconduct, with a standard notice-and-control procedure, the customary IP remedies and exclusions, and a narrow reciprocal Customer indemnity limited to Customer-provided content and Customer's breach of law.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0075",
+                "text": "INDEMNIFICATION",
+                "numbering": "20",
+                "asHeading": true
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0075",
+                "text": "Vendor shall defend, indemnify and hold harmless Customer and its Affiliates from and against any third-party claim, and all resulting damages, liabilities, costs and expenses (including reasonable attorneys' fees), to the extent arising out of (a) an allegation that the Services, Deliverables, or Vendor Technology infringe or misappropriate any intellectual property right; (b) Vendor's breach of Applicable Law; (c) any unauthorized access to or disclosure of Customer Data caused by Vendor; or (d) Vendor's gross negligence or wilful misconduct.",
+                "numbering": "20.1"
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0075",
+                "text": "Vendor's obligation under Section 20.1(a) does not apply to the extent a claim arises from Customer's modification of the Services or Deliverables without Vendor's authorization, combination with items not supplied or recommended by Vendor where the claim would have been avoided absent that combination, or Vendor's compliance with written specifications supplied by Customer.",
+                "numbering": "20.2"
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0075",
+                "text": "The indemnified Party shall give the indemnifying Party prompt written notice of a claim (delay excusing the indemnifying Party only to the extent it is prejudiced), and the indemnifying Party shall have control of the defence and settlement, provided it may not admit liability or agree to any settlement that imposes a non-monetary obligation on, or fails to release, the indemnified Party without that Party's written consent. The indemnified Party shall provide reasonable cooperation at the indemnifying Party's expense and may participate with its own counsel at its own cost.",
+                "numbering": "20.3"
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0075",
+                "text": "Customer shall defend, indemnify and hold harmless Vendor from and against any third-party claim to the extent arising out of content or materials provided by Customer for use in the Services (other than Customer Data processed as contemplated by this Agreement) or Customer's breach of Applicable Law. This is Customer's only indemnity under this Agreement.",
+                "numbering": "20.4"
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0075",
+                "text": "If a claim described in Section 20.1(a) arises or is reasonably likely, Vendor shall, at its expense and at Customer's option, procure the right for Customer to continue using the affected item, or modify or replace it with a functionally equivalent non-infringing item. If neither remedy is reasonably available, Customer may terminate the affected Services or Deliverables and Vendor shall refund prepaid Fees for the terminated items and Fees paid for Deliverables Customer can no longer use.",
+                "numbering": "20.5"
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1651,
+      "cache_read_input_tokens": 19413,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1651,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 2026,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INDEMN",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 18969
+}

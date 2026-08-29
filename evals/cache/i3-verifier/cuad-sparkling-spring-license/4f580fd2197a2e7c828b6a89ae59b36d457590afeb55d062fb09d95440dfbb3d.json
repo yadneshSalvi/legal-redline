@@ -1,0 +1,58 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXtG1fZGNfX7smMGTrUN",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01LWEBkZ4hqwKP7yMXzZVCmV",
+        "name": "submit_finding",
+        "input": {
+          "status": "compliant",
+          "paragraphIds": [
+            "p0087",
+            "p0090",
+            "p0091",
+            "p0092",
+            "p0093",
+            "p0105"
+          ],
+          "quote": "Garman agrees to indemnify Sparkling and hold it harmless from any and all losses, damages and expenses including without limitation, court costs, arbitration fees, penalties, fines, amounts paid in settlement of claims and reasonable legal fees and expenses of investigation (collectively the \"Losses\") which Sparkling or any of its respective officers or directors may incur due to a breach of this warranty.",
+          "rationale": "A Vendor-to-Customer IP infringement indemnity is present and sits at the rule's fallback position, so no redline is proposed. Evidence: (1) the clause is headed \"13. INTELLECTUAL PROPERTY INDEMNITY\" (p0087); (2) the operative indemnity quoted above (p0090) is given by Garman in our favour and covers all Losses, expressly including amounts paid in settlement of claims and reasonable legal fees and investigation costs; (3) its trigger is Garman's warranty in the immediately preceding sentence that \"it owns or controls all rights necessary to grant the rights to Sparkling\" and that no \"lien, encumbrance, security interest or other rights against the Work\" will interfere with our rights — i.e. an IP title/non-infringement warranty; and (4) the same paragraph then governs the infringement scenario itself: \"If the Work or any portion thereof is held to constitute an infringement of another Person's rights, and use thereof is enjoined, Garman shall, at its election and expense\", procure the right to use the infringing element, procure an equivalent element, or replace/modify the Work so the infringing portion is non-infringing without material loss of functionality (p0091-p0093). That is a Vendor IP indemnity with the usual remedy ladder. Direction is correct: the obligation runs from Vendor to us, and there is no reverse or one-way Sparkling indemnity for Garman's software or services anywhere in the agreement, so walk-away territory does not arise. Section 15 is more favourable than the fallback's 3x super-cap: the direct-damages-only limitation and the consequential-damages exclusion \"shall not apply to breaches of Sections 13 and 14\" (p0105), leaving this indemnity uncapped. Note on the deterministic check: the indemnity trigger is drafted as breach of the ownership/non-infringement warranty rather than using the phrase \"infringement claim\" in the trigger itself, and the indemnity verb and the word \"infringement\" are ~618 characters apart in p0090, so no single quote within the 600-character limit can contain both; the surrounding text set out above resolves this as a phrasing artefact rather than a substantive gap. Recorded as internal evidence only, not escalated: no express \"defend\"/control-of-defence and cooperation mechanic, no refund fallback remedy, indemnity limited to IP/title matters (no breach-of-law, Customer Data breach or gross negligence/wilful misconduct limbs), affiliates not named as beneficiaries, and a tight ten-calendar-day notice obligation on us.",
+          "confidence": 0.85
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3861,
+      "cache_read_input_tokens": 18805,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 3861,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1159,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INDEMN",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13785
+}

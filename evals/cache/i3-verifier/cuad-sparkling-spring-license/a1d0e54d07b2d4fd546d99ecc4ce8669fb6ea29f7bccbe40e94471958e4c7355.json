@@ -1,0 +1,68 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXtJ1LGQJJ93Ez34LEF4",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01N5udY7SPjchUVxGCytgRZ2",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0118",
+            "p0128",
+            "p0129"
+          ],
+          "quote": "Sparkling shall cease using the Software at the end of the ninety (90) day notice period, and shall certify to Garman within thirty (30) calendar days of termination that Sparkling has destroyed or has returned to Garman all Software, Documentation and Codes.",
+          "rationale": "Section 17 (Term and Termination) imposes exit obligations only on us — cease use of the Software and certify destruction/return of Software, Documentation and Codes — with no reciprocal obligation on Garman. There is no transition-assistance, data-export or deletion-certification provision anywhere: Section 8(b) returns our Confidential Information only in the narrow rejection-of-Software scenario, Section 4 covers data conversion at implementation, Section 16 escrow only releases source code, Section 14 has no return-on-termination mechanic, and Section 18 survival adds nothing on point. The rule's fallback (90 days' assistance plus 30-day export) is therefore also unmet, so we insert a new Section 17(d) at the preferred position: up to six months' assistance at then-current rates, return of our data within thirty days in a machine-readable format, and certified deletion thereafter.",
+          "confidence": 0.85,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0129",
+                "numbering": "(d)",
+                "text": "(d) Upon expiry or termination of this Agreement for any reason, Garman shall (i) at Sparkling's request, provide reasonable transition assistance for a period of up to six (6) months at Garman's then-current rates; (ii) within thirty (30) calendar days of such expiry or termination, return to Sparkling all of Sparkling's data and Confidential Information in Garman's possession or control, in a commonly used, machine-readable format; and (iii) thereafter delete or destroy all such data and Confidential Information remaining in its systems and certify such deletion in writing to Sparkling."
+              }
+            ],
+            "comment": "[Playbook] Section 17(b) requires us to return or destroy Garman's Software, but nothing obliges Garman to hand back our data or help us move off the system, so we have added a reciprocal exit provision. Our playbook position is up to six months of transition assistance at then-current rates, return of our data within thirty days in a machine-readable format and certified deletion thereafter; we can accept ninety days of assistance if that suits Garman better.",
+            "level": "preferred",
+            "summary": "Insert Section 17(d) requiring Garman to provide up to six months' transition assistance, return Sparkling's data within 30 days in machine-readable format, and certify deletion thereafter."
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1017,
+      "cache_read_input_tokens": 9451,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1017,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1015,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "TRANSITION",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11889
+}

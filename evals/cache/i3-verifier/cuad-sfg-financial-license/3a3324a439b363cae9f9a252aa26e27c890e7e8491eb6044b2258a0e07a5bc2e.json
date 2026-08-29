@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXt1GeYPQTHBKs1A1xdq",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_018fEpRPEJVaiDjLQoXDzSeq",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0125"
+          ],
+          "quote": "(b) NON SOLICITATION. During the Term of this Agreement and during the three year period after the expiration or termination of this Agreement, the Licensee will not solicit any person employed by Licensor and/or its Affiliates to leave his or her employment with Licensor.",
+          "rationale": "Article X(b) imposes a one-way non-solicit on us (Licensee) for the Term plus three years, covering every person employed by Licensor and/or its Affiliates rather than only personnel involved in the Agreement. That is walk-away territory under the rule on two counts (duration longer than 24 months and coverage of all Vendor personnel), so it fails the fallback. The definition of \"Solicit\" does helpfully carve out general job advertisements and unsolicited/voluntary inquiries, and there is no no-hire, but those points do not cure the duration and scope. Our redline brings the clause to the fallback/preferred shape: mutual, 12 months, limited to individuals directly involved, with the existing carve-outs retained and an express confirmation that unsolicited hires are permitted. Note also that breach of this provision is separately backed by the Article XI injunctive-relief clause, which magnifies the exposure.",
+          "confidence": 0.9,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Narrow the non-solicit to a mutual, 12-month restriction covering only personnel directly involved in the Agreement",
+            "comment": "[Playbook] We have narrowed the non-solicitation to a mutual, 12-month restriction limited to personnel directly involved in this Agreement, since our playbook does not accept a one-way, three-year restriction covering all of Licensor's and its Affiliates' employees. The existing general-advertising and unsolicited-inquiry carve-outs are retained.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0125",
+                "oldText": "During the Term of this Agreement and during the three year period after the expiration or termination of this Agreement, the Licensee will not solicit any person employed by Licensor and/or its Affiliates to leave his or her employment with Licensor.",
+                "newText": "During the Term of this Agreement and during the twelve (12) month period after the expiration or termination of this Agreement, neither party will solicit any person employed by the other party who was directly involved in the performance or receipt of the activities contemplated by this Agreement to leave his or her employment with that other party; provided that this restriction shall in no event extend beyond twelve (12) months after the end of such individual's involvement. Nothing in this Article shall prohibit either party from employing or engaging any person who was not solicited in breach of this Article."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1077,
+      "cache_read_input_tokens": 10255,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1077,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1012,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11309
+}

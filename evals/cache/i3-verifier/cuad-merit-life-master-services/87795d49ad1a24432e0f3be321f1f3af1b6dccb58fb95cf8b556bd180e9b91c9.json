@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXsqnPRnXGTCVtXrNr3A",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01JZ3ZwdXULZZcjCgfDJDZMX",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0047"
+          ],
+          "quote": "13. NON-SOLICITATION OF EMPLOYEES. Neither party shall, during the term of this Agreement and for one (1) year after its termination, solicit for hire as an employee, consultant or otherwise any of the other party's personnel who have had direct involvement with the Services, without such other party's express written consent, which shall not be unreasonably withheld.",
+          "rationale": "Section 13 binds us as well as RadialSpark. It already meets most of the fallback: it is mutual, limited to personnel with direct involvement in the Services, runs only one year post-termination (well inside the 24-month walk-away), and is a solicitation restriction rather than a no-hire. However, it contains no carve-out for general advertisements/untargeted recruiter searches or for candidates who approach us unsolicited, which the fallback treats as a material term (and the rule summary expressly conditions acceptance on a general-advertising carve-out). As drafted, routine job postings or hiring a self-approaching candidate would require RadialSpark's consent. We therefore added the standard carve-out sentence as the minimal edit to bring the clause to the fallback; deleting the non-solicit entirely (the preferred position) would be disproportionate given the clause is mutual and already narrowly scoped. Measuring the twelve months from termination rather than from the end of the individual's involvement is a minor variance we are not pressing.",
+          "confidence": 0.72,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Add general-advertising and unsolicited-approach carve-outs to the mutual non-solicitation clause.",
+            "comment": "[Playbook] We can live with a mutual, twelve-month non-solicit limited to personnel directly involved in the Services, but we need the standard carve-outs so that general job advertisements, untargeted recruiter searches and hires of people who approach us on their own initiative are not caught. This is our fallback position and keeps the restriction narrow for both parties.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0047",
+                "oldText": "without such other party's express written consent, which shall not be unreasonably withheld.",
+                "newText": "without such other party's express written consent, which shall not be unreasonably withheld. Notwithstanding the foregoing, nothing in this Section shall restrict either party from (a) conducting general solicitations for employment, including general advertisements, job postings and searches by recruiting firms, in each case not specifically directed at the other party's personnel, or (b) employing or engaging any person who responds to such a general solicitation or who approaches such party on his or her own initiative without solicitation."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1093,
+      "cache_read_input_tokens": 7696,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1093,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1000,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9625
+}

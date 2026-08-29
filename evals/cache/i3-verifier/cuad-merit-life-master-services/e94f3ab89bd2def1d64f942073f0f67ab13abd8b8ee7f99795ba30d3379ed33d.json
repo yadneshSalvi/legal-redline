@@ -1,0 +1,67 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXt1Swv9f63EyGqu8gUN",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01XDAvR3RN37q8HBL4oQwoNS",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0032",
+            "p0033"
+          ],
+          "quote": "Upon any such termination, Contractor will be paid all fees and expenses that have been incurred or earned in connection with the performance of the Services through the effective date of such termination. Contractor shall provide to Company, and hereby assigns to Company, all right, title and interest to any Works in progress.",
+          "rationale": "Section 6 addresses only payment of accrued fees and assignment of Works in progress; it contains no transition assistance, no obligation to return Company data or Confidential Information in a usable format, and no deletion/certification mechanic. Searches for \"return\", \"transition\" and \"delete/destroy/copies\" found nothing elsewhere: Section 4 deals only with ownership and IP protection assistance, and the Section 8 confidentiality clause (p0038-p0040) imposes use/disclosure restrictions but no return or destruction duty. With no data return or exit help at all, the agreement falls short of even the fallback (90 days' assistance plus 30-day export), so we insert the preferred language as a new Section 6(c), offering the 90-day window as a fallback in the comment.",
+          "confidence": 0.85,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert post-termination transition assistance, data return and certified deletion as new Section 6(c)",
+            "comment": "[Playbook] We have added a standard exit provision: on expiry or termination, Contractor gives us up to six months of transition assistance at its then-current rates, returns our data and Confidential Information in a machine-readable format within 30 days, and then deletes and certifies deletion. Our playbook requires data return and orderly migration help on exit; we can accept a 90-day assistance window if six months is difficult to staff.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0033",
+                "numbering": "(c)",
+                "text": "(c) Upon expiry or termination of this Agreement or any Statement of Work for any reason, Contractor shall (i) at Company's request, provide reasonable transition assistance for up to six (6) months at Contractor's then-current rates; (ii) within thirty (30) days of such expiry or termination, return to Company all Works, Company data and Confidential Information in Contractor's possession or control, in a commonly used, machine-readable format; and (iii) thereafter delete all such data and Confidential Information from its systems and certify such deletion to Company in writing."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1035,
+      "cache_read_input_tokens": 9225,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1035,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 925,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "TRANSITION",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 8056
+}
