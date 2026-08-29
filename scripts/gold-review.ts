@@ -26,8 +26,11 @@ const STOPWORDS = new Set([
 
 interface SetOptions {
   status: string;
+  rule?: string;
+  paragraphs?: string;
   note?: string;
   expectedFix?: string;
+  distinct?: boolean;
   by: string;
 }
 
@@ -37,6 +40,13 @@ interface AddOptions {
   status: string;
   note: string;
   expectedFix?: string;
+  by: string;
+}
+
+interface MergeOptions {
+  status?: string;
+  note?: string;
+  mechanical?: boolean;
   by: string;
 }
 
@@ -55,13 +65,17 @@ async function readParagraphs(contractId: string): Promise<Map<string, string>> 
   return new Map(splitParagraphs(text).map((paragraph, index) => [paragraphId(index), paragraph]));
 }
 
-function compact(text: string): string {
-  return text.length <= 900 ? text : `${text.slice(0, 899)}…`;
+function compact(text: string, limit: number): string {
+  return text.length <= limit ? text : `${text.slice(0, limit - 1)}…`;
+}
+
+function itemCategories(item: GoldItem): string[] {
+  return [...new Set([...(item.cuadCategories ?? []), ...(item.cuadCategory === undefined ? [] : [item.cuadCategory])])];
 }
 
 function keywordCandidates(rule: Rule, paragraphs: ReadonlyMap<string, string>): Array<[string, string]> {
   const keywords = [...new Set(
-    rule.detect
+    `${rule.detect} ${rule.cuad.join(" ")}`
       .toLocaleLowerCase("en-US")
       .match(/[a-z][a-z'-]{3,}/g)
       ?.filter((word) => !STOPWORDS.has(word)) ?? [],
@@ -88,8 +102,11 @@ async function listDraft(contractId: string): Promise<void> {
   ]);
   for (const item of draft.items) {
     console.log(`${item.id} · ${item.ruleId} · ${item.status} · ${item.labeler}`);
+    const provenance = item.mergedFrom === undefined ? "" : ` · mergedFrom ${item.mergedFrom.join(",")}`;
+    const distinct = item.distinct === true ? " · distinct" : "";
+    if (provenance.length > 0 || distinct.length > 0) console.log(`  metadata:${provenance}${distinct}`);
     if (item.paragraphIds.length === 0) console.log("  paragraphs: (none — clause marked missing)");
-    for (const id of item.paragraphIds) console.log(`  ${id}: ${compact(paragraphs.get(id) ?? "[paragraph not found]")}`);
+    for (const id of item.paragraphIds) console.log(`  ${id}: ${compact(paragraphs.get(id) ?? "[paragraph not found]", 350)}`);
     console.log(`  note: ${item.note ?? "(none)"}`);
     console.log(`  expectedFix: ${item.expectedFix ?? "(none)"}\n`);
   }
@@ -97,18 +114,23 @@ async function listDraft(contractId: string): Promise<void> {
   const represented = new Set(draft.items.map((item) => item.ruleId));
   for (const rule of playbook.rules.filter((candidate) => !represented.has(candidate.id))) {
     console.log(`NO ITEM · ${rule.id} · ${rule.title}`);
-    for (const [id, text] of keywordCandidates(rule, paragraphs)) console.log(`  ${id}: ${compact(text)}`);
+    for (const [id, text] of keywordCandidates(rule, paragraphs)) console.log(`  ${id}: ${compact(text, 200)}`);
     console.log();
   }
 }
 
 function reviewedItem(item: GoldItem, options: SetOptions): GoldItem {
   const status = GoldStatusSchema.parse(options.status);
+  const categories = itemCategories(item);
   return {
     ...item,
+    ruleId: options.rule ?? item.ruleId,
     status,
     paragraphIds: status === "missing" ? [] : item.paragraphIds,
-    labeler: item.cuadCategory === undefined ? "human" : "cuad+human",
+    labeler: categories.length === 0 ? "human" : "cuad+human",
+    cuadCategory: categories[0],
+    cuadCategories: categories.length === 0 ? undefined : categories,
+    distinct: options.distinct === true ? true : item.distinct,
     note: options.note ?? item.note,
     expectedFix: options.expectedFix ?? item.expectedFix,
     reviewedAt: new Date().toISOString(),
@@ -117,13 +139,80 @@ function reviewedItem(item: GoldItem, options: SetOptions): GoldItem {
 }
 
 async function setItem(contractId: string, itemId: string, options: SetOptions): Promise<void> {
-  const draft = await readDraft(contractId);
+  const [draft, playbook, paragraphs] = await Promise.all([
+    readDraft(contractId),
+    loadPlaybookFile(PLAYBOOK_PATH),
+    readParagraphs(contractId),
+  ]);
+  if (options.rule !== undefined && !playbook.rules.some((rule) => rule.id === options.rule)) {
+    throw new Error(`Unknown rule id: ${options.rule}`);
+  }
   const index = draft.items.findIndex((item) => item.id === itemId);
   if (index < 0) throw new Error(`${contractId}: item ${itemId} not found`);
   const items = [...draft.items];
   items[index] = reviewedItem(items[index], options);
+  if (options.paragraphs !== undefined) {
+    items[index] = {
+      ...items[index],
+      paragraphIds: parseParagraphIds(options.paragraphs, items[index].status, paragraphs),
+    };
+  }
   await atomicWriteJson(join(contractDirectory(contractId), "gold.draft.json"), GoldFileSchema.parse({ ...draft, items }));
   console.log(`${contractId}: reviewed ${itemId} as ${options.status} by ${options.by}`);
+}
+
+function combineText(values: Array<string | undefined>, reviewerNote?: string): string | undefined {
+  const combined = [...new Set([...values.filter((value): value is string => value !== undefined), reviewerNote].filter(
+    (value): value is string => value !== undefined && value.length > 0,
+  ))];
+  return combined.length === 0 ? undefined : combined.join("\n");
+}
+
+async function mergeItems(contractId: string, itemIdsValue: string, options: MergeOptions): Promise<void> {
+  const draft = await readDraft(contractId);
+  const itemIds = [...new Set(itemIdsValue.split(",").map((id) => id.trim()).filter(Boolean))];
+  if (itemIds.length < 2) throw new Error("merge requires at least two comma-separated item ids");
+  const selected = itemIds.map((id) => {
+    const item = draft.items.find((candidate) => candidate.id === id);
+    if (item === undefined) throw new Error(`${contractId}: item ${id} not found`);
+    return item;
+  });
+  const rules = [...new Set(selected.map((item) => item.ruleId))];
+  if (rules.length !== 1) throw new Error(`Cannot merge different rules: ${rules.join(", ")}`);
+  const statuses = [...new Set(selected.map((item) => item.status))];
+  if (options.status === undefined && statuses.length !== 1) {
+    throw new Error(`Mixed statuses require --status (${statuses.join(", ")})`);
+  }
+  const status = GoldStatusSchema.parse(options.status ?? statuses[0]);
+  const categories = [...new Set(selected.flatMap(itemCategories))];
+  const mergedFrom = [...new Set(selected.flatMap((item) => item.mergedFrom ?? [item.id]))];
+  const item: GoldItem = {
+    id: nextId(draft.items),
+    ruleId: rules[0],
+    paragraphIds:
+      status === "missing" ? [] : [...new Set(selected.flatMap((source) => source.paragraphIds))].sort(),
+    status,
+    cuadCategory: categories[0],
+    cuadCategories: categories.length === 0 ? undefined : categories,
+    spanText: selected.find((source) => source.spanText !== undefined)?.spanText,
+    labeler:
+      options.mechanical === true
+        ? categories.length === 0
+          ? "llm-draft"
+          : "cuad+llm-draft"
+        : categories.length === 0
+          ? "human"
+          : "cuad+human",
+    note: combineText(selected.map((source) => source.note), options.note),
+    expectedFix: combineText(selected.map((source) => source.expectedFix)),
+    mergedFrom,
+    reviewedAt: options.mechanical === true ? undefined : new Date().toISOString(),
+    reviewedBy: options.mechanical === true ? undefined : options.by,
+  };
+  const selectedSet = new Set(itemIds);
+  const items = [...draft.items.filter((candidate) => !selectedSet.has(candidate.id)), item];
+  await atomicWriteJson(join(contractDirectory(contractId), "gold.draft.json"), GoldFileSchema.parse({ ...draft, items }));
+  console.log(`${contractId}: merged ${itemIds.join(",")} into ${item.id}`);
 }
 
 function parseParagraphIds(value: string, status: string, paragraphs: ReadonlyMap<string, string>): string[] {
@@ -135,11 +224,11 @@ function parseParagraphIds(value: string, status: string, paragraphs: ReadonlyMa
 }
 
 function nextId(items: readonly GoldItem[]): string {
-  const used = new Set(items.map((item) => item.id));
-  for (let index = 1; ; index += 1) {
-    const id = `g${String(index).padStart(3, "0")}`;
-    if (!used.has(id)) return id;
-  }
+  const highest = items.reduce((maximum, item) => {
+    const numeric = /^g(\d+)$/.exec(item.id)?.[1];
+    return numeric === undefined ? maximum : Math.max(maximum, Number.parseInt(numeric, 10));
+  }, 0);
+  return `g${String(highest + 1).padStart(3, "0")}`;
 }
 
 async function addItem(contractId: string, options: AddOptions): Promise<void> {
@@ -195,6 +284,16 @@ async function promote(contractId: string): Promise<void> {
     const pending = draft.items.filter((item) => item.labeler !== "human" && item.labeler !== "cuad+human");
     throw new Error(`${contractId}: ${pending.length} items still need human review (${pending.map((item) => item.id).join(", ")})`);
   }
+  const nonDistinctByRule = new Map<string, string[]>();
+  for (const item of draft.items.filter((candidate) => candidate.distinct !== true)) {
+    const ids = nonDistinctByRule.get(item.ruleId) ?? [];
+    ids.push(item.id);
+    nonDistinctByRule.set(item.ruleId, ids);
+  }
+  const duplicate = [...nonDistinctByRule.entries()].find(([, ids]) => ids.length > 1);
+  if (duplicate !== undefined) {
+    throw new Error(`${contractId}: rule ${duplicate[0]} has multiple non-distinct items (${duplicate[1].join(", ")})`);
+  }
   await atomicWriteJson(join(contractDirectory(contractId), "gold.json"), draft);
   await appendPromotionLog(contractId, draft);
   console.log(`${contractId}: promoted ${draft.items.length} human-reviewed items to gold.json`);
@@ -207,8 +306,11 @@ program
   .argument("<contractId>")
   .argument("<itemId>")
   .requiredOption("--status <status>")
+  .option("--rule <ruleId>")
+  .option("--paragraphs <ids>")
   .option("--note <note>")
   .option("--expected-fix <expectedFix>")
+  .option("--distinct", "mark this as a genuinely separate clause")
   .option("--by <reviewer>", "reviewer name", "lead")
   .action(setItem);
 program
@@ -221,6 +323,15 @@ program
   .option("--expected-fix <expectedFix>")
   .option("--by <reviewer>", "reviewer name", "lead")
   .action(addItem);
+program
+  .command("merge")
+  .argument("<contractId>")
+  .argument("<itemIds>")
+  .option("--status <status>")
+  .option("--note <note>")
+  .option("--mechanical", "merge draft fragments without marking them human-reviewed")
+  .option("--by <reviewer>", "reviewer name", "lead")
+  .action(mergeItems);
 program.command("remove").argument("<contractId>").argument("<itemId>").action(removeItem);
 program.command("promote").argument("<contractId>").action(promote);
 

@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { normalizeForMatch } from "@/src/engine/text";
 
-export const GoldStatusSchema = z.enum(["deviation", "missing", "compliant"]);
+export const GoldStatusSchema = z.enum(["deviation", "missing", "compliant", "ambiguous"]);
 
 export const GoldItemSchema = z.object({
   id: z.string().min(1),
@@ -12,8 +12,11 @@ export const GoldItemSchema = z.object({
   paragraphIds: z.array(z.string().regex(/^p\d{4}(?:\.\d+)?$/)),
   status: GoldStatusSchema,
   cuadCategory: z.string().min(1).optional(),
+  cuadCategories: z.array(z.string().min(1)).optional(),
   spanText: z.string().min(1).optional(),
   labeler: z.string().min(1),
+  distinct: z.boolean().optional(),
+  mergedFrom: z.array(z.string().min(1)).optional(),
   note: z.string().min(1).optional(),
   expectedFix: z.string().min(1).optional(),
   reviewedAt: z.string().min(1).optional(),
@@ -119,6 +122,9 @@ export function carryDraftLabels(generated: GoldFile, existing: GoldFile): Carry
       labeler: prior.labeler,
       note: prior.note,
       expectedFix: prior.expectedFix,
+      cuadCategories: prior.cuadCategories,
+      distinct: prior.distinct,
+      mergedFrom: prior.mergedFrom,
       reviewedAt: prior.reviewedAt,
       reviewedBy: prior.reviewedBy,
     });

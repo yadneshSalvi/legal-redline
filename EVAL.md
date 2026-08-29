@@ -96,7 +96,7 @@ report (calls, tokens, cost).
 `evals/cache/<config>/<contractId>/<sha256>.json`. Modes: `live` (call, no write), `record` (call + write),
 `replay` (read; missing entry → hard error unless `--allow-live`). `pnpm eval` defaults to `replay`;
 `pnpm eval --live` = `record`. Judge calls are cached under `evals/cache/judge/`. Runs are deterministic
-in replay, so `evals/results/*.json` are byte-reproducible.
+in replay, so `evals/results/*.json` are byte-reproducible. Tool results are re-executed and hash-checked.
 
 ## 7. Outputs
 

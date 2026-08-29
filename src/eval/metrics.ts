@@ -15,6 +15,8 @@ export interface DetectionMetrics {
   fp: number;
   fn: number;
   escalations: number;
+  ambiguousItems: number;
+  ambiguousMatches: number;
   precision: number;
   recall: number;
   f1: number;
@@ -77,7 +79,10 @@ export interface ContractMetrics {
 
 export interface AggregateMetrics {
   contracts: number;
-  detection: { macro: Omit<DetectionMetrics, "tp" | "fp" | "fn" | "escalations">; micro: DetectionMetrics };
+  detection: {
+    macro: Omit<DetectionMetrics, "tp" | "fp" | "fn" | "escalations" | "ambiguousItems" | "ambiguousMatches">;
+    micro: DetectionMetrics;
+  };
   deviationAccuracy: DeviationAccuracyMetrics;
   redlineValidity: ComponentMetrics;
   minimality: ComponentMetrics;
@@ -104,6 +109,8 @@ export function detectionMetrics(result: MatchResult): DetectionMetrics {
     fp,
     fn,
     escalations: result.escalationFindingIds.length,
+    ambiguousItems: result.ambiguousItemIds.length,
+    ambiguousMatches: result.ambiguousMatchFindingIds.length,
     precision,
     recall,
     f1: precision + recall === 0 ? 0 : (2 * precision * recall) / (precision + recall),
@@ -247,8 +254,9 @@ export function computeContractMetrics(input: {
 }): ContractMetrics {
   const matched = matchFindings(input.findings, input.gold);
   const detection = detectionMetrics(matched);
-  const located = matched.matches.length;
-  const correct = matched.matches.filter(({ finding, gold }) => finding.status === gold.status).length;
+  const scoredMatches = matched.matches.filter(({ gold }) => gold.status !== "ambiguous");
+  const located = scoredMatches.length;
+  const correct = scoredMatches.filter(({ finding, gold }) => finding.status === gold.status).length;
   const tp = new Set(matched.truePositiveFindingIds);
   const proposals = input.findings.filter((finding) => tp.has(finding.id) && finding.proposal !== undefined);
   const applies = new Set(
@@ -331,6 +339,8 @@ export function aggregateMetrics(metrics: readonly ContractMetrics[]): Aggregate
         fp,
         fn,
         escalations: sum((metric) => metric.detection.escalations),
+        ambiguousItems: sum((metric) => metric.detection.ambiguousItems),
+        ambiguousMatches: sum((metric) => metric.detection.ambiguousMatches),
         precision: microPrecision,
         recall: microRecall,
         f1: microPrecision + microRecall === 0 ? 0 : (2 * microPrecision * microRecall) / (microPrecision + microRecall),

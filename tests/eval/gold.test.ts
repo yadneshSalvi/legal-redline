@@ -26,6 +26,28 @@ describe("GoldFileSchema", () => {
     expect(result.success).toBe(false);
   });
 
+  it("accepts ambiguous, distinct, and merged CUAD provenance", () => {
+    const gold = GoldFileSchema.parse({
+      contractId: "cuad-example",
+      items: [
+        {
+          id: "g010",
+          ruleId: "INDEMN",
+          paragraphIds: ["p0007"],
+          status: "ambiguous",
+          cuadCategory: "Indemnification",
+          cuadCategories: ["Indemnification", "IP Indemnification"],
+          distinct: true,
+          mergedFrom: ["g001", "g002"],
+          labeler: "cuad+human",
+          reviewedBy: "lead",
+          reviewedAt: "2026-08-30T00:00:00.000Z",
+        },
+      ],
+    });
+    expect(gold.items[0].status).toBe("ambiguous");
+  });
+
   it("carries assisted labels by normalized span identity while refreshing paragraph ids", () => {
     const existing = GoldFileSchema.parse({
       contractId: "cuad-example",

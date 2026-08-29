@@ -108,3 +108,28 @@ Every reviewed item → labeler `cuad+human` / `human`, reviewedBy "lead (legal 
 | g020–g024 | INDEMN, INSURANCE, T4C, TRANSITION, WARRANTY | missing ×5 | missing | one-way Licensee indemnity only; AS IS; 36-month term without convenience right |
 
 ## Remaining after r2: cuad-kubient-msa-part1, cuad-merit-life-master-services (drafts regenerate with new paragraphs); re-map SFG ids; run `gold-review list` for rules without items on all 8.
+
+## cuad-kubient-msa-part1 (AP ↔ Kubient) — reviewed 01:20 (post re-split ids)
+| item | rule | draft | decision | why |
+|---|---|---|---|---|
+| g001 | RENEWAL | deviation | deviation | auto-renewal; exit only on 90 days after the Initial Term (> 60-day fallback) |
+| g002 | GOVLAW | compliant | compliant | Delaware law, New York courts |
+| g003 | T4C | deviation | deviation (mild) | Customer convenience right only after the Initial Term on 90 days; Vendor may exit any time on 90 days |
+| g004 | ASSIGN | compliant | compliant | affiliate + M&A carve-outs, reasonable consent |
+| g005, g006 | ASSIGN (p0025) | compliant | **remove** | Service transfer/third-party access restriction, not assignment of the Agreement |
+| g007+g008 | LICENSE | deviation ×2 | merge → deviation (p0002) | revocable, non-transferable, non-assignable; no affiliates/contractors |
+| g009+g010 | LOL-CAP | deviation ×2 | merge → deviation (p0027, p0028) | mutual consequential exclusion with indemnity/confidentiality carve-outs but **no aggregate cap at all** |
+| g011, g012 | INSURANCE, TRANSITION | missing | missing | |
+
+## cuad-merit-life-master-services (Clear Capital ↔ RadialSpark) — reviewed 01:22
+| item | rule | draft | decision | why |
+|---|---|---|---|---|
+| g001 | GOVLAW | deviation | deviation | Arizona law |
+| g002 | NOSOLICIT | deviation | deviation (mild) | mutual 12-month, involved personnel, consent not unreasonably withheld — but no general-advertising carve-out (playbook check) |
+| g003 | T4C | deviation | deviation (mild) | 15-day convenience only when no SOW is outstanding; no Customer exit from a running SOW |
+| g004 | ASSIGN | deviation | deviation | no affiliate / M&A carve-out |
+| g005–g008 | IP | compliant ×4 | merge → compliant (p0017, p0019–p0020, p0033, p0044) | Company owns Works; Contractor keeps pre-existing materials with licence to Company |
+| g009+g010 | LICENSE | deviation ×2 | merge → deviation (mild) (p0021) | perpetual, royalty-free, sublicensable, but not irrevocable/transferable to successors |
+| g011–g014 | LOL-CAP | deviation ×4 | merge → deviation (p0035, p0036) | Contractor cap = fees paid for the particular Services; carve-out only for ¶9; consequential exclusion without carve-outs |
+| g015 | INSURANCE | deviation | deviation (low) | CGL/E&O $1M present, no cyber cover |
+| g016, g017 | INDEMN, TRANSITION | missing | missing | heading without operative indemnity |

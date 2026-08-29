@@ -77,4 +77,27 @@ describe("evaluation metrics", () => {
       ]),
     ).toEqual({ findings: 3, accepts: 1, edits: 1, rejects: 1, load: 2 / 3 });
   });
+
+  it("reports ambiguous items and matches without scoring them", () => {
+    const gold: GoldFile = {
+      contractId: "test",
+      items: [{ id: "g1", ruleId: "INDEMN", paragraphIds: ["p0001"], status: "ambiguous", labeler: "human" }],
+    };
+    const metrics = computeContractMetrics({
+      gold,
+      findings: [findingFixture({ id: "f1", ruleId: "INDEMN", status: "deviation", paragraphIds: ["p0001"] })],
+      document: documentFixture(),
+      rules: [],
+      stats: statsFixture(),
+    });
+    expect(metrics.detection).toMatchObject({
+      tp: 0,
+      fp: 0,
+      fn: 0,
+      ambiguousItems: 1,
+      ambiguousMatches: 1,
+    });
+    expect(metrics.deviationAccuracy).toEqual({ located: 0, correct: 0, accuracy: 0 });
+    expect(aggregateMetrics([metrics]).detection.micro).toMatchObject({ ambiguousItems: 1, ambiguousMatches: 1 });
+  });
 });

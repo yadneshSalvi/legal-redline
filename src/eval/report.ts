@@ -29,11 +29,11 @@ async function loadResults(root: string): Promise<ConfigEvaluationResult[]> {
 function comparisonTable(results: readonly ConfigEvaluationResult[]): string {
   const rows = results.map((result) => {
     const aggregate = result.aggregate;
-    return `| ${result.config} | ${percent(aggregate.detection.macro.f1)} | ${percent(aggregate.detection.micro.f1)} | ${percent(aggregate.deviationAccuracy.accuracy)} | ${percent(aggregate.redlineValidity.rate)} | ${percent(aggregate.minimality.rate)} | ${percent(aggregate.citationHallucination.rate)} |`;
+    return `| ${result.config} | ${percent(aggregate.detection.macro.f1)} | ${percent(aggregate.detection.micro.f1)} | ${aggregate.detection.micro.ambiguousItems ?? 0} | ${aggregate.detection.micro.ambiguousMatches ?? 0} | ${percent(aggregate.deviationAccuracy.accuracy)} | ${percent(aggregate.redlineValidity.rate)} | ${percent(aggregate.minimality.rate)} | ${percent(aggregate.citationHallucination.rate)} |`;
   });
   return [
-    "| Config | F1 macro | F1 micro | Deviation accuracy | Redline validity | Minimality | Citation hallucination |",
-    "|---|---:|---:|---:|---:|---:|---:|",
+    "| Config | F1 macro | F1 micro | Ambiguous items | Ambiguous matches | Deviation accuracy | Redline validity | Minimality | Citation hallucination |",
+    "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ...rows,
   ].join("\n");
 }
@@ -42,12 +42,12 @@ function contractTable(results: readonly ConfigEvaluationResult[]): string {
   const rows = results.flatMap((result) =>
     result.contracts.map((contract) => {
       const metrics = contract.metrics;
-      return `| ${result.config} | ${contract.contractId} | ${metrics.detection.tp} | ${metrics.detection.fp} | ${metrics.detection.fn} | ${metrics.detection.escalations} | ${percent(metrics.detection.f1)} | ${percent(metrics.redlineValidity.valid.rate)} | ${metrics.integrity?.ok === true ? "pass" : metrics.integrity?.attempted === true ? "fail" : "—"} |`;
+      return `| ${result.config} | ${contract.contractId} | ${metrics.detection.tp} | ${metrics.detection.fp} | ${metrics.detection.fn} | ${metrics.detection.escalations} | ${metrics.detection.ambiguousItems ?? 0} | ${metrics.detection.ambiguousMatches ?? 0} | ${percent(metrics.detection.f1)} | ${percent(metrics.redlineValidity.valid.rate)} | ${metrics.integrity?.ok === true ? "pass" : metrics.integrity?.attempted === true ? "fail" : "—"} |`;
     }),
   );
   return [
-    "| Config | Contract | TP | FP | FN | Escalations | F1 | Valid redlines | Integrity |",
-    "|---|---|---:|---:|---:|---:|---:|---:|---|",
+    "| Config | Contract | TP | FP | FN | Escalations | Ambiguous items | Ambiguous matches | F1 | Valid redlines | Integrity |",
+    "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|",
     ...rows,
   ].join("\n");
 }

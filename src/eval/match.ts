@@ -15,6 +15,8 @@ export interface MatchResult {
   escalationFindingIds: string[];
   unmatchedFindingIds: string[];
   unmatchedGoldIds: string[];
+  ambiguousItemIds: string[];
+  ambiguousMatchFindingIds: string[];
 }
 
 function isIssueStatus(status: string): status is "deviation" | "missing" {
@@ -59,8 +61,14 @@ export function matchFindings(findings: readonly Finding[], goldFile: GoldFile):
     .filter(({ finding, gold }) => isIssueStatus(finding.status) && isIssueStatus(gold.status))
     .map(({ finding }) => finding.id);
   const tpSet = new Set(tp);
+  const ambiguousMatches = matches
+    .filter(({ gold }) => gold.status === "ambiguous")
+    .map(({ finding }) => finding.id);
+  const ambiguousMatchSet = new Set(ambiguousMatches);
   const fp = findings
-    .filter((finding) => isIssueStatus(finding.status) && !tpSet.has(finding.id))
+    .filter(
+      (finding) => isIssueStatus(finding.status) && !tpSet.has(finding.id) && !ambiguousMatchSet.has(finding.id),
+    )
     .map((finding) => finding.id)
     .sort();
   const matchedActiveGold = new Set(
@@ -81,5 +89,7 @@ export function matchFindings(findings: readonly Finding[], goldFile: GoldFile):
     escalationFindingIds: findings.filter((finding) => finding.status === "needs_review").map((finding) => finding.id).sort(),
     unmatchedFindingIds: findings.filter((finding) => !matchedFindingIds.has(finding.id)).map((finding) => finding.id).sort(),
     unmatchedGoldIds: [...availableGold.keys()].sort(),
+    ambiguousItemIds: goldFile.items.filter((gold) => gold.status === "ambiguous").map((gold) => gold.id).sort(),
+    ambiguousMatchFindingIds: ambiguousMatches.sort(),
   };
 }
