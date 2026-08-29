@@ -21,6 +21,26 @@ export interface VerifierResult {
   feedback: string;
 }
 
+const NUMBER_WORDS: Record<string, number> = {
+  one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12,
+  thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19, twenty: 20,
+  thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90, hundred: 100,
+};
+
+/** Rewrite written-out numbers ("thirty", "twenty-four", "one hundred eighty") as digits so numeric checks can read them. */
+export function normalizeNumberWords(text: string): string {
+  return text.replace(
+    /\b(?:(one|two|three|four|five|six|seven|eight|nine)\s+hundred(?:\s+and)?\s*)?((?:twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)(?:[-\s](?:one|two|three|four|five|six|seven|eight|nine))?|[a-z]+)\b/gi,
+    (whole, hundreds: string | undefined, rest: string) => {
+      const parts = rest.toLowerCase().split(/[-\s]/);
+      const values = parts.map((part) => NUMBER_WORDS[part]);
+      if (values.some((value) => value === undefined) || (values.length === 2 && values[0] < 20)) return whole;
+      const total = (hundreds ? NUMBER_WORDS[hundreds.toLowerCase()] * 100 : 0) + values.reduce((sum, value) => sum + value, 0);
+      return hundreds || NUMBER_WORDS[parts[0]] !== undefined ? String(total) : whole;
+    },
+  );
+}
+
 function postEditText(document: DocumentModel, paragraphId: string, ops: RedlineOp[]): string {
   const base = renderParagraph(document, paragraphId, ops)
     .filter((segment) => segment.type !== "delete")
@@ -52,7 +72,7 @@ function deterministicChecks(document: DocumentModel, rule: Rule, finding: Findi
       if (check.type === "regex_absent") ok = !new RegExp(check.pattern, check.flags).test(rendered);
       if (check.type === "one_of") ok = check.phrases.some((phrase) => rendered.toLowerCase().includes(phrase.toLowerCase()));
       if (check.type === "number_min" || check.type === "number_max") {
-        const match = new RegExp(check.pattern, "i").exec(rendered);
+        const match = new RegExp(check.pattern, "i").exec(normalizeNumberWords(rendered));
         const value = match?.[1] ? Number(match[1]) : Number.NaN;
         ok = Number.isFinite(value) && (check.type === "number_min" ? value >= check.min : value <= check.max);
         detail = Number.isFinite(value) ? `value=${value}` : "number not found";
@@ -141,8 +161,11 @@ export async function verifyFinding(input: {
   const failedChecks = deterministic.checks.filter((check) => !check.ok);
   // A finding labelled compliant must satisfy the rule's own checks on the untouched clause; a failure there
   // sends it back to the drafter (which may re-classify it as a deviation, or escalate it after repairs).
+  // "number not found" is inconclusive (phrasing), not a contradiction — it stays advisory even for compliant findings.
   const hardFailures = failedChecks.filter(
-    (check) => isHardCheck(check.name) || (input.finding.status === "compliant" && !check.name.startsWith("minimal edit")),
+    (check) =>
+      isHardCheck(check.name) ||
+      (input.finding.status === "compliant" && !check.name.startsWith("minimal edit") && check.detail !== "number not found"),
   );
   const pass = response.data.verdict === "pass" && hardFailures.length === 0;
   const reasons = [
