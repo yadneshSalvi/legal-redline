@@ -155,3 +155,5 @@ Corio MINCOMMIT/AUDIT/INDEMN, Kubient IP/WARRANTY (9(b) covenants vs AS-IS), Mer
 T4C/EXCLUSIVITY/RENEWAL, Corio RENEWAL, Kubient ASSIGN/GOVLAW, Merit RENEWAL, SFG MINCOMMIT, Sparkling RENEWAL/T4C/WARRANTY, synth-13 IP.
 Matching rule change (EVAL.md §3): a `missing`-kind gold item (no paragraphs) is matched by a `deviation` **or** `missing` finding for the same
 rule — a finding that points at the AS-IS disclaimer and calls it a deviation is the same review conclusion.
+- Round 2b (03:20): Kubient T4C → `ambiguous` (90-day convenience right after the initial term is within the 60–90-day fallback; the calibrated
+  semantics treat fallback-met as compliant, gold should not penalise either reading).

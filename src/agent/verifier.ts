@@ -162,10 +162,13 @@ export async function verifyFinding(input: {
   // A finding labelled compliant must satisfy the rule's own checks on the untouched clause; a failure there
   // sends it back to the drafter (which may re-classify it as a deviation, or escalate it after repairs).
   // "number not found" is inconclusive (phrasing), not a contradiction — it stays advisory even for compliant findings.
+  // Rule checks can only gate a compliant finding that cites a clause; "compliant because no such clause exists"
+  // has nothing for a regex to inspect, so those checks stay advisory.
+  const citesClause = input.finding.paragraphIds.length > 0;
   const hardFailures = failedChecks.filter(
     (check) =>
       isHardCheck(check.name) ||
-      (input.finding.status === "compliant" && !check.name.startsWith("minimal edit") && check.detail !== "number not found"),
+      (input.finding.status === "compliant" && citesClause && !check.name.startsWith("minimal edit") && check.detail !== "number not found"),
   );
   const pass = response.data.verdict === "pass" && hardFailures.length === 0;
   const reasons = [
