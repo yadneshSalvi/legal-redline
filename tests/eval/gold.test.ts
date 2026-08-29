@@ -1,0 +1,82 @@
+import { describe, expect, it } from "vitest";
+
+import { assertEvaluationLabelers, carryDraftLabels, GoldFileSchema } from "@/src/eval/gold";
+
+describe("GoldFileSchema", () => {
+  it("accepts a well-formed gold file", () => {
+    expect(
+      GoldFileSchema.parse({
+        contractId: "synth-11",
+        items: [
+          { id: "g01", ruleId: "LOL-CAP", paragraphIds: ["p0001"], status: "deviation", labeler: "synthetic-exact" },
+          { id: "g02", ruleId: "INSURANCE", paragraphIds: [], status: "missing", labeler: "synthetic-exact" },
+        ],
+      }).items,
+    ).toHaveLength(2);
+  });
+
+  it("rejects duplicate ids and located missing clauses", () => {
+    const result = GoldFileSchema.safeParse({
+      contractId: "bad",
+      items: [
+        { id: "g01", ruleId: "INSURANCE", paragraphIds: ["p0001"], status: "missing", labeler: "human" },
+        { id: "g01", ruleId: "T4C", paragraphIds: [], status: "missing", labeler: "human" },
+      ],
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("carries assisted labels by normalized span identity while refreshing paragraph ids", () => {
+    const existing = GoldFileSchema.parse({
+      contractId: "cuad-example",
+      items: [
+        {
+          id: "g007",
+          ruleId: "LOL-CAP",
+          paragraphIds: ["p0004"],
+          status: "deviation",
+          cuadCategory: "Cap On Liability",
+          spanText: "Liability SHALL be capped.",
+          labeler: "cuad+llm-draft",
+          note: "Draft assessment",
+        },
+      ],
+    });
+    const generated = GoldFileSchema.parse({
+      contractId: "cuad-example",
+      items: [
+        {
+          id: "g001",
+          ruleId: "LOL-CAP",
+          paragraphIds: ["p0019", "p0020"],
+          status: "compliant",
+          cuadCategory: "Cap On Liability",
+          spanText: " liability shall be capped. ",
+          labeler: "cuad-draft",
+        },
+      ],
+    });
+    const result = carryDraftLabels(generated, existing);
+    expect(result).toMatchObject({ carried: 1, needsDraft: 0 });
+    expect(result.gold.items[0]).toMatchObject({
+      id: "g007",
+      paragraphIds: ["p0019", "p0020"],
+      status: "deviation",
+      labeler: "cuad+llm-draft",
+      note: "Draft assessment",
+    });
+  });
+
+  it("rejects non-human CUAD gold but accepts exact synthetic gold", () => {
+    const draft = GoldFileSchema.parse({
+      contractId: "cuad-example",
+      items: [{ id: "g001", ruleId: "T4C", paragraphIds: [], status: "missing", labeler: "llm-draft" }],
+    });
+    expect(() => assertEvaluationLabelers("cuad-example", draft)).toThrow(/unapproved labelers/);
+    const synthetic = GoldFileSchema.parse({
+      contractId: "synth-example",
+      items: [{ id: "g01", ruleId: "T4C", paragraphIds: [], status: "missing", labeler: "synthetic-exact" }],
+    });
+    expect(() => assertEvaluationLabelers("synth-example", synthetic)).not.toThrow();
+  });
+});
