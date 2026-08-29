@@ -1,61 +1,175 @@
 #!/bin/zsh
-# Shared helpers for recording Hearth B-roll from the headless agent-browser session.
-export HEARTH_SESSION=vhl
-S=vhl
-URL=https://hearth-wheat-ten.vercel.app
-V=/Users/yadneshsalvi/code/hackathons/hearth-webmcp/plans/video
-TO() { perl -e 'alarm shift; exec @ARGV' "$@"; }   # TO <secs> <cmd...>
+# Shared capture helpers for the Playbook Redliner solution video.
 
-ab()  { TO 30 agent-browser --session $S "$@" >/dev/null 2>&1; }
-abo() { TO 30 agent-browser --session $S "$@" 2>&1 | tail -1; }
-tool(){ local a="$2"; [ -z "$a" ] && a='{}'; TO 45 node $V/bin/tool.mjs "$1" "$a" $S 2>&1 | tail -1 | head -c 260; echo; }
-toolq(){ local a="$2"; [ -z "$a" ] && a='{}'; TO 45 node $V/bin/tool.mjs "$1" "$a" $S >/dev/null 2>&1; }
+VIDEO_DIR=${PLAYBOOK_VIDEO_DIR:-${0:A:h:h}}
+SESSION=${PLAYBOOK_VIDEO_SESSION:-playbook-redliner-video}
+APP_URL=${PLAYBOOK_URL:-https://playbook-redliner.vercel.app}
+S=$SESSION
+V=$VIDEO_DIR
+CURSOR_X=72
+CURSOR_Y=152
+REC_PID=""
+REC_OUT=""
 
-# Click the first button/summary whose accessible text contains the argument. JS
-# click, so a miss returns immediately instead of blocking on a Playwright wait.
-tap() {
-  abo eval "(()=>{const q='$1';const els=[...document.querySelectorAll('button,summary,[role=button],a')];const t=els.find(e=>(((e.getAttribute('aria-label')||'')+' '+(e.textContent||'')).replace(/\s+/g,' ')).includes(q));if(!t)return 'MISS:'+q;t.click();return 'TAP';})()"
+mkdir -p "$V/clips" "$V/logs"
+
+ab() {
+  agent-browser --session "$S" "$@" >/dev/null 2>&1
+}
+
+abo() {
+  agent-browser --session "$S" "$@" 2>&1
 }
 
 boot() {
-  agent-browser --session $S open $URL >/dev/null 2>&1
+  ab open "$APP_URL/"
   ab set viewport 1920 1080
-  sleep 4
+  ab wait --load networkidle || true
+  cursor_on
 }
 
-fresh() { # fresh [keep]  — pristine studio; dismisses onboarding unless "keep"
-  ab eval "localStorage.clear(); 1"
-  ab reload
-  sleep 4.5
-  if [ "$1" != "keep" ]; then ab press Escape; sleep 0.8; fi
+open_path() {
+  ab open "$APP_URL$1"
+  ab set viewport 1920 1080
+  ab wait --load networkidle || true
+  cursor_on
 }
 
-rec_start() { # rec_start <name> [maxsec]
-  local m="$2"; [ -z "$m" ] && m=60
-  rm -f $V/clips/$1.mp4 $V/clips/$1.mp4.STOP
-  node $V/bin/rec.mjs $V/clips/$1.mp4 $m 60 $S > /tmp/rec-$1.log 2>&1 &
+cursor_on() {
+  ab eval '(() => {
+    let cursor = document.getElementById("video-capture-cursor");
+    if (!cursor) {
+      cursor = document.createElement("div");
+      cursor.id = "video-capture-cursor";
+      Object.assign(cursor.style, {
+        position: "fixed", left: "0", top: "0", width: "18px", height: "18px",
+        borderRadius: "999px", border: "3px solid #FFFFFF", background: "#1E2A47",
+        boxShadow: "0 1px 2px rgba(27,27,31,.22), 0 4px 12px rgba(27,27,31,.18)",
+        transform: "translate(-50%,-50%)", pointerEvents: "none", zIndex: "2147483647",
+        opacity: "0", transition: "opacity 180ms ease-out"
+      });
+      document.documentElement.append(cursor);
+      let timer;
+      window.addEventListener("mousemove", (event) => {
+        cursor.style.left = `${event.clientX}px`;
+        cursor.style.top = `${event.clientY}px`;
+        cursor.style.opacity = "1";
+        clearTimeout(timer);
+        timer = setTimeout(() => { cursor.style.opacity = "0"; }, 1400);
+      }, { passive: true });
+    }
+    return true;
+  })()'
+}
+
+cursor_off() {
+  ab eval 'document.getElementById("video-capture-cursor")?.remove(); true' || true
+}
+
+snapshot_beat() {
+  local tmp="$V/logs/$1.snapshot.tmp"
+  agent-browser --session "$S" snapshot -i -c > "$tmp" 2>&1
+  mv "$tmp" "$V/logs/$1.snapshot.txt"
+}
+
+point_for_text() {
+  local query expression result
+  query=$(node -e 'process.stdout.write(JSON.stringify(process.argv[1]))' "$1")
+  expression="(() => { const q=$query; const nodes=[...document.querySelectorAll('button,a,input,textarea,[role=button],[role=option],[role=menuitem]')]; const hit=nodes.find((node) => (((node.getAttribute('aria-label') || '') + ' ' + (node.getAttribute('placeholder') || '') + ' ' + (node.textContent || '')).replace(/\\s+/g, ' ')).includes(q)); if (!hit) return 'MISS'; hit.scrollIntoView({block:'center',inline:'center'}); const rect=hit.getBoundingClientRect(); return Math.round(rect.left+rect.width/2)+','+Math.round(rect.top+rect.height/2); })()"
+  result=$(abo eval "$expression" | tail -n 1)
+  result=${result//\"/}
+  [[ "$result" == *,* ]] || return 1
+  print -r -- "$result"
+}
+
+point_for_selector() {
+  local query expression result
+  query=$(node -e 'process.stdout.write(JSON.stringify(process.argv[1]))' "$1")
+  expression="(() => { const hit=document.querySelector($query); if (!hit) return 'MISS'; hit.scrollIntoView({block:'center',inline:'center'}); const rect=hit.getBoundingClientRect(); return Math.round(rect.left+rect.width/2)+','+Math.round(rect.top+rect.height/2); })()"
+  result=$(abo eval "$expression" | tail -n 1)
+  result=${result//\"/}
+  [[ "$result" == *,* ]] || return 1
+  print -r -- "$result"
+}
+
+move_pointer() {
+  local x=$1 y=$2 steps=${3:-18}
+  local start_x=$CURSOR_X start_y=$CURSOR_Y index next_x next_y
+  for (( index=1; index<=steps; index++ )); do
+    next_x=$(( start_x + (x - start_x) * index / steps ))
+    next_y=$(( start_y + (y - start_y) * index / steps ))
+    ab mouse move "$next_x" "$next_y"
+    sleep 0.025
+  done
+  CURSOR_X=$x
+  CURSOR_Y=$y
+}
+
+move_to_text() {
+  local point
+  point=$(point_for_text "$1") || return 1
+  move_pointer "${point%,*}" "${point#*,}"
+}
+
+move_to_selector() {
+  local point
+  point=$(point_for_selector "$1") || return 1
+  move_pointer "${point%,*}" "${point#*,}"
+}
+
+tap_text() {
+  move_to_text "$1" || return 1
+  sleep 0.32
+  ab mouse down
+  sleep 0.11
+  ab mouse up
+}
+
+tap_selector() {
+  move_to_selector "$1" || return 1
+  sleep 0.32
+  ab mouse down
+  sleep 0.11
+  ab mouse up
+}
+
+narration_target() {
+  node -e '
+    const fs=require("node:fs");
+    const manifest=process.argv[1];
+    const id=process.argv[2];
+    const fallback=Number(process.argv[3]);
+    try {
+      const data=JSON.parse(fs.readFileSync(manifest,"utf8"));
+      const beat=data.beats.find((item)=>item.id===id);
+      process.stdout.write(String(Math.ceil((beat?.duration ?? fallback)+2)));
+    } catch { process.stdout.write(String(Math.ceil(fallback+2))); }
+  ' "$V/narration/manifest.json" "$1" "$2"
+}
+
+hold_until() {
+  local started=$1 target=$2
+  while (( SECONDS - started < target )); do sleep 1; done
+}
+
+rec_start() {
+  local name=$1 max_seconds=${2:-60}
+  local out="$V/clips/$name.mp4" log="$V/logs/rec-$name.log"
+  rm -f "$out" "$out.STOP" "$log"
+  node "$V/bin/rec.mjs" "$out" "$max_seconds" 60 "$S" > "$log" 2>&1 &
+  REC_PID=$!
+  REC_OUT=$out
   sleep 1.8
 }
-rec_stop() { # rec_stop <name>
-  touch $V/clips/$1.mp4.STOP
-  local i=0
-  while [ $i -lt 120 ]; do grep -q "saved\|ERROR" /tmp/rec-$1.log 2>/dev/null && break; sleep 1; i=$((i+1)); done
-  sleep 1
-  cat /tmp/rec-$1.log
-}
-still() { TO 30 agent-browser --session $S screenshot $V/stills/$1.png >/dev/null 2>&1; }
 
-# drag <x1> <y1> <x2> <y2> [steps]  — real pointer drag across the 3D canvas
-drag() {
-  local x1=$1 y1=$2 x2=$3 y2=$4 n=${5}
-  [ -z "$n" ] && n=30
-  ab mouse move $x1 $y1; sleep 0.5
-  ab mouse down; sleep 0.35
-  local i=1
-  while [ $i -le $n ]; do
-    ab mouse move $(( x1 + (x2 - x1) * i / n )) $(( y1 + (y2 - y1) * i / n ))
-    i=$((i+1))
-  done
-  sleep 0.4
-  ab mouse up
+rec_stop() {
+  local name=$1 out="$V/clips/$1.mp4"
+  touch "$out.STOP"
+  if [[ -n "$REC_PID" ]]; then
+    wait "$REC_PID"
+    REC_PID=""
+    REC_OUT=""
+  fi
+  tail -n 2 "$V/logs/rec-$name.log"
+  [[ -s "$out" ]]
 }

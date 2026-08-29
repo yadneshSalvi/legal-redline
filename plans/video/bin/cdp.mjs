@@ -1,16 +1,16 @@
 /**
- * Minimal CDP driver for the Hearth B-roll: one WebSocket per run drives the
+ * Minimal CDP driver for Playbook Redliner B-roll: one WebSocket per run drives the
  * page (tool calls, taps, pointer drags, screenshots) and records the screencast,
  * which is far more reliable than one agent-browser CLI process per action.
  */
 import { execFileSync } from "node:child_process";
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, rmSync, writeFileSync, renameSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
 const FFMPEG = "/opt/homebrew/bin/ffmpeg";
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export async function connect(session = "vhl") {
+export async function connect(session = "playbook-redliner-video") {
   const cdpUrl = execFileSync("agent-browser", ["--session", session, "get", "cdp-url"], { encoding: "utf8" })
     .trim().split("\n").map((l) => l.trim()).find((l) => l.startsWith("ws://"));
   if (!cdpUrl) throw new Error("no cdp url");
@@ -37,8 +37,7 @@ export async function connect(session = "vhl") {
   });
 
   const { targetInfos } = await raw("Target.getTargets");
-  const page = targetInfos.find((t) => t.type === "page" && t.url.includes("hearth-wheat-ten.vercel.app"))
-    ?? targetInfos.find((t) => t.type === "page" && !t.url.includes("myshopify.com"))
+  const page = targetInfos.find((t) => t.type === "page" && t.url.includes("playbook-redliner"))
     ?? targetInfos.find((t) => t.type === "page");
   // Stray checkout windows from an earlier take would otherwise shadow the app.
   for (const t of targetInfos) {
@@ -116,7 +115,10 @@ export async function connect(session = "vhl") {
     async shot(path) {
       const r = await send("Page.captureScreenshot", { format: "png" });
       mkdirSync(dirname(resolve(path)), { recursive: true });
-      writeFileSync(resolve(path), Buffer.from(r.data, "base64"));
+      const output = resolve(path);
+      const tmp = `${output}.tmp-${process.pid}`;
+      writeFileSync(tmp, Buffer.from(r.data, "base64"));
+      renameSync(tmp, output);
     },
     /** Screenshots another page target (e.g. the checkout window Hearth opens). */
     async shotTarget(match, path) {
@@ -129,7 +131,10 @@ export async function connect(session = "vhl") {
       await sleep(700);
       const r = await raw("Page.captureScreenshot", { format: "png" }, sid);
       mkdirSync(dirname(resolve(path)), { recursive: true });
-      writeFileSync(resolve(path), Buffer.from(r.data, "base64"));
+      const output = resolve(path);
+      const tmp = `${output}.tmp-${process.pid}`;
+      writeFileSync(tmp, Buffer.from(r.data, "base64"));
+      renameSync(tmp, output);
       return true;
     },
     close() { ws.close(); },

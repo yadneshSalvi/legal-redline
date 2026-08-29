@@ -1,11 +1,11 @@
 /**
- * CDP screencast recorder: captures the agent-browser page at its native paint
+ * CDP screencast recorder: captures the Playbook Redliner page at its native paint
  * rate and muxes a constant-rate H.264 clip. Stops on a STOP sentinel file.
  *
  * usage: node bin/rec.mjs <out.mp4> [maxSeconds] [fps]
  */
 import { execFileSync } from "node:child_process";
-import { mkdirSync, rmSync, writeFileSync, existsSync, unlinkSync } from "node:fs";
+import { mkdirSync, rmSync, writeFileSync, existsSync, unlinkSync, renameSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
 const [outArg, maxSecArg = "90", fpsArg = "30", sessionArg = "video"] = process.argv.slice(2);
@@ -14,7 +14,7 @@ const maxMs = Number(maxSecArg) * 1000;
 const fps = Number(fpsArg);
 const workDir = `${out}.frames`;
 const stopFile = `${out}.STOP`;
-const FFMPEG = "/opt/homebrew/bin/ffmpeg";
+const FFMPEG = process.env.FFMPEG || "/opt/homebrew/bin/ffmpeg";
 
 const cdpUrl = execFileSync("agent-browser", ["--session", sessionArg, "get", "cdp-url"], { encoding: "utf8" })
   .trim().split("\n").map((l) => l.trim()).find((l) => l.startsWith("ws://"));
@@ -62,7 +62,7 @@ ws.addEventListener("message", (event) => {
 
 ws.addEventListener("open", async () => {
   const { targetInfos } = await send("Target.getTargets");
-  const page = targetInfos.find((t) => t.type === "page" && t.url.includes("hearth"))
+  const page = targetInfos.find((t) => t.type === "page" && t.url.includes("playbook-redliner"))
     ?? targetInfos.find((t) => t.type === "page");
   if (!page) throw new Error("no page target");
   const attached = await send("Target.attachToTarget", { targetId: page.targetId, flatten: true });
@@ -104,12 +104,14 @@ function finish() {
   const listFile = `${workDir}/list.txt`;
   writeFileSync(listFile, `${lines.join("\n")}\n`);
   const span = Math.max(stopT, frames[frames.length - 1].t) - Math.min(startT, frames[0].t);
+  const tmpOut = `${out}.tmp-${process.pid}.mp4`;
   execFileSync(FFMPEG, [
     "-y", "-f", "concat", "-safe", "0", "-i", listFile,
-    "-vsync", "cfr", "-r", String(fps),
-    "-c:v", "libx264", "-preset", "slow", "-crf", "17",
-    "-pix_fmt", "yuv420p", "-movflags", "+faststart", out,
+    "-fps_mode", "cfr", "-r", String(fps),
+    "-c:v", "libx264", "-preset", "medium", "-crf", "17",
+    "-pix_fmt", "yuv420p", "-movflags", "+faststart", tmpOut,
   ], { stdio: ["ignore", "ignore", "pipe"] });
+  renameSync(tmpOut, out);
   process.stdout.write(`saved ${out} · ${frames.length} frames · ${span.toFixed(2)}s · ${(frames.length / span).toFixed(1)} native fps\n`);
   rmSync(workDir, { recursive: true, force: true });
   if (existsSync(stopFile)) unlinkSync(stopFile);
