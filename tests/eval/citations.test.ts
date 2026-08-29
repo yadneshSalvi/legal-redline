@@ -1,20 +1,17 @@
 import { describe, expect, it } from "vitest";
 
+import { parseText } from "@/src/engine";
 import { scanCitationHallucinations } from "@/src/eval/metrics";
 
-describe("citation scanner", () => {
-  it("checks every Section and section-symbol reference against document sections", () => {
-    const result = scanCitationHallucinations(
-      {
-        sections: [
-          { id: "sec-2.1", number: "2.1", heading: "Term", level: 2, paragraphIds: [], childIds: [] },
-          { id: "sec-9", number: "9", heading: "Liability", level: 1, paragraphIds: [], childIds: [] },
-        ],
-      },
-      ["See Section 2.1 and § 9. Section 404 does not exist."],
-    );
-    expect(result.references).toBe(3);
-    expect(result.hallucinations).toBe(1);
-    expect(result.invalidReferences).toEqual(["404"]);
+const doc = parseText(
+  "AGREEMENT\n\n9. LIMITATION OF LIABILITY\n\n9.1 Each party's liability is capped.\n\n9.2 No consequential damages.\n\n14. GENERAL\n\n14.1 Notices.",
+  "t.txt",
+);
+
+describe("scanCitationHallucinations", () => {
+  it("accepts section and sub-clause numbers, rejects numbers that do not exist", () => {
+    const result = scanCitationHallucinations(doc, ["See Section 9.2 and § 14.1; also Section 9.", "Section 47 is invented, as is § 9.9."]);
+    expect(result.references).toBe(5);
+    expect(result.invalidReferences).toEqual(["47", "9.9"]);
   });
 });

@@ -169,16 +169,27 @@ function normalizeSection(value: string): string {
   return value.replace(/^0+(?=\d)/, "").replace(/\.0+(?=\d)/g, ".");
 }
 
+/**
+ * A citation is valid when it names any clause number that exists in the document: a section heading
+ * number, a paragraph's numbering label, or the number a paragraph visibly starts with ("9.4 Customer may…").
+ * Sub-clauses are body paragraphs, not sections, so section numbers alone would flag real references.
+ */
 export function scanCitationHallucinations(
-  doc: Pick<DocumentModel, "sections">,
+  doc: Pick<DocumentModel, "sections"> & Partial<Pick<DocumentModel, "paragraphs">>,
   texts: readonly string[],
 ): CitationMetrics {
   const sections = new Set(
     doc.sections.flatMap((section) => {
       const number = section.number ?? section.id.match(/^sec-(.+)$/)?.[1];
-      return number === undefined ? [] : [normalizeSection(number)];
+      return number === undefined || number.startsWith("p") ? [] : [normalizeSection(number)];
     }),
   );
+  const leading = /^\s*(?:(?:Section|Article|Clause)\s+)?([A-Z]?\d+(?:\.\d+)*)(?=[.)\s:])/i;
+  for (const paragraph of doc.paragraphs ?? []) {
+    if (paragraph.numbering) sections.add(normalizeSection(paragraph.numbering.replace(/[.)]+$/, "")));
+    const match = leading.exec(paragraph.text);
+    if (match) sections.add(normalizeSection(match[1]));
+  }
   const references: string[] = [];
   const pattern = /(?:\bSection|§)\s*([A-Z]?\d+(?:\.\d+)*)/gi;
   for (const text of texts) {
