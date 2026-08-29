@@ -1,0 +1,484 @@
+# Customer-side Vendor Services Playbook v1
+# The negotiating positions of a mid-size company ("Customer") buying services, SaaS, software licences
+# or hosting from a vendor. Positions are deliberately mainstream (what most in-house teams ask for),
+# so results generalise. Every rule: preferred → fallback → walk-away, plus agent guidance and checks.
+id: customer-vendor-services-v1
+name: Customer-side Vendor Services Playbook
+version: "1.0"
+party: customer
+partyAliases: [Customer, Client, Licensee, Company, Buyer, Purchaser, Subscriber, User]
+counterpartyAliases: [Vendor, Supplier, Provider, Service Provider, Licensor, Contractor, Consultant, Seller, Host]
+description: >
+  First-pass review positions for vendor paper. We accept the preferred position silently, propose the
+  fallback where the vendor is likely to push back, and flag walk-away terms for escalation.
+style:
+  author: Playbook Redliner
+  commentPrefix: "[Playbook]"
+  tone: >
+    Concise, professional, first person plural ("we"). Explain what changed and why in one or two
+    sentences, cite the playbook position, offer the fallback where sensible, never lecture.
+
+rules:
+  - id: LOL-CAP
+    title: Limitation of liability — cap, mutuality and carve-outs
+    category: liability
+    severity: critical
+    kind: parametric
+    cuad: ["Cap On Liability", "Uncapped Liability"]
+    summary: Liability must be capped for both parties at a meaningful amount, with standard carve-outs.
+    position:
+      preferred: >
+        Mutual cap equal to the greater of (a) fees paid or payable in the 12 months preceding the claim and
+        (b) USD 1,000,000; mutual exclusion of indirect/consequential damages; carve-outs (uncapped) for breach
+        of confidentiality, data protection and security obligations, indemnification obligations, gross
+        negligence, wilful misconduct, fraud, and infringement of the other party's IP; Customer's payment
+        obligations are not "damages" for cap purposes.
+      fallback: >
+        Mutual cap of 12 months' fees; carve-outs at least for indemnification, confidentiality, gross
+        negligence and wilful misconduct.
+      walkaway: >
+        Customer's liability uncapped while Vendor's is capped; Vendor cap below 6 months' fees; indemnities
+        inside the cap with no super-cap.
+    detect: >
+      Find the limitation-of-liability, exclusion-of-damages and any "aggregate liability" language, including
+      language hidden in warranty or indemnity sections. Determine: does a cap exist; what is the basis (fixed
+      amount, months of fees, fees "paid" vs "paid or payable"); is it mutual or one-sided; which obligations are
+      carved out. Resolve defined terms ("Fees", "Losses", "Claims") — a cap on "Fees" defined as a small set-up
+      fee is illusory. A one-way cap that protects only the Vendor, or language stating the Customer's liability
+      is unlimited, is a deviation.
+    redline: >
+      Edit the existing sentence(s); do not rewrite the section. Change the basis to 12 months' fees, make the
+      cap mutual, and add one carve-out sentence. If Customer is uncapped, add Customer to the cap. Comment:
+      state the position and that indemnities/confidentiality sit outside the cap.
+    modelLanguage: >
+      Except for Excluded Claims, each party's total aggregate liability arising out of or relating to this
+      Agreement shall not exceed the greater of (a) the fees paid or payable by Customer under this Agreement
+      in the twelve (12) months immediately preceding the event giving rise to the claim and (b) USD 1,000,000.
+      "Excluded Claims" means a party's breach of its confidentiality, data protection or security obligations,
+      its indemnification obligations, its gross negligence, wilful misconduct or fraud, and its infringement of
+      the other party's intellectual property rights.
+    checks:
+      - type: regex_present
+        label: cap references 12 months of fees or a fixed floor
+        pattern: "(twelve\\s*\\(12\\)|12)\\s*months|1,000,000"
+        flags: i
+      - type: regex_absent
+        label: no unlimited Customer liability language remains
+        pattern: "customer['’]?s liability (shall be|is) (unlimited|not (be )?limited)"
+        flags: i
+
+  - id: INDEMN
+    title: Indemnification by Vendor
+    category: indemnity
+    severity: critical
+    kind: missing
+    cuad: []
+    summary: Vendor must indemnify Customer for third-party IP claims and its own misconduct; Customer's indemnity stays narrow.
+    position:
+      preferred: >
+        Vendor defends and indemnifies Customer (and affiliates) against third-party claims alleging the services
+        or deliverables infringe IP, arising from Vendor's breach of law, data breach caused by Vendor, or gross
+        negligence/wilful misconduct; standard procedure (notice, control, cooperation); Customer's indemnity
+        limited to Customer-provided content and Customer's breach of law.
+      fallback: >
+        Vendor IP indemnity with usual exclusions (Customer modifications, combinations, specifications) and
+        remedies (procure, modify, replace, refund); Vendor indemnity subject to a super-cap of 3× annual fees.
+      walkaway: No Vendor IP indemnity at all, or a one-way Customer indemnity for Vendor's services.
+    detect: >
+      Locate indemnification / hold harmless / defence language. Deviation if Vendor indemnity is absent, or only
+      Customer indemnifies, or Vendor's indemnity excludes IP infringement. Presence of a narrow Customer
+      indemnity alone does not satisfy this rule.
+    redline: >
+      If absent, insert a Vendor indemnity paragraph after the limitation-of-liability or warranty section (or the
+      last numbered section before "General"). If one-sided, add the Vendor obligation and narrow Customer's.
+    modelLanguage: >
+      Vendor shall defend, indemnify and hold harmless Customer and its affiliates from and against any third-party
+      claim, and all resulting damages, costs and expenses (including reasonable attorneys' fees), to the extent
+      arising out of (a) an allegation that the Services or Deliverables infringe or misappropriate any
+      intellectual property right; (b) Vendor's breach of applicable law; (c) any unauthorised access to or
+      disclosure of Customer Data caused by Vendor; or (d) Vendor's gross negligence or wilful misconduct.
+    checks:
+      - type: regex_present
+        label: vendor indemnity for IP infringement present
+        pattern: "(indemnif|hold harmless)[\\s\\S]{0,400}(infring|intellectual property)"
+        flags: i
+
+  - id: NONCOMPETE
+    title: Non-compete restrictions on Customer
+    category: restrictive-covenants
+    severity: high
+    kind: presence
+    cuad: ["Non-Compete"]
+    summary: We do not accept restrictions on the businesses we may operate or the products we may buy or build.
+    position:
+      preferred: No non-compete or field-of-use restriction on Customer.
+      fallback: >
+        Restriction limited to a named competing product, during the term only, capped at 12 months, with a carve-out
+        for internal development and acquisitions.
+      walkaway: Post-term non-compete longer than 12 months, or undefined scope ("any competing business").
+    detect: >
+      Look for "shall not … develop/market/sell/engage in", "competing products", "compete with Vendor", field-of-use
+      or territory restrictions binding Customer. Restrictions binding the Vendor are fine.
+    redline: >
+      Delete the restriction on Customer; if the vendor relationship plausibly needs protection, narrow to the
+      fallback. Comment: we cannot restrict our business; offer the narrowed fallback.
+    checks:
+      - type: regex_absent
+        label: no open-ended compete restriction on Customer remains
+        pattern: "customer (shall|will|agrees) not[\\s\\S]{0,120}(compete|competing)"
+        flags: i
+
+  - id: EXCLUSIVITY
+    title: Exclusivity obligations binding Customer
+    category: restrictive-covenants
+    severity: high
+    kind: presence
+    cuad: ["Exclusivity"]
+    summary: We keep the freedom to buy from other suppliers.
+    position:
+      preferred: No exclusivity or "sole supplier" obligation on Customer.
+      fallback: >
+        Exclusivity limited to a defined product category and 12 months, ending automatically on Vendor's failure to
+        meet service levels or delivery dates.
+      walkaway: Exclusive dealing for the full term with no performance-based exit.
+    detect: >
+      Phrases like "exclusive", "sole and exclusive provider", "shall purchase all of its requirements from",
+      "shall not procure … from any third party". Exclusivity granted to Customer (e.g. Vendor won't serve our
+      competitors) is acceptable and not a deviation.
+    redline: Delete or narrow to the fallback; keep any exclusivity that benefits Customer.
+    checks:
+      - type: regex_absent
+        label: no requirements/sole-supplier obligation on Customer remains
+        pattern: "(all of (its|customer['’]?s) requirements|sole and exclusive (provider|supplier|source))"
+        flags: i
+
+  - id: MFN
+    title: Most-favoured-nation obligations burdening Customer
+    category: commercial
+    severity: medium
+    kind: direction
+    cuad: ["Most Favored Nation"]
+    summary: MFN in our favour is welcome; an MFN that obliges us to give the Vendor best terms is not.
+    position:
+      preferred: No MFN obligation on Customer (MFN pricing in Customer's favour is welcome).
+      fallback: MFN limited to a defined product, for 12 months, with reasonable-comparison carve-outs.
+      walkaway: Open-ended obligation to extend to Vendor any better terms given to any third party.
+    detect: >
+      Identify who benefits from the MFN. Flag only when Customer must offer Vendor terms no less favourable than
+      those given to others, or must match third-party offers. If the Vendor grants Customer best pricing, mark
+      compliant and do not redline.
+    redline: Delete the obligation on Customer; keep any Vendor-granted MFN.
+
+  - id: NOSOLICIT
+    title: Non-solicitation of employees binding Customer
+    category: restrictive-covenants
+    severity: medium
+    kind: presence
+    cuad: ["No-Solicit Of Employees"]
+    summary: We accept only narrow, time-limited non-solicits with a general-advertising carve-out.
+    position:
+      preferred: No non-solicit on Customer.
+      fallback: >
+        Mutual non-solicit limited to personnel directly involved in the services, 12 months from the end of their
+        involvement, with carve-outs for general advertisements and unsolicited approaches; no "no-hire".
+      walkaway: No-hire provisions, or restrictions longer than 24 months or covering all Vendor personnel.
+    detect: >
+      "shall not solicit", "employ or engage", "no-hire", "induce … to leave". Determine duration, scope (all
+      employees vs those involved) and whether a general-solicitation carve-out exists.
+    redline: Narrow to the fallback with minimal edits (duration, scope, carve-out sentence). Delete any no-hire.
+    checks:
+      - type: number_max
+        label: non-solicit duration ≤ 12 months
+        pattern: "(\\d{1,2})\\s*(?:\\(\\d{1,2}\\)\\s*)?months"
+        max: 12
+      - type: regex_present
+        label: general-solicitation carve-out present
+        pattern: "general (solicitation|advertis)"
+        flags: i
+
+  - id: T4C
+    title: Termination for convenience
+    category: term-termination
+    severity: high
+    kind: parametric
+    cuad: ["Termination For Convenience"]
+    summary: We can leave on notice without penalty; the Vendor cannot walk away mid-term.
+    position:
+      preferred: >
+        Customer may terminate for convenience on 30 days' written notice with a pro-rata refund of prepaid fees;
+        Vendor has no termination-for-convenience right during a committed term.
+      fallback: >
+        Customer termination on 60–90 days' notice; early-termination fee not exceeding 3 months' fees; Vendor
+        may terminate for convenience only at the end of a term on 90 days' notice.
+      walkaway: >
+        No Customer right to terminate for convenience in a multi-year term; Vendor termination for convenience
+        on fewer than 90 days' notice.
+    detect: >
+      Find termination provisions. Determine which party may terminate without cause, the notice period, and any
+      early-termination fee. Absence of any Customer convenience right in a term longer than 12 months is a
+      deviation (kind: missing behaviour); a Vendor convenience right on short notice is a deviation.
+    redline: >
+      Add or edit a Customer convenience right (30 days), delete/limit Vendor's convenience right, replace penalties
+      with the fallback fee cap.
+    modelLanguage: >
+      Customer may terminate this Agreement or any Order Form for convenience, in whole or in part, upon thirty (30)
+      days' prior written notice to Vendor, in which case Vendor shall refund any prepaid fees for the period after
+      the effective date of termination.
+    checks:
+      - type: regex_present
+        label: Customer convenience termination present
+        pattern: "customer may terminate[\\s\\S]{0,160}(convenience|without cause|for any reason)"
+        flags: i
+
+  - id: RENEWAL
+    title: Auto-renewal and non-renewal notice window
+    category: term-termination
+    severity: medium
+    kind: parametric
+    cuad: ["Renewal Term", "Notice Period To Terminate Renewal"]
+    summary: Renewals must be easy to exit and priced predictably.
+    position:
+      preferred: >
+        Renewal only by mutual written agreement; or automatic 12-month renewals that Customer may opt out of on
+        30 days' notice, with a Vendor reminder 60 days before renewal; price increases capped at the lesser of
+        CPI and 3 %.
+      fallback: Automatic renewal with a non-renewal notice window of no more than 60 days; price increases ≤ 5 %.
+      walkaway: Non-renewal notice windows longer than 90 days, or automatic multi-year renewals.
+    detect: >
+      "automatically renew", "unless either party gives notice … days prior", renewal term length, price uplift
+      language. Compute the notice window in days and the renewal term length.
+    redline: Shorten the notice window (≤ 30, fallback ≤ 60 days), set renewal term to 12 months, cap uplift.
+    checks:
+      - type: number_max
+        label: non-renewal notice window ≤ 60 days
+        pattern: "(\\d{2,3})\\s*(?:\\(\\d{2,3}\\)\\s*)?days['’]? (?:prior |before |advance )?(?:written )?notice"
+        max: 60
+
+  - id: GOVLAW
+    title: Governing law and venue
+    category: governing-law
+    severity: medium
+    kind: parametric
+    cuad: ["Governing Law"]
+    summary: Accepted laws are New York, Delaware, California, or England and Wales; courts, not foreign arbitration.
+    position:
+      preferred: Laws of the State of New York; exclusive jurisdiction of the state and federal courts in New York County.
+      fallback: Delaware or California law and courts; or the laws of England and Wales with the courts of London.
+      walkaway: Vendor's home jurisdiction outside the accepted list with exclusive foreign venue, or mandatory arbitration seated abroad.
+    detect: Find the governing-law clause; extract jurisdiction and dispute forum; note any arbitration seat.
+    redline: Replace only the jurisdiction words and forum; keep the rest of the sentence intact.
+    checks:
+      - type: one_of
+        label: governing law within the accepted set
+        phrases: ["New York", "Delaware", "California", "England and Wales", "England"]
+
+  - id: ASSIGN
+    title: Assignment and change of control
+    category: assignment
+    severity: high
+    kind: parametric
+    cuad: ["Anti-Assignment", "Change Of Control"]
+    summary: We may assign to affiliates and successors; the Vendor may not exit on our change of control.
+    position:
+      preferred: >
+        Customer may assign without consent to an affiliate or to a successor in a merger, acquisition or sale of
+        substantially all assets; Vendor may not assign without Customer's consent (not to be unreasonably withheld)
+        and never to a Customer competitor; no Vendor termination right on Customer's change of control.
+      fallback: Mutual right to assign to successors with written notice; consent for other assignments not unreasonably withheld.
+      walkaway: >
+        Blanket prohibition on Customer assignment with no M&A carve-out, or a Vendor right to terminate or re-price on
+        Customer's change of control.
+    detect: >
+      "may not assign", "change of control", "deemed an assignment", consent standards. Determine whether the
+      restriction binds Customer symmetrically and whether change-of-control triggers any Vendor right.
+    redline: Add the affiliate/successor carve-out for Customer; delete change-of-control termination rights against Customer.
+    checks:
+      - type: regex_present
+        label: successor/affiliate carve-out for Customer present
+        pattern: "(affiliate|successor|merger|acquisition|substantially all)"
+        flags: i
+
+  - id: IP
+    title: Ownership of deliverables and Customer Data
+    category: ip-data
+    severity: critical
+    kind: direction
+    cuad: ["Ip Ownership Assignment", "Joint Ip Ownership"]
+    summary: We own what we pay for and everything we put in; no assignment of our IP or data to the Vendor.
+    position:
+      preferred: >
+        Customer owns deliverables and work product created for it (Vendor assigns); Vendor retains pre-existing IP
+        and grants Customer a perpetual, irrevocable, royalty-free licence to any Vendor IP embedded in deliverables;
+        Customer retains all rights in Customer Data; no joint ownership.
+      fallback: >
+        Vendor owns generic tools and know-how; Customer receives a perpetual, irrevocable, worldwide, royalty-free
+        licence to use, modify and sublicense deliverables for its business.
+      walkaway: Assignment of Customer IP or Customer Data to Vendor; joint ownership without an unrestricted right to exploit.
+    detect: >
+      Ownership/assignment language: who owns "Deliverables", "Work Product", "Customer Data", improvements,
+      feedback. Flag when Customer assigns IP or data to Vendor, when Vendor owns deliverables with no licence back,
+      or when joint ownership is created. Vendor keeping ownership of its platform is fine.
+    redline: Reverse the direction of the assignment or add the licence-back; add a Customer Data ownership sentence; delete joint ownership.
+    checks:
+      - type: regex_absent
+        label: no assignment of Customer Data/IP to Vendor remains
+        pattern: "customer (hereby )?assigns[\\s\\S]{0,160}(to (the )?(vendor|supplier|provider|licensor))"
+        flags: i
+
+  - id: LICENSE
+    title: Licence grant scope
+    category: licence
+    severity: high
+    kind: parametric
+    cuad: ["License Grant", "Non-Transferable License", "Affiliate License-Licensee", "Irrevocable Or Perpetual License"]
+    summary: The licence must cover our affiliates and contractors and must not be revocable at will.
+    position:
+      preferred: >
+        Licence extends to Customer's affiliates and to contractors acting on Customer's behalf; paid-up licences are
+        perpetual and irrevocable; subscription licences terminable only for uncured material breach; transferable to successors.
+      fallback: Affiliates covered on written notice; transferable to a successor in an M&A transaction.
+      walkaway: Licence revocable at Vendor's discretion; affiliates and contractors excluded with no path to add them.
+    detect: >
+      Find the grant clause: "non-exclusive, non-transferable", "revocable", "solely for Customer's internal use",
+      whether affiliates/contractors are named, term of the licence.
+    redline: Insert "and its Affiliates and contractors acting on its behalf", delete "revocable", add successor transfer.
+    checks:
+      - type: regex_present
+        label: affiliates covered by the licence
+        pattern: "affiliates?"
+        flags: i
+      - type: regex_absent
+        label: no at-will revocation remains
+        pattern: "revocable (at|in) (vendor|licensor|supplier|provider)['’]?s? (sole )?discretion"
+        flags: i
+
+  - id: AUDIT
+    title: Audit rights against Customer
+    category: audit
+    severity: medium
+    kind: parametric
+    cuad: ["Audit Rights"]
+    summary: Audits of our usage must be rare, notified, off-site where possible and at the Vendor's cost.
+    position:
+      preferred: >
+        No more than once per 12 months, on 30 days' written notice, during business hours, by an independent auditor
+        bound by confidentiality, at Vendor's cost unless underpayment exceeds 5 %; no direct access to Customer systems.
+      fallback: Once per year on 15 days' notice; Vendor bears cost unless underpayment exceeds 10 %.
+      walkaway: Unlimited or unannounced audits, or remote access to Customer systems.
+    detect: Find audit/inspection/verification rights binding Customer; extract frequency, notice, cost allocation, system access.
+    redline: Insert the frequency/notice/cost limits with minimal edits; delete system-access language.
+    checks:
+      - type: regex_present
+        label: audit frequency limited
+        pattern: "(once|one time|one \\(1\\) time) (per|in any|every|each) (twelve \\(12\\) months|12 months|year|calendar year)"
+        flags: i
+
+  - id: LD
+    title: Liquidated damages and penalties payable by Customer
+    category: commercial
+    severity: high
+    kind: direction
+    cuad: ["Liquidated Damages"]
+    summary: Service credits to us are welcome; liquidated damages against us are not.
+    position:
+      preferred: No liquidated damages or penalties payable by Customer.
+      fallback: Early-termination fee capped at 3 months' fees as the sole liquidated amount.
+      walkaway: Liquidated damages exceeding the remaining contract value or triggered by minor breaches.
+    detect: >
+      Identify liquidated damages, penalties, minimum fees on termination, "shall pay … as liquidated damages".
+      Flag only when Customer pays. Service credits or LDs payable by Vendor to Customer are compliant.
+    redline: Delete the Customer-payable LD; if an early-termination fee is unavoidable, cap it at 3 months' fees.
+
+  - id: WARRANTY
+    title: Performance warranty and duration
+    category: warranty
+    severity: medium
+    kind: parametric
+    cuad: ["Warranty Duration"]
+    summary: The Vendor must stand behind its work for a meaningful period with a real remedy.
+    position:
+      preferred: >
+        Services performed in a professional and workmanlike manner; deliverables/software conform to documentation for
+        12 months (software) or 90 days (services) with repair, replace or refund; compliance with laws; no malicious code.
+      fallback: 90 days for software, 30 days for services; same remedies.
+      walkaway: '"AS IS" with all warranties disclaimed and no conformance warranty at all.'
+    detect: >
+      Find warranty and disclaimer sections; extract the warranty period and remedy; note whether the disclaimer swallows
+      the express warranty. A missing express warranty is a deviation (insert).
+    redline: Extend the period, add the remedy sentence, carve the express warranty out of the disclaimer.
+    modelLanguage: >
+      Vendor warrants that (a) the Services will be performed in a professional and workmanlike manner consistent with
+      industry standards; and (b) for a period of ninety (90) days following delivery, each Deliverable will conform in
+      all material respects to its documentation. Customer's remedy for breach of this warranty is, at Vendor's option,
+      re-performance, repair or replacement, or a refund of the fees paid for the non-conforming Services or Deliverable.
+    checks:
+      - type: number_min
+        label: warranty period ≥ 90 days (or expressed in months)
+        pattern: "(\\d{2,3})\\s*(?:\\(\\d{2,3}\\)\\s*)?days"
+        min: 90
+
+  - id: INSURANCE
+    title: Vendor insurance
+    category: insurance
+    severity: low
+    kind: missing
+    cuad: ["Insurance"]
+    summary: Vendors that touch our data or premises carry standard insurance.
+    position:
+      preferred: >
+        Commercial general liability USD 1M per occurrence / 2M aggregate; professional (E&O) USD 2M; cyber/privacy USD 5M
+        for vendors processing Customer Data; workers' compensation as required by law; certificates on request.
+      fallback: E&O USD 1M and cyber USD 2M.
+      walkaway: No insurance for a vendor that processes personal data or works on our premises.
+    detect: Look for an insurance clause; if absent for a services/hosting vendor, deviation (insert).
+    redline: Insert a short insurance paragraph in the general/miscellaneous section.
+    modelLanguage: >
+      Vendor shall maintain, at its own expense, throughout the term and for one (1) year thereafter: commercial general
+      liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional
+      liability (errors and omissions) insurance of not less than USD 2,000,000; and, where Vendor processes Customer Data,
+      cyber liability insurance of not less than USD 5,000,000. Vendor shall provide certificates of insurance on request.
+    checks:
+      - type: regex_present
+        label: insurance obligation present
+        pattern: "insurance"
+        flags: i
+
+  - id: MINCOMMIT
+    title: Minimum purchase commitments and volume restrictions on Customer
+    category: commercial
+    severity: medium
+    kind: presence
+    cuad: ["Minimum Commitment", "Volume Restriction"]
+    summary: We do not take-or-pay without an exit.
+    position:
+      preferred: No minimum commitment; fees are for usage or ordered services only.
+      fallback: Commitment limited to the current 12-month term, reducible on 30 days' notice, with a true-up rather than a penalty.
+      walkaway: Multi-year take-or-pay commitments with no reduction or termination right.
+    detect: '"minimum", "commit to purchase", "take or pay", "shortfall", volume caps on Customer usage. Commitments the Vendor makes to us are fine.'
+    redline: Delete or narrow to the fallback with minimal edits; replace shortfall penalties with a true-up.
+
+  - id: TRANSITION
+    title: Post-termination transition assistance and data return
+    category: transition
+    severity: medium
+    kind: missing
+    cuad: ["Post-Termination Services"]
+    summary: When it ends, we get our data back and help moving.
+    position:
+      preferred: >
+        On expiry or termination, Vendor provides transition assistance for up to 6 months at then-current rates, returns
+        Customer Data in a standard machine-readable format within 30 days, and certifies deletion thereafter.
+      fallback: 90 days of transition assistance; data export within 30 days.
+      walkaway: No data return, or immediate deletion of Customer Data on termination.
+    detect: Look for transition, exit, data return/export, deletion timing. Absence in a services/hosting agreement is a deviation (insert).
+    redline: Insert a transition-assistance and data-return paragraph in the termination section.
+    modelLanguage: >
+      Upon expiry or termination of this Agreement for any reason, Vendor shall (a) at Customer's request, provide
+      reasonable transition assistance for up to six (6) months at Vendor's then-current rates; (b) within thirty (30)
+      days, return all Customer Data in a commonly used, machine-readable format; and (c) thereafter delete Customer Data
+      from its systems and certify such deletion in writing.
+    checks:
+      - type: regex_present
+        label: data return/transition present
+        pattern: "(transition assistance|return[\\s\\S]{0,60}customer data|export[\\s\\S]{0,60}data)"
+        flags: i
