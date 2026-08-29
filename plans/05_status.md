@@ -106,3 +106,8 @@
 - Sun 02:15 — `video-pipeline` landed: `plans/video/bin/{tts,record.sh,cards,word-still,assemble}`; placeholder render 3:19 (16 narrated beats,
   1080p30 h264/aac). Final cut TODO: fill `plans/video/narration.json` + card data with real numbers, re-record `workspace-run`/`findings-arrive`
   against a real `final` run, choose a redline-heavy Word page for the cold open, hot-take line.
+- Sun 02:55 — i3-verifier: F1 0.837 (P 0.75 / R 0.97, FN 3), validity 56 %, minimality 31 %, halluc 3.6 %, esc 12, $4.08. Reviewed every i3 FP →
+  **gold round 2** (logged in `plans/06_gold_review.md`): 2 additions (Americas IP missing, BNC WARRANTY missing), 1 flip (BNC INDEMN → deviation),
+  17 `ambiguous`; matching: missing-kind gold matches deviation-or-missing findings. Re-scoring all recorded configs (judge live for new TPs).
+  **Incident:** `pnpm synth` regenerated synth docx files with the post-r2 engine (different heading styles) → restored from git immediately; never
+  regenerate contract.docx while caches exist (document model in tool results is hash-checked on replay). i4-memory in progress (6/12 at 02:52).
