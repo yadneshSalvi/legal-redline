@@ -1,0 +1,255 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXcecwqyA72uqZAeL2Qf",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"findings\":[{\"ruleId\":\"LOL-CAP\",\"status\":\"deviation\",\"paragraphIds\":[\"p0089\",\"p0091\",\"p0007\",\"p0008\"],\"quote\":\"shall not exceed the Fees paid or payable by Customer under the first Order Form during the twelve months preceding the event giving rise to the claim\",\"rationale\":\"Because \\\"Fees\\\" is defined as only the USD 12,000 Implementation Fee and the cap references the first Order Form, the cap collapses to ~$12k; also Customer's liability is uncapped for broad Excluded Claims with no super-cap tier.\",\"confidence\":0.9,\"replacement\":{\"paragraphId\":\"p0089\",\"oldText\":\"shall not exceed the Fees paid or payable by Customer under the first Order Form during the twelve months preceding the event giving rise to the claim\",\"newText\":\"shall not exceed the greater of (i) USD [___] and (ii) the total Fees paid or payable under all Order Forms during the twelve months preceding the first event giving rise to liability\",\"comment\":\"P1-A: cap collapses to ~$12k due to Fees definition; also two-tier the cap per P1-F.\"}},{\"ruleId\":\"LD\",\"status\":\"deviation\",\"paragraphIds\":[\"p0032\"],\"quote\":\"an amount equal to fifteen percent of the annual Fees for each week the invoice remains unpaid\",\"rationale\":\"Penalty rather than genuine pre-estimate (>780% annualized) and conflicts with §7.3 good-faith withholding.\",\"confidence\":0.95,\"replacement\":{\"paragraphId\":\"p0032\",\"oldText\":\"If any invoice is not paid within ten days of its due date, Customer shall pay Vendor, as liquidated damages and not as a penalty, an amount equal to fifteen percent of the annual Fees for each week the invoice remains unpaid.\",\"newText\":\"Undisputed amounts remaining unpaid more than ten business days after written notice of non-payment accrue interest at the lesser of 1% per month and the maximum rate permitted by law. Interest does not accrue on amounts disputed in good faith under Section 7.3.\",\"comment\":\"P1-B: delete punitive liquidated damages.\"}},{\"ruleId\":\"IP\",\"status\":\"deviation\",\"paragraphIds\":[\"p0064\",\"p0005\"],\"quote\":\"or train a generally available model on it without Customer's express written consent\",\"rationale\":\"Model-training restriction limited to generally available models, leaving internal/private model training permitted; telemetry carve-out needs re-identification covenant.\",\"confidence\":0.8,\"replacement\":{\"paragraphId\":\"p0064\",\"oldText\":\"or train a generally available model on it without Customer's express written consent\",\"newText\":\"or use Customer Data to train, fine-tune, or evaluate any machine-learning or AI model without Customer's express written consent\",\"comment\":\"P1-D: close model-training loophole.\"}},{\"ruleId\":\"AUDIT\",\"status\":\"deviation\",\"paragraphIds\":[\"p0094\",\"p0095\",\"p0097\"],\"quote\":\"Vendor may audit Customer's compliance with licence quantities\",\"rationale\":\"Audit rights are asymmetric — Vendor may audit Customer but Customer has no audit/assurance rights; §23 heading is empty and should be populated with SOC 2, security assessment, and invoice audit rights.\",\"confidence\":0.8},{\"ruleId\":\"MFN\",\"status\":\"deviation\",\"paragraphIds\":[\"p0031\"],\"quote\":\"Vendor warrants that Fees charged to Customer will be no less favourable than fees offered to any similarly situated customer\",\"rationale\":\"MFN favours Customer but is unenforceable as drafted: no definition of \\\"similarly situated\\\" and no audit/true-up remedy.\",\"confidence\":0.7},{\"ruleId\":\"NONCOMPETE\",\"status\":\"deviation\",\"paragraphIds\":[\"p0052\"],\"quote\":\"Vendor shall not develop or market a service that competes directly with Customer's proprietary analytics products during the term.\",\"rationale\":\"Vendor-side non-compete is broad, untethered to Confidential Information, raises enforceability/competition concerns and invites reciprocity demands.\",\"confidence\":0.75,\"replacement\":{\"paragraphId\":\"p0052\",\"oldText\":\"Vendor shall not develop or market a service that competes directly with Customer's proprietary analytics products during the term.\",\"newText\":\"Vendor shall not use Customer Confidential Information or Deliverables to develop or market a product or service that competes with Customer's proprietary analytics products.\",\"comment\":\"P3: narrow to protect enforceability.\"}},{\"ruleId\":\"INSURANCE\",\"status\":\"deviation\",\"paragraphIds\":[\"p0074\",\"p0075\"],\"quote\":\"professional errors and omissions insurance of USD 2,000,000\",\"rationale\":\"E&O limit light for a hosted platform; cancellation notice only \\\"to the extent available\\\"; no additional insured, waiver of subrogation, or extended reporting period.\",\"confidence\":0.8},{\"ruleId\":\"WARRANTY\",\"status\":\"deviation\",\"paragraphIds\":[\"p0079\",\"p0080\"],\"quote\":\"will not contain malicious code intentionally introduced by Vendor\",\"rationale\":\"Malicious-code warranty too narrow and §19.4 repair period is open-ended (\\\"reasonable period\\\") without an outer limit.\",\"confidence\":0.75},{\"ruleId\":\"TRANSITION\",\"status\":\"deviation\",\"paragraphIds\":[\"p0047\",\"p0048\"],\"quote\":\"provide reasonable transition assistance for up to six months at the rates in the expiring Order Form\",\"rationale\":\"Rates may not exist; export only on request; no self-service export or insolvency escrow trigger, leaving data stranded on §9.2 termination.\",\"confidence\":0.75},{\"ruleId\":\"INDEMN\",\"status\":\"deviation\",\"paragraphIds\":[\"p0087\"],\"quote\":\"refund prepaid and implementation Fees on a straight-line three-year basis\",\"rationale\":\"Straight-line three-year amortization understates refund for perpetual/paid-up items licensed under §13.2.\",\"confidence\":0.65},{\"ruleId\":\"RENEWAL\",\"status\":\"needs_review\",\"paragraphIds\":[\"p0035\",\"p0120\"],\"quote\":\"unless Customer gives Vendor at least thirty days' written notice of non-renewal\",\"rationale\":\"Auto-renewal with 30-day window; email alone insufficient for notice — calendar deadlines and permit acknowledged email.\",\"confidence\":0.6},{\"ruleId\":\"T4C\",\"status\":\"compliant\",\"paragraphIds\":[\"p0041\"],\"quote\":\"Customer may terminate this Agreement or any Order Form without cause\",\"rationale\":\"Termination for convenience is favourable to Customer; protect in negotiation.\",\"confidence\":0.7},{\"ruleId\":\"MINCOMMIT\",\"status\":\"compliant\",\"paragraphIds\":[\"p0013\",\"p0051\"],\"quote\":\"No minimum quantity or purchase commitment applies.\",\"rationale\":\"No minimum commitment; review raises no issue.\",\"confidence\":0.6},{\"ruleId\":\"LICENSE\",\"status\":\"compliant\",\"paragraphIds\":[\"p0055\"],\"quote\":\"perpetual, irrevocable, worldwide, royalty-free, fully paid licence\",\"rationale\":\"Licence scope favourable; only related concern is refund treatment under §20.5.\",\"confidence\":0.55},{\"ruleId\":\"GOVLAW\",\"status\":\"compliant\",\"paragraphIds\":[\"p0115\",\"p0116\"],\"quote\":\"governed by the laws of the State of New York\",\"rationale\":\"Review raises no objection to New York law and venue.\",\"confidence\":0.6},{\"ruleId\":\"ASSIGN\",\"status\":\"compliant\",\"paragraphIds\":[\"p0099\",\"p0100\",\"p0102\"],\"quote\":\"Customer may assign this Agreement or an Order Form without Vendor's consent\",\"rationale\":\"Assignment and change-of-control terms are Customer-favourable; no issue raised.\",\"confidence\":0.6},{\"ruleId\":\"EXCLUSIVITY\",\"status\":\"compliant\",\"paragraphIds\":[\"p0051\"],\"quote\":\"Customer has made no exclusivity, non-compete, most-favoured-customer, minimum-volume, or no-hire commitment\",\"rationale\":\"No exclusivity binds Customer.\",\"confidence\":0.6},{\"ruleId\":\"NOSOLICIT\",\"status\":\"compliant\",\"paragraphIds\":[\"p0051\"],\"quote\":\"hiring any person who responds to general recruitment\",\"rationale\":\"No non-solicit restriction on Customer.\",\"confidence\":0.6}]}"
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 15853,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 685,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 2840,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "parsed_output": {
+      "findings": [
+        {
+          "ruleId": "LOL-CAP",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0089",
+            "p0091",
+            "p0007",
+            "p0008"
+          ],
+          "quote": "shall not exceed the Fees paid or payable by Customer under the first Order Form during the twelve months preceding the event giving rise to the claim",
+          "rationale": "Because \"Fees\" is defined as only the USD 12,000 Implementation Fee and the cap references the first Order Form, the cap collapses to ~$12k; also Customer's liability is uncapped for broad Excluded Claims with no super-cap tier.",
+          "confidence": 0.9,
+          "replacement": {
+            "paragraphId": "p0089",
+            "oldText": "shall not exceed the Fees paid or payable by Customer under the first Order Form during the twelve months preceding the event giving rise to the claim",
+            "newText": "shall not exceed the greater of (i) USD [___] and (ii) the total Fees paid or payable under all Order Forms during the twelve months preceding the first event giving rise to liability",
+            "comment": "P1-A: cap collapses to ~$12k due to Fees definition; also two-tier the cap per P1-F."
+          }
+        },
+        {
+          "ruleId": "LD",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0032"
+          ],
+          "quote": "an amount equal to fifteen percent of the annual Fees for each week the invoice remains unpaid",
+          "rationale": "Penalty rather than genuine pre-estimate (>780% annualized) and conflicts with §7.3 good-faith withholding.",
+          "confidence": 0.95,
+          "replacement": {
+            "paragraphId": "p0032",
+            "oldText": "If any invoice is not paid within ten days of its due date, Customer shall pay Vendor, as liquidated damages and not as a penalty, an amount equal to fifteen percent of the annual Fees for each week the invoice remains unpaid.",
+            "newText": "Undisputed amounts remaining unpaid more than ten business days after written notice of non-payment accrue interest at the lesser of 1% per month and the maximum rate permitted by law. Interest does not accrue on amounts disputed in good faith under Section 7.3.",
+            "comment": "P1-B: delete punitive liquidated damages."
+          }
+        },
+        {
+          "ruleId": "IP",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0064",
+            "p0005"
+          ],
+          "quote": "or train a generally available model on it without Customer's express written consent",
+          "rationale": "Model-training restriction limited to generally available models, leaving internal/private model training permitted; telemetry carve-out needs re-identification covenant.",
+          "confidence": 0.8,
+          "replacement": {
+            "paragraphId": "p0064",
+            "oldText": "or train a generally available model on it without Customer's express written consent",
+            "newText": "or use Customer Data to train, fine-tune, or evaluate any machine-learning or AI model without Customer's express written consent",
+            "comment": "P1-D: close model-training loophole."
+          }
+        },
+        {
+          "ruleId": "AUDIT",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0094",
+            "p0095",
+            "p0097"
+          ],
+          "quote": "Vendor may audit Customer's compliance with licence quantities",
+          "rationale": "Audit rights are asymmetric — Vendor may audit Customer but Customer has no audit/assurance rights; §23 heading is empty and should be populated with SOC 2, security assessment, and invoice audit rights.",
+          "confidence": 0.8
+        },
+        {
+          "ruleId": "MFN",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0031"
+          ],
+          "quote": "Vendor warrants that Fees charged to Customer will be no less favourable than fees offered to any similarly situated customer",
+          "rationale": "MFN favours Customer but is unenforceable as drafted: no definition of \"similarly situated\" and no audit/true-up remedy.",
+          "confidence": 0.7
+        },
+        {
+          "ruleId": "NONCOMPETE",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0052"
+          ],
+          "quote": "Vendor shall not develop or market a service that competes directly with Customer's proprietary analytics products during the term.",
+          "rationale": "Vendor-side non-compete is broad, untethered to Confidential Information, raises enforceability/competition concerns and invites reciprocity demands.",
+          "confidence": 0.75,
+          "replacement": {
+            "paragraphId": "p0052",
+            "oldText": "Vendor shall not develop or market a service that competes directly with Customer's proprietary analytics products during the term.",
+            "newText": "Vendor shall not use Customer Confidential Information or Deliverables to develop or market a product or service that competes with Customer's proprietary analytics products.",
+            "comment": "P3: narrow to protect enforceability."
+          }
+        },
+        {
+          "ruleId": "INSURANCE",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0074",
+            "p0075"
+          ],
+          "quote": "professional errors and omissions insurance of USD 2,000,000",
+          "rationale": "E&O limit light for a hosted platform; cancellation notice only \"to the extent available\"; no additional insured, waiver of subrogation, or extended reporting period.",
+          "confidence": 0.8
+        },
+        {
+          "ruleId": "WARRANTY",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0079",
+            "p0080"
+          ],
+          "quote": "will not contain malicious code intentionally introduced by Vendor",
+          "rationale": "Malicious-code warranty too narrow and §19.4 repair period is open-ended (\"reasonable period\") without an outer limit.",
+          "confidence": 0.75
+        },
+        {
+          "ruleId": "TRANSITION",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0047",
+            "p0048"
+          ],
+          "quote": "provide reasonable transition assistance for up to six months at the rates in the expiring Order Form",
+          "rationale": "Rates may not exist; export only on request; no self-service export or insolvency escrow trigger, leaving data stranded on §9.2 termination.",
+          "confidence": 0.75
+        },
+        {
+          "ruleId": "INDEMN",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0087"
+          ],
+          "quote": "refund prepaid and implementation Fees on a straight-line three-year basis",
+          "rationale": "Straight-line three-year amortization understates refund for perpetual/paid-up items licensed under §13.2.",
+          "confidence": 0.65
+        },
+        {
+          "ruleId": "RENEWAL",
+          "status": "needs_review",
+          "paragraphIds": [
+            "p0035",
+            "p0120"
+          ],
+          "quote": "unless Customer gives Vendor at least thirty days' written notice of non-renewal",
+          "rationale": "Auto-renewal with 30-day window; email alone insufficient for notice — calendar deadlines and permit acknowledged email.",
+          "confidence": 0.6
+        },
+        {
+          "ruleId": "T4C",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0041"
+          ],
+          "quote": "Customer may terminate this Agreement or any Order Form without cause",
+          "rationale": "Termination for convenience is favourable to Customer; protect in negotiation.",
+          "confidence": 0.7
+        },
+        {
+          "ruleId": "MINCOMMIT",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0013",
+            "p0051"
+          ],
+          "quote": "No minimum quantity or purchase commitment applies.",
+          "rationale": "No minimum commitment; review raises no issue.",
+          "confidence": 0.6
+        },
+        {
+          "ruleId": "LICENSE",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0055"
+          ],
+          "quote": "perpetual, irrevocable, worldwide, royalty-free, fully paid licence",
+          "rationale": "Licence scope favourable; only related concern is refund treatment under §20.5.",
+          "confidence": 0.55
+        },
+        {
+          "ruleId": "GOVLAW",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0115",
+            "p0116"
+          ],
+          "quote": "governed by the laws of the State of New York",
+          "rationale": "Review raises no objection to New York law and venue.",
+          "confidence": 0.6
+        },
+        {
+          "ruleId": "ASSIGN",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0099",
+            "p0100",
+            "p0102"
+          ],
+          "quote": "Customer may assign this Agreement or an Order Form without Vendor's consent",
+          "rationale": "Assignment and change-of-control terms are Customer-favourable; no issue raised.",
+          "confidence": 0.6
+        },
+        {
+          "ruleId": "EXCLUSIVITY",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0051"
+          ],
+          "quote": "Customer has made no exclusivity, non-compete, most-favoured-customer, minimum-volume, or no-hire commitment",
+          "rationale": "No exclusivity binds Customer.",
+          "confidence": 0.6
+        },
+        {
+          "ruleId": "NOSOLICIT",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0051"
+          ],
+          "quote": "hiring any person who responds to general recruitment",
+          "rationale": "No non-solicit restriction on Customer.",
+          "confidence": 0.6
+        }
+      ]
+    }
+  },
+  "durationMs": 29382
+}

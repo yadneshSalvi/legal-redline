@@ -1,0 +1,241 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXbxnauzkkpW2ha66Lqt",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"findings\":[{\"ruleId\":\"LOL-CAP\",\"status\":\"deviation\",\"paragraphIds\":[\"p0035\",\"p0036\",\"p0037\"],\"quote\":\"EXCEPT WITH RESPECT TO CONTRACTOR'S OBLIGATIONS PURSUANT TO PARAGRAPH 9 HEREOF, CONTRACTOR'S MAXIMUM LIABILITY TO COMPANY ... SHALL BE LIMITED TO THE AMOUNT OF FEES PAID TO CONTRACTOR FOR THE PERFORMANCE OF SUCH SERVICES.\",\"rationale\":\"Cap carve-out cross-references Paragraph 9, which is the Independent Contractor clause, so the carve-out is meaningless; no carve-outs for IP, confidentiality, gross negligence; plus mutual attorneys' fee waiver.\",\"confidence\":0.95,\"replacement\":{\"paragraphId\":\"p0035\",\"oldText\":\"EXCEPT WITH RESPECT TO CONTRACTOR'S OBLIGATIONS PURSUANT TO PARAGRAPH 9 HEREOF,\",\"newText\":\"NOTWITHSTANDING THE FOREGOING, THE LIMITATIONS IN THIS PARAGRAPH 7 SHALL NOT APPLY TO: (I) CONTRACTOR'S INDEMNIFICATION OBLIGATIONS; (II) BREACH OF PARAGRAPH 8 (CONFIDENTIAL INFORMATION) OR CONTRACTOR'S DATA SECURITY OBLIGATIONS; (III) CONTRACTOR'S GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD; (IV) BREACH OF PARAGRAPH 5(d); OR (V) DEATH, BODILY INJURY OR DAMAGE TO TANGIBLE PROPERTY CAUSED BY CONTRACTOR. SUBJECT TO THE FOREGOING,\",\"comment\":\"Fix broken cross-reference and add standard carve-outs.\"}},{\"ruleId\":\"INDEMN\",\"status\":\"missing\",\"paragraphIds\":[\"p0026\",\"p0034\"],\"quote\":\"7. LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.\",\"rationale\":\"Contractor warrants non-infringement but there is no defense/indemnity obligation running to Company; the only indemnity heading favors Contractor.\",\"confidence\":0.93,\"replacement\":{\"paragraphId\":\"p0034\",\"oldText\":\"7. LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.\",\"newText\":\"7. LIMITATIONS OF LIABILITY; INDEMNIFICATION. Contractor shall defend, indemnify and hold harmless Company and its affiliates, officers, directors and employees from and against any third-party claim, and all resulting losses, damages, liabilities, settlements, and reasonable attorneys' fees and costs, arising from: (a) any allegation that the Works, Services, Contractor Information, or third-party materials supplied by Contractor infringe or misappropriate any intellectual property right; (b) Contractor's breach of Paragraph 8 or its data security obligations; (c) Contractor's gross negligence or willful misconduct; (d) any claim by Contractor personnel for employment status, wages, taxes, or benefits from Company; and (e) Contractor's breach of Paragraph 5(d).\",\"comment\":\"Add Contractor indemnity in Company's favour.\"}},{\"ruleId\":\"IP\",\"status\":\"deviation\",\"paragraphIds\":[\"p0017\",\"p0022\",\"p0033\",\"p0044\"],\"quote\":\"are the property of Company to the extent that such Works were created by Contractor for Company over a time period for which Company has been invoiced and said invoice has been paid\",\"rationale\":\"Ownership is conditioned on payment, there is no present assignment, work-made-for-hire or moral rights waiver, and ¶6(b) and the stray ¶11(c) conflict on assignment of work in progress.\",\"confidence\":0.92,\"replacement\":{\"paragraphId\":\"p0017\",\"oldText\":\"are the property of Company to the extent that such Works were created by Contractor for Company over a time period for which Company has been invoiced and said invoice has been paid\",\"newText\":\"are the property of Company. Contractor hereby irrevocably assigns to Company all right, title and interest, including all intellectual property rights, in and to the Works, effective upon creation. To the extent any Works constitute works made for hire under 17 U.S.C. § 101, they shall be deemed such, and Contractor waives all moral rights in the Works\",\"comment\":\"Remove payment condition; add present assignment and moral rights waiver.\"}},{\"ruleId\":\"LICENSE\",\"status\":\"deviation\",\"paragraphIds\":[\"p0020\",\"p0021\"],\"quote\":\"a royalty-free, non- exclusive perpetual license (including the right to grant a sublicense) to use, copy, modify, create, derivative version, publicly perform and publicly display such Contractor's Information in connection with Company's business operations\",\"rationale\":\"Licence omits distribution and exercise by contractors/successors and is narrowly limited to Company's business operations; ¶4(b)(ii) further restricts Company's use.\",\"confidence\":0.85,\"replacement\":{\"paragraphId\":\"p0021\",\"oldText\":\"a royalty-free, non- exclusive perpetual license (including the right to grant a sublicense) to use, copy, modify, create, derivative version, publicly perform and publicly display such Contractor's Information in connection with Company's business operations\",\"newText\":\"a perpetual, irrevocable, worldwide, royalty-free, fully paid, non-exclusive license, with the right to sublicense, to use, copy, modify, create derivative works of, distribute, perform and display such Contractor Information, alone or as incorporated in the Works, for any purpose in connection with Company's and its affiliates' business, including permitting contractors, service providers, and successors to exercise these rights on Company's behalf\",\"comment\":\"Broaden licence scope.\"}},{\"ruleId\":\"T4C\",\"status\":\"deviation\",\"paragraphIds\":[\"p0032\"],\"quote\":\"At any time that there is no uncompleted Statement of Work outstanding, either party may terminate this Agreement for any or no reason upon fifteen (15) days advance notice\",\"rationale\":\"Termination for convenience is illusory because it is only available when no SOW is outstanding, locking Company in for the life of every SOW.\",\"confidence\":0.9,\"replacement\":{\"paragraphId\":\"p0032\",\"oldText\":\"At any time that there is no uncompleted Statement of Work outstanding, either party may terminate this Agreement for any or no reason upon fifteen (15) days advance notice to the other.\",\"newText\":\"Company may terminate this Agreement or any Statement of Work for convenience upon thirty (30) days' written notice, in which case Company shall pay only for Services properly performed and non-cancellable expenses incurred through the termination date. At any time that there is no uncompleted Statement of Work outstanding, either party may terminate this Agreement for any or no reason upon fifteen (15) days advance notice to the other.\",\"comment\":\"Add genuine termination for convenience.\"}},{\"ruleId\":\"TRANSITION\",\"status\":\"missing\",\"paragraphIds\":[\"p0031\",\"p0033\"],\"quote\":\"6. TERMINATION.\",\"rationale\":\"No post-termination transition assistance or return/destruction of Company data is required.\",\"confidence\":0.88,\"replacement\":{\"paragraphId\":\"p0033\",\"oldText\":\"Contractor shall provide to Company, and hereby assigns to Company, all right, title and interest to any Works in progress.\",\"newText\":\"Contractor shall provide to Company, and hereby assigns to Company, all right, title and interest to any Works in progress. Upon expiration or termination, Contractor shall provide transition assistance for up to ninety (90) days at then-current rates and shall deliver all Works, source code, documentation, credentials and Company data, and thereafter return or certifiably destroy all Company data.\",\"comment\":\"Add transition assistance and data return.\"}},{\"ruleId\":\"WARRANTY\",\"status\":\"deviation\",\"paragraphIds\":[\"p0024\",\"p0030\",\"p0005\"],\"quote\":\"THE EXPRESS WARRANTIES IN THIS AGREEMENT SHALL BE IN LIEU OF ALL OTHER WARRANTIES, EXPRESS OR IMPLIED\",\"rationale\":\"No services/deliverable conformance or malicious-code warranty, no warranty period or remedy; legal compliance warranty qualified 'to its knowledge'; broad implied warranty disclaimer.\",\"confidence\":0.88,\"replacement\":{\"paragraphId\":\"p0024\",\"oldText\":\"Contractor's performance of the Services called for by this Agreement, to its knowledge, does not and shall not violate any applicable law\",\"newText\":\"Contractor's performance of the Services called for by this Agreement does not and shall not violate any applicable law\",\"comment\":\"Delete knowledge qualifier; add services, 90-day conformance and malicious-code warranties with re-performance/refund remedy.\"}},{\"ruleId\":\"INSURANCE\",\"status\":\"deviation\",\"paragraphIds\":[\"p0048\"],\"quote\":\"comprehensive general liability insurance with coverage of at least one million dollars ($1,000,000) and professional errors and omissions insurance ... at least one million dollars ($1,000,000)\",\"rationale\":\"Limits are low for a data/technology engagement; no cyber liability/tech E&O, additional insured, waiver of subrogation, or primary and non-contributory language.\",\"confidence\":0.87,\"replacement\":{\"paragraphId\":\"p0048\",\"oldText\":\"comprehensive general liability insurance with coverage of at least one million dollars ($1,000,000) and professional errors and omissions insurance for bodily injury, property damage or other losses with coverage of at least one million dollars ($1,000,000)\",\"newText\":\"commercial general liability insurance of at least $1,000,000 per occurrence / $2,000,000 aggregate, and professional liability/technology errors and omissions insurance including cyber liability, network security, privacy liability and breach response costs of at least $5,000,000, with insurers rated A- or better, Company named additional insured on the CGL policy, waiver of subrogation, coverage primary and non-contributory, and 30 days' notice of cancellation or material change; maintenance of insurance does not limit Contractor's liability\",\"comment\":\"Raise limits and add cyber coverage and standard endorsements.\"}},{\"ruleId\":\"GOVLAW\",\"status\":\"deviation\",\"paragraphIds\":[\"p0043\",\"p0056\"],\"quote\":\"This Agreement shall be governed by and construed in accordance with the laws of the Arizona, without regard to the conflict of laws provisions thereof.\",\"rationale\":\"Arizona law with no venue, coupled with an arbitration clause using an obscure provider, no seat, overbroad scope, no IP/confidentiality court carve-out, and confirmation venue at the losing party's residence.\",\"confidence\":0.85,\"replacement\":{\"paragraphId\":\"p0043\",\"oldText\":\"This Agreement shall be governed by and construed in accordance with the laws of the Arizona, without regard to the conflict of laws provisions thereof.\",\"newText\":\"This Agreement shall be governed by and construed in accordance with the laws of [Company's home state], without regard to the conflict of laws provisions thereof, and the parties submit to the exclusive jurisdiction and venue of the state and federal courts located in [Company's home venue].\",\"comment\":\"Move governing law/venue to Company's state; conform arbitration clause accordingly.\"}},{\"ruleId\":\"ASSIGN\",\"status\":\"deviation\",\"paragraphIds\":[\"p0042\"],\"quote\":\"Neither party shall assign, transfer, or subcontract this Agreement or any of its obligations hereunder without the other party's express, prior written consent\",\"rationale\":\"No carve-out permitting Company assignment to affiliates or in a merger/reorganization; no express responsibility for approved subcontractors.\",\"confidence\":0.88,\"replacement\":{\"paragraphId\":\"p0042\",\"oldText\":\"without the other party's express, prior written consent, which will not be unreasonably withheld.\",\"newText\":\"without the other party's express, prior written consent, which will not be unreasonably withheld. Notwithstanding the foregoing, Company may assign this Agreement, in whole or in part, without consent to an affiliate or in connection with a merger, reorganization, or sale of all or substantially all of its assets or of the business unit to which this Agreement relates. Contractor may not subcontract any portion of the Services without Company's prior written consent and remains fully responsible for the acts and omissions of any approved subcontractor.\",\"comment\":\"Add Company assignment carve-out and subcontractor responsibility.\"}},{\"ruleId\":\"NOSOLICIT\",\"status\":\"needs_review\",\"paragraphIds\":[\"p0047\"],\"quote\":\"Neither party shall, during the term of this Agreement and for one (1) year after its termination, solicit for hire as an employee, consultant or otherwise any of the other party's personnel\",\"rationale\":\"Mutual and reasonably scoped, but bars Company from hiring Contractor personnel for one year post-termination; seek carve-outs for general solicitations and unsolicited applicants.\",\"confidence\":0.8,\"replacement\":{\"paragraphId\":\"p0047\",\"oldText\":\"without such other party's express written consent, which shall not be unreasonably withheld.\",\"newText\":\"without such other party's express written consent, which shall not be unreasonably withheld; provided that this Paragraph shall not restrict general solicitations not targeted at the other party's personnel, hiring of individuals who respond to such solicitations or apply unsolicited, or hiring of individuals who ceased employment with the other party more than six (6) months prior.\",\"comment\":\"Add customary carve-outs.\"}},{\"ruleId\":\"AUDIT\",\"status\":\"missing\",\"paragraphIds\":[\"p0014\",\"p0013\"],\"quote\":\"Contractor shall bill Company as set forth in the relevant Statement of Work.\",\"rationale\":\"No Company audit right over Contractor's time and expense records (and no compliance audit right); note this is a right in Company's favour, currently absent.\",\"confidence\":0.75,\"replacement\":{\"paragraphId\":\"p0014\",\"oldText\":\"Contractor reserves the right to change rates with 30 days notice to Company.\",\"newText\":\"Rates set forth in a Statement of Work are firm for the duration of that Statement of Work; Contractor may propose rate changes for new Statements of Work upon 90 days' written notice, no more frequently than annually and not exceeding the lesser of 3% or CPI. Company may audit Contractor's time and expense records relating to the Services for twenty-four (24) months following the relevant invoice.\",\"comment\":\"Delete unilateral rate change; add fee audit right.\"}}]}"
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 16739,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 685,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 5025,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "parsed_output": {
+      "findings": [
+        {
+          "ruleId": "LOL-CAP",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0035",
+            "p0036",
+            "p0037"
+          ],
+          "quote": "EXCEPT WITH RESPECT TO CONTRACTOR'S OBLIGATIONS PURSUANT TO PARAGRAPH 9 HEREOF, CONTRACTOR'S MAXIMUM LIABILITY TO COMPANY ... SHALL BE LIMITED TO THE AMOUNT OF FEES PAID TO CONTRACTOR FOR THE PERFORMANCE OF SUCH SERVICES.",
+          "rationale": "Cap carve-out cross-references Paragraph 9, which is the Independent Contractor clause, so the carve-out is meaningless; no carve-outs for IP, confidentiality, gross negligence; plus mutual attorneys' fee waiver.",
+          "confidence": 0.95,
+          "replacement": {
+            "paragraphId": "p0035",
+            "oldText": "EXCEPT WITH RESPECT TO CONTRACTOR'S OBLIGATIONS PURSUANT TO PARAGRAPH 9 HEREOF,",
+            "newText": "NOTWITHSTANDING THE FOREGOING, THE LIMITATIONS IN THIS PARAGRAPH 7 SHALL NOT APPLY TO: (I) CONTRACTOR'S INDEMNIFICATION OBLIGATIONS; (II) BREACH OF PARAGRAPH 8 (CONFIDENTIAL INFORMATION) OR CONTRACTOR'S DATA SECURITY OBLIGATIONS; (III) CONTRACTOR'S GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD; (IV) BREACH OF PARAGRAPH 5(d); OR (V) DEATH, BODILY INJURY OR DAMAGE TO TANGIBLE PROPERTY CAUSED BY CONTRACTOR. SUBJECT TO THE FOREGOING,",
+            "comment": "Fix broken cross-reference and add standard carve-outs."
+          }
+        },
+        {
+          "ruleId": "INDEMN",
+          "status": "missing",
+          "paragraphIds": [
+            "p0026",
+            "p0034"
+          ],
+          "quote": "7. LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.",
+          "rationale": "Contractor warrants non-infringement but there is no defense/indemnity obligation running to Company; the only indemnity heading favors Contractor.",
+          "confidence": 0.93,
+          "replacement": {
+            "paragraphId": "p0034",
+            "oldText": "7. LIMITATIONS OF LIABILITY; INDEMNIFICATION OF CONTRACTOR.",
+            "newText": "7. LIMITATIONS OF LIABILITY; INDEMNIFICATION. Contractor shall defend, indemnify and hold harmless Company and its affiliates, officers, directors and employees from and against any third-party claim, and all resulting losses, damages, liabilities, settlements, and reasonable attorneys' fees and costs, arising from: (a) any allegation that the Works, Services, Contractor Information, or third-party materials supplied by Contractor infringe or misappropriate any intellectual property right; (b) Contractor's breach of Paragraph 8 or its data security obligations; (c) Contractor's gross negligence or willful misconduct; (d) any claim by Contractor personnel for employment status, wages, taxes, or benefits from Company; and (e) Contractor's breach of Paragraph 5(d).",
+            "comment": "Add Contractor indemnity in Company's favour."
+          }
+        },
+        {
+          "ruleId": "IP",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0017",
+            "p0022",
+            "p0033",
+            "p0044"
+          ],
+          "quote": "are the property of Company to the extent that such Works were created by Contractor for Company over a time period for which Company has been invoiced and said invoice has been paid",
+          "rationale": "Ownership is conditioned on payment, there is no present assignment, work-made-for-hire or moral rights waiver, and ¶6(b) and the stray ¶11(c) conflict on assignment of work in progress.",
+          "confidence": 0.92,
+          "replacement": {
+            "paragraphId": "p0017",
+            "oldText": "are the property of Company to the extent that such Works were created by Contractor for Company over a time period for which Company has been invoiced and said invoice has been paid",
+            "newText": "are the property of Company. Contractor hereby irrevocably assigns to Company all right, title and interest, including all intellectual property rights, in and to the Works, effective upon creation. To the extent any Works constitute works made for hire under 17 U.S.C. § 101, they shall be deemed such, and Contractor waives all moral rights in the Works",
+            "comment": "Remove payment condition; add present assignment and moral rights waiver."
+          }
+        },
+        {
+          "ruleId": "LICENSE",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0020",
+            "p0021"
+          ],
+          "quote": "a royalty-free, non- exclusive perpetual license (including the right to grant a sublicense) to use, copy, modify, create, derivative version, publicly perform and publicly display such Contractor's Information in connection with Company's business operations",
+          "rationale": "Licence omits distribution and exercise by contractors/successors and is narrowly limited to Company's business operations; ¶4(b)(ii) further restricts Company's use.",
+          "confidence": 0.85,
+          "replacement": {
+            "paragraphId": "p0021",
+            "oldText": "a royalty-free, non- exclusive perpetual license (including the right to grant a sublicense) to use, copy, modify, create, derivative version, publicly perform and publicly display such Contractor's Information in connection with Company's business operations",
+            "newText": "a perpetual, irrevocable, worldwide, royalty-free, fully paid, non-exclusive license, with the right to sublicense, to use, copy, modify, create derivative works of, distribute, perform and display such Contractor Information, alone or as incorporated in the Works, for any purpose in connection with Company's and its affiliates' business, including permitting contractors, service providers, and successors to exercise these rights on Company's behalf",
+            "comment": "Broaden licence scope."
+          }
+        },
+        {
+          "ruleId": "T4C",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0032"
+          ],
+          "quote": "At any time that there is no uncompleted Statement of Work outstanding, either party may terminate this Agreement for any or no reason upon fifteen (15) days advance notice",
+          "rationale": "Termination for convenience is illusory because it is only available when no SOW is outstanding, locking Company in for the life of every SOW.",
+          "confidence": 0.9,
+          "replacement": {
+            "paragraphId": "p0032",
+            "oldText": "At any time that there is no uncompleted Statement of Work outstanding, either party may terminate this Agreement for any or no reason upon fifteen (15) days advance notice to the other.",
+            "newText": "Company may terminate this Agreement or any Statement of Work for convenience upon thirty (30) days' written notice, in which case Company shall pay only for Services properly performed and non-cancellable expenses incurred through the termination date. At any time that there is no uncompleted Statement of Work outstanding, either party may terminate this Agreement for any or no reason upon fifteen (15) days advance notice to the other.",
+            "comment": "Add genuine termination for convenience."
+          }
+        },
+        {
+          "ruleId": "TRANSITION",
+          "status": "missing",
+          "paragraphIds": [
+            "p0031",
+            "p0033"
+          ],
+          "quote": "6. TERMINATION.",
+          "rationale": "No post-termination transition assistance or return/destruction of Company data is required.",
+          "confidence": 0.88,
+          "replacement": {
+            "paragraphId": "p0033",
+            "oldText": "Contractor shall provide to Company, and hereby assigns to Company, all right, title and interest to any Works in progress.",
+            "newText": "Contractor shall provide to Company, and hereby assigns to Company, all right, title and interest to any Works in progress. Upon expiration or termination, Contractor shall provide transition assistance for up to ninety (90) days at then-current rates and shall deliver all Works, source code, documentation, credentials and Company data, and thereafter return or certifiably destroy all Company data.",
+            "comment": "Add transition assistance and data return."
+          }
+        },
+        {
+          "ruleId": "WARRANTY",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0024",
+            "p0030",
+            "p0005"
+          ],
+          "quote": "THE EXPRESS WARRANTIES IN THIS AGREEMENT SHALL BE IN LIEU OF ALL OTHER WARRANTIES, EXPRESS OR IMPLIED",
+          "rationale": "No services/deliverable conformance or malicious-code warranty, no warranty period or remedy; legal compliance warranty qualified 'to its knowledge'; broad implied warranty disclaimer.",
+          "confidence": 0.88,
+          "replacement": {
+            "paragraphId": "p0024",
+            "oldText": "Contractor's performance of the Services called for by this Agreement, to its knowledge, does not and shall not violate any applicable law",
+            "newText": "Contractor's performance of the Services called for by this Agreement does not and shall not violate any applicable law",
+            "comment": "Delete knowledge qualifier; add services, 90-day conformance and malicious-code warranties with re-performance/refund remedy."
+          }
+        },
+        {
+          "ruleId": "INSURANCE",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0048"
+          ],
+          "quote": "comprehensive general liability insurance with coverage of at least one million dollars ($1,000,000) and professional errors and omissions insurance ... at least one million dollars ($1,000,000)",
+          "rationale": "Limits are low for a data/technology engagement; no cyber liability/tech E&O, additional insured, waiver of subrogation, or primary and non-contributory language.",
+          "confidence": 0.87,
+          "replacement": {
+            "paragraphId": "p0048",
+            "oldText": "comprehensive general liability insurance with coverage of at least one million dollars ($1,000,000) and professional errors and omissions insurance for bodily injury, property damage or other losses with coverage of at least one million dollars ($1,000,000)",
+            "newText": "commercial general liability insurance of at least $1,000,000 per occurrence / $2,000,000 aggregate, and professional liability/technology errors and omissions insurance including cyber liability, network security, privacy liability and breach response costs of at least $5,000,000, with insurers rated A- or better, Company named additional insured on the CGL policy, waiver of subrogation, coverage primary and non-contributory, and 30 days' notice of cancellation or material change; maintenance of insurance does not limit Contractor's liability",
+            "comment": "Raise limits and add cyber coverage and standard endorsements."
+          }
+        },
+        {
+          "ruleId": "GOVLAW",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0043",
+            "p0056"
+          ],
+          "quote": "This Agreement shall be governed by and construed in accordance with the laws of the Arizona, without regard to the conflict of laws provisions thereof.",
+          "rationale": "Arizona law with no venue, coupled with an arbitration clause using an obscure provider, no seat, overbroad scope, no IP/confidentiality court carve-out, and confirmation venue at the losing party's residence.",
+          "confidence": 0.85,
+          "replacement": {
+            "paragraphId": "p0043",
+            "oldText": "This Agreement shall be governed by and construed in accordance with the laws of the Arizona, without regard to the conflict of laws provisions thereof.",
+            "newText": "This Agreement shall be governed by and construed in accordance with the laws of [Company's home state], without regard to the conflict of laws provisions thereof, and the parties submit to the exclusive jurisdiction and venue of the state and federal courts located in [Company's home venue].",
+            "comment": "Move governing law/venue to Company's state; conform arbitration clause accordingly."
+          }
+        },
+        {
+          "ruleId": "ASSIGN",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0042"
+          ],
+          "quote": "Neither party shall assign, transfer, or subcontract this Agreement or any of its obligations hereunder without the other party's express, prior written consent",
+          "rationale": "No carve-out permitting Company assignment to affiliates or in a merger/reorganization; no express responsibility for approved subcontractors.",
+          "confidence": 0.88,
+          "replacement": {
+            "paragraphId": "p0042",
+            "oldText": "without the other party's express, prior written consent, which will not be unreasonably withheld.",
+            "newText": "without the other party's express, prior written consent, which will not be unreasonably withheld. Notwithstanding the foregoing, Company may assign this Agreement, in whole or in part, without consent to an affiliate or in connection with a merger, reorganization, or sale of all or substantially all of its assets or of the business unit to which this Agreement relates. Contractor may not subcontract any portion of the Services without Company's prior written consent and remains fully responsible for the acts and omissions of any approved subcontractor.",
+            "comment": "Add Company assignment carve-out and subcontractor responsibility."
+          }
+        },
+        {
+          "ruleId": "NOSOLICIT",
+          "status": "needs_review",
+          "paragraphIds": [
+            "p0047"
+          ],
+          "quote": "Neither party shall, during the term of this Agreement and for one (1) year after its termination, solicit for hire as an employee, consultant or otherwise any of the other party's personnel",
+          "rationale": "Mutual and reasonably scoped, but bars Company from hiring Contractor personnel for one year post-termination; seek carve-outs for general solicitations and unsolicited applicants.",
+          "confidence": 0.8,
+          "replacement": {
+            "paragraphId": "p0047",
+            "oldText": "without such other party's express written consent, which shall not be unreasonably withheld.",
+            "newText": "without such other party's express written consent, which shall not be unreasonably withheld; provided that this Paragraph shall not restrict general solicitations not targeted at the other party's personnel, hiring of individuals who respond to such solicitations or apply unsolicited, or hiring of individuals who ceased employment with the other party more than six (6) months prior.",
+            "comment": "Add customary carve-outs."
+          }
+        },
+        {
+          "ruleId": "AUDIT",
+          "status": "missing",
+          "paragraphIds": [
+            "p0014",
+            "p0013"
+          ],
+          "quote": "Contractor shall bill Company as set forth in the relevant Statement of Work.",
+          "rationale": "No Company audit right over Contractor's time and expense records (and no compliance audit right); note this is a right in Company's favour, currently absent.",
+          "confidence": 0.75,
+          "replacement": {
+            "paragraphId": "p0014",
+            "oldText": "Contractor reserves the right to change rates with 30 days notice to Company.",
+            "newText": "Rates set forth in a Statement of Work are firm for the duration of that Statement of Work; Contractor may propose rate changes for new Statements of Work upon 90 days' written notice, no more frequently than annually and not exceeding the lesser of 3% or CPI. Company may audit Contractor's time and expense records relating to the Services for twenty-four (24) months following the relevant invoice.",
+            "comment": "Delete unilateral rate change; add fee audit right."
+          }
+        }
+      ]
+    }
+  },
+  "durationMs": 51644
+}

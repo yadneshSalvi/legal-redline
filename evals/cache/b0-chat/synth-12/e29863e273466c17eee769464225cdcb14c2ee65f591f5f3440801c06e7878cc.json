@@ -1,0 +1,267 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXcWKqEN9bAtGd2t7m42",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"findings\":[{\"ruleId\":\"MINCOMMIT\",\"status\":\"deviation\",\"paragraphIds\":[\"p0012\"],\"quote\":\"Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.\",\"rationale\":\"$6M take-or-pay with no reduction/termination rights; contradicts §12.3 and termination/refund rights.\",\"confidence\":0.95,\"replacement\":{\"paragraphId\":\"p0012\",\"oldText\":\"Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.\",\"newText\":\"Customer has no minimum purchase or take-or-pay commitment under this Agreement except as expressly stated in a signed Order Form. Any such minimum shall credit all amounts paid, be satisfied solely by payment of the shortfall (no acceleration), and shall be suspended or released pro rata upon Customer termination for cause, Vendor insolvency, a Security Incident, or force majeure.\",\"comment\":\"Delete take-or-pay or replace with a capped, terminable minimum.\"}},{\"ruleId\":\"INDEMN\",\"status\":\"missing\",\"paragraphIds\":[\"p0038\",\"p0079\"],\"quote\":\"remedies required by Section 20.5\",\"rationale\":\"Section 20 (Indemnification) is entirely absent though cross-referenced in §9.3 and §21.3.\",\"confidence\":0.95},{\"ruleId\":\"IP\",\"status\":\"deviation\",\"paragraphIds\":[\"p0054\"],\"quote\":\"Vendor exclusively owns every Deliverable created for Customer. Customer receives a revocable, non-transferable licence to use a Deliverable only during the applicable Order Form term.\",\"rationale\":\"Customer pays for bespoke Deliverables but gets a revocable term licence; conflicts with §10.1, §13.2, §13.3, §14.3.\",\"confidence\":0.93,\"replacement\":{\"paragraphId\":\"p0054\",\"oldText\":\"Vendor exclusively owns every Deliverable created for Customer. Customer receives a revocable, non-transferable licence to use a Deliverable only during the applicable Order Form term.\",\"newText\":\"Upon payment, Customer exclusively owns each Deliverable created for Customer, which shall be a work made for hire and, to the extent it is not, is hereby presently assigned to Customer. Vendor retains Vendor Technology and receives a licence-back solely as needed to perform the Services.\",\"comment\":\"Customer ownership on payment; fallback is a perpetual, irrevocable, transferable, sublicensable licence per §13.2.\"}},{\"ruleId\":\"MFN\",\"status\":\"deviation\",\"paragraphIds\":[\"p0026\"],\"quote\":\"Before engaging another provider, Customer must disclose and match for Vendor any more favourable commercial offer it receives.\",\"rationale\":\"MFN/right-to-match burdens Customer and contradicts §12.3.\",\"confidence\":0.95,\"replacement\":{\"paragraphId\":\"p0026\",\"oldText\":\"Before engaging another provider, Customer must disclose and match for Vendor any more favourable commercial offer it receives.\",\"newText\":\"\",\"comment\":\"Delete in full; also renumber the duplicated §7.2.\"}},{\"ruleId\":\"NONCOMPETE\",\"status\":\"deviation\",\"paragraphIds\":[\"p0046\"],\"quote\":\"During the term and for twenty-four months thereafter, Customer shall not develop, market, sell, or acquire any product or service that competes with Vendor in any territory.\",\"rationale\":\"24-month worldwide all-field non-compete on Customer; unenforceable and contradicts §12.3.\",\"confidence\":0.95,\"replacement\":{\"paragraphId\":\"p0046\",\"oldText\":\"During the term and for twenty-four months thereafter, Customer shall not develop, market, sell, or acquire any product or service that competes with Vendor in any territory.\",\"newText\":\"\",\"comment\":\"Delete in full.\"}},{\"ruleId\":\"NOSOLICIT\",\"status\":\"deviation\",\"paragraphIds\":[\"p0045\"],\"quote\":\"Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.\",\"rationale\":\"Broad 24-month no-hire contradicts §12.3 and creates HR exposure.\",\"confidence\":0.92,\"replacement\":{\"paragraphId\":\"p0045\",\"oldText\":\"Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.\",\"newText\":\"During the term and for twelve months thereafter, neither Party will directly solicit for employment personnel of the other who performed material work on the engagement, excluding general advertising, recruiter searches, and unsolicited applicants.\",\"comment\":\"Narrow to mutual 12-month non-solicitation with standard carve-outs.\"}},{\"ruleId\":\"GOVLAW\",\"status\":\"deviation\",\"paragraphIds\":[\"p0103\",\"p0104\"],\"quote\":\"This Agreement is governed exclusively by Singapore law, and the courts of Singapore have exclusive jurisdiction.\",\"rationale\":\"Irreconcilable with §28.2's exclusive New York jurisdiction; both parties are New York-based.\",\"confidence\":0.95,\"replacement\":{\"paragraphId\":\"p0103\",\"oldText\":\"This Agreement is governed exclusively by Singapore law, and the courts of Singapore have exclusive jurisdiction.\",\"newText\":\"This Agreement is governed by the laws of the State of New York, excluding its conflict-of-laws rules and the UN Convention on Contracts for the International Sale of Goods.\",\"comment\":\"Delete Singapore law/forum; align with §28.2.\"}},{\"ruleId\":\"TRANSITION\",\"status\":\"missing\",\"paragraphIds\":[\"p0041\",\"p0063\"],\"quote\":\"Customer's right to access terminated subscription Services ends after any agreed transition period.\",\"rationale\":\"Section 11 is cross-referenced but absent; no enforceable data export, transition assistance, or deletion certification.\",\"confidence\":0.9},{\"ruleId\":\"AUDIT\",\"status\":\"deviation\",\"paragraphIds\":[\"p0085\",\"p0083\"],\"quote\":\"23. RECORDS AND CUSTOMER ASSURANCE\",\"rationale\":\"Section 23 is an empty heading — no Customer audit/SOC 2/pen-test or subcontractor controls; §22.2 shortfall trigger should add a dollar threshold.\",\"confidence\":0.85},{\"ruleId\":\"T4C\",\"status\":\"missing\",\"paragraphIds\":[\"p0035\",\"p0033\"],\"quote\":\"9. TERMINATION\",\"rationale\":\"No Customer termination for convenience; combined with take-or-pay and auto-renewal leaves no exit.\",\"confidence\":0.88},{\"ruleId\":\"LOL-CAP\",\"status\":\"deviation\",\"paragraphIds\":[\"p0077\",\"p0007\"],\"quote\":\"shall not exceed the greater of the Fees paid or payable by Customer during the twelve months preceding the event giving rise to the claim and USD 1,000,000\",\"rationale\":\"§1.5 excludes implementation charges/expenses from \\\"Fees,\\\" artificially shrinking the cap base; uncapped Excluded Claims should be preserved.\",\"confidence\":0.8,\"replacement\":{\"paragraphId\":\"p0077\",\"oldText\":\"the greater of the Fees paid or payable by Customer during the twelve months preceding the event giving rise to the claim and USD 1,000,000\",\"newText\":\"the greater of all amounts paid or payable by Customer under all Order Forms in the twelve months preceding the event giving rise to the claim, including implementation and one-time charges, and USD 1,000,000\",\"comment\":\"Broaden the cap base beyond the narrow \\\"Fees\\\" definition.\"}},{\"ruleId\":\"INSURANCE\",\"status\":\"deviation\",\"paragraphIds\":[\"p0068\",\"p0069\"],\"quote\":\"professional errors and omissions insurance of USD 2,000,000, and cyber and privacy liability insurance of USD 5,000,000\",\"rationale\":\"Coverage undersized for a PHI processor; primary/non-contributory and cancellation notice are qualified away.\",\"confidence\":0.85,\"replacement\":{\"paragraphId\":\"p0068\",\"oldText\":\"professional errors and omissions insurance of USD 2,000,000, and cyber and privacy liability insurance of USD 5,000,000\",\"newText\":\"professional/technology errors and omissions insurance of USD 5,000,000, and cyber and privacy liability insurance of USD 10,000,000 (covering regulatory defense, notification costs, and HIPAA/PCI fines where insurable), maintained for three years after the term\",\"comment\":\"Uplift limits and tail; make policies primary and non-contributory with 30 days' cancellation notice.\"}},{\"ruleId\":\"WARRANTY\",\"status\":\"deviation\",\"paragraphIds\":[\"p0073\"],\"quote\":\"Vendor warrants the Services and Deliverables will not contain malicious code intentionally introduced by Vendor\",\"rationale\":\"Malicious-code warranty limited to intentional introduction, excluding negligently transmitted malware.\",\"confidence\":0.85,\"replacement\":{\"paragraphId\":\"p0073\",\"oldText\":\"Vendor warrants the Services and Deliverables will not contain malicious code intentionally introduced by Vendor, and that Vendor will comply with Applicable Law.\",\"newText\":\"Vendor warrants that the Services and Deliverables will be free of malicious code, that Vendor will use current, industry-standard tools to scan for and prevent malicious code, and that Vendor will comply with Applicable Law.\",\"comment\":\"Remove the \\\"intentionally introduced\\\" qualifier.\"}},{\"ruleId\":\"LICENSE\",\"status\":\"deviation\",\"paragraphIds\":[\"p0053\",\"p0058\"],\"quote\":\"the limited right to process that material solely to provide, secure, support, and improve the Services for Customer\",\"rationale\":\"\\\"Improve the Services\\\" is broader than §15.1's model-training prohibition and should be narrowed.\",\"confidence\":0.75,\"replacement\":{\"paragraphId\":\"p0053\",\"oldText\":\"to provide, secure, support, and improve the Services for Customer\",\"newText\":\"to provide, secure, and support the Services for Customer\",\"comment\":\"Delete \\\"improve,\\\" or limit to de-identified/aggregated data that cannot be re-identified.\"}},{\"ruleId\":\"RENEWAL\",\"status\":\"compliant\",\"paragraphIds\":[\"p0033\"],\"quote\":\"renews for successive twelve-month periods unless Customer gives Vendor at least thirty days' written notice of non-renewal\",\"rationale\":\"Renewal mechanic (30-day opt-out plus reminder-contingent extension) is favorable to Customer.\",\"confidence\":0.85},{\"ruleId\":\"ASSIGN\",\"status\":\"compliant\",\"paragraphIds\":[\"p0087\",\"p0088\",\"p0090\"],\"quote\":\"Customer may assign this Agreement or an Order Form without Vendor's consent to an Affiliate or to a successor\",\"rationale\":\"Assignment and change-of-control terms are Customer-favorable; review raised no issue.\",\"confidence\":0.7}]}"
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 15703,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 685,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 3751,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "parsed_output": {
+      "findings": [
+        {
+          "ruleId": "MINCOMMIT",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0012"
+          ],
+          "quote": "Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+          "rationale": "$6M take-or-pay with no reduction/termination rights; contradicts §12.3 and termination/refund rights.",
+          "confidence": 0.95,
+          "replacement": {
+            "paragraphId": "p0012",
+            "oldText": "Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+            "newText": "Customer has no minimum purchase or take-or-pay commitment under this Agreement except as expressly stated in a signed Order Form. Any such minimum shall credit all amounts paid, be satisfied solely by payment of the shortfall (no acceleration), and shall be suspended or released pro rata upon Customer termination for cause, Vendor insolvency, a Security Incident, or force majeure.",
+            "comment": "Delete take-or-pay or replace with a capped, terminable minimum."
+          }
+        },
+        {
+          "ruleId": "INDEMN",
+          "status": "missing",
+          "paragraphIds": [
+            "p0038",
+            "p0079"
+          ],
+          "quote": "remedies required by Section 20.5",
+          "rationale": "Section 20 (Indemnification) is entirely absent though cross-referenced in §9.3 and §21.3.",
+          "confidence": 0.95
+        },
+        {
+          "ruleId": "IP",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0054"
+          ],
+          "quote": "Vendor exclusively owns every Deliverable created for Customer. Customer receives a revocable, non-transferable licence to use a Deliverable only during the applicable Order Form term.",
+          "rationale": "Customer pays for bespoke Deliverables but gets a revocable term licence; conflicts with §10.1, §13.2, §13.3, §14.3.",
+          "confidence": 0.93,
+          "replacement": {
+            "paragraphId": "p0054",
+            "oldText": "Vendor exclusively owns every Deliverable created for Customer. Customer receives a revocable, non-transferable licence to use a Deliverable only during the applicable Order Form term.",
+            "newText": "Upon payment, Customer exclusively owns each Deliverable created for Customer, which shall be a work made for hire and, to the extent it is not, is hereby presently assigned to Customer. Vendor retains Vendor Technology and receives a licence-back solely as needed to perform the Services.",
+            "comment": "Customer ownership on payment; fallback is a perpetual, irrevocable, transferable, sublicensable licence per §13.2."
+          }
+        },
+        {
+          "ruleId": "MFN",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0026"
+          ],
+          "quote": "Before engaging another provider, Customer must disclose and match for Vendor any more favourable commercial offer it receives.",
+          "rationale": "MFN/right-to-match burdens Customer and contradicts §12.3.",
+          "confidence": 0.95,
+          "replacement": {
+            "paragraphId": "p0026",
+            "oldText": "Before engaging another provider, Customer must disclose and match for Vendor any more favourable commercial offer it receives.",
+            "newText": "",
+            "comment": "Delete in full; also renumber the duplicated §7.2."
+          }
+        },
+        {
+          "ruleId": "NONCOMPETE",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0046"
+          ],
+          "quote": "During the term and for twenty-four months thereafter, Customer shall not develop, market, sell, or acquire any product or service that competes with Vendor in any territory.",
+          "rationale": "24-month worldwide all-field non-compete on Customer; unenforceable and contradicts §12.3.",
+          "confidence": 0.95,
+          "replacement": {
+            "paragraphId": "p0046",
+            "oldText": "During the term and for twenty-four months thereafter, Customer shall not develop, market, sell, or acquire any product or service that competes with Vendor in any territory.",
+            "newText": "",
+            "comment": "Delete in full."
+          }
+        },
+        {
+          "ruleId": "NOSOLICIT",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0045"
+          ],
+          "quote": "Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+          "rationale": "Broad 24-month no-hire contradicts §12.3 and creates HR exposure.",
+          "confidence": 0.92,
+          "replacement": {
+            "paragraphId": "p0045",
+            "oldText": "Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+            "newText": "During the term and for twelve months thereafter, neither Party will directly solicit for employment personnel of the other who performed material work on the engagement, excluding general advertising, recruiter searches, and unsolicited applicants.",
+            "comment": "Narrow to mutual 12-month non-solicitation with standard carve-outs."
+          }
+        },
+        {
+          "ruleId": "GOVLAW",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0103",
+            "p0104"
+          ],
+          "quote": "This Agreement is governed exclusively by Singapore law, and the courts of Singapore have exclusive jurisdiction.",
+          "rationale": "Irreconcilable with §28.2's exclusive New York jurisdiction; both parties are New York-based.",
+          "confidence": 0.95,
+          "replacement": {
+            "paragraphId": "p0103",
+            "oldText": "This Agreement is governed exclusively by Singapore law, and the courts of Singapore have exclusive jurisdiction.",
+            "newText": "This Agreement is governed by the laws of the State of New York, excluding its conflict-of-laws rules and the UN Convention on Contracts for the International Sale of Goods.",
+            "comment": "Delete Singapore law/forum; align with §28.2."
+          }
+        },
+        {
+          "ruleId": "TRANSITION",
+          "status": "missing",
+          "paragraphIds": [
+            "p0041",
+            "p0063"
+          ],
+          "quote": "Customer's right to access terminated subscription Services ends after any agreed transition period.",
+          "rationale": "Section 11 is cross-referenced but absent; no enforceable data export, transition assistance, or deletion certification.",
+          "confidence": 0.9
+        },
+        {
+          "ruleId": "AUDIT",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0085",
+            "p0083"
+          ],
+          "quote": "23. RECORDS AND CUSTOMER ASSURANCE",
+          "rationale": "Section 23 is an empty heading — no Customer audit/SOC 2/pen-test or subcontractor controls; §22.2 shortfall trigger should add a dollar threshold.",
+          "confidence": 0.85
+        },
+        {
+          "ruleId": "T4C",
+          "status": "missing",
+          "paragraphIds": [
+            "p0035",
+            "p0033"
+          ],
+          "quote": "9. TERMINATION",
+          "rationale": "No Customer termination for convenience; combined with take-or-pay and auto-renewal leaves no exit.",
+          "confidence": 0.88
+        },
+        {
+          "ruleId": "LOL-CAP",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0077",
+            "p0007"
+          ],
+          "quote": "shall not exceed the greater of the Fees paid or payable by Customer during the twelve months preceding the event giving rise to the claim and USD 1,000,000",
+          "rationale": "§1.5 excludes implementation charges/expenses from \"Fees,\" artificially shrinking the cap base; uncapped Excluded Claims should be preserved.",
+          "confidence": 0.8,
+          "replacement": {
+            "paragraphId": "p0077",
+            "oldText": "the greater of the Fees paid or payable by Customer during the twelve months preceding the event giving rise to the claim and USD 1,000,000",
+            "newText": "the greater of all amounts paid or payable by Customer under all Order Forms in the twelve months preceding the event giving rise to the claim, including implementation and one-time charges, and USD 1,000,000",
+            "comment": "Broaden the cap base beyond the narrow \"Fees\" definition."
+          }
+        },
+        {
+          "ruleId": "INSURANCE",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0068",
+            "p0069"
+          ],
+          "quote": "professional errors and omissions insurance of USD 2,000,000, and cyber and privacy liability insurance of USD 5,000,000",
+          "rationale": "Coverage undersized for a PHI processor; primary/non-contributory and cancellation notice are qualified away.",
+          "confidence": 0.85,
+          "replacement": {
+            "paragraphId": "p0068",
+            "oldText": "professional errors and omissions insurance of USD 2,000,000, and cyber and privacy liability insurance of USD 5,000,000",
+            "newText": "professional/technology errors and omissions insurance of USD 5,000,000, and cyber and privacy liability insurance of USD 10,000,000 (covering regulatory defense, notification costs, and HIPAA/PCI fines where insurable), maintained for three years after the term",
+            "comment": "Uplift limits and tail; make policies primary and non-contributory with 30 days' cancellation notice."
+          }
+        },
+        {
+          "ruleId": "WARRANTY",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0073"
+          ],
+          "quote": "Vendor warrants the Services and Deliverables will not contain malicious code intentionally introduced by Vendor",
+          "rationale": "Malicious-code warranty limited to intentional introduction, excluding negligently transmitted malware.",
+          "confidence": 0.85,
+          "replacement": {
+            "paragraphId": "p0073",
+            "oldText": "Vendor warrants the Services and Deliverables will not contain malicious code intentionally introduced by Vendor, and that Vendor will comply with Applicable Law.",
+            "newText": "Vendor warrants that the Services and Deliverables will be free of malicious code, that Vendor will use current, industry-standard tools to scan for and prevent malicious code, and that Vendor will comply with Applicable Law.",
+            "comment": "Remove the \"intentionally introduced\" qualifier."
+          }
+        },
+        {
+          "ruleId": "LICENSE",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0053",
+            "p0058"
+          ],
+          "quote": "the limited right to process that material solely to provide, secure, support, and improve the Services for Customer",
+          "rationale": "\"Improve the Services\" is broader than §15.1's model-training prohibition and should be narrowed.",
+          "confidence": 0.75,
+          "replacement": {
+            "paragraphId": "p0053",
+            "oldText": "to provide, secure, support, and improve the Services for Customer",
+            "newText": "to provide, secure, and support the Services for Customer",
+            "comment": "Delete \"improve,\" or limit to de-identified/aggregated data that cannot be re-identified."
+          }
+        },
+        {
+          "ruleId": "RENEWAL",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0033"
+          ],
+          "quote": "renews for successive twelve-month periods unless Customer gives Vendor at least thirty days' written notice of non-renewal",
+          "rationale": "Renewal mechanic (30-day opt-out plus reminder-contingent extension) is favorable to Customer.",
+          "confidence": 0.85
+        },
+        {
+          "ruleId": "ASSIGN",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0087",
+            "p0088",
+            "p0090"
+          ],
+          "quote": "Customer may assign this Agreement or an Order Form without Vendor's consent to an Affiliate or to a successor",
+          "rationale": "Assignment and change-of-control terms are Customer-favorable; review raised no issue.",
+          "confidence": 0.7
+        }
+      ]
+    }
+  },
+  "durationMs": 35913
+}

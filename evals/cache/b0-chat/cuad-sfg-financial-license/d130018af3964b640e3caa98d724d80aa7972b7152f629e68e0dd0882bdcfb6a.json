@@ -1,0 +1,321 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXcHFpm9SLMJ1nnXt3Zd",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"findings\":[{\"ruleId\":\"LOL-CAP\",\"status\":\"deviation\",\"paragraphIds\":[\"p0130\",\"p0029\",\"p0034\",\"p0035\",\"p0036\",\"p0037\",\"p0039\",\"p0142\"],\"quote\":\"IN NO EVENT SHALL LICENSOR'S AGGREGATE CUMULATIVE TOTAL LIABILITY UNDER THIS AGREEMENT EXCEED ONE HALF OF THE AMOUNT PAID BY THE LICENSEE TO Licensor HEREUNDER.\",\"rationale\":\"Cap is one-half of fees paid, non-mutual, with stacked exclusions and an express infringement carve-out; no carve-outs for IP, confidentiality, gross negligence or willful misconduct.\",\"confidence\":0.95,\"replacement\":{\"paragraphId\":\"p0130\",\"oldText\":\"IN NO EVENT SHALL LICENSOR'S AGGREGATE CUMULATIVE TOTAL LIABILITY UNDER THIS AGREEMENT EXCEED ONE HALF OF THE AMOUNT PAID BY THE LICENSEE TO Licensor HEREUNDER.\",\"newText\":\"EXCEPT FOR (I) LICENSOR'S INDEMNIFICATION OBLIGATIONS, (II) BREACH OF CONFIDENTIALITY OR DATA SECURITY OBLIGATIONS, AND (III) GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD, WHICH SHALL BE UNCAPPED, EACH PARTY'S AGGREGATE LIABILITY UNDER THIS AGREEMENT SHALL NOT EXCEED THE AMOUNTS PAID OR PAYABLE BY LICENSEE IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM. THE EXCLUSION OF INDIRECT AND CONSEQUENTIAL DAMAGES SHALL APPLY MUTUALLY.\",\"comment\":\"Raise cap to 12 months' fees, make mutual, add standard uncapped carve-outs; delete infringement immunity and the p0029/p0034/p0036/p0037/p0039 liability stack.\"}},{\"ruleId\":\"INDEMN\",\"status\":\"deviation\",\"paragraphIds\":[\"p0128\",\"p0129\",\"p0130\"],\"quote\":\"Licensee shall defend, indemnify, and hold Licensor harmless ... (ii) the conduct of Licensee's business directly or through any affiliate of Licensee\",\"rationale\":\"Indemnity runs only from Licensee to Licensor and is unbounded; Licensor gives no IP infringement indemnity and expressly disclaims infringement liability.\",\"confidence\":0.95,\"replacement\":{\"paragraphId\":\"p0128\",\"oldText\":\"Licensee will be solely responsible for any commercial or legal liability that may arise as a result of Licensee's exercise of any of the license rights granted by Licensor to Licensee under this Agreement, and Licensee shall defend, indemnify, and hold Licensor harmless\",\"newText\":\"Licensor shall defend, indemnify and hold Licensee, its affiliates, officers and employees harmless from and against any third-party claim that the Licensed Technology infringes or misappropriates any intellectual property right, and shall procure rights, modify to be non-infringing, or refund fees and permit orderly wind-down if use is enjoined. Licensee shall defend, indemnify, and hold Licensor harmless solely to the extent caused by Licensee's breach of the license scope or confidentiality obligations\",\"comment\":\"Add uncapped Licensor IP indemnity; narrow and make Licensee indemnity 'to the extent caused by'; delete 'conduct of Licensee's business' limb; add indemnity procedure.\"}},{\"ruleId\":\"WARRANTY\",\"status\":\"deviation\",\"paragraphIds\":[\"p0110\",\"p0111\",\"p0112\",\"p0113\",\"p0114\",\"p0115\",\"p0116\"],\"quote\":\"THE LICENSED TECHNOLOGY IS PROVIDED ON AN \\\"AS IS\\\" BASIS WITHOUT WARRANTY OF ANY KIND\",\"rationale\":\"Total disclaimer including title and non-infringement; no performance warranty, no SLA, no malicious code warranty.\",\"confidence\":0.95,\"replacement\":{\"paragraphId\":\"p0110\",\"oldText\":\"THE LICENSED TECHNOLOGY IS PROVIDED ON AN \\\"AS IS\\\" BASIS WITHOUT WARRANTY OF ANY KIND AND LICENSOR HEREBY\",\"newText\":\"LICENSOR REPRESENTS AND WARRANTS THAT: (I) IT OWNS OR HAS ALL RIGHTS NECESSARY TO GRANT THE LICENSE AND THE LICENSED TECHNOLOGY DOES NOT INFRINGE THIRD-PARTY RIGHTS; (II) THE SOFTWARE WILL PERFORM MATERIALLY IN ACCORDANCE WITH THE DOCUMENTATION AND SPECIFICATIONS THROUGHOUT THE TERM, WITH REPAIR/REPLACE AND, FAILING CURE WITHIN 30 DAYS, TERMINATION AND REFUND; AND (III) THE SOFTWARE CONTAINS NO VIRUSES OR DISABLING DEVICES. EXCEPT AS SO STATED, LICENSOR HEREBY\",\"comment\":\"Add minimum warranty set (title, non-infringement, performance, malicious code) and attach an SLA schedule with uptime, severity levels and credits.\"}},{\"ruleId\":\"T4C\",\"status\":\"missing\",\"paragraphIds\":[\"p0049\"],\"quote\":\"Upon any breach by Licensee of any representation, warranty, covenant and/or obligation hereunder, the Licensor may immediately terminate this Agreement\",\"rationale\":\"Licensee has no termination for convenience or for cause; Licensor may terminate immediately for any breach with no materiality, notice or cure.\",\"confidence\":0.9,\"replacement\":{\"paragraphId\":\"p0049\",\"oldText\":\"Upon any breach by Licensee of any representation, warranty, covenant and/or obligation hereunder, the Licensor may immediately terminate this Agreement\",\"newText\":\"Either party may terminate this Agreement for material breach upon thirty (30) days' written notice and failure to cure, and Licensee may terminate for convenience upon ninety (90) days' written notice or upon chronic failure to meet service levels\",\"comment\":\"Add mutual termination for cause with notice and cure, plus Licensee termination for convenience and for chronic SLA failure.\"}},{\"ruleId\":\"RENEWAL\",\"status\":\"deviation\",\"paragraphIds\":[\"p0049\"],\"quote\":\"The Agreement may be renewed for an additional period of seven (7) years at the option of the Licensor.\",\"rationale\":\"Unilateral 7-year renewal at Licensor's option locks Licensee in for up to 10 years with no reciprocal right, and conflicts with the mutual-extension language.\",\"confidence\":0.9,\"replacement\":{\"paragraphId\":\"p0049\",\"oldText\":\"The Agreement may be renewed for an additional period of seven (7) years at the option of the Licensor.\",\"newText\":\"The Agreement may be renewed for successive twelve (12) month terms only by mutual written agreement, or shall auto-renew for twelve (12) month terms unless either party gives ninety (90) days' written notice of non-renewal.\",\"comment\":\"Delete Licensor-only 7-year renewal option; substitute mutual renewal with 90-day non-renewal window.\"}},{\"ruleId\":\"ASSIGN\",\"status\":\"deviation\",\"paragraphIds\":[\"p0134\",\"p0135\",\"p0149\"],\"quote\":\"Upon the occurrence of any Change of Control (as defined below) this Agreement and all Licensee's rights and licenses hereunder shall automatically terminate unless ... Licensor has consented\",\"rationale\":\"Automatic termination on Licensee change of control with an effectively unfettered Licensor veto; assignment restriction is one-way and cross-reference is broken.\",\"confidence\":0.9,\"replacement\":{\"paragraphId\":\"p0134\",\"oldText\":\"this Agreement and all Licensee's rights and licenses hereunder shall automatically terminate unless, prior to the occurrence of such Change of Control, Licensor has consented to such Change of Control in a writing executed by an officer of Licensor; provided that Licensor will not unreasonably withhold its consent\",\"newText\":\"Licensee may assign this Agreement, without consent, to an affiliate or to a successor by merger, consolidation or sale of all or substantially all of its assets, provided the assignee agrees in writing to be bound by this Agreement\",\"comment\":\"Delete automatic termination and the 'adversely effected' deemed-reasonable limb; permit assignment to affiliates and successors; make assignment mutual and fix the 13.4(a) cross-reference.\"}},{\"ruleId\":\"TRANSITION\",\"status\":\"deviation\",\"paragraphIds\":[\"p0138\"],\"quote\":\"Licensee shall, within five (5) days, ship to Licensor all Licensed Technology, API's Documentation ... and other Confidential Information in Licensee's possession\",\"rationale\":\"No wind-down period, no transition assistance, no right to retain trade records or data required for regulatory retention, and no refund of prepaid fees.\",\"confidence\":0.9,\"replacement\":{\"paragraphId\":\"p0138\",\"oldText\":\"Licensee shall, within five (5) days, ship to Licensor all Licensed Technology, API's Documentation with respect to the Licensed Technology and other Confidential Information in Licensee's possession or control\",\"newText\":\"except where termination results from Licensee's uncured material breach, Licensee shall be entitled to continued access for up to ninety (90) days at then-current fees to permit orderly migration and closing of open positions, and may retain copies of its own data, trade and audit records as required by law or regulation; thereafter Licensee shall return or destroy remaining Licensed Technology and Confidential Information\",\"comment\":\"Add transition/wind-down rights, data and record retention carve-out, and pro-rata refund of prepaid fees on Licensor breach.\"}},{\"ruleId\":\"IP\",\"status\":\"deviation\",\"paragraphIds\":[\"p0048\",\"p0100\",\"p0138\"],\"quote\":\"Any failure of such security shall be deemed, notwithstanding anything to the contrary, a failure of the Primary Function of the Software.\",\"rationale\":\"No provisions on ownership or use of Licensee Data and trade records, no security or breach-notification obligations; the sole security clause relies on the undefined 'Primary Function' and carries no consequence.\",\"confidence\":0.85,\"replacement\":{\"paragraphId\":\"p0100\",\"oldText\":\"Any failure of such security shall be deemed, notwithstanding anything to the contrary, a failure of the Primary Function of the Software.\",\"newText\":\"Licensee owns all Licensee Data and all trade and order data, and Licensor may use such data solely to provide the services and not for its own trading, aggregation or resale. Licensor shall maintain industry-standard administrative, technical and physical safeguards, notify Licensee of any security incident within forty-eight (48) hours, and remediate at its own cost.\",\"comment\":\"Add a Data & Security article covering Licensee Data ownership, use restrictions, safeguards, incident notification and record access.\"}},{\"ruleId\":\"AUDIT\",\"status\":\"deviation\",\"paragraphIds\":[\"p0064\",\"p0073\"],\"quote\":\"The cost of the audit will be borne by Licensor unless a discrepancy of more than five-percent (5%) is discovered, in which case the cost of the audit shall be borne by Licensee.\",\"rationale\":\"Cost-shifting triggers on any discrepancy including Licensee overpayment; no frequency limit, look-back limit, auditor confidentiality or scope limit.\",\"confidence\":0.9,\"replacement\":{\"paragraphId\":\"p0064\",\"oldText\":\"The cost of the audit will be borne by Licensor unless a discrepancy of more than five-percent (5%) is discovered, in which case the cost of the audit shall be borne by Licensee.\",\"newText\":\"Audits may be conducted no more than once per twelve (12) months, on thirty (30) days' notice, during business hours, at Licensor's expense, by an independent CPA bound by confidentiality and not compensated on a contingent basis, limited to fee-relevant records for the preceding twenty-four (24) months. Licensee shall bear audit costs only where an underpayment exceeding five percent (5%) is established, and Licensor shall refund any overpayment with interest.\",\"comment\":\"Limit audit frequency, scope and look-back; shift costs only for underpayment; add auditor confidentiality and refund of overpayments.\"}},{\"ruleId\":\"NOSOLICIT\",\"status\":\"deviation\",\"paragraphIds\":[\"p0125\"],\"quote\":\"During the Term of this Agreement and during the three year period after the expiration or termination of this Agreement, the Licensee will not solicit any person employed by Licensor and/or its Affiliates\",\"rationale\":\"Three-year, one-way non-solicit covering all Licensor Affiliates with no carve-out for departed employees.\",\"confidence\":0.9,\"replacement\":{\"paragraphId\":\"p0125\",\"oldText\":\"During the Term of this Agreement and during the three year period after the expiration or termination of this Agreement, the Licensee will not solicit any person employed by Licensor and/or its Affiliates to leave his or her employment with Licensor.\",\"newText\":\"During the Term and for twelve (12) months thereafter, neither party will solicit any employee of the other who was directly involved in this engagement and with whom the soliciting party had contact, excluding individuals whose employment ended at least six (6) months prior and unsolicited applicants.\",\"comment\":\"Make mutual, reduce to 12 months, limit to engagement-involved personnel, add departed-employee carve-out.\"}},{\"ruleId\":\"INSURANCE\",\"status\":\"missing\",\"paragraphIds\":[\"p0144\"],\"quote\":\"GENERAL PROVISIONS\",\"rationale\":\"The Agreement contains no Vendor insurance requirement despite hosting a mission-critical trading platform.\",\"confidence\":0.85,\"replacement\":{\"paragraphId\":\"p0144\",\"oldText\":\"GENERAL PROVISIONS\",\"newText\":\"GENERAL PROVISIONS\\n\\nINSURANCE. Licensor shall maintain, and evidence upon request, commercial general liability, professional liability/technology errors and omissions, and cyber liability insurance at commercially reasonable limits throughout the Term.\",\"comment\":\"Add Vendor insurance covenant with CGL, tech E&O and cyber coverage and certificates on request.\"}},{\"ruleId\":\"LICENSE\",\"status\":\"deviation\",\"paragraphIds\":[\"p0007\",\"p0042\",\"p0045\",\"p0066\",\"p0085\"],\"quote\":\"disclose any Licensed Technology to, or permit the use or access of any Licensed Technology by any individuals other than the employees of the Licensee for use in the Field of Use.\",\"rationale\":\"Licence scope limited to Licensee employees and a narrow Field of Use, irreconcilable with the recitals' marketing model and the 'Client turnover' fee metric; any client access would be an immediate-termination breach.\",\"confidence\":0.9,\"replacement\":{\"paragraphId\":\"p0045\",\"oldText\":\"disclose any Licensed Technology to, or permit the use or access of any Licensed Technology by any individuals other than the employees of the Licensee for use in the Field of Use.\",\"newText\":\"disclose any Licensed Technology to, or permit the use or access of any Licensed Technology by, any person other than Licensee's Authorized Users, which shall include Licensee's employees, contractors, affiliates and clients/end customers accessing the Platform to trade Spot FX through Licensee, for whose compliance Licensee remains responsible.\",\"comment\":\"Add Authorized User concept covering clients and contractors; broaden Field of Use to related risk, reporting and back-office functions; reconcile with 'Client turnover' in p0066.\"}},{\"ruleId\":\"GOVLAW\",\"status\":\"compliant\",\"paragraphIds\":[\"p0145\",\"p0146\"],\"quote\":\"shall be governed by the internal laws of the State of New York ... irrevocably submits to the exclusive jurisdiction\",\"rationale\":\"New York law and exclusive NY venue are acceptable given both parties are NY-based; only the unusual service-of-process provision warrants confirmation.\",\"confidence\":0.7},{\"ruleId\":\"MFN\",\"status\":\"missing\",\"paragraphIds\":[\"p0043\"],\"quote\":\"the Licensor shall have the right to use and to license to other parties the Licensed Technology for any purpose\",\"rationale\":\"No MFN or fee-parity protection; Licensor may license the identical platform to competitors on better terms. Review suggests considering an MFN on fees.\",\"confidence\":0.6},{\"ruleId\":\"EXCLUSIVITY\",\"status\":\"compliant\",\"paragraphIds\":[\"p0043\"],\"quote\":\"the grant of the license set forth in this Section is a non-exclusive license\",\"rationale\":\"No exclusivity obligation is imposed on Licensee; the licence is expressly non-exclusive, though the business should confirm no exclusivity was expected.\",\"confidence\":0.65},{\"ruleId\":\"MINCOMMIT\",\"status\":\"deviation\",\"paragraphIds\":[\"p0070\",\"p0078\"],\"quote\":\"In no event shall the amount payable by the Licensor be less than the amount recorded by the Licensee as being traded with the Licensed Technology multiplied by the applicable Fees\",\"rationale\":\"Drafting error creates a one-way fee floor against Licensee; separately, a 33% gross revenue share on core FX revenue streams is uncapped and vaguely scoped.\",\"confidence\":0.8,\"replacement\":{\"paragraphId\":\"p0070\",\"oldText\":\"In no event shall the amount payable by the Licensor be less than the amount recorded by the Licensee as being traded with the Licensed Technology multiplied by the applicable Fees set forth above.\",\"newText\":\"Fees payable shall equal the actual recorded volume traded using the Licensed Technology multiplied by the applicable rate, subject to a reconciliation mechanism correcting both over- and under-payments.\",\"comment\":\"Correct the party reference error and restate as a neutral true-up rather than a one-way floor.\"}},{\"ruleId\":\"NONCOMPETE\",\"status\":\"compliant\",\"paragraphIds\":[\"p0134\"],\"quote\":\"conducts a business that is directly or indirectly competitive with a business then conducted by Licensor\",\"rationale\":\"No non-compete is imposed on Licensee; competitive-business language appears only in the change-of-control consent test, addressed under ASSIGN.\",\"confidence\":0.6},{\"ruleId\":\"LD\",\"status\":\"compliant\",\"paragraphIds\":[\"p0049\"],\"quote\":\"the right to receive payments for all trades performed using the Licensed Technology\",\"rationale\":\"No liquidated damages or penalty clause payable by Licensee is present in the Agreement.\",\"confidence\":0.6}]}"
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 31214,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 685,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 6467,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "parsed_output": {
+      "findings": [
+        {
+          "ruleId": "LOL-CAP",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0130",
+            "p0029",
+            "p0034",
+            "p0035",
+            "p0036",
+            "p0037",
+            "p0039",
+            "p0142"
+          ],
+          "quote": "IN NO EVENT SHALL LICENSOR'S AGGREGATE CUMULATIVE TOTAL LIABILITY UNDER THIS AGREEMENT EXCEED ONE HALF OF THE AMOUNT PAID BY THE LICENSEE TO Licensor HEREUNDER.",
+          "rationale": "Cap is one-half of fees paid, non-mutual, with stacked exclusions and an express infringement carve-out; no carve-outs for IP, confidentiality, gross negligence or willful misconduct.",
+          "confidence": 0.95,
+          "replacement": {
+            "paragraphId": "p0130",
+            "oldText": "IN NO EVENT SHALL LICENSOR'S AGGREGATE CUMULATIVE TOTAL LIABILITY UNDER THIS AGREEMENT EXCEED ONE HALF OF THE AMOUNT PAID BY THE LICENSEE TO Licensor HEREUNDER.",
+            "newText": "EXCEPT FOR (I) LICENSOR'S INDEMNIFICATION OBLIGATIONS, (II) BREACH OF CONFIDENTIALITY OR DATA SECURITY OBLIGATIONS, AND (III) GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD, WHICH SHALL BE UNCAPPED, EACH PARTY'S AGGREGATE LIABILITY UNDER THIS AGREEMENT SHALL NOT EXCEED THE AMOUNTS PAID OR PAYABLE BY LICENSEE IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM. THE EXCLUSION OF INDIRECT AND CONSEQUENTIAL DAMAGES SHALL APPLY MUTUALLY.",
+            "comment": "Raise cap to 12 months' fees, make mutual, add standard uncapped carve-outs; delete infringement immunity and the p0029/p0034/p0036/p0037/p0039 liability stack."
+          }
+        },
+        {
+          "ruleId": "INDEMN",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0128",
+            "p0129",
+            "p0130"
+          ],
+          "quote": "Licensee shall defend, indemnify, and hold Licensor harmless ... (ii) the conduct of Licensee's business directly or through any affiliate of Licensee",
+          "rationale": "Indemnity runs only from Licensee to Licensor and is unbounded; Licensor gives no IP infringement indemnity and expressly disclaims infringement liability.",
+          "confidence": 0.95,
+          "replacement": {
+            "paragraphId": "p0128",
+            "oldText": "Licensee will be solely responsible for any commercial or legal liability that may arise as a result of Licensee's exercise of any of the license rights granted by Licensor to Licensee under this Agreement, and Licensee shall defend, indemnify, and hold Licensor harmless",
+            "newText": "Licensor shall defend, indemnify and hold Licensee, its affiliates, officers and employees harmless from and against any third-party claim that the Licensed Technology infringes or misappropriates any intellectual property right, and shall procure rights, modify to be non-infringing, or refund fees and permit orderly wind-down if use is enjoined. Licensee shall defend, indemnify, and hold Licensor harmless solely to the extent caused by Licensee's breach of the license scope or confidentiality obligations",
+            "comment": "Add uncapped Licensor IP indemnity; narrow and make Licensee indemnity 'to the extent caused by'; delete 'conduct of Licensee's business' limb; add indemnity procedure."
+          }
+        },
+        {
+          "ruleId": "WARRANTY",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0110",
+            "p0111",
+            "p0112",
+            "p0113",
+            "p0114",
+            "p0115",
+            "p0116"
+          ],
+          "quote": "THE LICENSED TECHNOLOGY IS PROVIDED ON AN \"AS IS\" BASIS WITHOUT WARRANTY OF ANY KIND",
+          "rationale": "Total disclaimer including title and non-infringement; no performance warranty, no SLA, no malicious code warranty.",
+          "confidence": 0.95,
+          "replacement": {
+            "paragraphId": "p0110",
+            "oldText": "THE LICENSED TECHNOLOGY IS PROVIDED ON AN \"AS IS\" BASIS WITHOUT WARRANTY OF ANY KIND AND LICENSOR HEREBY",
+            "newText": "LICENSOR REPRESENTS AND WARRANTS THAT: (I) IT OWNS OR HAS ALL RIGHTS NECESSARY TO GRANT THE LICENSE AND THE LICENSED TECHNOLOGY DOES NOT INFRINGE THIRD-PARTY RIGHTS; (II) THE SOFTWARE WILL PERFORM MATERIALLY IN ACCORDANCE WITH THE DOCUMENTATION AND SPECIFICATIONS THROUGHOUT THE TERM, WITH REPAIR/REPLACE AND, FAILING CURE WITHIN 30 DAYS, TERMINATION AND REFUND; AND (III) THE SOFTWARE CONTAINS NO VIRUSES OR DISABLING DEVICES. EXCEPT AS SO STATED, LICENSOR HEREBY",
+            "comment": "Add minimum warranty set (title, non-infringement, performance, malicious code) and attach an SLA schedule with uptime, severity levels and credits."
+          }
+        },
+        {
+          "ruleId": "T4C",
+          "status": "missing",
+          "paragraphIds": [
+            "p0049"
+          ],
+          "quote": "Upon any breach by Licensee of any representation, warranty, covenant and/or obligation hereunder, the Licensor may immediately terminate this Agreement",
+          "rationale": "Licensee has no termination for convenience or for cause; Licensor may terminate immediately for any breach with no materiality, notice or cure.",
+          "confidence": 0.9,
+          "replacement": {
+            "paragraphId": "p0049",
+            "oldText": "Upon any breach by Licensee of any representation, warranty, covenant and/or obligation hereunder, the Licensor may immediately terminate this Agreement",
+            "newText": "Either party may terminate this Agreement for material breach upon thirty (30) days' written notice and failure to cure, and Licensee may terminate for convenience upon ninety (90) days' written notice or upon chronic failure to meet service levels",
+            "comment": "Add mutual termination for cause with notice and cure, plus Licensee termination for convenience and for chronic SLA failure."
+          }
+        },
+        {
+          "ruleId": "RENEWAL",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0049"
+          ],
+          "quote": "The Agreement may be renewed for an additional period of seven (7) years at the option of the Licensor.",
+          "rationale": "Unilateral 7-year renewal at Licensor's option locks Licensee in for up to 10 years with no reciprocal right, and conflicts with the mutual-extension language.",
+          "confidence": 0.9,
+          "replacement": {
+            "paragraphId": "p0049",
+            "oldText": "The Agreement may be renewed for an additional period of seven (7) years at the option of the Licensor.",
+            "newText": "The Agreement may be renewed for successive twelve (12) month terms only by mutual written agreement, or shall auto-renew for twelve (12) month terms unless either party gives ninety (90) days' written notice of non-renewal.",
+            "comment": "Delete Licensor-only 7-year renewal option; substitute mutual renewal with 90-day non-renewal window."
+          }
+        },
+        {
+          "ruleId": "ASSIGN",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0134",
+            "p0135",
+            "p0149"
+          ],
+          "quote": "Upon the occurrence of any Change of Control (as defined below) this Agreement and all Licensee's rights and licenses hereunder shall automatically terminate unless ... Licensor has consented",
+          "rationale": "Automatic termination on Licensee change of control with an effectively unfettered Licensor veto; assignment restriction is one-way and cross-reference is broken.",
+          "confidence": 0.9,
+          "replacement": {
+            "paragraphId": "p0134",
+            "oldText": "this Agreement and all Licensee's rights and licenses hereunder shall automatically terminate unless, prior to the occurrence of such Change of Control, Licensor has consented to such Change of Control in a writing executed by an officer of Licensor; provided that Licensor will not unreasonably withhold its consent",
+            "newText": "Licensee may assign this Agreement, without consent, to an affiliate or to a successor by merger, consolidation or sale of all or substantially all of its assets, provided the assignee agrees in writing to be bound by this Agreement",
+            "comment": "Delete automatic termination and the 'adversely effected' deemed-reasonable limb; permit assignment to affiliates and successors; make assignment mutual and fix the 13.4(a) cross-reference."
+          }
+        },
+        {
+          "ruleId": "TRANSITION",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0138"
+          ],
+          "quote": "Licensee shall, within five (5) days, ship to Licensor all Licensed Technology, API's Documentation ... and other Confidential Information in Licensee's possession",
+          "rationale": "No wind-down period, no transition assistance, no right to retain trade records or data required for regulatory retention, and no refund of prepaid fees.",
+          "confidence": 0.9,
+          "replacement": {
+            "paragraphId": "p0138",
+            "oldText": "Licensee shall, within five (5) days, ship to Licensor all Licensed Technology, API's Documentation with respect to the Licensed Technology and other Confidential Information in Licensee's possession or control",
+            "newText": "except where termination results from Licensee's uncured material breach, Licensee shall be entitled to continued access for up to ninety (90) days at then-current fees to permit orderly migration and closing of open positions, and may retain copies of its own data, trade and audit records as required by law or regulation; thereafter Licensee shall return or destroy remaining Licensed Technology and Confidential Information",
+            "comment": "Add transition/wind-down rights, data and record retention carve-out, and pro-rata refund of prepaid fees on Licensor breach."
+          }
+        },
+        {
+          "ruleId": "IP",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0048",
+            "p0100",
+            "p0138"
+          ],
+          "quote": "Any failure of such security shall be deemed, notwithstanding anything to the contrary, a failure of the Primary Function of the Software.",
+          "rationale": "No provisions on ownership or use of Licensee Data and trade records, no security or breach-notification obligations; the sole security clause relies on the undefined 'Primary Function' and carries no consequence.",
+          "confidence": 0.85,
+          "replacement": {
+            "paragraphId": "p0100",
+            "oldText": "Any failure of such security shall be deemed, notwithstanding anything to the contrary, a failure of the Primary Function of the Software.",
+            "newText": "Licensee owns all Licensee Data and all trade and order data, and Licensor may use such data solely to provide the services and not for its own trading, aggregation or resale. Licensor shall maintain industry-standard administrative, technical and physical safeguards, notify Licensee of any security incident within forty-eight (48) hours, and remediate at its own cost.",
+            "comment": "Add a Data & Security article covering Licensee Data ownership, use restrictions, safeguards, incident notification and record access."
+          }
+        },
+        {
+          "ruleId": "AUDIT",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0064",
+            "p0073"
+          ],
+          "quote": "The cost of the audit will be borne by Licensor unless a discrepancy of more than five-percent (5%) is discovered, in which case the cost of the audit shall be borne by Licensee.",
+          "rationale": "Cost-shifting triggers on any discrepancy including Licensee overpayment; no frequency limit, look-back limit, auditor confidentiality or scope limit.",
+          "confidence": 0.9,
+          "replacement": {
+            "paragraphId": "p0064",
+            "oldText": "The cost of the audit will be borne by Licensor unless a discrepancy of more than five-percent (5%) is discovered, in which case the cost of the audit shall be borne by Licensee.",
+            "newText": "Audits may be conducted no more than once per twelve (12) months, on thirty (30) days' notice, during business hours, at Licensor's expense, by an independent CPA bound by confidentiality and not compensated on a contingent basis, limited to fee-relevant records for the preceding twenty-four (24) months. Licensee shall bear audit costs only where an underpayment exceeding five percent (5%) is established, and Licensor shall refund any overpayment with interest.",
+            "comment": "Limit audit frequency, scope and look-back; shift costs only for underpayment; add auditor confidentiality and refund of overpayments."
+          }
+        },
+        {
+          "ruleId": "NOSOLICIT",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0125"
+          ],
+          "quote": "During the Term of this Agreement and during the three year period after the expiration or termination of this Agreement, the Licensee will not solicit any person employed by Licensor and/or its Affiliates",
+          "rationale": "Three-year, one-way non-solicit covering all Licensor Affiliates with no carve-out for departed employees.",
+          "confidence": 0.9,
+          "replacement": {
+            "paragraphId": "p0125",
+            "oldText": "During the Term of this Agreement and during the three year period after the expiration or termination of this Agreement, the Licensee will not solicit any person employed by Licensor and/or its Affiliates to leave his or her employment with Licensor.",
+            "newText": "During the Term and for twelve (12) months thereafter, neither party will solicit any employee of the other who was directly involved in this engagement and with whom the soliciting party had contact, excluding individuals whose employment ended at least six (6) months prior and unsolicited applicants.",
+            "comment": "Make mutual, reduce to 12 months, limit to engagement-involved personnel, add departed-employee carve-out."
+          }
+        },
+        {
+          "ruleId": "INSURANCE",
+          "status": "missing",
+          "paragraphIds": [
+            "p0144"
+          ],
+          "quote": "GENERAL PROVISIONS",
+          "rationale": "The Agreement contains no Vendor insurance requirement despite hosting a mission-critical trading platform.",
+          "confidence": 0.85,
+          "replacement": {
+            "paragraphId": "p0144",
+            "oldText": "GENERAL PROVISIONS",
+            "newText": "GENERAL PROVISIONS\n\nINSURANCE. Licensor shall maintain, and evidence upon request, commercial general liability, professional liability/technology errors and omissions, and cyber liability insurance at commercially reasonable limits throughout the Term.",
+            "comment": "Add Vendor insurance covenant with CGL, tech E&O and cyber coverage and certificates on request."
+          }
+        },
+        {
+          "ruleId": "LICENSE",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0007",
+            "p0042",
+            "p0045",
+            "p0066",
+            "p0085"
+          ],
+          "quote": "disclose any Licensed Technology to, or permit the use or access of any Licensed Technology by any individuals other than the employees of the Licensee for use in the Field of Use.",
+          "rationale": "Licence scope limited to Licensee employees and a narrow Field of Use, irreconcilable with the recitals' marketing model and the 'Client turnover' fee metric; any client access would be an immediate-termination breach.",
+          "confidence": 0.9,
+          "replacement": {
+            "paragraphId": "p0045",
+            "oldText": "disclose any Licensed Technology to, or permit the use or access of any Licensed Technology by any individuals other than the employees of the Licensee for use in the Field of Use.",
+            "newText": "disclose any Licensed Technology to, or permit the use or access of any Licensed Technology by, any person other than Licensee's Authorized Users, which shall include Licensee's employees, contractors, affiliates and clients/end customers accessing the Platform to trade Spot FX through Licensee, for whose compliance Licensee remains responsible.",
+            "comment": "Add Authorized User concept covering clients and contractors; broaden Field of Use to related risk, reporting and back-office functions; reconcile with 'Client turnover' in p0066."
+          }
+        },
+        {
+          "ruleId": "GOVLAW",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0145",
+            "p0146"
+          ],
+          "quote": "shall be governed by the internal laws of the State of New York ... irrevocably submits to the exclusive jurisdiction",
+          "rationale": "New York law and exclusive NY venue are acceptable given both parties are NY-based; only the unusual service-of-process provision warrants confirmation.",
+          "confidence": 0.7
+        },
+        {
+          "ruleId": "MFN",
+          "status": "missing",
+          "paragraphIds": [
+            "p0043"
+          ],
+          "quote": "the Licensor shall have the right to use and to license to other parties the Licensed Technology for any purpose",
+          "rationale": "No MFN or fee-parity protection; Licensor may license the identical platform to competitors on better terms. Review suggests considering an MFN on fees.",
+          "confidence": 0.6
+        },
+        {
+          "ruleId": "EXCLUSIVITY",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0043"
+          ],
+          "quote": "the grant of the license set forth in this Section is a non-exclusive license",
+          "rationale": "No exclusivity obligation is imposed on Licensee; the licence is expressly non-exclusive, though the business should confirm no exclusivity was expected.",
+          "confidence": 0.65
+        },
+        {
+          "ruleId": "MINCOMMIT",
+          "status": "deviation",
+          "paragraphIds": [
+            "p0070",
+            "p0078"
+          ],
+          "quote": "In no event shall the amount payable by the Licensor be less than the amount recorded by the Licensee as being traded with the Licensed Technology multiplied by the applicable Fees",
+          "rationale": "Drafting error creates a one-way fee floor against Licensee; separately, a 33% gross revenue share on core FX revenue streams is uncapped and vaguely scoped.",
+          "confidence": 0.8,
+          "replacement": {
+            "paragraphId": "p0070",
+            "oldText": "In no event shall the amount payable by the Licensor be less than the amount recorded by the Licensee as being traded with the Licensed Technology multiplied by the applicable Fees set forth above.",
+            "newText": "Fees payable shall equal the actual recorded volume traded using the Licensed Technology multiplied by the applicable rate, subject to a reconciliation mechanism correcting both over- and under-payments.",
+            "comment": "Correct the party reference error and restate as a neutral true-up rather than a one-way floor."
+          }
+        },
+        {
+          "ruleId": "NONCOMPETE",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0134"
+          ],
+          "quote": "conducts a business that is directly or indirectly competitive with a business then conducted by Licensor",
+          "rationale": "No non-compete is imposed on Licensee; competitive-business language appears only in the change-of-control consent test, addressed under ASSIGN.",
+          "confidence": 0.6
+        },
+        {
+          "ruleId": "LD",
+          "status": "compliant",
+          "paragraphIds": [
+            "p0049"
+          ],
+          "quote": "the right to receive payments for all trades performed using the Licensed Technology",
+          "rationale": "No liquidated damages or penalty clause payable by Licensee is present in the Agreement.",
+          "confidence": 0.6
+        }
+      ]
+    }
+  },
+  "durationMs": 63958
+}
