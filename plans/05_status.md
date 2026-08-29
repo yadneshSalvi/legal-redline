@@ -111,3 +111,8 @@
   17 `ambiguous`; matching: missing-kind gold matches deviation-or-missing findings. Re-scoring all recorded configs (judge live for new TPs).
   **Incident:** `pnpm synth` regenerated synth docx files with the post-r2 engine (different heading styles) → restored from git immediately; never
   regenerate contract.docx while caches exist (document model in tool results is hash-checked on replay). i4-memory in progress (6/12 at 02:52).
+- Sun 03:15 — **Iteration 5 — calibration.** Under round-2 gold: b1 F1 0.949 (P 0.93) vs i4 0.883 (P 0.83): per-rule workers over-flag clauses
+  that already meet the *fallback* (Delaware law, 90-day convenience right, 90-day warranty) or miss only a minor sub-element of preferred.
+  Fix: classification semantics in the shared playbook preamble (all configs incl. b1): preferred-or-fallback = compliant; deviation only when
+  the fallback fails on a material term; verifier fails "fallback → preferred" upgrades. Campaign killed; pre-calibration ladder archived
+  (`evals/results/pre-calibration/`, `evals/cache-precalibration/`); calibrated ladder re-runs b1 i1 i2 i3 i4 final x-monolith (b0 unchanged).
