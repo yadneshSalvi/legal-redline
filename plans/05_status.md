@@ -82,3 +82,4 @@
   FN 10, synthetic 4/4 at 100 % (incl. hard case), redline validity **41 %**, minimality **18 %**, citation hallucination **10.8 %** (30/279), integrity
   ok everywhere, $0.35/contract, 105 s/contract. Strategic reframing for the changelog: detection is near-saturated for a frontier model with full
   context; the pipeline must win on validity / minimality / hallucination / escalation quality and on cost per *valid* redline, not on F1 alone.
+- Sun 01:25 — `ui-workspace` r2 landed ($17.84): all 12 review fixes with measurements; committed `ed6854d`, pushed. Curated screenshots → `docs/screenshots/`.
