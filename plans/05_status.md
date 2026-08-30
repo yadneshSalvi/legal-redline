@@ -123,3 +123,7 @@
   contradictions gate (deterministic post-processing → all configs re-scored in replay at the end for consistency). i4 running.
 - Sun 05:05 — replay check with the new gating: verifier verdicts replay deterministically, but the **memo** request embeds verification notes →
   cache miss after a gating change. Final re-score of all configs must use `--allow-live --judge live` (records only memo calls + any new judge calls).
+- Sun 05:50 — calibrated ladder so far: b1 0.915 (R 0.87) · i1 0.918 · i2 0.944 · i3 0.941 · i4 0.936 · **final 0.948 (P 0.98 / R 0.92, esc 0,
+  validity 51 %, minimality 31 %, $3.51)**. x-monolith recording; `plans/harness/finalize.sh` auto-fires after it (waiter pid 61428) → re-score all
+  with the final gate (`--allow-live`), report, render-docs, exports. Production env `REDLINER_LLM_MODE=live` (replay caches are not bundled
+  in the deployment); live Corio `final` run being recorded for the video (`data/runs/video-cache`).
