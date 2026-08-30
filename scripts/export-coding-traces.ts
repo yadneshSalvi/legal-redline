@@ -268,8 +268,61 @@ async function exportClaudeCode(root: string): Promise<{ sessions: IndexSession[
       briefReport: opusLabel ? "same session as the harness row above (full SDK transcript)" : "lead orchestration (this transcript)",
       trace: link("trace", sourceLink("claude-code", source)),
     });
+    sessions.push(...(await exportSubagents(root, path.join(CLAUDE_PROJECT, sessionId, "subagents"))));
   }
   return { sessions, skipped };
+}
+
+/**
+ * Reviewer subagents the lead spawned inside Claude Code (e.g. the Fable 5 phase-gate reviewer) keep their own
+ * transcript under `<session>/subagents/agent-<name>-<hash>.jsonl` with a `.meta.json` beside it. They are exported
+ * like any other session: brief from plans/harness/briefs/<name>.md, report from plans/harness/reports/*-<name>.md.
+ */
+async function exportSubagents(root: string, directory: string): Promise<IndexSession[]> {
+  const sessions: IndexSession[] = [];
+  for (const source of await filesIn(directory, ".jsonl")) {
+    const base = path.basename(source, ".jsonl");
+    let name = base.replace(/^agent-/u, "");
+    let description = "";
+    try {
+      const meta = JSON.parse(await readFile(path.join(directory, `${base}.meta.json`), "utf8")) as { name?: string; description?: string };
+      if (typeof meta.name === "string" && meta.name) name = meta.name;
+      if (typeof meta.description === "string") description = meta.description;
+    } catch {
+      // No metadata: the file name still identifies the agent.
+    }
+    const contents = await readFile(source, "utf8");
+    const metadata = claudeMetadata(contents, base);
+    const destination = path.join(root, "trajectories/coding-agents/claude-code", `${base}.jsonl`);
+    await atomicWrite(destination, redactSubmissionText(contents));
+    const briefSource = path.join(root, "plans/harness/briefs", `${name}.md`);
+    const reportSource = (await filesIn(path.join(root, "plans/harness/reports"), `-${name}.md`))[0];
+    let brief: string | undefined;
+    let report: string | undefined;
+    if (await stat(briefSource).then(() => true, () => false)) {
+      brief = `briefs/${name}.md`;
+      await copyRedacted(briefSource, path.join(root, "trajectories/coding-agents", brief));
+    }
+    if (reportSource !== undefined) {
+      report = `reports/${path.basename(reportSource)}`;
+      await copyRedacted(reportSource, path.join(root, "trajectories/coding-agents", report));
+    }
+    const briefReport = brief || report
+      ? `${link("brief", brief)} → ${link("report", report)}`
+      : description || "Claude Code subagent";
+    sessions.push({
+      label: `${name} (reviewer subagent)`,
+      model: "Claude Fable 5",
+      harness: "Claude Code subagent",
+      started: metadata.started,
+      startedMs: metadata.startedMs,
+      duration: metadata.duration,
+      cost: "—",
+      briefReport,
+      trace: link("trace", `claude-code/${base}.jsonl`),
+    });
+  }
+  return sessions;
 }
 
 function renderIndex(sessions: readonly IndexSession[], skipped: readonly string[]): string {

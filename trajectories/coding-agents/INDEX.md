@@ -6,7 +6,7 @@ All copied files are credential-redacted and absolute home paths are normalized 
 
 | Label | Model | Harness | Started | Duration | Cost | Brief → report | Event trace |
 |---|---|---|---|---:|---:|---|---|
-| lead-325ba387 | Claude Fable 5 | Claude Code | 2026-08-29T16:27:41.821Z | 530m 59s | — | lead orchestration (this transcript) | [trace](claude-code/325ba387-1ab8-4b57-9e70-3f69911246c4.jsonl) |
+| lead-325ba387 | Claude Fable 5 | Claude Code | 2026-08-29T16:27:41.821Z | 626m 29s | — | lead orchestration (this transcript) | [trace](claude-code/325ba387-1ab8-4b57-9e70-3f69911246c4.jsonl) |
 | smoke-codex | GPT-5.6 Sol | Codex CLI | 2026-08-29 22:55:13 | 6s | — | [brief](briefs/_smoke_codex.md) → [report](reports/20260829-225513-smoke-codex.md) | [trace](codex/20260829-225513-smoke-codex.codex.jsonl) |
 | smoke-opus | Claude Opus 5 | Claude Agent SDK | 2026-08-29 22:55:20 | 3s | $0.12 | [brief](briefs/_smoke_opus.md) → [report](reports/20260829-225520-smoke-opus.md) | [trace](opus/20260829-225520-smoke-opus.opus.log) |
 | smoke-opus (SDK transcript) | Claude Opus 5 | Claude Agent SDK | 2026-08-29T17:25:20.608Z | 2s | — | same session as the harness row above (full SDK transcript) | [trace](claude-code/b3f10255-a938-4bc0-aa51-4c01490b12e7.jsonl) |
@@ -33,5 +33,7 @@ All copied files are credential-redacted and absolute home paths are normalized 
 | ui-workspace | Claude Opus 5 | Claude Agent SDK | 2026-08-30 01:05:54 | 14m 25s | $17.84 | [brief](briefs/_continue.md) → [report](reports/20260830-010554-ui-workspace.md) | [trace](opus/20260830-010554-ui-workspace.opus.log) |
 | submission-pack | GPT-5.6 Sol | Codex CLI | 2026-08-30 01:21:53 | 9m 50s | — | [brief](briefs/submission-pack.md) → [report](reports/20260830-012153-submission-pack.md) | [trace](codex/20260830-012153-submission-pack.codex.jsonl) |
 | video-pipeline | GPT-5.6 Sol | Codex CLI | 2026-08-30 01:38:35 | 29m 44s | — | [brief](briefs/video-pipeline.md) → [report](reports/20260830-013835-video-pipeline.md) | [trace](codex/20260830-013835-video-pipeline.codex.jsonl) |
+| gate-final (reviewer subagent) | Claude Fable 5 | Claude Code subagent | 2026-08-30T01:39:03.460Z | 34m 49s | — | [brief](briefs/gate-final.md) → [report](reports/20260830-gate-final.md) | [trace](claude-code/agent-agate-final-28a2ab8618420328.jsonl) |
+| video-final | GPT-5.6 Sol | Codex CLI | 2026-08-30 07:09:23 | 66m 4s | — | [brief](briefs/video-final.md) → [report](reports/20260830-070923-video-final.md) | [trace](codex/20260830-070923-video-final.codex.jsonl) |
 
 No Claude Code transcript exceeded the 50 MB export limit.
