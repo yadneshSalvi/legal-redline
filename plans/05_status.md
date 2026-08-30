@@ -170,3 +170,8 @@
 
 ## 2026-08-30 18:30 IST — machine restart (user); resume point
 - Committed c4678bce: i7-precise short tier official (CRR 54.7 %, F1 94.7 %, 0 esc, $5.10; dev 68.8 % / holdout 47.6 %), final-v3 9/18 + caches. After restart: relaunch `plans/harness/campaign-round2b.sh` (replays cached, records the rest), then docs → video → gate → export traces.
+
+## 2026-08-30 19:40 IST — round 2b done; final-v4 shipped
+- Round-2b campaign (relaunched after the restart) finished 19:33 with zero replay misses across all 8 config×tier pairs. `final-v3` (i7 + long planner + memory) regressed on the long tier (F1 52.2, recall 39.3 — the precise worker's locked round-1 detection bypasses i6's paginated element worker) and trails i7 on short (CRR 47.4 vs 54.7) → reported, not shipped.
+- Shipped: `final-v4`, a length router (i7-precise < 15k words, i6-longdoc ≥ 15k; memory off) that reuses the members' prompts and caches — replayed both tiers at $0: short F1 94.7 / CRR 54.7 % (dev 68.8, holdout 47.6) / validity 74.2 / minimality 59.6 / 0 esc / $5.10; long F1 75.3 / recall 68.6 / CRR 22.9 / yield 62.5 / $11.11. Docs (README §5/§7, changelog Round 2 + failure mode + hot take, EVAL.md, PLAYBOOK.md) written by hand; report/docs rendered.
+- Next: commit → video re-cut (Sol) + gate-round2 review (Fable) in parallel → export traces → release v1.1 → final status.

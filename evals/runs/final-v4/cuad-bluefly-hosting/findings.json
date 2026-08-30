@@ -1,0 +1,2008 @@
+[
+  {
+    "confidence": 0.76,
+    "costUsd": 0.15584475,
+    "durationMs": 42446,
+    "id": "f-indemn-02fdf87d",
+    "paragraphIds": [
+      "p0089",
+      "p0091",
+      "p0092",
+      "p0098",
+      "p0106",
+      "p0110"
+    ],
+    "producedBy": "drafter",
+    "quote": "If a third party claims or threatens a claim that Materials or Base Components IBM provides to Customer or uses in connection with the performance of the Services infringe that party's patent, trademark, copyright, or trade secret, then IBM will indemnify, defend and hold harmless the Customer, its Enterprise and their respective employees, officers, agents and directors against that claim or threatened claim at IBM's expense and pay all costs, damages, penalties and reasonable attorneys' fees that a court finally awards in connection with that claim",
+    "rationale": "Section 8.1 gives us a Vendor (IBM) defence and indemnity for third-party claims that the Materials or Base Components infringe patent, trademark, copyright or trade secret rights, extending to our Enterprise and personnel, with the usual exclusions (our content, our modifications, combinations with non-IBM products, non-IBM hardware/software) and the usual remedy ladder (procure continued use, modify, replace, or refund). Procedure is standard (prompt notice, IBM control, our cooperation, with IBM reimbursing our cooperation costs). Section 9.1(a) carves Section 8.1 indemnification payments out of IBM's liability cap, so the indemnity is effectively uncapped — better than the 3x super-cap fallback. This sits at (and in parts above) the fallback position and is not redlined. Noted but not flagged as sub-elements short of preferred: the indemnity does not separately cover IBM's breach of law, data breach or gross negligence/wilful misconduct, and the refund remedy is capped at twelve months of applicable charges. Our indemnity in 8.2 is broader than the preferred \"content and breach of law\" formulation (it includes Services Recipient claims related to the Services), but it is materially cut back by 8.2(c), which relieves us to the extent IBM's bad faith, wilful misconduct, gross negligence or breach caused the damages; that is not a one-way or walk-away outcome given IBM's own indemnity is in place.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-8.1",
+    "sectionRef": "§ 8.1 Indemnification by IBM",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.92,
+    "costUsd": 0.08109675,
+    "durationMs": 20510,
+    "id": "f-exclusivity-a511e077",
+    "paragraphIds": [
+      "p0199",
+      "p0200"
+    ],
+    "producedBy": "drafter",
+    "quote": "Each party is free to enter into similar agreements with others.",
+    "rationale": "No exclusivity, sole-source or requirements commitment binds Bluefly anywhere in the agreement. Searches for \"exclusive\", \"sole\", \"all of its requirements\", \"from any third party\" and \"competitor\" return only warranty-disclaimer language (§ 5.2), tax language (§ 4.3), and nonexclusive licences granted by IBM to Customer (§§ 5.4, 12.1) — none restricts our freedom to procure elsewhere. Section 14.16 (Freedom of Action) affirmatively confirms each party may enter into similar agreements with others, so we retain the right to buy hosting services from other suppliers. This meets the preferred position (no exclusivity obligation on Customer); no redline required.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-14.16",
+    "sectionRef": "§ 14.16 Freedom of Action",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.44948825,
+    "durationMs": 128089,
+    "id": "f-ip-35864e97",
+    "paragraphIds": [
+      "p0082",
+      "p0083",
+      "p0085",
+      "p0086"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We need to own the deliverables we pay IBM to create, so we have flipped the default in Section 7(a) from Type II (IBM-owned, internal-use-only licence back) to Type I for Materials created during the Service performance period; IBM keeps its pre-existing works as Type II. We have also confirmed that Content and Customer Components remain ours. If IBM prefers, we can instead retain Type II as the default provided Customer receives a perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense those Materials for its business.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "If not specified, Materials created during the Service performance period will be considered Type I Materials, and all other Materials will be considered Type II Materials.",
+          "oldText": "If not specified, Materials will be considered Type II Materials.",
+          "paragraphId": "p0082"
+        },
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0086",
+          "text": "e. As between the parties, Customer retains all right, title and interest (including all intellectual property rights) in and to the Content and the Customer Components, and nothing in this Agreement transfers or assigns any ownership of the Content or the Customer Components to IBM."
+        }
+      ],
+      "summary": "Flip the default Materials category to Type I (Customer-owned) for work created during the Service performance period and confirm Customer ownership of Content/Customer Components."
+    },
+    "quote": "a. IBM will specify Materials to be delivered to Customer. IBM will identify them as being \"Type I Materials,\" \"Type II Materials,\" or otherwise as Customer and IBM agree in writing. If not specified, Materials will be considered Type II Materials.",
+    "rationale": "Section 7.0 (Materials) defaults every deliverable IBM creates for us to \"Type II Materials\", i.e. IBM (or a third party) holds all right, title and interest, and we receive only an irrevocable, worldwide, paid-up licence to use, execute, reproduce, display, perform and distribute \"within Customer's Enterprise only\" (p0085) — with no right to modify/prepare derivative works and no sublicensing. That fails both the preferred position (Customer owns deliverables created for it) and the fallback (perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense deliverables for our business), because IBM's default capture of bespoke work product carries only a narrow internal-use licence back. IBM owning its pre-existing platform and Base Components (§ 12.1) is acceptable and is not challenged. In addition, no provision confirms that we retain ownership of Content and Customer Components; § 11.6 only allocates responsibility for Content and § 14.18 addresses contact data, so we have added a short ownership-retention sentence. The redline makes the minimal change: work created during the Service performance period defaults to Type I (Customer-owned), IBM's pre-existing works remain Type II, plus the Customer Data/Content ownership sentence. Noted but not separately flagged: IBM's broad licence back over Type I Materials (p0084) is non-exclusive and does not affect our ownership.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-5.4",
+    "sectionRef": "§ 5.4 Other Disclaimers",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "official check: no assignment of Customer Data/IP to Vendor remains",
+          "ok": true
+        },
+        {
+          "detail": "Grant Customer a perpetual, irrevocable, royalty-free licence to any Vendor IP embedded in the deliverables, not only named technology categories.",
+          "name": "precision position: preferred embedded-IP licence covers any Vendor IP embedded in deliverables",
+          "ok": false
+        },
+        {
+          "name": "precision position: preferred IP licence adds no fallback-only worldwide, modification, or sublicensing rights",
+          "ok": true
+        },
+        {
+          "detail": "Operation 1 expands 10 words to 26 words (ratio 2.60 > 1.50); use a tighter edit or a separate insertion",
+          "name": "official minimality gate",
+          "ok": false
+        },
+        {
+          "detail": "Operation 1 changed-character ratio 0.622 exceeds the official 0.600 limit; anchor a larger unchanged surrounding span or change fewer operative characters",
+          "name": "official minimality gate",
+          "ok": false
+        }
+      ],
+      "elements": [
+        {
+          "element": "Customer owns deliverables/work product created for it (Vendor assigns)",
+          "evidence": "\"Materials created during the Service performance period will be considered Type I Materials\"; Type I are those \"in which Customer will have all right, title, and interest (including ownership of copyright)\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor retains pre-existing IP",
+          "evidence": "\"Type II Materials are those, created during the Service performance period or otherwise (such as those that preexist the Service), in which IBM or third parties have all right, title, and interest\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Perpetual, irrevocable, royalty-free licence to any Vendor IP embedded in deliverables",
+          "evidence": "Only \"an irrevocable, nonexclusive, worldwide, paid-up license to use, execute, reproduce, display, perform, and distribute, within Customer's Enterprise only, copies of Type II Materials\" — no perpetual term and no grant keyed to Vendor IP embedded in deliverables",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Customer retains all rights in Customer Data",
+          "evidence": "\"Customer retains all right, title and interest (including all intellectual property rights) in and to the Content and the Customer Components\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "No joint ownership",
+          "evidence": "Ownership is allocated exclusively as Type I (Customer) or Type II (IBM/third parties); \"nothing in this Agreement transfers or assigns any ownership of the Content or the Customer Components to IBM\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor owns generic tools and know-how",
+          "evidence": "\"Type II Materials ... in which IBM or third parties have all right, title, and interest\"",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Perpetual, irrevocable, worldwide, royalty-free licence to deliverables",
+          "evidence": "\"irrevocable, nonexclusive, worldwide, paid-up license\" — no perpetual term stated",
+          "level": "fallback",
+          "status": "not_met"
+        },
+        {
+          "element": "Licence permits use, modification and sublicensing for Customer's business",
+          "evidence": "\"to use, execute, reproduce, display, perform, and distribute, within Customer's Enterprise only\" — no modification or sublicensing right",
+          "level": "fallback",
+          "status": "not_met"
+        }
+      ],
+      "minimal": false,
+      "notes": "precision position: preferred embedded-IP licence covers any Vendor IP embedded in deliverables: Grant Customer a perpetual, irrevocable, royalty-free licence to any Vendor IP embedded in the deliverables, not only named technology categories. official minimality gate: Operation 1 expands 10 words to 26 words (ratio 2.60 > 1.50); use a tighter edit or a separate insertion official minimality gate: Operation 1 changed-character ratio 0.622 exceeds the official 0.600 limit; anchor a larger unchanged surrounding span or change fewer operative characters Preferred level incomplete: the embedded-IP licence element fails. There is no perpetual, irrevocable, royalty-free licence to Vendor IP embedded in Type I deliverables; the only grant is the pre-existing Type II licence limited to \"within Customer's Enterprise only\" and not stated to be perpetual. Fallback is also incomplete (no perpetual term, no modification or sublicensing right), but the locked target is preferred and the two levels cannot be combined. Minimality gate fails: operation 1 rewrites the default sentence from 10 to 26 words (ratio 2.60) with a 0.622 changed-character ratio. A tighter edit — e.g. replacing \"Type II\" with \"Type I\" in the default sentence, or a short separate insertion carving out pre-existing Materials — would suffice. Intent preserved: the copyright-notice mechanic, Type I/Type II structure and the Type II licence remain effective, and paragraph (e) introduces no undefined term or contradiction (Content and Customer Components are defined terms). To reach preferred, add a concise grant: a perpetual, irrevocable, royalty-free licence to any IBM IP embedded in Type I Materials, without importing the fallback's modification/sublicence language.",
+      "preservesIntent": true,
+      "satisfiesFallback": false,
+      "satisfiesPreferred": false,
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.115942,
+    "durationMs": 32170,
+    "id": "f-noncompete-ab397129",
+    "paragraphIds": [
+      "p0200",
+      "p0190"
+    ],
+    "producedBy": "drafter",
+    "quote": "Each party is free to enter into similar agreements with others.",
+    "rationale": "The Agreement contains no non-compete, exclusivity or field-of-use covenant binding Bluefly. Searches for \"compet\", \"exclusiv\" and \"Customer shall not\" return no restriction on the businesses we may operate or the products we may buy or build; § 14.16 (Freedom of Action) affirmatively preserves each party's freedom to contract with others, and § 14.17 merely confirms no implied licenses. The only prohibition on us is § 14.11 (Customer shall not resell the Services), which is a scope-of-use/resale limit on the vendor's own Services rather than a restraint on our business lines, and § 14.19 limits IBM's delivery geography, not our operations. This meets the preferred position (no non-compete or field-of-use restriction on Customer), so no redline is warranted.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-14.16",
+    "sectionRef": "§ 14.16 Freedom of Action",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.0509625,
+    "durationMs": 17138,
+    "id": "f-govlaw-f8c01cd3",
+    "paragraphIds": [
+      "p0171"
+    ],
+    "producedBy": "drafter",
+    "quote": "This Agreement will be governed by the substantive laws of the State of New York, without regard for its conflict of laws provisions.",
+    "rationale": "Section 14.3 selects New York substantive law (with conflicts principles disapplied), which is our preferred governing law. There is no arbitration provision anywhere in the agreement and no foreign or vendor-home-jurisdiction forum, so disputes default to the courts; the walk-away scenarios (foreign exclusive venue or arbitration seated abroad) do not arise. The agreement contains no express exclusive-venue designation for New York County courts — a minor sub-element short of the preferred wording that we note rather than redline. Related dispute terms are benign and mutual: 14.4 waives jury trial for both parties and 14.14 imposes a mutual two-year contractual limitations period (a separate commercial term outside this rule).",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-14.3",
+    "sectionRef": "§ 14.3 Choice of Law",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.115369,
+    "durationMs": 27671,
+    "id": "f-mfn-dbd2cf32",
+    "paragraphIds": [
+      "p0200",
+      "p0052"
+    ],
+    "producedBy": "drafter",
+    "quote": "Each party is free to enter into similar agreements with others.",
+    "rationale": "Searches for most-favoured-nation, \"no less favorable/favourable\", best-pricing, price-matching and comparable undertakings return nothing, and the commercial provisions (§4.1 Charges, §13.1 pricing changes, §14.11 No Resale) impose no obligation on Customer to extend IBM terms given to third parties or to match third-party offers. §14.16 (Freedom of Action) confirms each party may contract freely with others. This meets the preferred position (no MFN obligation burdening Customer); no vendor-granted MFN exists in our favour, but its absence is not a rule breach. No redline required.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-14.16",
+    "sectionRef": "§ 14.16 Freedom of Action",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.12168675,
+    "durationMs": 35503,
+    "id": "f-mincommit-86ddcdeb",
+    "paragraphIds": [
+      "p0052",
+      "p0044",
+      "p0142"
+    ],
+    "producedBy": "drafter",
+    "quote": "Charges for applicable Services will be specified in Service Option Attachments and Order Forms. Charges can be specified as one-time, installment, recurring, or usage. IBM will invoice such Charges when they begin or are due as set forth in Service Option Attachments.",
+    "rationale": "This sits at the preferred position: there is no minimum purchase commitment, take-or-pay, shortfall charge, or volume floor imposed on Customer anywhere in the Agreement (searches for \"minimum\", \"commit\", \"purchase\" and \"volume\" return nothing of that kind). Under § 4.1 Charges are payable only for Services ordered via Order Forms/Service Option Attachments and may be one-time, installment, recurring or usage-based, i.e. fees for ordered or actual usage only. § 11.5 Capacity Planning leaves capacity sizing and any additional capacity requests entirely to Customer's determination rather than mandating committed volumes, and § 14.11 only restricts resale (a scope limit, not a purchase commitment). Any commitment that might appear in an Order Form is also backstopped by the § 3.4 convenience exit at one month's notice. We note as a residual, not a deviation, that § 3.4(b) preserves \"early termination charges, if any, specified in Attachment A\" — those attachments should be checked when issued to confirm they operate as a true-up rather than a penalty.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-4.1",
+    "sectionRef": "§ 4.1 Charges",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.07616,
+    "durationMs": 20495,
+    "id": "f-nosolicit-d9248d20",
+    "paragraphIds": [
+      "p0181",
+      "p0182",
+      "p0184"
+    ],
+    "producedBy": "drafter",
+    "quote": "Each party is responsible for the supervision, direction, and control of its respective personnel. IBM reserves the right to determine the assignment of its personnel. IBM may subcontract portions of",
+    "rationale": "Section 14.8 (Personnel) — the natural home for any hiring restriction — addresses only supervision, assignment and subcontracting; it imposes no hiring or solicitation restraint on Customer. Full-text searches for \"solicit\", \"hire\", \"induce\", \"recruit\", \"employ\" and \"personnel\" return no non-solicitation or no-hire covenant anywhere in the agreement. Bluefly is therefore under no restrictive covenant regarding IBM personnel, which is the playbook's preferred position (no non-solicit on Customer); no redline is warranted.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-14.8",
+    "sectionRef": "§ 14.8 Personnel",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.271438,
+    "durationMs": 74409,
+    "id": "f-transition-1034bbf3",
+    "paragraphIds": [
+      "p0049"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have added a standard exit provision to Section 3.5 so that, on expiry or termination, IBM provides up to six months of transition assistance at its then-current rates, returns our Content in a machine-readable format within thirty days, and then deletes and certifies deletion. As a hosted services agreement, the contract currently gives us no right to retrieve our Content on exit; we can accept a 90-day assistance window as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "",
+          "paragraphId": "p0049",
+          "text": "Upon expiry or termination of this Agreement or any Service Option Attachment for any reason, IBM shall (a) at Customer's request, provide reasonable transition assistance for up to six (6) months at IBM's then-current rates; (b) within thirty (30) days of Customer's request, return to Customer all Content in a commonly used, machine-readable format; and (c) thereafter delete Content from its systems and certify such deletion in writing."
+        }
+      ],
+      "summary": "Insert transition assistance and Content return/deletion obligations into Section 3.5"
+    },
+    "quote": "Upon the date of termination, all Customer payment obligations accrued hereunder through the date of termination will become due and payable. The termination of selected Service Option Attachments will not affect Customer's obligation to pay charges under other Service Option Attachments.",
+    "rationale": "This is a hosted e-business services agreement, but Section 3.5 (Effect of Termination) addresses only Customer's payment obligations; no provision anywhere in the Agreement (including 11.6 Content and Digital Certificates, 14.18 Data Protection, or 14.2 Survival) gives us a right to transition assistance, return or export of our Content, or any deletion/certification obligation on IBM. Searches for transition, deletion and data return returned nothing. The rule's fallback (90 days' assistance plus 30-day export) is therefore also unmet, so we insert the preferred exit provision into Section 3.5, which already survives termination under Section 14.2.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-3.5",
+    "sectionRef": "§ 3.5 Effect of&sbsp;Termination",
+    "severity": "medium",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "official check: data return/transition present",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred transition includes then-current rates",
+          "ok": true
+        },
+        {
+          "detail": "State standard machine-readable format expressly in the transition obligation.",
+          "name": "precision position: preferred transition includes standard machine-readable format",
+          "ok": false
+        },
+        {
+          "detail": "State 30-day return after expiry or termination expressly in the transition obligation.",
+          "name": "precision position: preferred transition includes 30-day return after expiry or termination",
+          "ok": false
+        },
+        {
+          "name": "precision position: preferred transition includes deletion after return",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred transition includes certification of deletion",
+          "ok": true
+        },
+        {
+          "detail": "Run the 30-day Customer Data return deadline from expiry or termination even when transition assistance itself is requested later.",
+          "name": "precision position: preferred transition return deadline runs from expiry or termination, not a later request",
+          "ok": false
+        },
+        {
+          "name": "precision position: transition duties do not newly trigger on termination of an individual Order Form",
+          "ok": true
+        },
+        {
+          "name": "official minimality gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Transition assistance provided on expiry or termination",
+          "evidence": "Upon expiry or termination ... provide reasonable transition assistance",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Assistance available for up to 6 months",
+          "evidence": "for up to six (6) months",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Assistance at then-current rates",
+          "evidence": "at IBM's then-current rates",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Return of Customer Data within 30 days of expiry or termination",
+          "evidence": "within thirty (30) days of Customer's request, return to Customer all Content — deadline runs from a later request, not from expiry or termination",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Return in a standard machine-readable format",
+          "evidence": "in a commonly used, machine-readable format (not the express 'standard' machine-readable format)",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Deletion of Customer Data after return",
+          "evidence": "thereafter delete Content from its systems",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Written certification of deletion",
+          "evidence": "certify such deletion in writing",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "At least 90 days of transition assistance",
+          "evidence": "transition assistance for up to six (6) months",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Data export/return within 30 days",
+          "evidence": "within thirty (30) days of Customer's request — the 30-day clock is conditioned on a request rather than running from exit",
+          "level": "fallback",
+          "status": "not_met"
+        }
+      ],
+      "minimal": true,
+      "notes": "precision position: preferred transition includes standard machine-readable format: State standard machine-readable format expressly in the transition obligation. precision position: preferred transition includes 30-day return after expiry or termination: State 30-day return after expiry or termination expressly in the transition obligation. precision position: preferred transition return deadline runs from expiry or termination, not a later request: Run the 30-day Customer Data return deadline from expiry or termination even when transition assistance itself is requested later. The data-return deadline is measured from 'Customer's request' rather than from expiry or termination, so there is no fixed 30-day post-exit return obligation; a request condition must not swallow the mandatory post-termination data return. Change (b) to 'within thirty (30) days of expiry or termination'. The format is 'commonly used, machine-readable' rather than the preferred express 'standard machine-readable format'; substitute 'standard machine-readable format'. Because both the preferred and fallback 30-day return element fails on the same request-triggered timing, neither level is complete despite the 6-month assistance window and deletion/certification being satisfied. Insertion is otherwise appropriately concise for an absent clause and does not disturb the existing payment-accrual sentences.",
+      "preservesIntent": true,
+      "satisfiesFallback": false,
+      "satisfiesPreferred": false,
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.76,
+    "costUsd": 0.45192875,
+    "durationMs": 153114,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Customer assignment to an affiliate without consent.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer assignment to a successor in a merger without consent.",
+          "quote": "Notwithstanding the foregoing, Customer may assign this Agreement to a successor organization by merger, consolidation or acquisition.",
+          "status": "already_met"
+        },
+        {
+          "element": "Customer assignment to a successor in an acquisition without consent.",
+          "quote": "Notwithstanding the foregoing, Customer may assign this Agreement to a successor organization by merger, consolidation or acquisition.",
+          "status": "already_met"
+        },
+        {
+          "element": "Customer assignment to a successor in a sale of substantially all assets without consent.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "No Vendor assignment without Customer's consent.",
+          "operationIndexes": [
+            2
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer's consent to Vendor assignment not to be unreasonably withheld.",
+          "operationIndexes": [
+            2
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "No Vendor assignment to a Customer competitor.",
+          "operationIndexes": [
+            2
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "No Vendor termination right on Customer's change of control.",
+          "quote": "Any attempted assignment in violation of the foregoing will be void. In any permitted assignment, Customer will remain liable for its obligations hereunder.",
+          "status": "already_met"
+        }
+      ]
+    },
+    "id": "f-assign-67988114",
+    "paragraphIds": [
+      "p0188",
+      "p0187"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have extended our existing consent-free carve-out to affiliates and to a sale of substantially all assets, and added one sentence making IBM's own assignment subject to our consent (not unreasonably withheld) and barring assignment to a competitor of ours. As drafted only we were restricted while IBM could transfer the Agreement freely, including to a competitor.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Notwithstanding the foregoing, Customer may assign this Agreement to an affiliate or a successor organization by merger, consolidation, acquisition or sale of substantially all assets.",
+          "oldText": "Notwithstanding the foregoing, Customer may assign this Agreement to a successor organization by merger, consolidation or acquisition.",
+          "paragraphId": "p0188"
+        },
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0188",
+          "text": "IBM will not assign this Agreement or any of its rights hereunder without Customer's prior written consent, such consent not to be unreasonably withheld, and will not assign this Agreement to a competitor of Customer."
+        }
+      ],
+      "summary": "Extend Customer's consent-free assignment carve-out to affiliates and asset sales and restrict IBM's assignment to our reasonable consent, never to a competitor"
+    },
+    "quote": "Customer will not assign this Agreement or any of its rights hereunder without the prior written consent of IBM, such consent not to be unreasonably withheld. Notwithstanding the foregoing, Customer may assign this Agreement to a successor organization by merger, consolidation or acquisition.",
+    "rationale": "Section 14.10 restricts only Customer: we need IBM's consent for assignments (with a merger/consolidation/acquisition carve-out), while IBM's own right to assign is entirely unrestricted. That one-sidedness fails even the fallback, which requires a mutual right to assign to successors and a reasonableness-qualified consent standard on both sides; it also leaves IBM free to transfer the Agreement to a competitor of ours. Secondary gaps (no affiliate carve-out, no sale-of-substantially-all-assets language) are addressed in the same edit. No change-of-control termination or re-pricing right in IBM's favour appears anywhere in the Agreement, so the walk-away trigger is not present. Redline makes the clause reciprocal and adds the affiliate/asset-sale carve-out.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-14.10",
+    "sectionRef": "§ 14.10 Assignment",
+    "severity": "low",
+    "status": "deviation",
+    "verification": {
+      "attempts": 2,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "official check: successor/affiliate carve-out for Customer present",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred affiliate assignment is not limited by financial qualification",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred assignment adds no change-of-control deemed-assignment rule",
+          "ok": true
+        },
+        {
+          "name": "official minimality gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Customer may assign without Vendor consent to an affiliate",
+          "evidence": "\"Notwithstanding the foregoing, Customer may assign this Agreement to an affiliate\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer may assign without consent to a successor in merger, consolidation/acquisition",
+          "evidence": "\"or a successor organization by merger, consolidation, acquisition\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer consent-free assignment extends to sale of substantially all assets",
+          "evidence": "\"acquisition or sale of substantially all assets\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor may not assign without Customer's consent, not to be unreasonably withheld",
+          "evidence": "\"IBM will not assign this Agreement ... without Customer's prior written consent, such consent not to be unreasonably withheld\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor may never assign to a Customer competitor",
+          "evidence": "\"and will not assign this Agreement to a competitor of Customer\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "No Vendor termination right on Customer's change of control",
+          "evidence": "Neither the original nor the redlined clause creates any IBM termination right on Customer change of control; condition demonstrably absent.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Mutual right to assign to successors",
+          "evidence": "Customer carve-out for successors; IBM may assign with consent \"not to be unreasonably withheld\"",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Written notice of successor assignment",
+          "evidence": "No notice mechanic appears; clause is silent on notice.",
+          "level": "fallback",
+          "status": "not_met"
+        },
+        {
+          "element": "Consent for other assignments not unreasonably withheld",
+          "evidence": "\"such consent not to be unreasonably withheld\" (both directions)",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "The locked preferred level is fully met: the Customer carve-out now covers affiliates and sale of substantially all assets, and one inserted sentence subjects IBM's assignment to our consent (not unreasonably withheld) and bars assignment to a competitor. No Vendor change-of-control termination right exists anywhere in the clause, so that conditional preferred element is satisfied by absence. Edits are confined to one phrase replacement plus a single reciprocal sentence; the void-assignment and continuing-liability sentences and all other commercial terms remain intact, with no undefined term or dangling mechanic introduced. Fallback is not independently complete only because no written-notice mechanic is added, which is irrelevant given the preferred level is achieved.",
+      "preservesIntent": true,
+      "satisfiesFallback": false,
+      "satisfiesPreferred": true,
+      "verdict": "repaired"
+    }
+  },
+  {
+    "confidence": 0.68,
+    "costUsd": 0.2553875,
+    "durationMs": 83627,
+    "id": "f-audit-54ffa9fd",
+    "paragraphIds": [
+      "p0132",
+      "p0137",
+      "p0138"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have added standard limits on IBM's investigation and verification rights - once per 12 months, 30 days' notice, business hours, independent auditor under confidentiality, IBM's cost unless an underpayment over 5% is found, and no access to our systems - since as drafted the right is unlimited, unannounced and at our expense. The emergency and legal-requirement carve-out is preserved; if helpful we can accept 15 days' notice and a 10% underpayment threshold.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "11.3(e)",
+          "paragraphId": "p0138",
+          "text": "Except in an emergency or as otherwise required by law, any investigation, inspection, verification or audit by IBM of Customer's use of the Services, Content, records or facilities will be conducted no more than once in any twelve (12) month period, upon at least thirty (30) days' prior written notice to Customer, during Customer's normal business hours, and by an independent auditor bound by written obligations of confidentiality no less protective than those in this Agreement. IBM will bear all costs of such investigation, inspection, verification or audit unless it reveals an underpayment by Customer exceeding five percent (5%) of the amounts due for the period reviewed. IBM will have no direct or remote access to Customer's systems or networks for such purposes, and Customer may satisfy any such request by providing the relevant information to IBM off-site."
+        }
+      ],
+      "summary": "Add frequency, notice, cost and no-system-access limits to IBM's investigation/audit right in 11.3."
+    },
+    "quote": "IBM reserves the right to investigate potential violations of the representations and warranties in Subsection 11.2(b).",
+    "rationale": "The only inspection/verification right binding us is IBM's right in § 11.3 to investigate potential violations of our AUP warranty, reinforced by our obligation in p0138 to hand over \"all relevant information\" on request. That right is unlimited in frequency, unannounced (the notice in p0137 applies only before IBM restricts access or removes Content, not before investigating), silent on cost allocation and on any confidentiality-bound independent auditor, and does not exclude access to our systems. That fails the fallback (once per year on 15 days' notice, Vendor bears cost unless underpayment exceeds 10%) and touches walk-away territory (unlimited/unannounced audits). We propose the minimal insert of the preferred parameters, preserving IBM's emergency and legal-requirement carve-out, with the fallback offered in the comment.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-11.3",
+    "sectionRef": "§ 11.3 Suspected Violations",
+    "severity": "low",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "official check: audit frequency limited",
+          "ok": true
+        },
+        {
+          "name": "official minimality gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Audit no more than once per 12 months",
+          "evidence": "\"will be conducted no more than once in any twelve (12) month period\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "At least 30 days' prior written notice",
+          "evidence": "\"upon at least thirty (30) days' prior written notice to Customer\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Conducted during business hours",
+          "evidence": "\"during Customer's normal business hours\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Conducted by an independent auditor bound by confidentiality",
+          "evidence": "\"by an independent auditor bound by written obligations of confidentiality no less protective than those in this Agreement\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor bears cost unless underpayment exceeds 5%",
+          "evidence": "\"IBM will bear all costs ... unless it reveals an underpayment by Customer exceeding five percent (5%) of the amounts due for the period reviewed\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "No direct access to Customer systems",
+          "evidence": "\"IBM will have no direct or remote access to Customer's systems or networks for such purposes\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Audit once per year",
+          "evidence": "\"no more than once in any twelve (12) month period\"",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "At least 15 days' notice",
+          "evidence": "\"at least thirty (30) days' prior written notice\" (exceeds the 15-day floor)",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Vendor bears cost unless underpayment exceeds 10%",
+          "evidence": "\"IBM will bear all costs ... unless it reveals an underpayment by Customer exceeding five percent (5%)\" (more protective of Customer)",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "All six atomic preferred elements are expressly stated in the inserted Subsection 11.3(e): annual frequency cap, 30 days' prior written notice, business hours, independent auditor under written confidentiality, IBM cost unless underpayment exceeds 5%, and no system access. The insertion is a concise new subsection addressing an absent limitation; the original unlimited investigation right and the existing notice/emergency carve-out sentences remain effective, so no term is contradicted and no undefined term is introduced. The retained \"Except in an emergency or as otherwise required by law\" opener mirrors the existing 11.3 carve-out rather than creating a new substantive exception, and the off-site-response and \"or remote\" additions are short scoping mechanics that operate in Customer's favour, so minimality is not offended. The clause also comfortably clears the fallback (15 days / 10%), but as the locked target is preferred it should be presented as meeting the preferred position.",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": true,
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.23628775,
+    "durationMs": 73556,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Commercial general liability of USD 1M per occurrence.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Commercial general liability of USD 2M aggregate.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Professional errors and omissions insurance of USD 2M.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Cyber and privacy insurance of USD 5M for vendors processing Customer Data.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Workers' compensation as required by law.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Certificates of insurance on request.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-insurance-85b546a2",
+    "paragraphIds": [
+      "p0192"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] The agreement has no insurance provision even though IBM hosts our environment and processes Customer Data, so we have added a short clause requiring standard CGL, E&O and cyber coverage plus workers' compensation, with certificates on request; we removed the one-year post-termination tail. If the stated limits are an issue, we can accept E&O of USD 1,000,000 and cyber of USD 2,000,000.",
+      "level": "preferred",
+      "ops": [
+        {
+          "asHeading": false,
+          "kind": "insert_after",
+          "numbering": "14.12A",
+          "paragraphId": "p0192",
+          "text": "14.12A Insurance. IBM shall maintain, at its own expense, throughout the Term: commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; cyber liability insurance of not less than USD 5,000,000 covering IBM's processing of Customer Data; and workers' compensation insurance as required by applicable law. IBM shall provide certificates of insurance to Customer on request."
+        }
+      ],
+      "summary": "Insert vendor insurance clause after Risk of Loss, without post-termination tail"
+    },
+    "quote": "Risk of loss for all Base Components shall at all times remain with IBM. Risk of loss for all Customer Components shall at all times remain with Customer.",
+    "rationale": "A full-text search for insurance/coverage terms returns nothing, and the candidate sections (5.3 Security, 14.12 Risk of Loss, 14.18 Data Protection) contain no insurance undertaking. IBM is a hosting vendor that operates the e-business Hosting Environment and processes personal information on our behalf, so the playbook expects standard vendor coverage; a hosting vendor processing personal data with no insurance is walk-away territory. We inserted the preferred short clause (CGL 1M/2M, E&O 2M, cyber 5M, workers' comp, certificates on request) in the miscellaneous section next to Risk of Loss, with the E&O 1M / cyber 2M fallback flagged in the comment.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-14.12",
+    "sectionRef": "§ 14.12 Risk of Loss",
+    "severity": "low",
+    "status": "missing",
+    "verification": {
+      "attempts": 2,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "official check: insurance obligation present",
+          "ok": true
+        },
+        {
+          "name": "precision position: insurance adds no post-termination coverage tail",
+          "ok": true
+        },
+        {
+          "name": "official minimality gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Commercial general liability USD 1M per occurrence",
+          "evidence": "commercial general liability insurance of not less than USD 1,000,000 per occurrence",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "CGL USD 2M aggregate",
+          "evidence": "USD 2,000,000 in the aggregate",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Professional liability (E&O) USD 2M",
+          "evidence": "professional liability (errors and omissions) insurance of not less than USD 2,000,000",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Cyber/privacy USD 5M where Vendor processes Customer Data",
+          "evidence": "cyber liability insurance of not less than USD 5,000,000 covering IBM's processing of Customer Data",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Workers' compensation as required by law",
+          "evidence": "workers' compensation insurance as required by applicable law",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Certificates on request",
+          "evidence": "IBM shall provide certificates of insurance to Customer on request",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor is the insuring party and coverage is maintained for the contract duration",
+          "evidence": "IBM shall maintain, at its own expense, throughout the Term",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "E&O USD 1M",
+          "evidence": "errors and omissions) insurance of not less than USD 2,000,000",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Cyber USD 2M",
+          "evidence": "cyber liability insurance of not less than USD 5,000,000",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "The document contained no insurance provision; a single concise inserted sub-clause supplies every preferred element (CGL 1M/2M, E&O 2M, cyber 5M tied to Customer Data processing, statutory workers' comp, certificates on request). No post-termination tail, audit rights, additional-insured, or other extras beyond the preferred position were added, so the insertion is minimal for an absent clause. The existing risk-of-loss allocation in 14.12 is untouched and no undefined term or dangling mechanic is introduced ('Term' and 'Customer Data' are agreement-level concepts).",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": true,
+      "verdict": "repaired"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.32162,
+    "durationMs": 97540,
+    "elementCoverage": {
+      "level": "fallback",
+      "mappings": [
+        {
+          "element": "Customer-payable liquidated amount limited to an early-termination fee.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Early-termination fee capped at 3 months' fees.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Early-termination fee as the sole liquidated amount.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-ld-491fadc3",
+    "paragraphIds": [
+      "p0046",
+      "p0044",
+      "p0045"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have added one short sentence capping the early termination charges at 3 months' fees for the terminated Services and confirming they are the sole liquidated damages or penalty payable by us, since Attachment A leaves the amount open-ended. This is our fallback position on liquidated damages payable by Customer.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0046",
+          "text": "Such early termination charges will not exceed 3 months' fees for the terminated Services and are the sole liquidated damages or penalty payable by Customer."
+        }
+      ],
+      "summary": "Add one sentence capping early termination charges at 3 months' fees as the sole liquidated amount."
+    },
+    "quote": "b. paying the applicable early termination charges, if any, specified in Attachment A and applicable Service Option Attachments.",
+    "rationale": "Section 3.4(b) requires Customer to pay \"early termination charges\" on a convenience termination, with the amount fixed only by reference to Attachment A and the Service Option Attachments, neither of which is quantified in this Agreement (and Attachment A terms are unilaterally changeable by IBM on 90 days' notice under Section 13.1). That is an open-ended stipulated amount payable by us, so it fails the fallback of an early-termination fee capped at three months' fees; it is not saved by Section 9.2, which caps damages claims rather than contractual termination charges. Because the charge is part of the bargain for a one-month convenience termination right, we propose the fallback rather than outright deletion: cap it at three months' recurring charges for the terminated Services and confirm it is the sole amount payable, with no other liquidated damages or penalties. Section 3.3 (no early termination charges where IBM is in breach) benefits us and is not flagged.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-3.4",
+    "sectionRef": "§ 3.4 Termination for Convenience",
+    "severity": "low",
+    "status": "deviation",
+    "verification": {
+      "attempts": 2,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "precision position: fallback liquidated amount is solely an early-termination fee capped at 3 months' fees",
+          "ok": true
+        },
+        {
+          "name": "official minimality gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Early-termination fee (or any liquidated damages/penalty) payable by Customer is capped at 3 months' fees",
+          "evidence": "\"Such early termination charges will not exceed 3 months' fees for the terminated Services\"",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "That capped early-termination charge is the sole liquidated amount payable by Customer",
+          "evidence": "\"are the sole liquidated damages or penalty payable by Customer\"",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "No liquidated damages payable by Customer",
+          "evidence": "\"paying the applicable early termination charges, if any, specified in Attachment A\" remains operative",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "No penalties payable by Customer",
+          "evidence": "clause retains \"early termination charges\" as a Customer payment obligation; only capped, not removed",
+          "level": "preferred",
+          "status": "not_met"
+        }
+      ],
+      "minimal": true,
+      "notes": "Both atomic fallback elements are satisfied by the single inserted sentence: a 3 months' fees cap on the early termination charge and exclusivity as the sole liquidated damages or penalty payable by Customer. Preferred is not met because the Customer's obligation to pay early termination charges under sub-paragraph (b) survives; the drafter's locked target was fallback, so this is acceptable. Minimality holds: one concise sentence appended to an existing clause that left the amount open-ended, with no rewrite of the termination mechanics, notice period, or prerequisite carve-out. Intent preserved: termination-for-convenience right, one month's notice, Attachment A reference and Service Option Attachment structure remain effective; no undefined terms or dangling mechanics introduced ('fees' and 'Services' track existing defined usage).",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": false,
+      "verdict": "repaired"
+    }
+  },
+  {
+    "confidence": 0.83,
+    "costUsd": 0.372447,
+    "durationMs": 106411,
+    "elementCoverage": {
+      "level": "fallback",
+      "mappings": [
+        {
+          "element": "Affiliates covered on written notice.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Licence transferable to a successor in an M&A transaction.",
+          "quote": "Customer may assign this Agreement to a successor organization by merger, consolidation or acquisition.",
+          "status": "already_met"
+        }
+      ]
+    },
+    "id": "f-license-3b116be6",
+    "paragraphIds": [
+      "p0149",
+      "p0202",
+      "p0188"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have extended the Base Components licence to our Affiliates upon written notice to IBM, which is our fallback position on licence scope; successor transfer in an M&A transaction is already preserved by Section 14.10, so no further change is needed there.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "IBM grants Customer and, upon written notice to IBM, Customer's Affiliates a nonexclusive, revocable license to use the Base Components solely in connection with the Services as provided under this Agreement.",
+          "oldText": "IBM grants Customer a nonexclusive, revocable license to use the Base Components solely in connection with the Services as provided under this Agreement.",
+          "paragraphId": "p0149"
+        }
+      ],
+      "summary": "Extend the Base Components licence to Customer's Affiliates on written notice to IBM."
+    },
+    "quote": "IBM grants Customer a nonexclusive, revocable license to use the Base Components solely in connection with the Services as provided under this Agreement.",
+    "rationale": "The § 12.1 grant is expressly \"revocable\" with no cause standard, i.e. terminable at IBM's discretion, which is walk-away territory under this rule. It also runs to \"Customer\" alone: Affiliates and Subcontractors are defined in the Preamble but are not named as permitted users, and § 14.17 confirms no other licences or rights are granted, so there is no path to add them. § 14.10 permits assignment of the Agreement to an M&A successor, satisfying only the transfer limb of the fallback; the affiliate/contractor and revocability limbs fail. The redline extends the grant to Affiliates and Subcontractors acting on our behalf, ties revocation to termination for cause under § 3.3, and confirms successor transfer; the fallback (Affiliates added on written notice) is offered in the comment.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-12.1",
+    "sectionRef": "§ 12.1 License",
+    "severity": "low",
+    "status": "deviation",
+    "verification": {
+      "attempts": 2,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "official check: affiliates covered by the licence",
+          "ok": true
+        },
+        {
+          "name": "official check: no at-will revocation remains",
+          "ok": true
+        },
+        {
+          "name": "precision position: fallback licence covers affiliates on written notice",
+          "ok": true
+        },
+        {
+          "name": "precision position: fallback licence transfers to an M&A successor",
+          "ok": true
+        },
+        {
+          "name": "precision position: fallback licence adds no preferred-only scope or duration",
+          "ok": true
+        },
+        {
+          "name": "official minimality gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Fallback: licence extends to Customer's affiliates upon written notice",
+          "evidence": "\"IBM grants Customer and, upon written notice to IBM, Customer's Affiliates a nonexclusive, revocable license to use the Base Components\"",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Fallback: agreement/licence transferable to a successor in an M&A transaction",
+          "evidence": "\"Customer may assign this Agreement to a successor organization by merger, consolidation or acquisition.\" (pre-existing, untouched)",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Preferred: licence extends to Customer's affiliates",
+          "evidence": "\"Customer and, upon written notice to IBM, Customer's Affiliates\" (with a notice condition, so preferred-level unconditional coverage is only approximated)",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Preferred: licence extends to contractors acting on Customer's behalf",
+          "evidence": "Grant runs only to \"Customer and ... Customer's Affiliates\"; no contractor language anywhere.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Preferred: paid-up licences perpetual and irrevocable",
+          "evidence": "Licence remains \"nonexclusive, revocable\"; no perpetual/irrevocable wording.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Preferred: subscription licences terminable only for uncured material breach",
+          "evidence": "No termination-trigger limitation; the grant is still expressly \"revocable\".",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Preferred: transferable to successors",
+          "evidence": "\"Customer may assign this Agreement to a successor organization by merger, consolidation or acquisition.\"",
+          "level": "preferred",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "Locked fallback level is complete: affiliate coverage on written notice was inserted, and M&A successor transfer already exists in the untouched assignment paragraph, so no second edit was needed. The edit is a single in-line insertion into the grant sentence; no other sentence, the anti-reverse-engineering covenant, the assignment mechanics, or the no-implied-licence sentence was altered. Preferred level is not reached (still \"revocable\", no perpetual/irrevocable paid-up licence, no uncured-material-breach-only termination, no contractor coverage) — correctly not attempted at the locked fallback level, and no preferred-only scope or duration was smuggled in. Minor drafting note only: \"Affiliates\" is capitalised but the resolved definitions do not show an Affiliate definition; if the Agreement lacks one, conform to lower case or cross-reference the definition. This does not defeat the fallback.",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": false,
+      "verdict": "repaired"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.59507225,
+    "durationMs": 183398,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Mutual cap.",
+          "operationIndexes": [
+            1,
+            2
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Cap equal to the greater of fees paid or payable in the 12 months preceding the claim and USD 1,000,000.",
+          "operationIndexes": [
+            1,
+            2
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Mutual exclusion of indirect damages.",
+          "quote": "In no event will either party be liable to the other for special, incidental, or indirect damages",
+          "status": "already_met"
+        },
+        {
+          "element": "Mutual exclusion of consequential damages.",
+          "quote": "or for any consequential damages (including lost profits or savings)",
+          "status": "already_met"
+        },
+        {
+          "element": "Uncapped breach of confidentiality obligations.",
+          "operationIndexes": [
+            3
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Uncapped breach of data protection obligations.",
+          "operationIndexes": [
+            3
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Uncapped breach of security obligations.",
+          "operationIndexes": [
+            3
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Uncapped indemnification obligations.",
+          "operationIndexes": [
+            3
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Uncapped gross negligence.",
+          "operationIndexes": [
+            3
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Uncapped wilful misconduct.",
+          "operationIndexes": [
+            3
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Uncapped fraud.",
+          "operationIndexes": [
+            3
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Uncapped infringement of the other party's IP.",
+          "operationIndexes": [
+            3
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer's payment obligations are not damages for cap purposes.",
+          "operationIndexes": [
+            3
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-lol-cap-6ad0f185",
+    "paragraphIds": [
+      "p0112",
+      "p0119",
+      "p0123",
+      "p0121",
+      "p0110",
+      "p0117",
+      "p0122"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have aligned both caps with our position - the greater of USD 1,000,000 and the fees paid or payable in the 12 months preceding the claim - and added a short mutual Excluded Claims provision so confidentiality, data protection and security breaches, indemnities, gross negligence, wilful misconduct, fraud and IP infringement sit outside the cap, with Customer's payment obligations confirmed not to be damages. Our fallback is the existing mutual 12 months' charges cap with carve-outs for indemnities, confidentiality, gross negligence and wilful misconduct.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "c. the amount of any other actual direct damages, up to the greater of USD 1,000,000 or the fees paid or payable in the 12 months preceding the claim related to the Services.",
+          "oldText": "c. the amount of any other actual direct damages, up to the greater of $100,000 or the charges paid by Customer to IBM for the Services in the twelve (12) months immediately preceding the accrual of the first claim related to the Services.",
+          "paragraphId": "p0112"
+        },
+        {
+          "kind": "replace",
+          "newText": "(c) the amount of any other actual direct damages, up to the greater of USD 1,000,000 or the fees paid or payable in the 12 months preceding the claim related to the Services.",
+          "oldText": "(c) the amount of any other actual direct damages, up to the greater of $100,000 or the charges paid by Customer to IBM for the Services in the twelve (12) months immediately preceding the accrual of the first claim related to the Services.",
+          "paragraphId": "p0119"
+        },
+        {
+          "kind": "insert_after",
+          "numbering": "9.3",
+          "paragraphId": "p0121",
+          "text": "9.3 Excluded Claims. Notwithstanding Sections 9.1, 9.2 and 10, the limitations and exclusions of liability in this Agreement do not apply to a party's breach of its confidentiality, data protection or security obligations, its indemnification obligations, its gross negligence, wilful misconduct or fraud, or its infringement of the other party's intellectual property rights. Customer's payment obligations under this Agreement are not damages for purposes of Sections 9.1, 9.2 and 10."
+        }
+      ],
+      "summary": "Reset both liability caps to the greater of USD 1,000,000 and fees paid or payable in the 12 months preceding the claim, and add a mutual Excluded Claims provision with payment obligations excluded from damages"
+    },
+    "quote": "c. the amount of any other actual direct damages, up to the greater of $100,000 or the charges paid by Customer to IBM for the Services in the twelve (12) months immediately preceding the accrual of the first claim related to the Services.",
+    "rationale": "Sections 9.1 and 9.2 impose substantively identical caps on IBM and on Customer (greater of $100,000 or 12 months' charges paid), and Section 10 excludes consequential damages mutually while preserving Customer's payment obligations — so mutuality, basis and the treatment of payment obligations sit at or above the fallback (the $100,000 floor is below our preferred USD 1,000,000 floor, which we note but do not treat as material). The clause nonetheless fails the fallback on carve-outs: only indemnification payments (Sections 8.1/8.2) and bodily injury/tangible property claims are excluded from the cap, with no carve-out for breach of confidentiality, data protection or security obligations, gross negligence, wilful misconduct, fraud or IP infringement. This is aggravated by Section 6, which provides that Sections 5, 9 and 10 prevail over the AECI for confidential information in the hosting environment, and by Section 9.1(2), which bars any recovery for loss of or damage to Customer's records or data. We propose a single mutual \"Excluded Claims\" provision rather than rewriting the section.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-9.1",
+    "sectionRef": "§ 9.1 IBM's Limitation of Liability",
+    "severity": "low",
+    "status": "deviation",
+    "verification": {
+      "attempts": 2,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 3 applies",
+          "ok": true
+        },
+        {
+          "name": "official check: cap references 12 months of fees or a fixed floor",
+          "ok": true
+        },
+        {
+          "name": "official check: no unlimited Customer liability language remains",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred fee limb uses the exact lowercase fee basis and claim anchor",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred cap includes USD 1,000,000",
+          "ok": true
+        },
+        {
+          "name": "precision position: Customer payment obligations are not damages",
+          "ok": true
+        },
+        {
+          "name": "official minimality gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Vendor-side cap equal to the greater of (a) fees paid or payable in the 12 months preceding the claim and (b) USD 1,000,000",
+          "evidence": "up to the greater of USD 1,000,000 or the fees paid or payable in the 12 months preceding the claim related to the Services (IBM limb, p0112)",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer-side cap on the same greater-of basis (mutuality of cap)",
+          "evidence": "(c) ... up to the greater of USD 1,000,000 or the fees paid or payable in the 12 months preceding the claim related to the Services (Customer limb, p0119)",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Mutual exclusion of indirect/consequential damages",
+          "evidence": "In no event will either party be liable to the other for special, incidental, or indirect damages or for any consequential damages (including lost profits or savings)",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Uncapped carve-out for breach of confidentiality obligations",
+          "evidence": "do not apply to a party's breach of its confidentiality ... obligations",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Uncapped carve-out for data protection obligations",
+          "evidence": "breach of its confidentiality, data protection or security obligations",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Uncapped carve-out for security obligations",
+          "evidence": "data protection or security obligations",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Uncapped carve-out for indemnification obligations",
+          "evidence": "its indemnification obligations",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Uncapped carve-out for gross negligence",
+          "evidence": "its gross negligence",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Uncapped carve-out for wilful misconduct",
+          "evidence": "wilful misconduct",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Uncapped carve-out for fraud",
+          "evidence": "wilful misconduct or fraud",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Uncapped carve-out for infringement of the other party's IP",
+          "evidence": "its infringement of the other party's intellectual property rights",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer's payment obligations are not \"damages\" for cap purposes",
+          "evidence": "Customer's payment obligations under this Agreement are not damages for purposes of Sections 9.1, 9.2 and 10.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Carve-outs apply mutually (both parties' limitations)",
+          "evidence": "the limitations and exclusions of liability in this Agreement do not apply to a party's breach ...",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Mutual cap of 12 months' fees",
+          "evidence": "greater of USD 1,000,000 or the fees paid or payable in the 12 months preceding the claim — a greater-of cap, not a cap of 12 months' fees",
+          "level": "fallback",
+          "status": "not_met"
+        },
+        {
+          "element": "Carve-out for indemnification",
+          "evidence": "its indemnification obligations",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Carve-out for confidentiality",
+          "evidence": "breach of its confidentiality ... obligations",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Carve-out for gross negligence",
+          "evidence": "its gross negligence",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Carve-out for wilful misconduct",
+          "evidence": "wilful misconduct",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "All preferred atomic elements are present: both caps were reset to the greater of USD 1,000,000 and fees paid or payable in the 12 months preceding the claim, the pre-existing mutual consequential-damages exclusion is untouched, and a single concise mutual Excluded Claims provision supplies every required uncapped carve-out plus the payment-obligations-are-not-damages statement. Edits are minimal: two surgical replacements of the cap figure/fee basis and one short inserted paragraph for the absent carve-out clause; no whole-clause rewrite and no imported fallback-only language. Intent preserved: the cumulative-maximum, Affiliate/Subcontractor allocation, indemnification limbs and Section 10 payment proviso remain effective; the inserted clause uses existing defined terms and cross-references (Sections 9.1, 9.2, 10) without creating dangling mechanics. Fallback is not independently satisfied on its literal cap wording (a greater-of cap is not a cap of 12 months' fees), but the locked target is preferred, which is met, so this is not a deficiency.",
+      "preservesIntent": true,
+      "satisfiesFallback": false,
+      "satisfiesPreferred": true,
+      "verdict": "repaired"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.401252,
+    "durationMs": 170147,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Renewal only by mutual written agreement, unless the automatic-renewal alternative is complete.",
+          "operationIndexes": [
+            1,
+            2
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "For automatic renewal, 12-month renewals.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "For automatic renewal, Customer opt-out on 30 days' notice.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "For automatic renewal, Vendor reminder 60 days before renewal.",
+          "operationIndexes": [
+            2
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "For renewal price increases, cap at the lesser of CPI and 3%.",
+          "operationIndexes": [
+            2
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-renewal-af2f4576",
+    "paragraphIds": [
+      "p0040",
+      "p0038",
+      "p0039"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have set each renewal term at 12 months and shortened the non-renewal notice to 30 days' notice, since a renewal equal to the prior term can lock us into multi-year auto-renewals and 90 days' notice is longer than we can accept. The added sentence supplies the 60-day renewal reminder and caps renewal increases at the lesser of CPI and 3%.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Each Service Option Attachment will renew automatically for an additional term of 12 months unless either party notifies the other party in writing on at least 30 days' notice prior to the end of the then-current term for the applicable Service Option Attachment that it has elected to terminate such Service Option Attachment.",
+          "oldText": "Each Service Option Attachment will renew automatically for an additional term equal in duration to the previous term of the applicable Service Option Attachment unless either party notifies the other party in writing at least ninety (90) days prior to the end of the then-current term for the applicable Service Option Attachment that it has elected to terminate such Service Option Attachment.",
+          "paragraphId": "p0040"
+        },
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0040",
+          "text": "IBM will notify Customer in writing of the upcoming renewal at least 60 days prior to the end of the then-current term. Charges for any renewal term will not increase over the immediately preceding term by more than the lesser of the percentage increase in the Consumer Price Index and 3%."
+        }
+      ],
+      "summary": "Set renewals at 12 months with 30 days' non-renewal notice, and add a 60-day IBM renewal reminder plus a lesser-of-CPI-and-3% cap on renewal charges."
+    },
+    "quote": "Each Service Option Attachment will renew automatically for an additional term equal in duration to the previous term of the applicable Service Option Attachment unless either party notifies the other party in writing at least ninety (90) days prior to the end of the then-current term for the applicable Service Option Attachment that it has elected to terminate such Service Option Attachment.",
+    "rationale": "§ 3.2 provides automatic renewal for a term equal in duration to the prior term, which produces automatic multi-year renewals wherever an Order Form term exceeds 12 months (walk-away territory), and requires 90 days' non-renewal notice, well beyond the fallback maximum of 60 days. Neither § 3.2 nor § 4.1 (Charges) contains any cap on renewal price increases, so renewal pricing is unpredictable. Redline sets renewals at 12 months, shortens the notice window to 30 days, adds a 60-day IBM renewal reminder and caps uplift at the lesser of CPI and 3%; a 60-day window with a 5% cap remains available as a fallback.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-3.2",
+    "sectionRef": "§ 3.2 Renewal",
+    "severity": "low",
+    "status": "deviation",
+    "verification": {
+      "attempts": 2,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "detail": "value=30",
+          "name": "official check: non-renewal notice window ≤ 60 days",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred automatic renewal includes the lesser-of-CPI-and-3% price cap",
+          "ok": true
+        },
+        {
+          "name": "official minimality gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Automatic renewal for successive 12-month terms",
+          "evidence": "\"will renew automatically for an additional term of 12 months\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer may opt out / prevent renewal on 30 days' notice",
+          "evidence": "\"unless either party notifies the other party in writing on at least 30 days' notice prior to the end of the then-current term\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor reminder 60 days before renewal",
+          "evidence": "\"IBM will notify Customer in writing of the upcoming renewal at least 60 days prior to the end of the then-current term.\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Price increases capped at the lesser of CPI and 3%",
+          "evidence": "\"will not increase ... by more than the lesser of the percentage increase in the Consumer Price Index and 3%\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Automatic renewal with non-renewal notice window of no more than 60 days",
+          "evidence": "\"renew automatically ... unless either party notifies ... on at least 30 days' notice\" (30 ≤ 60)",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Price increases ≤ 5%",
+          "evidence": "\"the lesser of the percentage increase in the Consumer Price Index and 3%\" (≤ 5%)",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "All four preferred atomic elements are present in operative text: 12-month automatic renewal term, 30-day non-renewal notice available to Customer, a 60-day Vendor renewal reminder, and a lesser-of-CPI-and-3% cap on renewal charge increases. Edits are confined to the renewal sentence (term duration and notice period) plus one concise inserted sentence supplying the absent reminder and price-cap mechanics; the effective-date/term sentence and Order Form term reference are untouched. No new undefined terms, exceptions, or dangling mechanics; the mutual notice structure and 'then-current term' references remain coherent, and the fallback thresholds are also satisfied without borrowing across levels. Minor drafting nit only (noted, not a deviation): 'notifies ... in writing on at least 30 days' notice prior to the end' is slightly redundant phrasing where replacing 'ninety (90) days' with 'thirty (30) days' would have sufficed; it adds no substantive obligation.",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": true,
+      "verdict": "repaired"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.39601775,
+    "durationMs": 176222,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Customer termination for convenience.",
+          "operationIndexes": [
+            2
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "No more than 30 days' written notice.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Pro-rata refund of prepaid fees.",
+          "operationIndexes": [
+            2
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "No Vendor termination-for-convenience right during a committed term.",
+          "operationIndexes": [
+            2
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-t4c-f914c426",
+    "paragraphIds": [
+      "p0044",
+      "p0045",
+      "p0046",
+      "p0047",
+      "p0043"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We have moved this to our preferred position rather than the fallback, since the fallback would require lengthening our own notice period and granting IBM an end-of-term convenience exit it does not have today. The edit states Customer's notice as 30 days, adds the pro-rata refund of prepaid Charges, and confirms IBM has no convenience termination right during a committed term.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "a. providing at least 30 days' prior written notice to IBM; and",
+          "oldText": "a. providing at least one month's prior written notice to IBM; and",
+          "paragraphId": "p0045"
+        },
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0047",
+          "text": "Customer may terminate for convenience under this Section 3.4 without penalty, and IBM will refund any Charges prepaid for the period after the effective date of termination. IBM may not terminate this Agreement or any Service Option Attachment for convenience during any committed term."
+        }
+      ],
+      "summary": "Preferred T4C: 30 days' Customer convenience notice, pro-rata refund of prepaid Charges, and no IBM convenience termination during a committed term."
+    },
+    "quote": "b. paying the applicable early termination charges, if any, specified in Attachment A and applicable Service Option Attachments.",
+    "rationale": "Section 3.4 gives Customer a convenience right on one month's notice (effective at month end), and IBM has no convenience termination right anywhere in the Agreement (only for-cause termination under 3.3) — both consistent with the preferred position. However, the right is conditioned on paying open-ended early termination charges cross-referenced to Attachment A and the Service Option Attachments, with no cap and no refund of prepaid Charges (3.5 only accelerates accrued amounts). An uncapped exit charge fails even the fallback, which permits an early-termination fee not exceeding three months' fees, so the exit right is not meaningfully penalty-free. Per the redline guidance we applied the fallback fee cap (three months' Charges) rather than deleting the charge outright, and added the pro-rata refund of prepaid Charges.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-3.4",
+    "sectionRef": "§ 3.4 Termination for Convenience",
+    "severity": "low",
+    "status": "deviation",
+    "verification": {
+      "attempts": 2,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "official check: Customer convenience termination present",
+          "ok": true
+        },
+        {
+          "name": "official minimality gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Customer has a right to terminate for convenience",
+          "evidence": "\"Customer may terminate this Agreement ... for convenience at the end of any calendar month\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Notice period of 30 days' written notice by Customer",
+          "evidence": "\"providing at least 30 days' prior written notice to IBM\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Pro-rata refund of prepaid fees on such termination",
+          "evidence": "\"IBM will refund any Charges prepaid for the period after the effective date of termination\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor has no termination-for-convenience right during a committed term",
+          "evidence": "\"IBM may not terminate this Agreement or any Service Option Attachment for convenience during any committed term.\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer termination on 60–90 days' notice",
+          "evidence": "notice set at \"at least 30 days' prior written notice\", below the 60–90 day fallback band",
+          "level": "fallback",
+          "status": "not_met"
+        },
+        {
+          "element": "Early-termination fee not exceeding 3 months' fees",
+          "evidence": "\"paying the applicable early termination charges, if any, specified in Attachment A\" — amount not stated in clause",
+          "level": "fallback",
+          "status": "cannot_tell"
+        },
+        {
+          "element": "Vendor may terminate for convenience only at end of a term on 90 days' notice",
+          "evidence": "\"IBM may not terminate ... for convenience during any committed term\" (no end-of-term Vendor right granted)",
+          "level": "fallback",
+          "status": "not_met"
+        }
+      ],
+      "minimal": false,
+      "notes": "All four preferred atomic elements are satisfied on the operative text: Customer convenience right, 30 days' notice, refund of prepaid Charges for the post-termination period, and an express bar on IBM convenience termination during a committed term. The inserted phrase \"without penalty\" goes beyond what the preferred position requires (notice period, pro-rata refund, no Vendor convenience right) and was not needed to complete the level; it should be deleted. \"without penalty\" directly contradicts retained subsection b, which still obliges Customer to pay \"the applicable early termination charges, if any, specified in Attachment A\", leaving an unresolved conflict about whether early termination charges survive. Minor, note-only points: the retained \"at the end of any calendar month\" limits when the 30-day notice can take effect, and the refund is expressed as prepaid Charges for the post-termination period rather than the words \"pro-rata\" — acceptable in substance.",
+      "preservesIntent": false,
+      "satisfiesFallback": false,
+      "satisfiesPreferred": true,
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.8,
+    "costUsd": 0.48879875,
+    "durationMs": 148864,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Services performed in a professional manner.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Services performed in a workmanlike manner.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Deliverables conform to documentation.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Software conforms to documentation.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "12-month software conformance warranty.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "90-day Services warranty.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Repair remedy.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Replacement remedy.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Refund remedy.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Compliance with laws.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "No malicious code.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-warranty-83f1bf2d",
+    "paragraphIds": [
+      "p0061",
+      "p0062",
+      "p0074",
+      "p0063",
+      "p0059",
+      "p0060"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 5.1 warrants only reasonable care and skill and provides no conformance warranty or remedy for Materials or software. We have added our preferred express warranties - professional and workmanlike Services for 90 days from performance, 12-month conformance of deliverables and software to documentation, compliance with laws and no malicious code - with the standard repair, replacement or refund remedy.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0063",
+          "text": "IBM further represents and warrants that: (i) the Services will be performed in a professional and workmanlike manner, and for 90 days following performance will conform to the applicable Service Option Attachments; (ii) for 12 months following delivery, each Material or other deliverable and each item of software delivered by IBM will conform to its documentation; (iii) IBM will comply with all applicable laws; and (iv) no Material, deliverable or software delivered by IBM will contain any virus, worm or other malicious code. Customer's remedy for breach of these warranties is, at IBM's option, repair or replacement of the non-conforming Services, deliverable or software, or a refund of the charges paid for them."
+        }
+      ],
+      "summary": "Insert professional/workmanlike Services warranty (90 days), 12-month deliverable and software conformance to documentation, compliance with laws and no malicious code, with a repair, replacement or refund remedy."
+    },
+    "quote": "c. IBM PROVIDES ALL MATERIALS AND ALL NON-IBM SERVICES, PRODUCTS, DATA, APPARATUS AND SOFTWARE \"AS IS\", WITHOUT WARRANTY OF ANY KIND, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY, SATISFACTORY QUALITY, AND FITNESS FOR&sbsp;A PARTICULAR PURPOSE.",
+    "rationale": "Section 5.1(a) gives an acceptable, open-ended services warranty (reasonable care and skill by qualified personnel) and 5.1 also includes a compliance-with-laws covenant, so the services limb meets the playbook. However, there is no conformance warranty at all for Materials/deliverables and no malicious-code warranty, and Section 5.4(c) affirmatively provides all Materials \"AS IS\" with all warranties disclaimed — the playbook's walk-away position for deliverables. Nor is there any repair/replace/refund or re-performance remedy anywhere in the Agreement (no remedy language in Sections 5, 9 or 12.2), so even the fallback (90 days for software/deliverables with the stated remedies) is not met on a material term. The redline adds a 90-day Materials conformance and no-malicious-code warranty with an IBM-elected re-performance/repair/refund remedy and carves the Section 5.1 warranties out of the 5.4(c) disclaimer; the 5.2 exclusivity language can stand once the express warranties are preserved.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-5.1",
+    "sectionRef": "§ 5.1 IBM Representations and Warranties",
+    "severity": "low",
+    "status": "deviation",
+    "verification": {
+      "attempts": 2,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "official check: warranty period ≥ 90 days or expressed in months/years",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred warranty includes professional Services",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred warranty includes workmanlike Services",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred warranty includes professional and workmanlike coverage of the Services generally",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred warranty includes software conformance to documentation",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred warranty includes repair remedy",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred warranty includes replacement remedy",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred warranty includes refund remedy",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred warranty includes 12-month software period",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred warranty includes 90-day Services period",
+          "ok": true
+        },
+        {
+          "name": "precision position: preferred warranty includes 90-day Services period measured from performance or completion",
+          "ok": true
+        },
+        {
+          "name": "precision position: warranty adds no re-performance remedy",
+          "ok": true
+        },
+        {
+          "name": "official minimality gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Services performed in a professional manner",
+          "evidence": "the Services will be performed in a professional and workmanlike manner",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Services performed in a workmanlike manner",
+          "evidence": "professional and workmanlike manner",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Deliverables/software conform to documentation",
+          "evidence": "each Material or other deliverable and each item of software delivered by IBM will conform to its documentation",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "12-month software/deliverable conformance period",
+          "evidence": "for 12 months following delivery",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "90-day services warranty period measured from performance",
+          "evidence": "for 90 days following performance will conform to the applicable Service Option Attachments",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Repair remedy",
+          "evidence": "repair or replacement of the non-conforming Services, deliverable or software",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Replacement remedy",
+          "evidence": "repair or replacement",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Refund remedy",
+          "evidence": "or a refund of the charges paid for them",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Compliance with laws",
+          "evidence": "(iii) IBM will comply with all applicable laws",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "No malicious code",
+          "evidence": "no Material, deliverable or software delivered by IBM will contain any virus, worm or other malicious code",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "90-day software conformance period (fallback)",
+          "evidence": "12 months following delivery exceeds the 90-day fallback for software",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "30-day services period (fallback)",
+          "evidence": "90 days following performance exceeds the 30-day fallback",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Same remedies (repair/replace/refund) (fallback)",
+          "evidence": "repair or replacement ... or a refund of the charges paid",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "The inserted paragraph supplies every preferred atomic element: professional and workmanlike Services, 90-day Services conformance from performance, 12-month deliverable/software conformance to documentation, compliance with laws, no malicious code, and repair/replace/refund remedies. A single concise insertion is used for an absent conformance warranty; the original Section 5.1 wording, the corporate-authority representation, the IBM-business compliance covenant and the 'AS IS' third-party disclaimer are left untouched and effective. Minor point for the rationale only, not a deviation: the remedy election sits 'at IBM's option' and the refund is limited to 'charges paid', which is slightly narrower than an unqualified customer-elected refund.",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": true,
+      "verdict": "repaired"
+    }
+  }
+]

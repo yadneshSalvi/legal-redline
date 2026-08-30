@@ -1,0 +1,71 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeZ1UF7b4tDu9MJ6aMHfv",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll read the cited paragraphs first."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01K1EZ4jQwxYN9uohprqPX7W",
+        "name": "read_paragraphs",
+        "input": {
+          "paragraphIds": [
+            "p0104",
+            "p0658"
+          ]
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01QYCMSrVLT9hrbiiJM2VsQG",
+        "name": "lookup_precedent",
+        "input": {
+          "ruleId": "RENEWAL",
+          "context": "auto-renewal 12 months, 30 days opt-out, 60-day vendor reminder, CPI/3% cap"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3130,
+      "cache_read_input_tokens": 6324,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 3130,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 195,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "read_paragraphs",
+      "ruleId": "RENEWAL",
+      "sha256": "305a9557cb830732ad3a43e73715c2a40e0e9236834c14ed17a84a3f4c03d3fe"
+    },
+    {
+      "name": "lookup_precedent",
+      "ruleId": "RENEWAL",
+      "sha256": "df12ce9af1774549ab401972625e406de21237c075c390f00316a1b147045b60"
+    }
+  ],
+  "durationMs": 4058
+}

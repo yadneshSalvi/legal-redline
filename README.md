@@ -71,28 +71,48 @@ and forgets everything between contracts. Counsel still has to do the actual wor
 
 ## 5. Results (headline)
 
-12 contracts (8 lawyer-labelled CUAD filings + 4 seeded synthetic, one a definition-trap hard case), one playbook of
-18 rules, gold of 144 items (one per rule per contract, plus a second where CUAD labels two distinct clauses). The baseline is fair: the same model (Claude Opus 5) with the same playbook in one
-prompt. Every number replays from the committed cache at zero cost (`pnpm eval --all`).
+Two rounds of measurement, one fair baseline throughout: the same model (Claude Opus 5) with the same playbook and the
+whole contract in one prompt. Every number replays from the committed cache at zero cost (`pnpm eval --tier all`).
 
-| Metric | Baseline (one prompt + playbook) | Playbook Redliner (final) | Change |
+**Round 2 — pre-registered, independent judge v2.** Short tier = the 12 contracts of round 1 (3–8k words); long tier =
+6 CUAD agreements of 37–45k words chosen by a written rule before any result; gold anchored on CUAD's lawyer-labelled
+spans. Metrics are end-to-end: a redline counts only when it applies to the `.docx`, meets **every element** of the
+playbook position, is minimal and preserves intent (see [`EVAL.md`](EVAL.md) §9).
+
+| Metric | Baseline | Round-1 final | **Final v4 (shipped)** | Change vs baseline |
+|---|---:|---:|---:|---|
+| Complete redline rate, short tier | 1.1 % | 10.5 % | 54.7 % | +53.7 pp |
+| Complete redline rate, long tier | 0 % | 0 % | 22.9 % | +22.9 pp |
+| Long-document F1 / recall | 60.3 % / 45.0 % | 58.8 % / 43.7 % | 75.3 % / 68.6 % | +15.1 pp F1 / +23.6 pp recall |
+| Applied tracked-change yield, long tier | 41.7 % | 45.8 % | 62.5 % | +20.8 pp |
+| Redline validity (judge v2), short tier | 42.7 % | 44.8 % | 74.2 % | +31.5 pp |
+| Minimal edits (judge v2), short tier | 3.7 % | 13.8 % | 59.6 % | +55.9 pp |
+| Findings the system could not place (escalations), short / long | 12 / 11 | 0 / 3 | 0 / 5 | — |
+| Cost per contract, short / long | $0.35 / $0.79 | $3.51 / $5.73 | $5.14 / $11.11 | — |
+
+`final-v4` is a length router over the two configurations that measured best on each tier — `i7-precise` below 15,000
+words, `i6-longdoc` above — chosen from the ladder after the results, which we say plainly. The short-tier iteration was
+developed on four contracts and run once on the rest: its complete-redline rate is 22/32 = 68.8 % on those four and
+**30/63 = 47.6 % on the eight it never saw** — the holdout is the number we stand behind. The last configuration we
+built (`final-v3`: i7 + long-document planner + memory) regressed on long documents and is reported, not shipped. Memory (precedent adherence) stayed ≈ 0 on independent contracts, and a builder-side judge that was shown the
+pipeline's own checklist had reported 86 % where the independent judge reports a third of that; both are in the
+changelog. The long tier's F1 improves but the round-1 pipeline had lost to the baseline there, which we report.
+
+**Round 1 — issue detection, 12 short contracts, judge v1** (retained; this is where a one-prompt baseline is already
+strong):
+
+| Metric | Baseline | Round-1 final | Change |
 |---|---:|---:|---|
-| Issue-detection F1, macro over 12 contracts | 91.5% | 94.8% | +3.3 pp |
-| Recall / precision | 87.1% / 98.0% | 92.3% / 97.7% | +5.2 pp recall at the same precision |
-| Deviation-status accuracy (compliant vs deviation vs missing) | 77.6% | 86.8% | +9.2 pp |
-| Redline validity (applies ∧ checks ∧ independent GPT-5.6 judge) | 42.7% | 50.6% | +7.9 pp |
-| Minimal edits (word-level, ≤ 1.5× original) | 11.0% | 35.6% | +24.6 pp |
-| Findings the system could not place in the document (escalated to the human) | 12 | 0 | −12 |
-| Citation hallucination rate | 2.9% | 3.8% | +0.9 pp (within noise; reported as is) |
-| Document integrity (untouched paragraphs identical; LibreOffice round-trip) | n/a — no `.docx` output | 12/12 pass | — |
+| Issue-detection F1 (macro) | 91.5 % | 94.8 % | +3.3 pp (inside run-to-run variance, ≈ 1.2 pp) |
+| Recall / precision | 87.1 % / 98.0 % | 92.3 % / 97.7 % | +5.2 pp recall at the same precision |
+| Deviation-status accuracy | 77.6 % | 86.8 % | +9.2 pp |
+| Redline validity (judge v1) / minimal edits | 42.7 % / 11.0 % | 50.6 % / 35.6 % | +7.9 pp / +24.6 pp |
+| Document integrity (untouched paragraphs identical; LibreOffice round-trip) | n/a — no `.docx` output | 12/12 | — |
 | Output | JSON + replacement strings | `.docx` with tracked changes + comments, issues memo | — |
-| Cost per contract (list prices) | $0.35 | $3.51 | ×10 |
 
-Two rows of the eight-config ladder are the same configuration recorded twice; they differ by 1.2 pp F1, so we treat
-F1 differences under ~1.5 pp as noise and stand behind the ones far outside it (recall, validity, minimality,
-escalations). How each iteration earned its place, the one that made things worse, the calibration pass that mattered
-most, the hard case and the main failure mode: [`IMPROVEMENT_CHANGELOG.md`](IMPROVEMENT_CHANGELOG.md). Full tables and
-per-contract results: [`evals/results/summary.md`](evals/results/summary.md) · interactive: `/evals` on the live demo.
+Why round 2 exists, what each iteration bought, the one that was removed, the calibration pass, the pre-registration,
+the hard case and the main failure mode: [`IMPROVEMENT_CHANGELOG.md`](IMPROVEMENT_CHANGELOG.md). Full tables:
+[`evals/results/summary.md`](evals/results/summary.md) · interactive: `/evals` on the live demo (tier switch).
 
 ## 6. Repository map
 
@@ -112,19 +132,20 @@ Contracts that govern the code: [`AGENTS.md`](AGENTS.md) · [`SCHEMA.md`](SCHEMA
 
 ## 7. Main failure mode and hot take
 
-**Failure mode — the redline is only half right.** Redline validity plateaus at ≈ 50% for every agentic config. Of
-the 87 final-run redlines the independent judge assessed, 34 fail the rule because the edit improves the clause but
-omits one element of a multi-part playbook position (the successor-transfer right in a licence, the 60-day renewal
-reminder, a stated warranty period), and 29 are not minimal because clauses that must be inserted whole are scored as
-rewrites. The drafter reads a position as a direction; the judge reads it as a checklist; the verifier's deterministic
-checks only cover regexes, so it cannot close the gap. The next fix is a schema change — positions as explicit element
-lists the verifier can enumerate — not another agent. On detection, the residual errors are "right rule, neighbouring
-paragraph" (details and the weakest contract in the changelog).
+**Failure mode — the redline is still only half right, and long documents are the hard half.** On short contracts the
+shipped pipeline completes 55 % of the gold redlines (48 % on the eight contracts it was not tuned on); on 40k-word
+agreements it now *finds* most issues (recall 69 % vs the baseline's 45 %) but completes only 23 % of the redlines — the
+paginated workers draft repairs that are broad, incomplete or not minimal, and the precise protocol that fixed this on
+short contracts did not transfer (our last configuration, `final-v3`, lost long-document recall instead and is reported,
+not shipped). Precedent memory measured as a non-result in both rounds. The next fix is a long-document repair loop with
+the same single-level, prose-mirrored discipline as `i7`, measured on gold we do not tune against. Details, dev/holdout
+splits and the judge comparison: [`IMPROVEMENT_CHANGELOG.md`](IMPROVEMENT_CHANGELOG.md).
 
-**Hot take.** Give a specialist agent one rule and it will find a violation — the biggest quality jump in this project
-came from writing the semantics into the playbook, not from any model, tool or extra agent. And before you believe a
-one-point gain on an agent benchmark, record the same configuration twice: two rows of our table are the same pipeline
-and they differ by more than most published "improvements".
+**Hot take.** Give a specialist agent one rule and it will find a violation; give it a *direction* instead of a
+*checklist* and it will write half a redline. The two largest quality jumps in this project came from writing the
+playbook more precisely — classification semantics in round 1, atomic elements that mirror the prose in round 2 — not
+from any model, tool or extra agent. Never let the grader use the student's rubric (ours inflated completeness 2.5×),
+and before you believe a one-point gain, record the same configuration twice.
 
 ## 8. Tools disclosure
 

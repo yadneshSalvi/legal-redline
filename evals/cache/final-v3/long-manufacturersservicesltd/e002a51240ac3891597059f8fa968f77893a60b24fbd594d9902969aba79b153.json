@@ -1,0 +1,67 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeZ1NL8o7BiyWxPBoWK2Q",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01VYWZJJt56VvUMBcmAun6jB",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0189"
+          ],
+          "quote": "f) IBM agrees that, for a period of [*] years from the Effective Date of this Agreement, it will not in any way solicit for employment any Transferred Employees without the prior written consent of MSL",
+          "rationale": "Section 9.0(f) imposes a one-way non-solicit on us (IBM). Scope is acceptable — it reaches only Transferred Employees (the personnel performing the outsourced work), it is a solicitation restriction rather than a no-hire, and it already carries the carve-outs our fallback requires for unsolicited approaches and general employment advertising/search firms. The material failure is duration: the restriction runs for \"[*] years\" from the Effective Date, i.e. plural years measured from signing rather than the 12 months from involvement contemplated by the fallback, and the redaction leaves open a period at or beyond the 24-month walk-away line. Because the transaction transfers our own employees to MSL, deleting the covenant outright (preferred position) is disproportionate, so we made the single minimal edit to bring the term to 12 months. We have not pressed for mutuality given the one-way nature of the employee transfer, but would accept a reciprocal formulation.",
+          "confidence": 0.72,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0189",
+                "oldText": "for a period of [*] years from the Effective Date of this Agreement",
+                "newText": "for a period of twelve (12) months from the Effective Date of this Agreement"
+              }
+            ],
+            "comment": "[Playbook] We have shortened this one-way non-solicit to twelve (12) months, consistent with our position that any non-solicit binding us be time-limited to a year; the existing carve-outs for unsolicited contacts and general advertising are acceptable as drafted.",
+            "level": "fallback",
+            "precedentId": "seed-nosolicit",
+            "summary": "Reduce IBM's non-solicitation period for Transferred Employees from [*] years to 12 months."
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 641,
+      "cache_read_input_tokens": 8036,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 641,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 789,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10365
+}

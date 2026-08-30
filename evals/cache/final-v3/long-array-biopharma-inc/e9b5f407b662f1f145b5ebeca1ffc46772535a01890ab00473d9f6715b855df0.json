@@ -1,0 +1,108 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeZ1Q3vH4hWB8NuabKads",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01PEUFKPzbk6zWWtj5tQwTRt",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0491",
+            "p0492"
+          ],
+          "quote": "then neither Ono nor its Affiliates shall Commercialize a Competing Product or grant the right to a licensee or distributor to Commercialize a Competing Product in the Ono Territory prior to the [ * ] anniversary of the date such termination takes effect.",
+          "rationale": "Section 8.2 binds Ono and its Affiliates not to Commercialize \\\"Competing Products\\\" in the Ono Territory. The in-term leg is acceptable at the fallback: it is reciprocal (Array and its Controlled Affiliates are equally bound), limited to the Ono Territory, limited to Commercialization only, and limited to a defined class of Competing Products rather than any competing business. The post-termination leg fails the fallback: it runs to a redacted \\\"[ * ] anniversary\\\" of termination, so it is not capped at 12 months, and neither leg carries carve-outs for internal development or M&A-acquired products. Minimal cure: substitute the redacted anniversary with a twelve (12) month cap and add one concise carve-out sentence, leaving the reciprocal in-term exclusivity and the termination mechanics untouched.</rationale>\n<parameter name=\"confidence\">0.82",
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0492",
+                "oldText": "prior to the [ * ] anniversary of the date such termination takes effect.",
+                "newText": "prior to the twelve (12) month anniversary of the date such termination takes effect."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0492",
+                "text": "This Section 8.2 shall not restrict Ono or its Affiliates from internal development, or from Commercializing a Competing Product acquired in a merger with, or acquisition of, a Third Party or of its business or assets."
+              }
+            ],
+            "comment": "[Playbook] We capped the post-termination tail in Section 8.2 at twelve (12) months and added carve-outs for our internal development and for products acquired through M&A; the reciprocal in-term exclusivity is untouched.",
+            "level": "fallback",
+            "summary": "Cap the post-termination restriction at 12 months and add internal-development and acquisition carve-outs.",
+            "precedentId": "seed-noncompete"
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Restriction limited to a named competing product.",
+                "status": "already_met",
+                "quote": "or grant the right to a licensee or distributor to Commercialize in the Ono Territory any of the above described products (each a \"Competing Product\")"
+              },
+              {
+                "element": "Restriction during the term only.",
+                "status": "already_met",
+                "quote": "Prior to the [ * ], neither Ono or its Affiliates, nor Array or its Controlled Affiliates, shall Commercialize in the Ono Territory:"
+              },
+              {
+                "element": "Restriction capped at 12 months.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Carve-out for internal development.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Carve-out for acquisitions.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2532,
+      "cache_read_input_tokens": 10638,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2532,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1186,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NONCOMPETE",
+      "sha256": "a41afd06005372cf2975a57e73d90511448d4e1df021bb7dc547e1da849e2269"
+    }
+  ],
+  "durationMs": 11139
+}

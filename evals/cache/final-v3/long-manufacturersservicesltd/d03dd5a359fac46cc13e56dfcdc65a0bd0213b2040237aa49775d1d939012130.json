@@ -1,0 +1,120 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeZ1TcxTuRXXR2P97Y4du",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01AmNwYsM7cBPgh5Sgb2TMzW",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0189"
+          ],
+          "quote": "f) IBM agrees that, for a period of [*] years from the Effective Date of this Agreement, it will not in any way solicit for employment any Transferred Employees without the prior written consent of MSL",
+          "rationale": "Section 9.0(f) imposes a one-way non-solicit on us (IBM) that fails the fallback on three material terms: it is not mutual, it reaches \"any Transferred Employees\" rather than only personnel directly involved in the Services, and it runs for \"[*] years from the Effective Date\" — plural years from signing, with the redaction leaving open a period at or beyond the 24-month walk-away line, rather than 12 months from the end of involvement. It is already a solicitation-only restriction (no no-hire). We therefore made the minimal edits to bring it to the fallback: 12 months from the end of involvement, scope limited to personnel directly involved in the Services, mutual, and with express general-advertisement and unsolicited-approach carve-outs.",
+          "confidence": 0.82,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0189",
+                "oldText": "for a period of [*] years from the Effective Date of this Agreement, it will not in any way solicit for employment any Transferred Employees",
+                "newText": "for a period of 12 months from the end of their involvement in the Services, it will not in any way solicit for employment any Transferred Employees directly involved in the Services"
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0189",
+                "numbering": "g)",
+                "text": "This restriction is mutual and binds MSL equally with respect to IBM personnel directly involved in the Services for 12 months from the end of their involvement, and it excludes general advertisements and unsolicited approaches."
+              }
+            ],
+            "comment": "[Playbook] We have limited this covenant to personnel directly involved in the Services for 12 months from the end of their involvement and made it mutual, with express carve-outs for general advertisements and unsolicited approaches, consistent with our position on non-solicits binding us.",
+            "level": "fallback",
+            "summary": "Make the non-solicit mutual, limit it to personnel directly involved in the Services for 12 months from the end of involvement, with general-advertisement and unsolicited-approach carve-outs.",
+            "precedentId": "seed-nosolicit"
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Mutual non-solicit.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Non-solicit limited to personnel directly involved in the Services.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "element": "Non-solicit limited to 12 months from the end of their involvement.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "element": "Carve-out for general advertisements.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Carve-out for unsolicited approaches.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "No no-hire.",
+                "status": "already_met",
+                "quote": "it will not in any way solicit for employment any Transferred Employees without the prior written consent of MSL"
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1399,
+      "cache_read_input_tokens": 13293,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1399,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1218,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 12340
+}

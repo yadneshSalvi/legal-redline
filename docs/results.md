@@ -562,9 +562,137 @@ Aggregate evidence: 91.6% · 70.5% · 3.7% · $10.0389 (macro F1 · validity · 
 | synth-13 | 135 | 194 | 0 | 60364 | 108080 | 1439601 | 244252 | $5.2502 | 419.2 s |
 | synth-hardcase | 633 | 896 | 0 | 90160 | 325221 | 5293081 | 773610 | $16.0629 | 2.8 s |
 
+## final-v3
+
+Aggregate evidence: 52.2% · 52.4% · 2.9% · $7.2122 (macro F1 · validity · hallucination · cost/contract).
+
+### Per-contract quality
+
+| Contract | TP | FP | FN | Esc. | Precision | Recall | F1 | Status accuracy | Validity | Minimality | Hallucination | Integrity |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| long-array-biopharma-inc | 6 | 1 | 6 | 0 | 85.7% | 50.0% | 63.2% | 76.9% | 50.0% | 50.0% | 3.4% | pass |
+| long-harpoontherapeuticsinc | 1 | 0 | 3 | 1 | 100.0% | 25.0% | 40.0% | 87.5% | 0.0% | 0.0% | 2.9% | pass |
+| long-manufacturersservicesltd | 5 | 1 | 4 | 0 | 83.3% | 55.6% | 66.7% | 71.4% | 80.0% | 80.0% | 4.7% | pass |
+| long-phasebiopharmaceuticalsinc | 6 | 1 | 4 | 0 | 85.7% | 60.0% | 70.6% | 61.5% | 33.3% | 33.3% | 1.9% | pass |
+| long-revolutionmedicinesinc | 1 | 0 | 5 | 0 | 100.0% | 16.7% | 28.6% | 55.6% | 0.0% | 0.0% | 1.0% | pass |
+| long-verizonabsllc | 2 | 0 | 5 | 2 | 100.0% | 28.6% | 44.4% | 50.0% | 100.0% | 100.0% | 4.8% | pass |
+
+### Per-contract resources
+
+| Contract | Calls | Tools | Retries | Input tokens | Output tokens | Cache read | Cache write | Cost | Latency |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| long-array-biopharma-inc | 195 | 251 | 0 | 71885 | 177058 | 2474208 | 473926 | $8.9850 | 676.1 s |
+| long-harpoontherapeuticsinc | 167 | 220 | 0 | 36608 | 107003 | 2141615 | 332695 | $6.0083 | 616.1 s |
+| long-manufacturersservicesltd | 185 | 251 | 0 | 36647 | 136061 | 2943628 | 483405 | $8.0779 | 622.6 s |
+| long-phasebiopharmaceuticalsinc | 191 | 236 | 0 | 78017 | 169511 | 2991013 | 464968 | $9.0294 | 593.9 s |
+| long-revolutionmedicinesinc | 132 | 190 | 0 | 16775 | 88738 | 1516620 | 364542 | $5.3390 | 418.5 s |
+| long-verizonabsllc | 149 | 219 | 0 | 25667 | 99420 | 1913773 | 362102 | $5.8339 | 450.0 s |
+
+## final-v3
+
+Aggregate evidence: 93.9% · 70.1% · 4.6% · $5.2087 (macro F1 · validity · hallucination · cost/contract).
+
+### Per-contract quality
+
+| Contract | TP | FP | FN | Esc. | Precision | Recall | F1 | Status accuracy | Validity | Minimality | Hallucination | Integrity |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| cuad-americas-shopping-mall-hosting | 11 | 2 | 1 | 0 | 84.6% | 91.7% | 88.0% | 76.9% | 72.7% | 54.5% | 6.5% | pass |
+| cuad-bluefly-hosting | 7 | 1 | 2 | 0 | 87.5% | 77.8% | 82.4% | 100.0% | 42.9% | 42.9% | 11.7% | pass |
+| cuad-bnc-mortgage-hosting | 7 | 1 | 2 | 0 | 87.5% | 77.8% | 82.4% | 80.0% | 71.4% | 42.9% | 1.4% | pass |
+| cuad-corio-hosting | 6 | 0 | 1 | 0 | 100.0% | 85.7% | 92.3% | 75.0% | 50.0% | 33.3% | 6.0% | pass |
+| cuad-kubient-msa-part1 | 5 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 40.0% | 0.0% | pass |
+| cuad-merit-life-master-services | 7 | 1 | 2 | 0 | 87.5% | 77.8% | 82.4% | 77.8% | 57.1% | 28.6% | 0.0% | pass |
+| cuad-sfg-financial-license | 11 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 75.0% | 45.5% | 36.4% | 0.0% | pass |
+| cuad-sparkling-spring-license | 7 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 71.4% | 0.0% | pass |
+| synth-11 | 7 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 85.7% | 71.4% | 0.8% | pass |
+| synth-12 | 9 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 88.9% | 88.9% | 12.8% | pass |
+| synth-13 | 8 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 62.5% | 62.5% | 3.5% | pass |
+| synth-hardcase | 2 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 0.0% | pass |
+
+### Per-contract resources
+
+| Contract | Calls | Tools | Retries | Input tokens | Output tokens | Cache read | Cache write | Cost | Latency |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| cuad-americas-shopping-mall-hosting | 179 | 186 | 0 | 130367 | 141125 | 1137951 | 167612 | $5.7965 | 421.0 s |
+| cuad-bluefly-hosting | 167 | 202 | 0 | 122465 | 162770 | 983954 | 132893 | $6.0041 | 463.4 s |
+| cuad-bnc-mortgage-hosting | 143 | 161 | 0 | 102755 | 110862 | 864639 | 169065 | $4.7743 | 342.8 s |
+| cuad-corio-hosting | 150 | 177 | 0 | 108984 | 132028 | 1092964 | 211610 | $5.7147 | 428.3 s |
+| cuad-kubient-msa-part1 | 134 | 143 | 0 | 91476 | 92186 | 779346 | 133773 | $3.9878 | 297.8 s |
+| cuad-merit-life-master-services | 149 | 156 | 0 | 132911 | 140898 | 878882 | 139514 | $5.4984 | 394.3 s |
+| cuad-sfg-financial-license | 178 | 191 | 0 | 202191 | 194094 | 1579506 | 267417 | $8.3244 | 541.6 s |
+| cuad-sparkling-spring-license | 157 | 195 | 0 | 88872 | 114092 | 992527 | 134277 | $4.6322 | 351.8 s |
+| synth-11 | 114 | 121 | 0 | 89313 | 79839 | 814920 | 175386 | $3.9462 | 273.5 s |
+| synth-12 | 131 | 135 | 0 | 139932 | 135077 | 883774 | 169980 | $5.5808 | 3.6 s |
+| synth-13 | 119 | 127 | 0 | 119027 | 152366 | 776094 | 162351 | $5.8070 | 207.7 s |
+| synth-hardcase | 100 | 116 | 0 | 35168 | 56985 | 546981 | 90285 | $2.4382 | 269.6 s |
+
+## final-v4
+
+Aggregate evidence: 75.3% · 50.0% · 3.3% · $11.1080 (macro F1 · validity · hallucination · cost/contract).
+
+### Per-contract quality
+
+| Contract | TP | FP | FN | Esc. | Precision | Recall | F1 | Status accuracy | Validity | Minimality | Hallucination | Integrity |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| long-array-biopharma-inc | 8 | 1 | 4 | 1 | 88.9% | 66.7% | 76.2% | 71.4% | 37.5% | 25.0% | 7.1% | pass |
+| long-harpoontherapeuticsinc | 4 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 88.9% | 50.0% | 75.0% | 2.8% | pass |
+| long-manufacturersservicesltd | 7 | 0 | 2 | 0 | 100.0% | 77.8% | 87.5% | 85.7% | 57.1% | 28.6% | 6.5% | pass |
+| long-phasebiopharmaceuticalsinc | 6 | 2 | 4 | 2 | 75.0% | 60.0% | 66.7% | 66.7% | 50.0% | 50.0% | 2.8% | pass |
+| long-revolutionmedicinesinc | 3 | 1 | 3 | 1 | 75.0% | 50.0% | 60.0% | 55.6% | 66.7% | 100.0% | 0.7% | pass |
+| long-verizonabsllc | 4 | 2 | 3 | 1 | 66.7% | 57.1% | 61.5% | 60.0% | 50.0% | 50.0% | 0.9% | pass |
+
+### Per-contract resources
+
+| Contract | Calls | Tools | Retries | Input tokens | Output tokens | Cache read | Cache write | Cost | Latency |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| long-array-biopharma-inc | 241 | 302 | 0 | 93121 | 270240 | 4374868 | 460916 | $12.2898 | 55.8 s |
+| long-harpoontherapeuticsinc | 216 | 303 | 0 | 63784 | 169784 | 3778435 | 401948 | $8.9649 | 54.3 s |
+| long-manufacturersservicesltd | 213 | 305 | 0 | 45287 | 150510 | 3543967 | 430262 | $8.4503 | 53.2 s |
+| long-phasebiopharmaceuticalsinc | 263 | 331 | 0 | 131799 | 335248 | 5461836 | 554144 | $15.2345 | 65.4 s |
+| long-revolutionmedicinesinc | 220 | 311 | 0 | 89081 | 238178 | 4409908 | 484125 | $11.6306 | 61.0 s |
+| long-verizonabsllc | 219 | 312 | 0 | 69398 | 204008 | 3944186 | 425402 | $10.0780 | 60.2 s |
+
+## final-v4
+
+Aggregate evidence: 94.7% · 74.2% · 4.6% · $5.1355 (macro F1 · validity · hallucination · cost/contract).
+
+### Per-contract quality
+
+| Contract | TP | FP | FN | Esc. | Precision | Recall | F1 | Status accuracy | Validity | Minimality | Hallucination | Integrity |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| cuad-americas-shopping-mall-hosting | 11 | 2 | 1 | 0 | 84.6% | 91.7% | 88.0% | 76.9% | 81.8% | 63.6% | 7.2% | pass |
+| cuad-bluefly-hosting | 7 | 1 | 2 | 0 | 87.5% | 77.8% | 82.4% | 87.5% | 42.9% | 42.9% | 8.5% | pass |
+| cuad-bnc-mortgage-hosting | 8 | 0 | 1 | 0 | 100.0% | 88.9% | 94.1% | 81.8% | 87.5% | 75.0% | 4.3% | pass |
+| cuad-corio-hosting | 7 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 87.5% | 42.9% | 28.6% | 2.1% | pass |
+| cuad-kubient-msa-part1 | 5 | 1 | 0 | 0 | 83.3% | 100.0% | 90.9% | 100.0% | 100.0% | 80.0% | 1.4% | pass |
+| cuad-merit-life-master-services | 8 | 1 | 1 | 0 | 88.9% | 88.9% | 88.9% | 88.9% | 87.5% | 37.5% | 0.0% | pass |
+| cuad-sfg-financial-license | 11 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 83.3% | 45.5% | 45.5% | 0.0% | pass |
+| cuad-sparkling-spring-license | 6 | 0 | 1 | 0 | 100.0% | 85.7% | 92.3% | 90.0% | 83.3% | 66.7% | 0.0% | pass |
+| synth-11 | 7 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 71.4% | 42.9% | 2.4% | pass |
+| synth-12 | 9 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 88.9% | 88.9% | 12.0% | pass |
+| synth-13 | 8 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 87.5% | 75.0% | 4.0% | pass |
+| synth-hardcase | 2 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 0.0% | pass |
+
+### Per-contract resources
+
+| Contract | Calls | Tools | Retries | Input tokens | Output tokens | Cache read | Cache write | Cost | Latency |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| cuad-americas-shopping-mall-hosting | 182 | 190 | 0 | 132988 | 140208 | 1146599 | 172454 | $5.8213 | 7.8 s |
+| cuad-bluefly-hosting | 157 | 196 | 0 | 101809 | 131630 | 916465 | 159281 | $5.2535 | 7.5 s |
+| cuad-bnc-mortgage-hosting | 151 | 173 | 0 | 108782 | 119763 | 975221 | 189940 | $5.2127 | 7.6 s |
+| cuad-corio-hosting | 148 | 179 | 0 | 109350 | 117739 | 1102326 | 186088 | $5.2044 | 3.0 s |
+| cuad-kubient-msa-part1 | 138 | 159 | 0 | 83404 | 94695 | 828540 | 140765 | $4.0784 | 4.2 s |
+| cuad-merit-life-master-services | 155 | 166 | 0 | 149889 | 137773 | 900531 | 138503 | $5.5097 | 4.2 s |
+| cuad-sfg-financial-license | 187 | 204 | 0 | 189671 | 213195 | 1706611 | 274090 | $8.8446 | 9.2 s |
+| cuad-sparkling-spring-license | 154 | 219 | 0 | 67506 | 98876 | 1048434 | 150931 | $4.2770 | 9.0 s |
+| synth-11 | 111 | 123 | 0 | 81810 | 88008 | 856323 | 206226 | $4.3263 | 8.0 s |
+| synth-12 | 129 | 142 | 0 | 135935 | 136459 | 759590 | 206141 | $5.7593 | 2.2 s |
+| synth-13 | 117 | 132 | 0 | 106429 | 126503 | 776493 | 155733 | $5.0563 | 2.6 s |
+| synth-hardcase | 96 | 117 | 0 | 27764 | 52287 | 528070 | 91514 | $2.2820 | 2.5 s |
+
 ## i5-elements
 
-Aggregate evidence: 91.4% · 64.0% · 3.3% · $10.3169 (macro F1 · validity · hallucination · cost/contract).
+Aggregate evidence: 92.1% · 66.7% · 3.5% · $10.4871 (macro F1 · validity · hallucination · cost/contract).
 
 ### Per-contract quality
 
@@ -573,8 +701,8 @@ Aggregate evidence: 91.4% · 64.0% · 3.3% · $10.3169 (macro F1 · validity · 
 | cuad-americas-shopping-mall-hosting | 12 | 2 | 0 | 0 | 85.7% | 100.0% | 92.3% | 84.6% | 75.0% | 58.3% | 7.7% | pass |
 | cuad-bluefly-hosting | 7 | 0 | 2 | 1 | 100.0% | 77.8% | 87.5% | 87.5% | 57.1% | 42.9% | 6.5% | pass |
 | cuad-bnc-mortgage-hosting | 9 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 90.9% | 77.8% | 33.3% | 1.4% | pass |
-| cuad-corio-hosting | 5 | 0 | 2 | 2 | 100.0% | 71.4% | 83.3% | 100.0% | 40.0% | 20.0% | 2.2% | pass |
-| cuad-kubient-msa-part1 | 5 | 2 | 0 | 1 | 71.4% | 100.0% | 83.3% | 71.4% | 60.0% | 60.0% | 0.0% | pass |
+| cuad-corio-hosting | 6 | 0 | 1 | 1 | 100.0% | 85.7% | 92.3% | 100.0% | 66.7% | 50.0% | 4.8% | pass |
+| cuad-kubient-msa-part1 | 5 | 2 | 0 | 0 | 71.4% | 100.0% | 83.3% | 75.0% | 80.0% | 60.0% | 0.0% | pass |
 | cuad-merit-life-master-services | 9 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 88.9% | 55.6% | 66.7% | 0.0% | pass |
 | cuad-sfg-financial-license | 11 | 1 | 0 | 0 | 91.7% | 100.0% | 95.7% | 83.3% | 45.5% | 45.5% | 75.0% | pass |
 | cuad-sparkling-spring-license | 7 | 1 | 0 | 0 | 87.5% | 100.0% | 93.3% | 90.0% | 71.4% | 28.6% | 0.0% | pass |
@@ -590,8 +718,8 @@ Aggregate evidence: 91.4% · 64.0% · 3.3% · $10.3169 (macro F1 · validity · 
 | cuad-americas-shopping-mall-hosting | 565 | 658 | 0 | 196656 | 626005 | 6030735 | 863903 | $25.0482 | 414.8 s |
 | cuad-bluefly-hosting | 188 | 255 | 0 | 53901 | 163816 | 1968729 | 198754 | $6.5915 | 574.8 s |
 | cuad-bnc-mortgage-hosting | 557 | 744 | 0 | 145600 | 546346 | 6562269 | 918183 | $23.4064 | 432.1 s |
-| cuad-corio-hosting | 143 | 193 | 0 | 35647 | 103945 | 1550815 | 214776 | $4.8946 | 421.2 s |
-| cuad-kubient-msa-part1 | 141 | 158 | 0 | 51573 | 136988 | 1611180 | 250475 | $6.0536 | 456.8 s |
+| cuad-corio-hosting | 172 | 220 | 0 | 51248 | 143150 | 1946797 | 285727 | $6.5942 | 7.3 s |
+| cuad-kubient-msa-part1 | 147 | 165 | 0 | 53522 | 148316 | 1645878 | 255853 | $6.3975 | 9.3 s |
 | cuad-merit-life-master-services | 151 | 191 | 0 | 47128 | 130442 | 1484430 | 194460 | $5.4543 | 383.3 s |
 | cuad-sfg-financial-license | 197 | 244 | 0 | 64567 | 173250 | 2717815 | 378010 | $8.3756 | 505.5 s |
 | cuad-sparkling-spring-license | 169 | 252 | 0 | 30840 | 116981 | 1655386 | 186663 | $5.0731 | 402.2 s |
@@ -663,3 +791,41 @@ Aggregate evidence: 93.8% · 68.5% · 3.8% · $5.9013 (macro F1 · validity · h
 | synth-12 | 146 | 211 | 0 | 61244 | 102164 | 1498039 | 211380 | $4.9305 | 321.5 s |
 | synth-13 | 156 | 214 | 0 | 67693 | 125334 | 1741206 | 240897 | $5.8480 | 469.3 s |
 | synth-hardcase | 139 | 187 | 0 | 30891 | 88049 | 1358673 | 133787 | $3.8712 | 499.5 s |
+
+## i7-precise
+
+Aggregate evidence: 94.7% · 74.2% · 4.6% · $5.0977 (macro F1 · validity · hallucination · cost/contract).
+
+### Per-contract quality
+
+| Contract | TP | FP | FN | Esc. | Precision | Recall | F1 | Status accuracy | Validity | Minimality | Hallucination | Integrity |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| cuad-americas-shopping-mall-hosting | 11 | 2 | 1 | 0 | 84.6% | 91.7% | 88.0% | 76.9% | 81.8% | 63.6% | 7.2% | pass |
+| cuad-bluefly-hosting | 7 | 1 | 2 | 0 | 87.5% | 77.8% | 82.4% | 87.5% | 42.9% | 42.9% | 8.5% | pass |
+| cuad-bnc-mortgage-hosting | 8 | 0 | 1 | 0 | 100.0% | 88.9% | 94.1% | 81.8% | 87.5% | 75.0% | 4.3% | pass |
+| cuad-corio-hosting | 7 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 87.5% | 42.9% | 28.6% | 2.1% | pass |
+| cuad-kubient-msa-part1 | 5 | 1 | 0 | 0 | 83.3% | 100.0% | 90.9% | 100.0% | 100.0% | 80.0% | 1.4% | pass |
+| cuad-merit-life-master-services | 8 | 1 | 1 | 0 | 88.9% | 88.9% | 88.9% | 88.9% | 87.5% | 37.5% | 0.0% | pass |
+| cuad-sfg-financial-license | 11 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 83.3% | 45.5% | 45.5% | 0.0% | pass |
+| cuad-sparkling-spring-license | 6 | 0 | 1 | 0 | 100.0% | 85.7% | 92.3% | 90.0% | 83.3% | 66.7% | 0.0% | pass |
+| synth-11 | 7 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 71.4% | 42.9% | 2.4% | pass |
+| synth-12 | 9 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 88.9% | 88.9% | 12.0% | pass |
+| synth-13 | 8 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 87.5% | 75.0% | 4.0% | pass |
+| synth-hardcase | 2 | 0 | 0 | 0 | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 0.0% | pass |
+
+### Per-contract resources
+
+| Contract | Calls | Tools | Retries | Input tokens | Output tokens | Cache read | Cache write | Cost | Latency |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| cuad-americas-shopping-mall-hosting | 182 | 190 | 0 | 132988 | 140208 | 1146599 | 172454 | $5.8213 | 8.0 s |
+| cuad-bluefly-hosting | 157 | 196 | 0 | 101809 | 131630 | 916465 | 159281 | $5.2535 | 434.6 s |
+| cuad-bnc-mortgage-hosting | 151 | 173 | 0 | 108782 | 119763 | 975221 | 189940 | $5.2127 | 7.8 s |
+| cuad-corio-hosting | 148 | 179 | 0 | 109350 | 117739 | 1102326 | 186088 | $5.2044 | 362.2 s |
+| cuad-kubient-msa-part1 | 138 | 159 | 0 | 83404 | 94695 | 828540 | 140765 | $4.0784 | 307.7 s |
+| cuad-merit-life-master-services | 155 | 166 | 0 | 149889 | 137773 | 900531 | 138503 | $5.5097 | 390.4 s |
+| cuad-sfg-financial-license | 187 | 204 | 0 | 189671 | 213195 | 1706611 | 274090 | $8.8446 | 551.3 s |
+| cuad-sparkling-spring-license | 154 | 219 | 0 | 67506 | 98876 | 1048434 | 150931 | $4.2770 | 333.1 s |
+| synth-11 | 111 | 123 | 0 | 81810 | 88008 | 856323 | 206226 | $4.3263 | 329.7 s |
+| synth-12 | 129 | 142 | 0 | 135935 | 136459 | 759590 | 206141 | $5.7593 | 7.3 s |
+| synth-13 | 116 | 132 | 0 | 101997 | 110503 | 776493 | 150751 | $4.6030 | 386.9 s |
+| synth-hardcase | 96 | 117 | 0 | 27764 | 52287 | 528070 | 91514 | $2.2820 | 1.0 s |
