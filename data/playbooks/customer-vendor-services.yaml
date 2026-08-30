@@ -41,24 +41,26 @@ rules:
         inside the cap with no super-cap.
       elements:
         preferred:
-          - The aggregate liability cap applies mutually to both parties.
-          - The cap is the greater of fees paid or payable in the 12 months preceding the claim and USD 1,000,000.
-          - The exclusion of indirect and consequential damages applies mutually to both parties.
-          - Breach of confidentiality obligations is uncapped.
-          - Breach of data protection and security obligations is uncapped.
-          - Indemnification obligations are uncapped.
-          - Gross negligence is uncapped.
-          - Wilful misconduct is uncapped.
-          - Fraud is uncapped.
-          - Infringement of the other party's intellectual property is uncapped.
-          - Customer payment obligations are excluded from damages subject to the cap.
+          - Mutual cap.
+          - Cap equal to the greater of fees paid or payable in the 12 months preceding the claim and USD 1,000,000.
+          - Mutual exclusion of indirect damages.
+          - Mutual exclusion of consequential damages.
+          - Uncapped breach of confidentiality obligations.
+          - Uncapped breach of data protection obligations.
+          - Uncapped breach of security obligations.
+          - Uncapped indemnification obligations.
+          - Uncapped gross negligence.
+          - Uncapped wilful misconduct.
+          - Uncapped fraud.
+          - Uncapped infringement of the other party's IP.
+          - Customer's payment obligations are not damages for cap purposes.
         fallback:
-          - The aggregate liability cap applies mutually to both parties.
-          - The cap is based on 12 months of fees.
-          - Indemnification obligations are uncapped.
-          - Breach of confidentiality obligations is uncapped.
-          - Gross negligence is uncapped.
-          - Wilful misconduct is uncapped.
+          - Mutual cap.
+          - Cap equal to 12 months' fees.
+          - Uncapped indemnification obligations.
+          - Uncapped confidentiality obligations.
+          - Uncapped gross negligence.
+          - Uncapped wilful misconduct.
     detect: >
       Find the limitation-of-liability, exclusion-of-damages and any "aggregate liability" language, including
       language hidden in warranty or indemnity sections. Determine: does a cap exist; what is the basis (fixed
@@ -106,24 +108,31 @@ rules:
       walkaway: No Vendor IP indemnity at all, or a one-way Customer indemnity for Vendor's services.
       elements:
         preferred:
-          - Vendor has an express duty to defend Customer and its affiliates.
-          - Vendor indemnifies Customer and its affiliates against third-party claims.
-          - Vendor indemnity covers claims that Services or Deliverables infringe intellectual property rights.
-          - Vendor indemnity covers Vendor's breach of applicable law.
-          - Vendor indemnity covers a data breach caused by Vendor.
-          - Vendor indemnity covers Vendor's gross negligence and wilful misconduct.
-          - The indemnification procedure requires notice of a claim.
-          - The indemnification procedure allocates control of the defence.
-          - The indemnification procedure requires reasonable cooperation.
-          - Customer indemnity is limited to Customer-provided content and Customer's breach of law.
+          - Vendor defence of Customer.
+          - Vendor defence of Customer affiliates.
+          - Vendor indemnity of Customer against third-party claims.
+          - Vendor indemnity of Customer affiliates against third-party claims.
+          - Claims alleging the Services infringe IP.
+          - Claims alleging the Deliverables infringe IP.
+          - Claims arising from Vendor's breach of law.
+          - Claims arising from a data breach caused by Vendor.
+          - Claims arising from Vendor's gross negligence.
+          - Claims arising from Vendor's wilful misconduct.
+          - Indemnification procedure requiring notice.
+          - Indemnification procedure allocating control.
+          - Indemnification procedure requiring cooperation.
+          - Any Customer indemnity limited to Customer-provided content.
+          - Any Customer indemnity limited to Customer's breach of law.
         fallback:
-          - Vendor indemnifies Customer against third-party intellectual-property claims.
-          - The IP indemnity may exclude infringement caused by Customer modifications.
-          - The IP indemnity may exclude infringement caused by Customer combinations.
-          - The IP indemnity may exclude infringement caused by Customer specifications.
-          - Vendor must procure continued use, modify, or replace the infringing item.
-          - Vendor must refund applicable fees if procure, modify, or replace remedies are unavailable.
-          - Vendor's indemnity is subject to a super-cap of three times annual fees.
+          - Vendor IP indemnity.
+          - Exclusion for Customer modifications.
+          - Exclusion for Customer combinations.
+          - Exclusion for Customer specifications.
+          - Remedy to procure continued use.
+          - Remedy to modify the infringing item.
+          - Remedy to replace the infringing item.
+          - Refund if procure, modify, and replace are unavailable.
+          - Vendor indemnity super-cap of 3× annual fees.
     detect: >
       Locate indemnification / hold harmless / defence language. Deviation if Vendor indemnity is absent, or only
       Customer indemnifies, or Vendor's indemnity excludes IP infringement. Presence of a narrow Customer
@@ -158,13 +167,14 @@ rules:
       walkaway: Post-term non-compete longer than 12 months, or undefined scope ("any competing business").
       elements:
         preferred:
-          - Customer has no non-compete or field-of-use restriction.
+          - No non-compete restriction on Customer.
+          - No field-of-use restriction on Customer.
         fallback:
-          - The restriction covers only a named competing product.
-          - The restriction applies during the term only.
-          - The restriction lasts no longer than 12 months.
-          - The restriction permits Customer's internal development.
-          - The restriction permits Customer acquisitions.
+          - Restriction limited to a named competing product.
+          - Restriction during the term only.
+          - Restriction capped at 12 months.
+          - Carve-out for internal development.
+          - Carve-out for acquisitions.
     detect: >
       Look for "shall not … develop/market/sell/engage in", "competing products", "compete with Vendor", field-of-use
       or territory restrictions binding Customer. Restrictions binding the Vendor are fine.
@@ -192,12 +202,13 @@ rules:
       walkaway: Exclusive dealing for the full term with no performance-based exit.
       elements:
         preferred:
-          - Customer has no exclusivity or sole-supplier obligation.
+          - No exclusivity obligation on Customer.
+          - No sole-supplier obligation on Customer.
         fallback:
-          - Exclusivity is limited to a defined product category.
-          - Exclusivity lasts no longer than 12 months.
-          - Exclusivity ends automatically if Vendor fails to meet service levels.
-          - Exclusivity ends automatically if Vendor fails to meet delivery dates.
+          - Exclusivity limited to a defined product category.
+          - Exclusivity limited to 12 months.
+          - Exclusivity ending automatically on Vendor's failure to meet service levels.
+          - Exclusivity ending automatically on Vendor's failure to meet delivery dates.
     detect: >
       Phrases like "exclusive", "sole and exclusive provider", "shall purchase all of its requirements from",
       "shall not procure … from any third party". Exclusivity granted to Customer (e.g. Vendor won't serve our
@@ -222,11 +233,11 @@ rules:
       walkaway: Open-ended obligation to extend to Vendor any better terms given to any third party.
       elements:
         preferred:
-          - Customer has no most-favoured-nation obligation benefiting Vendor.
+          - No MFN obligation on Customer.
         fallback:
-          - The Customer MFN covers only a defined product.
-          - The Customer MFN lasts no longer than 12 months.
-          - The Customer MFN contains reasonable like-for-like comparison carve-outs.
+          - MFN limited to a defined product.
+          - MFN limited to 12 months.
+          - Reasonable-comparison carve-outs.
     detect: >
       Identify who benefits from the MFN. Flag only when Customer must offer Vendor terms no less favourable than
       those given to others, or must match third-party offers. If the Vendor grants Customer best pricing, mark
@@ -248,14 +259,14 @@ rules:
       walkaway: No-hire provisions, or restrictions longer than 24 months or covering all Vendor personnel.
       elements:
         preferred:
-          - Customer has no non-solicitation restriction.
+          - No non-solicit on Customer.
         fallback:
-          - The non-solicitation restriction is mutual.
-          - The restriction covers only personnel directly involved in the Services.
-          - The restriction lasts no longer than 12 months after the person's involvement ends.
-          - General advertisements are excluded from the restriction.
-          - Unsolicited approaches are excluded from the restriction.
-          - The restriction does not prohibit hiring.
+          - Mutual non-solicit.
+          - Non-solicit limited to personnel directly involved in the Services.
+          - Non-solicit limited to 12 months from the end of their involvement.
+          - Carve-out for general advertisements.
+          - Carve-out for unsolicited approaches.
+          - No no-hire.
     detect: >
       "shall not solicit", "employ or engage", "no-hire", "induce … to leave". Determine duration, scope (all
       employees vs those involved) and whether a general-solicitation carve-out exists.
@@ -289,15 +300,16 @@ rules:
         on fewer than 90 days' notice.
       elements:
         preferred:
-          - Customer may terminate the Agreement or an Order Form for convenience.
-          - Customer's convenience termination requires no more than 30 days' written notice.
-          - Vendor refunds prepaid fees pro rata after Customer's convenience termination.
-          - Vendor has no right to terminate for convenience during a committed term.
+          - Customer termination for convenience.
+          - No more than 30 days' written notice.
+          - Pro-rata refund of prepaid fees.
+          - No Vendor termination-for-convenience right during a committed term.
         fallback:
-          - Customer may terminate for convenience on 60 to 90 days' notice.
-          - Any early-termination fee is capped at three months of fees.
-          - Vendor may terminate for convenience only at the end of a term.
-          - Vendor must give at least 90 days' notice of convenience termination.
+          - Customer termination for convenience.
+          - 60–90 days' notice.
+          - Early-termination fee not exceeding 3 months' fees.
+          - Vendor termination for convenience only at the end of a term.
+          - 90 days' notice for Vendor termination for convenience.
     detect: >
       Find termination provisions. Determine which party may terminate without cause, the notice period, and any
       early-termination fee. Absence of any Customer convenience right in a term longer than 12 months is a
@@ -331,14 +343,14 @@ rules:
       walkaway: Non-renewal notice windows longer than 90 days, or automatic multi-year renewals.
       elements:
         preferred:
-          - Renewal requires mutual written agreement unless every conditional automatic-renewal element below is met.
-          - If renewal is automatic, each renewal term is no longer than 12 months.
-          - If renewal is automatic, Customer may opt out on no more than 30 days' notice.
-          - If renewal is automatic, Vendor must remind Customer at least 60 days before renewal.
-          - If renewal permits price increases, each increase is capped at the lesser of CPI and 3 percent.
+          - Renewal only by mutual written agreement, unless the automatic-renewal alternative is complete.
+          - For automatic renewal, 12-month renewals.
+          - For automatic renewal, Customer opt-out on 30 days' notice.
+          - For automatic renewal, Vendor reminder 60 days before renewal.
+          - For renewal price increases, cap at the lesser of CPI and 3%.
         fallback:
-          - If renewal is automatic, Customer's non-renewal notice window is no more than 60 days.
-          - If renewal permits price increases, each increase is capped at 5 percent.
+          - For automatic renewal, non-renewal notice window of no more than 60 days.
+          - For renewal price increases, cap at 5%.
     detect: >
       "automatically renew", "unless either party gives notice … days prior", renewal term length, price uplift
       language. Compute the notice window in days and the renewal term length.
@@ -362,11 +374,11 @@ rules:
       walkaway: Vendor's home jurisdiction outside the accepted list with exclusive foreign venue, or mandatory arbitration seated abroad.
       elements:
         preferred:
-          - New York law governs the Agreement.
-          - State and federal courts in New York County have exclusive jurisdiction over the merits, subject only to temporary injunctive relief elsewhere.
+          - Laws of the State of New York.
+          - Exclusive jurisdiction of the state courts in New York County.
+          - Exclusive jurisdiction of the federal courts in New York County.
         fallback:
-          - The governing law is Delaware, California, or England and Wales.
-          - The dispute forum is the corresponding Delaware or California courts, or the courts of London for England and Wales law.
+          - A corresponding permitted pair of Delaware law and courts, California law and courts, or the laws of England and Wales with the courts of London.
     detect: Find the governing-law clause; extract jurisdiction and dispute forum; note any arbitration seat.
     redline: Replace only the jurisdiction words and forum; keep the rest of the sentence intact.
     checks:
@@ -392,17 +404,23 @@ rules:
         Customer's change of control.
       elements:
         preferred:
-          - Customer may assign to an affiliate without consent.
-          - Customer may assign to a successor in a merger, acquisition, or sale of substantially all assets without consent.
-          - Vendor may not assign without Customer's consent.
-          - Customer's consent to Vendor assignment is not to be unreasonably withheld.
-          - Vendor may never assign to a Customer competitor.
-          - Customer's change of control gives Vendor no termination right.
+          - Customer assignment to an affiliate without consent.
+          - Customer assignment to a successor in a merger without consent.
+          - Customer assignment to a successor in an acquisition without consent.
+          - Customer assignment to a successor in a sale of substantially all assets without consent.
+          - No Vendor assignment without Customer's consent.
+          - Customer's consent to Vendor assignment not to be unreasonably withheld.
+          - No Vendor assignment to a Customer competitor.
+          - No Vendor termination right on Customer's change of control.
         fallback:
-          - Both parties may assign to a successor.
-          - A successor assignment requires written notice.
-          - Other assignments require consent.
-          - Consent to other assignments is not to be unreasonably withheld.
+          - Customer right to assign to a successor.
+          - Vendor right to assign to a successor.
+          - Customer written notice of successor assignment.
+          - Vendor written notice of successor assignment.
+          - Vendor consent for Customer's other assignments.
+          - Customer consent for Vendor's other assignments.
+          - Vendor consent not to be unreasonably withheld.
+          - Customer consent not to be unreasonably withheld.
     detect: >
       "may not assign", "change of control", "deemed an assignment", consent standards. Determine whether the
       restriction binds Customer symmetrically and whether change-of-control triggers any Vendor right.
@@ -431,24 +449,28 @@ rules:
       walkaway: Assignment of Customer IP or Customer Data to Vendor; joint ownership without an unrestricted right to exploit.
       elements:
         preferred:
-          - Customer owns Deliverables and work product created for Customer.
-          - Vendor assigns the Deliverables and work product to Customer.
-          - Vendor retains its pre-existing intellectual property.
-          - Customer's licence to Vendor IP embedded in Deliverables is perpetual.
-          - Customer's licence to embedded Vendor IP is irrevocable.
-          - Customer's licence to embedded Vendor IP is royalty-free.
-          - Customer retains all rights in Customer Data.
-          - Any Vendor licence in Customer Data is limited to processing it solely to provide the Services.
-          - The parties do not jointly own intellectual property.
+          - Customer ownership of deliverables created for it.
+          - Customer ownership of work product created for it.
+          - Vendor assignment of deliverables to Customer.
+          - Vendor assignment of work product to Customer.
+          - Vendor retention of pre-existing IP.
+          - Customer licence to Vendor IP embedded in deliverables.
+          - Perpetual licence to embedded Vendor IP.
+          - Irrevocable licence to embedded Vendor IP.
+          - Royalty-free licence to embedded Vendor IP.
+          - Customer retention of all rights in Customer Data.
+          - No joint ownership.
         fallback:
-          - Vendor may retain ownership of generic tools and know-how.
-          - Customer's licence to Deliverables is perpetual.
-          - Customer's licence to Deliverables is irrevocable.
-          - Customer's licence to Deliverables is worldwide.
-          - Customer's licence to Deliverables is royalty-free.
-          - Customer may use and modify Deliverables for its business.
-          - Customer may sublicense Deliverables for its business.
-          - Any Vendor licence in Customer Data is limited to processing it solely to provide the Services.
+          - Vendor ownership of generic tools.
+          - Vendor ownership of know-how.
+          - Customer licence to deliverables.
+          - Perpetual licence to deliverables.
+          - Irrevocable licence to deliverables.
+          - Worldwide licence to deliverables.
+          - Royalty-free licence to deliverables.
+          - Customer use of deliverables for its business.
+          - Customer modification of deliverables for its business.
+          - Customer sublicensing of deliverables for its business.
     detect: >
       Ownership/assignment language: who owns "Deliverables", "Work Product", "Customer Data", improvements,
       feedback. Flag when Customer assigns IP or data to Vendor, when Vendor owns deliverables with no licence back,
@@ -475,15 +497,15 @@ rules:
       walkaway: Licence revocable at Vendor's discretion; affiliates and contractors excluded with no path to add them.
       elements:
         preferred:
-          - The licence extends to Customer's affiliates.
-          - The licence extends to contractors acting on Customer's behalf.
-          - A paid-up licence is perpetual.
-          - A paid-up licence is irrevocable.
-          - A subscription licence is terminable only for uncured material breach.
-          - The licence is transferable to Customer's successors.
+          - Licence extended to Customer's affiliates.
+          - Licence extended to contractors acting on Customer's behalf.
+          - Perpetual paid-up licences.
+          - Irrevocable paid-up licences.
+          - Subscription licences terminable only for uncured material breach.
+          - Licence transferable to successors.
         fallback:
-          - Customer's affiliates are covered on written notice.
-          - The licence is transferable to a successor in a merger or acquisition transaction.
+          - Affiliates covered on written notice.
+          - Licence transferable to a successor in an M&A transaction.
     detect: >
       Find the grant clause: "non-exclusive, non-transferable", "revocable", "solely for Customer's internal use",
       whether affiliates/contractors are named, term of the licence.
@@ -513,18 +535,18 @@ rules:
       walkaway: Unlimited or unannounced audits, or remote access to Customer systems.
       elements:
         preferred:
-          - Vendor may audit no more than once in any 12-month period.
-          - Vendor must give at least 30 days' written notice of an audit.
-          - Audits occur during business hours.
-          - Audits are conducted by an independent auditor.
-          - The auditor is bound by confidentiality obligations.
-          - Audits are conducted off-site where possible.
-          - Vendor bears audit costs unless underpayment exceeds 5 percent.
-          - Vendor has no direct access to Customer systems for an audit.
+          - No more than one audit per 12 months.
+          - 30 days' written notice.
+          - Audits during business hours.
+          - Independent auditor.
+          - Auditor bound by confidentiality.
+          - Off-site audit where possible.
+          - Audit at Vendor's cost unless underpayment exceeds 5%.
+          - No direct access to Customer systems.
         fallback:
-          - Vendor may audit no more than once per year.
-          - Vendor must give at least 15 days' notice of an audit.
-          - Vendor bears audit costs unless underpayment exceeds 10 percent.
+          - One audit per year.
+          - 15 days' notice.
+          - Audit at Vendor's cost unless underpayment exceeds 10%.
     detect: Find audit/inspection/verification rights binding Customer; extract frequency, notice, cost allocation, system access.
     redline: Insert the frequency/notice/cost limits with minimal edits; delete system-access language.
     checks:
@@ -546,11 +568,12 @@ rules:
       walkaway: Liquidated damages exceeding the remaining contract value or triggered by minor breaches.
       elements:
         preferred:
-          - Customer pays no liquidated damages or penalties.
+          - No liquidated damages payable by Customer.
+          - No penalties payable by Customer.
         fallback:
-          - Any Customer-payable liquidated amount is only an early-termination fee.
-          - The early-termination fee is capped at three months of fees.
-          - The early-termination fee is the sole liquidated amount payable by Customer.
+          - Customer-payable liquidated amount limited to an early-termination fee.
+          - Early-termination fee capped at 3 months' fees.
+          - Early-termination fee as the sole liquidated amount.
     detect: >
       Identify liquidated damages, penalties, minimum fees on termination, "shall pay … as liquidated damages".
       Flag only when Customer pays. Service credits or LDs payable by Vendor to Customer are compliant.
@@ -571,19 +594,26 @@ rules:
       walkaway: '"AS IS" with all warranties disclaimed and no conformance warranty at all.'
       elements:
         preferred:
-          - Services are warranted to be performed in a professional and workmanlike manner.
-          - Deliverables or software are warranted to conform to their documentation.
-          - The software conformance warranty lasts 12 months.
-          - The Services warranty lasts 90 days.
-          - Warranty remedies include repair or replacement.
-          - Warranty remedies include a refund.
-          - Vendor warrants compliance with applicable laws.
-          - Vendor warrants that the Services and Deliverables contain no malicious code.
+          - Services performed in a professional manner.
+          - Services performed in a workmanlike manner.
+          - Deliverables conform to documentation.
+          - Software conforms to documentation.
+          - 12-month software conformance warranty.
+          - 90-day Services warranty.
+          - Repair remedy.
+          - Replacement remedy.
+          - Refund remedy.
+          - Compliance with laws.
+          - No malicious code.
         fallback:
-          - Software is warranted to conform to its documentation for at least 90 days.
-          - Services are warranted for at least 30 days.
-          - Warranty remedies include repair or replacement.
-          - Warranty remedies include a refund.
+          - Services performed in a professional manner.
+          - Services performed in a workmanlike manner.
+          - Software conforms to documentation.
+          - 90-day software conformance warranty.
+          - 30-day Services warranty.
+          - Repair remedy.
+          - Replacement remedy.
+          - Refund remedy.
     detect: >
       Find warranty and disclaimer sections; extract the warranty period and remedy; note whether the disclaimer swallows
       the express warranty. A missing express warranty is a deviation (insert).
@@ -614,15 +644,15 @@ rules:
       walkaway: No insurance for a vendor that processes personal data or works on our premises.
       elements:
         preferred:
-          - Commercial general liability coverage is at least USD 1,000,000 per occurrence.
-          - Commercial general liability coverage is at least USD 2,000,000 in the aggregate.
-          - Professional errors and omissions coverage is at least USD 2,000,000.
-          - If Vendor processes Customer Data, cyber and privacy coverage is at least USD 5,000,000.
-          - Vendor maintains workers' compensation coverage as required by law.
-          - Vendor provides certificates of insurance on request.
+          - Commercial general liability of USD 1M per occurrence.
+          - Commercial general liability of USD 2M aggregate.
+          - Professional errors and omissions insurance of USD 2M.
+          - Cyber and privacy insurance of USD 5M for vendors processing Customer Data.
+          - Workers' compensation as required by law.
+          - Certificates of insurance on request.
         fallback:
-          - Professional errors and omissions coverage is at least USD 1,000,000.
-          - Cyber and privacy coverage is at least USD 2,000,000.
+          - Professional errors and omissions insurance of USD 1M.
+          - Cyber insurance of USD 2M.
     detect: Look for an insurance clause; if absent for a services/hosting vendor, deviation (insert).
     redline: Insert a short insurance paragraph in the general/miscellaneous section.
     modelLanguage: >
@@ -649,12 +679,12 @@ rules:
       walkaway: Multi-year take-or-pay commitments with no reduction or termination right.
       elements:
         preferred:
-          - Customer has no minimum purchase or volume commitment.
-          - Customer pays only for usage or ordered Services.
+          - No minimum commitment.
+          - Fees only for usage or ordered Services.
         fallback:
-          - The commitment is limited to the current 12-month term.
-          - Customer may reduce the commitment on 30 days' notice.
-          - Any shortfall is handled through a true-up rather than a penalty.
+          - Commitment limited to the current 12-month term.
+          - Commitment reducible on 30 days' notice.
+          - True-up rather than a penalty.
     detect: '"minimum", "commit to purchase", "take or pay", "shortfall", volume caps on Customer usage. Commitments the Vendor makes to us are fine.'
     redline: Delete or narrow to the fallback with minimal edits; replace shortfall penalties with a true-up.
 
@@ -673,16 +703,22 @@ rules:
       walkaway: No data return, or immediate deletion of Customer Data on termination.
       elements:
         preferred:
-          - Transition obligations apply on expiry or termination.
-          - Vendor provides transition assistance for up to six months.
-          - Transition assistance is charged at then-current rates.
-          - Vendor returns Customer Data within 30 days after expiry or termination.
-          - Customer Data is returned in a standard machine-readable format.
-          - Vendor certifies deletion of Customer Data after its return.
+          - Transition obligations on expiry.
+          - Transition obligations on termination.
+          - Vendor transition assistance.
+          - Transition assistance for up to 6 months.
+          - Transition assistance at then-current rates.
+          - Vendor return of Customer Data.
+          - Customer Data in a standard machine-readable format.
+          - Customer Data returned within 30 days after expiry or termination.
+          - Vendor deletion of Customer Data after return.
+          - Vendor certification of deletion after return.
         fallback:
-          - Transition obligations apply on expiry or termination.
-          - Vendor provides at least 90 days of transition assistance.
-          - Vendor exports Customer Data within 30 days after expiry or termination.
+          - Transition obligations on expiry.
+          - Transition obligations on termination.
+          - Vendor transition assistance for 90 days.
+          - Vendor export of Customer Data.
+          - Customer Data exported within 30 days after expiry or termination.
     detect: Look for transition, exit, data return/export, deletion timing. Absence in a services/hosting agreement is a deviation (insert).
     redline: Insert a transition-assistance and data-return paragraph in the termination section.
     modelLanguage: >

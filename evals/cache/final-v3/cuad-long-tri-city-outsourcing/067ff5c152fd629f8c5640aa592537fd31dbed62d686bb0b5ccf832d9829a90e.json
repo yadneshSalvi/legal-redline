@@ -1,0 +1,76 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYrVs7mDwgKWSZ29QC6d",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll read the cited insurance paragraphs first."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01N2pm268dmajTdLpSyvamzU",
+        "name": "read_paragraphs",
+        "input": {
+          "paragraphIds": [
+            "p0210",
+            "p0211",
+            "p0212",
+            "p0213",
+            "p0214",
+            "p0215",
+            "p0216",
+            "p0217"
+          ]
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_0163eFDycok5qxhywUAYcZWf",
+        "name": "get_definition",
+        "input": {
+          "term": "Customer Data"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2680,
+      "cache_read_input_tokens": 6324,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2680,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 156,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "read_paragraphs",
+      "ruleId": "INSURANCE",
+      "sha256": "d8e2404d74a7809a627d3a0802ff619cdf237d449d4640410cbbc527a24f9974"
+    },
+    {
+      "name": "get_definition",
+      "ruleId": "INSURANCE",
+      "sha256": "4983a52d92b17d98c871ef020904a0ff12425ea6f0c8d90e9c45675e66d4cde8"
+    }
+  ],
+  "durationMs": 2674
+}

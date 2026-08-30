@@ -6,19 +6,21 @@ import path from "node:path";
 import { Command, Option } from "commander";
 import pLimit from "p-limit";
 
-import { minimalityGate, proposalPassesElementChecks, renderElementProposal } from "@/src/agent/element-gates";
 import type { Finding, ReviewRun, RunStats } from "@/src/agent/types";
 import { parseDocx, validateOp } from "@/src/engine";
 import type { DocumentModel } from "@/src/engine/types";
 import {
-  createElementJudge,
-  judgeElementMet,
-  judgeSatisfiesLevel,
-  type ElementJudgeInput,
-  type ElementJudgeMode,
-  type ElementJudgeResult,
-} from "@/src/eval/judge-elements";
-import { detectionMetrics } from "@/src/eval/metrics";
+  createIndependentJudgeV2,
+  type JudgeMode,
+  type JudgeV2Input,
+  type JudgeV2Result,
+} from "@/src/eval/judge";
+import {
+  changedCharacterRatio,
+  detectionMetrics,
+  proposalPassesChecks,
+  renderProposalText,
+} from "@/src/eval/metrics";
 import { matchFindings } from "@/src/eval/match";
 import { loadGold } from "@/src/eval/gold";
 import { loadPlaybook } from "@/src/playbook/loader";
@@ -34,8 +36,8 @@ interface Artifact {
 interface Assessment {
   artifact: Artifact;
   finding: Finding;
-  judgeInput: ElementJudgeInput;
-  judgeResult: ElementJudgeResult;
+  judgeInput: JudgeV2Input;
+  judgeResult: JudgeV2Result;
   applies: boolean;
   checks: boolean;
   deterministicMinimal: boolean;
@@ -116,36 +118,24 @@ function bool(value: boolean): string {
   return value ? "yes" : "no";
 }
 
-function relevantDefinitions(document: DocumentModel, text: string): string {
-  const normalized = text.toLocaleLowerCase("en-US");
-  return document.definitions
-    .filter((definition) => normalized.includes(definition.term.toLocaleLowerCase("en-US")))
-    .map((definition) => `${definition.term}: ${definition.text}`)
-    .join("\n");
-}
-
-function missingElements(input: ElementJudgeInput, result: ElementJudgeResult): Array<{ level: "preferred" | "fallback"; element: string }> {
-  return (["preferred", "fallback"] as const).flatMap((level) => {
-    const expected = level === "preferred" ? input.preferredElements : input.fallbackElements;
-    return expected.flatMap((element) =>
-      judgeElementMet(result, level, element)
-        ? []
-        : [{ level, element }]);
-  });
+function missingElements(result: JudgeV2Result): Array<{ level: "preferred" | "fallback"; element: string }> {
+  return result.elements
+    .filter((element) => !element.met)
+    .map((element) => ({ level: element.level, element: element.element }));
 }
 
 async function main(): Promise<void> {
   const command = new Command()
     .name("crr-dev")
     .argument("<runs...>", "run ids, run.json/findings.json paths, run directories, or <config>/<contract> shorthands")
-    .addOption(new Option("--mode <mode>", "judge cache mode").choices(["live", "record", "replay"]).default("replay"))
+    .addOption(new Option("--mode <mode>", "official judge-v2 cache mode").choices(["live", "record", "replay"]).default("replay"))
     .option("--allow-live", "call and record the judge on replay cache misses", false)
-    .option("--cache-dir <path>", "element judge cache", "evals/cache/judge-dev")
+    .option("--cache-dir <path>", "official judge-v2 cache", "evals/cache/judge-v2")
     .option("--rules <ids>", "comma-separated rule ids for a focused iteration")
     .option("--concurrency <number>", "maximum parallel judge calls", "4")
     .parse();
   const options = command.opts<{
-    mode: ElementJudgeMode;
+    mode: JudgeMode;
     allowLive: boolean;
     cacheDir: string;
     concurrency: string;
@@ -159,7 +149,7 @@ async function main(): Promise<void> {
     : null;
   const playbook = await loadPlaybook("customer-vendor-services-v1");
   const rules = new Map(playbook.rules.map((rule) => [rule.id, rule]));
-  const judge = createElementJudge({
+  const judge = createIndependentJudgeV2({
     mode: options.mode,
     cacheDir: options.cacheDir,
     allowLive: options.allowLive,
@@ -172,26 +162,26 @@ async function main(): Promise<void> {
   const assessments = await Promise.all(work.map(({ artifact, finding }) => limit(async (): Promise<Assessment> => {
     const rule = rules.get(finding.ruleId);
     if (!rule || !finding.proposal) throw new Error(`Missing rule or proposal for ${artifact.label}/${finding.ruleId}`);
-    const originalClause = renderElementProposal(artifact.document, finding.paragraphIds, []);
-    const renderedClause = renderElementProposal(artifact.document, finding.paragraphIds, finding.proposal.ops);
-    const judgeInput: ElementJudgeInput = {
+    const originalClause = finding.paragraphIds
+      .map((id) => artifact.document.paragraphs.find((paragraph) => paragraph.id === id)?.text ?? "")
+      .filter(Boolean)
+      .join("\n\n");
+    const judgeInput: JudgeV2Input = {
       ruleId: rule.id,
       ruleTitle: rule.title,
       preferredPosition: rule.position.preferred,
       fallbackPosition: rule.position.fallback,
-      preferredElements: rule.position.elements.preferred,
-      fallbackElements: rule.position.elements.fallback,
       originalClause,
-      renderedClause,
-      definitions: relevantDefinitions(artifact.document, `${originalClause}\n${renderedClause}`),
+      renderedClause: renderProposalText(artifact.document, finding),
       comment: finding.proposal.comment,
     };
     const judgement = await judge.judge(judgeInput);
     const applies = finding.proposal.ops.every((op) => validateOp(artifact.document, op).ok);
-    const checks = proposalPassesElementChecks(artifact.document, finding, rule);
-    const deterministicMinimal = minimalityGate(finding.status, finding.proposal.ops).ok;
-    const elements = judgeSatisfiesLevel(judgeInput, judgement.result, "preferred") ||
-      judgeSatisfiesLevel(judgeInput, judgement.result, "fallback");
+    const checks = proposalPassesChecks(artifact.document, finding, rule);
+    const deterministicMinimal = finding.proposal.ops.every(
+      (op) => op.kind !== "replace" || changedCharacterRatio(op) <= 0.6,
+    );
+    const elements = judgement.result.satisfies_preferred || judgement.result.satisfies_fallback;
     const complete = applies && checks && deterministicMinimal && elements &&
       judgement.result.minimal && judgement.result.preserves_intent;
     return {
@@ -245,7 +235,7 @@ async function main(): Promise<void> {
 
   const misses = new Map<string, number>();
   for (const assessment of assessments) {
-    for (const miss of missingElements(assessment.judgeInput, assessment.judgeResult)) {
+    for (const miss of missingElements(assessment.judgeResult)) {
       const key = `${assessment.finding.ruleId}\t${miss.level}\t${miss.element}`;
       misses.set(key, (misses.get(key) ?? 0) + 1);
     }

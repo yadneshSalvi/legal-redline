@@ -2,6 +2,7 @@ import { betaZodTool } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
 
 import { elementCoverageGate, minimalityGate } from "@/src/agent/element-gates";
+import { deterministicPreciseChecks, preciseMinimalityGate } from "@/src/agent/precise-element-gates";
 import type { RunnableTool } from "@/src/agent/llm";
 import type { PrecedentMemory } from "@/src/agent/memory";
 import {
@@ -10,7 +11,7 @@ import {
   type DrafterToolState,
   type WorkerSubmission,
 } from "@/src/agent/tools";
-import type { ElementCoverage, PipelineConfig } from "@/src/agent/types";
+import type { ElementCoverage, FindingStatus, PipelineConfig } from "@/src/agent/types";
 import { findText } from "@/src/engine";
 import type { DocumentModel, RedlineOp } from "@/src/engine/types";
 import type { Rule } from "@/src/playbook/schema";
@@ -156,6 +157,10 @@ export function createElementDrafterTools(options: {
   rule: Rule;
   memory?: PrecedentMemory;
   state?: ElementDrafterToolState;
+  /** Precise repair starts after classification and may not erase or change that detection result. */
+  expectedStatus?: FindingStatus;
+  /** At least one established source anchor must survive precision repair for a present clause. */
+  requiredParagraphIds?: readonly string[];
 }): { tools: RunnableTool[]; state: ElementDrafterToolState } {
   const { document, config, rule, memory } = options;
   const state = options.state ?? {};
@@ -234,10 +239,28 @@ export function createElementDrafterTools(options: {
         const typed = { ...proposal, ops: proposal.ops as RedlineOp[] };
         const temporary: DrafterToolState = {};
         const base = validateProposal(document, config, temporary, typed);
-        const minimality = minimalityGate("deviation", typed.ops);
-        const errors = [...base.errors, ...minimality.errors];
+        const minimality = config.preciseElementProtocol
+          ? preciseMinimalityGate(document, options.expectedStatus ?? "deviation", typed.ops)
+          : minimalityGate("deviation", typed.ops);
+        const precision = config.preciseElementProtocol
+          ? deterministicPreciseChecks({
+              document,
+              rule,
+              status: options.expectedStatus ?? "deviation",
+              target: typed.level,
+              paragraphIds: [
+                ...(options.requiredParagraphIds ?? []),
+                ...typed.ops.map((op) => op.paragraphId),
+              ],
+              ops: typed.ops,
+            })
+          : undefined;
+        const precisionErrors = precision?.checks
+          .filter((check) => !check.ok)
+          .map((check) => `${check.name}: ${check.detail ?? "failed"}`) ?? minimality.errors;
+        const errors = [...base.errors, ...precisionErrors];
         if (errors.length === 0) state.validatedProposal = typed;
-        return { ok: errors.length === 0, errors, rendered: base.rendered, minimality };
+        return { ok: errors.length === 0, errors, rendered: base.rendered, minimality, precisionChecks: precision?.checks };
       }),
     }),
     betaZodTool({
@@ -266,9 +289,18 @@ export function createElementDrafterTools(options: {
           coverage: typed.elementCoverage,
         });
         const missingMinimality = typed.status === "missing" && typed.proposal
-          ? minimalityGate(typed.status, typed.proposal.ops)
+          ? config.preciseElementProtocol
+            ? preciseMinimalityGate(document, typed.status, typed.proposal.ops)
+            : minimalityGate(typed.status, typed.proposal.ops)
           : { ok: true, errors: [] };
-        const errors = [...base.errors, ...coverage.errors, ...missingMinimality.errors];
+        const statusErrors = options.expectedStatus !== undefined && typed.status !== options.expectedStatus
+          ? [`Detection status is locked as ${options.expectedStatus}; precise repair may not submit ${typed.status}`]
+          : [];
+        const anchorErrors = options.requiredParagraphIds !== undefined && options.requiredParagraphIds.length > 0 &&
+          !options.requiredParagraphIds.some((paragraphId) => typed.paragraphIds.includes(paragraphId))
+          ? ["Precision repair must retain at least one paragraph from the established finding"]
+          : [];
+        const errors = [...base.errors, ...coverage.errors, ...missingMinimality.errors, ...statusErrors, ...anchorErrors];
         if (errors.length === 0) {
           state.submission = {
             ...typed,

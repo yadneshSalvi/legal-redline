@@ -1,0 +1,1030 @@
+{
+  "aggregate": {
+    "appliedTrackedChangeYield": {
+      "eligible": 9,
+      "passing": 7,
+      "rate": 0.7777777777777778
+    },
+    "citationHallucination": {
+      "hallucinations": 5,
+      "invalidReferences": [
+        "31",
+        "76",
+        "60",
+        "31",
+        "97"
+      ],
+      "rate": 0.043478260869565216,
+      "references": 115
+    },
+    "completeRedline": {
+      "eligible": 9,
+      "passing": 6,
+      "rate": 0.6666666666666666
+    },
+    "contracts": 1,
+    "detection": {
+      "macro": {
+        "f1": 0.9411764705882353,
+        "precision": 1,
+        "recall": 0.8888888888888888
+      },
+      "micro": {
+        "ambiguousItems": 0,
+        "ambiguousMatches": 0,
+        "escalations": 0,
+        "f1": 0.9411764705882353,
+        "fn": 1,
+        "fp": 0,
+        "precision": 1,
+        "recall": 0.8888888888888888,
+        "tp": 8
+      }
+    },
+    "deviationAccuracy": {
+      "accuracy": 0.8181818181818182,
+      "correct": 9,
+      "located": 11
+    },
+    "minimality": {
+      "eligible": 8,
+      "passing": 6,
+      "rate": 0.75
+    },
+    "precedentAdherence": {
+      "eligible": 8,
+      "passing": 0,
+      "rate": 0
+    },
+    "redlineValidity": {
+      "eligible": 8,
+      "passing": 7,
+      "rate": 0.875
+    },
+    "resources": {
+      "cacheReadTokens": 1023759,
+      "cacheWriteTokens": 197855,
+      "calls": 170,
+      "costUsd": 6.73299325,
+      "inputTokens": 187769,
+      "latencyMs": 65432,
+      "outputTokens": 161827,
+      "retries": 0,
+      "toolCalls": 173
+    }
+  },
+  "config": "i7-precise",
+  "contracts": [
+    {
+      "contractId": "cuad-bnc-mortgage-hosting",
+      "judgements": {
+        "f-assign-0ba91216": {
+          "drafting_quality": 1,
+          "elements": [
+            {
+              "element": "Customer may assign without Vendor consent to an affiliate.",
+              "evidence": "Section 15 expressly provides that no approval is required for Client's assignment to an affiliate.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer may assign without Vendor consent to a successor in a merger.",
+              "evidence": "The approval requirement expressly does not apply to Client's assignment to a successor in a merger.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer may assign without Vendor consent to a successor in an acquisition.",
+              "evidence": "The approval requirement expressly does not apply to Client's assignment to a successor in an acquisition.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer may assign without Vendor consent to a successor in a sale of substantially all assets.",
+              "evidence": "The approval requirement expressly does not apply to Client's assignment to a successor in a sale of substantially all assets.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor may not assign or transfer without Customer's consent.",
+              "evidence": "Neither party may assign or transfer without the other party's prior written approval, and the exceptions apply only to Client.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer's consent to a Vendor assignment may not be unreasonably withheld.",
+              "evidence": "The clause states that Client's approval of an assignment or transfer by TrueLink shall not be unreasonably withheld.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor may not assign or transfer the Agreement to a Customer competitor.",
+              "evidence": "The clause expressly prohibits TrueLink from assigning or transferring the Agreement to a competitor of Client.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor has no termination right triggered by Customer's change of control.",
+              "evidence": "The clause expressly states that TrueLink has no right to terminate as a result of a change of control of Client.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer may assign without Vendor consent to a successor.",
+              "evidence": "Client may assign without approval to a successor in a merger, acquisition, or sale of substantially all assets.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Customer must provide Vendor written notice of an assignment to a successor.",
+              "evidence": "No notice requirement applies to Client's permitted successor assignments.",
+              "level": "fallback",
+              "met": false
+            },
+            {
+              "element": "Vendor may assign without Customer consent to a successor.",
+              "evidence": "The successor exception applies only to Client; TrueLink remains subject to Client's prior written approval.",
+              "level": "fallback",
+              "met": false
+            },
+            {
+              "element": "Vendor must provide Customer written notice of an assignment to a successor.",
+              "evidence": "The clause provides no notice-based successor assignment right for TrueLink.",
+              "level": "fallback",
+              "met": false
+            },
+            {
+              "element": "Customer assignments other than assignments to a successor require Vendor consent.",
+              "evidence": "Client may also assign to an affiliate without TrueLink's consent, even though an affiliate assignment need not be a successor assignment.",
+              "level": "fallback",
+              "met": false
+            },
+            {
+              "element": "Vendor's consent to Customer assignments other than assignments to a successor may not be unreasonably withheld.",
+              "evidence": "The clause does not restrict TrueLink from unreasonably withholding approval of Client assignments requiring approval.",
+              "level": "fallback",
+              "met": false
+            },
+            {
+              "element": "Vendor assignments other than assignments to a successor require Customer consent.",
+              "evidence": "All TrueLink assignments or transfers require Client's prior written approval; TrueLink has no successor exception.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Customer's consent to Vendor assignments other than assignments to a successor may not be unreasonably withheld.",
+              "evidence": "Client's approval of an assignment or transfer by TrueLink expressly may not be unreasonably withheld.",
+              "level": "fallback",
+              "met": true
+            }
+          ],
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative redline fully implements the preferred position. It is not a complete fallback because it lacks written notice for Customer successor assignments, gives Vendor no consent-free successor right, retains a separate Customer affiliate carve-out, and does not make Vendor's consent to Customer assignments subject to a reasonableness standard. The changes are confined to the assignment provision and do not disturb unrelated commercial terms.",
+          "satisfies_fallback": false,
+          "satisfies_preferred": true
+        },
+        "f-indemn-55f24b52": {
+          "drafting_quality": 4,
+          "elements": [
+            {
+              "element": "Vendor expressly indemnifies Customer.",
+              "evidence": "Section 12(c) states that TrueLink shall indemnify Client against specified third-party IP claims.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor expressly defends Customer.",
+              "evidence": "The clause requires indemnification but contains no express duty to defend.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Vendor indemnifies Customer's affiliates against the covered third-party claims.",
+              "evidence": "Although Section 12(b) names Client's affiliates for breach-related claims, the new IP indemnity in Section 12(c) protects only Client, and the other preferred claim categories are absent.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Vendor defends Customer's affiliates against the covered third-party claims.",
+              "evidence": "No duty to defend is stated, and Section 12(c) does not name Client's affiliates.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Covered claims include third-party allegations that the services or deliverables infringe intellectual property rights.",
+              "evidence": "Section 12(c) covers third-party claims that the Interface, Hosting Services, or Support Services infringe or misappropriate any intellectual property right.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Covered claims include third-party claims arising from Vendor's breach of law.",
+              "evidence": "No express Vendor indemnity for claims arising from TrueLink's violation or breach of law is included.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Covered claims include third-party claims arising from a data breach caused by Vendor.",
+              "evidence": "The clause contains no data-breach indemnity or causation trigger tied to TrueLink.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Covered claims include third-party claims arising from Vendor's gross negligence or wilful misconduct.",
+              "evidence": "Gross negligence and wilful misconduct are not stated as indemnity triggers.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "The indemnification procedure requires Customer to give Vendor notice of a covered claim.",
+              "evidence": "No notice procedure appears in the rendered clause.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "The indemnification procedure gives Vendor control of the defense and settlement of a covered claim.",
+              "evidence": "No defense or settlement-control provision appears in the rendered clause.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "The indemnification procedure requires Customer to provide reasonable cooperation.",
+              "evidence": "No cooperation obligation appears in the rendered clause.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Customer indemnifies Vendor for claims arising from Customer-provided content.",
+              "evidence": "Section 12(a)(iii) covers claims arising from or relating to Client Content, including content posted by Client and its personnel or authorized customers.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer indemnifies Vendor for claims arising from Customer's breach of law.",
+              "evidence": "Section 12(a)(ii) covers claims resulting from relevant Client acts or omissions constituting a violation of state or federal law, rule, or regulation.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer's indemnity is limited exclusively to Customer-provided content and Customer's breach of law.",
+              "evidence": "Section 12(a) additionally covers any Client breach of the Agreement, acts causing TrueLink defaults under third-party agreements, claims relating broadly to the Web Site, and product-, service-, or information-related personal injury and property damage.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Vendor indemnifies Customer against third-party intellectual-property claims concerning the services or deliverables.",
+              "evidence": "Section 12(c) expressly indemnifies Client against third-party claims that the Interface, Hosting Services, or Support Services infringe or misappropriate intellectual property rights.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "The Vendor IP indemnity excludes claims arising from Customer modifications.",
+              "evidence": "Section 12(c) excludes claims to the extent arising from modifications made by Client.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "The Vendor IP indemnity excludes claims arising from Customer combinations with items not supplied by Vendor.",
+              "evidence": "Section 12(c) excludes claims arising from Client's combination of the covered items with items not supplied by TrueLink.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "The Vendor IP indemnity excludes claims arising from Customer specifications.",
+              "evidence": "Section 12(c) expressly excludes claims arising from Client's specifications.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "The IP remedies include procuring Customer's right to continue using the affected item.",
+              "evidence": "TrueLink must procure for Client the right to continue use of the affected item as one remedial option.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "The IP remedies include modifying the affected item to make it non-infringing.",
+              "evidence": "Section 12(c) includes modification so the affected item is non-infringing.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "The IP remedies include replacing the affected item with a non-infringing equivalent.",
+              "evidence": "Section 12(c) includes replacement with a non-infringing equivalent.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "The IP remedies include refunding fees if procurement, modification, and replacement are unavailable.",
+              "evidence": "If none of the preceding remedies is available, TrueLink must refund the fees paid for the affected item.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Vendor's liability for the IP indemnity is subject to a super-cap of three times annual fees.",
+              "evidence": "Section 12(c) caps TrueLink's total liability under that subsection at 3x the annual fees paid by Client under the Agreement.",
+              "level": "fallback",
+              "met": true
+            }
+          ],
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The redline fully implements the fallback IP indemnity, exclusions, remedy sequence, and 3x annual-fees cap while otherwise leaving the parties' indemnities intact. It does not satisfy the preferred position because it omits an express defense duty, protection of affiliates under the IP clause, Vendor breach-of-law, data-breach, and gross-negligence/wilful-misconduct triggers, and all standard indemnification procedures. It also leaves Client's indemnity substantially broader than the preferred two permitted categories.",
+          "satisfies_fallback": true,
+          "satisfies_preferred": false
+        },
+        "f-insurance-1c661cbc": {
+          "drafting_quality": 1,
+          "elements": [
+            {
+              "element": "Vendor must maintain commercial general liability insurance of at least USD 1,000,000 per occurrence.",
+              "evidence": "Section 31(a) requires TrueLink to maintain commercial general liability insurance of not less than USD 1,000,000 per occurrence throughout the Agreement term.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor must maintain commercial general liability insurance with an aggregate limit of at least USD 2,000,000.",
+              "evidence": "Section 31(a) requires an aggregate commercial general liability limit of not less than USD 2,000,000.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor must maintain professional liability (errors and omissions) insurance of at least USD 2,000,000.",
+              "evidence": "Section 31(b) requires professional liability (errors and omissions) insurance of not less than USD 2,000,000.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "If Vendor processes Customer Data, Vendor must maintain cyber and privacy liability insurance of at least USD 5,000,000.",
+              "evidence": "The condition applies because TrueLink handles Client Content and other Client data. Section 31(c) requires cyber and privacy liability insurance of not less than USD 5,000,000 covering that handling.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor must maintain workers' compensation insurance as required by law.",
+              "evidence": "Section 31(d) requires workers' compensation insurance as required by applicable law.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor must provide certificates of insurance upon request.",
+              "evidence": "The final sentence of Section 31 requires TrueLink to provide Client with certificates evidencing the required coverage upon request.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor must maintain commercial general liability insurance of at least USD 1,000,000 per occurrence.",
+              "evidence": "Section 31(a) requires TrueLink to maintain commercial general liability insurance of not less than USD 1,000,000 per occurrence.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Vendor must maintain commercial general liability insurance with an aggregate limit of at least USD 2,000,000.",
+              "evidence": "Section 31(a) requires an aggregate commercial general liability limit of not less than USD 2,000,000.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Vendor must maintain professional liability (errors and omissions) insurance of at least USD 1,000,000.",
+              "evidence": "Section 31(b) requires USD 2,000,000, which exceeds the fallback minimum of USD 1,000,000.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "If Vendor processes Customer Data, Vendor must maintain cyber and privacy liability insurance of at least USD 2,000,000.",
+              "evidence": "The condition applies because TrueLink handles Client Content and other Client data. Section 31(c) requires USD 5,000,000, which exceeds the fallback minimum of USD 2,000,000.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Vendor must maintain workers' compensation insurance as required by law.",
+              "evidence": "Section 31(d) requires workers' compensation insurance as required by applicable law.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Vendor must provide certificates of insurance upon request.",
+              "evidence": "The final sentence of Section 31 requires certificates evidencing the required coverage upon request.",
+              "level": "fallback",
+              "met": true
+            }
+          ],
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The added provision meets every preferred insurance requirement and therefore also exceeds the fallback limits. It appropriately directs the duties to TrueLink, applies them throughout the term, and adds no unrelated commercial obligation. The drafting is clear and operative, though the quality score reflects the unexplained numeric rating scale rather than a substantive defect.",
+          "satisfies_fallback": true,
+          "satisfies_preferred": true
+        },
+        "f-ip-63500346": {
+          "drafting_quality": 3,
+          "elements": [
+            {
+              "element": "Customer owns all deliverables created for Customer.",
+              "evidence": "Section e makes “all results of the Support Services” and other materials prepared specifically for Client the sole property of Client.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer owns all work product created for Customer.",
+              "evidence": "The broad references to “all results” and “any other materials prepared by TrueLink specifically for Client” cover work product created for Client.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor presently assigns all right, title and interest in those deliverables and work product to Customer.",
+              "evidence": "TrueLink “hereby assigns to Client all right, title and interest therein.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor retains ownership of all of its pre-existing intellectual property.",
+              "evidence": "The clause expressly preserves TrueLink’s ownership only in the Interface and treats embedded TrueLink IP as licensed rather than assigned. It contains no general reservation covering all pre-existing TrueLink intellectual property.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "If Vendor intellectual property is embedded in deliverables, Vendor grants Customer a license to that embedded intellectual property.",
+              "evidence": "The condition is expressly addressed: “To the extent any TrueLink Intellectual Property is embedded in such results or materials, TrueLink grants Client” a license to it.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "The license to embedded Vendor intellectual property is perpetual.",
+              "evidence": "The embedded-IP license is expressly “perpetual.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "The license to embedded Vendor intellectual property is irrevocable.",
+              "evidence": "The embedded-IP license is expressly “irrevocable.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "The license to embedded Vendor intellectual property is royalty-free.",
+              "evidence": "The embedded-IP license is expressly “royalty-free.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer retains all rights in Customer Data.",
+              "evidence": "Client retains all right, title and interest in Client Content and all data provided by or on behalf of Client or its customers, brokers or borrowers. The existing Section 8(d) license does not transfer ownership.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "No jointly owned intellectual property is created.",
+              "evidence": "The clause states: “No jointly owned intellectual property is created under this Agreement.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor owns its generic tools.",
+              "evidence": "Neither the Interface ownership sentence nor the embedded-IP license expressly reserves ownership of all generic tools, including tools developed or used in performing the services.",
+              "level": "fallback",
+              "met": false
+            },
+            {
+              "element": "Vendor owns its generic know-how.",
+              "evidence": "The operative language contains no express ownership reservation for TrueLink’s generic know-how.",
+              "level": "fallback",
+              "met": false
+            },
+            {
+              "element": "Customer receives a license covering the deliverables.",
+              "evidence": "Client receives the broader right of ownership in the deliverables, together with a license to any embedded TrueLink IP as part of those deliverables.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Customer's rights in the deliverables are perpetual.",
+              "evidence": "The ownership assignment has no expiration, and the embedded-IP license is expressly perpetual.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Customer's rights in the deliverables are irrevocable.",
+              "evidence": "The present ownership assignment contains no revocation right, and the embedded-IP license is expressly irrevocable.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Customer's rights in the deliverables are worldwide.",
+              "evidence": "The embedded-IP license does not state that it is worldwide. The worldwide language in Section 8(d) applies to TrueLink’s Credit Data license, not Client’s deliverable rights.",
+              "level": "fallback",
+              "met": false
+            },
+            {
+              "element": "Customer's rights in the deliverables are royalty-free.",
+              "evidence": "The embedded-IP license is expressly royalty-free, and no continuing royalty is imposed on Client’s ownership of the deliverables.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Customer may use the deliverables.",
+              "evidence": "Ownership permits Client to use the deliverables, and the embedded-IP license permits the TrueLink IP to be used as part of them.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Customer may modify the deliverables.",
+              "evidence": "Although ownership permits modification of Client-owned portions, the embedded TrueLink IP license does not expressly permit modification, so modification of the complete deliverables is not assured.",
+              "level": "fallback",
+              "met": false
+            },
+            {
+              "element": "Customer may sublicense the deliverables.",
+              "evidence": "The embedded TrueLink IP license contains no sublicensing right, so Client cannot clearly sublicense all rights needed for deliverables containing that IP.",
+              "level": "fallback",
+              "met": false
+            },
+            {
+              "element": "Customer may exercise its deliverable rights for its business.",
+              "evidence": "Client’s ownership and embedded-IP license are not restricted to nonbusiness purposes and therefore cover use in Client’s business.",
+              "level": "fallback",
+              "met": true
+            }
+          ],
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The redline substantially achieves the customer-ownership position, including a present assignment, Customer Data ownership, the required embedded-IP license attributes, and no joint ownership. It does not expressly reserve all pre-existing Vendor IP, only the Interface and implicitly embedded TrueLink IP. The fallback also fails because generic tools and know-how are not reserved and the embedded-IP license lacks worldwide, modification, and sublicensing rights. No complete level is reached, so the redline is not minimal under the stated definition. Existing Interface ownership, the Credit Data license, and unrelated term provisions remain operative without a clear contradiction.",
+          "satisfies_fallback": false,
+          "satisfies_preferred": false
+        },
+        "f-license-3bb56241": {
+          "drafting_quality": 4,
+          "elements": [
+            {
+              "element": "The licence extends to Customer's affiliates without a written-notice condition.",
+              "evidence": "Section 2(a) includes affiliates only “on written notice to TrueLink.” This meets the fallback mechanism but not the unconditional preferred extension.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "The licence extends to contractors acting on Customer's behalf.",
+              "evidence": "The licence grant does not cover contractors acting on Client's behalf.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Any paid-up licence is perpetual.",
+              "evidence": "No perpetual duration is stated. The clause does not demonstrate that paid-up licences are inapplicable, so the conditional requirement is not satisfied.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Any paid-up licence is irrevocable.",
+              "evidence": "No irrevocability protection is stated. The clause does not demonstrate that paid-up licences are inapplicable.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "A subscription licence may be terminated only for material breach.",
+              "evidence": "The rendered language contains no limitation making material breach the exclusive ground for terminating a subscription licence, and subscription licensing is not demonstrably absent.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "A subscription licence may be terminated for material breach only if that breach remains uncured.",
+              "evidence": "No cure right or uncured-breach termination trigger is included, and subscription licensing is not demonstrably absent.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "The licence is transferable to successors without limitation to an M&A transaction.",
+              "evidence": "Section 15 permits Client's consent-free assignment only to a successor in a merger or acquisition, not to successors generally.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "The licence extends to Customer's affiliates on written notice.",
+              "evidence": "Section 2(a) grants the licence to “Client and, on written notice to TrueLink, its affiliates.”",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "The licence is transferable to a successor in an M&A transaction without the other party's approval.",
+              "evidence": "Section 15 expressly removes the approval requirement for “Client's assignment to a successor in a merger or acquisition.”",
+              "level": "fallback",
+              "met": true
+            }
+          ],
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative edits fully implement the fallback position and do not implement the broader preferred protections. They are limited to affiliate coverage on written notice and a consent-free M&A-successor assignment carve-out, without changing unrelated commercial terms. Drafting is generally concise, though “Client and, on written notice to TrueLink, its affiliates” is slightly awkward and could more clearly specify when affiliate rights become effective.",
+          "satisfies_fallback": true,
+          "satisfies_preferred": false
+        },
+        "f-lol-cap-657fe724": {
+          "drafting_quality": 3,
+          "elements": [
+            {
+              "element": "The liability cap applies mutually to both parties.",
+              "evidence": "The clause limits “EITHER PARTY'S TOTAL AGGREGATE LIABILITY.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "The fee-based comparator consists of fees paid or payable in the 12 months preceding the claim.",
+              "evidence": "The clause includes compensation “PAID OR PAYABLE” over an “IMMEDIATELY PRECEDING 12 MONTHS PERIOD,” but does not specify that the period precedes the claim.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "The second cap comparator is USD 1,000,000.",
+              "evidence": "The clause expressly uses “USD 1,000,000” as comparator (B).",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "The applicable cap is the greater of the fee-based comparator and USD 1,000,000.",
+              "evidence": "The clause caps liability at “THE GREATER OF” comparators (A) and (B).",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Each party is excluded from liability for indirect damages.",
+              "evidence": "Although the clause states that neither party is liable for indirect damages, the opening “EXCEPT FOR EXCLUDED CLAIMS” appears to qualify both the cap and the coordinated damages exclusion, leaving indirect damages potentially recoverable for Excluded Claims.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Each party is excluded from liability for consequential damages.",
+              "evidence": "Although the clause states that neither party is liable for consequential damages, the opening “EXCEPT FOR EXCLUDED CLAIMS” appears to qualify both the cap and the coordinated damages exclusion, leaving consequential damages potentially recoverable for Excluded Claims.",
+              "level": "preferred",
+              "met": false
+            },
+            {
+              "element": "Liability for breach of confidentiality obligations is uncapped for each party.",
+              "evidence": "A party’s breach of its confidentiality obligations is an “EXCLUDED CLAIM” and is therefore outside the cap.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Liability for breach of data protection obligations is uncapped for each party.",
+              "evidence": "A party’s breach of its data protection obligations is an “EXCLUDED CLAIM” and is therefore outside the cap.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Liability for breach of security obligations is uncapped for each party.",
+              "evidence": "A party’s breach of its security obligations is an “EXCLUDED CLAIM” and is therefore outside the cap.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Liability arising from indemnification obligations is uncapped for each party.",
+              "evidence": "A party’s indemnification obligations are included in the definition of “EXCLUDED CLAIMS” and are outside the cap.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Liability arising from gross negligence is uncapped for each party.",
+              "evidence": "A party’s gross negligence is an “EXCLUDED CLAIM” and is therefore outside the cap.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Liability arising from wilful misconduct is uncapped for each party.",
+              "evidence": "A party’s “WILLFUL MISCONDUCT” is an “EXCLUDED CLAIM” and is therefore outside the cap.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Liability arising from fraud is uncapped for each party.",
+              "evidence": "A party’s fraud is an “EXCLUDED CLAIM” and is therefore outside the cap.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Liability arising from infringement of the other party’s intellectual property is uncapped for each party.",
+              "evidence": "A party’s infringement of the other party’s intellectual property rights is an “EXCLUDED CLAIM” and is therefore outside the cap.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer’s payment obligations are not treated as damages for purposes of the liability cap.",
+              "evidence": "The clause expressly states that Client’s obligation to pay amounts due is not treated as damages subject to the limitation.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "The liability cap applies mutually to both parties.",
+              "evidence": "The clause limits “EITHER PARTY'S TOTAL AGGREGATE LIABILITY.”",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "The mutual liability cap is based on 12 months’ fees.",
+              "evidence": "Comparator (A) is compensation paid or payable for hosting and support services over the immediately preceding 12-month period; the USD 1,000,000 floor is more protective than the fallback amount.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Liability arising from indemnification obligations is uncapped for each party.",
+              "evidence": "A party’s indemnification obligations are included in “EXCLUDED CLAIMS” and are outside the cap.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Liability for breach of confidentiality obligations is uncapped for each party.",
+              "evidence": "A party’s breach of its confidentiality obligations is an “EXCLUDED CLAIM” and is outside the cap.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Liability arising from gross negligence is uncapped for each party.",
+              "evidence": "A party’s gross negligence is an “EXCLUDED CLAIM” and is outside the cap.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Liability arising from wilful misconduct is uncapped for each party.",
+              "evidence": "A party’s “WILLFUL MISCONDUCT” is an “EXCLUDED CLAIM” and is outside the cap.",
+              "level": "fallback",
+              "met": true
+            }
+          ],
+          "minimal": false,
+          "preserves_intent": true,
+          "reason": "The redline satisfies the fallback but not the preferred position. It does not anchor the 12-month lookback to the claim, and the opening exception grammatically appears to qualify the indirect/consequential-damages exclusion as well as the cap, so that exclusion is not fully mutual across all claims. The drafting is also non-minimal because it additionally excludes incidental damages and potentially permits indirect and consequential damages for Excluded Claims, neither of which is required by the stated positions. The requested liability allocation is otherwise implemented without disturbing unrelated commercial terms.",
+          "satisfies_fallback": true,
+          "satisfies_preferred": false
+        },
+        "f-transition-2aa5a23a": {
+          "drafting_quality": 3,
+          "elements": [
+            {
+              "element": "Upon expiry or termination, Vendor must provide transition assistance to Customer.",
+              "evidence": "The added clause applies “[u]pon expiration or termination of this Agreement for any reason” and requires TrueLink, at Client's request, to “provide reasonable transition assistance.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Transition assistance must be available for up to 6 months.",
+              "evidence": "Subsection (a) expressly provides transition assistance “for up to 6 months.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Transition assistance must be provided at Vendor's then-current rates.",
+              "evidence": "Subsection (a) specifies “at TrueLink's then-current rates.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Upon expiry or termination, Vendor must return all Customer Data to Customer.",
+              "evidence": "Subsection (b) requires TrueLink to “return to Client all Client Content and other Client data” upon expiration or termination.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Vendor must return Customer Data within 30 days after expiry or termination.",
+              "evidence": "Subsection (b) requires return “within 30 days of such expiration or termination,” rather than measuring the deadline from a later request.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Customer Data must be returned in a standard machine-readable format.",
+              "evidence": "Subsection (b) expressly requires “a standard machine-readable format.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "After returning Customer Data, Vendor must delete it from its systems.",
+              "evidence": "Subsection (c) requires TrueLink to “thereafter delete such Client Content and data from its systems.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "After deletion, Vendor must certify the deletion to Customer.",
+              "evidence": "Subsection (c) requires TrueLink to “certify such deletion to Client in writing.”",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Upon expiry or termination, Vendor must provide transition assistance to Customer.",
+              "evidence": "The clause applies upon expiration or termination for any reason and requires TrueLink to provide transition assistance at Client's request.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Transition assistance must be available for 90 days.",
+              "evidence": "The clause makes assistance available for up to 6 months, which encompasses a requested 90-day transition period.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Upon expiry or termination, Vendor must export Customer Data to Customer.",
+              "evidence": "TrueLink must return all Client Content and other Client data to Client in a standard machine-readable format.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "The Customer Data export must occur within 30 days after expiry or termination.",
+              "evidence": "The return deadline is expressly “within 30 days of such expiration or termination.”",
+              "level": "fallback",
+              "met": true
+            }
+          ],
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative addition fully implements the preferred position and therefore also the fallback. It addresses only transition assistance, data return, deletion, and certification, without altering the existing termination mechanics or adding unrelated commercial obligations.",
+          "satisfies_fallback": true,
+          "satisfies_preferred": true
+        },
+        "f-warranty-addbb3a2": {
+          "drafting_quality": 4,
+          "elements": [
+            {
+              "element": "Services are performed in a professional and workmanlike manner.",
+              "evidence": "Subsection (a) expressly warrants that the Services, including Hosting Services and Support Services, will be performed in a professional and workmanlike manner.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Software conforms to its documentation for 12 months following delivery.",
+              "evidence": "Subsection (b) provides that, for 12 months following delivery, the Interface and all related software will conform to their documentation.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Deliverables conform to their documentation for 12 months following delivery.",
+              "evidence": "Subsection (b) expressly includes “all deliverables” in the 12-month documentation-conformance warranty.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Services conform to their documentation for 90 days following performance.",
+              "evidence": "Subsection (c) warrants for 90 days following performance that the Services will conform to their documentation.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Repair is available as a remedy for breach of the warranties.",
+              "evidence": "The remedy sentence states that Client's remedy for breach of the foregoing warranties includes repair.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Replacement is available as a remedy for breach of the warranties.",
+              "evidence": "The remedy sentence states that Client's remedy for breach of the foregoing warranties includes replacement.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "A refund is available as a remedy for breach of the warranties.",
+              "evidence": "The remedy sentence provides for a refund of fees paid for the non-conforming Interface, software, deliverable, or Services.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "TrueLink complies with laws applicable to its performance under the Agreement.",
+              "evidence": "Subsection (e) expressly warrants that TrueLink will comply with all laws applicable to its performance under the Agreement.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "The software is free of malicious code.",
+              "evidence": "Subsection (d) expressly warrants that the Interface and all related software will be free of malicious code.",
+              "level": "preferred",
+              "met": true
+            },
+            {
+              "element": "Software conforms to its documentation for 90 days following delivery.",
+              "evidence": "The rendered clause provides a longer 12-month software conformance warranty following delivery, which necessarily covers the fallback 90-day period.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Services conform to their documentation for 30 days following performance.",
+              "evidence": "The rendered clause provides a longer 90-day Services conformance warranty following performance, which necessarily covers the fallback 30-day period.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Repair is available as a remedy for breach of the warranties.",
+              "evidence": "The remedy sentence expressly includes repair.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "Replacement is available as a remedy for breach of the warranties.",
+              "evidence": "The remedy sentence expressly includes replacement.",
+              "level": "fallback",
+              "met": true
+            },
+            {
+              "element": "A refund is available as a remedy for breach of the warranties.",
+              "evidence": "The remedy sentence expressly includes a refund of applicable fees paid.",
+              "level": "fallback",
+              "met": true
+            }
+          ],
+          "minimal": true,
+          "preserves_intent": true,
+          "reason": "The operative addition satisfies every preferred requirement, including the longer warranty periods, and therefore also satisfies the fallback durations. It adds only the requested performance, conformance, legal-compliance, malicious-code, and remedy protections. The existing disclaimer is expressly subject to warranties stated in the Agreement and therefore does not negate the additions. Drafting is generally strong, although the remedy provision could more clearly specify who elects among repair, replacement, and refund and the timing for providing the selected remedy.",
+          "satisfies_fallback": true,
+          "satisfies_preferred": true
+        }
+      },
+      "metrics": {
+        "appliedTrackedChangeYield": {
+          "eligible": 9,
+          "passing": 7,
+          "rate": 0.7777777777777778
+        },
+        "citations": {
+          "hallucinations": 5,
+          "invalidReferences": [
+            "31",
+            "76",
+            "60",
+            "31",
+            "97"
+          ],
+          "rate": 0.043478260869565216,
+          "references": 115
+        },
+        "completeRedline": {
+          "eligible": 9,
+          "passing": 6,
+          "rate": 0.6666666666666666
+        },
+        "detection": {
+          "ambiguousItems": 0,
+          "ambiguousMatches": 0,
+          "escalations": 0,
+          "f1": 0.9411764705882353,
+          "fn": 1,
+          "fp": 0,
+          "precision": 1,
+          "recall": 0.8888888888888888,
+          "tp": 8
+        },
+        "deviationAccuracy": {
+          "accuracy": 0.8181818181818182,
+          "correct": 9,
+          "located": 11
+        },
+        "integrity": {
+          "applied": 9,
+          "attempted": true,
+          "changeCountMatches": true,
+          "collateralParagraphIds": [],
+          "errors": [],
+          "libreoffice": {
+            "attempted": true,
+            "ok": true
+          },
+          "ok": true,
+          "ops": 9
+        },
+        "minimality": {
+          "eligible": 8,
+          "passing": 6,
+          "rate": 0.75
+        },
+        "precedentAdherence": {
+          "eligible": 8,
+          "passing": 0,
+          "rate": 0
+        },
+        "redlineValidity": {
+          "applies": {
+            "eligible": 8,
+            "passing": 8,
+            "rate": 1
+          },
+          "checks": {
+            "eligible": 8,
+            "passing": 8,
+            "rate": 1
+          },
+          "eligible": 8,
+          "judge": {
+            "eligible": 8,
+            "passing": 7,
+            "rate": 0.875
+          },
+          "valid": {
+            "eligible": 8,
+            "passing": 7,
+            "rate": 0.875
+          }
+        },
+        "resources": {
+          "cacheReadTokens": 1023759,
+          "cacheWriteTokens": 197855,
+          "calls": 170,
+          "costUsd": 6.73299325,
+          "inputTokens": 187769,
+          "latencyMs": 65432,
+          "outputTokens": 161827,
+          "retries": 0,
+          "toolCalls": 173
+        }
+      }
+    }
+  ],
+  "tier": "short"
+}

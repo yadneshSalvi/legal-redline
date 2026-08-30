@@ -1,0 +1,33 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYjWsrsd8XEMiz2b816c",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "**Finding submitted: MISSING (critical)**\n\n**What I found:** The Agreement has no indemnification provision at all. The section outline jumps from Section 19 (Warranties) to Section 21 (Limitation of Liability), and text searches for \"indemnif\", \"hold harmless\", and \"defend\" turned up only orphaned references that presuppose an indemnity that was never drafted:\n\n- §9.3 — termination right if Vendor \"infringes a third party's intellectual property and cannot provide the remedies required by **Section 20.5**\" (a section that does not exist)\n- §19.4 — remedy \"is not exclusive for … indemnified claims\"\n- §21.3 — Excluded Claims include \"its **indemnification obligations**\"\n- §30.5 — preserves \"vested indemnity rights\" and enforcement by \"an indemnified party\"\n\n**Why it's a deviation, not a near-miss:** With zero Vendor IP indemnity, this sits squarely in walk-away territory and fails both the preferred and fallback positions.\n\n**Redline (validated ok:true):** Inserted a new Section 20 after §19.5 at the preferred position:\n- **20.1** Vendor defends/indemnifies Customer and Affiliates for third-party IP infringement, breach of Applicable Law, Vendor-caused Customer Data breaches, and gross negligence/wilful misconduct\n- **20.2** Narrow Customer indemnity — Customer-provided content and Customer's breach of law only, expressly stated as Customer's sole indemnity\n- **20.3** Standard notice/control/cooperation, with consent required for settlements imposing liability on the indemnified party\n- **20.4** Customary exclusions (modification, combination, Customer specifications)\n- **20.5** Procure/modify/replace/refund remedies — which also cures the dangling §9.3 cross-reference\n\nNo super-cap was added, since §21.3 already treats indemnification obligations as Excluded Claims uncapped — a better outcome for us than the fallback."
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2025,
+      "cache_read_input_tokens": 21834,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2025,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 665,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "durationMs": 9742
+}

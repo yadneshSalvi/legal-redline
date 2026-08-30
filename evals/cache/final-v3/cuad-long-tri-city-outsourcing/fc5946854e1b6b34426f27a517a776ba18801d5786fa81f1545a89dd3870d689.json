@@ -1,0 +1,69 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYrVs8WTDTEqhMWb8MCu",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01FWdNTVuYzAAeKbYhTFRoqi",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0192",
+            "p0243",
+            "p0250"
+          ],
+          "quote": "11.4 Termination Assistance. Commencing six (6) months prior to the expiration of the Term of this Agreement, or upon any termination of this Agreement for any reason, M&I shall provide Customer, at Customer's expense, all necessary assistance to allow the Services to continue without interruption or adverse affect to Customer and to facilitate the orderly transition of Services to Customer or its designee (\"Termination Assistance\").",
+          "rationale": "Section 11.4 satisfies the transition-assistance limb of the preferred position: assistance is available on expiry or any termination for any reason, and continued Services for up to six (6) months at contract rates (better than then-current rates), with only Expenses at then-current rates. However, neither Section 11.4 nor Section 17 (17.1 ownership; 17.5 security) contains any obligation on M&I to return Customer Data in a machine-readable format within a fixed period, or to delete and certify deletion thereafter. Data export within 30 days is a material term of both the preferred and the fallback position, so its absence fails the fallback. Minimal fix: insert a new 11.5 requiring return of Customer Data in a commonly used, machine-readable format within thirty (30) days and certified deletion thereafter; the existing six-month assistance period is left untouched.",
+          "confidence": 0.82,
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-transition",
+            "summary": "Insert express Customer Data return and certified deletion obligation in Section 11.4",
+            "comment": "[Playbook] Section 11.4 gives us transition assistance but no express right to get our data back, so we have added return of Customer Data in a commonly used, machine-readable format within thirty (30) days and certified deletion thereafter, consistent with our ownership of Customer Data under Section 17.1.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0192",
+                "numbering": "11.5",
+                "text": "11.5 Return of Customer Data. Upon expiration or any termination of this Agreement for any reason, and in any event within thirty (30) days following the Effective Date of Termination (or, if later, the end of any Termination Assistance period), M&I shall return to Customer all Customer Data in a commonly used, machine-readable format, and shall thereafter delete all Customer Data from its systems and certify such deletion to Customer in writing."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 929,
+      "cache_read_input_tokens": 11865,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 929,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 930,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "TRANSITION",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9510
+}

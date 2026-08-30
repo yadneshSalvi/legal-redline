@@ -112,9 +112,11 @@ export type ConfigId =
   | "i4-memory"
   | "i5-elements"
   | "i6-longdoc"
+  | "i7-precise"
   | "x-monolith"
   | "final"
-  | "final-v2";
+  | "final-v2"
+  | "final-v3";
 
 export type Effort = "low" | "medium" | "high" | "xhigh" | "max";
 
@@ -133,6 +135,8 @@ export interface PipelineConfig {
   precedentMemory: boolean;
   /** Uses additive position.elements plus the dedicated coverage/verifier protocol. */
   elementAware: boolean;
+  /** Locks round-1 detection before judge-shaped prose decomposition and precision repair. */
+  preciseElementProtocol: boolean;
   /** Uses whole-document search planning and paginated section reads. */
   longDocumentPlanning: boolean;
   longDocumentThresholdWords: number;

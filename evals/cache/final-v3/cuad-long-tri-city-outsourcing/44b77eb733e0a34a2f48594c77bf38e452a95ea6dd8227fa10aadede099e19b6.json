@@ -1,0 +1,67 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYr8W5eFhWbthcFqtpuJ",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01PhWhEf5GYZN8swDDpFzugu",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0207",
+            "p0205"
+          ],
+          "quote": "13.4 Limitation of Liability. Notwithstanding any provision in this Agreement, M&I's total liability under this Agreement shall not exceed payments made to M&I by Customer under this Agreement during the three (3) months prior to the event.",
+          "rationale": "Section 13.4 caps only M&I's liability (Customer is left uncapped) and sets the cap at just three months' payments — below the six-month floor and squarely in walk-away territory — with no carve-outs for indemnification (Section 14.2), confidentiality/data security, gross negligence, wilful misconduct, fraud or IP infringement, and the \"Notwithstanding any provision\" opener pulls the indemnities inside the cap. Section 13.2 does give a mutual consequential-damages exclusion, but that does not cure the one-sided, sub-fallback cap. The redline makes the cap mutual at the greater of twelve months' charges and USD 1,000,000 and adds an Excluded Claims carve-out, also confirming Customer's payment obligations are not capped damages.",
+          "proposal": {
+            "level": "preferred",
+            "summary": "Make the Section 13.4 cap mutual, raise it to the greater of 12 months' fees and USD 1,000,000, and carve out indemnities, confidentiality/security, gross negligence, wilful misconduct, fraud, IP infringement and Customer's payment obligations.",
+            "comment": "[Playbook] We made the liability cap mutual and moved it from three months' to the greater of twelve months' charges and USD 1,000,000, which is our standard position. Indemnification, confidentiality/data security, gross negligence, wilful misconduct, fraud and IP infringement sit outside the cap, and our payment obligations are not treated as capped damages.",
+            "precedentId": "seed-lol-2",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0207",
+                "oldText": "M&I's total liability under this Agreement shall not exceed payments made to M&I by Customer under this Agreement during the three (3) months prior to the event.",
+                "newText": "except for Excluded Claims, each party's total aggregate liability under this Agreement shall not exceed the greater of (a) the payments made or payable to M&I by Customer under this Agreement during the twelve (12) months immediately preceding the event giving rise to the claim and (b) One Million Dollars ($1,000,000). \"Excluded Claims\" means a party's breach of its confidentiality, data protection or security obligations, its indemnification obligations under Section 14.2, its gross negligence, willful misconduct or fraud, and its infringement of the other party's intellectual property rights, and Customer's obligation to pay charges due under this Agreement."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2023,
+      "cache_read_input_tokens": 8422,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2023,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1337,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "LOL-CAP",
+      "sha256": "a41afd06005372cf2975a57e73d90511448d4e1df021bb7dc547e1da849e2269"
+    }
+  ],
+  "durationMs": 12557
+}
