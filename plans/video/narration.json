@@ -1,66 +1,66 @@
 [
   {
     "id": "cold-open",
-    "text": "This is what in-house counsel actually sends back to a vendor: tracked changes and comments in Word. Producing it takes one to three hours per contract."
+    "text": "This is what in-house counsel actually sends back to a vendor: tracked changes and margin comments in Word. Producing a first pass takes one to three hours per contract."
   },
   {
     "id": "problem",
-    "text": "Every company has a playbook — preferred, fallback, and walk-away positions. The bottleneck is applying it, clause by clause, across twenty to sixty pages, without missing the term hidden in a definition three sections away."
+    "text": "Every company has a playbook — preferred, fallback, and walk-away positions. The bottleneck is applying it clause by clause across twenty to sixty pages, catching the term hidden in a definition three sections away, and doing it consistently with what the team accepted last time."
   },
   {
     "id": "baseline",
-    "text": "The naive approach is to paste the contract into a chat assistant. Here is our fair baseline: the same model, the same playbook, and one prompt. It finds {{B1_F1}} of the issues, cites sections that do not exist {{B1_HALL}} of the time, and cannot touch the document."
+    "text": "The naive approach is to paste the contract into a chat assistant. Our fair baseline is stronger than that: the same frontier model, the same playbook, one prompt. It already finds most issues — F one {{B1_F1}} — but an independent judge rejects more than half of its redlines, only {{B1_MIN}} are minimal edits, and it cannot write into the document."
   },
   {
     "id": "landing",
-    "text": "Playbook Redliner starts with the vendor's actual Word file and the company's versioned review playbook."
+    "text": "Playbook Redliner starts from the vendor's actual Word file and the company's versioned playbook: eighteen rules, each with a preferred, a fallback, and a walk-away position."
   },
   {
     "id": "pick-sample",
-    "text": "For this run, we will use a realistic hosting agreement from the evaluation set, with lawyer-confirmed gold labels."
+    "text": "This is a real hosting and licence agreement from the evaluation set — an SEC filing with lawyer-labelled gold. We are Corio, the customer."
   },
   {
     "id": "workspace-run",
-    "text": "The document becomes a clause-addressable model. The planner maps each of eighteen rules to the sections and definitions that matter, then starts one drafter per rule."
+    "text": "The document becomes a clause-addressable model. A planner maps every rule to the sections and definitions that matter, then one drafter per rule starts work, six at a time."
   },
   {
     "id": "findings-arrive",
-    "text": "Each worker can read sections, search the contract, resolve definitions, and validate every edit anchor. Findings arrive as soon as they are independently verified, so counsel can start reviewing before the run finishes."
+    "text": "Each drafter reads sections, searches the contract, resolves defined terms, and must validate every edit anchor verbatim before it can submit. An independent verifier — a fresh context that never sees the drafter's reasoning — checks each proposal, and findings land in the workspace as they pass."
   },
   {
     "id": "keyboard-review",
-    "text": "Nothing is written until I decide. I move with J and K, then accept, edit, or reject. Here I change the liability cap before accepting it, and reject a different proposal."
+    "text": "Nothing is written until counsel decides. J and K move, A accepts, E edits, R rejects. Here the cap that was limited to a single transaction becomes a mutual twelve-month cap with a floor; the licence is extended to affiliates; a missing convenience-termination right is inserted."
   },
   {
     "id": "precedents",
-    "text": "The liability language started from a precedent the team approved last month. Accepted wording becomes memory for the next contract."
+    "text": "Accepted wording becomes memory. The next contract's liability cap starts from language this team has already approved — the same words every time."
   },
   {
     "id": "export-dialog",
-    "text": "Export writes a new copy: real Word tracked changes, real margin comments, author Playbook Redliner, and nothing else touched."
+    "text": "Export writes a new copy of the file: real Word tracked changes, real margin comments citing the playbook rule, author Playbook Redliner — and every untouched paragraph verified byte-identical."
   },
   {
     "id": "memo-drawer",
-    "text": "The assembler also produces an issues memo, ordered by what counsel should resolve before signature."
+    "text": "The assembler also drafts the issues memo: walk-away items first, then the fixes, then the clauses that were checked and left alone."
   },
   {
     "id": "hard-case",
-    "text": "The hard case is a cap that says twelve months' Fees, while Fees is defined elsewhere as a one-off implementation fee. The baseline calls it compliant. The drafter resolved the definition, and the trajectory shows every tool call."
+    "text": "The hard case is a cap that reads twelve months' Fees, where Fees is defined two sections away as a one-off implementation fee. A frontier model with the whole contract in context resolves that in one prompt. What the pipeline adds is the edit: one validated redline that caps all charges with a floor — and it leaves the two decoy clauses alone."
   },
   {
     "id": "comparison",
-    "text": "On twelve contracts — eight real, lawyer-labelled SEC filings and four seeded synthetic ones — detection F one went from {{B1_F1}} to {{FINAL_F1}}, redline validity from {{B1_VALID}} to {{FINAL_VALID}}, and hallucinated citations from {{B1_HALL}} to {{FINAL_HALL}}."
+    "text": "On twelve contracts — eight real SEC filings and four seeded synthetic ones — the calibrated pipeline reaches F one {{FINAL_F1}} against the baseline's {{B1_F1}}, with precision {{FINAL_P}}. Redline validity rises from {{B1_VALID}} to {{FINAL_VALID}}, minimal edits from {{B1_MIN}} to {{FINAL_MIN}}, and nothing is silently applied: unsure findings are escalated to a person."
   },
   {
     "id": "changelog",
-    "text": "The biggest single gain came from {{BIGGEST}}. We also removed the monolith — one agent for all eighteen rules — because {{X_REASON}}. Every step stays in the measured changelog."
+    "text": "The biggest single gain came from {{BIGGEST}}. We removed the monolith — one agent for all eighteen rules — because {{X_REASON}}. And the iteration that mattered most was not a model change at all: reviewing our own false positives showed the specialists over-flagged clauses that already met the fallback, so we wrote the classification semantics into the playbook and re-ran the whole ladder."
   },
   {
     "id": "hot-take",
-    "text": "{{HOT_TAKE_LINE}} The real product is not an answer. It is a reviewable artifact with evidence."
+    "text": "{{HOT_TAKE_LINE}}"
   },
   {
     "id": "closing",
-    "text": "Playbook Redliner. Everything reproduces from the repository with one command."
+    "text": "Playbook Redliner. Every number, every trajectory, and every tracked change reproduces from the repository with one command."
   }
 ]
