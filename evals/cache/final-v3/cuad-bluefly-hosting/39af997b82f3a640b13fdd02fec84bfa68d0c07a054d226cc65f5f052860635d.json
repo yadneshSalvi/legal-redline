@@ -1,0 +1,89 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYvehWXrn7ZkAmE1HAQs",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "thinking",
+        "thinking": "",
+        "signature": "CAISrwMKjgEIERgCKkD3mBrOkPzybJx9i9X7OVMfgAfyBj/hrC5/Jqb1Q0CE3f177nJ8WEL5SOIA+Nzofn12MqaHhcPj5XN2fIDudYBLMg1jbGF1ZGUtb3B1cy01OAFCCHRoaW5raW5nWiQ0NDcyZGFmNS1lOTVkLTQzNzMtOWEzZS01ZDRhMTA3ZGJhNmWoAaLB0NQGEgyR/Sg8jQ1q7hBo85UaDB1AeS9qKiiNfLLS0CIwouSbea8gFdoIKE2mic3KuQOpW8srZVCW/ebbfphzb3Gsj1nX8GPzJkGPhUY/tFUuKs0B17CneKuDoqmh2BK6O20MfctK/lLqpAZTXXA4xBkQhhpzq2ualQOwpAfXhonNCMK5UfOtwIGk2FH1hQAxau9kTi04vvDEa99fCo1COMPuIub8B9BelBYuoJhieV7Pnu8dmtJACFOYTkpJq0fU1us9qzUtylPszkRohJXMypBnMN07q+GJO+BIvrkQ8WoEyC6txQv3uDW79eWgx9T0t7fAjEZ0mNQhZ4h0iRL2MiM3eL7pEbdem+lopz/eBB/HMwKO8N4GFEuPcPF1DWwnhBgB"
+      },
+      {
+        "type": "text",
+        "text": "No insurance clause found in search. Let me check the candidate sections for incidental coverage."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01Md2YDSXPeFULvgFRUKHRBC",
+        "name": "read_section",
+        "input": {
+          "sectionId": "sec-14.12"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01Y6Tca5CDGdRGCos6LC7kk2",
+        "name": "read_section",
+        "input": {
+          "sectionId": "sec-5.3"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01D7QhVxz1mkFKFEsenDRzGv",
+        "name": "search",
+        "input": {
+          "query": "insur|coverage|liability policy",
+          "regex": true
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2423,
+      "cache_read_input_tokens": 4039,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2423,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 286,
+      "output_tokens_details": {
+        "thinking_tokens": 76
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "read_section",
+      "ruleId": "INSURANCE",
+      "sha256": "ec10700da3a642509ae7c429ae3b8efdf3ab5da706aa137e0e1c5a40fecaab61"
+    },
+    {
+      "name": "read_section",
+      "ruleId": "INSURANCE",
+      "sha256": "b80130eb1d56f130fd3e32f7987a48d512b562553a778229f603914b66386879"
+    },
+    {
+      "name": "search",
+      "ruleId": "INSURANCE",
+      "sha256": "72c0dcf6859b50dd3c0259bf9dd30f3ed3cdffcc3910abf864aa405a97c38f2e"
+    }
+  ],
+  "durationMs": 4303
+}

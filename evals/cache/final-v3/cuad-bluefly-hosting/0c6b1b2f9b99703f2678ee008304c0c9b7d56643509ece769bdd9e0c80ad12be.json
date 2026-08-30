@@ -1,0 +1,68 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYve71sSksm5P4JkbwDG",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_017NN3zd5U8Rz7bLmKkeZC1D",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0132",
+            "p0137"
+          ],
+          "quote": "IBM reserves the right to investigate potential violations of the representations and warranties in Subsection 11.2(b).",
+          "rationale": "§ 11.3 is the only inspection/verification right binding Customer (investigating whether our use of the Services and Content complies with the AUP). It is unlimited in frequency, requires no notice of the investigation itself (the notice in p0137 applies only before IBM restricts access or removes Content), allocates no cost, and does not exclude access to Customer systems or Customer Components — this fails the fallback (once per year on 15 days' notice, vendor cost) and sits in walk-away territory (unlimited/unannounced inspection with potential system access). Redline adds the preferred frequency, 30 days' notice with an emergency/unlawful-activity carve-out, confidentiality, no system access and vendor-cost allocation with a 5% underpayment shift; 15 days' notice is available as a fallback.",
+          "confidence": 0.66,
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-audit",
+            "summary": "Add notice, frequency, cost and no-system-access limits to IBM's investigation right in § 11.3",
+            "comment": "[Playbook] We have added notice, frequency, cost and access limits to IBM's investigation right, which is currently unlimited and unannounced. Our playbook allows verification of our use no more than once in twelve months on thirty days' notice, at the vendor's cost and without direct access to our systems; we can accept fifteen days' notice if IBM prefers.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0132",
+                "oldText": "IBM reserves the right to investigate potential violations of the representations and warranties in Subsection 11.2(b).",
+                "newText": "IBM reserves the right to investigate potential violations of the representations and warranties in Subsection 11.2(b), provided that any such investigation will be conducted (i) no more than once in any twelve (12) month period, (ii) upon at least thirty (30) days' prior written notice to Customer and during normal business hours, except where IBM reasonably believes an emergency or unlawful activity exists, (iii) by IBM or an independent auditor bound by confidentiality obligations no less protective than those in this Agreement, (iv) without direct or remote access to Customer's systems, networks, premises or Customer Components, and (v) at IBM's expense, unless the investigation reveals an underpayment by Customer exceeding five percent (5%) of amounts due."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1045,
+      "cache_read_input_tokens": 9021,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1045,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 974,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "AUDIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11249
+}

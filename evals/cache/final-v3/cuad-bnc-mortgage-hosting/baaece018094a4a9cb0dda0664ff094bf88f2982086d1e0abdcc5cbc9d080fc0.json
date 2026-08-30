@@ -1,0 +1,69 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYvYfrQNgtYcnWUy34nw",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01N1gyXHNmR8G9UahAuWuRRK",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0059",
+            "p0060",
+            "p0076"
+          ],
+          "quote": "9. TRUELINK WARRANTIES. TrueLink represents and warrants that the Interface and all related software (i) is designed to be used before, on and after January l, 2000;",
+          "rationale": "The only express TrueLink warranty (Section 9) is a Y2K date-processing warranty. There is no warranty that the Hosting/Support Services will be performed in a professional and workmanlike manner, no conformance-to-documentation warranty for the Interface or software, no compliance-with-laws or malicious-code warranty from TrueLink, and no repair/replace/re-perform/refund remedy. Section 2's response-time and availability provisions are only \"reasonable commercial efforts\" service descriptions, not warranties with a remedy, and Section 12 (p0076) disclaims all implied warranties except as expressly set forth, so nothing fills the gap. This fails the fallback (90 days software / 30 days services with remedies), so we insert the preferred warranty package with a remedy and an express carve-out from the disclaimer; a 90-day conformance period is an acceptable fallback.",
+          "confidence": 0.83,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0060",
+                "numbering": "9a",
+                "text": "a. Performance Warranties. TrueLink further represents and warrants that (i) the Hosting Services and Support Services will be performed in a professional and workmanlike manner consistent with industry standards; (ii) for a period of twelve (12) months following delivery, the Interface and all related software will conform in all material respects to its documentation and specifications; (iii) it will comply in all material respects with all laws applicable to its performance under this Agreement; and (iv) the Interface and all related software will, at the time provided to Client, be free from viruses, worms, Trojan horses and any other malicious code. Client's remedy for breach of this Section is, at TrueLink's option, re-performance, repair or replacement, or a refund of the fees paid for the non-conforming services, Interface or software. The express warranties in this Section 9 are not limited or disclaimed by any other provision of this Agreement, including the disclaimer in Section 12."
+              }
+            ],
+            "comment": "[Playbook] We added a performance warranty from TrueLink (professional and workmanlike services, 12-month conformance of the Interface, compliance with laws, no malicious code) with a repair/re-perform/refund remedy, since Section 9 currently gives us only a Y2K warranty while Section 12 disclaims everything else. We can accept a 90-day conformance period as a fallback.",
+            "level": "preferred",
+            "summary": "Insert TrueLink performance/conformance warranty with remedy and carve-out from the Section 12 disclaimer.",
+            "precedentId": "seed-warranty"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1461,
+      "cache_read_input_tokens": 11138,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1461,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1061,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "WARRANTY",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10757
+}

@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYwJxefwv2r7xYKRjDKy",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll start by mapping the document and searching for indemnity language."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01R8xr7jHYZZrV9KNQxfktex",
+        "name": "list_sections",
+        "input": {},
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01GQruxmTEcawwG7amsz28uE",
+        "name": "search",
+        "input": {
+          "query": "indemnif",
+          "limit": 30
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1008,
+      "cache_read_input_tokens": 3316,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1008,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 115,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "list_sections",
+      "ruleId": "INDEMN",
+      "sha256": "72ca92d48e3045de42836f3f96117ada9a970b96e18adcb5c2d2d889b92e8db8"
+    },
+    {
+      "name": "search",
+      "ruleId": "INDEMN",
+      "sha256": "22a921ead3578389cf48d606a52e275cc3c09413e90c5169eb160bcbe7ac4e3a"
+    }
+  ],
+  "durationMs": 2354
+}

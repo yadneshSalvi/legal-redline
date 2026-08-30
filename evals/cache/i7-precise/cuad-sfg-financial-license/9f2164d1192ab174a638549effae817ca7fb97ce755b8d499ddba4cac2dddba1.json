@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYtv2r4ZiGW9YzHLQVz5",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_013Nfg2CdK1kAF286VwHnnJ3",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0125"
+          ],
+          "quote": "(b) NON SOLICITATION. During the Term of this Agreement and during the three year period after the expiration or termination of this Agreement, the Licensee will not solicit any person employed by Licensor and/or its Affiliates to leave his or her employment with Licensor.",
+          "rationale": "Article X(b) binds only us (Licensee) for the Term plus three years and covers every person employed by Licensor and its Affiliates, not merely personnel involved in the services. Both the 36-month duration and the all-personnel scope fall into the playbook's walk-away band (restrictions longer than 24 months or covering all Vendor personnel), so it fails the fallback on material terms. The clause does contain the required general-advertising and unsolicited-inquiry carve-outs and contains no no-hire, so the minimal fix is to make it mutual, limit it to individuals directly involved in performance and cut the tail to 12 months from the end of that involvement — the fallback position, which is proportionate here given the carve-outs are already agreed.",
+          "confidence": 0.86,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Narrow non-solicit to mutual, 12 months, personnel directly involved in the Agreement",
+            "comment": "[Playbook] We can accept a non-solicit only if it is mutual, limited to personnel directly involved in performing this Agreement, and runs 12 months from the end of that involvement; a three-year restriction on every Licensor and Affiliate employee is outside our range. We have kept the existing general-advertising and unsolicited-inquiry carve-outs unchanged.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0125",
+                "oldText": "During the Term of this Agreement and during the three year period after the expiration or termination of this Agreement, the Licensee will not solicit any person employed by Licensor and/or its Affiliates to leave his or her employment with Licensor.",
+                "newText": "During the Term of this Agreement and during the twelve (12) month period following the end of the relevant individual's involvement in the performance of this Agreement, neither party will solicit any person employed by the other party who was directly involved in the performance of this Agreement to leave his or her employment with that party."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 923,
+      "cache_read_input_tokens": 10312,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 923,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 864,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10026
+}

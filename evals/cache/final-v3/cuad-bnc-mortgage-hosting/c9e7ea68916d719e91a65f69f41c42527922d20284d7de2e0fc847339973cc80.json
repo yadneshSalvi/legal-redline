@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYvMwt179SAZENDDYBVF",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll start by scanning the document for exclusivity language and reviewing the candidate sections."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01DmL9Lx729ZBTjqrgQy4iTq",
+        "name": "search",
+        "input": {
+          "query": "exclusiv",
+          "limit": 30
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01Jg7e1n596DjGC1J71nGkBi",
+        "name": "list_sections",
+        "input": {},
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3950,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 3950,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 125,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "search",
+      "ruleId": "EXCLUSIVITY",
+      "sha256": "12ff8abe790f959f456c58e18b150d2a8bb1606191bc3a1270770a61ff938aaf"
+    },
+    {
+      "name": "list_sections",
+      "ruleId": "EXCLUSIVITY",
+      "sha256": "cd15e5abd69c6b1a8ccbf2a1c826c1be6780b50236032a2096e4632df1f5a941"
+    }
+  ],
+  "durationMs": 2299
+}

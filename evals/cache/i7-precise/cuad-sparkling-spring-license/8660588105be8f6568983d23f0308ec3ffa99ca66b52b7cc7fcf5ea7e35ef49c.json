@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYuCJiz7HnMapsuZSX5U",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01XwUvgWnRJNvs8QQ4SBtAvW",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0133"
+          ],
+          "quote": "During the term of this Agreement and for a period of one year thereafter, both parties agree not to hire or allow its respective affiliates to hire any employee of the other party, or any person who was an employee of the other party during the previous six months and who was directly involved in the provision of services under this Agreement.",
+          "rationale": "Section 19 is a no-hire, not a non-solicit: it bars each party (and its affiliates) from hiring \"any employee of the other party\", with the \"directly involved in the provision of services\" qualifier attaching only to the former-employee prong. No-hire provisions and restrictions covering all personnel are expressly walk-away items, and there is no general-advertising or unsolicited-approach carve-out, so the clause fails the fallback on scope and carve-outs even though the one-year duration is acceptable. It binds us as Customer (Section 18 confirms it survives termination). Per the redline guidance we narrowed to the fallback with minimal edits rather than deleting the covenant outright: mutual solicitation-only restriction, limited to personnel directly involved in the services, 12 months from the end of that involvement, with general-advertising and unsolicited-approach carve-outs.",
+          "confidence": 0.86,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Convert mutual no-hire covering all employees into a narrow 12-month non-solicit limited to personnel directly involved in the services, with general-advertising and unsolicited-approach carve-outs.",
+            "comment": "[Playbook] We cannot accept a no-hire covering all of the other party's employees; our playbook allows only a mutual non-solicit limited to personnel directly involved in the services, running 12 months from the end of that involvement, with carve-outs for general advertisements and unsolicited approaches. We have narrowed the clause accordingly and removed the hiring prohibition.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0133",
+                "oldText": "During the term of this Agreement and for a period of one year thereafter, both parties agree not to hire or allow its respective affiliates to hire any employee of the other party, or any person who was an employee of the other party during the previous six months and who was directly involved in the provision of services under this Agreement.",
+                "newText": "During the term of this Agreement and for a period of twelve (12) months following the end of an individual's involvement in the provision of services under this Agreement, neither party shall, or shall permit its affiliates to, directly solicit for employment any employee of the other party who was directly involved in the provision of services under this Agreement. This Section does not restrict either party from hiring any person, and does not apply to general advertisements or other recruitment efforts not specifically targeted at the other party's personnel, or to any unsolicited approach by an individual."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1090,
+      "cache_read_input_tokens": 4988,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1090,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1042,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10301
+}

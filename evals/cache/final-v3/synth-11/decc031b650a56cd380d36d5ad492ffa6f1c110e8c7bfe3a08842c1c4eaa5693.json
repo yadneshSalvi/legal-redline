@@ -1,0 +1,67 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYx8rccdkvjSUMEMwdhs",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01SMw4BSrZzDvCtXZT69mXb4",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0051"
+          ],
+          "quote": "12.4 For eighteen months after termination Customer will not solicit or engage any person employed by Vendor at any time during the term.",
+          "rationale": "§ 12.4 binds only the Customer, runs eighteen months from termination, covers any person employed by Vendor at any time during the term (not just personnel involved in the Services), and bars \"engage\" as well as solicit — an effective no-hire. That fails the fallback on duration measure, scope, mutuality and the no-hire prohibition; § 12.3's general-recruitment freedom mitigates but does not cure the scope, duration and no-hire defects. Redline narrows § 12.4 to the fallback: mutual, twelve months from the end of a person's involvement, limited to personnel directly involved in the Services, with general-advertising and unsolicited-approach carve-outs and no no-hire.",
+          "confidence": 0.86,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Narrow one-way 18-month non-solicit to mutual 12-month non-solicit limited to involved personnel, with general-advertising/unsolicited carve-outs and no no-hire",
+            "comment": "[Playbook] We do not accept a non-solicit that binds only us, runs eighteen months, reaches every Vendor employee and bars engagement as well as solicitation, so we have narrowed it to our fallback: mutual, twelve months from the end of a person's involvement, limited to personnel directly involved in the Services, with the customary general-advertising and unsolicited-approach carve-outs and no no-hire element (consistent with § 12.3).",
+            "precedentId": "seed-nosolicit",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0051",
+                "oldText": "For eighteen months after termination Customer will not solicit or engage any person employed by Vendor at any time during the term.",
+                "newText": "For twelve months after a person's involvement in the Services ends, neither party will directly solicit that person if they were directly involved in performing or receiving the Services. This does not restrict general advertising or recruitment not specifically targeted at such personnel, the hiring of any person who responds to it, or the consideration or hiring of any person who approaches a party on an unsolicited basis, and neither party is subject to any no-hire restriction."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 991,
+      "cache_read_input_tokens": 5325,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 991,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 884,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 8856
+}

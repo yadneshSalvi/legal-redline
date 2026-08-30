@@ -1,0 +1,68 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYxaUjDDGWFcvqc5JUem",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_011LPn8gooqMKHKH71EhrMUJ",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0045",
+            "p0044"
+          ],
+          "quote": "12.4 Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+          "rationale": "Section 12.4 binds only the Customer and is a no-hire, not a non-solicit: it bars soliciting, hiring or employing any Vendor employee (not just personnel involved in the Services) for the term plus 24 months, expressly \"regardless of how the employee applies\", so there is no general-advertising or unsolicited-applicant carve-out. That is walk-away territory under this rule (no-hire, all Vendor personnel, effectively longer than 24 months once the term is added) and it also contradicts § 12.3, in which Vendor acknowledges that Customer has made no no-hire commitment. Per the redline guidance we narrowed it to the fallback: mutual, limited to personnel directly involved in the Services, 12 months from the end of involvement, with general-advertising and unsolicited-approach carve-outs and no no-hire; outright deletion (the preferred position) remains acceptable to us.",
+          "confidence": 0.95,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Replace one-sided 24-month no-hire with a mutual 12-month non-solicit limited to personnel involved in the Services, with general-advertising and unsolicited-approach carve-outs.",
+            "comment": "[Playbook] We cannot accept a no-hire covering every Vendor employee for 24 months \"regardless of how the employee applies\", and it contradicts § 12.3, in which Vendor acknowledges we have given no no-hire commitment. We have made the restriction mutual, limited it to personnel directly involved in the Services for 12 months, and added the customary general-advertising and unsolicited-approach carve-outs; deleting § 12.4 entirely also works for us.",
+            "precedentId": "seed-nosolicit",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0045",
+                "oldText": "12.4 Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+                "newText": "12.4 Neither party shall directly solicit for employment any personnel of the other party who are directly involved in the Services for twelve months after the end of that individual's involvement in the Services. This Section does not restrict either party from hiring any person who responds to a general advertisement or other general recruitment activity not targeted at the other party's personnel, or who approaches that party on an unsolicited basis, and neither party is subject to any no-hire obligation."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1261,
+      "cache_read_input_tokens": 5256,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1261,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1011,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9942
+}

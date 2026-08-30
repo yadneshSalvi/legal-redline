@@ -1,0 +1,33 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYxeg5StnK5Wc2KKHnta",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "**Finding submitted: `missing` (critical), confidence 0.93.**\n\n## What I found\n\nThe Agreement contains **no indemnification clause at all**. Section 20 simply does not exist:\n\n- Paragraph flow runs contiguously from **19.5 (p0075)** directly to **\"21. LIMITATION OF LIABILITY\" (p0076)** — the contiguous paragraph IDs confirm this is a real drafting gap, not an extraction artifact (per the planner's instruction to verify).\n- Searches for `indemnify`, `defend`, and `hold harmless` return **zero operative obligations** on either party.\n\nWhat survives are four **orphaned cross-references** that all presuppose an indemnity:\n\n| Section | Dangling reference |\n|---|---|\n| 9.3 | termination requires \"the remedies required by **Section 20.5**\" |\n| 19.4 | preserves remedies for \"**indemnified claims**\" |\n| 21.3 | \"its **indemnification obligations**\" are Excluded Claims |\n| 30.5 | preserves \"vested **indemnity rights**\" |\n\nThis is walk-away territory (no Vendor IP indemnity whatsoever), failing both preferred and fallback. Practically, Customer would fund its own defence of third-party infringement claims against the Services, and its recourse for Vendor-caused data incidents would be ordinary damages squeezed under the Section 21.1 cap. Section 9.3's termination right is also currently unexercisable, since the remedy standard it points to doesn't exist.\n\n## The redline (validated `ok:true`)\n\nInserted a new Section 20 after 19.5 — the location the rule's own guidance prescribes and where the numbering gap sits:\n\n- **20.1** Vendor defends/indemnifies Customer **and Affiliates**: IP infringement, breach of Applicable Law, Vendor-caused Customer Data incidents, gross negligence/wilful misconduct\n- **20.2** Customary IP exclusions (unauthorized modification, combination, Customer specifications)\n- **20.3** Customer's indemnity kept **narrow** — Customer-provided content and Customer's breach of law only\n- **20.4** Notice / control / cooperation, with a no-adverse-settlement carve-out\n- **20.5** Procure–modify–replace–refund, deliberately numbered **20.5 so Section 9.3 resolves correctly**\n\n## One judgment call worth flagging\n\nI did **not** add the fallback's 3× annual fees super-cap. Section 21.3 already carves indemnification obligations out of the liability cap entirely as Excluded Claims — an unlimited indemnity is strictly better for us than a 3× ceiling, so importing the fallback cap would have bargained away existing ground. Adding it would also have collided with the liability-cap rule on the same commercial term."
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2404,
+      "cache_read_input_tokens": 25258,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2404,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 938,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "durationMs": 13299
+}
