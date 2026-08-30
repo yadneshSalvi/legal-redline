@@ -39,3 +39,9 @@ human confirmation. The author's separate human legal-exposure spot-check is pen
 
 All 294 mapped CUAD source spans are retained across the 80 anchored items; repeated or overlapping expert
 answers are unioned rather than counted as independent review questions.
+
+### Long tier — anchor provenance note (added after the round-2 gate review)
+
+Of the 80 CUAD-anchored long-tier items, 12 carry paragraph ids that are supersets of the CUAD span's paragraph (the anchor was
+widened to the clause the span sits in; none was moved). The 05:51 UTC re-promotion recorded in `LABELING_LOG.md` changed labeler
+fields only — item counts and statuses are identical to the 03:44 UTC promotion.

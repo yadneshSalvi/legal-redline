@@ -100,7 +100,9 @@ by the evaluation agent, not yet by counsel. (5) Judge v2's decomposition is its
 `position.elementsPrecise` is ever shown to it. (6) During the `i5-elements` recording the machine ran out of disk; two
 workers failed with `ENOSPC` and were re-recorded in isolation (status log). (7) Judge v2 is stricter than judge v1 on
 the same runs (round-1 `final` validity 50.6 % under v1, 44.8 % under v2); round-1 columns keep v1, round-2 columns are
-v2 throughout.
+v2 throughout. (8) The pre-registration says 31 titles qualified at 15,000 words; the gate reviewer's re-run of the selector
+counts 28 (30 before excluding the two 15k-word dev fixtures). The selected six and their order are identical either way; the
+frozen file is left as written because its hash is the ordering evidence.
 
 ## The hard case
 
