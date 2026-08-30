@@ -1,0 +1,80 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYhrT3htwMNqUfwLmqVv",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_0143wvTyEYpAZnFpmS99GZR8",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0050",
+            "p0049"
+          ],
+          "quote": "12.4 During the term and for twenty-four months thereafter, Customer shall not develop, market, sell, or acquire any product or service that competes with Vendor in any territory.",
+          "rationale": "Section 12.4 binds Customer with a post-term non-compete of twenty-four months, of undefined scope (\"any product or service that competes with Vendor\") and unlimited territory, with no carve-out for internal development or acquisitions. That is walk-away territory under this rule and fails every fallback element, and it directly contradicts Section 12.3, in which Vendor acknowledges that Customer \"has made no exclusivity, non-compete, most-favoured-customer, minimum-volume, or no-hire commitment.\" We therefore take the preferred position and convert the prohibition into an express permission, which removes the restriction and eliminates the internal conflict with Section 12.3 while leaving the balance of the sentence verbatim.",
+          "confidence": 0.94,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0050",
+                "oldText": "During the term and for twenty-four months thereafter, Customer shall not",
+                "newText": "Customer may"
+              }
+            ],
+            "comment": "[Playbook] We cannot restrict our business or internal development activities, so we have turned Section 12.4's 24-month, all-product, worldwide non-compete into an affirmative permission; as drafted it also contradicted Section 12.3's acknowledgement that we made no non-compete commitment. If you need protection, we could instead discuss a restriction limited to a named competing product, during the term only, capped at 12 months, with carve-outs for our internal development and acquisitions.",
+            "level": "preferred",
+            "summary": "Remove the non-compete on Customer in Section 12.4 by converting the prohibition into an express permission.",
+            "precedentId": "seed-noncompete"
+          },
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Customer has no non-compete or field-of-use restriction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1285,
+      "cache_read_input_tokens": 10655,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1285,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 847,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NONCOMPETE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9894
+}

@@ -1,0 +1,90 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYiySwZoTMgbozViJs82",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_017JDHp2FJv1phx2v91kTvzk",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0573",
+            "p0574",
+            "p0575",
+            "p0577",
+            "p0578"
+          ],
+          "quote": "11.6.1 Types and Minimum Limits. The types of insurance, and minimum limits shall be:",
+          "rationale": "Section 11.6 has a real mutual insurance framework (workers' compensation at statutory limits, employer's liability, general liability including clinical trial cover, certificates on request, and an AbbVie self-insurance right at 11.6.3), but the schedule of coverages in 11.6.1 contains no professional liability (errors and omissions) and no cyber/privacy liability coverage anywhere in the document. That fails the fallback position (E&O USD 1M and cyber USD 2M), so we insert the two missing coverages only. We target the fallback rather than preferred limits because the general liability limits are redacted and the fallback is the shortest complete cure; the coverage is drafted as a Harpoon obligation so as not to add a new mutual burden on AbbVie.",
+          "confidence": 0.72,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0577",
+                "numbering": "(d)",
+                "text": "Harpoon shall maintain professional liability (errors and omissions) insurance with a minimum limit of USD 1,000,000 and cyber and privacy liability insurance with a minimum limit of USD 2,000,000."
+              }
+            ],
+            "comment": "[Playbook] Section 11.6.1 lists only workers' compensation, employer's liability and general liability, so we added the two coverages our fallback insurance position requires: professional liability (errors and omissions) of USD 1,000,000 and cyber and privacy liability of USD 2,000,000, applicable to Harpoon.",
+            "level": "fallback",
+            "precedentId": "seed-insurance",
+            "summary": "Add Harpoon-only E&O USD 1M and cyber/privacy USD 2M coverage to the Section 11.6.1 schedule of minimum limits."
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Professional errors and omissions coverage is at least USD 1,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Cyber and privacy coverage is at least USD 2,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 787,
+      "cache_read_input_tokens": 16210,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 787,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 936,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10271
+}

@@ -1,0 +1,116 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYfnVrn5KXAQpfXyhcuD",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01VeonN43jAyg57MPhV6CGCS",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0191",
+            "p0192",
+            "p0209"
+          ],
+          "quote": "Risk of loss for all Base Components shall at all times remain with IBM. Risk of loss for all Customer Components shall at all times remain with Customer.",
+          "rationale": "Searches for \"insurance\", coverage/policy language, certificates and workers' compensation return nothing anywhere in the Base Terms, and the nearest analogues (5.3 Security and 14.12 Risk of Loss) allocate security responsibility and risk of loss without requiring IBM to carry any insurance. IBM hosts the e-business Hosting Environment and processes personal information on our behalf (14.18), so a vendor with no insurance for a data-processing vendor is walk-away territory. We therefore insert a short insurance covenant at the preferred level as new Section 14.21 (CGL USD 1M per occurrence / USD 2M aggregate, E&O USD 2M, cyber and privacy USD 5M where IBM processes data belonging to, supplied by or processed for us, statutory workers' compensation, certificates on request); the fallback of E&O USD 1M and cyber USD 2M is available if IBM pushes back.",
+          "confidence": 0.9,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert vendor insurance covenant as new Section 14.21",
+            "comment": "[Playbook] The Agreement has no insurance covenant even though IBM hosts and processes our data, so we added our standard coverages (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, statutory workers' compensation) with certificates on request. If helpful, we can fall back to E&O USD 1M and cyber USD 2M.",
+            "precedentId": "seed-insurance",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0209",
+                "numbering": "14.21",
+                "text": "Insurance. IBM shall maintain, throughout the term of this Agreement, commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; where IBM processes any data belonging to, supplied by, or processed for Customer, cyber and privacy liability insurance of not less than USD 5,000,000; and workers' compensation insurance as required by law. IBM shall provide certificates of insurance on request."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Commercial general liability coverage is at least USD 1,000,000 per occurrence.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Commercial general liability coverage is at least USD 2,000,000 in the aggregate.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Professional errors and omissions coverage is at least USD 2,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "If Vendor processes Customer Data, cyber and privacy coverage is at least USD 5,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor maintains workers' compensation coverage as required by law.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor provides certificates of insurance on request.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1463,
+      "cache_read_input_tokens": 13292,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1463,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1323,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 14628
+}

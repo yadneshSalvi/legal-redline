@@ -1,0 +1,113 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYgPmRP6jqif8Wsm1Zor",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01KV55hCyjH24FWj5weSbEm4",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0047"
+          ],
+          "quote": "13. NON-SOLICITATION OF EMPLOYEES. Neither party shall, during the term of this Agreement and for one (1) year after its termination, solicit for hire as an employee, consultant or otherwise any of the other party's personnel who have had direct involvement with the Services, without such other party's express written consent, which shall not be unreasonably withheld.",
+          "rationale": "Section 13 is the only non-solicit in the document. It is already mutual, limited to personnel with direct involvement in the Services, and is a solicitation-only restriction (no no-hire), so it is not walk-away territory. It nonetheless fails our fallback on two material terms: the restricted period runs for the whole term plus one year after termination of the Agreement (which can extend well beyond 12 months after an individual's involvement ends), and there are no carve-outs for general advertisements or unsolicited approaches. We re-anchored the period to twelve months after the individual's involvement with the Services ends and added the two customary carve-outs, leaving the balance of the clause (including the consent mechanic) untouched.",
+          "confidence": 0.86,
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "The non-solicitation restriction is mutual.",
+                "status": "already_met",
+                "quote": "Neither party shall"
+              },
+              {
+                "element": "The restriction covers only personnel directly involved in the Services.",
+                "status": "already_met",
+                "quote": "any of the other party's personnel who have had direct involvement with the Services"
+              },
+              {
+                "element": "The restriction lasts no longer than 12 months after the person's involvement ends.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "General advertisements are excluded from the restriction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Unsolicited approaches are excluded from the restriction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "The restriction does not prohibit hiring.",
+                "status": "already_met",
+                "quote": "solicit for hire as an employee, consultant or otherwise"
+              }
+            ]
+          },
+          "proposal": {
+            "level": "fallback",
+            "summary": "Narrow mutual non-solicit to 12 months after involvement ends and add general-advertising and unsolicited-approach carve-outs",
+            "comment": "[Playbook] We re-anchored the restricted period to twelve months after the individual's involvement with the Services ends and added the customary general-advertising and unsolicited-approach carve-outs, which is our fallback position on non-solicits.",
+            "precedentId": "seed-nosolicit",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0047",
+                "oldText": "during the term of this Agreement and for one (1) year after its termination",
+                "newText": "for twelve (12) months after the end of such personnel's involvement with the Services"
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0047",
+                "text": "The foregoing restriction does not apply to general advertisements or other solicitations not specifically directed at the other party's personnel, or to unsolicited approaches by such personnel."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1041,
+      "cache_read_input_tokens": 10956,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1041,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1196,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13551
+}

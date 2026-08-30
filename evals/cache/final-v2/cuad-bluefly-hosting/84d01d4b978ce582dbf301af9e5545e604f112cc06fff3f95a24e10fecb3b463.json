@@ -1,0 +1,136 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYfbeAHcA852y7xwjKha",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_012iwfUVz3gjkMYh61wWghgE",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0085",
+            "p0204",
+            "p0083",
+            "p0084",
+            "p0202"
+          ],
+          "quote": "IBM grants Customer an irrevocable, nonexclusive, worldwide, paid-up license to use, execute, reproduce, display, perform, and distribute, within Customer's Enterprise only, copies of Type II Materials.",
+          "rationale": "Section 7.0 Materials is the operative deliverables IP regime: Type I Materials vest title in Customer (§7.b), but Materials default to Type II if not specified, and for Type II IBM keeps all right, title and interest while our licence is limited to use/execute/reproduce/display/perform/distribute \\\"within Customer's Enterprise only\\\" — with no perpetual term, no modification right and no sublicensing, and §14.17 confirms no other licences are implied. That fails the fallback licence elements on material terms. Separately, §14.18 lets IBM and its Enterprise store and use our contact data anywhere they do business and pass it to contractors, Business Partners and assignees for promotions and marketing research, which is independent exploitation of Customer data rather than processing to provide the Services. We therefore target the fallback: we leave IBM's ownership of Type II (generic/pre-existing) Materials intact, broaden our deliverables licence, and confine IBM's data licence to providing the Services. We have not disturbed the Type I licence back in §7.b, which is outside this checklist.",
+          "confidence": 0.78,
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Vendor may retain ownership of generic tools and know-how.",
+                "status": "already_met",
+                "quote": "Type II Materials are those, created during the Service performance period or otherwise (such as those that preexist the Service), in which IBM or third parties have all right, title, and interest (including ownership of copyright)."
+              },
+              {
+                "element": "Customer's licence to Deliverables is perpetual.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Customer's licence to Deliverables is irrevocable.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Customer's licence to Deliverables is worldwide.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Customer's licence to Deliverables is royalty-free.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Customer may use and modify Deliverables for its business.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Customer may sublicense Deliverables for its business.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Any Vendor licence in Customer Data is limited to processing it solely to provide the Services.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              }
+            ]
+          },
+          "proposal": {
+            "level": "fallback",
+            "precedentId": "seed-ip",
+            "summary": "Broaden Type II Materials licence to perpetual, royalty-free use/modify/sublicense for Customer's business and limit IBM's use of Customer data to providing the Services.",
+            "comment": "[Playbook] We accept IBM's ownership of Type II Materials, but our licence must be perpetual and royalty-free and let us modify and sublicense the deliverables for our business rather than only use them inside our Enterprise. We also limit IBM's licence in our data to processing it solely to provide the Services, in place of the marketing and Business Partner uses.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0085",
+                "oldText": "IBM grants Customer an irrevocable, nonexclusive, worldwide, paid-up license to use, execute, reproduce, display, perform, and distribute, within Customer's Enterprise only, copies of Type II Materials.",
+                "newText": "IBM grants Customer a perpetual, irrevocable, nonexclusive, worldwide, paid-up, royalty-free license to use, execute, reproduce, display, perform, modify, distribute and sublicense copies of Type II Materials for Customer's business."
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0204",
+                "oldText": "Such information will be processed and used in connection with our business relationship, and may be provided to contractors, Business Partners, and assignees of IBM Corp. and entities within its Enterprise for uses consistent with their collective business activities, including communicating with you (for example, for processing orders, for promotions, and for marketing research).",
+                "newText": "Such information, and all other data belonging to, supplied by, or processed for Customer, will be processed solely to provide the Services."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1475,
+      "cache_read_input_tokens": 20400,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1475,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1710,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "IP",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 17238
+}

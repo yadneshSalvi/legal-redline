@@ -1,0 +1,117 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYj1vJAdDS3Q8P6JotQ9",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01JEjz7m1mdt3vq6WpeJN8DQ",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0909",
+            "p1107",
+            "p0334"
+          ],
+          "quote": "MSL will provide replacement value insurance coverage for consigned Products. IBM will be named as a joint insured with respect to consigned Products for its interest.",
+          "rationale": "The Agreement contains no vendor insurance article. The only insurance references are asset-specific: replacement-value cover for consigned Products with IBM as joint insured (§13.1(b), p0909), IBM-owned tooling insurance carried by IBM (§21.2, p1107), and freight/NIC insurance built into price (§10.5, p0863; Attachment 1 §1.15, p0649). None of these provides commercial general liability, professional (E&O), cyber/privacy or workers' compensation cover, nor certificates on request. MSL is an outsourcing vendor that holds our consigned inventory, occupies leased premises and accesses our I/T systems, so the fallback (E&O and cyber) is not met either. We therefore insert a short Section 16.22 at the preferred level in the GENERAL article, with the cyber trigger drafted to reach all data belonging to, supplied by, or processed for IBM.",
+          "confidence": 0.86,
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-insurance",
+            "summary": "Insert a new Section 16.22 (Insurance) in the GENERAL article requiring MSL to carry CGL, E&O, cyber/privacy and workers' compensation coverage and to provide certificates on request.",
+            "comment": "[Playbook] The Agreement has no general insurance article even though MSL holds our consigned inventory, works with our premises and accesses our I/T systems, so we added our standard coverage requirements. We can discuss lower E&O and cyber limits if MSL's programme is constrained.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0334",
+                "numbering": "16.22",
+                "text": "Insurance. MSL shall maintain commercial general liability insurance of not less than U.S. $1,000,000 per occurrence and U.S. $2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than U.S. $2,000,000; where MSL processes data belonging to, supplied by, or processed for IBM, cyber and privacy liability insurance of not less than U.S. $5,000,000; and workers' compensation insurance as required by law. MSL shall provide certificates of insurance to IBM on request.",
+                "asHeading": false
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Commercial general liability coverage is at least USD 1,000,000 per occurrence.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Commercial general liability coverage is at least USD 2,000,000 in the aggregate.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Professional errors and omissions coverage is at least USD 2,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "If Vendor processes Customer Data, cyber and privacy coverage is at least USD 5,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor maintains workers' compensation coverage as required by law.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor provides certificates of insurance on request.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 936,
+      "cache_read_input_tokens": 30021,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 936,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1342,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13785
+}

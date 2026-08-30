@@ -1,0 +1,109 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYWEvEnhpcyfMEL3SmsQ",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01JrydQbripCjMXoYi9YyWRx",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0125"
+          ],
+          "quote": "(b) NON SOLICITATION. During the Term of this Agreement and during the three year period after the expiration or termination of this Agreement, the Licensee will not solicit any person employed by Licensor and/or its Affiliates to leave his or her employment with Licensor.",
+          "rationale": "Article X(b) binds only the Licensee (us), reaches every person employed by Licensor and its Affiliates rather than personnel directly involved in the services, and runs for the Term plus three years after expiration or termination. That exceeds the 24-month/all-personnel walk-away threshold and fails the fallback on mutuality, scope and duration. The paragraph's definition of \"Solicit\" already delivers the general-advertising and unsolicited-approach carve-outs, and there is no no-hire prohibition (only solicitation \"to leave\" employment). We have therefore replaced the first sentence with a mutual restriction limited to personnel directly involved in the services provided under this Agreement and running for a single period of twelve (12) months after that person's involvement ends, deleting the standing \"Term of this Agreement\" limb so nothing can extend the covenant beyond that cap; the carve-out sentence is left verbatim. The result sits at the accepted fallback, not the preferred no-non-solicit position.",
+          "confidence": 0.9,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Make the non-solicit mutual, limited to personnel directly involved in the services, and running only twelve (12) months after that involvement ends.",
+            "comment": "[Playbook] We can accept a non-solicit only if it is mutual, limited to personnel directly involved in the services and capped at twelve (12) months after that involvement ends, so we have replaced the one-sided Term-plus-three-year restriction on all Licensor personnel with that single 12-month post-involvement period. The existing carve-outs for general advertising and voluntary inquiries are retained unchanged.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0125",
+                "oldText": "During the Term of this Agreement and during the three year period after the expiration or termination of this Agreement, the Licensee will not solicit any person employed by Licensor and/or its Affiliates to leave his or her employment with Licensor.",
+                "newText": "During the period of twelve (12) months after the end of that person's involvement in the services provided under this Agreement, neither party will solicit any person employed by the other party who is or was directly involved in such services to leave his or her employment with that party."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "The non-solicitation restriction is mutual.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The restriction covers only personnel directly involved in the Services.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The restriction lasts no longer than 12 months after the person's involvement ends.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "General advertisements are excluded from the restriction.",
+                "status": "already_met",
+                "quote": "but shall not mean generally advertising job openings"
+              },
+              {
+                "element": "Unsolicited approaches are excluded from the restriction.",
+                "status": "already_met",
+                "quote": "or who voluntarily initiate employment inquiries"
+              },
+              {
+                "element": "The restriction does not prohibit hiring.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1176,
+      "cache_read_input_tokens": 21472,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1176,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1311,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13234
+}

@@ -1,0 +1,100 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYdDAmR56SvPwQkxyMQy",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01RkL72FpXtcqtiLDMuYf28D",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0557",
+            "p0527",
+            "p0330"
+          ],
+          "quote": "10.5 DISCLAIMER OF WARRANTIES. EXCEPT FOR THE EXPRESS WARRANTIES SET FORTH HEREIN, NEITHER PARTY MAKES ANY REPRESENTATIONS OR GRANTS ANY WARRANTIES, EXPRESS OR IMPLIED, EITHER IN FACT OR BY OPERATION OF LAW, BY STATUTE OR OTHERWISE, AND EACH PARTY SPECIFICALLY DISCLAIMS ANY OTHER WARRANTIES, WHETHER WRITTEN OR ORAL, OR EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF QUALITY, MERCHANTABILITY, OR FITNESS FOR A PARTICULAR USE OR PURPOSE",
+          "confidence": 0.72,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Insert a short Harpoon performance warranty (90-day software conformance to documentation, 30-day services warranty) with repair/replacement or refund remedies.",
+            "comment": "[Playbook] The Agreement contains no performance warranty for any software or services Harpoon delivers, and Section 10.5 disclaims everything not expressly warranted. We add a short warranty at our fallback position - 90 days conformance to documentation for software, 30 days for services - with repair, replacement or refund as the remedy.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0557",
+                "numbering": "10.6",
+                "text": "10.6 Performance Warranty. Harpoon warrants that (a) any software delivered to AbbVie under this Agreement will conform to its documentation for ninety (90) days following delivery, and (b) any services performed by Harpoon under this Agreement will conform to the requirements of this Agreement for thirty (30) days following performance. AbbVie's remedy for breach of this Section 10.6 is repair or replacement of the non-conforming software or re-performance of the non-conforming services, or a refund of the fees paid for such non-conforming software or services."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Software is warranted to conform to its documentation for at least 90 days.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Services are warranted for at least 30 days.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Warranty remedies include repair or replacement.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Warranty remedies include a refund.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2740,
+      "cache_read_input_tokens": 26175,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2740,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1447,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "WARRANTY",
+      "sha256": "ce9b7b46a6ab1bcabd441b1fddb4d8cb114b7f4befec24e98e9c6a4f404c1c9d"
+    }
+  ],
+  "durationMs": 14614
+}

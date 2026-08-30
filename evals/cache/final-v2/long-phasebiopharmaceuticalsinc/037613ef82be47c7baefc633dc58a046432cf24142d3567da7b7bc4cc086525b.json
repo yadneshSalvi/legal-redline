@@ -1,0 +1,136 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYk3Lz7rqS4o1H6UWzFp",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01W58WCG4kDCtcZyfRYm79sa",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0687",
+            "p0691",
+            "p0695",
+            "p0696",
+            "p0698"
+          ],
+          "quote": "(f) actual or alleged infringement of any Third Party's Intellectual Property by the Product or by either Party in performing its duties or obligations hereunder with respect to the Product",
+          "rationale": "Article 12 contains mutual indemnities, but SFJ's indemnity (12.1.1(a)-(f)) is confined to its gross negligence/wilful misconduct, breaches of the Agreement, Protocol and AZ License and post-Program-Transfer trial and product liability; it says nothing about third-party intellectual-property infringement. Conversely, PB's indemnity at 12.1.2(f) covers infringement claims caused by \"either Party\" in performing its duties, so PB carries a one-way IP indemnity that also protects SFJ for SFJ's own conduct. That fails the fallback (no Vendor IP indemnity) and sits at the walk-away line. We add a reciprocal SFJ IP indemnity at the fallback level with the customary modification/combination/specification exclusions, procure-modify-replace-refund remedies, and a super-cap of three times the aggregate amounts paid or payable by PB to SFJ under the Agreement in the preceding twelve months (floored at three times the first twelve months' amounts so the cap cannot be zero before Approval Payments fall due, and scoped to the new indemnity so SFJ's existing uncapped indemnities are unaffected). We also narrow 12.1.2(f) to PB's own performance to remove the circularity and conform the 12.2.1 cross-reference so the existing notice, control-of-defence and cooperation mechanics apply to the new indemnity.",
+          "confidence": 0.83,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Add SFJ third-party IP indemnity (standard exclusions, procure/modify/replace/refund remedies, 3x annual amounts super-cap with a non-zero floor) and conform PB's IP indemnity and the procedure cross-reference.",
+            "comment": "[Playbook] SFJ's indemnity omits third-party IP infringement entirely while PB currently indemnifies SFJ for infringement caused by either Party's performance, so we add a reciprocal SFJ IP indemnity at our fallback (customary modification/combination/specification exclusions, procure-modify-replace-refund remedies and a super-cap of three times annual amounts payable to SFJ, floored so it cannot be zero) and limit PB's IP indemnity to PB's own performance.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0696",
+                "numbering": "12.1.3",
+                "text": "12.1.3 Third Party Intellectual Property. SFJ will indemnify and hold the PB Indemnified Parties harmless from any and all Losses arising or resulting from any Claim by a Third Party alleging that the performance by SFJ, its Affiliates or any of its or their respective Permitted Third Parties of SFJ's obligations under this Agreement, or any materials, technology or methods supplied by SFJ hereunder, infringes or misappropriates such Third Party's Intellectual Property, except to the extent the alleged infringement arises from (i) modifications made by or for PB, (ii) combination of the affected item with items not supplied by SFJ, or (iii) specifications furnished by PB. If any such item is or may become the subject of such a Claim, SFJ will procure for PB the right to continue using the affected item, or will modify or replace it so that it becomes non-infringing, and if none of the foregoing is commercially reasonable, SFJ will refund the amounts paid by PB to SFJ for the affected item. SFJ's aggregate liability under this Section 12.1.3 will not exceed three times the aggregate amounts paid or payable by PB to SFJ under this Agreement in the twelve (12) months preceding the Claim, and in no event less than three times the aggregate amounts payable by PB to SFJ under this Agreement in the first twelve (12) months in which such amounts become due."
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0695",
+                "oldText": "by either Party in performing its duties or obligations hereunder with respect to the Product",
+                "newText": "by PB in performing its duties or obligations hereunder with respect to the Product"
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0698",
+                "oldText": "under Section 12.1.1 or 12.1.2 (an \"Indemnified Party\")",
+                "newText": "under Section 12.1.1, 12.1.2 or 12.1.3 (an \"Indemnified Party\")"
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Vendor indemnifies Customer against third-party intellectual-property claims.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The IP indemnity may exclude infringement caused by Customer modifications.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The IP indemnity may exclude infringement caused by Customer combinations.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The IP indemnity may exclude infringement caused by Customer specifications.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor must procure continued use, modify, or replace the infringing item.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor must refund applicable fees if procure, modify, or replace remedies are unavailable.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor's indemnity is subject to a super-cap of three times annual fees.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2599,
+      "cache_read_input_tokens": 36004,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2599,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 2122,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INDEMN",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 19782
+}

@@ -1,0 +1,79 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYX7PjupSsW5pnh1eny1",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01E8anzHC1JoXMvETWXihBnw",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0045",
+            "p0044"
+          ],
+          "quote": "12.4 Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+          "rationale": "Section 12.4 is the only non-solicitation provision in the document, and it fails the fallback on every material term: it binds Customer only (not mutual), covers any Vendor employee rather than personnel directly involved in the Services, runs for the term plus twenty-four months rather than 12 months after involvement ends, contains an express no-hire (\"hire, or employ\"), and rules out both a general-advertising and an unsolicited-approach carve-out (\"regardless of how the employee applies\"). A no-hire covering all Vendor personnel is walk-away territory. It also contradicts Section 12.3, in which Vendor acknowledges Customer has made no no-hire commitment. We therefore target the preferred position and replace the restrictive words with confirmation that Customer takes no non-solicitation restriction, which also removes the internal conflict with 12.3. The separate Section 12.4 non-compete is a different commercial term and is not flagged here.",
+          "confidence": 0.9,
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Customer has no non-solicitation restriction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          },
+          "proposal": {
+            "level": "preferred",
+            "summary": "Replace the one-sided 24-month no-hire/non-solicit in Section 12.4 with a confirmation that Customer takes no such restriction.",
+            "comment": "[Playbook] We cannot accept a one-sided bar on soliciting, hiring or employing any Vendor employee for the term plus 24 months, expressly including people who approach us unsolicited; we have replaced it with confirmation that Customer takes no non-solicitation restriction, consistent with Section 12.3. If Vendor needs protection we could consider a mutual non-solicit limited to personnel directly involved in the Services for 12 months after their involvement ends, with carve-outs for general advertisements and unsolicited approaches and no no-hire.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0045",
+                "oldText": "Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+                "newText": "Customer is subject to no restriction on soliciting, hiring, or employing any Vendor employee."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1115,
+      "cache_read_input_tokens": 22760,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1115,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 991,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11265
+}

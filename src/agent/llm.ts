@@ -260,7 +260,14 @@ export function createLlmClient(options: CreateLlmClientOptions): LlmClient {
     if (options.mode === "replay") {
       const cached = await readCache(body);
       if (cached !== null) return { value: cached.response as T, replayed: true, cached };
-      if (!options.allowLive) throw new ReplayCacheMiss(cachePath(body));
+      if (!options.allowLive) {
+        // Debug aid for cache drift: REDLINER_REPLAY_DUMP=1 writes the missed request next to the cache so the
+        // volatile part of the prompt can be found (never on by default; the dump is not a cache entry).
+        if (process.env.REDLINER_REPLAY_DUMP === "1") {
+          await writeFile(path.join(cacheDir, `_miss-${requestHash(body)}.json`), JSON.stringify(body, null, 2));
+        }
+        throw new ReplayCacheMiss(cachePath(body));
+      }
     }
     const value = await withRetry(create, context);
     if (options.mode === "record" || (options.mode === "replay" && options.allowLive)) {

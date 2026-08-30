@@ -1,0 +1,148 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYbMdjdvvt9MDyqevEjU",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01Fzc3eFJMbEupp81cJt2FC6",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0080",
+            "p0038"
+          ],
+          "quote": "20. INDEMNIFICATION 20.1 Customer shall defend, indemnify, and hold harmless Vendor from every claim relating in any way to Customer's use of the Services.",
+          "rationale": "Section 20 contains only a one-way, unlimited Customer indemnity for Vendor covering \"every claim relating in any way to Customer's use of the Services\", and no Vendor indemnity appears anywhere in the Agreement (Sections 19.4, 21.3 and 30.5 merely presuppose indemnified claims). That is walk-away territory: no Vendor IP indemnity at all plus a one-way Customer indemnity for Vendor's services, so it fails both the fallback and preferred positions. We therefore add Vendor's defence and indemnity for third-party IP infringement, Vendor's breach of Applicable Law, Vendor-caused unauthorised access to Customer Data and Vendor's gross negligence or wilful misconduct, with notice, control-of-defence and cooperation mechanics, and narrow Customer's indemnity to Customer-provided content and Customer's breach of law. Noted but not separately flagged: Section 9.3 cross-refers to remedies \"required by Section 20.5\", which does not exist in the current draft; if Copperleaf prefers the fallback structure we can instead add the usual exclusions (Customer modifications, combinations, specifications), procure/modify/replace/refund remedies as Section 20.5, and a 3× annual fees super-cap.",
+          "confidence": 0.9,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Add Vendor defence/indemnity (IP, breach of law, data breach, gross negligence/wilful misconduct) with notice, control and cooperation, and narrow Customer's indemnity.",
+            "comment": "[Playbook] Section 20 gives Vendor a one-way, unlimited Customer indemnity and no Vendor indemnity at all, so we have added Vendor's defence and indemnity for third-party IP infringement, breach of Applicable Law, Vendor-caused data breach and gross negligence or wilful misconduct, with standard notice, control and cooperation, and narrowed Customer's indemnity to Customer-provided content and Customer's breach of law.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0080",
+                "oldText": "from every claim relating in any way to Customer's use of the Services.",
+                "newText": "from third-party claims arising from Customer-provided content or Customer's breach of Applicable Law."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0080",
+                "numbering": "20.2",
+                "text": "Vendor shall defend, indemnify, and hold harmless Customer and its Affiliates from and against any third-party claim, and all resulting damages, costs, and expenses, to the extent arising out of (a) an allegation that the Services or Deliverables infringe or misappropriate any intellectual property right; (b) Vendor's breach of Applicable Law; (c) any unauthorized access to or disclosure of Customer Data caused by Vendor; or (d) Vendor's gross negligence or wilful misconduct. The indemnified Party shall give the indemnifying Party prompt written notice of the claim, the indemnifying Party shall control the defence of the claim, and the indemnified Party shall provide reasonable cooperation."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Vendor has an express duty to defend Customer and its affiliates.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Vendor indemnifies Customer and its affiliates against third-party claims.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Vendor indemnity covers claims that Services or Deliverables infringe intellectual property rights.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Vendor indemnity covers Vendor's breach of applicable law.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Vendor indemnity covers a data breach caused by Vendor.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Vendor indemnity covers Vendor's gross negligence and wilful misconduct.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "The indemnification procedure requires notice of a claim.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "The indemnification procedure allocates control of the defence.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "The indemnification procedure requires reasonable cooperation.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Customer indemnity is limited to Customer-provided content and Customer's breach of law.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 945,
+      "cache_read_input_tokens": 27733,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 945,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1861,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INDEMN",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 17940
+}

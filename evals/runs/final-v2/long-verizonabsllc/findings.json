@@ -1,0 +1,1674 @@
+[
+  {
+    "confidence": 0.74,
+    "costUsd": 0.42443525,
+    "durationMs": 102259,
+    "id": "f-lol-cap-f2076103",
+    "paragraphIds": [
+      "p0283",
+      "p0243",
+      "p0291",
+      "p0378",
+      "p0469"
+    ],
+    "producedBy": "drafter",
+    "quote": "All other liability is expressly waived and released as a condition of, and consideration for, the execution of this Agreement by the Servicer or the Marketing Agent, as applicable. Each of the Servicer and the Marketing Agent, severally and not jointly, will be liable only for its own willful misconduct, bad faith or gross negligence in performing its obligations under this Agreement.",
+    "rationale": "The liability architecture sits at or above the fallback on its material terms, so we do not redline it. (1) Mutuality: Section 6.2(a) (Servicer/Marketing Agent, p0283) and Section 5.2(a) (Depositor, p0243) are parallel \"liable only for specific obligations\" waivers, and our entities have the additional benefit of Section 9.6 limited recourse (p0378, claims against Depositor/Issuer limited to the Depositor Transferred Property) and Section 9.7 (p0381-p0382). Our side's exposure is therefore effectively bounded while the counterparty's is not. (2) Cap basis: there is no monetary or fee-based cap anywhere in the document — searches for \"exceed\"/aggregate-liability language return no cap, and the Servicing Fee (p0975) is never used as a liability ceiling. The fallback's \"12 months of fees\" cap exists to floor Vendor exposure; here Cellco's exposure in amount is unlimited, which exceeds the fallback and benefits us, so we do not introduce a cap that would only weaken our position. (3) Carve-outs: because no cap exists, indemnification (Section 6.3, p0291-p0292), confidentiality/data-protection breaches (Exhibit A policies, p0146), gross negligence and willful misconduct all carry unlimited exposure, and gross negligence, bad faith and willful misconduct are the express standards of Servicer liability and indemnity. Minor shortfalls of the preferred wording — no general mutual exclusion of indirect/consequential damages (the only such bar, p0469, binds the arbitral panel), no USD 1,000,000 floor, and no express \"payment obligations are not damages\" statement — are noted rather than flagged; the first two are only meaningful alongside a cap, and none is a material failure of the fallback. We note for the record (outside this rule) that Section 6.2(a) limits Cellco's liability to willful misconduct, bad faith or gross negligence, excluding ordinary negligence; that is a standard-of-care point, is mirrored for the Depositor, and is market standard for this securitization structure rather than a cap deviation.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-vi",
+    "sectionRef": "§ VI SERVICER AND MARKETING AGENT",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.76,
+    "costUsd": 0.78780775,
+    "durationMs": 243254,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Customer may assign to an affiliate without consent.",
+          "quote": "(d) that is an Affiliate of the Depositor to whom the Depositor has assigned this Agreement, will be the successor to the Depositor under this Agreement.",
+          "status": "already_met"
+        },
+        {
+          "element": "Customer may assign to a successor in a merger, acquisition, or sale of substantially all assets without consent.",
+          "quote": "Any Person (a) into which the Depositor is merged or consolidated, (b) resulting from a merger or consolidation to which the Depositor is a party, (c) succeeding to the Depositor's business",
+          "status": "already_met"
+        },
+        {
+          "element": "Vendor may not assign without Customer's consent.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer's consent to Vendor assignment is not to be unreasonably withheld.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Vendor may never assign to a Customer competitor.",
+          "operationIndexes": [
+            2
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer's change of control gives Vendor no termination right.",
+          "quote": "The Servicer will not resign as Servicer under this Agreement unless it determines it is legally unable to perform its obligations under this Agreement.",
+          "status": "already_met"
+        }
+      ]
+    },
+    "id": "f-assign-fa8e5a87",
+    "paragraphIds": [
+      "p0406",
+      "p0249",
+      "p0348",
+      "p0314"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We added the Issuer's consent, not to be unreasonably withheld, to any assignment by the Servicer (including the Affiliate route in clause (d) of Section 7.6) and barred assignment to a competitor of the Issuer or the Depositor. The Depositor's own affiliate and successor freedom under Section 5.3 is left intact.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Except as stated in Sections 5.3, 7.4 and 7.6 (other than Section 7.6(d)), this Agreement may not be assigned by the Depositor or the Servicer without the consent of the Issuer (not to be unreasonably withheld), the Owner Trustee,",
+          "oldText": "Except as stated in Sections 5.3, 7.4 and 7.6, this Agreement may not be assigned by the Depositor or the Servicer without the consent of the Owner Trustee,",
+          "paragraphId": "p0406"
+        },
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0406",
+          "text": "The Servicer may not assign this Agreement to a competitor of the Issuer or the Depositor."
+        }
+      ],
+      "precedentId": "seed-assign",
+      "summary": "Require Issuer consent (not unreasonably withheld) for any Servicer assignment, including the Section 7.6(d) Affiliate route, and bar assignment to a competitor."
+    },
+    "quote": "(a) Assignment. Except as stated in Sections 5.3, 7.4 and 7.6, this Agreement may not be assigned by the Depositor or the Servicer without the consent of the Owner Trustee, the Indenture Trustee, the Certificateholders and the Noteholders of at least 66-2/3% of the Note Balance of the Controlling Class.",
+    "rationale": "Section 10.2(a) conditions assignment on consent of the Owner Trustee, Indenture Trustee, Certificateholders and Controlling Class Noteholders, but not of the Issuer or Depositor, and it carries no reasonableness standard; and the carve-out for Section 7.6 lets the Servicer assign the Agreement outright to any Affiliate of Cellco (clause (d)) with no consent from us at all. That fails the fallback (no \"not unreasonably withheld\" standard, and a retained no-consent affiliate assignment route) and the preferred position. Our own side is already well placed: Section 5.3 gives the Depositor successor status on merger, consolidation, succession to its business or assignment to an Affiliate, and Section 7.1 permits the Servicer to resign only if it is legally unable to perform, so no Servicer exit is triggered by a change of control on our side. The edit therefore only tightens the Servicer's side — Issuer consent (not unreasonably withheld) plus a competitor bar — and leaves Section 5.3 untouched. No competitor definition is added; the term is used in its ordinary sense, which we consider sufficient here.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-x",
+    "sectionRef": "§ X MISCELLANEOUS",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "successor/affiliate carve-out for Customer present",
+          "ok": true
+        },
+        {
+          "name": "minimality gate",
+          "ok": true
+        },
+        {
+          "name": "element coverage gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Customer may assign to an affiliate without consent.",
+          "evidence": "Section 5.3(d) (\"that is an Affiliate of the Depositor to whom the Depositor has assigned this Agreement, will be the successor to the Depositor\") is untouched, and the amended Section 10.2(a) still opens \"Except as stated in Sections 5.3, 7.4 and 7.6 (other than Section 7.6(d))\" — the carve-out for Section 5.3 remains complete, so the Depositor's Affiliate route survives without consent. The new Issuer-consent proviso does not reach it.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer may assign to a successor in a merger, acquisition, or sale of substantially all assets without consent.",
+          "evidence": "Section 5.3(a)-(c) covers any Person into which the Depositor is merged or consolidated, resulting from such a merger or consolidation, or \"succeeding to the Depositor's business,\" and Section 5.3 remains fully excepted from the Section 10.2(a) consent requirement. Only post-closing assumption/opinion/notice mechanics apply, not consent.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor may not assign without Customer's consent.",
+          "evidence": "Amended Section 10.2(a) now requires \"the consent of the Issuer (not to be unreasonably withheld)\" for assignment by the Servicer, and the exception list is narrowed by \"(other than Section 7.6(d))\", closing the Servicer's Affiliate no-consent route. Residual no-consent routes are Section 7.4 (Issuer-controlled Successor Servicer engagement) and Section 7.6(a)-(c) structural succession, which are successor events rather than voluntary assignments.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer's consent to Vendor assignment is not to be unreasonably withheld.",
+          "evidence": "\"consent of the Issuer (not to be unreasonably withheld)\" is expressly inserted; the remaining unqualified consents (Owner Trustee, Indenture Trustee, Certificateholders, 66-2/3% Controlling Class Noteholders) are third-party transaction consents, not Customer-side consents.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor may never assign to a Customer competitor.",
+          "evidence": "Added operative sentence: \"The Servicer may not assign this Agreement to a competitor of the Issuer or the Depositor.\" The bar is unconditional and covers both Customer-side entities; \"competitor\" is used in its ordinary sense, matching the playbook's own preferred formulation.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer's change of control gives Vendor no termination right.",
+          "evidence": "Section 7.1 (\"The Servicer will not resign as Servicer under this Agreement unless it determines it is legally unable to perform its obligations\") is retained unchanged, and no change-of-control trigger for the Servicer appears in the cited or rendered text; the condition of a Vendor exit right therefore does not arise.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Both parties may assign to a successor.",
+          "evidence": "Section 5.3(a)-(c) for the Depositor and Section 7.6(a)-(c) for the Servicer each preserve successor status on merger, consolidation or succession to business, and both remain excepted from Section 10.2(a) (the exception now excludes only Section 7.6(d)).",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "A successor assignment requires written notice.",
+          "evidence": "Sections 5.3 and 7.6 each require, within fifteen (15) Business Days, delivery to the Issuer, Owner Trustee and Indenture Trustee of an Officer's Certificate and Opinion of Counsel and notice to the Rating Agencies — a written notification obligation, though it runs after the event and the Depositor owes no separate notice to the Servicer.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Other assignments require consent.",
+          "evidence": "Section 5.3(d) is retained and remains fully excepted in Section 10.2(a): an Affiliate of the Depositor to whom the Depositor has assigned the Agreement becomes successor with no consent. Under the ASSIGN fallback rule, any retained no-consent non-successor exception (including an affiliate exception) defeats this element. To reach the fallback the drafter would have to narrow the Section 5.3 carve-out the same way Section 7.6(d) was narrowed — which is unnecessary here because the preferred level is already complete.",
+          "level": "fallback",
+          "status": "not_met"
+        },
+        {
+          "element": "Consent to other assignments is not to be unreasonably withheld.",
+          "evidence": "The inserted \"(not to be unreasonably withheld)\" qualifies the Issuer's consent in Section 10.2(a), which governs any assignment by the Depositor or the Servicer outside the carve-outs; the unqualified trustee/noteholder consents are third-party, not party, consents.",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "Position-complete at the preferred level: all six preferred elements are met, three by retained language (Sections 5.3, 7.1) and three by the two operations (Issuer consent not unreasonably withheld, exclusion of Section 7.6(d) from the carve-out, and the competitor bar). The fallback is not complete (Section 5.3(d)'s retained no-consent affiliate route defeats \"Other assignments require consent\"), but that is immaterial because completeness at either level suffices and the preferred level is met. Minimality holds: three targeted insertions into the existing Section 10.2(a) sentence plus one short new sentence; no favourable existing language (Sections 5.3, 7.1, 7.4, 7.6(a)-(c)) is deleted or paraphrased, and no survival tail, procedure or boilerplate is added. Drafting refinement (not a minimality failure): the Issuer-consent proviso sits in a sentence binding \"the Depositor or the Servicer,\" so it also formally attaches to the Depositor's non-carved-out assignments. The effect is nil because the Issuer is Customer-side and Section 5.3 remains fully carved out, but scoping the insertion to assignments \"by the Servicer\" would be cleaner if the counterparty objects. Residual gap worth flagging in the rationale rather than re-drafting: Section 7.6(a)-(c) still lets a Person that merges with, or succeeds to the business of, the Servicer — potentially a competitor — become Servicer without Issuer consent, and the new competitor bar reaches only \"assign,\" not structural succession. This is the mirror image of the Depositor's own Section 5.3 freedom, so symmetry supports leaving it. Intent preserved: no dangling cross-reference (Section 7.6(d) still operates, now subject to consent), no contradictory retained sentence, and the trustee/noteholder consent architecture and 15-Business-Day assumption mechanics are untouched. \"Competitor\" is undefined but used in its ordinary sense, consistent with the playbook's preferred wording.",
+      "preservesIntent": true,
+      "satisfiesFallback": false,
+      "satisfiesPreferred": true,
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.94,
+    "costUsd": 0.20545825,
+    "durationMs": 39335,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Customer has no exclusivity or sole-supplier obligation.",
+          "quote": "Section 3.1 Engagement. The Issuer engages Cellco as the Servicer of the Receivables for the Issuer and the Indenture Trustee, and Cellco accepts this engagement.",
+          "status": "already_met"
+        }
+      ]
+    },
+    "id": "f-exclusivity-e0d58bb3",
+    "paragraphIds": [
+      "p0080",
+      "p0137",
+      "p0150",
+      "p0335",
+      "p0387",
+      "p0427"
+    ],
+    "producedBy": "drafter",
+    "quote": "Section 3.1 Engagement. The Issuer engages Cellco as the Servicer of the Receivables for the Issuer and the Indenture Trustee, and Cellco accepts this engagement.",
+    "rationale": "The Agreement imposes no exclusivity or sole-supplier obligation on our side, so it meets the preferred position. Section 3.1 (p0080) and the parallel Custodian (p0137) and Marketing Agent (p0150) provisions are bare appointments of Cellco: none designates Cellco as sole or exclusive provider, and none bars the Issuer, Depositor or Indenture Trustee from engaging other providers. The Successor Servicer regime (p0335) affirmatively contemplates engaging a different servicer, confirming the absence of any lock-in. The word \"exclusive\" appears only in the Cap Collateral Account control mechanic (p0387-p0388), which is a control right held by the Issuer and therefore benefits our party, and in \"nonexclusive jurisdiction\" (p0427), a forum term. Searches for requirements-purchase, sole-source, \"any third party\" procurement bars and non-compete covenants returned nothing binding our party. No redline needed.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-iii",
+    "sectionRef": "§ III SERVICING OF RECEIVABLES",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.56768875,
+    "durationMs": 154542,
+    "elementCoverage": {
+      "level": "fallback",
+      "mappings": [
+        {
+          "element": "Vendor indemnifies Customer against third-party intellectual-property claims.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "The IP indemnity may exclude infringement caused by Customer modifications.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "The IP indemnity may exclude infringement caused by Customer combinations.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "The IP indemnity may exclude infringement caused by Customer specifications.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Vendor must procure continued use, modify, or replace the infringing item.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Vendor must refund applicable fees if procure, modify, or replace remedies are unavailable.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Vendor's indemnity is subject to a super-cap of three times annual fees.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-indemn-9ae27f96",
+    "paragraphIds": [
+      "p0291",
+      "p0292",
+      "p0293",
+      "p0299"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 6.3 gives us a Servicer/Marketing Agent indemnity only for willful misconduct, bad faith or gross negligence, with no cover for third-party intellectual property claims arising from the systems and software the Servicer uses. We have added our fallback IP indemnity as a new Section 6.3(e), with the usual Customer modification, combination and specification exclusions, procure/modify/replace and refund remedies, and a three times annual Servicing Fee super-cap.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(e)",
+          "paragraphId": "p0299",
+          "text": "(e) Intellectual Property Indemnity. The Servicer will indemnify the Indemnified Persons for any third-party claim that the systems, software or other materials used by the Servicer in performing its obligations under the Transaction Documents infringe or misappropriate any intellectual property right, except to the extent the claim results from modifications, combinations or specifications made or supplied by an Indemnified Person. In that event, the Servicer will procure the right to continue such use, or modify or replace the affected item, and if none of those remedies is available on commercially reasonable terms, will refund the Servicing Fees paid for the affected item. The Servicer's aggregate liability under this Section 6.3(e) will not exceed three times the aggregate Servicing Fees paid to the Servicer during the twelve months preceding the claim."
+        }
+      ],
+      "precedentId": "seed-indemn-1",
+      "summary": "Add a Servicer IP infringement indemnity (with customary exclusions, procure/modify/replace/refund remedies and a 3x annual fee super-cap) as new Section 6.3(e)."
+    },
+    "quote": "The Servicer will indemnify the Issuer, the Owner Trustee and the Indenture Trustee (including in its capacity as Note Paying Agent), and their officers, directors, employees and agents (each, an \"Indemnified Person\") for all fees, expenses, losses, claims, actions, suits, damages and liabilities (including reasonable legal fees and expenses) resulting from the Servicer's (including in its capacity as Custodian) willful misconduct, bad faith or gross negligence in performing its obligations under the Transaction Documents",
+    "rationale": "Section 6.3 contains a Servicer/Marketing Agent (vendor-side) indemnity in our favour, but it is limited to willful misconduct, bad faith or gross negligence and carries no third-party intellectual-property infringement cover, no procure/modify/replace/refund remedies and no super-cap construct. Under the detection guidance a vendor indemnity that excludes IP infringement is a deviation, so the fallback is not met on a material term. The existing claim procedure in Section 6.3(b) (prompt notice, Servicer's right to assume the defense) is retained untouched, as is our own defend-title covenant in Section 9.2, which we do not flag. We therefore target the fallback only, inserting a single new Section 6.3(e) carrying the IP indemnity, the modification/combination/specification exclusions, the procure-modify-replace and refund remedies and a three times annual Servicing Fee cap expressed so that it applies solely to the new indemnity and does not cut back our existing uncapped Section 6.3(a) rights.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-vi",
+    "sectionRef": "§ VI SERVICER AND MARKETING AGENT",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": true
+        },
+        {
+          "name": "minimality gate",
+          "ok": true
+        },
+        {
+          "name": "element coverage gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Vendor has an express duty to defend Customer and its affiliates.",
+          "evidence": "Section 6.3 obliges the Servicer/Marketing Agent only to \"indemnify\"; Section 6.3(b) gives the Servicer a permissive right (\"may participate in and assume the defense and settlement\"), not a duty. The new 6.3(e) likewise says only \"will indemnify\". An express \"shall defend\" obligation is missing.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Vendor indemnifies Customer and its affiliates against third-party claims.",
+          "evidence": "Indemnified Persons are limited to the Issuer, Owner Trustee, Indenture Trustee (and Note Paying Agent) and their officers, directors, employees and agents; there is no coverage for affiliates of the Issuer, and the base indemnity in 6.3(a) is not limited to (nor expressly extended to) third-party claims.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Vendor indemnity covers claims that Services or Deliverables infringe intellectual property rights.",
+          "evidence": "New Section 6.3(e): \"The Servicer will indemnify the Indemnified Persons for any third-party claim that the systems, software or other materials used by the Servicer in performing its obligations under the Transaction Documents infringe or misappropriate any intellectual property right.\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor indemnity covers Vendor's breach of applicable law.",
+          "evidence": "Section 6.3(a)(i)/(ii) is confined to \"willful misconduct, bad faith or gross negligence in performing its obligations under the Transaction Documents\"; no trigger for breach of applicable law was added.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Vendor indemnity covers a data breach caused by Vendor.",
+          "evidence": "No indemnity trigger for unauthorised access to or disclosure of Customer/Issuer data appears in 6.3(a), (b), (d) or the new (e).",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Vendor indemnity covers Vendor's gross negligence and wilful misconduct.",
+          "evidence": "Section 6.3(a)(i) and (ii) indemnify for losses \"resulting from the Servicer's ... willful misconduct, bad faith or gross negligence\" (and the same for the Marketing Agent); retained untouched.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "The indemnification procedure requires notice of a claim.",
+          "evidence": "Section 6.3(b): the Indemnified Person \"will ... promptly notify the Servicer or the Marketing Agent, as applicable, of the Proceeding\" (with a no-prejudice proviso).",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "The indemnification procedure allocates control of the defence.",
+          "evidence": "Section 6.3(b): \"The Servicer or the Marketing Agent, as applicable, may participate in and assume the defense and settlement of a Proceeding at its expense.\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "The indemnification procedure requires reasonable cooperation.",
+          "evidence": "No cooperation covenant appears in the rendered 6.3(b) or elsewhere in the operative language; the procedure covers only notice, assumption of defence and repayment of later recoveries.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Customer indemnity is limited to Customer-provided content and Customer's breach of law.",
+          "evidence": "No Issuer/Customer-side indemnity is contained in the rendered language; the rationale references a Section 9.2 defend-title covenant that is not before us, so its scope cannot be assessed on the operative text supplied.",
+          "level": "preferred",
+          "status": "cannot_tell"
+        },
+        {
+          "element": "Vendor indemnifies Customer against third-party intellectual-property claims.",
+          "evidence": "New Section 6.3(e) obliges the Servicer to indemnify the Indemnified Persons (including the Issuer) \"for any third-party claim that the systems, software or other materials used by the Servicer ... infringe or misappropriate any intellectual property right.\"",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "The IP indemnity may exclude infringement caused by Customer modifications.",
+          "evidence": "6.3(e): \"except to the extent the claim results from modifications ... made or supplied by an Indemnified Person\" — a permitted exclusion, expressly limited to Indemnified-Person-side conduct.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "The IP indemnity may exclude infringement caused by Customer combinations.",
+          "evidence": "6.3(e) carve-out expressly includes \"combinations ... made or supplied by an Indemnified Person\"; the carve-out is no broader than the permitted exclusion set.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "The IP indemnity may exclude infringement caused by Customer specifications.",
+          "evidence": "6.3(e) carve-out expressly includes \"specifications ... made or supplied by an Indemnified Person\".",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Vendor must procure continued use, modify, or replace the infringing item.",
+          "evidence": "6.3(e): \"the Servicer will procure the right to continue such use, or modify or replace the affected item\" — stated as an obligation (\"will\"), not an option.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Vendor must refund applicable fees if procure, modify, or replace remedies are unavailable.",
+          "evidence": "6.3(e): \"if none of those remedies is available on commercially reasonable terms, will refund the Servicing Fees paid for the affected item.\"",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Vendor's indemnity is subject to a super-cap of three times annual fees.",
+          "evidence": "6.3(e): \"The Servicer's aggregate liability under this Section 6.3(e) will not exceed three times the aggregate Servicing Fees paid to the Servicer during the twelve months preceding the claim\" — a 3x annualised fee measure, expressly ring-fenced to the new paragraph so the uncapped 6.3(a) rights survive.",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "Fallback checklist is complete: the single inserted Section 6.3(e) carries the vendor IP indemnity, the modification/combination/specification exclusions, the mandatory procure-modify-replace ladder, the refund backstop and a 3x twelve-month Servicing Fee cap. The preferred level is not reached: there is no express duty to defend, no extension to Issuer affiliates, no breach-of-law or data-breach trigger, no cooperation covenant, and the Customer-side indemnity scope is not shown. This is correctly targeted at the fallback only. Minimality holds: the redline is an insertion only, with no deletions or paraphrase of Sections 6.3(a), (b) or (d); the cap is drafted \"under this Section 6.3(e)\" so it does not cut back the existing uncapped willful-misconduct/gross-negligence indemnity, and no survival tail, expense allocation or extra damages categories were added. Intent is preserved: all defined terms used (Indemnified Persons, Servicer, Transaction Documents, Servicing Fees) are existing definitions, the existing notice/defence-assumption and repayment mechanics in 6.3(b) and (d) apply to the new paragraph without contradiction, and no cross-reference is left dangling. Optional (not required for the fallback, so no minimality penalty either way): if the counterparty accepts, the drafter could later seek \"defend, indemnify and hold harmless\" and a twelve-months-preceding-the-event-giving-rise-to-the-claim measuring period, but neither is needed for position completeness.",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": false,
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.87,
+    "costUsd": 0.2162985,
+    "durationMs": 51022,
+    "id": "f-ld-c8a6a78f",
+    "paragraphIds": [
+      "p0134",
+      "p0117",
+      "p0351",
+      "p0358",
+      "p0291"
+    ],
+    "producedBy": "drafter",
+    "quote": "Section 3.8 Servicer's Fees. As compensation for performing its obligations under this Agreement, the Servicer will be paid the Servicing Fee. On each Payment Date, the Issuer will pay the Servicing Fee to the Servicer according to Section 8.2 of the Indenture.",
+    "rationale": "The Agreement imposes no liquidated damages, penalty, or minimum/early-termination fee payable by us (Issuer or Depositor) to Cellco in any of its capacities, so the rule sits at the preferred position. Compensation to the Servicer is limited to the accrual-based Servicing Fee, Supplemental Servicing Fee and Temporarily Excluded Receivables Servicing Fee (p0134), and the Servicer's removal for a Servicer Termination Event (§ 7.2-7.4) triggers no termination payment to Cellco. The items the planner flagged are not Customer-payable liquidated damages: (i) Make-Whole Payments (p0351, p0358, p0791-p0794) are Noteholder yield-protection economics on an Optional Redemption elected by the Class A Certificateholder, payable to Noteholders rather than to the counterparty, and the Clean-Up Redemption is expressly \"without any Make-Whole Payment\"; (ii) late fees and prepayment charges (p0094, p0990) are Obligor charges swept into the Supplemental Servicing Fee, not amounts we pay as damages; and (iii) the $150,000 Successor Servicer appointment fee (p0339) is transition compensation to a replacement servicer, not a penalty to Cellco. Directionally, the liability provisions favour us: the Servicer's acquisition obligation is our sole remedy for covenant breaches (p0117) and both the Servicer and Marketing Agent indemnify the Indemnified Persons (p0291-p0292). No redline required.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-iii",
+    "sectionRef": "§ III SERVICING OF RECEIVABLES",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.74,
+    "costUsd": 0.993817,
+    "durationMs": 324207,
+    "elementCoverage": {
+      "level": "fallback",
+      "mappings": [
+        {
+          "element": "Customer's affiliates are covered on written notice.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "The licence is transferable to a successor in a merger or acquisition transaction.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-license-2438dd24",
+    "paragraphIds": [
+      "p0346"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We added a licence to use the Servicer's servicing software and related applications, extended to our Affiliates on written notice and transferable to a successor by merger or acquisition, which is our fallback licence position. The Servicer's existing carve-out for Successor Servicers, third parties and restricted or confidential materials is left in place and is overridden only to the extent of this grant.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0346",
+          "text": "Notwithstanding the preceding sentence, the Servicer grants the Issuer and the Depositor, and on written notice their respective Affiliates, a license to use its processes, procedures, models, servicing software and other applications as necessary to service, or to have serviced, the Receivables, which license is transferable to a successor of the Issuer or the Depositor by merger or acquisition."
+        }
+      ],
+      "precedentId": "seed-license",
+      "summary": "Add a short licence sentence after Section 7.5(b) granting the Issuer and Depositor rights in the Servicer's servicing software, extended to their Affiliates on written notice and transferable to an M&A successor, leaving the existing Successor Servicer/third-party carve-out fully intact."
+    },
+    "quote": "The Servicer will not be obligated to provide, license or assign its processes, procedures, models, servicing software or other applications to any Successor Servicer or any third party, or provide anything covered by a restriction on transfer or assignment or a confidentiality agreement or otherwise restricted by legal, regulatory, privacy or data protection policies.",
+    "rationale": "The agreement contains no licence grant: the only \"licen[cs]e\" references are regulatory qualification representations (p0234, p0259, p0272) and the Section 7.5(b) sentence at p0346, which disclaims any obligation on the Servicer to provide, license or assign its servicing software or applications. As drafted that leaves us with no licensed rights, no route to extend rights to our Affiliates and nothing transferable on a merger or acquisition, which is the walk-away outcome, so this is a deviation. We took the fallback level and made the change by addition rather than deletion: a single new sentence granting the Issuer and Depositor a licence to use the Servicer's processes, procedures, models, servicing software and other applications as necessary to service, or to have serviced, the Receivables, extended to their respective Affiliates on written notice and transferable to a successor of the Issuer or Depositor by merger or acquisition. \"Affiliate\" is a defined term at p0579, so no undefined capitalised term is introduced. Following the verifier's minimality point, the Servicer's existing carve-out is now retained word for word, including the Successor Servicer and third-party allocation and the restriction/confidentiality/legal, regulatory, privacy and data protection protections; the new sentence displaces it only to the extent of this grant, and I no longer assert that the Section 7.4/7.5 transition allocation is untouched, since the override operates on that sentence. We stopped at the fallback and did not add contractor coverage, perpetuity, irrevocability, termination-only-for-uncured-material-breach or unqualified transferability.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-vii",
+    "sectionRef": "§ VII SERVICER RESIGNATION AND TERMINATION; SUCCESSOR SERVICER",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 3,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "affiliates covered by the licence",
+          "ok": true
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        },
+        {
+          "name": "minimality gate",
+          "ok": true
+        },
+        {
+          "name": "element coverage gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "The licence extends to Customer's affiliates.",
+          "evidence": "New sentence: \"the Servicer grants the Issuer and the Depositor, and on written notice their respective Affiliates, a license to use its processes, procedures, models, servicing software and other applications...\" — Affiliates are within the grant (albeit conditioned on written notice, which satisfies the fallback formulation).",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "The licence extends to contractors acting on Customer's behalf.",
+          "evidence": "The grant runs only to \"the Issuer and the Depositor, and on written notice their respective Affiliates\". The phrase \"or to have serviced, the Receivables\" describes permitted purpose, not a grant of rights to contractors; no express extension to contractors or subservicers acting on Issuer/Depositor's behalf appears. Drafter concedes contractor coverage was not added.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "A paid-up licence is perpetual.",
+          "evidence": "The inserted grant is silent on consideration and duration; it is characterised neither as paid-up nor as subscription, and no perpetuity language (\"perpetual\", \"for so long as\") is present. Whether the paid-up condition is triggered cannot be determined from the operative text.",
+          "level": "preferred",
+          "status": "cannot_tell"
+        },
+        {
+          "element": "A paid-up licence is irrevocable.",
+          "evidence": "No \"irrevocable\" (or \"non-revocable\") wording in the inserted sentence, and the text does not identify the licence as paid-up, so the condition's applicability is indeterminate. Note the retained sentence contains no at-will revocation right, so nothing expressly permits Servicer revocation.",
+          "level": "preferred",
+          "status": "cannot_tell"
+        },
+        {
+          "element": "A subscription licence is terminable only for uncured material breach.",
+          "evidence": "Condition does not apply: the grant is a servicing-purpose licence under a transfer and servicing agreement with no subscription, fee or term structure attached to it, so no subscription-licence termination standard is required.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "The licence is transferable to Customer's successors.",
+          "evidence": "Transferability is confined to \"a successor of the Issuer or the Depositor by merger or acquisition\" — narrower than transferability to successors generally (e.g. successors by operation of law, reorganisation or asset sale).",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Customer's affiliates are covered on written notice.",
+          "evidence": "\"the Servicer grants the Issuer and the Depositor, and on written notice their respective Affiliates, a license to use...\"; \"Affiliate\" is a defined term (p0579), so no undefined capitalised term is introduced.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "The licence is transferable to a successor in a merger or acquisition transaction.",
+          "evidence": "\"...which license is transferable to a successor of the Issuer or the Depositor by merger or acquisition.\"",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "Fallback level is complete: both fallback elements are met in operative language (Affiliates on written notice; transferability to an M&A successor of the Issuer or Depositor). The finding is therefore position-complete at the declared fallback target. Preferred level is not complete. To reach it the drafter would need to (a) extend the grant expressly to \"contractors and subservicers acting on the Issuer's or Depositor's behalf\", (b) make the licence \"perpetual and irrevocable\" (or state it is fully paid-up and perpetual/irrevocable), and (c) broaden transferability from \"a successor by merger or acquisition\" to \"Customer's successors and permitted assigns\". These are noted, not required, since the fallback is satisfied. Minimality holds: the change is a single added sentence for a clause that did not exist; the Servicer's existing carve-out (Successor Servicer, third parties, transfer/confidentiality restrictions and legal, regulatory, privacy and data protection protections) is retained verbatim with no deletions. \"Customer\" (Issuer/Depositor) is not defined to include Affiliates, so the affiliate extension is not duplicative. The \"Notwithstanding the preceding sentence\" opener is narrowly targeted at the immediately preceding no-obligation-to-license sentence and is necessary to avoid a directly contradictory retained sentence; it is not a broad override of the transition provisions and so does not fail minimality. Intent is preserved: the Section 7.4/7.5 transition allocation, delivery obligations and the Servicer's restricted-materials protections survive, subordinated only to the extent of the new grant by the express priority language; no dangling cross-reference or undefined term is created. Residual drafting point (not a defect at the fallback): the grant's purpose scope \"as necessary to service, or to have serviced, the Receivables\" combined with the retained Successor Servicer carve-out could be read as leaving downstream use by a Successor Servicer contested; the notwithstanding clause resolves priority, but express contractor/subservicer wording would remove the ambiguity.",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": false,
+      "verdict": "repaired"
+    }
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.1348705,
+    "durationMs": 37159,
+    "id": "f-noncompete-36574c75",
+    "paragraphIds": [
+      "p0240",
+      "p0266",
+      "p0279",
+      "p0346",
+      "p0372"
+    ],
+    "producedBy": "drafter",
+    "quote": "(B) any contractual restriction binding on or affecting it or its property, or (C) any order, writ, judgment, award, injunction or decree binding on or affecting it or its property",
+    "rationale": "No non-compete or field-of-use restriction binds the Issuer, Depositor or any of our entities anywhere in this Agreement, so the rule sits at the preferred position. Targeted searches for \"compete\", \"exclusive\", \"solicit\", \"field of use\", \"engage in any business other than\", \"similar products or services\" and \"prohibited from\" returned no restrictive covenant on us. The only \"restriction\" hits are generic no-conflict representations (p0240 Depositor, p0266 Servicer, p0279 Marketing Agent) confirming performance does not contravene third-party contractual restrictions — these create no covenant not to compete. p0346 limits the Servicer's obligation to license its servicing software to a Successor Servicer; that binds the counterparty's delivery obligations, not our freedom to operate, and is addressed under transition/IP rather than here. p0372 restricts the Depositor from transferring Depositor Transferred Property, which is a customary SPE transfer/assignment covenant protecting the securitization structure, not a field-of-use or competitive restriction. No redline proposed.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-v",
+    "sectionRef": "§ V DEPOSITOR",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.83,
+    "costUsd": 1.66955375,
+    "durationMs": 479296,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Customer may terminate the Agreement or an Order Form for convenience.",
+          "operationIndexes": [
+            1,
+            2,
+            3
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer's convenience termination requires no more than 30 days' written notice.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Vendor refunds prepaid fees pro rata after Customer's convenience termination.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Vendor has no right to terminate for convenience during a committed term.",
+          "quote": "The Servicer will not resign as Servicer under this Agreement unless it determines it is legally unable to perform its obligations under this Agreement.",
+          "status": "already_met"
+        }
+      ]
+    },
+    "id": "f-t4c-866e251e",
+    "paragraphIds": [
+      "p0314",
+      "p0327",
+      "p0363"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We added Section 7.7 so that we, as the Customer for the Servicer's services, may terminate for convenience on thirty (30) days' written notice with a pro rata refund of any prepaid fees, since the Agreement otherwise runs until the last Receivable is paid with only a for-cause removal right. We conformed Section 8.3's termination list to include that exit; Section 7.1's no-resignation bar on the Servicer is untouched.",
+      "level": "preferred",
+      "ops": [
+        {
+          "asHeading": false,
+          "kind": "insert_after",
+          "paragraphId": "p0348",
+          "text": "Section 7.7 Termination for Convenience. The Issuer (the \"Customer\" for the Servicer's services) may terminate this Agreement and the Servicer's rights and obligations under this Agreement for convenience upon thirty (30) days' prior written notice to the Servicer, in which case the Servicer will refund to the Customer pro rata any fees prepaid for the period after the effective date of the termination."
+        },
+        {
+          "kind": "replace",
+          "newText": "This Agreement will terminate on the earliest to occur of (a) a termination under Section 7.7, (b) the date",
+          "oldText": "This Agreement will terminate on the earlier to occur of (a) the date",
+          "paragraphId": "p0363"
+        },
+        {
+          "kind": "replace",
+          "newText": "and (c) the Issuer is terminated under Section 8.1",
+          "oldText": "and (b) the Issuer is terminated under Section 8.1",
+          "paragraphId": "p0363"
+        }
+      ],
+      "precedentId": "seed-t4c",
+      "summary": "Add numbered Section 7.7 giving the Issuer (as Customer) a 30-day convenience termination with pro rata refund of prepaid fees, and conform/reletter Section 8.3."
+    },
+    "quote": "Section 8.3 Termination. This Agreement will terminate on the earlier to occur of (a) the date upon which the last remaining Receivable is paid in full, settled, sold or written off and any amounts received are applied and (b) the Issuer is terminated under Section 8.1 of the Trust Agreement.",
+    "rationale": "The Agreement runs until the last Receivable is paid in full (Section 8.3) — far longer than twelve months — yet the only exits are the Indenture Trustee's for-cause removal on a continuing Servicer Termination Event (Section 7.2(c)) and natural run-off. Sections 8.1 and 8.2 are Class A Certificateholder optional acquisition/redemption mechanics, not a convenience exit for us. No Customer convenience termination right exists, failing both preferred and fallback (fallback element 1 is absent; there is no early-termination fee to cap). We target preferred: Section 7.1 already bars the Servicer from resigning absent legal inability, so the Vendor-side element is met, and the fallback would concede a Servicer term-end exit on 90 days' notice that the contract currently forecloses. New Section 7.7 designates the Issuer as the \"Customer\" and gives it an unconditional 30-day convenience termination with a pro rata refund of prepaid fees; the Section 8.3 edits add that exit to the termination list and reletter it cleanly as (a)/(b)/(c). We deliberately did not condition our exit on appointment of a Successor Servicer — that would qualify the unconditional right the checklist requires — and Sections 7.3/7.4 already engage on any termination \"under this Agreement\".",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-vii",
+    "sectionRef": "§ VII SERVICER RESIGNATION AND TERMINATION; SUCCESSOR SERVICER",
+    "severity": "high",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 4,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 3 applies",
+          "ok": true
+        },
+        {
+          "name": "Customer convenience termination present",
+          "ok": false
+        },
+        {
+          "name": "minimality gate",
+          "ok": true
+        },
+        {
+          "name": "element coverage gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Customer may terminate the Agreement or an Order Form for convenience.",
+          "evidence": "New Section 7.7: \"The Issuer (the \"Customer\" for the Servicer's services) may terminate this Agreement and the Servicer's rights and obligations under this Agreement for convenience...\". There are no Order Forms in this transaction structure, so agreement-level termination suffices. The deterministic check \"Customer convenience termination present\" returned false only because the operative subject is styled \"The Issuer (the \"Customer\"...)\" rather than the bare word \"Customer\"; in substance the Customer-side convenience right is present and unconditional.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer's convenience termination requires no more than 30 days' written notice.",
+          "evidence": "Section 7.7: \"upon thirty (30) days' prior written notice to the Servicer\" — exactly 30 days, written, and no additional condition or consent gate.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor refunds prepaid fees pro rata after Customer's convenience termination.",
+          "evidence": "Section 7.7: \"the Servicer will refund to the Customer pro rata any fees prepaid for the period after the effective date of the termination.\" Both the express \"pro rata\" basis and the post-effective-date period are stated (not merely inferred from a period-based refund).",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor has no right to terminate for convenience during a committed term.",
+          "evidence": "Retained Section 7.1: \"The Servicer will not resign as Servicer under this Agreement unless it determines it is legally unable to perform its obligations under this Agreement.\" The only other exit is the Indenture Trustee's for-cause removal on a continuing Servicer Termination Event (Section 7.2(c)). No Vendor-side convenience exit exists; Section 7.1 is untouched by the redline.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer may terminate for convenience on 60 to 90 days' notice.",
+          "evidence": "Section 7.7 sets thirty (30) days, which is below the 60–90 day fallback band. This is a deliberate (and more favourable) preferred-level term, so the fallback level is simply not the level targeted.",
+          "level": "fallback",
+          "status": "not_met"
+        },
+        {
+          "element": "Any early-termination fee is capped at three months of fees.",
+          "evidence": "Condition does not apply: neither the original text nor Section 7.7 imposes any early-termination fee, penalty, instalment or contingent payment on the Issuer's exit, so there is no fee requiring a cap.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Vendor may terminate for convenience only at the end of a term.",
+          "evidence": "Satisfied a fortiori: Section 7.1 bars Servicer resignation entirely absent legal inability, so the Servicer has no convenience exit at any time, term-end or otherwise.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Vendor must give at least 90 days' notice of convenience termination.",
+          "evidence": "Condition does not apply: the Servicer holds no convenience termination right at all under retained Section 7.1, so no notice period needs to be specified.",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "Customer convenience termination present: failed Preferred level is complete on the operative text: Section 7.7 supplies an unconditional Customer (Issuer) convenience right at 30 days' written notice with an express pro rata refund of prepaid fees, and retained Section 7.1 leaves the Servicer with no convenience exit during the term. The failed regex \"Customer convenience termination present\" is a naming artifact, not a substantive gap — the right is granted to \"The Issuer (the \"Customer\" for the Servicer's services)\" in Section 7.7. Minimality holds: three operations only (insert Section 7.7; add the Section 7.7 exit to Section 8.3; reletter (a)/(b)/(c) and change \"earlier\" to \"earliest\"). The Section 8.3 conforming edit is necessary because Section 8.3's exhaustive termination list would otherwise contradict the new exit. No survival tails, expense language, damages categories or unrelated deletions were added; Section 7.1 and Section 7.2(c) are untouched. Intent is not preserved: by routing the new exit through Section 8.3(a), a unilateral 30-day notice from the Issuer terminates the entire multi-party Transfer and Servicing Agreement — not just the servicing engagement — while Notes remain Outstanding and Receivables unserviced. Repair: scope Section 7.7 (and the new Section 8.3(a)) to termination of the Servicer's appointment/servicing role rather than of \"this Agreement\", or expressly preserve the Agreement as to the Depositor, Custodian and Marketing Agent roles. Related contradiction to repair in operative language: the defined term \"Servicer\" means \"Cellco or any Successor Servicer engaged under Section 7.4 of the Transfer and Servicing Agreement\", and Sections 7.3/7.4 presuppose the Agreement continuing so a Successor Servicer can be engaged and transition performed. If Section 8.3(a) terminates the Agreement on the Issuer's notice, that machinery is inoperative. Either tie the effective date of the Section 7.7 termination to the appointment of a Successor Servicer under Section 7.4 (a timing mechanic, not a consent condition, so the election remains unconditional), or add an express carve-out that Sections 7.3 and 7.4 continue to apply to a Section 7.7 termination. Drafting nit (not a level failure): Section 7.7 coins the term \"Customer\" solely for use within that section; confirm it does not collide with any other defined term and consider using \"the Issuer\" throughout to avoid an orphan definition. Also note that the Servicing Fee is paid monthly out of collections, so the prepaid-fee refund will rarely bite — harmless, but the exit's value rests on the termination right itself.",
+      "preservesIntent": false,
+      "satisfiesFallback": false,
+      "satisfiesPreferred": true,
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.17925075,
+    "durationMs": 41266,
+    "id": "f-audit-f1613d67",
+    "paragraphIds": [
+      "p0131",
+      "p0146",
+      "p0303",
+      "p0446"
+    ],
+    "producedBy": "drafter",
+    "quote": "Upon reasonable request not more than once during any calendar year, and with reasonable notice, the Servicer will give the Issuer, the Depositor, the Parent Support Provider, the Administrator, the Owner Trustee and the Indenture Trustee (or their representatives) access to the records and documents to conduct a review of the Servicer's performance under this Agreement.",
+    "rationale": "No audit, inspection or verification right in this Agreement binds us. Every review right runs in our favour against the counterparty: Section 3.6 (p0131) gives the Issuer, Depositor and related parties access to the Servicer's records once per calendar year on reasonable notice, at the Servicer's offices during normal business hours; Section 3.4(e) (p0146) gives the Depositor, Issuer and Indenture Trustee access to the Custodian's Receivable Files; Section 6.6/6.7 (p0302-p0312) require the Servicer's annual compliance statement, Regulation AB servicing assessment and an independent accountants' attestation delivered to us; and Article XI (p0441-p0447) obliges the Servicer to support an Asset Representations Review by an independent Asset Representations Reviewer, with Personally Identifiable Information redacted. Because the AUDIT rule targets audits of our usage and no such right exists against us (and none grants the counterparty access to our systems), the position is better than preferred and we do not redline. Noted only in passing: the Servicer-side review right is framed as \"once during any calendar year\" on \"reasonable notice\" rather than a fixed 30-day notice period, but that runs against the counterparty and is to our benefit.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-iii",
+    "sectionRef": "§ III SERVICING OF RECEIVABLES",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.2070365,
+    "durationMs": 44570,
+    "id": "f-govlaw-9a5c21b0",
+    "paragraphIds": [
+      "p0426",
+      "p0427",
+      "p0450",
+      "p0473"
+    ],
+    "producedBy": "drafter",
+    "quote": "THIS AGREEMENT, INCLUDING THE RIGHTS AND DUTIES OF THE PARTIES HERETO, SHALL BE GOVERNED BY, AND CONSTRUED IN ACCORDANCE WITH, THE INTERNAL LAWS OF THE STATE OF NEW YORK (INCLUDING SECTIONS 5-1401 AND 5-1402 OF THE GENERAL OBLIGATIONS LAW OF THE STATE OF NEW YORK, BUT WITHOUT REGARD TO ANY OTHERWISE APPLICABLE CONFLICTS OF LAW PRINCIPLES).",
+    "rationale": "Section 10.5 (p0426) selects New York internal law and even bars any amendment changing the governing law away from New York, so the preferred governing-law element is fully met. Section 10.6 (p0427) submits the parties to the SDNY and New York State courts sitting in New York, New York, with waiver of venue and forum non conveniens objections — an accepted New York court forum. The only shortfall against the preferred position is that this submission is expressly \"nonexclusive\" rather than exclusive New York County jurisdiction; that is a sub-element short of preferred wording and, given an accepted law and accepted courts, the clause sits at or above the fallback on its material terms and is not redlined. The Section 11.2 dispute-resolution mechanic (p0450) is not disqualifying: it is optional (the Requesting Party may instead institute a legal proceeding), confined to unresolved reacquisition/acquisition requests under the Eligibility Representation, administered by JAMS/AAA, and expressly seated in New York, New York (p0473) — domestic, not a mandatory foreign arbitration, so no walk-away trigger.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-x",
+    "sectionRef": "§ X MISCELLANEOUS",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.29953475,
+    "durationMs": 71897,
+    "elementCoverage": {
+      "level": "fallback",
+      "mappings": [
+        {
+          "element": "Professional errors and omissions coverage is at least USD 1,000,000.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Cyber and privacy coverage is at least USD 2,000,000.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-insurance-3ac4027e",
+    "paragraphIds": [
+      "p0439",
+      "p0435"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] The Agreement has no insurance covenant even though the Servicer services the Receivables and handles Obligor account information, so we added our fallback coverage levels: errors and omissions of USD 1,000,000 and cyber/privacy of USD 2,000,000.",
+      "level": "fallback",
+      "ops": [
+        {
+          "asHeading": false,
+          "kind": "insert_after",
+          "numbering": "Section 10.14",
+          "paragraphId": "p0439",
+          "text": "Insurance. The Servicer will maintain professional liability (errors and omissions) insurance of not less than $1,000,000 and cyber liability and privacy insurance of not less than $2,000,000."
+        }
+      ],
+      "precedentId": "seed-insurance",
+      "summary": "Insert a short insurance covenant (E&O USD 1,000,000; cyber/privacy USD 2,000,000) as new Section 10.14 in Article X (Miscellaneous)."
+    },
+    "quote": "Section 10.13 Intent of the Parties; Reasonableness. The Depositor, the Servicer and the Issuer acknowledge and agree that the purpose of Sections 6.6 and 6.7 of this Agreement is to facilitate compliance by the Issuer and the Depositor with the provisions of Regulation AB",
+    "rationale": "The Agreement contains no insurance covenant of any kind. The only insurance references are Obligor insurance premiums billed to wireless accounts (p0095) and FDIC deposit insurance in the \\\"Qualified Institution\\\" definition (p0903); neither is a Servicer coverage obligation. Cellco, as Servicer and Custodian, services the Receivables and handles Obligor account and payment information, so the absence of coverage sits in walk-away territory. Article X (Miscellaneous) ends at Section 10.13, so we inserted a new Section 10.14 carrying only the fallback levels (E&O USD 1,000,000; cyber/privacy USD 2,000,000). We selected the fallback rather than the preferred CGL/E&O/cyber/workers' compensation/certificates package as the shortest complete cure appropriate to this financing document.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-x",
+    "sectionRef": "§ X MISCELLANEOUS",
+    "severity": "medium",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "insurance obligation present",
+          "ok": true
+        },
+        {
+          "name": "minimality gate",
+          "ok": true
+        },
+        {
+          "name": "element coverage gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Commercial general liability coverage is at least USD 1,000,000 per occurrence.",
+          "evidence": "The inserted paragraph covers only \"professional liability (errors and omissions) insurance of not less than $1,000,000 and cyber liability and privacy insurance of not less than $2,000,000\"; no commercial general liability coverage or per-occurrence limit appears anywhere in the rendered language.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Commercial general liability coverage is at least USD 2,000,000 in the aggregate.",
+          "evidence": "No CGL aggregate limit is stated; the insertion contains no general liability line at all.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Professional errors and omissions coverage is at least USD 2,000,000.",
+          "evidence": "E&O is set at \"not less than $1,000,000\", below the preferred USD 2,000,000 threshold.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "If Vendor processes Customer Data, cyber and privacy coverage is at least USD 5,000,000.",
+          "evidence": "The Servicer handles Obligor account and payment information, so the condition applies, but cyber/privacy coverage is only \"not less than $2,000,000\", short of USD 5,000,000.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Vendor maintains workers' compensation coverage as required by law.",
+          "evidence": "The insertion is silent on workers' compensation; no statutory coverage covenant is added.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Vendor provides certificates of insurance on request.",
+          "evidence": "No certificate-delivery mechanic is inserted; the paragraph ends after the cyber limit.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Professional errors and omissions coverage is at least USD 1,000,000.",
+          "evidence": "Inserted: \"The Servicer will maintain professional liability (errors and omissions) insurance of not less than $1,000,000\" — an affirmative covenant on Cellco as Servicer at the fallback amount, in the Agreement's dollar denomination.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Cyber and privacy coverage is at least USD 2,000,000.",
+          "evidence": "Inserted: \"and cyber liability and privacy insurance of not less than $2,000,000\" — expressly covers both cyber and privacy at the fallback limit.",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "The finding is correctly scored as missing: the document's only insurance references are Obligor insurance premiums billed to wireless accounts and FDIC deposit insurance in the \"Qualified Institution\" definition, neither of which is a Servicer coverage covenant. Both fallback elements are met in operative language by a single inserted sentence, so the redline is position-complete at the fallback level; the preferred level fails on four separate limits plus workers' compensation and certificates. Minimality holds: the insertion adds no survival tail, no \"at its own expense\" language, no certificate-delivery or notice-of-cancellation procedure, and no additional insured or waiver-of-subrogation extras beyond the two selected fallback elements. Section 10.13 and the surrounding Regulation AB text are reproduced verbatim with no deletions or paraphrase. Intent is preserved: the new covenant is free-standing, introduces no defined term, cross-reference, or timing mechanic, and does not contradict any retained allocation in Article X. Drafting notes (not failures): the rationale says the insert is \"Section 10.14\" but the rendered text carries only an unnumbered \"Insurance.\" heading — number it 10.14 so it slots cleanly after 10.13. Also consider writing \"USD 1,000,000\"/\"USD 2,000,000\" rather than bare \"$\" for consistency with the playbook, and consider binding \"Cellco, in each of its capacities as Servicer, Marketing Agent and Custodian\" rather than \"the Servicer\" alone, since the Custodian capacity is where Obligor records are held. If negotiating room exists, note in the comment that the preferred package (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, statutory workers' compensation, certificates on request) remains our position and that this is the fallback.",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": false,
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.69306775,
+    "durationMs": 197663,
+    "elementCoverage": {
+      "level": "fallback",
+      "mappings": [
+        {
+          "element": "Vendor may retain ownership of generic tools and know-how.",
+          "quote": "The Servicer will not be obligated to provide, license or assign its processes, procedures, models, servicing software or other applications to any Successor Servicer or any third party",
+          "status": "already_met"
+        },
+        {
+          "element": "Customer's licence to Deliverables is perpetual.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer's licence to Deliverables is irrevocable.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer's licence to Deliverables is worldwide.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer's licence to Deliverables is royalty-free.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer may use and modify Deliverables for its business.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Customer may sublicense Deliverables for its business.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Any Vendor licence in Customer Data is limited to processing it solely to provide the Services.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-ip-d81d8e15",
+    "paragraphIds": [
+      "p0346",
+      "p0347",
+      "p0138",
+      "p0141"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] The Agreement lets the Servicer keep its processes, models and servicing software but gives us no rights in the files, reports and records produced for us, so we add the playbook fallback licence (perpetual, irrevocable, worldwide, royalty-free, with modification and sublicensing rights) and confirm the Servicer may process our data solely to provide the services.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(d)",
+          "paragraphId": "p0347",
+          "text": "License of Deliverables; Use of Issuer Data. The Servicer grants the Issuer a perpetual, irrevocable, worldwide, royalty-free license to use, modify and sublicense for its business the Receivable Files, the Monthly Investor Reports and the other reports, records and materials delivered or made available to the Issuer under this Agreement. The Servicer may process the Receivable Files and all other data belonging to, supplied by or processed for the Issuer solely to provide the servicing and custodial services under this Agreement."
+        }
+      ],
+      "precedentId": "seed-ip",
+      "summary": "Add a fallback licence to Issuer deliverables and limit the Servicer's processing of Issuer data"
+    },
+    "quote": "The Servicer will not be obligated to provide, license or assign its processes, procedures, models, servicing software or other applications to any Successor Servicer or any third party, or provide anything covered by a restriction on transfer or assignment or a confidentiality agreement or otherwise restricted by legal, regulatory, privacy or data protection policies.",
+    "rationale": "The Agreement contains no intellectual property, deliverables or data-licence provision. Cellco's custody obligations (Section 3.10) confirm the Receivable Files are held for the benefit of the Issuer and the Indenture Trustee, and nothing purports to assign our IP or data to Cellco, so there is no walk-away issue. But the only IP-adjacent term, Section 7.5(b) (p0346), runs one way: it preserves the Servicer's processes, models and servicing software (acceptable as Vendor retention of its own tools and know-how) while leaving us with no licence at all in the Receivable Files, Monthly Investor Reports, records and other materials generated for us and stored on Cellco's receivables systems, and no limitation on the Servicer's use of our data. That fails the fallback, which requires a perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense deliverables for our business. We therefore add the shortest fallback clause alongside the existing transition provisions rather than upgrading to the preferred assignment construct, which would conflict with the Servicer's retained software rights.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-vii",
+    "sectionRef": "§ VII SERVICER RESIGNATION AND TERMINATION; SUCCESSOR SERVICER",
+    "severity": "medium",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "no assignment of Customer Data/IP to Vendor remains",
+          "ok": true
+        },
+        {
+          "name": "minimality gate",
+          "ok": true
+        },
+        {
+          "name": "element coverage gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Customer owns Deliverables and work product created for Customer.",
+          "evidence": "Neither the retained text nor the inserted clause states that the Issuer owns the Receivable Files, Monthly Investor Reports or other work product; the insertion is a licence grant only (\"The Servicer grants the Issuer a perpetual, irrevocable, worldwide, royalty-free license...\"), and Section 3.10(b) speaks only of custody \"for the benefit of the Issuer and the Indenture Trustee\".",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Vendor assigns the Deliverables and work product to Customer.",
+          "evidence": "No assignment language appears anywhere in the rendered text; the only operative transfer is a licence.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Vendor retains its pre-existing intellectual property.",
+          "evidence": "Retained Section 7.5(b): \"The Servicer will not be obligated to provide, license or assign its processes, procedures, models, servicing software or other applications to any Successor Servicer or any third party\"; the new grant is confined to files, reports, records and materials and does not reach those assets.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer's licence to Vendor IP embedded in Deliverables is perpetual.",
+          "evidence": "\"perpetual ... license to use, modify and sublicense for its business the Receivable Files, the Monthly Investor Reports and the other reports, records and materials delivered or made available to the Issuer\" — the grant runs to the delivered materials, including any Servicer IP embedded in them.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer's licence to embedded Vendor IP is irrevocable.",
+          "evidence": "\"perpetual, irrevocable, worldwide, royalty-free license\".",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer's licence to embedded Vendor IP is royalty-free.",
+          "evidence": "\"royalty-free license to use, modify and sublicense for its business\".",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer retains all rights in Customer Data.",
+          "evidence": "No sentence states that the Issuer retains all right, title and interest in the Receivable Files or other Issuer data; custody \"for the benefit of the Issuer and the Indenture Trustee\" is a bailment concept, not a retention-of-rights statement.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Any Vendor licence in Customer Data is limited to processing it solely to provide the Services.",
+          "evidence": "Inserted: \"The Servicer may process the Receivable Files and all other data belonging to, supplied by or processed for the Issuer solely to provide the servicing and custodial services under this Agreement.\" The trigger covers every category of Issuer data, not selected types.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "The parties do not jointly own intellectual property.",
+          "evidence": "No joint-ownership language exists in the cited or rendered text, and the edit creates none; the condition the element guards against does not arise.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor may retain ownership of generic tools and know-how.",
+          "evidence": "Retained Section 7.5(b) preserves the Servicer's \"processes, procedures, models, servicing software or other applications\"; the redline leaves that sentence intact and the new licence does not sweep it in.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Customer's licence to Deliverables is perpetual.",
+          "evidence": "\"The Servicer grants the Issuer a perpetual ... license\".",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Customer's licence to Deliverables is irrevocable.",
+          "evidence": "\"perpetual, irrevocable, worldwide, royalty-free license\".",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Customer's licence to Deliverables is worldwide.",
+          "evidence": "\"perpetual, irrevocable, worldwide, royalty-free license\".",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Customer's licence to Deliverables is royalty-free.",
+          "evidence": "\"royalty-free license to use, modify and sublicense\".",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Customer may use and modify Deliverables for its business.",
+          "evidence": "\"license to use, modify and sublicense for its business the Receivable Files, the Monthly Investor Reports and the other reports, records and materials delivered or made available to the Issuer under this Agreement\".",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Customer may sublicense Deliverables for its business.",
+          "evidence": "\"use, modify and sublicense for its business\" — sublicensing is expressly within the same business-purpose grant.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Any Vendor licence in Customer Data is limited to processing it solely to provide the Services.",
+          "evidence": "\"The Servicer may process the Receivable Files and all other data belonging to, supplied by or processed for the Issuer solely to provide the servicing and custodial services under this Agreement.\" No resale, independent-exploitation or \"purposes contemplated by this Agreement\" tail remains.",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "The finding is position-complete at the fallback: every fallback element is met in operative language — a perpetual, irrevocable, worldwide, royalty-free licence to use, modify and sublicense the delivered files, reports, records and materials for the Issuer's business, plus a solely-to-provide-the-services limit on Servicer processing that covers all data belonging to, supplied by or processed for the Issuer. Preferred is not complete: there is no statement that the Issuer owns the Receivable Files, reports and other work product, no Servicer assignment of them, and no sentence that the Issuer retains all rights in its data. If the drafter wants the preferred level, add (i) \"The Issuer owns all right, title and interest in the Receivable Files, Monthly Investor Reports and other materials created for the Issuer, and the Servicer assigns all such rights to the Issuer,\" and (ii) \"The Issuer retains all right, title and interest in all data belonging to, supplied by or processed for it.\" Minimality holds: a single concise insertion for an otherwise missing clause, no deletions, no survival tail, no expense or damages language, no notwithstanding override of Section 7.5(b), and no requirement outside the fallback checklist. The data-processing sentence is required by the eighth fallback element, so it is not an extra. Intent is preserved: the transition, expense, custody and Indenture-compliance mechanics survive unchanged, the Servicer's retained processes/models/software carve-out is untouched and does not contradict the new grant (which is limited to delivered files, reports and materials), and no defined term or cross-reference is left dangling. Drafting nit only (not a defect): the inserted clause is untitled by section number — give it a subsection designation (e.g., \"(d) License of Deliverables; Use of Issuer Data\") so the Section 7.5 lettering remains sequential.",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": false,
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.2166295,
+    "durationMs": 48114,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Customer has no most-favoured-nation obligation benefiting Vendor.",
+          "quote": "As compensation for performing its obligations under this Agreement, the Servicer will be paid the Servicing Fee.",
+          "status": "already_met"
+        }
+      ]
+    },
+    "id": "f-mfn-1652befb",
+    "paragraphIds": [
+      "p0134"
+    ],
+    "producedBy": "drafter",
+    "quote": "Section 3.8 Servicer's Fees. As compensation for performing its obligations under this Agreement, the Servicer will be paid the Servicing Fee. On each Payment Date, the Issuer will pay the Servicing Fee to the Servicer according to Section 8.2 of the Indenture. In addition, the Servicer may retain any Supplemental Servicing Fees.",
+    "rationale": "We searched the agreement, appendices and exhibits for MFN-style language (\"most favoured/favored nation\", \"no less favorable\", \"favorab\", \"favor\", comparable/third-party terms, right-to-match) and found none: every hit on \"favor\" is a security-interest grant in favour of the Issuer or Indenture Trustee. Servicer compensation in Section 3.8 is a fixed, defined Servicing Fee (plus Supplemental and Temporarily Excluded Receivables Servicing Fees) with no obligation on the Issuer, Depositor or the trust estate to extend Cellco terms no less favourable than those given to any third party, and no obligation to match or beat any third-party offer. This meets the preferred position (no MFN obligation burdening us), so no redline is proposed.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-iii",
+    "sectionRef": "§ III SERVICING OF RECEIVABLES",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.22405575,
+    "durationMs": 50687,
+    "id": "f-mincommit-b259a839",
+    "paragraphIds": [
+      "p0034",
+      "p0035",
+      "p0037",
+      "p0036"
+    ],
+    "producedBy": "drafter",
+    "quote": "(d) Conditions for Transfers of Additional Receivables. The transfer and assignment of the Additional Receivables and the other related Depositor Transferred Property on each Acquisition Date will be subject to the satisfaction of the following conditions on or before such Acquisition Date:",
+    "rationale": "No take-or-pay, minimum purchase, volume-floor or shortfall-penalty obligation is imposed on the Issuer or the Depositor anywhere in the Agreement. Acquisitions of Additional Receivables under Section 2.1(b) occur only on an Acquisition Date, are conditioned on satisfaction of Section 2.1(d) (Transfer Notice, Credit Enhancement Test, Pool Composition Tests and Depositor certifications), and the Issuer's consideration is limited to the Additional Receivables Cash Transfer Amount for the Receivables actually transferred on that date — i.e., payment for assets actually acquired rather than a committed volume. Section 2.1(c) expressly confirms the Issuer assumes no other obligations. The Required Acquisition Deposit Amount and Required Negative Carry Amount constructs (p0225, p0398, p0564, p0927) are Revolving Period waterfall/credit-enhancement mechanics funded from the Issuer's own collections, not a purchase commitment; and the Credit Payment/shortfall deposit duty in Section 4.3(h) (p0211) runs against the Marketing Agent (counterparty side) and benefits us. This sits at the preferred position — no minimum commitment, with amounts payable only for assets actually acquired — so no redline is warranted.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-ii-2",
+    "sectionRef": "§ II TRANSFER AND ACQUISITION OF DEPOSITOR TRANSFERRED PROPERTY;…",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.102089,
+    "durationMs": 25695,
+    "id": "f-nosolicit-e36b19f0",
+    "paragraphIds": [
+      "p0291"
+    ],
+    "producedBy": "drafter",
+    "quote": "their officers, directors, employees and agents (each, an \"Indemnified Person\")",
+    "rationale": "Full-document searches for \"solicit\", \"employ or engage\", \"hire\"/\"no-hire\", \"induce\", \"recruit\", \"employment\", \"personnel\" and restrictive-covenant language return no responsive clause; the only reference to employees anywhere in the Transfer and Servicing Agreement is the indemnity definition of \"Indemnified Person\" in Section 6.3(i) (p0291), which imposes no hiring or solicitation restraint. The Issuer/Depositor (our party) are therefore under no non-solicitation, no-poach or no-hire covenant, which meets the preferred position (\"No non-solicit on Customer\"). No redline is warranted; we would only need the fallback carve-outs (mutuality, services personnel only, 12 months, general-advertisement and unsolicited-approach exclusions, no no-hire) if the Servicer/Marketing Agent later proposes adding such a covenant.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-vi",
+    "sectionRef": "§ VI SERVICER AND MARKETING AGENT",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.2063185,
+    "durationMs": 51454,
+    "elementCoverage": {
+      "level": "preferred",
+      "mappings": [
+        {
+          "element": "Renewal requires mutual written agreement unless every conditional automatic-renewal element below is met.",
+          "quote": "The parties may amend this Agreement (including Appendix A) to clarify an ambiguity, correct an error or correct or supplement any term of this Agreement",
+          "status": "already_met"
+        },
+        {
+          "element": "If renewal is automatic, each renewal term is no longer than 12 months.",
+          "quote": "This Agreement will terminate on the earlier to occur of (a) the date upon which the last remaining Receivable is paid in full, settled, sold or written off and any amounts received are applied",
+          "status": "already_met"
+        },
+        {
+          "element": "If renewal is automatic, Customer may opt out on no more than 30 days' notice.",
+          "quote": "This Agreement will terminate on the earlier to occur of (a) the date upon which the last remaining Receivable is paid in full, settled, sold or written off and any amounts received are applied",
+          "status": "already_met"
+        },
+        {
+          "element": "If renewal is automatic, Vendor must remind Customer at least 60 days before renewal.",
+          "quote": "This Agreement will terminate on the earlier to occur of (a) the date upon which the last remaining Receivable is paid in full, settled, sold or written off and any amounts received are applied",
+          "status": "already_met"
+        },
+        {
+          "element": "If renewal permits price increases, each increase is capped at the lesser of CPI and 3 percent.",
+          "quote": "Section 8.3 Termination. This Agreement will terminate on the earlier to occur of (a) the date upon which the last remaining Receivable is paid in full, settled, sold or written off and any amounts received are applied and (b) the Issuer is terminated under Section 8.1 of the Trust Agreement.",
+          "status": "already_met"
+        }
+      ]
+    },
+    "id": "f-renewal-57c46a06",
+    "paragraphIds": [
+      "p0363",
+      "p0392"
+    ],
+    "producedBy": "drafter",
+    "quote": "Section 8.3 Termination. This Agreement will terminate on the earlier to occur of (a) the date upon which the last remaining Receivable is paid in full, settled, sold or written off and any amounts received are applied and (b) the Issuer is terminated under Section 8.1 of the Trust Agreement.",
+    "rationale": "This transfer and servicing agreement contains no renewal mechanic at all. Searches for \"renew\", \"automatically renew\", \"successive\", \"extension/expire\", \"term of this Agreement\" and fee-escalation language return no auto-renewal term, no non-renewal notice window and no price-uplift right; the term simply runs under Section 8.3 (p0363) until the last Receivable is paid in full/settled/sold/written off or the Issuer is terminated under the Trust Agreement. Because renewal is not automatic and no price increase is permitted, each conditional fallback element (60-day non-renewal window; 5% uplift cap) and each conditional preferred element (12-month renewal term, 30-day opt-out, 60-day reminder, CPI/3% cap) is satisfied vacuously, and any extension of this self-liquidating term could only be effected by the parties amending the Agreement in writing under Section 10.4 (p0392) — i.e. by mutual written agreement, the preferred position. There is nothing here that traps us in a renewal or exposes us to an uncapped uplift, so no redline is warranted; inserting a renewal-and-uplift construct into a securitization structure that terminates on final payment would be inapposite.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-viii",
+    "sectionRef": "§ VIII TERMINATION",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "No proposal: element-level redline verification is not applicable.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.57578,
+    "durationMs": 141320,
+    "elementCoverage": {
+      "level": "fallback",
+      "mappings": [
+        {
+          "element": "Transition obligations apply on expiry or termination.",
+          "quote": "(a) Cooperation on Termination. On its resignation or termination, the Servicer will cooperate with the Issuer, the Owner Trustee, the Indenture Trustee and the Successor Servicer in effecting (i) the termination of its rights and obligations under this Agreement and (ii) an orderly transition of such rights and obligations to the Successor Servicer.",
+          "status": "already_met"
+        },
+        {
+          "element": "Vendor provides at least 90 days of transition assistance.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Vendor exports Customer Data within 30 days after expiry or termination.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-transition-1e7383f6",
+    "paragraphIds": [
+      "p0343",
+      "p0344",
+      "p0346",
+      "p0329"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 7.5 requires cooperation but sets no minimum assistance period and only an open-ended as-soon-as-practicable delivery standard, so we added our fallback position: at least 90 days of transition assistance and delivery of the Receivable Files and records within 30 days of the effective date of resignation or termination.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(d)",
+          "paragraphId": "p0347",
+          "text": "Transition Assistance Period. The predecessor Servicer will provide the transition assistance described in this Section 7.5 for at least ninety (90) days after the effective date of its resignation or termination, and in any event will deliver the Receivable Files and the accounts and records maintained by the Servicer to the Successor Servicer no later than thirty (30) days after such effective date."
+        }
+      ],
+      "precedentId": "seed-transition",
+      "summary": "Add a 90-day transition assistance period and a 30-day outside date for delivery of the Receivable Files and records in Section 7.5."
+    },
+    "quote": "(b) Transfer of Cash, Receivable Files and Records. As soon as practicable after the effective date of its resignation or termination, the predecessor Servicer will (i) transfer to the Successor Servicer all funds relating to the Receivables that are held or later received by the",
+    "rationale": "Section 7.5 contains a transition mechanic triggered by the Servicer's resignation or termination (7.5(a) cooperation; 7.5(b) transfer of Receivable Files and records), so the first fallback element is already met. The clause nonetheless fails the fallback on two material terms: there is no minimum transition assistance period (Section 7.3 only requires the Servicer to continue until a Successor Servicer accepts engagement or until the date stated in the termination notice, which may be far shorter than 90 days), and delivery of the Receivable Files and records is governed only by an open-ended \"as soon as practicable\" standard with no 30-day outside date. We propose the shortest fallback-level cure: a 90-day assistance period and a 30-day backstop for delivery. We have not pursued the preferred machine-readable-format and certified-deletion elements, and we leave the Section 7.5(b) carve-back for processes, models and servicing software untouched (that point sits with the IP rule).",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-vii",
+    "sectionRef": "§ VII SERVICER RESIGNATION AND TERMINATION; SUCCESSOR SERVICER",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "data return/transition present",
+          "ok": true
+        },
+        {
+          "name": "minimality gate",
+          "ok": true
+        },
+        {
+          "name": "element coverage gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Transition obligations apply on expiry or termination.",
+          "evidence": "Retained Section 7.5(a): \"On its resignation or termination, the Servicer will cooperate with the Issuer, the Owner Trustee, the Indenture Trustee and the Successor Servicer in effecting ... an orderly transition\"; 7.5(b) likewise runs from \"the effective date of its resignation or termination\". Resignation and termination are the only end-of-engagement events for the Servicer under this servicing structure (there is no separate servicer 'expiry' concept), so every covered ending is captured, and the inserted sentence uses the same trigger.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor provides transition assistance for up to six months.",
+          "evidence": "Inserted sentence commits only to \"at least ninety (90) days after the effective date of its resignation or termination\"; no six-month period appears anywhere in Section 7.5 or 7.3.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Transition assistance is charged at then-current rates.",
+          "evidence": "No rate mechanic was added. Retained 7.5(c) runs the other way (transition expenses of the Issuer/trustees/Successor Servicer are \"paid by the resigning or terminated Servicer\"); there is no then-current-rates pricing for the assistance.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Vendor returns Customer Data within 30 days after expiry or termination.",
+          "evidence": "Inserted: \"in any event will deliver the Receivable Files and the accounts and records maintained by the Servicer to the Successor Servicer no later than thirty (30) days after such effective date\" — a hard 30-day outside date measured from the effective date of resignation or termination, backstopping the retained \"as soon as practicable\" standard.",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Customer Data is returned in a standard machine-readable format.",
+          "evidence": "The insertion is silent on format; retained 7.5(b) only requires delivery of \"the Receivable Files and the accounts and records maintained by the Servicer\" with no commonly used, machine-readable format requirement.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Vendor certifies deletion of Customer Data after its return.",
+          "evidence": "No deletion or written certification obligation exists in Section 7.5 as rendered; nothing was added.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Transition obligations apply on expiry or termination.",
+          "evidence": "Same retained trigger in 7.5(a)/(b) (\"On its resignation or termination\" / \"after the effective date of its resignation or termination\"), and the inserted period is anchored to that identical effective date, so the assistance period applies after every covered ending, not merely an anticipated one.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Vendor provides at least 90 days of transition assistance.",
+          "evidence": "Inserted: \"The predecessor Servicer will provide the transition assistance described in this Section 7.5 for at least ninety (90) days after the effective date of its resignation or termination.\" The scope is defined by reference to the cooperation and transfer duties in Section 7.5, so the trigger and content are not undefined. Section 7.3 (performance of servicing until a Successor Servicer accepts, or the date in the termination notice) addresses continued servicing rather than transition assistance and does not contradict the new floor.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Vendor exports Customer Data within 30 days after expiry or termination.",
+          "evidence": "Inserted 30-day outside date for delivery of the Receivable Files and the accounts and records to the Successor Servicer (the transferee engaged by the Issuer under Section 7.4), replacing reliance on the open-ended \"as soon as practicable\" standard for timing purposes.",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "Fallback level is complete: the single inserted sentence supplies the two missing fallback terms (a 90-day minimum assistance period and a 30-day outside date for delivery of the Receivable Files and records), while the trigger element was already satisfied by retained Section 7.5(a)/(b). Preferred level is not reached. To reach it the drafter would need to (i) extend assistance to up to six (6) months, (ii) state that assistance is at the Servicer's then-current rates, (iii) require delivery in a commonly used, machine-readable format, and (iv) add a post-return deletion and written certification obligation. The finding correctly does not claim these. Minimality holds: nothing was deleted (the \"as soon as practicable\" standard, the processes/models/servicing-software carve-back and the 7.5(c) expense allocation all survive), no format, deletion, survival tail, expense or procedural extras were added, and the addition is confined to the two fallback elements actually missing. Intent is preserved: the 30-day date operates as a backstop to the retained \"as soon as practicable\" duty in 7.5(b)(ii) rather than replacing it, and Section 7.3's continued-performance mechanic is untouched. One drafting watch-point only (not a failure): the phrase \"in any event\" sits alongside the retained sentence relieving the Servicer of any obligation to provide items \"covered by a restriction on transfer or assignment or a confidentiality agreement or otherwise restricted by legal, regulatory, privacy or data protection policies\" — since the primary 7.5(b)(ii) delivery duty already coexists with that carve-back, no new conflict is created, but adding \"subject to the last sentence of Section 7.5(b)\" would remove any argument of inconsistency. Classification as a deviation is right: without the insertion the clause failed the fallback on two material terms (no minimum assistance period; no outside date for data delivery).",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": false,
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.5104835,
+    "durationMs": 121637,
+    "elementCoverage": {
+      "level": "fallback",
+      "mappings": [
+        {
+          "element": "Software is warranted to conform to its documentation for at least 90 days.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Services are warranted for at least 30 days.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Warranty remedies include repair or replacement.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        },
+        {
+          "element": "Warranty remedies include a refund.",
+          "operationIndexes": [
+            1
+          ],
+          "status": "addressed_by_operation"
+        }
+      ]
+    },
+    "id": "f-warranty-18b77328",
+    "paragraphIds": [
+      "p0082",
+      "p0268",
+      "p0269",
+      "p0117"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] The Agreement gives us no conformance warranty or warranty remedy for the Servicer's systems and servicing work, so we added the playbook fallback warranty (90 days for software, 30 days for services) with repair, replacement or refund. We can discuss the preferred 12-month software period if that is easier to align with the servicing systems.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "(xi)",
+          "paragraphId": "p0269",
+          "text": "Performance Warranty. The Servicer warrants that, for 90 days after delivery, any software and receivables systems it provides or makes available to the Issuer under this Agreement will conform in all material respects to their documentation, and that, for 30 days after performance, its servicing and other services under this Agreement will conform to this Agreement and the Servicing Procedures. For a breach of this warranty, the Servicer will, at the Issuer's option, repair or replace the non-conforming software, system or services or refund the Servicing Fee paid for them."
+        }
+      ],
+      "precedentId": "seed-warranty",
+      "summary": "Add a fallback-level performance warranty (90-day software conformance, 30-day services) with repair/replacement or refund remedies as a new Servicer representation in Section 6.1(a)."
+    },
+    "quote": "(x) Servicing Procedures. It has complied in all material respects with the Servicing Procedures with respect to the Receivables.",
+    "rationale": "The Servicer's obligations run to a performance standard (Section 3.2(a): \\\"with reasonable care using that degree of skill and attention that the Servicer exercises for all comparable device payment plan agreement receivables\\\") and Section 6.1(a) contains point-in-time reps on compliance with Law and with the Servicing Procedures. There is, however, no conformance warranty for the receivables systems/software or reports the Servicer delivers, no warranty duration, and no repair, replacement or refund remedy — the only remedy machinery is acquisition of affected Receivables, expressly stated as the sole remedy for the narrow Section 3.2(b)-(d) breaches. That fails every fallback element, so we insert the shortest fallback warranty (90 days software conformance to documentation, 30 days services) with repair/replacement or refund. Section 3.3(g)'s sole-remedy language is confined to Section 3.2(b)/(c)/(d) and so does not swallow the new warranty; the new remedy is drafted as a specific Servicer obligation for purposes of Section 6.2(a).",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-iii",
+    "sectionRef": "§ III SERVICING OF RECEIVABLES",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "warranty period ≥ 90 days or expressed in months/years",
+          "ok": true
+        },
+        {
+          "name": "minimality gate",
+          "ok": true
+        },
+        {
+          "name": "element coverage gate",
+          "ok": true
+        }
+      ],
+      "elements": [
+        {
+          "element": "Services are warranted to be performed in a professional and workmanlike manner.",
+          "evidence": "The inserted warranty covers only conformance (\"its servicing and other services under this Agreement will conform to this Agreement and the Servicing Procedures\"); the retained Section 3.2(a) \"reasonable care ... degree of skill and attention\" is a servicing covenant, not an express professional-and-workmanlike warranty. To meet this element the drafter must add an express warranty that the Services will be performed in a professional and workmanlike manner consistent with industry standards.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Deliverables or software are warranted to conform to their documentation.",
+          "evidence": "Inserted: \"any software and receivables systems it provides or makes available to the Issuer under this Agreement will conform in all material respects to their documentation.\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "The software conformance warranty lasts 12 months.",
+          "evidence": "Inserted period is \"for 90 days after delivery\"; the 12-month preferred duration is only floated in the margin comment (\"We can discuss the preferred 12-month software period\"), not in operative language.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "The Services warranty lasts 90 days.",
+          "evidence": "Inserted services period is \"for 30 days after performance\", short of the preferred 90 days.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Warranty remedies include repair or replacement.",
+          "evidence": "Inserted: \"the Servicer will, at the Issuer's option, repair or replace the non-conforming software, system or services\".",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Warranty remedies include a refund.",
+          "evidence": "Inserted: \"or refund the Servicing Fee paid for them.\"",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor warrants compliance with applicable laws.",
+          "evidence": "Retained Section 6.1(a)(ix): \"It has complied with all Laws applicable to the servicing of the Receivables\" (subject to a Material Adverse Effect qualifier and expressed as a point-in-time representation, which is a rationale-level note rather than an absence).",
+          "level": "preferred",
+          "status": "met"
+        },
+        {
+          "element": "Vendor warrants that the Services and Deliverables contain no malicious code.",
+          "evidence": "No malicious-code, virus or disabling-device warranty appears anywhere in the cited or inserted language.",
+          "level": "preferred",
+          "status": "not_met"
+        },
+        {
+          "element": "Software is warranted to conform to its documentation for at least 90 days.",
+          "evidence": "Inserted: \"for 90 days after delivery, any software and receivables systems it provides or makes available to the Issuer under this Agreement will conform in all material respects to their documentation\" — an express software-to-documentation warranty at exactly the 90-day floor.",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Services are warranted for at least 30 days.",
+          "evidence": "Inserted: \"for 30 days after performance, its servicing and other services under this Agreement will conform to this Agreement and the Servicing Procedures.\"",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Warranty remedies include repair or replacement.",
+          "evidence": "Inserted: \"the Servicer will, at the Issuer's option, repair or replace the non-conforming software, system or services\".",
+          "level": "fallback",
+          "status": "met"
+        },
+        {
+          "element": "Warranty remedies include a refund.",
+          "evidence": "Inserted: \"or refund the Servicing Fee paid for them\" — a fee-refund remedy tied to the non-conforming item.",
+          "level": "fallback",
+          "status": "met"
+        }
+      ],
+      "minimal": true,
+      "notes": "Fallback level is complete: the single inserted \"Performance Warranty\" paragraph supplies a 90-day software-to-documentation warranty, a 30-day services warranty, and repair/replacement or refund remedies, so the deviation finding and the fallback target are correctly matched. Preferred level fails on four elements: the software period is 90 days rather than 12 months, the services period is 30 days rather than 90 days, there is no professional-and-workmanlike warranty (Section 3.2(a) is a servicing covenant, not a warranty), and there is no no-malicious-code warranty. Minimality holds: one concise insertion for a missing clause, no deletion or paraphrase of existing text, no survival tail, no at-own-expense or extra damages language, and no procedure beyond the remedy itself. Electing party (\"at the Issuer's option\") is inherent to the remedy formulation rather than an added requirement, though it departs from the model language's Vendor-option formulation and may be a negotiation point. Intent is preserved: Section 3.3(g)'s sole-remedy language is expressly limited to Sections 3.2(b), (c) and (d), so the new remedy is not swallowed and no retained sentence contradicts it; the Section 6.1(a) compliance representations and the acquisition-of-Receivables machinery survive intact. \"Servicing Fee\" and \"Issuer\" are defined terms, so no dangling reference is created. If the drafter wants the preferred position, the operative repairs are: change \"90 days\" to twelve (12) months for software, \"30 days\" to ninety (90) days for services, add an express professional-and-workmanlike performance warranty, and add a no-malicious-code warranty — the margin comment's offer to discuss 12 months does not itself meet any element.",
+      "preservesIntent": true,
+      "satisfiesFallback": true,
+      "satisfiesPreferred": false,
+      "verdict": "pass"
+    }
+  }
+]

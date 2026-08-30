@@ -1,0 +1,94 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYUvL3NdYmg16kxcfgcT",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01HnmMKPAdhgk5TYLwPVgMz6",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0026",
+            "p0028",
+            "p0029"
+          ],
+          "quote": "(a) In the event the Company terminates this Agreement, the Company shall pay to HDI a termination payment, (the \"Termination Payment\") the amount of which shall be an amount equal to the aggregate Net Sales for the twelve (12) months preceding the Termination Date less $800,000, the balance of which shall be divided by two.",
+          "rationale": "Section 4.2 imposes a Customer-payable liquidated termination amount: if the Company terminates (including by giving the 90-day notice under Section 4.1), it must pay HDI 50% of the excess of the preceding twelve months' Net Sales over $800,000, payable in eight quarterly instalments. That is an uncapped stipulated sum far exceeding three months of the Section 3.1 fees (30% of monthly Net Sales over $11,000), so the clause fails the fallback. We target the fallback rather than outright deletion because removing 4.2(a) would leave the retained \"Termination Payment\" machinery in 4.2(b)-(c) and the Section 4 heading dangling; the surgical edit recasts the payment as an early-termination fee capped at three months' fees and declares it the sole liquidated amount payable by us. Retained 4.2(b) (no payment if the amount is zero or less) and 4.2(c) (instalments) remain coherent and favour us.",
+          "confidence": 0.86,
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Any Customer-payable liquidated amount is only an early-termination fee.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The early-termination fee is capped at three months of fees.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The early-termination fee is the sole liquidated amount payable by Customer.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          },
+          "proposal": {
+            "level": "fallback",
+            "summary": "Cap the Company's Termination Payment at three months' fees as the sole liquidated amount",
+            "comment": "[Playbook] Section 4.2(a) makes us pay HDI roughly half of twelve months' Net Sales above $800,000 if we terminate, which is an uncapped liquidated amount well beyond our position. We have recast it as an early-termination fee capped at three months of Section 3.1 fees and stated it is the sole liquidated amount we owe.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0026",
+                "oldText": "(a) In the event the Company terminates this Agreement, the Company shall pay to HDI a termination payment, (the \"Termination Payment\") the amount of which shall be an amount equal to the aggregate Net Sales for the twelve (12) months preceding the Termination Date less $800,000, the balance of which shall be divided by two.",
+                "newText": "(a) In the event the Company terminates this Agreement, the Company shall pay to HDI an early-termination fee (the \"Termination Payment\") in an amount equal to the fees payable under Section 3.1 for the three (3) months preceding the Termination Date, which shall be the sole liquidated amount payable by the Company under this Agreement."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1799,
+      "cache_read_input_tokens": 15877,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1799,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1236,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "LD",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13925
+}

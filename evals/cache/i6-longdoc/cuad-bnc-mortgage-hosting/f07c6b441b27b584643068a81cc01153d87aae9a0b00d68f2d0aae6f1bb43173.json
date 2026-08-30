@@ -1,0 +1,118 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYYe9fJnpnw197Ep5SH8",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "thinking",
+        "thinking": "",
+        "signature": "CAIStwIKjgEIERgCKkArb0xB7l3TczRUOnEkxoWXFtaN5CifKm0Ngjs0FwEm0t5mqtDUREXgrSOKT9TwLVaKjCAoU39PDJ9oYVeTb83aMg1jbGF1ZGUtb3B1cy01OAFCCHRoaW5raW5nWiQ0NDcyZGFmNS1lOTVkLTQzNzMtOWEzZS01ZDRhMTA3ZGJhNmWoAfy5z9QGEgyIfqezh3pauKSY/X0aDLxyFyC5rHKDbMPqyCIwBVD8FYZsfDp+DuW82rzoYVVMdc0Vy8F0BpMj0lEWPBh+SjftGqbwpDqG0JirtzVGKlafq+onyOlpXQ/i7oJayYuOlNAL/jRdxOgkwy0F5SI+KlKpX/zweNh6YlUu296atg2STKvOSJGGQMdfC/bcNlYFV3tO7yIAFfFotcx5z/S1rMnmEFk7WBgB"
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01SzzxrVF5fmJ1AyqEEyzo3P",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0097"
+          ],
+          "quote": "30. FORCE MAJEURE. TrueLink will be excused from delays in performing or from failing to perform its obligations under this Agreement to the extent the delays or failures result from causes beyond the reasonable control or TrueLink.",
+          "rationale": "Searches for \"insurance\", \"coverage\", \"certificates\" and a full read of the miscellaneous provisions (Sections 13-30) and the definitions return no insurance covenant anywhere in the Agreement, and there is no exhibit addressing insurance (Exhibits A and B are charges only). TrueLink hosts the Web Site and transmits/processes Client Content and Credit Data (data of Client's borrowers and loan applicants), so the absence of any insurance is walk-away territory under this rule. We therefore insert a short insurance section at the preferred levels immediately after Section 30, keeping the cyber trigger broad enough to reach every category of data belonging to, supplied by or processed for Client rather than a few named examples. No survival tail or expense language added beyond the checklist elements.",
+          "confidence": 0.9,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert vendor insurance covenant as new Section 31",
+            "comment": "[Playbook] The Agreement has no insurance covenant even though TrueLink hosts our Web Site and processes Client and credit data, so we have added a short insurance section at our preferred levels (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, statutory workers' compensation, certificates on request). We can fall back to E&O USD 1M and cyber USD 2M if needed.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0097",
+                "numbering": "31.",
+                "text": "INSURANCE. TrueLink shall maintain commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; where TrueLink processes any data belonging to, supplied by or processed for Client, cyber and privacy liability insurance of not less than USD 5,000,000; and workers' compensation insurance as required by law. TrueLink shall provide certificates of insurance upon Client's request."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Commercial general liability coverage is at least USD 1,000,000 per occurrence.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Commercial general liability coverage is at least USD 2,000,000 in the aggregate.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Professional errors and omissions coverage is at least USD 2,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "If Vendor processes Customer Data, cyber and privacy coverage is at least USD 5,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor maintains workers' compensation coverage as required by law.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor provides certificates of insurance on request.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 910,
+      "cache_read_input_tokens": 14177,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 910,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1291,
+      "output_tokens_details": {
+        "thinking_tokens": 30
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13203
+}

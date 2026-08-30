@@ -1,0 +1,113 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYUxoA5qSvwjgWeSQXam",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01Dd5cv6hUE9efffqaWJpeTM",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0097"
+          ],
+          "quote": "30. FORCE MAJEURE. TrueLink will be excused from delays in performing or from failing to perform its obligations under this Agreement to the extent the delays or failures result from causes beyond the reasonable control or TrueLink.",
+          "rationale": "The Agreement contains no insurance obligation anywhere: searches for insurance, coverage, certificates and workers' compensation return nothing (the only \"insur\" hit is \"mortgage insurers\" in the recitals), and the general provisions (Sections 13-30, p0078-p0097) address term, termination, assignment, notices, law, venue and force majeure but never insurance. TrueLink hosts our Web Site and transmits Client and consumer credit data, so the absence of any cover is walk-away territory under the playbook. We insert a short new Section 31 at the preferred level (CGL USD 1M per occurrence / USD 2M aggregate, E&O USD 2M, cyber/privacy USD 5M where TrueLink processes data belonging to, supplied by or processed for Client, workers' compensation as required by law, certificates on request), with fallback E&O USD 1M / cyber USD 2M available. No survival tail or expense language was added beyond the checklist elements.",
+          "confidence": 0.9,
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Commercial general liability coverage is at least USD 1,000,000 per occurrence.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Commercial general liability coverage is at least USD 2,000,000 in the aggregate.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Professional errors and omissions coverage is at least USD 2,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "If Vendor processes Customer Data, cyber and privacy coverage is at least USD 5,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor maintains workers' compensation coverage as required by law.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor provides certificates of insurance on request.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          },
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert a new Section 31 requiring TrueLink to carry CGL, E&O, cyber/privacy and workers' compensation insurance and to provide certificates on request.",
+            "comment": "[Playbook] The Agreement has no insurance provision even though TrueLink hosts our Web Site and processes our and our customers' data, so we have added a short insurance clause at our standard levels (CGL USD 1M/2M, E&O USD 2M, cyber/privacy USD 5M, workers' compensation as required by law, certificates on request). If helpful, we can fall back to E&O USD 1M and cyber USD 2M.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0097",
+                "numbering": "31.",
+                "text": "INSURANCE. TrueLink shall maintain commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; where TrueLink processes any data belonging to, supplied by or processed for Client, cyber and privacy liability insurance of not less than USD 5,000,000; and workers' compensation insurance as required by law. TrueLink shall provide certificates of insurance on request."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1236,
+      "cache_read_input_tokens": 13308,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1236,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1362,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 14257
+}

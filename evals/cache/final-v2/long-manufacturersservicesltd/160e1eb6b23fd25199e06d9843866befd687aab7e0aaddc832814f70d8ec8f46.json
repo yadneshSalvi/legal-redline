@@ -1,0 +1,96 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYj5XkTE7ZZ4HAJ5gQh4",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_0129FZbXC47iHgXuzJWHBx5G",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0121",
+            "p0129",
+            "p0130",
+            "p0135"
+          ],
+          "quote": "a) Upon the expiration or termination for default of this Agreement, MSL will:",
+          "rationale": "The only exit-assistance obligation is Section 5.2 a) ii) (\\\"assist in the transfer of MSL responsibilities and Products ... to IBM or to another party that IBM designates\\\"), which is (i) gated by the chapeau in p0121 to expiration or termination for default rather than any termination, and (ii) has no committed duration, so it fails the fallback requirement of at least 90 days of transition assistance. The return obligation in Section 5.2 a) iii) is limited to IBM Product documentation and confidential media, runs on a redacted \\\"[*] Days\\\" period, and is not a data export within a fixed 30 days. Section 12.0/Supplement 1 Transition Services are inbound only (they expired December 31, 1998) and Attachment 6/Section 12.1 cover software master media and Loaned Items, not our data. We therefore inserted the shortest fallback clause: 90 Days of assistance after any expiry or termination plus a 30-Day export of all IBM data. We did not pursue the preferred six-month/then-current-rates/certified-deletion package.",
+          "confidence": 0.78,
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Transition obligations apply on expiry or termination.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor provides at least 90 days of transition assistance.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor exports Customer Data within 30 days after expiry or termination.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          },
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0135",
+                "numbering": "d)",
+                "text": "d) Upon expiration or termination of this Agreement for any reason, MSL will provide the transition assistance described in Subsection 5.2 a) ii) for a period of at least ninety (90) Days following such expiration or termination, and will, within thirty (30) Days after such expiration or termination, export and deliver to IBM all data belonging to, supplied by or processed for IBM that is in MSL's possession or control."
+              }
+            ],
+            "comment": "[Playbook] We added a short exit provision so that transition assistance is available for at least ninety Days after any expiration or termination and our data is exported back to us within thirty Days. This is our fallback transition position; the existing Section 5.2 assistance obligation has no duration and is tied only to default terminations.",
+            "level": "fallback",
+            "precedentId": "seed-transition",
+            "summary": "Insert 90-day transition assistance and 30-day data export obligation on any expiry or termination."
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1390,
+      "cache_read_input_tokens": 16556,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1390,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1099,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "TRANSITION",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 12105
+}

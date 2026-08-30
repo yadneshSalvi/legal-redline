@@ -150,9 +150,14 @@ Replay uses committed model and judge caches. Cost and token numbers describe th
 |---|---|---:|---:|---:|---:|---:|---:|---:|
 | b1-prompt | long | 60.3% | 45.8% | 0.0% | 41.7% | 0.0% | 0.0% | $4.7510 |
 | final | long | 58.8% | 47.9% | 0.0% | 45.8% | 4.3% | 0.0% | $34.3835 |
+| final-v2 | long | 74.4% | 64.6% | 20.8% | 62.5% | 0.0% | 45.2% | $68.2894 |
 | i3-verifier | long | 57.2% | 45.8% | 0.0% | 45.8% | 0.0% | 4.5% | $33.9355 |
+| i6-longdoc | long | 75.3% | 66.7% | 22.9% | 62.5% | 0.0% | 46.9% | $66.6481 |
 | b1-prompt | short | 91.5% | 86.3% | 1.1% | 86.3% | 2.4% | 3.7% | $4.1912 |
 | final | short | 94.8% | 91.6% | 10.5% | 86.3% | 6.9% | 13.8% | $42.1468 |
+| final-v2 | short | 91.6% | 92.6% | 32.6% | 86.3% | 3.4% | 44.3% | $120.4663 |
 | i3-verifier | short | 94.5% | 93.7% | 11.6% | 88.4% | 4.5% | 15.7% | $47.9733 |
+| i5-elements | short | 92.1% | 94.7% | 34.7% | 84.2% | 1.1% | 45.6% | $125.8458 |
+| i6-longdoc | short | 93.8% | 93.7% | 28.4% | 87.4% | 0.0% | 38.2% | $70.8156 |
 
 CRR and tracked-change yield use all non-ambiguous deviation/missing gold items as their pooled denominator. Precedent adherence reports only matched proposals for seeded rules.

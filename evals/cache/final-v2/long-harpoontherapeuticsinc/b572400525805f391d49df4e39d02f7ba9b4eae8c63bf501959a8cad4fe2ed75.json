@@ -1,0 +1,72 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYireqVDxoybH1LRPG9C",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll start by reading the key audit paragraphs and searching for related provisions."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_015DtQZK2AnfqG4fru7o4DQU",
+        "name": "read_paragraphs",
+        "input": {
+          "paragraphIds": [
+            "p0419",
+            "p0420",
+            "p0075",
+            "p0024"
+          ]
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01WhysmhktAYU9owGVgcLCKx",
+        "name": "search",
+        "input": {
+          "query": "audit"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1087,
+      "cache_read_input_tokens": 5949,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1087,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 142,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "read_paragraphs",
+      "ruleId": "AUDIT",
+      "sha256": "57f733b48b3a408169d9f98707b30ca351028027f70a4b561ae83b012f9a0201"
+    },
+    {
+      "name": "search",
+      "ruleId": "AUDIT",
+      "sha256": "cc8a965c6a76444fe8355334b9e7d09efd360603ece719704f77700272359b3e"
+    }
+  ],
+  "durationMs": 2277
+}

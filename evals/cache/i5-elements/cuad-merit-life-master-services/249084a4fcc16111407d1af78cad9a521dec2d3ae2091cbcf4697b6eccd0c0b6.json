@@ -1,0 +1,116 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYW1HiySQSphp8kYyzHp",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01C4f8FdVuNBsmswEcKWtKGK",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0031",
+            "p0032",
+            "p0033",
+            "p0044"
+          ],
+          "quote": "(c) In the event of termination under either section 6(a) or 6(b) of this agreement, Contractor shall be paid all fees and expenses that have been incurred or earned in connection with the performance of the Services through the effective date of such termination. Upon receipt of final payment Contractor shall provide to Company, and will assigns to Company, all right, title and interest to any Works in progress.",
+          "rationale": "Section 6 and the stray Section 6(c) at p0044 address only final payment and assignment of Works in progress; nothing in Sections 1, 4, 5, 6 or 7 (including the confidentiality clause at p0038-p0040) requires Contractor to provide transition assistance, to return or export our data, or to delete it after return. The Agreement therefore fails both the preferred and fallback positions. We insert a single wind-down paragraph in the termination section carrying the preferred elements: six months of transition assistance at then-current rates, return of Company Data in a standard machine-readable format within 30 days of expiry or termination, and certified deletion after that return.",
+          "confidence": 0.9,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0033",
+                "numbering": "(d)",
+                "text": "Upon expiry or termination of this Agreement for any reason, Contractor shall (i) at Company's request, provide reasonable transition assistance for up to six (6) months at Contractor's then-current rates; (ii) within thirty (30) days after such expiry or termination, return all data and materials belonging to, supplied by or processed for Company (\"Company Data\") in a standard machine-readable format; and (iii) after such return, delete all Company Data from its systems and certify such deletion in writing to Company."
+              }
+            ],
+            "comment": "[Playbook] The Agreement has no exit obligations, so we have added a wind-down provision requiring transition assistance for up to six months at Contractor's then-current rates, return of our data in a machine-readable format within 30 days, and certified deletion thereafter. If helpful, we can fall back to 90 days of assistance with export within 30 days.",
+            "level": "preferred",
+            "summary": "Insert post-termination transition assistance and data return/deletion obligations in Section 6."
+          },
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Transition obligations apply on expiry or termination.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor provides transition assistance for up to six months.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Transition assistance is charged at then-current rates.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor returns Customer Data within 30 days after expiry or termination.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Customer Data is returned in a standard machine-readable format.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor certifies deletion of Customer Data after its return.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1692,
+      "cache_read_input_tokens": 15367,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1692,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1205,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "TRANSITION",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 12830
+}

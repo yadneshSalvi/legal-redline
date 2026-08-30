@@ -1,0 +1,102 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYkUCwsFK4EUycVSaY4F",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01VTg7JTeLX9wdM5dUEUNtnF",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0739",
+            "p0743",
+            "p0203"
+          ],
+          "quote": "13.5 SFJ Representation, Warranty and Covenant. SFJ hereby represents, warrants and covenants that it will have, as and when needed, sufficient funds to satisfy its obligations hereunder.",
+          "rationale": "SFJ's only warranty is the funding covenant at Section 13.5; nothing in Article 3 or Article 13 warrants the conformity of the SFJ Services, and Section 13.6.2 disclaims all warranties except those set out in Article 13, leaving SFJ's performance effectively \"AS IS\". We therefore insert the fallback warranty as new Section 13.5.1 within Article 13, where the 13.6.2 carve-out preserves it: 30-day conformance of the SFJ Services (a defined term at Section 1.1.169) and 90-day conformance of any SFJ-provided software to its documentation, with re-performance, repair or replacement, or refund of amounts paid as the remedy. The software limb is conditional because the Agreement identifies no SFJ software, and no preferred-level extras (professional and workmanlike standard, 12-month period, compliance with laws, malicious code) are added.",
+          "confidence": 0.76,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0739",
+                "numbering": "13.5.1",
+                "text": "SFJ Services Warranty. SFJ hereby represents and warrants that (a) for a period of thirty (30) days following performance, the SFJ Services will conform in all material respects to the requirements of this Agreement, and (b) any software provided by SFJ under this Agreement will conform to its documentation for a period of ninety (90) days following delivery. For any breach of this warranty, SFJ will, at its option, re-perform, repair or replace the non-conforming SFJ Services or software, or refund to PB the amounts paid for them."
+              }
+            ],
+            "comment": "[Playbook] SFJ warrants only that it will have sufficient funds, and Section 13.6.2 disclaims every warranty outside Article 13, so the SFJ Services are un-warranted. We added our fallback warranty as new Section 13.5.1 inside Article 13 (where the disclaimer's carve-out preserves it): 30-day conformance of the SFJ Services and 90-day conformance of any SFJ software to its documentation, with re-performance, repair or replacement, or refund as the remedy.",
+            "level": "fallback",
+            "precedentId": "seed-warranty",
+            "summary": "Insert a fallback SFJ warranty in Article 13: 30-day SFJ Services conformance, 90-day software-to-documentation conformance, with repair/replacement or refund remedies."
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Software is warranted to conform to its documentation for at least 90 days.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Services are warranted for at least 30 days.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Warranty remedies include repair or replacement.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Warranty remedies include a refund.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1153,
+      "cache_read_input_tokens": 39814,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1153,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1266,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "WARRANTY",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11461
+}

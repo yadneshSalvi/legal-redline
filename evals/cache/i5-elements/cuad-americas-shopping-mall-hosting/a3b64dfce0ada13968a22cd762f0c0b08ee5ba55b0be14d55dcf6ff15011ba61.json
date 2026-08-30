@@ -1,0 +1,111 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYUyagGegp7TGtVb2C3v",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01UKWTrBwGbrCJ2d8BVkj3mW",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0019",
+            "p0024",
+            "p0026"
+          ],
+          "quote": "In the event the Company terminates this Agreement, the Company shall pay to HDI a termination payment, (the \"Termination Payment\") the amount of which shall be an amount equal to the aggregate Net Sales for the twelve (12) months preceding the Termination Date less $800,000, the balance of which shall be divided by two.",
+          "rationale": "Section 4.1 embeds the only exit mechanic in the auto-renewal sentence (\"unless terminated by either Party hereto upon ninety (90) days written notice\"), and the notice merely \"shall specify the date on which this Agreement is to be terminated\". That gives HDI a self-dated mid-term walk-away while leaving the Company without an express convenience right, and any Company exit triggers an uncapped Termination Payment (half of trailing twelve-month Net Sales over $800,000). Those are three material fallback failures, so we target the fallback with the shortest edits: an express Company convenience right on ninety (90) days' notice, an HDI Termination Date fixed at the end of the then-current term, and a three-month cap on the Termination Payment measured by the amounts actually payable under Section 3.1 (the Net Sales-based compensation), so the ceiling is neither undefined nor arguably zero. HDI's 90-day notice obligation in the retained sentence already meets the fallback notice element for HDI; the favourable zero-floor in 4.2(b) and quarterly instalments in 4.2(c) still function under the cap.",
+          "confidence": 0.83,
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Customer may terminate for convenience on 60 to 90 days' notice.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Any early-termination fee is capped at three months of fees.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  3
+                ]
+              },
+              {
+                "element": "Vendor may terminate for convenience only at the end of a term.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor must give at least 90 days' notice of convenience termination.",
+                "status": "already_met",
+                "quote": "unless terminated by either Party hereto upon ninety (90) days written notice to the other"
+              }
+            ]
+          },
+          "proposal": {
+            "level": "fallback",
+            "summary": "Add an express Company convenience termination right on 90 days' notice, limit HDI's exit to term end, and cap the Termination Payment at three months of Section 3.1 amounts.",
+            "comment": "[Playbook] We add an express Company right to terminate for convenience on ninety (90) days' notice, require any HDI-specified Termination Date to fall at the end of the then-current term, and cap the Termination Payment at three months of the amounts payable under Section 3.1.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0024",
+                "oldText": "unless terminated by either Party hereto upon ninety (90) days written notice to the other. Such notice shall specify the date on which this Agreement is to be terminated (the \"Termination Date\").",
+                "newText": "unless terminated by either Party hereto upon ninety (90) days written notice to the other. Such notice shall specify the date on which this Agreement is to be terminated (the \"Termination Date\"), provided that a Termination Date specified by HDI shall be the end of the then-current term."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0024",
+                "numbering": "4.1A",
+                "text": "The Company may terminate this Agreement for convenience at any time upon ninety (90) days written notice to HDI specifying the Termination Date."
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0026",
+                "oldText": "(a) In the event the Company terminates this Agreement, the Company shall pay to HDI a termination payment, (the \"Termination Payment\") the amount of which shall be an amount equal to the aggregate Net Sales for the twelve (12) months preceding the Termination Date less $800,000, the balance of which shall be divided by two.",
+                "newText": "(a) In the event the Company terminates this Agreement, the Company shall pay to HDI a termination payment, (the \"Termination Payment\") the amount of which shall be an amount equal to the aggregate Net Sales for the twelve (12) months preceding the Termination Date less $800,000, the balance of which shall be divided by two, provided that the Termination Payment shall not exceed the amounts payable by the Company under Section 3.1 for the three (3) months preceding the Termination Date."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1443,
+      "cache_read_input_tokens": 29976,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1443,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1671,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "T4C",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 16212
+}

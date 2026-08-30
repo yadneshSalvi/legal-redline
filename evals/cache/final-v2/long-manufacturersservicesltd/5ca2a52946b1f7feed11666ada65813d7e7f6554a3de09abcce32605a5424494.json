@@ -1,0 +1,113 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYikYhEMArSAHtYCN9vB",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "thinking",
+        "thinking": "",
+        "signature": "CAISkwMKjgEIERgCKkBnysSGFqe9lXpl135C2QUpVRQi2ZpMo6Ad79n2dtpaqzbaW9EJomgpGMOZyzxBH71kd9rWeyeov4VDq0sfOqQRMg1jbGF1ZGUtb3B1cy01OAFCCHRoaW5raW5nWiQ0NDcyZGFmNS1lOTVkLTQzNzMtOWEzZS01ZDRhMTA3ZGJhNmWoAY/4z9QGEgzyDnpqD8nigWO24/0aDM1dZhtRP2IgaQuwiyIw6rPLz9LMTfk7f1sUwfRplRVgkic8wS5Q0MrH/7utKYD0awe4MhzAcHWnDOn7IklyKrEBS2x5dH0+S/KIzVVdODIo64s15CK2UhiU/bD5JZizbDSNJWgdjW54wsa95Zx6fxKXNVo7frA1dNNqcdQ5RJp5X0ELolOkLbSTQbGiuSmN52Uo7zbBqXZYyNNxdRXmFSR0Zf4baRWffdlxAyBu3cwzfMaEA820qA13miQTGvIZko8MVgYaxz/i48aWUQuWdYy0uh1DbMVGXLy6iw3BZ9922GRfveF+7OVeJn3iS6SFtAlHGAE="
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_019fdi18otM2nswgkFepVAai",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0189"
+          ],
+          "quote": "f) IBM agrees that, for a period of [*] years from the Effective Date of this Agreement, it will not in any way solicit for employment any Transferred Employees without the prior written consent of MSL; provided, however, that the foregoing will not restrict or prevent IBM from a) employing any such person who contacts IBM on his or her own initiative without any solicitation or encouragement from IBM or b) by using general employment advertising or communications or independent search firms, hiring any person who responds thereto",
+          "rationale": "Section 9.0(f) is the only non-solicitation provision in the Agreement and it binds IBM alone. It fails the fallback on three material terms: it is one-sided rather than mutual; it covers every Transferred Employee regardless of whether that person is involved in performing this Agreement; and it runs for \"[*] years\" measured from the Effective Date rather than 12 months from the end of the individual's involvement. The clause does already satisfy the remaining fallback elements: it prohibits solicitation only (no no-hire, and hiring is expressly permitted), and it carves out persons who approach IBM on their own initiative and hiring through general employment advertising or independent search firms. Our redline therefore makes the single restriction sentence mutual, limits it to the other party's personnel directly involved in performing this Agreement, and caps it at 12 months after that involvement ends, leaving the existing carve-outs untouched.",
+          "confidence": 0.83,
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "The non-solicitation restriction is mutual.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The restriction covers only personnel directly involved in the Services.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The restriction lasts no longer than 12 months after the person's involvement ends.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "General advertisements are excluded from the restriction.",
+                "status": "already_met",
+                "quote": "by using general employment advertising or communications or independent search firms, hiring any person who responds thereto"
+              },
+              {
+                "element": "Unsolicited approaches are excluded from the restriction.",
+                "status": "already_met",
+                "quote": "employing any such person who contacts IBM on his or her own initiative without any solicitation or encouragement from IBM"
+              },
+              {
+                "element": "The restriction does not prohibit hiring.",
+                "status": "already_met",
+                "quote": "it will not in any way solicit for employment any Transferred Employees"
+              }
+            ]
+          },
+          "proposal": {
+            "level": "fallback",
+            "precedentId": "seed-nosolicit",
+            "summary": "Make the Section 9.0(f) non-solicit mutual, limit it to personnel directly involved in performing the Agreement and cap it at 12 months after that involvement ends; existing unsolicited-contact and general-advertising carve-outs are retained.",
+            "comment": "[Playbook] We can accept only a mutual non-solicit limited to personnel directly involved in the work and running 12 months from the end of that involvement, so we have narrowed the restriction accordingly; the existing unsolicited-approach and general-advertising carve-outs and the solicitation-only (no no-hire) formulation are unchanged.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0189",
+                "oldText": "IBM agrees that, for a period of [*] years from the Effective Date of this Agreement, it will not in any way solicit for employment any Transferred Employees without the prior written consent of MSL",
+                "newText": "Neither party will, for a period of twelve (12) months after the end of an individual's involvement in performing this Agreement, in any way solicit for employment any of the other party's personnel directly involved in performing this Agreement without the prior written consent of the other party"
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1275,
+      "cache_read_input_tokens": 16252,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1275,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1489,
+      "output_tokens_details": {
+        "thinking_tokens": 61
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 14614
+}
