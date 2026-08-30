@@ -1,0 +1,695 @@
+[
+  {
+    "confidence": 0.85,
+    "costUsd": 0.28646,
+    "durationMs": 49482,
+    "id": "f-indemn-64d1c0a1",
+    "paragraphIds": [
+      "p0259",
+      "p0260",
+      "p0261",
+      "p0262",
+      "p0263",
+      "p0265",
+      "p0271"
+    ],
+    "producedBy": "drafter",
+    "quote": "MSL agrees to protect, defend, hold harmless, and indemnify IBM from and against any and all claims, damages, liabilities, losses and expenses, arising out of the following, whether alleged or actual:",
+    "rationale": "Section 15.1 gives us a vendor-side indemnity from MSL covering (a) third-party IP infringement (patent, trademark, trade name, copyright, mask work, trade secret) arising from MSL's performance, procured Parts, processes, designs, deliverables or pre-existing materials, (b) MSL's failure to comply with law, and (c) failure to perform its warranty/support obligations — the core of the preferred position. Exclusions are the usual ones (IBM-selected marks, IBM written specifications, IBM-provided defective designs), and Section 15.2 supplies standard procedure (prompt notice, cooperation, MSL control with our right to participate at our expense) plus procure/redesign remedies at MSL's expense. There is no reciprocal IBM indemnity of MSL anywhere in the Agreement, and Appendix A §5 adds a further MSL indemnity for Microsoft code, so the allocation runs in our favour. Minor points noted but not flagged: the indemnity names IBM rather than IBM and its affiliates, and does not separately call out data breach or gross negligence/wilful misconduct; also, the mutual 3%-of-bill-of-materials cap in Section 15.3(b) would on its face apply to indemnity recoveries — that cap is properly addressed under the limitation-of-liability rule rather than double-flagged here.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-15.1",
+    "sectionRef": "§ 15.1 Scope of MSL's Indemnity",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": true
+        }
+      ],
+      "notes": "The cited Section 15.1–15.2 text contains a genuine Vendor-side (MSL) indemnity running to IBM (our client) covering third-party IP infringement (patent, trademark, copyright, mask work, trade secret), MSL's non-compliance with law, and warranty/support failures, plus standard procedure and procure/redesign remedies — this meets the preferred position's core elements, so 'compliant' is the correct classification. Exclusions cited (IBM-selected marks, IBM written specifications, IBM-supplied defective designs) are the customary carve-outs contemplated by the fallback and do not defeat the fallback on any material term; no one-way Customer indemnity of Vendor appears, so walk-away territory is not implicated. Consistent with a compliant finding, no redline was applied (rendered text is identical to the original) and no counterparty comment was drafted; the deterministic check ('vendor indemnity for IP infringement present') corroborates this. Gaps correctly handled as rationale notes rather than deviations: absence of 'and its affiliates', no separate data-breach or gross-negligence/wilful-misconduct trigger, and the 3%-of-bill-of-materials cap which is properly addressed under the limitation-of-liability rule rather than double-flagged here.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.363554,
+    "durationMs": 68946,
+    "id": "f-ip-9b27a24a",
+    "paragraphIds": [
+      "p0197",
+      "p0198",
+      "p0208",
+      "p1105",
+      "p1530"
+    ],
+    "producedBy": "drafter",
+    "quote": "13.1 IBM assumes and will assume ownership and MSL assigns and will assign all intellectual and industrial property rights for hardware, software, design and documentation of all Products delivered under this Agreement",
+    "rationale": "The Agreement meets the preferred position and runs in our favour throughout. Section 13.1 (p0197) has MSL assign to IBM all intellectual and industrial property rights in the hardware, software, design and documentation of all Products delivered, and p0198 extends IBM ownership (with MSL assignment) to any invention MSL makes on Products or on IBM processes and systems, with MSL only retaining a use right for performing its obligations here — i.e. deliverables and work product vest in us with no joint ownership. Section 13.3(a) (p0208) expressly protects our pre-existing IP: nothing grants MSL any rights or licences in IBM's pre-existing IP except a royalty-free licence to use IBM confidential information under the AECI solely to manufacture Products for IBM, with any further licence requiring a separate signed agreement. Confidential information disclosed to MSL is returnable on demand (13.2(c)), and under the Loan Agreement Section 5 (p1530) IBM retains title to all Loaned Items with no transfer rights for MSL. On tooling, SOW 21.1(e) (p1105) confirms all tools, dies, jigs, patterns, equipment or Parts purchased, furnished, charged to or paid for by IBM become and remain IBM property; MSL's ownership of generic \"Common Tooling\" (p1088) is precisely the vendor-tools carve-out the playbook accepts. No provision assigns IBM IP, data or classified parts information to MSL, and there is no joint ownership. Two minor sub-elements worth noting but not flagging: there is no express licence-back of MSL background IP embedded in Products (mitigated by the breadth of the 13.1 assignment plus the bar on MSL using proprietary assembly/test processes), and there is no standalone \"Customer Data\" ownership sentence, which is unsurprising in a 1998 manufacturing outsourcing deal where information flows are governed by the AECI.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-13.0-2",
+    "sectionRef": "§ 13.0 INTELLECTUAL AND INDUSTRIAL PROPERTY",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no assignment of Customer Data/IP to Vendor remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is 'compliant' and the rendered redline is byte-identical to the original paragraphs with no comment, which is exactly what is expected for a compliant finding — no over-flagging. The cited text supports the preferred position from our (IBM/Customer) side: §13.1 (p0197) has MSL assign all IP in hardware, software, design and documentation of delivered Products to IBM; p0198 extends IBM ownership plus assignment to MSL inventions on Products and on IBM processes; §13.3(a) (p0208) bars any grant of rights in IBM pre-existing IP other than a narrow royalty-free confidential-information licence solely to manufacture for IBM. No assignment of Customer IP or data to the Vendor and no joint ownership appears in the cited paragraphs; MSL's retained use right is limited to performing its obligations, and it is barred from using proprietary assembly/test processes — so no walk-away trigger. The deterministic check ('no assignment of Customer Data/IP to Vendor remains') is consistent. Supporting provisions cited are directionally correct: p1105 (IBM-paid tooling becomes and remains IBM property) and p1530 (IBM retains title to all Loaned Items; MSL may not transfer) reinforce Customer ownership rather than undercut it. The two shortfalls (no express licence-back of MSL background IP embedded in Products; no standalone Customer Data ownership sentence) are correctly treated as minor sub-elements noted in the rationale rather than raised as deviations, consistent with the classification semantics.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.39255875,
+    "durationMs": 85355,
+    "id": "f-lol-cap-b5380163",
+    "paragraphIds": [
+      "p0273",
+      "p0274"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We reset the cap basis to the greater of twelve months' amounts paid or payable and USD 1,000,000, because 3% of bill-of-materials value across the entire term sits well below our minimum of twelve months' fees. We also placed indemnification, confidentiality, IP infringement, gross negligence, wilful misconduct and fraud outside the cap and confirmed payment obligations are not capped damages; if helpful, we can accept a straight twelve months' fees cap with these carve-outs as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "is limited to the greater of (i) the amounts paid or payable by IBM to MSL under this Agreement in the twelve (12) months immediately preceding the event giving rise to the action and (ii) one million U.S. dollars (US$1,000,000). The limitations in this Section 15.3 do not apply to a Party's indemnification obligations under this Section 15.0, a Party's breach of its confidentiality or data security obligations, a Party's infringement of the other Party's intellectual property rights, or a Party's gross negligence, willful misconduct or fraud, and IBM's obligation to pay amounts due for Products or services is not subject to this limitation.",
+          "oldText": "is limited to three percent (3%) of the value of the bill of materials contained in the Products delivered to IBM and IBM Customers by MSL in the period beginning with the Effective Date of the Agreement through the resolution of the action.",
+          "paragraphId": "p0274"
+        }
+      ],
+      "precedentId": "seed-lol-2",
+      "summary": "Reset the mutual cap to the greater of 12 months' amounts paid/payable and USD 1,000,000, and place indemnities, confidentiality, IP infringement, gross negligence, wilful misconduct, fraud and IBM's payment obligations outside the cap."
+    },
+    "quote": "b) The total liability for either Party, regardless of the form of action, whether contract or tort, is limited to three percent (3%) of the value of the bill of materials contained in the Products delivered to IBM and IBM Customers by MSL in the period beginning with the Effective Date of the Agreement through the resolution of the action.",
+    "rationale": "Section 15.3 contains a mutual cap and a mutual consequential-damages waiver, but the cap basis fails the fallback: 3% of the bill-of-materials value of all Products delivered over the entire term is far below twelve months' (or even six months') fees, so MSL's exposure is effectively illusory relative to the volume it manufactures for us. The cap is also expressed as covering \"total liability ... regardless of the form of action, whether contract or tort,\" with no carve-outs, so MSL's indemnities under Section 15.1 (third-party IP infringement, regulatory non-compliance, warranty support) and its confidentiality obligations sit inside this very low cap with no super-cap — the walk-away scenario in the rule. We therefore reset the basis to the greater of twelve months' amounts paid or payable and USD 1,000,000 and added a single carve-out sentence for indemnification, confidentiality/data security, IP infringement, gross negligence, wilful misconduct and fraud, plus confirmation that our payment obligations are not capped damages. Mutuality is preserved, so the edit does not disturb the existing bargain beyond the cap basis and carve-outs.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-15.3",
+    "sectionRef": "§ 15.3 Limitations of Liability",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "cap references 12 months of fees or a fixed floor",
+          "ok": true
+        },
+        {
+          "name": "no unlimited Customer liability language remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.872 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0274",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation classification is correct: the cap basis (3% of bill-of-materials value of Products delivered across the entire term) is materially below the fallback's 12 months' fees — over a multi-year term it equates to only a single-digit percentage of one year's purchase value — and the clause contains no carve-outs at all, so indemnities and confidentiality breaches sit inside a very low cap (the rule's walk-away scenario). The redline is targeted and directionally right: it preserves the existing mutual lead-in ('total liability for either Party, regardless of the form of action…'), replaces only the illusory basis with the greater of 12 months' amounts paid or payable and USD 1,000,000, and adds one carve-out sentence covering indemnification, confidentiality/data security, IP infringement, gross negligence, wilful misconduct and fraud plus the payment-obligations clarification. The 0.872 changed-character ratio reflects a rule-mandated basis replacement, not scope creep. Mutuality is retained and the mutual consequential-damages waiver in p0273 is left untouched, so the edit does not over-reach or disturb terms that already benefit us. Comment is accurate, in-voice and prefixed: it states what changed, why (3% of BOM is below our 12-month minimum), notes indemnities/confidentiality sit outside the cap, and offers the straight 12-months'-fees fallback.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.24637075,
+    "durationMs": 82623,
+    "id": "f-assign-44452088",
+    "paragraphIds": [
+      "p0281",
+      "p0290"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We added our customary carve-out allowing IBM to assign to an affiliate or to a successor in a merger, acquisition or sale of substantially all assets, and made consent for other assignments subject to a reasonableness standard. As drafted, § 16.2 blocks IBM's internal reorganizations and corporate transactions entirely, which our playbook does not permit; MSL's assignments remain consent-gated.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Except as expressly permitted below, neither Party may assign, transfer or subcontract any rights or duties under this Agreement without prior written approval by the other Party, which approval shall not be unreasonably withheld or delayed. IBM may assign or transfer all or any part of this Agreement, without MSL's consent, to any IBM affiliate or subsidiary or to any successor by way of merger, acquisition, reorganization or sale of all or substantially all of the assets or of the business to which this Agreement relates, upon written notice to MSL.",
+          "oldText": "Neither Party may assign, transfer or subcontract any rights or duties under this Agreement without prior written approval by the other Party.",
+          "paragraphId": "p0281"
+        }
+      ],
+      "summary": "Add IBM affiliate/successor assignment carve-out and a reasonableness standard in § 16.2."
+    },
+    "quote": "Neither Party may assign, transfer or subcontract any rights or duties under this Agreement without prior written approval by the other Party. MSL may assign or subcontract all or any part of this Agreement to any MSL Related Company with IBM's prior written consent which shall not be unreasonably withheld or delayed.",
+    "rationale": "§ 16.2 imposes a blanket consent requirement on IBM's assignments with no affiliate or M&A/successor carve-out and no reasonableness standard on MSL's consent, which is walk-away territory under this rule (the only reasonableness qualifier runs in MSL's favour for MSL Related Company assignments). It therefore fails even the fallback (mutual right to assign to successors on written notice). We redlined the first sentence to add the affiliate/successor carve-out for IBM plus a not-unreasonably-withheld standard, leaving MSL's assignments consent-gated. No change-of-control provisions exist anywhere in the document, so MSL has no termination or re-pricing right on an IBM change of control (§ 16.5 addresses only MSL's own sale or merger and requires the successor to assume performance), which is consistent with the preferred position.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-16.2",
+    "sectionRef": "§ 16.2 Assignment",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "successor/affiliate carve-out for Customer present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.749 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0281",
+          "ok": false
+        }
+      ],
+      "notes": "Classification is correct: § 16.2's first and third sentences impose a blanket, unqualified consent requirement on IBM's own assignments with no affiliate or M&A/successor carve-out and no reasonableness standard, which is expressly walk-away territory under ASSIGN and fails the fallback (mutual right to assign to successors on written notice). The redline reaches the playbook position with a targeted insertion: it adds an IBM-only affiliate/successor carve-out on written notice and a not-unreasonably-withheld standard on the general consent requirement, while leaving MSL's assignments consent-gated (consistent with the preferred position that Vendor assignments require Customer consent subject to reasonableness). The high changed-character ratio is explained by inserting a new carve-out sentence into a short clause rather than by unnecessary rewriting; the surrounding MSL sentences are preserved intact. Rationale correctly notes that no change-of-control termination or re-pricing right runs against IBM (p0290 addresses only MSL's own sale/merger and requires successor assumption), so no further deletion was needed; the omission of the 'never to a Customer competitor' element is a minor sub-element, appropriately not treated as a separate deviation. Comment is accurate, concise, properly prefixed, and states what changed and why with the playbook basis.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.352785,
+    "durationMs": 53534,
+    "id": "f-exclusivity-c0fde954",
+    "paragraphIds": [
+      "p0720",
+      "p0102",
+      "p0186"
+    ],
+    "producedBy": "drafter",
+    "quote": "Subject to the terms and conditions of this Agreement, MSL agrees to produce and sell, and IBM agrees to purchase Products. This Agreement does not authorize MSL to produce or deliver any Product.",
+    "rationale": "This meets the preferred position: nothing binds IBM to buy exclusively or to source solely from MSL. Scope of Work (§3.0) covers only \"selected manufacturing, Integration, and other Services\", and the SOW purchase clause (§6.0) is a generic purchase commitment driven by Purchase Orders, with no \"exclusive\", \"sole supplier\", \"all of its requirements\" or \"shall not procure from any third party\" language anywhere in the Base Agreement, SOW, or attachments. The agreement in fact assumes IBM's freedom to move volume elsewhere — §9.0(e) expressly contemplates \"reductions of Products requirements due to migration to a competitive supplier\". The only sole-source style restrictions run against MSL (e.g. IBM Nominated Suppliers, Prohibited Suppliers at §16.15, and IBM Parts used solely in IBM Products), which benefit us and are not flagged. Any volume/forecast commitments are addressed under MINCOMMIT rather than double-flagged here.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-6.0-4",
+    "sectionRef": "§ 6.0 PURCHASE OF PRODUCTS",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no requirements/sole-supplier obligation on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected output shape for a compliant finding. The cited paragraphs contain no exclusivity, sole-supplier, requirements-purchase, or third-party procurement restriction binding IBM (our party); p0720 is a generic PO-driven purchase obligation, and p0102 limits MSL to 'selected' manufacturing/Services. p0186 affirmatively contemplates IBM 'migration to a competitive supplier', confirming IBM retains freedom to source elsewhere, consistent with the preferred position. Restrictions that run against MSL (Nominated/Prohibited Suppliers, IBM Parts) benefit us and are correctly not flagged; volume/forecast commitments are properly deferred to MINCOMMIT to avoid double-flagging. Deterministic check ('no requirements/sole-supplier obligation on Customer remains') passes, and the unchanged text confirms no edit was needed.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.3737195,
+    "durationMs": 61478,
+    "id": "f-ld-b87da691",
+    "paragraphIds": [
+      "p0722",
+      "p0757",
+      "p0861",
+      "p0927",
+      "p0930"
+    ],
+    "producedBy": "drafter",
+    "quote": "IBM may cancel any and all Purchase Orders against this Agreement at any time. In the event IBM cancels Purchase Order as the result of MSL's default, no cancellation charge shall be applicable. IBM's termination of Purchase Orders for its convenience shall not relieve IBM of any cost reimbursements under the Price section.",
+    "rationale": "The Agreement contains no liquidated damages, penalty or minimum-fee obligation payable by IBM as customer, which meets the preferred position. A full-text search for \"liquidated\" returns nothing, and the only \"penalty\" mechanic (§7.3 b), p0757 — responsiveness shortfall penalty applied to MSL's Work Center material cost and invoiced by IBM to MSL) runs in our favour, as do the delinquency-based Shipment Profit Rate adjustments and §10.4 (MSL bears premium costs of late shipment). Termination provisions impose no exit fee on IBM: §6.1 lets IBM cancel Purchase Orders at any time with no cancellation charge, and §§5.2–5.3 limit IBM to paying for completed/partially completed Product and Parts actually procured against IBM forecasts — cost reimbursement rather than a stipulated penalty. On inventory risk, §13.2 e) expressly states IBM \"will have no liability for unused flexibility\" and §13.3 b) leaves untransferred EOL inventory as MSL's sole responsibility. Nothing to redline.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-6.1-2",
+    "sectionRef": "§ 6.1 Cancellation of Purchase Order",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the cited paragraphs support it: the only penalty mechanic (§7.3 b), p0757) and the late-shipment premium cost obligation (p0861) run against MSL (the vendor), which the rule expressly treats as compliant. No liquidated damages, stipulated penalty or minimum/exit fee payable by IBM as customer appears in the cited text; p0722 preserves IBM's right to cancel Purchase Orders at any time with cost reimbursement only (actual costs, not a stipulated sum), and p0927/p0930 place unused-flexibility and untransferred EOL inventory risk on MSL. Consistent with the compliant status, no redline was rendered (paragraphs are byte-identical to the originals) and no counterparty comment was added, so there is no over-flagging or unnecessary negotiation ask; deterministic checks returned no issues. Rationale accurately characterises the clauses and correctly notes cost reimbursement is distinguishable from a liquidated amount; finding is retained as internal evidence rather than raised as an issue, which is the correct handling.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.51694625,
+    "durationMs": 106162,
+    "id": "f-license-055a780e",
+    "paragraphIds": [
+      "p0208",
+      "p0197",
+      "p0198",
+      "p1136",
+      "p1530"
+    ],
+    "producedBy": "drafter",
+    "quote": "Notwithstanding anything to the contrary in this Agreement, nothing in this Agreement grants or may grant MSL any rights or licenses in any preexisting intellectual property of IBM except that IBM grants MSL a royalty-free license to use the confidential information disclosed in connection with this Agreement under the AECI referenced in 13.2 necessary to manufacture Products solely for IBM.",
+    "rationale": "Every licence grant in this agreement runs from us (IBM) to the counterparty (MSL), not the reverse: §13.3(a) gives MSL only a narrow royalty-free right to use IBM confidential information to manufacture Products solely for IBM; §24.1(a) and the Equipment and Program Loan Agreement §§5-6 likewise grant MSL limited, use-restricted rights in IBM software, Loaned Programs and Licensed Internal Code. Those restrictions benefit our side and are not flagged. Our own position is stronger than the preferred licence position rather than weaker: under §13.1 IBM \"assumes and will assume ownership and MSL assigns and will assign all intellectual and industrial property rights for hardware, software, design and documentation of all Products\", plus assignment of MSL inventions on Products and on IBM processes, and MSL is barred from using proprietary processes for the Products absent written agreement — so we hold ownership rather than a revocable licence, and there is no grant to us that MSL can revoke at will or that excludes our affiliates or contractors. Two sub-elements fall short of the preferred wording but are noted only: the agreement contains no IBM affiliate/\"Related Company\" extension (the concept is used only for MSL) and no express licence-back of MSL background IP for transition to a replacement manufacturer; successor/assignment mechanics sit in §16.2 and §16.5 (with MSL warranting that any acquirer assumes performance) and are addressed under the assignment rule rather than double-flagged here.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-13.3",
+    "sectionRef": "§ 13.3 Licenses",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "affiliates covered by the licence",
+          "ok": false
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant, and the cited text supports it: the only licence grants in the quoted paragraphs run outbound from us (IBM) to the counterparty (MSL) — §13.3(a) confidential-information licence 'solely for IBM', §24.1(a) software access, and the Loaned Programs licence — so the restrictive, revocable and non-transferable characteristics benefit our side and are correctly not flagged. §13.1/13.2 give us outright ownership plus assignment of MSL inventions on Products and on IBM processes, which is a stronger position than the preferred inbound licence (perpetual, irrevocable, affiliate/contractor scope); there is no grant to us that the counterparty could revoke at will. Consistent with a compliant finding, no redline text was changed and no counterparty comment was raised — appropriate, since compliant findings are retained as internal evidence rather than negotiation issues. The failed deterministic check on 'affiliates covered by the licence' is a heuristic mismatch here: with no inbound licence to us there is nothing to extend to affiliates, and the rationale properly records the absence of an IBM affiliate extension and of an MSL background-IP licence-back for transition as noted sub-elements rather than material deviations. Successor/transfer mechanics are correctly deferred to §16.2/§16.5 under the assignment rule, avoiding double-flagging the same commercial term.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.89,
+    "costUsd": 0.23069,
+    "durationMs": 79592,
+    "id": "f-noncompete-2ed0ec5c",
+    "paragraphIds": [
+      "p0995",
+      "p0319",
+      "p1490",
+      "p1491",
+      "p0189"
+    ],
+    "producedBy": "drafter",
+    "quote": "Nothing in this Agreement authorizes MSL to use any of IBM's tangible, real or intangible property for the performance of any services contemplated hereunder on IBM Logo products or for Integration services of non-IBM Logo products related to a customer for whom Integration is being provided by IBM.",
+    "rationale": "The Agreement imposes no non-compete, field-of-use, territory or exclusivity restriction on IBM, so it meets the preferred position (no restriction on Customer). The restriction-flavoured provisions all run the other way and are therefore acceptable: § 14.18 limits MSL's use of IBM property and MSL's competing Integration activity, and § 16.15 (Prohibited Suppliers) constrains MSL's sourcing. §§ 3.0 and 11.0 are scope-of-work only and contain no requirements/sole-source commitment obliging IBM to buy exclusively from MSL, so our freedom to build in-house or dual-source is unimpaired. The confidentiality carve-out at p1490–1491 affirmatively preserves each Recipient's right to provide products or services competitive with the Discloser's and to supply the Discloser's competitors, which benefits us. § 5.1(v) is a change-of-control termination trigger rather than a covenant. Noted but not flagged under this rule: § 9.0(f) binds IBM not to solicit Transferred Employees for a stated period, but that is a personnel non-solicit (time-limited, with inbound-applicant and general-advertising carve-outs), not a restriction on the businesses we may operate or the products we may buy or build; it belongs to any non-solicitation rule rather than this one. No redline required.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-14.18",
+    "sectionRef": "§ 14.18 Restrictions and Limitations",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no open-ended compete restriction on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant with no redline and no counterparty comment, which is the expected shape for a compliant finding; the rendered redline is identical to the original paragraphs, so no unnecessary edit was introduced. The cited text supports compliance: p0995 (limits on MSL's use of IBM property and MSL's Integration for competing customers) and p0319 (Prohibited Suppliers list binding MSL) restrict the Vendor, not the Customer, which the rule expressly permits; p1490-1491 affirmatively preserves each Recipient's right to offer competing products and serve the Discloser's competitors, which benefits IBM as Customer. No non-compete, field-of-use, territory or exclusivity covenant binding IBM appears in the cited material, so the preferred position (no restriction on Customer) is met and the deterministic check ('no open-ended compete restriction on Customer remains') is consistent. The p0189 employee non-solicit binding IBM is correctly noted in the rationale rather than flagged: it is a personnel non-solicit with inbound-applicant and general-advertising carve-outs, not a restriction on businesses operated or products bought/built, and belongs to a non-solicitation rule — consistent with the no-double-flagging and minor-sub-element guidance. Rationale tone and content are accurate and appropriately scoped; references to §§ 3.0/11.0 as scope-of-work only (no requirements/sole-source obligation on IBM) do not contradict any cited paragraph.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.83,
+    "costUsd": 0.4531595,
+    "durationMs": 95491,
+    "id": "f-t4c-dd6667e0",
+    "paragraphIds": [
+      "p0104",
+      "p0107",
+      "p0658"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 4.0 commits us to a three-year term and Section 5.0 permits termination only for cause, so we have no exit for convenience; we have added a 30 days' notice convenience right with a refund of prepaid amounts, consistent with our playbook position. MSL's economics are protected because Sections 5.2 and 5.3 still govern payment for completed Products, work in process and Parts, and we are content that MSL has no reciprocal mid-term convenience right.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "5.4",
+          "paragraphId": "p0143",
+          "text": "Termination for Convenience. Notwithstanding Section 4.0, IBM may terminate this Agreement, any Statement of Work or Product Attachment, in whole or in part, for its convenience upon thirty (30) days' prior written notice to MSL. IBM shall not be liable for any termination charge, penalty or other payment by reason of such termination, other than amounts payable to MSL for Products and Parts in accordance with Sections 5.2 and 5.3, and MSL shall refund to IBM any amounts prepaid by IBM for the period after the effective date of termination. MSL shall have no right to terminate this Agreement, any Statement of Work or any Product Attachment for convenience prior to the end of the then current term."
+        }
+      ],
+      "precedentId": "seed-t4c",
+      "summary": "Add an IBM termination-for-convenience right on 30 days' notice, with refund of prepayments and no MSL mid-term convenience right"
+    },
+    "quote": "This Agreement shall become effective on the Effective Date and shall continue for a period of three (3) years unless terminated as provided in Section 5.0. This Agreement will automatically be renewed for periods of twelve (12) months unless either Party gives six (6) months written notice of its intent to terminate this Agreement.",
+    "rationale": "The Agreement runs for a committed three-year initial term (Section 4.0; mirrored in SOW Section 2.0) and Section 5.0 permits termination only \"for cause\" — material breach, insolvency events, change of control or force majeure (Section 5.1 a)–c)). There is no right for IBM to terminate for convenience at any point during the multi-year term; the only no-cause exit is a six-month (twelve-month under the SOW) non-renewal notice that bites only at the end of a term. That fails both the preferred position (30 days' notice) and the fallback (60–90 days' notice with a capped early-termination fee), and sits in walk-away territory (\"no Customer right to terminate for convenience in a multi-year term\"). The PO-level cancellation right in SOW Section 6.1 lets us cancel individual Purchase Orders but does not give an agreement-level exit and is expressly subject to cost reimbursements, so it does not cure the gap. On the other side of the ledger the position is acceptable: MSL likewise has no mid-term convenience right and any non-renewal requires at least six months' notice, so no vendor-side redline is needed. We have therefore added a new Section 5.4 giving IBM a 30-day convenience right with a refund of prepayments, while preserving MSL's payment entitlements under Sections 5.2 and 5.3 and confirming MSL has no reciprocal mid-term convenience right.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-4.0-2",
+    "sectionRef": "§ 4.0 TERM",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "Customer convenience termination present",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation classification is supported: the cited text commits IBM to a three-year term with automatic renewal (p0104/p0658) and Section 5.0 permits termination only for cause, so there is no Customer convenience right in a multi-year term — squarely the rule's walk-away scenario, failing both preferred (30 days) and fallback (60–90 days with capped fee). The rationale correctly disposes of the near-miss alternatives (six/twelve-month non-renewal notice bites only at term end; SOW 6.1 PO cancellation is order-level and cost-reimbursable), so this is not an acceptable-fallback clause being over-upgraded. The inserted language reaches the preferred position with a targeted addition: 30 days' written notice, no termination penalty, refund of prepaid amounts, and an express bar on MSL terminating for convenience mid-term; it is an insert rather than a rewrite, so no unnecessary disturbance of surrounding text. The failed 'Customer convenience termination present' check is a phrasing artifact ('for its convenience upon thirty (30) days' prior written notice') rather than a substantive gap — the Customer convenience right is plainly granted. Carve-out for amounts payable under Sections 5.2/5.3 is a reasonable manufacturing-inventory concession (payment for goods, not an early-termination penalty) and does not fall below the fallback; the comment accurately describes the change and cites the playbook position. Minor nit only (not a fail): the inserted clause is described as 'Section 5.4' in the rationale but the rendered text carries no section number, so the numbering should be added on execution.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.202676,
+    "durationMs": 53539,
+    "id": "f-audit-2e8d0070",
+    "paragraphIds": [
+      "p0163",
+      "p1443",
+      "p1448",
+      "p0317"
+    ],
+    "producedBy": "drafter",
+    "quote": "a) IBM may perform process audits at MSL's or an MSL Related Company's Work Center or MSL's subcontractors' facilities to assure that identified IBM specifications have been complied with. IBM shall advise MSL [*] Days in advance of the scope and method by which such audits are to be conducted.",
+    "rationale": "Every audit, inspection and verification right in the Agreement runs in our favour: Section 7.0 (process audits at MSL facilities), Section 13.1 (audit/inspect consigned Products), Section 21.3 (tooling inspection), Section 24.1 (IBM retains the right to audit), Attachment 6 Section 4.0 and Appendix A Section 4 (IBM/MS audits of MSL's books, records and facilities on 45 days' notice, at IBM's cost unless material discrepancies are found). Section 16.14 imposes only a mutual record-retention obligation and grants no audit right. Searches for reciprocal MSL rights to audit or inspect IBM's records, usage or systems returned nothing, so no audit right binds us as Customer and there is no frequency, notice, cost-allocation or system-access exposure to constrain. Nothing to redline — flagging the IBM-side audit rights would remove a protection we benefit from.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-7.0-2",
+    "sectionRef": "§ 7.0 AUDIT",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "audit frequency limited",
+          "ok": false
+        }
+      ],
+      "notes": "We represent IBM, which is the Customer/buyer here; every audit, inspection and verification right in the cited paragraphs (Section 7.0 process audits, Attachment 6 §4.0 books-and-records audits, cost-shifting only on material discrepancy) runs in IBM's favour against MSL, the supplier. No audit, inspection or verification right binding the Customer was identified, so there is no frequency, notice, cost-allocation or system-access exposure for the rule to constrain; treating this as a deviation or missing clause would incorrectly attack a protection we benefit from. Consistent with a compliant finding, the rendered redline is identical to the original paragraphs and no counterparty comment is proposed, so nothing actionable is required. The failed 'audit frequency limited' deterministic check is a false signal here: the semiannual cap in p1448 does exist and, in any event, applies to audits of MSL rather than of us.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.91,
+    "costUsd": 0.0866785,
+    "durationMs": 36463,
+    "id": "f-govlaw-ee1daa03",
+    "paragraphIds": [
+      "p0300",
+      "p0301"
+    ],
+    "producedBy": "drafter",
+    "quote": "This Agreement and the performance of transactions under this Agreement shall be governed by the substantive laws of the state of New York.",
+    "rationale": "Section 16.9 selects New York substantive law and requires any action to be commenced \"in a court sited within the State of New York\" — courts, not arbitration. No arbitration provision appears anywhere in the document, and the ancillary general clauses (CI Agreement Section 8, p1499, and Loan Agreement Section 16, p1587) also choose New York law, so there is no conflicting law or venue selection. This meets the preferred position (New York law with New York courts). Minor points short of the preferred wording, noted only: venue is not expressly the exclusive jurisdiction of the state and federal courts in New York County, and the clause adds a contractual limitations period; neither is material and neither is redlined.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-16.9",
+    "sectionRef": "§ 16.9 Governing Law",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "governing law within the accepted set",
+          "ok": true
+        }
+      ],
+      "notes": "Cited clause selects New York substantive law and requires actions be commenced in a court sited within New York — this matches the preferred position (New York law, New York courts) with no arbitration provision. Correctly classified as compliant: no redline or comment proposed, and the rendered redline is identical to the original paragraphs, as expected for a compliant finding. Minor shortfalls (venue not expressly exclusive/New York County, added contractual limitations period) are appropriately noted in the rationale rather than flagged as deviations, consistent with playbook classification semantics. Deterministic check confirms governing law falls within the accepted set.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.08890325,
+    "durationMs": 35260,
+    "id": "f-mfn-68505699",
+    "paragraphIds": [
+      "p1099"
+    ],
+    "producedBy": "drafter",
+    "quote": "MSL agrees that MSL engineering will be priced to IBM on a \"most favored customer\" basis.",
+    "rationale": "The sole most-favoured-nation provision in the Agreement runs in IBM's favour: MSL undertakes to price its engineering services to IBM on a \"most favored customer\" basis (Attachment 1, p1099). Searches for MFN triggers (\"most favored\", \"no less favorable\", \"best price\", \"favorable\", \"match\", third-party terms) and a review of the pricing provisions (§§ 7.1, 7.2, and the Markup Appendix) reveal no obligation on IBM to extend MSL any terms given to third parties or to match third-party offers. This meets the preferred position (no MFN burden on the customer, vendor-granted MFN welcome), so no redline is proposed.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-p1097",
+    "sectionRef": "§ ATTACHMENT 1",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "The only MFN provision (p1099) runs in the Customer's favour — MSL (Vendor) commits to price its engineering to IBM (Customer) on a 'most favored customer' basis — which matches the rule's preferred position that Vendor-granted MFN is welcome and no MFN burden falls on Customer. Consistent with a compliant finding, the redline is identical to the original text and no counterparty comment is proposed; deterministic checks are empty, confirming no edit was attempted. Rationale is accurate and supported by the cited text, and correctly notes that no obligation on IBM to match or extend third-party terms was found in the pricing provisions, so the finding is properly retained as internal evidence rather than a negotiation issue.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.33865575,
+    "durationMs": 60177,
+    "id": "f-mincommit-1290ea35",
+    "paragraphIds": [
+      "p0720",
+      "p0722",
+      "p0903",
+      "p0927",
+      "p0930",
+      "p1189",
+      "p1190"
+    ],
+    "producedBy": "drafter",
+    "quote": "IBM may cancel any and all Purchase Orders against this Agreement at any time. In the event IBM cancels Purchase Order as the result of MSL's default, no cancellation charge shall be applicable.",
+    "rationale": "There is no minimum purchase or take-or-pay commitment on us. § 6.0 obliges us to purchase only Products we order (\"This Agreement does not authorize MSL to produce or deliver any Product\"), and § 6.1 lets us cancel any and all Purchase Orders at any time, so fees follow ordered volumes only — the preferred position. Our residual volume-related exposure is expressly limited: § 13.2(e) states \"IBM will have no liability for unused flexibility\"; § 13.3(b) leaves EOL inventory not transferred as MSL's sole responsibility; and § 13.0(f) confirms we have no liability for inventory MSL purchases so long as forecast accuracy meets the Appendix 2 level. The only payment obligation tied to volumes is the Appendix 2 requirements-accuracy compensation (a defined percentage of material cost payable if our forecast accuracy falls below the stated threshold), which operates as a forecast true-up compensating MSL for material it bought against our forecast rather than a shortfall penalty or multi-year take-or-pay; it is quantified, quarterly and self-liquidating. Noted for the record but not a deviation: the true-up has no aggregate cap, which we would only pursue if reopening the pricing appendices.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-6.0-4",
+    "sectionRef": "§ 6.0 PURCHASE OF PRODUCTS",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected posture; nothing is being raised against the counterparty. The cited text supports the conclusion: § 6.0 obliges IBM (us) to purchase only ordered Products and does not authorize MSL to produce or deliver absent an order; § 6.1 permits cancellation of any and all Purchase Orders at any time — i.e., fees follow ordered volumes, the preferred position. No take-or-pay, minimum volume, or shortfall penalty language appears in the cited paragraphs; volume-related exposure is expressly limited (p0927 'IBM will have no liability for unused flexibility'; p0930 EOL inventory remains MSL's sole responsibility; p0903 no liability for MSL-purchased inventory subject to forecast accuracy). The Appendix 2 requirements-accuracy compensation is correctly characterized as a quantified, quarterly forecast true-up (percentage of material cost of volume shipped) rather than a multi-year shortfall penalty, so it sits within the rule's fallback/true-up concept at worst; the uncapped nature is properly noted in the rationale rather than flagged as a deviation. Deterministic checks are empty and no edits were made, consistent with a compliant classification retained as internal evidence.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.194673,
+    "durationMs": 74190,
+    "id": "f-nosolicit-df47ee96",
+    "paragraphIds": [
+      "p0189"
+    ],
+    "producedBy": "drafter",
+    "quote": "f) IBM agrees that, for a period of [*] years from the Effective Date of this Agreement, it will not in any way solicit for employment any Transferred Employees without the prior written consent of MSL; provided, however, that the foregoing will not restrict or prevent IBM from a) employing any such person who contacts IBM on his or her own initiative without any solicitation or encouragement from IBM or b) by using general employment advertising or communications or independent search firms, hiring any person who responds thereto",
+    "rationale": "Section 9.0(f) is the only hiring restriction in the Agreement (16.7 and 5.2 contain no personnel-hiring constraints), and it binds IBM. It sits at the playbook fallback on all material terms: (i) scope is narrow — limited to the finite, listed group of \"Transferred Employees\" (the ex-IBM staff who moved to MSL to perform the work), not all MSL personnel; (ii) it is a solicitation-only restriction with no \"no-hire\" — IBM may in fact hire Transferred Employees who approach it or respond to advertising; and (iii) both required carve-outs are present, for unsolicited approaches on the individual's own initiative and for general employment advertising/communications and independent search firms. Two points short of the preferred position are noted rather than flagged: the covenant is one-way rather than mutual, and the duration is redacted (\"[*] years\") and runs from the Effective Date rather than from the end of an individual's involvement. We should confirm on the unredacted copy that the period does not exceed 24 months (walk-away); as drafted from a fixed Effective Date rather than a rolling engagement date, the restriction is self-limiting and does not warrant a redline.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-9.0-2",
+    "sectionRef": "§ 9.0 PERSONNEL",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-solicit duration ≤ 12 months",
+          "ok": false
+        },
+        {
+          "name": "general-solicitation carve-out present",
+          "ok": false
+        }
+      ],
+      "notes": "Party mapping is correct: IBM is the Customer/Buyer in this outsourcing arrangement, and Section 9.0(f) is a restriction binding our party, so NOSOLICIT is the right rule to apply. The cited text substantively supports the compliant/fallback classification on the material terms: scope is limited to the finite 'Transferred Employees' group rather than all Vendor personnel; the covenant is solicitation-only with no no-hire (IBM may hire those who approach it or respond to advertising); and both carve-outs (unsolicited own-initiative contact and general employment advertising/independent search firms) are expressly present. The two failed deterministic checks are heuristic misses rather than substance: the general-solicitation carve-out is plainly in the text ('by using general employment advertising or communications or independent search firms'), and the duration check failed only because the term is redacted ('[*] years'), not because the clause is silent. No redline or comment is expected for a compliant finding, and none was proposed — consistent with the playbook's instruction not to redline a clause sitting at the fallback. Caveat noted and correctly handled in the rationale rather than raised as a deviation: the covenant is one-way and runs a redacted number of 'years' from the Effective Date (plural wording suggests it may exceed 12 months). Since the number is redacted, deviation cannot be asserted; the recommendation to confirm on the unredacted copy that it does not exceed 24 months (walk-away) is the appropriate follow-up.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.1651575,
+    "durationMs": 58542,
+    "id": "f-renewal-c8662efe",
+    "paragraphIds": [
+      "p0104",
+      "p0658"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We shortened the non-renewal notice window to thirty (30) days and set renewal periods at twelve (12) months, since our playbook does not accept exit windows beyond 60 days (six and twelve months here, the latter longer than the six-month renewal period itself). We can live with a 60-day window if you need more lead time.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "unless either Party gives thirty (30) days written notice",
+          "oldText": "unless either Party gives six (6) months written notice",
+          "paragraphId": "p0104"
+        },
+        {
+          "kind": "replace",
+          "newText": "automatically be renewed for periods of twelve (12) months unless either party gives thirty (30) days written notice",
+          "oldText": "automatically be renewed for periods of six (6) months unless either party gives twelve (12) months written notice",
+          "paragraphId": "p0658"
+        }
+      ],
+      "summary": "Shorten non-renewal notice to 30 days and fix renewal terms at 12 months in both Base Agreement § 4.0 and SOW Attachment § 2.0"
+    },
+    "quote": "This Agreement will automatically be renewed for periods of twelve (12) months unless either Party gives six (6) months written notice of its intent to terminate this Agreement.",
+    "rationale": "Both term clauses auto-renew with non-renewal notice windows far beyond the fallback ceiling of 60 days: the Base Agreement § 4.0 requires six months (~180 days) notice, and SOW Attachment § 2.0 requires twelve months (~365 days) notice against a mere six-month renewal period, meaning notice must be given before the renewal even begins. Windows longer than 90 days are walk-away territory under the rule, so this fails the fallback on a material term. Redline shortens both windows to 30 days and aligns renewal periods at 12 months (preferred position); a 60-day window remains an acceptable fallback. The vendor reminder and price-uplift cap are absent, but renewals continue on the same terms and conditions, so uplift risk is limited and we note this rather than press it.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-4.0-2",
+    "sectionRef": "§ 4.0 TERM",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "detail": "value=30",
+          "name": "non-renewal notice window ≤ 60 days",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.316 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0104",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.293 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0658",
+          "ok": true
+        }
+      ],
+      "notes": "Classification is correct: both clauses auto-renew but require six (6) months (~180 days) and twelve (12) months (~365 days) non-renewal notice, well beyond the fallback ceiling of 60 days and inside the rule's walk-away band (>90 days), so this is a material deviation rather than an acceptable fallback. Redline is valid and directionally right: notice windows reduced to thirty (30) days and renewal periods aligned at twelve (12) months, matching the redline guidance; the SOW's inverted structure (12-month notice against a 6-month renewal term) is properly corrected. Edits are surgical — only the notice-period and renewal-length numerals change, leaving 'same terms and conditions' and cross-references intact; the advisory changed-character ratios (0.32/0.29) reflect the numeral substitutions, not a rewrite. Comment is accurate, concise, in the required tone with the [Playbook] prefix, cites the playbook position and offers the 60-day fallback. Absent vendor reminder and price-uplift cap are correctly noted in the rationale rather than pressed as separate deviations, consistent with the sub-element guidance; renewals continuing on the same terms limits uplift risk.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.76,
+    "costUsd": 0.30562525,
+    "durationMs": 54723,
+    "id": "f-transition-ea7e556f",
+    "paragraphIds": [
+      "p0129",
+      "p0130",
+      "p1435",
+      "p0204"
+    ],
+    "producedBy": "drafter",
+    "quote": "iii) within [*] Days after expiration or termination of this Agreement, MSL shall return to IBM all copies of IBM Product documentation and all copies of any IBM confidential documents, discs, tapes and other media materials containing IBM confidential information of IBM.",
+    "rationale": "Exit protection exists and runs in our favour. Section 5.2(a)(ii) obliges MSL to \"assist in the transfer of MSL responsibilities and Products as described in Attachment 1: Statement Of Work, to IBM or to another party that IBM designates\" on expiry or termination for default, with no cap on the assistance window (better for us than the 6-month/90-day benchmarks), and 5.2(a)(iii) requires return of all IBM documentation and all discs, tapes and media containing IBM confidential information within a defined period after termination. Attachment 6 Section 3(a) adds return of master media plus signed written certification of compliance, and Section 13.2(c) lets IBM demand immediate return of confidential information at any time during the term. Nothing permits MSL to withhold or immediately destroy IBM data, so there is no walk-away exposure. Minor points noted only: the return period in 5.2(a)(iii) is redacted so we cannot confirm it is 30 days or less, deletion-and-certification is expressed only for the Attachment 6 MS Software Images rather than all IBM data, and there is no express machine-readable format requirement. These are sub-elements short of the preferred wording and do not warrant a redline.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-5.2",
+    "sectionRef": "§ 5.2 Rights Upon Termination",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "data return/transition present",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant and the cited text supports it: Section 5.2(a)(ii) requires MSL to assist in transferring responsibilities and Products to IBM or its designee on expiry/termination (no duration cap, i.e., at least as good as the 6-month/90-day benchmarks), and 5.2(a)(iii) requires return of all IBM documentation and confidential media within a defined post-termination period. Attachment 6 Section 3(a) adds return of master media plus signed written certification, and Section 13.2(c) gives IBM an on-demand return right, so nothing approaches the walk-away scenario (no data return or immediate deletion of our data). Consistent with a compliant finding, no redline or counterparty comment was produced; the rendered paragraphs are unchanged. The shortfalls the rationale identifies (redacted return period, deletion/certification expressed only for the Attachment 6 MS Software Images, no express machine-readable format) are sub-elements short of preferred wording and are correctly noted in the rationale rather than redlined. The failed deterministic check is a phrasing artifact: the clauses use \"transfer\"/\"return to IBM\" rather than \"transition\"/\"export\", so the regex miss does not undercut substance.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.237318,
+    "durationMs": 73773,
+    "id": "f-warranty-26130e7e",
+    "paragraphIds": [
+      "p1059",
+      "p1063",
+      "p1067",
+      "p1068",
+      "p1077",
+      "p1079",
+      "p1083",
+      "p0329"
+    ],
+    "producedBy": "drafter",
+    "quote": "a) MSL expressly warrants that all Products, MSL supplied materials and Parts, and work prepared for IBM will conform in all material respects to the specifications, drawings, or other descriptions furnished or adopted by IBM, and will be of specified quality, good workmanship, and free from defect subject to the following terms:",
+    "rationale": "MSL gives a real express warranty in our favour: SOW § 19.1 warrants conformance in all material respects to IBM specifications plus specified quality, good workmanship and freedom from defect, with stated periods for MSL Procured Parts (19.1(a)(iv)) and workmanship (19.1(a)(v)), running from delivery, surviving acceptance testing and expressly covering latent defects (19.1(b)). The remedy set matches the playbook: § 19.5 requires failure analysis, repair or replacement within the stated turnaround at MSL's expense and, if repair or replacement is not possible, a refund of MSL's price for the failed Product and Parts; § 19.7 adds epidemic-failure recall cost coverage, which exceeds the preferred position. The § 19.6 disclaimer is confined to implied and other terms relating to quality, merchantability, conformance and fitness and expressly preserves \"MSL'S WARRANTY OBLIGATIONS DESCRIBED IN THIS SECTION 19\", so it does not swallow the express warranty; there is no \"AS IS\" language. Two points noted but not flagged: (i) the durations in 19.1(a)(iv)-(v) are redacted ([*] months), so we should confirm on execution that they are at least 12 months for Products/Parts, and (ii) § 16.19 sunsets all representations and warranties on the [*] anniversary of the Effective Date, which we should confirm does not cut short Product warranties on units delivered late in the term. This is a manufacturing/Products deal, so the absence of a separate professional-and-workmanlike services warranty, compliance-with-laws warranty and malicious-code warranty is immaterial here, and the warranty exclusions in 19.1(a)(ii)-(iii) relate to IBM Parts and consigned Products (our own materials) and 19.3 to misuse, both customary. The clause benefits us, so no redline.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-19.1",
+    "sectionRef": "§ 19.1 Scope of Warranty",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "warranty period ≥ 90 days or expressed in months/years",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant and the cited text supports it: SOW § 19.1 gives an express conformance/quality/workmanship warranty running from delivery, surviving acceptance testing and covering latent defects, with stated (though redacted) periods expressed in months for MSL Procured Parts and workmanship. The remedy set matches the playbook's required remedy: § 19.5 mandates failure analysis, repair or replacement at MSL's expense with a refund of MSL's price (and Parts prices) if repair/replacement is not possible; § 19.7 epidemic-failure recall coverage exceeds the preferred position. The disclaimer does not swallow the express warranty — it is expressly stated to be 'in lieu of' only other implied/express terms while preserving 'MSL'S WARRANTY OBLIGATIONS DESCRIBED IN THIS SECTION 19'; there is no 'AS IS' walk-away language. Correct direction: IBM is the buyer/customer we represent and MSL is the vendor giving the warranty, so the clause benefits us and no redline or comment is appropriate — consistent with the no-redline, no-comment output. The failed deterministic period check is explained by redaction ('[*] months'), not by a short period; the rationale properly flags the redacted durations and the § 16.19 survival sunset as diligence/confirmation items rather than raising them as deviations, consistent with the playbook's treatment of minor sub-elements.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.40688075,
+    "durationMs": 92199,
+    "id": "f-insurance-bbc202ba",
+    "paragraphIds": [
+      "p0909",
+      "p1107",
+      "p1539",
+      "p0191",
+      "p0334"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We added a standard insurance covenant, as MSL occupies IBM premises, holds IBM consigned inventory and accesses IBM systems and customer data, and the Agreement currently requires only replacement-value cover for consigned Products. Our playbook position is CGL USD 1M/2M, E&O USD 2M and cyber USD 5M with certificates on request; we can work with E&O USD 1M and cyber USD 2M if MSL's existing programme is closer to that level.",
+      "level": "preferred",
+      "ops": [
+        {
+          "asHeading": false,
+          "kind": "insert_after",
+          "numbering": "16.22",
+          "paragraphId": "p0334",
+          "text": "16.22 Insurance\n\nMSL shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: (a) commercial general liability insurance of not less than U.S. $1,000,000 per occurrence and U.S. $2,000,000 in the aggregate; (b) professional liability (errors and omissions) insurance of not less than U.S. $2,000,000; (c) where MSL processes, stores or has access to IBM or IBM customer data, cyber and privacy liability insurance of not less than U.S. $5,000,000; and (d) workers' compensation and employer's liability insurance as required by applicable law. Such coverage is in addition to the replacement value insurance for consigned Products required under the Statement of Work. MSL shall provide IBM with certificates of insurance upon request."
+        }
+      ],
+      "precedentId": "seed-insurance",
+      "summary": "Insert Section 16.22 requiring MSL to carry commercial general liability, professional liability, cyber and workers' compensation insurance, with certificates on request."
+    },
+    "quote": "MSL will provide replacement value insurance coverage for consigned Products. IBM will be named as a joint insured with respect to consigned Products for its interest.",
+    "rationale": "The Agreement contains no vendor insurance covenant. The only insurance references are narrow and property-specific: SOW 13.1(b) requires MSL to carry replacement-value cover for IBM consigned Products (with IBM as joint insured); SOW 21.2 obliges IBM (not MSL) to insure IBM-owned tooling; Loan Agreement Section 8 relieves MSL of risk of loss on Loaned Items; and 10.0 defers premises terms to a separate Lease of Premises Agreement not before us. None of these provide commercial general liability, professional liability (E&O), cyber/privacy or workers' compensation cover, so the document fails even the fallback (E&O USD 1M / cyber USD 2M). This matters here because MSL occupies IBM premises, holds IBM and IBM-customer consigned inventory, and accesses IBM applications, networks and customer integration data under SOW 24.1 — squarely the exposure the rule targets. Redline inserts a new Section 16.22 in the General section at the preferred limits (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, statutory workers' compensation, certificates on request), expressly preserving the existing consigned-Products cover, with the fallback limits offered in the comment.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-13.1",
+    "sectionRef": "§ 13.1 Consigned Products",
+    "severity": "low",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "insurance obligation present",
+          "ok": true
+        }
+      ],
+      "notes": "Directionally correct for us as the customer (IBM): the inserted covenant imposes insurance obligations on the vendor (MSL) and does not create risk for our side. 'Missing' status is supported — the only insurance references in the document are narrow property covers (replacement value for consigned Products, IBM-owned tooling insured by IBM, risk-of-loss relief on Loaned Items), none of which reach CGL, E&O, cyber or workers' compensation, so the clause set fails even the fallback (E&O USD 1M / cyber USD 2M). The rule's trigger is met on the facts cited: MSL occupies IBM premises, holds IBM and IBM-customer consigned inventory, and accesses IBM systems/customer data. Redline tracks the model language closely (CGL 1M/2M, E&O 2M, cyber 5M, statutory workers' comp, certificates on request, survival for one year) and sensibly preserves the existing consigned-Products cover rather than displacing it — minimal, self-contained insertion. Comment is accurate, concise, in the required voice, states the playbook position and offers the fallback limits; deterministic checks confirm the insurance obligation is present. Minor, non-fatal: the insertion is anchored after an infringement/suspension remedy paragraph rather than clearly at the end of the General section — the new '16.22' heading should be confirmed against the actual General section numbering before sending.",
+      "verdict": "pass"
+    }
+  }
+]

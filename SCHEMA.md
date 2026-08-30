@@ -150,3 +150,15 @@ with the planner's first candidate section used for an unanchored missing clause
 When available, `costUsd` and `durationMs` cover only that rule's drafter, verifier, and repair work. The same
 figures are retained in `ReviewRun.stats.perRule` with LLM-call and retry counts. Whole-contract shared calls
 use the `"*"` entry and distribute their cost and elapsed time across the findings they produced.
+
+## 8. Evaluation judge v2 and tiered results
+
+The additive judge-v2 result is
+`{ elements: { element, level: "preferred"|"fallback", met, evidence }[], satisfies_preferred,
+satisfies_fallback, minimal, preserves_intent, drafting_quality, reason }`. A rule position may optionally carry
+`elements: { preferred: string[], fallback: string[] }`; those strings are evaluation checklists and do not
+replace the position prose. Without them, judge v2 decomposes the prose inside its cached structured call.
+
+Tiered evaluation results add `tier: "short"|"long"` and additive `completeRedline`,
+`appliedTrackedChangeYield`, and `precedentAdherence` component metrics to each contract and aggregate.
+Legacy `<config>.json` results retain the round-1 shape; tiered results use `<config>.<tier>.json`.

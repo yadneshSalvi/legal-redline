@@ -1,0 +1,596 @@
+[
+  {
+    "confidence": 0.68,
+    "costUsd": 0.26911425,
+    "durationMs": 58009,
+    "id": "f-indemn-0ca8cc75",
+    "paragraphIds": [
+      "p0560",
+      "p0559",
+      "p0471",
+      "p0561",
+      "p0564"
+    ],
+    "producedBy": "drafter",
+    "quote": "11.2 Indemnification of AbbVie. Harpoon shall indemnify AbbVie, its Affiliates and its and their respective directors, officers, employees, and agents (the \"AbbVie Indemnitees\"), and defend and save each of them harmless, from and against any and all Losses in connection with any and all Third Party Claims incurred by or rendered against the AbbVie Indemnitees arising from or occurring as a result of: [***]",
+    "rationale": "A counterparty (Harpoon) indemnity in our favour exists and is not one-way: Section 11.2 requires Harpoon to defend, indemnify and hold harmless the AbbVie Indemnitees (including Affiliates and their personnel) against Third Party Claims, and Sections 11.3-11.5 supply the standard procedure the playbook expects (prompt notice with no forfeiture for delay, indemnitor's option to assume defence, right to participate, settlement consent, cooperation, and expense reimbursement). Third-party IP infringement is within scope: Section 7.4 (Infringement Claims by Third Parties) expressly makes AbbVie's defence right \"Subject to Section 11.2\" and refers to \"a claim that may be subject to Section 11.2\" and to \"Harpoon['s]... liab[ility] to indemnify any AbbVie Indemnitee\", confirming that patent infringement claims arising from the Licensed Compound/Licensed Product are covered by Harpoon's indemnity. AbbVie's reciprocal indemnity in Section 11.1 is a standard mutual construct rather than a one-way indemnity for the counterparty's own activities. Notes (not deviations): the specific indemnity triggers in both 11.1 and 11.2 are redacted ([***]), so the precise breadth of Harpoon's IP/misconduct coverage and the narrowness of our reciprocal indemnity should be confirmed against the unredacted execution copy; there is also no indemnity super-cap, which favours us. On its readable material terms the clause meets the preferred position, so no redline is warranted.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-11-2",
+    "sectionRef": "§ 11 INDEMNITY",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant and the redline is identical to the original paragraphs with no comment, which is the expected output for a compliant finding — nothing is being raised with the counterparty. The cited text supports compliance on its readable material terms: Section 11.2 obliges the counterparty (Harpoon) to defend, indemnify and hold harmless AbbVie, its Affiliates and their personnel against Third Party Claims, so the indemnity is not one-way and is not walk-away territory. IP scope is reasonably inferred from Section 7.4, which subordinates AbbVie's defence right to Section 11.2 and expressly contemplates Harpoon's liability 'to indemnify any AbbVie Indemnitee' for Third Party patent infringement claims; Sections 11.3–11.4.1 supply the standard notice/control/cooperation mechanics the rule expects. The failed deterministic check ('vendor indemnity for IP infringement present') is explained by the redacted trigger lists ([***]) in both 11.1 and 11.2 — a regex cannot match text that has been withheld — and the rationale transparently flags that the unredacted execution copy should be confirmed rather than overstating coverage. Noted-but-not-flagged items (absence of an indemnity super-cap, which favours us, and the redacted breadth of our reciprocal 11.1 indemnity) are correctly treated as rationale notes rather than deviations, consistent with the playbook's classification semantics.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.8,
+    "costUsd": 0.4524715,
+    "durationMs": 73828,
+    "id": "f-ip-21e4a348",
+    "paragraphIds": [
+      "p0427",
+      "p0428",
+      "p0429",
+      "p0327",
+      "p0358",
+      "p0624"
+    ],
+    "producedBy": "drafter",
+    "quote": "Subject to the licenses and rights of reference granted under Sections 5.1 and 5.2 and, in the case of Harpoon, its exclusivity obligations hereunder, each Party shall have the right to Exploit the Joint Intellectual Property Rights without a duty of seeking consent from or accounting to the other Party.",
+    "rationale": "The IP allocation meets our preferred position and nothing assigns our IP or data to Harpoon. Section 7.1.1 (p0427–p0428) confirms each Party owns and retains all right, title and interest in the Information, inventions, Patents and other IP it makes or already controls, so AbbVie keeps both its background IP and the IP it generates; Harpoon keeps its platform, which the playbook expressly accepts. Section 3.8.2(c) (p0327) gives AbbVie sole ownership of all Regulatory Documentation, Regulatory Approvals and Product Labeling specific to the Licensed Compounds/Products, with a Harpoon further-assurances/assignment covenant — i.e. we own the key data and dossier deliverable. Section 5.2 (p0358) grants Harpoon only a non-exclusive, royalty-free, non-sublicensable licence to AbbVie IP limited to performing its Initial Development Plan obligations, not an assignment. Section 7.1.2 does create joint ownership of jointly-made Joint Know-How/Joint Patents, but each Party may Exploit the Joint Intellectual Property Rights without consent from or accounting to the other (and Harpoon remains bound by its exclusivity covenant), so this is joint ownership with an unrestricted right to exploit and therefore outside walk-away territory. Two points noted but not flagged: the closing proviso of Section 7.1.2 and parts of Section 12.7.1 are redacted, and the Section 12.7.1 reversion is a royalty-bearing licence (not an assignment) of AbbVie Reversion IP triggered only on termination other than by AbbVie for cause/under Section 12.4 — a customary reversion licence that does not transfer ownership of our IP.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-7-2",
+    "sectionRef": "§ 7 INTELLECTUAL PROPERTY",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no assignment of Customer Data/IP to Vendor remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is 'compliant' and, consistent with that, the redline is byte-identical to the originals and no counterparty comment is proposed — nothing is raised as a negotiation issue. The cited text supports compliance: Section 7.1.1 leaves each Party owning its own background and generated IP (no assignment of AbbVie IP to Harpoon), Section 3.8.2(c) vests sole ownership of all Regulatory Documentation, Regulatory Approvals and Product Labeling in AbbVie with a Harpoon further-assurances/assignment covenant, and Section 5.2 gives Harpoon only a narrow non-exclusive, non-sublicensable licence limited to its Initial Development Plan obligations. Joint ownership under Section 7.1.2 is expressly paired with each Party's right to Exploit the Joint Intellectual Property Rights 'without a duty of seeking consent from or accounting to the other Party', so it sits outside the rule's walk-away ('joint ownership without an unrestricted right to exploit'); the rationale correctly identifies and reasons through this. Section 12.7.1 is a royalty-bearing reversion licence (not an assignment) of AbbVie Reversion IP, expressly excluding other AbbVie Patents/Know-How, so it does not transfer ownership of our IP; the rationale flags the redactions as noted-not-flagged, which matches the playbook's treatment of minor/unverifiable sub-elements. Deterministic check ('no assignment of Customer Data/IP to Vendor remains') passes, and no changed-character concern arises since there is no edit. Minor accuracy point only: the rationale labels the allocation as meeting the 'preferred' position although the preferred wording calls for 'no joint ownership'; this is better characterised as compliant with the joint-ownership carve-out noted, but the rationale does disclose the joint ownership and the classification outcome is unchanged.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.18709625,
+    "durationMs": 40013,
+    "id": "f-assign-eaea53a2",
+    "paragraphIds": [
+      "p0648",
+      "p0643",
+      "p0644"
+    ],
+    "producedBy": "drafter",
+    "quote": "13.4.1 Without the prior written consent of the other Party, such consent not to be unreasonably withheld, conditioned, or delayed, neither Party shall sell, transfer, assign, delegate, pledge, or otherwise dispose of, whether voluntarily, involuntarily, by operation of law or otherwise, this Agreement or any of its rights or duties hereunder; provided that either Party may make such an assignment without the other Party's consent to its Affiliate or to a successor, whether in a merger, sale of stock, sale of assets or any other transaction, of the business to which this Agreement relates.",
+    "rationale": "Section 13.4.1 is symmetrical and expressly permits AbbVie (as well as Harpoon) to assign without consent to an Affiliate or to a successor in a merger, sale of stock or sale of assets of the business to which the Agreement relates, with any other assignment subject only to consent that may not be unreasonably withheld, conditioned or delayed. That is the mutual successor/affiliate carve-out plus a reasonableness consent standard, so the clause sits at or above the fallback position and comfortably clear of the walk-away (no blanket bar on our assignment). The change-of-control machinery in Section 13.2 (and the related Competitor provisions in Sections 2 and 5) runs only against Harpoon — notice of a Change in Control of Harpoon and consequences that operate in our favour — and Harpoon has no termination or re-pricing right triggered by an AbbVie change of control. Two preferred-only refinements are noted but not flagged: the clause does not bar Harpoon from assigning to an AbbVie competitor (partially mitigated by our Competitor rights on a Harpoon Change in Control), and the restriction is mutual rather than one-way in our favour.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-13.2.2",
+    "sectionRef": "§ 13.2.2 In the event of [***]",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "successor/affiliate carve-out for Customer present",
+          "ok": true
+        }
+      ],
+      "notes": "Section 13.4.1 grants both Parties, including AbbVie (our side), an express right to assign without consent to an Affiliate or to a successor in a merger, stock sale or asset sale, with all other assignments subject to consent that may not be unreasonably withheld, conditioned or delayed — this meets the fallback (mutual successor assignment plus reasonableness standard) and is well clear of the walk-away (no blanket bar on Customer assignment). The change-of-control machinery in Section 13.2 runs only against Harpoon (notice of a Change in Control of Harpoon) and confers no Vendor termination or re-pricing right on a Customer change of control, so the key ASSIGN risk trigger is absent. Consistent with a compliant classification, no redline or counterparty comment was proposed and the rendered text is unchanged; the rationale correctly relegates the preferred-only gaps (no bar on Harpoon assigning to an AbbVie competitor; mutual rather than one-way restriction) to notes rather than deviations. Deterministic check confirms the successor/affiliate carve-out for Customer is present; nothing in the cited paragraphs contradicts the compliance conclusion.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.89,
+    "costUsd": 0.2769555,
+    "durationMs": 44698,
+    "id": "f-exclusivity-87159c01",
+    "paragraphIds": [
+      "p0367",
+      "p0368",
+      "p0369",
+      "p0355",
+      "p0340"
+    ],
+    "producedBy": "drafter",
+    "quote": "5.8.1 Harpoon shall not, and shall cause its Affiliates not to (a) directly or indirectly, develop, commercialize or otherwise exploit any Competing Product in any country or other jurisdiction in the Territory, or (b) license, authorize, appoint, or otherwise enable any Third Party to directly or indirectly, develop, commercialize or otherwise exploit any Competing Product in any country or other jurisdiction in the Territory, except, in each case ((a) and (b)), as otherwise expressly provided in this Agreement.",
+    "rationale": "The only exclusivity/non-compete architecture in the Agreement runs in our favour. Section 5.8 (Exclusivity with Respect to the Territory) binds Harpoon and its Affiliates not to develop, commercialize or license Competing Products in the Territory, with the Section 5.8.2 carve-outs (Acquisition/Change in Control with Segregation) also giving AbbVie unilateral information-flow and JGC termination rights. Similarly, the Section 5.1.3 grants to AbbVie are exclusive (including as against Harpoon and its Affiliates), and Section 5.9.1 restricts only Harpoon's third-party in-licensing. Searches for supply/sourcing restrictions found no obligation on AbbVie to purchase exclusively or refrain from third-party sourcing: Section 4.5.1 gives AbbVie the sole right (not obligation) to Manufacture or have Manufactured and supply Licensed Compounds and Products, and the Section 10.4 AbbVie covenants are limited to obtaining IP rights from its personnel. This meets the preferred position — no exclusivity or sole-supplier obligation on the Customer — so no redline is warranted; the Harpoon-side exclusivity is a benefit to us and should be preserved.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-5-2",
+    "sectionRef": "§ 5 GRANT OF RIGHTS",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no requirements/sole-supplier obligation on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "The rule targets exclusivity binding the Customer; here the only exclusivity architecture (Section 5.8.1) binds Harpoon (Licensor/counterparty) not to develop or license Competing Products in the Territory, and the Section 5.1.3 licence grant is exclusive in AbbVie's (our) favour — exclusivity benefiting Customer is expressly acceptable under the detection guidance. Section 4.5.1 confers a 'sole right' (not an obligation) on AbbVie to Manufacture and supply, so it is not a requirements or sole-supplier commitment; the deterministic check confirms no such obligation on Customer remains. Consistent with a compliant finding, the rendered redline is identical to the original paragraphs and no counterparty comment is raised, so nothing is over-flagged and the beneficial Harpoon-side exclusivity is preserved. Rationale accurately cites the supporting provisions and correctly states the clause meets the preferred position (no exclusivity on Customer) rather than merely the fallback.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.17828125,
+    "durationMs": 32160,
+    "id": "f-ld-30b3ee27",
+    "paragraphIds": [
+      "p0590",
+      "p0634",
+      "p0418"
+    ],
+    "producedBy": "drafter",
+    "quote": "12.3 Additional Termination Rights by AbbVie. AbbVie may terminate this Agreement in its entirety, or on a country or other jurisdiction -by-country or other jurisdiction basis, for any or no reason, upon ninety (90) days' prior written notice to Harpoon.",
+    "rationale": "Searches for \"liquidated damages\", \"penalty\", \"termination fee\" and acceleration language return no results, and Article 12 imposes no payment on AbbVie (our party) for exercising termination. Section 12.3 allows AbbVie to terminate for any or no reason on 90 days' notice with no early-termination or minimum fee; Section 12.10.1 preserves only accrued amounts (milestones/royalties for events occurring before termination), which is ordinary earned consideration rather than a liquidated damages amount. Section 6.10 late-payment interest applies mutually to \"either Party\" and is compensatory interest, not a penalty. This meets the preferred position (no liquidated damages or penalties payable by Customer), so no redline is required.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-12-2",
+    "sectionRef": "§ 12 TERM AND TERMINATION",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the redline is identical to the original with no comment, which is the expected output for a compliant finding. Cited paragraphs support the preferred position: Section 12.3 gives AbbVie (our party) an at-will termination right on 90 days' notice with no early-termination, minimum, or liquidated amount; Section 12.9 merely preserves ordinary legal/equitable remedies rather than imposing a stipulated sum. Section 6.10 late-payment interest applies reciprocally to 'either Party' and is compensatory interest, correctly characterized as not a Customer-payable penalty; accrued milestones/royalties are earned consideration, not liquidated damages. Rationale is accurate and no actionable deviation exists, so no edit is warranted; retained as internal evidence only.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.2331195,
+    "durationMs": 40521,
+    "id": "f-license-2b110a81",
+    "paragraphIds": [
+      "p0355",
+      "p0359",
+      "p0583",
+      "p0648"
+    ],
+    "producedBy": "drafter",
+    "quote": "AbbVie shall have the right to grant sublicenses (or further rights of reference), through multiple tiers of Sublicensees, under the licenses and rights of reference granted in Sections 5.1.1, 5.1.2 and 5.1.3, to its Affiliates and other Persons",
+    "rationale": "The grant to us in Section 5.1.3 is an exclusive licence (and right of reference) to Exploit the Licensed Compounds and Products, with an express right under Section 5.3 to sublicense through multiple tiers to our Affiliates and other Persons (covering contractors/Third Party Providers), and Section 13.16 confirms we may use Affiliates to perform. Nothing makes the licence revocable at Harpoon's discretion: Harpoon may terminate only for uncured material breach (Section 12.2, 90-day cure, subject to the Section 12.2.3 limitation) or insolvency, while at-will termination in Section 12.3 runs in our favour, and on expiry of the Term the Section 5.1.3 grants become \"non-exclusive, fully-paid, royalty-free and irrevocable\" (Section 12.1.2). Section 13.4.1 permits assignment without consent to an Affiliate or to a successor in a merger or sale of stock/assets, and binds the grant on Harpoon's successors. This meets the preferred position on affiliates/contractors, irrevocability and successor transfer; no redline needed.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-5-2",
+    "sectionRef": "§ 5 GRANT OF RIGHTS",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "affiliates covered by the licence",
+          "ok": true
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant, and the redline is identical to the original paragraphs with no counterparty comment — consistent with the expectation that compliant findings carry no edits. Cited text supports the preferred position: Section 5.1.3(a) grants an exclusive licence to Exploit, Section 5.3 permits sublicensing through multiple tiers to Affiliates and other Persons (covering contractors), Section 12.1.2 makes the grants fully-paid and irrevocable on expiry, and Section 13.4.1 permits assignment to Affiliates or an M&A successor and binds Harpoon's successors. No at-will revocation in Harpoon's favour is present in the cited grant/termination architecture; both deterministic checks (affiliate coverage, no at-will revocation) pass and the rationale accurately reflects the quoted language.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.406595,
+    "durationMs": 109262,
+    "id": "f-lol-cap-ad99118b",
+    "paragraphIds": [
+      "p0572"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Article 11 waives consequential damages but leaves both parties' direct liability entirely uncapped, so we have added a mutual cap at the greater of 12 months' payments and USD 1,000,000, consistent with our position that liability be capped for both parties at a meaningful amount. Indemnification obligations, confidentiality (Article 9/Section 5.8), gross negligence, willful misconduct, fraud and IP infringement sit outside the cap, and AbbVie's payment obligations under Article 6 are not treated as capped damages.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. EXCEPT FOR EXCLUDED CLAIMS, EACH PARTY'S TOTAL AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT SHALL NOT EXCEED THE GREATER OF (A) THE AMOUNTS PAID OR PAYABLE BY ABBVIE TO HARPOON UNDER THIS AGREEMENT IN THE TWELVE (12) MONTHS IMMEDIATELY PRECEDING THE EVENT GIVING RISE TO THE CLAIM AND (B) ONE MILLION U.S. DOLLARS (USD 1,000,000). \"EXCLUDED CLAIMS\" MEANS A PARTY'S BREACH OF ITS OBLIGATIONS UNDER [ARTICLE 9 OR SECTION 5.8], ITS INDEMNIFICATION OBLIGATIONS UNDER THIS ARTICLE 11, ITS FRAUD, WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, AND ITS INFRINGEMENT OF THE OTHER PARTY'S INTELLECTUAL PROPERTY RIGHTS. AMOUNTS PAYABLE BY ABBVIE UNDER ARTICLE 6 SHALL NOT CONSTITUTE DAMAGES SUBJECT TO SUCH CAP.",
+          "oldText": "EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.",
+          "paragraphId": "p0572"
+        }
+      ],
+      "summary": "Add a mutual aggregate liability cap with standard uncapped carve-outs to Section 11.5"
+    },
+    "quote": "11.5 Special, Indirect, and Other Losses. EXCEPT (A) FOR FRAUD, WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, (B) FOR A PARTY'S BREACH OF ITS OBLIGATIONS UNDER [ARTICLE 9 OR SECTION 5.8], (C) AS PROVIDED UNDER [***] AND (D) TO THE EXTENT ANY SUCH DAMAGES ARE REQUIRED TO BE PAID TO A THIRD PARTY AS PART OF A CLAIM FOR WHICH A PARTY PROVIDES INDEMNIFICATION UNDER THIS ARTICLE 11, NEITHER PARTY NOR ANY OF ITS AFFILIATES SHALL BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE OR CONSEQUENTIAL DAMAGES",
+    "rationale": "Section 11.5 is the only limitation-of-liability provision in the Agreement. It is mutual and contains an acceptable set of carve-outs (fraud, willful misconduct, gross negligence, confidentiality/Article 9 and Section 5.8, and third-party indemnified damages), but it goes no further than excluding indirect and consequential damages. Searches for \"aggregate liability\", \"shall not exceed\" and all \"liable/liability\" hits confirm there is no monetary cap on either party's direct liability anywhere in the document (Article 13 contains only force majeure; Article 11 otherwise deals with indemnity procedure and insurance). The rule requires a mutual cap at a meaningful amount; the fallback (mutual cap of 12 months' fees with carve-outs) is also unmet because no cap of any kind exists, so this fails on a material term. The redline adds a single mutual cap sentence to the existing Section 11.5 at the greater of 12 months' payments by AbbVie and USD 1,000,000, keeps the indemnity, confidentiality, gross negligence, willful misconduct, fraud and IP-infringement carve-outs outside the cap (mirroring the exceptions already agreed in 11.5), and confirms AbbVie's Article 6 payment obligations are not capped \"damages\".",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-11-2",
+    "sectionRef": "§ 11 INDEMNITY",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "cap references 12 months of fees or a fixed floor",
+          "ok": true
+        },
+        {
+          "name": "no unlimited Customer liability language remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.933 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0572",
+          "ok": false
+        }
+      ],
+      "notes": "Classification is correct: Section 11.5 only excludes indirect/consequential damages and contains no monetary cap, so neither the preferred position (mutual cap at greater of 12 months' fees / USD 1,000,000) nor the fallback (mutual 12-month fees cap) is met — this is a genuine deviation on a material term, not an upgrade of an acceptable fallback. Redline is actionable and minimal in substance: the existing exclusion sentence is preserved verbatim and a single mutual cap sentence plus an 'Excluded Claims' definition is appended in the same all-caps style, consistent with the redline guidance to edit rather than rewrite the section. The failed 'minimal edit' check reflects the volume of necessarily added language, not a rewrite of existing terms. Directionally correct for the customer: the cap is mutual, keyed to amounts paid or payable by AbbVie in the preceding 12 months with a USD 1,000,000 floor, and it expressly carves out AbbVie's Article 6 payment obligations so the cap cannot be used to shield the licensee's own consideration — this tracks the model language. Carve-outs mirror those already negotiated in 11.5 (fraud, willful misconduct, gross negligence, Article 9/Section 5.8 confidentiality, Article 11 indemnification) and add IP infringement, satisfying the preferred carve-out set; the comment accurately describes what changed and cites the playbook position without lecturing. Minor, non-disqualifying gaps to note rather than reject: existing exception (C) ('AS PROVIDED UNDER [***]') is not carried into the new 'Excluded Claims' definition, which could create an internal inconsistency, and the carve-out list omits an express data-protection/security reference (covered indirectly via Article 9).",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.3068085,
+    "durationMs": 49878,
+    "id": "f-noncompete-cc3a87d4",
+    "paragraphIds": [
+      "p0368",
+      "p0369",
+      "p0554",
+      "p0555"
+    ],
+    "producedBy": "drafter",
+    "quote": "5.8.1 Harpoon shall not, and shall cause its Affiliates not to (a) directly or indirectly, develop, commercialize or otherwise exploit any Competing Product in any country or other jurisdiction in the Territory, or (b) license, authorize, appoint, or otherwise enable any Third Party to directly or indirectly, develop, commercialize or otherwise exploit any Competing Product in any country or other jurisdiction in the Territory, except, in each case ((a) and (b)), as otherwise expressly provided in this Agreement.",
+    "rationale": "The only exclusivity/non-compete covenant in the Agreement is Section 5.8 (\"Exclusivity with Respect to the Territory\"), which binds Harpoon (the counterparty) and its Affiliates not to develop or commercialize Competing Products; the Section 5.8.2 Acquisition/Change of Control carve-outs, Segregation requirement and AbbVie information-cut-off right all operate in our favour. AbbVie's covenants (Section 10.4) are limited to obtaining IP rights from its Affiliates, Sublicensees and personnel, and Articles 4 and 5 confer sole Commercialization, sublicensing, distribution and co-promotion discretion on AbbVie rather than restricting it. A targeted search for \"compet\", \"Competing Product\", \"AbbVie shall not\", \"neither Party shall\" and \"directly or indirectly\" found no non-compete, exclusivity or field-of-use covenant restricting AbbVie's business, products or programs, in-term or post-term. The Field/Territory limits on the licences granted to AbbVie are grant-scope provisions, not restrictive covenants. This meets the preferred position (no non-compete or field-of-use restriction on the Customer), so no redline is proposed.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-5-2",
+    "sectionRef": "§ 5 GRANT OF RIGHTS",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no open-ended compete restriction on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "The only non-compete/exclusivity covenant in the cited text (Section 5.8.1) binds Harpoon (the licensor/counterparty) and its Affiliates, and the rule's detection guidance expressly states that restrictions binding the Vendor are acceptable; the Section 5.8.2 carve-outs plus AbbVie's information cut-off and Segregation rights operate in our favour. AbbVie (our party, as licensee) is subject only to the Section 10.4 covenants regarding obtaining IP rights from Affiliates, Sublicensees and personnel, which is not a field-of-use or competitive restriction; Field/Territory limits on the licence grant are grant-scope, not restrictive covenants, consistent with the rationale. Claimed status is 'compliant', and correctly no redline or counterparty comment was proposed — the rendered text is unchanged and the deterministic check ('no open-ended compete restriction on Customer remains') passes. Rationale documents the search terms used ('compet', 'Competing Product', 'AbbVie shall not', 'neither Party shall', 'directly or indirectly') and reaches the preferred position (no non-compete on Customer); retained as internal evidence rather than a negotiation issue.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.16917825,
+    "durationMs": 33413,
+    "id": "f-t4c-d3f34e15",
+    "paragraphIds": [
+      "p0590",
+      "p0584",
+      "p0591"
+    ],
+    "producedBy": "drafter",
+    "quote": "12.3 Additional Termination Rights by AbbVie. AbbVie may terminate this Agreement in its entirety, or on a country or other jurisdiction -by-country or other jurisdiction basis, for any or no reason, upon ninety (90) days' prior written notice to Harpoon.",
+    "rationale": "Section 12.3 gives us (AbbVie) an unrestricted termination-for-convenience right, in whole or on a country-by-country basis, \"for any or no reason\" on ninety (90) days' notice, and no early-termination fee or penalty attaches to that exit (Section 12.10.1 preserves only accrued rights, and Sections 12.7/12.8 provide for reversion rather than a fee). Harpoon's termination rights are limited to our uncured material breach (Section 12.2) and insolvency (Section 12.4) — it has no convenience right at all, which is better than both our preferred and fallback positions. The 90-day notice period sits at the outer edge of the fallback (60–90 days) rather than our preferred 30 days, and there is no express pro-rata refund mechanic (of limited relevance given the milestone/royalty payment structure); these are noted but not material deviations, so no redline is proposed.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-12-2",
+    "sectionRef": "§ 12 TERM AND TERMINATION",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "Customer convenience termination present",
+          "ok": false
+        }
+      ],
+      "notes": "Section 12.3 gives AbbVie (our side) an unconditional right to terminate 'for any or no reason' on 90 days' notice, in whole or country-by-country, with no early-termination fee — this meets the fallback (60–90 days' notice, no penalty) on its material terms. Harpoon's termination rights are confined to our uncured material breach (12.2) and insolvency (12.4); it has no convenience right, which exceeds even the preferred position, so there is nothing to redline. Shortfalls versus preferred (90 rather than 30 days' notice; no express pro-rata prepaid-fee refund) are minor sub-elements correctly noted in the rationale rather than flagged as deviations, and are of limited relevance in a milestone/royalty structure. The failed deterministic check ('Customer convenience termination present') is a phrasing artefact — the clause uses 'for any or no reason' instead of 'for convenience' — and does not undermine the substance. Consistent with a compliant finding, no redline text was altered and no counterparty comment was proposed.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.76,
+    "costUsd": 0.1903245,
+    "durationMs": 44259,
+    "id": "f-audit-8b29f0ac",
+    "paragraphIds": [
+      "p0419",
+      "p0420",
+      "p0421"
+    ],
+    "producedBy": "drafter",
+    "quote": "6.11 Audit. AbbVie shall, shall cause its Affiliates to, and shall use commercially reasonable efforts to cause its Sublicensees to, keep complete and accurate books and records pertaining to Net Sales of Licensed Products, in sufficient detail to calculate all amounts payable hereunder. At the request of Harpoon, AbbVie shall permit an independent public accounting firm of nationally recognized standing designated by Harpoon and reasonably acceptable to AbbVie, [***], to audit the books and records maintained pursuant to this Section 6.11",
+    "rationale": "Section 6.11 is the only audit right binding us (AbbVie). It meets the preferred position on each material term: the audit is limited to royalty books and records (no access to our systems); it must be conducted by an independent public accounting firm of nationally recognized standing designated by Harpoon but reasonably acceptable to us; frequency is capped at not more than once in any stated period, with look-back and repeat-period limits; the auditor may report only whether reports are correct and the details of discrepancies, with no other information shared; Harpoon bears the cost unless the audit reveals a variance above the stated threshold; and Section 6.13 plus Article 9 impose confidentiality on the reviewing firm/Audit Expert. Section 6.12 allocates dispute costs neutrally via the Audit Expert. The frequency period, timing qualifier and variance percentage are redacted as [***], and no numeric advance-notice period is spelled out on the face of the clause (audits occur \"at the request of Harpoon\" and the redaction likely carries a reasonable-notice/business-hours qualifier) — we note these as points to confirm against the unredacted figures (frequency once per 12 months, notice of 15–30 days, variance threshold no lower than 5%), but they are sub-parameters rather than material failures. No unlimited, unannounced or remote-access audit rights exist, so nothing approaches walk-away territory and no redline is warranted.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-6.5.3",
+    "sectionRef": "§ 6.5.3 Reductions. Notwithstanding the foregoing:",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "audit frequency limited",
+          "ok": false
+        }
+      ],
+      "notes": "Section 6.11 is correctly identified as the only audit right binding our party (AbbVie as licensee), and it is limited to books and records — no access to our systems, so nothing approaches walk-away territory. Material terms meet the preferred position: independent nationally recognized accounting firm designated by Harpoon but reasonably acceptable to us, express frequency cap ('not more than once in any [***] period') plus look-back and repeat limits, disclosure limited to correctness and discrepancy details, and Harpoon bearing cost unless a stated variance threshold is exceeded; Sections 6.12–6.13 and Article 9 add confidentiality and neutral dispute-cost allocation. The failed 'audit frequency limited' deterministic check is a false negative: the frequency cap exists but the numeric period is redacted as [***], so the regex cannot match a figure. Absence of an express numeric notice period and the redacted variance percentage are sub-parameters appropriately noted in the rationale as items to confirm against unredacted figures rather than flagged as material failures. Consistent with a compliant claim, no redline or counterparty comment was proposed, and the rendered redline is identical to the original text — correct handling for retained internal evidence.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.62,
+    "costUsd": 0.23844225,
+    "durationMs": 65947,
+    "id": "f-govlaw-ac7fd944",
+    "paragraphIds": [
+      "p0652",
+      "p0655",
+      "p0657",
+      "p0701"
+    ],
+    "producedBy": "drafter",
+    "quote": "13.6.1 Governing Law. This Agreement or the performance, enforcement, breach or termination hereof shall be interpreted, governed by and construed in accordance with the laws of the State of Delaware, United States, excluding any conflicts or choice of law rule or principle that might otherwise refer construction or interpretation of this Agreement to the substantive law of another jurisdiction",
+    "rationale": "Governing law sits at the playbook fallback: Delaware law applies (Section 13.6.1), with sensible carve-outs for inventorship and patent construction, and CISG excluded — acceptable and not redlined. The forum, however, cannot be verified. Section 13.7.1 sends any unresolved Dispute to Senior Officers and then to mandatory, final arbitration under Section 13.7.3, and Section 13.7.3 incorporates Schedule 13.7.3 by reference, but the Schedule's text is redacted ([***] at p0701), so the arbitral seat, rules and forum are unknown. Because arbitration seated abroad is walk-away territory under this rule, we cannot confirm compliance without the Schedule. Two mitigating points: intellectual property validity/enforceability disputes are expressly carved out of arbitration and go to a court of competent jurisdiction (Section 13.7.2), and Section 13.7.5 preserves interim and provisional relief in court. We also note, without flagging it separately, that Section 13.6 is captioned \"Governing Law, Jurisdiction and Service\" but contains no express submission-to-jurisdiction sub-provision — Section 13.6.2 refers to service of process \"in any such court\" with no antecedent court designation. Recommended next step: obtain Schedule 13.7.3 and confirm a U.S. seat (preferably New York, Delaware or California); if the seat is outside the accepted list, we would redline the seat only, leaving Delaware governing law intact.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-13.4.2",
+    "sectionRef": "§ 13.4.2 [***]",
+    "severity": "medium",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "governing law within the accepted set",
+          "ok": true
+        }
+      ],
+      "notes": "Rule-accurate classification: Delaware governing law (Section 13.6.1) is expressly within the playbook fallback, and the finding correctly declines to redline it up to New York — no over-flagging. The forum uncertainty is real and well-evidenced: Section 13.7.1 makes arbitration the mandatory end-point, Section 13.7.3 defers wholly to Schedule 13.7.3, and the Schedule text is redacted at p0701, so the seat/rules cannot be verified against the walk-away trigger (arbitration seated abroad). Consistent with the needs_review posture, no redline or counterparty comment is proposed; the redline output is byte-identical to the original paragraphs and the deterministic governing-law check passes, so nothing invalid or directionally wrong is being introduced. Rationale is factually supported by the cited text (IP validity/enforceability carve-out in 13.7.2, interim relief preserved in 13.7.5, caption/submission-to-jurisdiction gap in 13.6.2 noted but not double-flagged) and gives an actionable next step: obtain Schedule 13.7.3 and, if the seat is outside the accepted list, redline the seat only while leaving Delaware law intact.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.2125335,
+    "durationMs": 42276,
+    "id": "f-mfn-73c2e2e8",
+    "paragraphIds": [
+      "p0378",
+      "p0371",
+      "p0374"
+    ],
+    "producedBy": "drafter",
+    "quote": "6.1 Upfront Payment. No later than [***] following the Effective Date, AbbVie shall pay Harpoon an upfront, non-refundable, non-creditable amount equal to Thirty Million Dollars ($30,000,000).",
+    "rationale": "We searched the full agreement for MFN/best-terms concepts (\"most favored\", \"favorable/favourable\", \"no less favorable\", \"as favorable as\", \"match\", \"best price\", \"offered to any Third Party\") and reviewed Article 6 (Payments and Records) and Article 5 (Grant of Rights) in full. There is no obligation on AbbVie (Customer) to extend to Harpoon pricing or terms no less favourable than those given to any third party, and no obligation to match third-party offers. The only third-party-terms mechanics run the other way or are optional for us: Section 5.9.3 lets AbbVie elect (at its option) to take the benefit of Harpoon's future in-licensed rights and accept the associated terms, which is a right in our favour rather than an MFN burden, and Section 13.2.2 merely confirms AbbVie's payment obligations run in favour of Harpoon's permitted assignee. This meets the preferred position (no MFN obligation on Customer), so no redline is warranted.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-6-2",
+    "sectionRef": "§ 6 PAYMENTS AND RECORDS",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected output for a compliant finding under this rule. The cited paragraphs contain no MFN or best-terms obligation running against AbbVie (Customer): Section 5.9.1 restricts Harpoon's dealings with Third Parties, Section 5.9.3 is a notice/copy right in AbbVie's favour regarding Proposed Future In-Licensed Rights, and Section 6.1 is a simple upfront payment. Consistent with the detection guidance, any third-party-terms mechanics here either burden the Vendor or are optional elections for us, so marking compliant and not redlining is correct; the rationale accurately reflects the cited text and states this meets the preferred position.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.18175625,
+    "durationMs": 44951,
+    "id": "f-mincommit-534c34c9",
+    "paragraphIds": [
+      "p0340",
+      "p0378",
+      "p0379"
+    ],
+    "producedBy": "drafter",
+    "quote": "4.5.1 Commercial Supply of Licensed Compounds or Licensed Products. Effective on the License Option Exercise Closing Date, as between the Parties, AbbVie shall have the sole right, at its expense, to Manufacture (or have Manufactured) and supply the Licensed Compound and Licensed Products for commercial sale in the Territory by AbbVie and its Affiliates and Sublicensees.",
+    "rationale": "This agreement contains no minimum purchase commitment, take-or-pay, shortfall or volume-restriction construct binding AbbVie, so it meets the preferred position. Targeted searches for \"minimum\", \"purchase\", \"take or pay\", \"shortfall\", \"quantities\" and \"supply\" returned no volume commitment: the only \"minimum\" hits are mutual insurance limits (Section 11.6), and the sole \"purchase\" reference is a Distributor definition carve-out in Section 5. Under Section 4.5.1 AbbVie holds the sole right (not an obligation) to Manufacture and supply commercial product, so there is no obligation to buy volumes from Harpoon; the Manufacturing Technology Transfer provisions in Sections 4.5.2–4.5.3 run in our favour and are not flagged. AbbVie's payment obligations are the Section 6.1 upfront and the Section 6.2/6.3 development, regulatory and sales milestones plus royalties on Net Sales — i.e. event- and sales-based consideration, not fees for unpurchased volume. The diligence obligations (Commercially Reasonable Efforts in Sections 3 and 4.2) and the milestone schedule are separate commercial terms handled under other rules and are deliberately not double-flagged here.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-4-2",
+    "sectionRef": "§ 4 COMMERCIALIZATION",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant, and the rendered redline is identical to the original paragraphs with no comment — consistent with the expectation that compliant findings carry no edit or negotiation ask. The cited text supports the conclusion: Section 4.5.1 gives AbbVie (our party) the sole right, not an obligation, to Manufacture and supply commercial product, so there is no obligation to purchase volumes from Harpoon. Sections 6.1–6.3 impose event-based (upfront/milestone) and sales-based (royalty) consideration, not fees for unpurchased volume, so no take-or-pay, shortfall or minimum-volume construct binds us — this meets the MINCOMMIT preferred position. Rationale appropriately notes the only 'minimum' hits are mutual insurance limits and the 'purchase' hit is a Distributor definitional carve-out, and correctly declines to double-flag diligence/milestone terms handled under other rules. No deterministic check failures; retaining this as internal compliance evidence rather than a negotiation issue is correct.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.12675075,
+    "durationMs": 33674,
+    "id": "f-nosolicit-2b87af51",
+    "paragraphIds": [
+      "p0641"
+    ],
+    "producedBy": "drafter",
+    "quote": "ARTICLE 13 MISCELLANEOUS",
+    "rationale": "Full-text searches for \"solicit\", \"employ or engage\", \"hire\", \"recruit\" and \"induce\" return no hits, and the miscellaneous covenants in Article 13 (force majeure, change in control) contain no restrictive covenant on hiring. The Article 9 confidentiality provisions likewise only restrict disclosure by employees, not solicitation of them. AbbVie is therefore subject to no non-solicitation or no-hire restriction, which matches the preferred position (no non-solicit on Customer). No redline required; we should resist any non-solicit added in later drafts beyond the fallback (services personnel only, 12 months, general-advertising and unsolicited-approach carve-outs, no no-hire).",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-13-2",
+    "sectionRef": "§ 13 MISCELLANEOUS",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-solicit duration ≤ 12 months",
+          "ok": false
+        },
+        {
+          "name": "general-solicitation carve-out present",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant and matches the playbook's preferred position for this rule, which is the absence of any non-solicit binding the Customer; nothing in the supplied paragraph (an Article 13 'MISCELLANEOUS' heading) or elsewhere in the cited material contains 'solicit', 'employ or engage', 'no-hire' or 'induce ... to leave' language. Consistent with a compliant finding, no redline and no counterparty comment were proposed — the rendered redline is identical to the original text, so there is no over-flagging or invalid edit to correct. The failed deterministic checks (duration ≤ 12 months, general-solicitation carve-out) are keyed to the fallback wording of an existing non-solicit; they are not probative where no non-solicit clause exists at all, so they do not undermine the finding. Evidence is thin in that only an article heading is cited rather than affirmative clause text, but that is inherent to an absence-based compliant conclusion, and the rationale's note to resist any later-draft non-solicit beyond the fallback is accurate to the rule.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.1445485,
+    "durationMs": 39426,
+    "id": "f-renewal-01034584",
+    "paragraphIds": [
+      "p0582",
+      "p0583",
+      "p0590"
+    ],
+    "producedBy": "drafter",
+    "quote": "12.1.1 Term. This Agreement shall commence on the Effective Date and, unless earlier terminated in accordance herewith, shall continue in force and effect until (a) the date of expiration of the last Royalty Term for the last Licensed Product, or (b) the expiration of the License Option Period and the failure of AbbVie to exercise the License Option (such period, the \"Term\").",
+    "rationale": "The Term runs from the Effective Date to a fixed, event-based endpoint (expiry of the last Royalty Term, or lapse of the License Option), with no evergreen or automatic renewal mechanic, no non-renewal notice window, and no renewal price-uplift language anywhere in the document (a search for \"renew\" returns only an unrelated reference to Regulatory Approval renewals in § 1.40). There is therefore no auto-renewal lock-in for us to exit: the renewal risk the rule addresses is structurally absent, and any extension would require mutual written agreement, which matches the preferred position. Our exit position is in fact better than the playbook baseline because § 12.3 lets AbbVie terminate in its entirety or country-by-country for any or no reason on 90 days' notice. No redline warranted.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-12-2",
+    "sectionRef": "§ 12 TERM AND TERMINATION",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "detail": "value=90",
+          "name": "non-renewal notice window ≤ 60 days",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected output; the rendered redline is identical to the original paragraphs, so no invalid or directionally wrong edit was introduced. The cited Term clause (§ 12.1.1) sets a fixed, event-based expiry (last Royalty Term / lapse of the License Option) with no evergreen or automatic renewal mechanic, no non-renewal notice window and no renewal price-uplift language, so any extension would require mutual written agreement — the RENEWAL preferred position. The failed deterministic check (value=90) is a false positive: the 90 days is AbbVie's termination-for-convenience notice under § 12.3, not a non-renewal notice window, and that provision benefits our party (AbbVie/licensee), so it must not be flagged. Rationale is accurate and appropriately retained as internal evidence rather than a negotiation issue; no actionable proposal is required for a compliant finding.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.29421775,
+    "durationMs": 79960,
+    "id": "f-transition-b542c8f8",
+    "paragraphIds": [
+      "p0596",
+      "p0599",
+      "p0623",
+      "p0625",
+      "p0632",
+      "p0640",
+      "p0594"
+    ],
+    "producedBy": "drafter",
+    "quote": "(c) subject to Section 12.10.2 and Section 12.7 (solely following the License Option Exercise Closing Date), AbbVie shall cease any and all Exploitation of Licensed Compounds and Licensed Products and transfer to Harpoon, or destroy (at Harpoon's sole election), copies of all data and Information generated by AbbVie in connection with the Exploitation of Licensed Compounds or Licensed Products, and all rights in such Licensed Compounds and Licensed Products shall revert back to Harpoon",
+    "rationale": "This is a development/option and licence agreement, not a hosting or services arrangement, and Article 12 already contains a developed exit architecture: Sections 12.6–12.8 govern effects of termination and reversion (transfer of data, Information and Regulatory Documentation, reversion licences, and Harpoon-requested assistance under 12.7.3 and 12.7.8), Section 12.10.2 gives AbbVie a wind-down/sell-off period for inventory after termination, and Section 12.5.2 entitles the non-debtor Party (potentially us) to a complete duplicate of, or access to, all licensed Intellectual Property and its embodiments in a bankruptcy. Directionally, the data-transfer and transition-assistance obligations on termination run against our party (AbbVie transfers or destroys data at Harpoon's election and provides reversion assistance for Harpoon Reversion Products); Harpoon holds no \"Customer Data\" of ours requiring return, and our inbound transition rights (IND transition under Section 3, and the Manufacturing Technology Transfer with reasonable assistance under Sections 4.5.2–4.5.3) are already secured during the Term. The purpose of the rule — orderly exit with data and continuity — is therefore met, at or around the fallback level; the only sub-elements short of the preferred wording (a fixed six-month assistance window and a written deletion certification) are noted here rather than flagged, since inserting a mirror data-return duty on Harpoon would add nothing for us and could invite reciprocal tightening of our own reversion obligations.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-12-2",
+    "sectionRef": "§ 12 TERM AND TERMINATION",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "data return/transition present",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected output for a compliant finding; there is no over-flagging or invalid edit to correct — the rendered redline is byte-identical to the originals. The cited text substantively supports the rule's purpose: Section 12.6.1(c) provides for transfer or destruction of all data and Information on termination, Section 12.7 (including 12.7.2 and 12.7.8) provides a reversion architecture with requested assistance, Section 12.10.2 gives a defined post-termination sell-off/wind-down period, and Section 12.5.2 gives the non-debtor Party (potentially us) a complete duplicate of or access to licensed IP and its embodiments. That is at or around the fallback level of orderly exit with data continuity. The failed deterministic regex ('data return/transition present') is a phrasing artifact: this pharma development/option agreement expresses exit mechanics as reversion, data transfer/destruction and technology transfer rather than 'Customer Data export', so the check is weak evidence here and does not undercut the substance. Directional analysis is correct: the termination data-transfer and assistance duties run against AbbVie (our party) in Harpoon's favour, and the counterparty holds no 'Customer Data' of ours requiring return; inserting a mirror data-return duty on Harpoon would gain us nothing and risks inviting reciprocal tightening of our own reversion obligations. Consistent with not flagging terms that benefit us. Sub-elements short of the preferred wording (no fixed six-month assistance window, no written deletion certification) are appropriately noted in the rationale rather than raised as a deviation, per the classification semantics.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.390044,
+    "durationMs": 69086,
+    "id": "f-warranty-c04dfefc",
+    "paragraphIds": [
+      "p0527",
+      "p0330",
+      "p0552",
+      "p0557"
+    ],
+    "producedBy": "drafter",
+    "quote": "10.5 DISCLAIMER OF WARRANTIES. EXCEPT FOR THE EXPRESS WARRANTIES SET FORTH HEREIN, NEITHER PARTY MAKES ANY REPRESENTATIONS OR GRANTS ANY WARRANTIES, EXPRESS OR IMPLIED, EITHER IN FACT OR BY OPERATION OF LAW, BY STATUTE OR OTHERWISE, AND EACH PARTY SPECIFICALLY DISCLAIMS ANY OTHER WARRANTIES",
+    "rationale": "Harpoon (counterparty) gives a substantial express warranty package in Section 10.2 (title to and validity/enforceability of the Existing Patents, non-infringement of Third Party rights, right to grant the licenses, no breach of the Harpoon In-License Agreements, accuracy and completeness of Regulatory Documentation and Know-How, no false statements to FDA, no debarment), and these are backed by performance-standard covenants: Section 3.8.4 requires all Development activities, including the Initial Development Activities, to be performed \"in good scientific manner and in compliance with all Applicable Law\", and Section 10.3.3 requires Harpoon to employ Persons with appropriate knowledge, expertise and experience — the collaboration-agreement equivalent of the playbook's professional/workmanlike and compliance-with-laws warranties. Critically, the Section 10.5 disclaimer is expressly carved back for \"THE EXPRESS WARRANTIES SET FORTH HEREIN\", so it does not swallow those warranties and this is nowhere near the \"AS IS\" walk-away position. Remedies are real and appropriate to the deal type: AbbVie's material-breach notice and step-in/cost-recovery mechanics under Sections 3.1.2 and 3.6, indemnification under Section 11.2, and termination rights (including immediate termination on debarment under Section 10.2.14). The rule's fixed conformance window (12 months software / 90 days services) with repair-replace-refund is inapplicable to a drug development and option collaboration, where no software or services deliverables are supplied; that absence is noted rather than flagged. No redline proposed.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-10-2",
+    "sectionRef": "§ 10 REPRESENTATIONS AND WARRANTIES",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "warranty period ≥ 90 days or expressed in months/years",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant with no redline or comment, which is the expected output shape; nothing is raised with the counterparty, so there is no over-flagging risk. The cited text supports the conclusion: Section 10.2 contains a substantive express representation/warranty package from Harpoon (the counterparty), Section 3.8.4 imposes a performance standard ('good scientific manner and in compliance with all Applicable Law') and Section 10.3.3 requires appropriately qualified personnel — the deal-type analogues of the professional/workmanlike and compliance-with-laws elements. The Section 10.5 disclaimer expressly opens with 'EXCEPT FOR THE EXPRESS WARRANTIES SET FORTH HEREIN', so it does not swallow the express warranties; the clause is clearly not at the 'AS IS' walk-away position. The failed deterministic check (no 90-day/12-month conformance window) is correctly treated as an inapplicable sub-element rather than a deviation: this is a drug development and option collaboration with no software or services deliverables to conform to documentation, and the rationale flags the absence explicitly instead of hiding it. Rationale is accurate in citing remedy pathways actually present in this deal type (material-breach/step-in mechanics, indemnification, termination on debarment) rather than inventing a repair/replace/refund remedy.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.17946225,
+    "durationMs": 40791,
+    "id": "f-insurance-1b41201b",
+    "paragraphIds": [
+      "p0573",
+      "p0574",
+      "p0575",
+      "p0576",
+      "p0577",
+      "p0578",
+      "p0579"
+    ],
+    "producedBy": "drafter",
+    "quote": "11.6 Insurance. Each Party shall obtain and carry in full force and effect the minimum insurance requirements set forth herein. Such insurance (a) shall be primary insurance with respect to each Party's own participation under this Agreement, (b) shall be issued by a recognized insurer rated by A.M. Best \"A-VII\" (or its equivalent) or better, or an insurer pre- approved in writing by the other Party, and (c) shall list the other Party as an additional insured under the General Liability Policy.",
+    "rationale": "Section 11.6 contains a usable insurance covenant, so the rule is not missing. It obliges each Party (including Harpoon) to carry, throughout the Agreement, workers' compensation at statutory limits (11.6.1(a)), employer's liability (11.6.1(b)) and general liability including Clinical Trial Insurance on a per-occurrence and aggregate basis (11.6.1(c)), from A.M. Best \"A-VII\" or better carriers, with AbbVie named as additional insured, certificates of insurance on request, and post-termination tail cover where only claims-made policies are available (11.6.2). That covers the preferred position's CGL, workers' compensation and certificates-on-request elements, and Section 11.6.3 additionally preserves AbbVie's right to self-insure — a term that benefits us and should not be disturbed. Two sub-elements fall short of the preferred wording and are noted rather than flagged: (i) the dollar limits in 11.6.1(b)-(c) and the tail period in 11.6.2 are redacted as [***], so quantum cannot be verified from the face of the document and should be confirmed against the disclosure schedules; and (ii) there is no separate professional liability (E&O) or cyber/privacy line. The cyber gap is not material in this deal type — this is a development and option collaboration for licensed compounds, not a services or hosting engagement in which Harpoon processes AbbVie personal data or works on our premises, so the walk-away trigger (no insurance for a data-processing or on-site vendor) is not engaged, and the clinical-trial-specific general liability cover is the risk-appropriate substitute. Treating this as sitting at or above the fallback, the clause is compliant and we should not redline it.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-11-2",
+    "sectionRef": "§ 11 INDEMNITY",
+    "severity": "low",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "insurance obligation present",
+          "ok": true
+        }
+      ],
+      "notes": "The cited Section 11.6 is a genuine, usable insurance covenant (CGL with aggregate limits including Clinical Trial Insurance, workers' compensation at statutory limits, employer's liability, rated carriers, additional-insured status, certificates on request, and claims-made tail cover), so the 'missing' trigger for this rule is not engaged. Claimed status is compliant and, consistent with the expectation for compliant findings, no redline or counterparty comment was proposed; the rendered redline is identical to the original paragraphs. The rationale correctly treats the shortfalls (redacted [***] limits, absence of a separate E&O/cyber line) as noted sub-elements rather than material deviations, given this is a development/option collaboration rather than a data-processing or on-premises services engagement, so the walk-away trigger is not met. Section 11.6.3 (AbbVie self-insurance) benefits our party and was properly left undisturbed. Minor: quantum cannot be verified because limits are redacted; the rationale appropriately flags this for confirmation against disclosure schedules rather than asserting compliance on limits.",
+      "verdict": "pass"
+    }
+  }
+]

@@ -12,7 +12,7 @@ import { textToDocx } from "@/src/engine";
 describe("evaluation runner", () => {
   it("supports an injected fake pipeline without network calls", async () => {
     const root = await mkdtemp(join(tmpdir(), "redliner-eval-test-"));
-    const contractId = "fake-contract";
+    const contractId = "synth-fake-contract";
     const contractDir = join(root, "contracts", contractId);
     await mkdir(contractDir, { recursive: true });
     const text = "1. TERM\n\n1.1 Customer may terminate for convenience on thirty days' notice.\n";
@@ -67,5 +67,32 @@ describe("evaluation runner", () => {
     expect(results[0].aggregate.detection.micro.tp).toBe(0);
     const artifact = JSON.parse(await readFile(join(root, "results", "b1-prompt.json"), "utf8")) as { config: string };
     expect(artifact.config).toBe("b1-prompt");
+    const trajectoryPath = join(root, "runs", "b1-prompt", contractId, "trajectory.jsonl");
+    await writeFile(trajectoryPath, "frozen replay artifact\n");
+
+    const tiered = await runEvaluation(
+      {
+        configs: ["b1-prompt"],
+        contracts: [contractId],
+        mode: "replay",
+        allowLive: false,
+        judgeMode: "replay",
+        concurrency: 1,
+        tier: "short",
+        contractsRoot: join(root, "contracts"),
+        cacheRoot: join(root, "cache"),
+        runsRoot: join(root, "runs"),
+        resultsRoot: join(root, "results"),
+        libreoffice: false,
+      },
+      { runReview: fakeRunReview, createLlmClient: () => fakeLlm },
+    );
+    expect(tiered[0]).toMatchObject({ config: "b1-prompt", tier: "short" });
+    expect(tiered[0].aggregate.completeRedline).toEqual({ eligible: 0, passing: 0, rate: 0 });
+    const tierArtifact = JSON.parse(
+      await readFile(join(root, "results", "b1-prompt.short.json"), "utf8"),
+    ) as { tier: string };
+    expect(tierArtifact.tier).toBe("short");
+    expect(await readFile(trajectoryPath, "utf8")).toBe("frozen replay artifact\n");
   });
 });

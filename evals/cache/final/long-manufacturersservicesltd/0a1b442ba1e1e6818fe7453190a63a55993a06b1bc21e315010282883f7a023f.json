@@ -1,0 +1,33 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYP4pasnKpCAj9UQsa37",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "**Finding: MISSING** — no vendor insurance covenant (confidence 0.86)\n\n**What I checked.** I searched the full document for insurance language and read every hit plus the planner's candidate analogues:\n\n- **SOW 13.1(b)** — the only MSL insurance obligation: replacement-value cover for *consigned Products only*, with IBM as joint insured.\n- **SOW 21.2 (Care)** — obliges *IBM* to insure its own tooling; MSL is only jointly insured \"where possible.\" Runs the wrong direction for this rule.\n- **Loan Agreement § 8** — IBM *relieves* MSL of risk of loss on Loaned Items (favourable to MSL, but no insurance).\n- **§ 10.0** — premises terms deferred to a separate Lease of Premises Agreement not in this document.\n- **§ 16.0 General (16.1–16.21)** — no insurance subsection anywhere.\n\n**Why it fails the fallback.** The existing cover is purely first-party property insurance on inventory. There is no commercial general liability, no professional liability, no cyber/privacy and no workers' compensation cover, so the document does not reach even the fallback (E&O USD 1M / cyber USD 2M). The exposure is real rather than theoretical: MSL occupies IBM premises under the lease, holds both IBM and IBM-customer consigned inventory (13.1(a)), and accesses IBM applications, networks and customer integration data under SOW 24.1 — the precise profile the rule targets. The absence of any liability cover for a vendor on our premises handling our customers' data sits in walk-away territory.\n\n**Redline** (validated `ok:true`): a new **Section 16.22 Insurance** inserted at the end of the General section, at the preferred limits — CGL USD 1M per occurrence / 2M aggregate, E&O USD 2M, cyber USD 5M where MSL touches IBM or IBM-customer data, statutory workers' compensation, certificates on request, term plus one year.\n\nTwo drafting points worth flagging for the negotiation:\n\n- I expressly preserved the 13.1(b) consigned-Products cover (\"in addition to\") so the new clause cannot be read as narrowing or superseding a protection we already hold.\n- The comment offers the fallback limits (E&O USD 1M / cyber USD 2M) up front, since MSL's existing programme may already sit near that level and this is a low-severity rule not worth stalling on.\n\nOne item outside my scope to verify: the separate **Lease of Premises Agreement** may already carry premises-related liability and property cover. If it does, the CGL limb here may overlap and could be trimmed — worth confirming against that document before sending."
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1269,
+      "cache_read_input_tokens": 28334,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1269,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 896,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "durationMs": 13173
+}

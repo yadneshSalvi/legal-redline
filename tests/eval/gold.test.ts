@@ -119,6 +119,20 @@ describe("GoldFileSchema", () => {
     expect(() =>
       assertEvaluationLabelers("synth-example", unreviewedSynthetic),
     ).toThrow(/missing reviewedBy/);
+
+    const agentReviewed = GoldFileSchema.parse({
+      contractId: "long-example",
+      items: [{
+        id: "g003",
+        ruleId: "T4C",
+        paragraphIds: [],
+        status: "missing",
+        labeler: "agent-reviewed",
+        reviewedBy: "evaluation scientist",
+      }],
+    });
+    expect(() => assertEvaluationLabelers("long-example", agentReviewed)).not.toThrow();
+    expect(() => assertEvaluationLabelers("cuad-example", agentReviewed)).toThrow(/unapproved labelers/);
   });
 
   it("accepts every promoted CUAD contract through the evaluation labeler gate", async () => {

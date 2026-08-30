@@ -1,0 +1,67 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYQzs7JPrEtxW33wX9JD",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll start by inspecting the candidate sections and searching for governing law language."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01VetDphnS5oopj8WVDe39fR",
+        "name": "read_section",
+        "input": {
+          "sectionId": "sec-13-2"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01UGEW5p5z72P6fwMatLqwGi",
+        "name": "search",
+        "input": {
+          "query": "governed by the laws"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 635,
+      "cache_read_input_tokens": 3316,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 635,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 127,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "read_section",
+      "ruleId": "GOVLAW",
+      "sha256": "a5a51f4694debfe079ba29fc1fef1df1f5f4d0dafb329ed216e1bf0291de3a7d"
+    },
+    {
+      "name": "search",
+      "ruleId": "GOVLAW",
+      "sha256": "72c0dcf6859b50dd3c0259bf9dd30f3ed3cdffcc3910abf864aa405a97c38f2e"
+    }
+  ],
+  "durationMs": 2259
+}

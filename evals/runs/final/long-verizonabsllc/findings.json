@@ -1,0 +1,643 @@
+[
+  {
+    "confidence": 0.82,
+    "costUsd": 0.276347,
+    "durationMs": 66838,
+    "id": "f-indemn-d2bcb466",
+    "paragraphIds": [
+      "p0288",
+      "p0291",
+      "p0292",
+      "p0293",
+      "p0294",
+      "p0296",
+      "p0298"
+    ],
+    "producedBy": "drafter",
+    "quote": "(i) The Servicer will indemnify the Issuer, the Owner Trustee and the Indenture Trustee (including in its capacity as Note Paying Agent), and their officers, directors, employees and agents (each, an \"Indemnified Person\") for all fees, expenses, losses, claims, actions, suits, damages and liabilities (including reasonable legal fees and expenses) resulting from the Servicer's (including in its capacity as Custodian) willful misconduct, bad faith or gross negligence in performing its obligations under the Transaction Documents",
+    "rationale": "Section 6.3 gives us a counterparty-side indemnity: Cellco, as Servicer (including as Custodian) and as Marketing Agent, indemnifies the Issuer and the trustees and their officers, directors, employees and agents for all claims, actions, suits, damages, liabilities and reasonable legal fees resulting from its willful misconduct, bad faith or gross negligence, with standard procedure (prompt notice that is not a condition to recovery absent prejudice, counterparty-funded defence with counsel reasonably satisfactory to the Indemnified Person, separate counsel on conflict, and no settlement without consent), plus survival beyond resignation, termination and trustee removal. The indemnity is uncapped, so it is better than the fallback's 3x super-cap, and there is no reverse indemnity from the Issuer or Depositor anywhere in the agreement (Article IX imposes only perfection, expense and non-petition/limited recourse covenants), so the walk-away risk of a one-way customer indemnity is absent. Two minor points we note but do not redline: there is no IP-infringement limb (immaterial here, as this transfer and servicing agreement involves no vendor deliverables, licensed technology or IP grant), and the Depositor is not itself an \"Indemnified Person\" under Section 6.3(a), which is consistent with the transaction structure where the Depositor's recourse runs through the originator/transfer documents.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-vi",
+    "sectionRef": "§ VI SERVICER AND MARKETING AGENT",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": false
+        }
+      ],
+      "notes": "The cited Section 6.3 does contain a counterparty-side (Servicer/Marketing Agent, i.e., Cellco) indemnity running to the Issuer and trustees for willful misconduct, bad faith and gross negligence, with the standard procedural mechanics the rule expects (prompt notice that is not a condition to recovery absent prejudice, counterparty-funded defence with counsel reasonably satisfactory to the Indemnified Person, separate counsel on conflict) and survival — so the walk-away scenario (no counterparty indemnity, or one-way customer indemnity) is not present. The indemnity is uncapped and there is no reciprocal Issuer/Depositor indemnity for the Servicer's services, so on the material terms the clause is at least as protective as the fallback (which would tolerate a 3x super-cap). The failed deterministic check for an IP-infringement limb is a context artifact: this is a securitization transfer and servicing agreement with no deliverables, licensed technology or IP grant, so the absent IP limb is a non-material sub-element. The rationale discloses it (and the Depositor's exclusion from 'Indemnified Person') rather than overstating compliance, which is the correct treatment under the playbook's classification semantics. Consistent with a compliant finding, no redline or counterparty comment was proposed; the record is retained as internal evidence and no actionable edit is required.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0,
+    "costUsd": 0.320547,
+    "durationMs": 60569,
+    "id": "f-ip-1c9a02e8",
+    "paragraphIds": [],
+    "producedBy": "drafter",
+    "quote": "",
+    "rationale": "Worker failed and requires manual review: Tool loop exceeded 12 iterations",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionRef": "§ —",
+    "severity": "critical",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Tool loop exceeded 12 iterations",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.38469175,
+    "durationMs": 63490,
+    "id": "f-assign-ad4fd7dd",
+    "paragraphIds": [
+      "p0406",
+      "p0407",
+      "p0249",
+      "p0348",
+      "p0314",
+      "p0300",
+      "p0047"
+    ],
+    "producedBy": "drafter",
+    "quote": "(a) Assignment. Except as stated in Sections 5.3, 7.4 and 7.6, this Agreement may not be assigned by the Depositor or the Servicer without the consent of the Owner Trustee, the Indenture Trustee, the Certificateholders and the Noteholders of at least 66-2/3% of the Note Balance of the Controlling Class.",
+    "rationale": "Section 10.2(a) imposes a symmetric consent requirement on our Depositor and on Cellco as Servicer, but expressly carves out Sections 5.3, 7.4 and 7.6. Section 5.3 lets the Depositor's merger/consolidation counterparty, business successor, or an Affiliate assignee become the successor Depositor without consent (notice/officer's certificate and opinions only), which is the affiliate/successor M&A carve-out the playbook requires; Section 7.6 gives Cellco the mirror-image treatment. The Issuer is not restricted at all, and Section 2.2 acknowledges the Issuer's assignment and pledge of the Depositor Transferred Property to the Indenture Trustee for the Secured Parties, so our financing-side transfers are preserved and Section 10.2(b) binds permitted successors and assigns. There is no change-of-control trigger anywhere in the document (no \"change of control\" language), and Section 7.1 is a \"No Resignation\" covenant barring Cellco from resigning unless legally unable to perform, so the counterparty has no exit or re-pricing right on our reorganisation — the walk-away scenarios are absent. Two points short of the pure preferred position are noted rather than flagged: the third-party consent gate is not expressed as \"not to be unreasonably withheld\" and there is no competitor bar on a Servicer assignment (both are structural noteholder/rating-agency protections in a securitization and apply symmetrically), and Section 6.4 permits Cellco free delegation while it is Servicer or Custodian — acceptable because no delegation or contracting relieves it of responsibility for those obligations. On its material terms the package sits at or above the fallback (mutual assignment to successors with notice), so we do not redline.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-x",
+    "sectionRef": "§ X MISCELLANEOUS",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "successor/affiliate carve-out for Customer present",
+          "ok": true
+        }
+      ],
+      "notes": "Compliant finding with no redline or comment, which is the expected output; the cited paragraphs support the conclusion. Section 10.2(a) imposes a symmetric consent gate on the Depositor and the Servicer, and Sections 5.3 and 7.6 supply mirror-image merger/consolidation/business-successor/Affiliate carve-outs with notice, Officer's Certificate and opinions only — i.e., at least the fallback position (mutual assignment to successors with notice), so no redline is warranted. No 'change of control' trigger appears in the cited text, and Section 7.1 (No Resignation) prevents the Servicer from exiting absent legal inability, so the walk-away scenarios (blanket bar on Customer assignment without M&A carve-out; Vendor termination/re-pricing on change of control) are absent. Shortfalls from the pure preferred wording (no 'not unreasonably withheld' standard, no competitor bar, free Cellco delegation under Section 6.4 mitigated by continuing responsibility) are correctly noted in the rationale rather than flagged as deviations, consistent with the classification semantics. Deterministic check (successor/affiliate carve-out present) is consistent with the compliant classification.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.25516775,
+    "durationMs": 45104,
+    "id": "f-exclusivity-d1b2c4f7",
+    "paragraphIds": [
+      "p0150",
+      "p0137",
+      "p0335"
+    ],
+    "producedBy": "drafter",
+    "quote": "(a) Appointment of Marketing Agent. The Issuer and the Servicer appoint Cellco to act as Marketing Agent for the Receivables. Cellco accepts the appointment and agrees to perform its obligations set forth in this Agreement.",
+    "rationale": "No exclusivity, \"sole supplier\" or requirements-purchasing covenant binds us (the Issuer or the Depositor) anywhere in the agreement. The only \"exclusive\" references are (i) Section 9.10's notice of exclusive control over the Cap Collateral Account — a control right that runs in the Issuer's favour — and (ii) the nonexclusive jurisdiction clause in Section 10.6, neither of which is a restrictive covenant. Cellco's appointments as Servicer (Article III), Custodian (Section 3.10) and Marketing Agent (Section 3.11) are ordinary service appointments, not stated to be exclusive, and they do not restrict us from engaging other providers: Section 7.2 gives us Servicer Termination Events and Section 7.4 expressly contemplates appointment of a Successor Servicer (including an unaffiliated institution whose regular business includes servicing receivables). This meets the preferred position of no exclusivity obligation on the customer, so no redline is warranted.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-iii",
+    "sectionRef": "§ III SERVICING OF RECEIVABLES",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no requirements/sole-supplier obligation on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and the redline is identical to the original paragraphs with no comment, which is the expected output for a compliant finding. The cited appointments (Marketing Agent, Custodian, Servicer) contain no 'exclusive', 'sole supplier' or requirements-purchasing language binding the Issuer/Depositor, and Section 7.4's Successor Servicer mechanics confirm we can engage other providers, supporting the preferred position. Rationale correctly treats the 'exclusive control' over the Cap Collateral Account (a right in our favour) and the nonexclusive jurisdiction reference as non-restrictive, consistent with the detection guidance. Deterministic check confirms no requirements/sole-supplier obligation remains; no over-flagging or unnecessary edit.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.266963,
+    "durationMs": 55208,
+    "id": "f-ld-87883a3a",
+    "paragraphIds": [
+      "p0347",
+      "p0339",
+      "p0363"
+    ],
+    "producedBy": "drafter",
+    "quote": "(c) Expenses of Servicing Transition. All reasonable expenses incurred by the Issuer, the Owner Trustee, the Indenture Trustee and the Successor Servicer in connection with (i) the transition of servicing rights and obligations to the Successor Servicer and (ii) amending this Agreement or entering into an assumption agreement or new agreement to reflect a succession of the Servicer will be paid by the resigning or terminated Servicer on receipt of an invoice in reasonable detail.",
+    "rationale": "Searches for \"liquidated damages\", \"penalty\", \"termination fee\", \"make-whole\" and \"forfeit\" return no provision imposing liquidated damages or a penalty on the Issuer or Depositor (our parties). This meets the preferred position of no Customer-payable liquidated damages or penalties, so no redline is warranted. The termination architecture in fact runs in our favour: on Servicer resignation or removal under Article VII there is no break fee, make-whole or minimum-fee payable by the Issuer to Cellco, Cellco must continue performing and assumes the Section 2.5/2.6 and Master Trust receivables-acquisition obligations (p0316, p0327), and Section 7.5(c) makes the resigning or terminated Servicer bear all reasonable transition expenses of the Issuer, the Trustees and the Successor Servicer (p0347). Section 8.3 termination is event-driven with no exit payment. Two items noted but not deviations: (i) the $150,000 appointment fee and Additional Successor Servicer Fee under Section 7.4(c) (p0339) are compensation for services rendered by a third-party replacement servicer paid out of Collections, not a liquidated amount owed to the counterparty; and (ii) Make-Whole Payments under Article VIII are noteholder prepayment economics arising only from a voluntary Optional Redemption elected by the Class A Certificateholder, not a penalty imposed on us by the Servicer/Marketing Agent. Marketing Agent and Servicer deposit/remittance shortfall mechanics in Articles IV and VI likewise impose payment obligations on the counterparty, which benefit our side and are not flagged.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-vii",
+    "sectionRef": "§ VII SERVICER RESIGNATION AND TERMINATION; SUCCESSOR SERVICER",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the redline is byte-identical to the original paragraphs with no comment, which is the expected output for a compliant finding. Cited text supports the preferred position: Section 8.3 termination is event-driven with no exit payment, and Section 7.5(c) places transition expenses on the resigning/terminated Servicer (counterparty), so no Customer-payable liquidated damages or penalty exists. The two noted items are correctly characterised as non-deviations: the $150,000/Additional Successor Servicer Fee is compensation to a third-party replacement servicer paid from Collections rather than a liquidated amount owed to the counterparty, and Make-Whole Payments arise from a voluntary Optional Redemption, i.e. noteholder prepayment economics, not a penalty imposed on us. Detection guidance is respected — obligations running against the Servicer/Marketing Agent benefit our side and are properly left unflagged.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.62,
+    "costUsd": 0.4505545,
+    "durationMs": 132761,
+    "id": "f-license-2a614953",
+    "paragraphIds": [
+      "p0346",
+      "p0105"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 7.5(b) currently lets the Servicer withhold any licence of its servicing processes, models and software from us and any Successor Servicer, leaving no path for our affiliates or the contractors who would actually run servicing; our playbook requires a licence extending to affiliates and contractors acting on our behalf that is not revocable at will and is transferable to a successor. We have added a narrow grant limited to servicing the Receivables and expressly subject to the Servicer's third-party and legal restrictions, and we can accept affiliates being added on written notice if that is easier.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Except as provided in the following sentence, the Servicer will not be obligated to provide, license or assign its processes, procedures, models, servicing software or other applications to any Successor Servicer or any third party, or provide anything covered by a restriction on transfer or assignment or a confidentiality agreement or otherwise restricted by legal, regulatory, privacy or data protection policies. To the extent the Servicer is legally and contractually able to do so, the Servicer grants to the Issuer, the Indenture Trustee, any Successor Servicer and their respective Affiliates and contractors acting on their behalf a non-exclusive license, transferable to any subsequent Successor Servicer and revocable only for a material breach of this Section 7.5(b) that remains uncured for thirty (30) days after notice, to use the Servicer's processes, procedures, models, servicing software and other applications solely as necessary to service and administer the Receivables following the Servicer's resignation or termination.",
+          "oldText": "The Servicer will not be obligated to provide, license or assign its processes, procedures, models, servicing software or other applications to any Successor Servicer or any third party, or provide anything covered by a restriction on transfer or assignment or a confidentiality agreement or otherwise restricted by legal, regulatory, privacy or data protection policies.",
+          "paragraphId": "p0346"
+        }
+      ],
+      "precedentId": "seed-license",
+      "summary": "Carve a limited, non-revocable servicing-platform licence out of the Servicer's blanket refusal to license its processes and software on transition"
+    },
+    "quote": "The Servicer will not be obligated to provide, license or assign its processes, procedures, models, servicing software or other applications to any Successor Servicer or any third party, or provide anything covered by a restriction on transfer or assignment or a confidentiality agreement or otherwise restricted by legal, regulatory, privacy or data protection policies.",
+    "rationale": "The Agreement contains no licence grant in our favour: Article IX has no name/mark or systems-use licence, and the only licence-adjacent provision is Section 7.5(b) (p0346), which expressly relieves Cellco as Servicer of any obligation to provide, license or assign its servicing processes, models, software or applications to the Issuer or any Successor Servicer. That is an outright exclusion of the operational users the playbook protects — our affiliates and the Successor Servicer and contractors who would actually run servicing — with no path to add them, which sits in walk-away territory rather than at the fallback (affiliates on written notice, transferable to a successor). Section 7.5(a) cooperation on transition does not cure this, since cooperation confers no right to use the servicing platform. Our redline inserts a narrow non-exclusive licence extending to Affiliates and contractors acting on our behalf, transferable to a subsequent Successor Servicer and revocable only for uncured material breach, limited to servicing the Receivables and expressly subject to the Servicer's legal and third-party restrictions, so the existing carve-outs for confidentiality, privacy and data protection are preserved. We did not flag the revocable power of attorney in Section 3.2(f) (p0105): that authority is granted by the Issuer to the Servicer and its revocability runs in our favour.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-vii",
+    "sectionRef": "§ VII SERVICER RESIGNATION AND TERMINATION; SUCCESSOR SERVICER",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "affiliates covered by the licence",
+          "ok": true
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.647 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0346",
+          "ok": false
+        }
+      ],
+      "notes": "Classification is defensible: Section 7.5(b) is the only licence-adjacent provision and it affirmatively negates any obligation to license the servicing processes, models or software to the Issuer, a Successor Servicer or any third party, with no mechanism to add affiliates or contractors — squarely the rule's walk-away scenario, so 'deviation' (rather than fallback-compliant) is correct. No fallback compliance exists in the cited text: there is no affiliates-on-notice mechanic and no successor transferability, so this is not an over-flag of an acceptable fallback. The redline is directionally right and reaches the playbook position: it adds a non-exclusive grant covering the Issuer, Successor Servicer and their Affiliates and contractors acting on their behalf, makes it transferable to a subsequent Successor Servicer, and removes at-will revocation by limiting revocation to uncured material breach with a 30-day cure. The edit is appropriately narrow despite the advisory changed-character ratio: the original exclusion sentence is preserved (subject to an 'except as provided in the following sentence' hinge) and the new grant is qualified by the Servicer's legal and contractual ability and limited to servicing the Receivables, so confidentiality, privacy and data-protection carve-outs remain intact — an insertion of this kind is necessarily the minimum edit since no grant existed. Comment is accurate, concise, in the required voice, cites the playbook position and offers the affiliates-on-written-notice fallback; the rationale also correctly declines to flag the Section 3.2(f) revocable power of attorney, whose revocability runs in our favour, avoiding a false positive.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.51587175,
+    "durationMs": 150546,
+    "id": "f-lol-cap-b4eb533b",
+    "paragraphIds": [
+      "p0283",
+      "p0243",
+      "p0291"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 6.2(a) limits Cellco's liability to willful misconduct, bad faith or gross negligence, while the mirror provision for the Depositor (Section 5.2(a)) contains no such \"only\" — so we have deleted \"only\" to restore mutuality. We have also confirmed that the Servicer's and Marketing Agent's specific obligations, including the Servicer Deposit Obligation, the Servicer Acquisition Obligation, remittance of Collections and the Section 6.3 indemnities, sit outside any limitation on liability, consistent with our position that indemnification and core performance obligations are never capped; we are not proposing a fees-based cap, which would be illusory here.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Each of the Servicer and the Marketing Agent, severally and not jointly, will be liable for its own willful misconduct, bad faith or gross negligence in performing its obligations under this Agreement. Notwithstanding the foregoing, nothing in this Section 6.2 will limit, waive or release the liability of the Servicer or the Marketing Agent for the performance of its specific obligations under this Agreement and the other Transaction Documents, including the Servicer Deposit Obligation, the Servicer Acquisition Obligation, its obligations to deposit or remit Collections and its indemnification obligations under Section 6.3, none of which will be subject to any limitation or cap on liability.",
+          "oldText": "Each of the Servicer and the Marketing Agent, severally and not jointly, will be liable only for its own willful misconduct, bad faith or gross negligence in performing its obligations under this Agreement.",
+          "paragraphId": "p0283"
+        }
+      ],
+      "summary": "Remove the one-sided \"only\" exculpation in Section 6.2(a) and confirm the Servicer's/Marketing Agent's specific obligations (deposit, acquisition and indemnity) sit outside any liability limitation."
+    },
+    "quote": "Each of the Servicer and the Marketing Agent, severally and not jointly, will be liable only for its own willful misconduct, bad faith or gross negligence in performing its obligations under this Agreement.",
+    "rationale": "The only limitation-of-liability language is the exculpation regime in Section 6.2(a) (counterparty) and Section 5.2(a) (our Depositor); there is no monetary cap anywhere, and the absence of a cap favours us as claimant, so we do not push a fees-based cap (a Servicing Fee-based cap would be illusory). The material failure is direction and mutuality: Section 6.2(a) makes Cellco liable \"only\" for willful misconduct, bad faith or gross negligence, whereas the mirror provision for the Depositor (p0243) omits \"only\". Coupled with the blanket waiver of \"All other liability\", the counterparty's exculpation is capable of excusing ordinary breach of its core performance obligations — the Servicer Deposit Obligation, the Servicer Acquisition Obligation and remittance of Collections — which are our principal recourse, i.e. an effectively zero-value, one-sided limitation in the counterparty's favour (walk-away territory under this rule). The Section 6.3 indemnities are likewise triggered only by willful misconduct, bad faith or gross negligence. The minimal edit deletes \"only\" to restore symmetry with Section 5.2(a) and states that the Servicer's/Marketing Agent's specific obligations and indemnities sit outside any limitation on liability, without importing a cap.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-vi",
+    "sectionRef": "§ VI SERVICER AND MARKETING AGENT",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "cap references 12 months of fees or a fixed floor",
+          "ok": false
+        },
+        {
+          "name": "no unlimited Customer liability language remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.720 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0283",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation classification is defensible: Section 6.2(a) limits the Servicer/Marketing Agent to liability 'only for its own willful misconduct, bad faith or gross negligence' and waives 'All other liability', so ordinary breach of core servicing obligations (Servicer Deposit/Acquisition Obligations, remittance of Collections) is excused — a liability limitation that fails the rule's fallback (no mutual cap basis, no carve-outs for indemnification/confidentiality) and is asymmetric to the Depositor mirror at p0243, which omits 'only'. Directionally correct for the customer: the drafter deliberately does not import a 12-month fees cap because no monetary cap currently exists and a Servicing Fee-based cap would both be illusory and reduce our recourse. The failed deterministic check on 'cap references 12 months of fees' is therefore an acceptable, well-reasoned departure rather than an incomplete edit — adding a cap would worsen our position. Redline is actionable and consistent with the redline guidance ('edit the existing sentence; add one carve-out sentence'): deleting 'only' restores symmetry with Section 5.2(a), and the single 'Notwithstanding the foregoing' sentence places the specific performance obligations and the Section 6.3 indemnities outside any limitation or cap. The 0.72 changed-character ratio is driven by that one added carve-out sentence, which the rule expressly contemplates. Comment is accurate, correctly cites the playbook position (indemnities/confidentiality outside the cap), explains why no fees-based cap is proposed, uses the required prefix and an appropriate concise tone. Caveat noted but not disqualifying: the asymmetry is narrower than the rationale suggests, since the first two sentences of Sections 5.2(a) and 6.2(a) are identical (each party liable only for specific obligations, all other liability waived), and this exculpation structure is standard in ABS servicing agreements between affiliated parties. Characterising it as full 'walk-away' territory overstates the case, so severity is adjusted down from critical to high.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.22676725,
+    "durationMs": 46195,
+    "id": "f-noncompete-400e0890",
+    "paragraphIds": [
+      "p0372",
+      "p0253",
+      "p0384"
+    ],
+    "producedBy": "drafter",
+    "quote": "Section 9.2 No Transfer or Lien by Depositor. Except for the transfer and assignment under this Agreement, the Depositor will not transfer or assign any Depositor Transferred Property to another Person or Grant or allow a Lien, other than a Permitted Lien, on an interest in any Depositor Transferred Property.",
+    "rationale": "No non-compete, exclusivity or field-of-use restriction binds us. Searches for \"compete\"/\"competing\", \"exclusiv\", \"solicit\", and \"will not engage/develop/market/sell\" return no restrictive covenant, and a full read of Article IX (Other Agreements) and Article V (Depositor) shows only transaction-protective covenants: Section 9.2 bars the Depositor from transferring or encumbering the Depositor Transferred Property already sold to the Issuer, Section 5.6/5.7 are standard SPE existence and no-division covenants, and the Issuer's only activity limits are the self-imposed Permitted Activities in the Trust Agreement. The Section 9.9 risk-retention transfer/hedging restriction binds Cellco as Sponsor (the counterparty), and the Section 9.10 Cap Collateral Account covenant merely constrains the Issuer's exercise of control over collateral it holds for its own benefit. None of these limits the businesses we may operate or the products we may buy or build, so the clause set meets the preferred position (no non-compete on Customer).",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-ix",
+    "sectionRef": "§ IX OTHER AGREEMENTS",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no open-ended compete restriction on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected output for a compliant finding — the rendered text is identical to the originals, so no invalid or directionally wrong edit exists. The cited paragraphs contain no non-compete, exclusivity or field-of-use restriction binding our party: Section 9.2 is a transaction-protective anti-transfer/anti-lien covenant over property already sold, Section 5.7 is a standard SPE no-division covenant, and Section 9.9 binds Cellco as Sponsor (counterparty side) and only restricts sale/transfer/financing/hedging of the retained Residual Interest as required by Regulation RR. None of the cited covenants limits what businesses we may operate or what products we may buy or build, so the preferred position (no non-compete on Customer) is met; the deterministic check confirming no open-ended compete restriction is consistent. Rationale accurately characterizes each cited provision and the negative-search evidence; retaining this as internal evidence rather than a negotiation issue is appropriate.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.68,
+    "costUsd": 0.53901475,
+    "durationMs": 145334,
+    "id": "f-t4c-d96bd497",
+    "paragraphIds": [
+      "p0314",
+      "p0327",
+      "p0363"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Article VII lets the Servicer be removed only for a Servicer Termination Event, leaving us with no no-fault exit over a multi-year engagement, so we have added a 30-day convenience termination right with a refund of prepaid amounts and no termination fee. We have preserved servicing continuity by conditioning effectiveness on a Successor Servicer accepting engagement under Section 7.4; if 30 days is too short we can live with 60 days' notice.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "Section 7.2A",
+          "paragraphId": "p0328",
+          "text": "Section 7.2A Termination for Convenience by the Issuer. In addition to and without limiting the rights set forth in Section 7.2, the Issuer may terminate the rights and obligations of the Servicer (including in its capacity as Custodian) under this Agreement for convenience, in whole or in part, at any time and without cause, upon thirty (30) days' prior written notice to the Servicer, the Parent Support Provider, the Owner Trustee and the Indenture Trustee. No termination fee, penalty or other compensation will be payable by the Issuer in connection with such termination, other than Servicing Fees accrued and unpaid for services performed through the effective date of termination, and the Servicer will refund to the Issuer any amounts prepaid in respect of the period after such effective date. Any such termination will become effective on the date stated in the notice of termination, but not before a Successor Servicer has accepted its engagement under Section 7.4, and Sections 7.3, 7.4 and 7.5 will apply to any termination under this Section 7.2A."
+        }
+      ],
+      "summary": "Add an Issuer right to terminate the Servicer for convenience on 30 days' notice, without fee, subject to Successor Servicer continuity"
+    },
+    "quote": "(c) Removal. If a Servicer Termination Event occurs and is continuing, the Indenture Trustee may and, if directed by the Noteholders of a majority of the Note Balance of the Controlling Class, must remove the Servicer and terminate its rights and obligations under this Agreement by notifying the Servicer, the Issuer, the Parent Support Provider, the Owner Trustee, and the Secured Parties.",
+    "rationale": "Counterparty side is better than our preferred position: Section 7.1 bars Cellco from resigning as Servicer except where legally unable to perform, and Section 7.3 requires it to keep performing until a Successor Servicer accepts engagement, so there is no Vendor termination-for-convenience right. However, on our side the only route to remove the Servicer is Section 7.2(c) for a Servicer Termination Event (i.e. for cause), and the Agreement runs until the last Receivable is paid in full or the Issuer is terminated (Section 8.3) — well beyond 12 months. The Optional Acquisition/Clean-Up Redemption (Section 8.1) and Optional Redemption (Section 8.2) are held by the Class A Certificateholder, defined as \"the Originators or their designee\" (counterparty-side), and require agreement on the Optional Acquisition Amount, so they are not a customer convenience exit. Absence of any Customer convenience right in a term longer than 12 months fails the fallback, so we have added a 30-day no-fee convenience termination right, conditioned on a Successor Servicer accepting engagement under Section 7.4 to preserve servicing continuity for the Noteholders.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-vii",
+    "sectionRef": "§ VII SERVICER RESIGNATION AND TERMINATION; SUCCESSOR SERVICER",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "Customer convenience termination present",
+          "ok": false
+        }
+      ],
+      "notes": "Classification is correct under the playbook's own semantics: removal of the Servicer is available only for a Servicer Termination Event (Section 7.2(c)), Section 7.1 bars resignation, and the Agreement runs until the last Receivable is resolved (Section 8.3) — i.e. no Customer convenience exit in a term far longer than 12 months, which the rule expressly treats as a deviation (indeed walk-away territory), not a fallback-compliant clause. The rationale correctly rules out the apparent alternatives: the Optional Acquisition/Clean-Up and Optional Redemption rights sit with the Class A Certificateholder (Originators or designee), i.e. counterparty-side, so they are not a Customer no-fault exit. Redline is directionally correct and reaches the preferred position with a proportionate edit: because no convenience right exists to amend, a new Section 7.2A is inserted granting a 30 days' notice, no-fee termination with refund of prepaid amounts, and no Vendor convenience right needs deleting (Section 7.1 already bars resignation), so the rule is fully addressed. The failed deterministic check ('Customer convenience termination present') is a phrasing variant only — the inserted clause vests the right in the Issuer, which is the customer-side party in this agreement's nomenclature; the substance matches the model language. Comment is accurate, concise, in the required voice, cites the playbook position, and offers the 60-day fallback; the successor-servicer condition is a sensible, disclosed concession that preserves continuity for Noteholders rather than a directional error. Caveat for the negotiator (not a defect in the finding): in an ABS structure the Issuer acts only through the Owner Trustee/Indenture Trustee at Certificateholder or Noteholder direction, so if this is pressed the exercise mechanics and any rating-agency/Noteholder consent conditions should be aligned with Sections 7.2–7.5.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.21095675,
+    "durationMs": 54366,
+    "id": "f-audit-ce37bb37",
+    "paragraphIds": [
+      "p0131",
+      "p0146",
+      "p0437"
+    ],
+    "producedBy": "drafter",
+    "quote": "Upon reasonable request not more than once during any calendar year, and with reasonable notice, the Servicer will give the Issuer, the Depositor, the Parent Support Provider, the Administrator, the Owner Trustee and the Indenture Trustee (or their representatives) access to the records and documents to conduct a review of the Servicer's performance under this Agreement.",
+    "rationale": "The direction of the audit/inspection rights in this agreement is inverted relative to the rule: every review right runs against the counterparty, not against us. Section 3.6 (p0131) gives the Issuer, Depositor and other transaction parties an annual, reasonable-notice review of the Servicer's (Cellco's) records at Cellco's offices, and Section 3.9(e) (p0146) gives the Depositor, Issuer and Indenture Trustee access to the Receivable Files and receivables systems held by Cellco as Custodian; the Regulation AB items (Compliance Statement, Servicing Assessment, Attestation Report and Annual Certification) are likewise deliverables of Cellco, at its cost. No provision grants Cellco or any other party an audit, inspection or verification right against the Issuer or the Depositor, and there is no obligation for us to bear audit costs or to grant access to our systems. Accordingly the rule's concerns (frequency, notice, cost, system access binding the customer) are not engaged, and these clauses benefit our party, so we do not redline them. Noted only for the record: the review right we hold is exercisable at the Servicer's offices and is subject to Cellco's security, confidentiality, privacy and data protection policies, which is customary for this deal type.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-iii",
+    "sectionRef": "§ III SERVICING OF RECEIVABLES",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "audit frequency limited",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and the rendered redline is byte-identical to the original with no counterparty comment, which is exactly what a compliant finding should look like — nothing is being over-flagged or wrongly rewritten. The cited text supports the rationale: Section 3.6 (p0131) grants the Issuer, Depositor and other transaction parties (our side) an annual, reasonable-notice review of the Servicer's (Cellco's) records at Cellco's offices during business hours, and Section 3.9(e) (p0146) gives us access to Cellco's Receivable Files and receivables systems. Both rights run against the counterparty, not against us. The AUDIT rule targets audit/inspection rights binding the Customer (frequency, notice, cost, system access). No provision in the cited material imposes audit obligations, audit costs or system access on the Issuer/Depositor, so the rule's risk is not engaged; treating this as compliant rather than a deviation or 'missing' clause is the correct classification for a protective rule. Sub-elements noted only in the rationale (review confined to Servicer's offices, subject to Cellco's security/confidentiality/privacy policies) are correctly recorded as customary observations rather than escalated as deviations. Deterministic check ('audit frequency limited') passes, consistent with the once-per-calendar-year limitation in the cited text, and there is no changed-character ratio concern since no edit was made.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.13318975,
+    "durationMs": 27058,
+    "id": "f-govlaw-0ce934fd",
+    "paragraphIds": [
+      "p0426",
+      "p0427",
+      "p0473"
+    ],
+    "producedBy": "drafter",
+    "quote": "Section 10.6 Submission to Jurisdiction. Each party submits to the nonexclusive jurisdiction of the United States District Court for the Southern District of New York and of any New York State Court sitting in New York, New York for legal proceedings relating to this Agreement.",
+    "rationale": "Section 10.5 makes the Agreement governed by the internal laws of the State of New York (and bars any amendment changing the governing law), and Section 10.6 submits the parties to the U.S. District Court for the Southern District of New York and New York State courts sitting in New York, New York — the playbook's preferred New York law/New York County forum. The Article XI dispute resolution provisions are elective (the Requesting Party may choose mediation, binding arbitration or a legal proceeding) and any mediation or arbitration is held in New York, New York, so there is no mandatory or foreign-seated arbitration. Minor sub-element only: the jurisdiction grant is nonexclusive rather than exclusive, which is noted but not a material deviation and preserves our ability to sue elsewhere.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-x",
+    "sectionRef": "§ X MISCELLANEOUS",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "governing law within the accepted set",
+          "ok": true
+        }
+      ],
+      "notes": "The cited clauses support the compliant classification: Section 10.5 selects internal New York law (and bars amendment to any other governing law), and Section 10.6 submits the parties to the S.D.N.Y. and New York State courts sitting in New York, New York — the playbook's preferred New York law/New York venue. Arbitration is elective under Article XI and any mediation/arbitration is seated in New York, New York (p0473), so there is no mandatory or foreign-seated arbitration triggering walk-away territory. The redline is unchanged and no counterparty comment was raised, which is the expected output for a compliant finding; the deterministic accepted-jurisdiction check also passes. The nonexclusive (rather than exclusive) jurisdiction grant is correctly treated as a minor sub-element noted in the rationale, not a material deviation, and it preserves our optionality as customer.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.20229275,
+    "durationMs": 41045,
+    "id": "f-mfn-1ef1f7e1",
+    "paragraphIds": [
+      "p0979",
+      "p0364",
+      "p0390"
+    ],
+    "producedBy": "drafter",
+    "quote": "\"Servicing Fee Rate\" means 0.75%.",
+    "rationale": "Searches for MFN constructs (\"more favorable\", \"no less favorable\", \"most favored\", \"terms at least as\", \"offered to any other\") return no hits, and a full read of Article IX (Other Agreements) and Article X (Miscellaneous) — the only plausible locations for a covenant of this type — reveals no pricing or terms-matching covenant of any kind. The Servicer's compensation is a fixed Servicing Fee Rate of 0.75%, with no obligation on the Issuer or Depositor to extend to Cellco (as Servicer/Marketing Agent/Custodian) any better terms granted to a third party or to match third-party offers. This meets the preferred position (no MFN obligation on our side), so no redline is warranted.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-p0971",
+    "sectionRef": "§ A-36",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Rule MFN is a direction-type rule whose preferred position is the absence of any MFN obligation on Customer; the absence of MFN language in this transfer and servicing agreement therefore correctly maps to 'compliant' rather than 'missing'. Cited evidence (fixed Servicing Fee Rate of 0.75%, Article IX 'Other Agreements' and Article X 'Miscellaneous' headers) is consistent with no terms-matching or best-pricing covenant burdening the Issuer/Depositor side, and no Vendor-granted MFN is being disturbed. Correctly no redline and no counterparty comment for a compliant finding; rendered paragraphs are unchanged and deterministic checks are empty, so there is no over-flagging or spurious edit. Rationale is accurate and non-actionable by design — retained as internal evidence rather than raised as a negotiation issue.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.36748525,
+    "durationMs": 68008,
+    "id": "f-mincommit-2e0fabb3",
+    "paragraphIds": [
+      "p0034",
+      "p0037",
+      "p0223",
+      "p0217",
+      "p0351",
+      "p0211"
+    ],
+    "producedBy": "drafter",
+    "quote": "From time to time, the Class A Certificateholder may, solely at its option, deposit amounts into the Acquisition Account, as set forth in Section 2.5 of the Trust Agreement.",
+    "rationale": "The agreement contains no minimum purchase commitment, take-or-pay, shortfall penalty or volume restriction on the Issuer or Depositor, so it sits at the preferred position (no minimum commitment; consideration is paid only for property actually transferred). The closest analogues all cut in our favour or are purely optional: (i) transfers of Additional Receivables under Section 2.1(b)-(d) are conditional (Transfer Notice, Credit Enhancement Test, Pool Composition Tests, Depositor certifications) and consideration equals the Additional Receivables Transfer Amount for receivables actually acquired — the Issuer is nowhere obliged to acquire a minimum volume; (ii) funding of the Acquisition Account and the related Negative Carry Account under Section 4.4(d)(i) and 4.4(c)(i) is made by the Class A Certificateholder \"solely at its option\", and Required Acquisition Deposit Amount / Required Negative Carry Amount are only internal cash-trapping levels with excesses released back to the Certificateholders, not payments we must make to the counterparty; (iii) the Optional Acquisition and Optional Redemption in Article VIII are options, not obligations, and require full payment of the Notes; and (iv) the only \"shortfall\" mechanic (Section 4.3(h) Credit Payments) is an obligation of the Marketing Agent to fund us. The $425,000 Additional Successor Servicer Fee floor is a servicing-transition fee for a replacement servicer, not a purchase commitment, and it supports our ability to replace Cellco. No redline required.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-ii-2",
+    "sectionRef": "§ II TRANSFER AND ACQUISITION OF DEPOSITOR TRANSFERRED PROPERTY;…",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and, consistent with that, the finding proposes no redline and no counterparty comment — the rendered text is identical to the original paragraphs. The cited text supports the conclusion: Section 2.1(b)/(d) transfers of Additional Receivables are condition-based with consideration tied to receivables actually acquired, so no minimum volume is imposed on the Issuer/Depositor. Acquisition Account and Negative Carry Account funding (Sections 4.4(d)(i) and 4.4(c)(i)) is expressly made by the Class A Certificateholder 'solely at its option', and the Article VIII Optional Acquisition/Clean-Up Redemption is an option, not an obligation — neither is take-or-pay against us. The only 'shortfall' language (Section 4.3(h) Credit Payments) runs in our favour, obliging the Marketing Agent/Originator to deposit funds, correctly excluded under the rule's guidance that commitments made to us are fine. Rationale correctly notes the $425,000 Additional Successor Servicer Fee floor is a servicing-transition fee, not a purchase commitment, so it is not a MINCOMMIT deviation; no deterministic check failures and no over-flagging.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.23521475,
+    "durationMs": 44533,
+    "id": "f-nosolicit-8e67a3e7",
+    "paragraphIds": [
+      "p0343",
+      "p0346"
+    ],
+    "producedBy": "drafter",
+    "quote": "The Servicer will not be obligated to provide, license or assign its processes, procedures, models, servicing software or other applications to any Successor Servicer or any third party, or provide anything covered by a restriction on transfer or assignment or a confidentiality agreement or otherwise restricted by legal, regulatory, privacy or data protection policies.",
+    "rationale": "Full-text searches for \"solicit\", \"hire\", \"employ\" and \"induce\" return no non-solicitation, no-poach or no-hire covenant anywhere in the Agreement. Article VII (Servicer Resignation and Termination; Successor Servicer), including the transition provisions in Sections 7.4 and 7.5, imposes only cooperation and records/funds-transfer duties on the outgoing Servicer, plus a carve-out preserving Cellco's proprietary processes and software; nothing restricts the Issuer, the Depositor, the Indenture Trustee or any Successor Servicer from soliciting or hiring Cellco servicing personnel on a Servicer transition. Article IX (Other Agreements) likewise contains no restrictive covenant of this kind. This meets the preferred position (no non-solicit binding our party), so no redline is proposed.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-vii",
+    "sectionRef": "§ VII SERVICER RESIGNATION AND TERMINATION; SUCCESSOR SERVICER",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-solicit duration ≤ 12 months",
+          "ok": false
+        },
+        {
+          "name": "general-solicitation carve-out present",
+          "ok": false
+        }
+      ],
+      "notes": "The rule's preferred position is the absence of any non-solicit binding the Customer; the cited transition provisions (Sections 7.4/7.5) impose only cooperation and records/funds-transfer duties and contain no solicit/hire/induce covenant, so 'compliant' is the correct classification. Consistent with a compliant finding, no redline was proposed and no comment was added — the rendered text is identical to the original paragraphs, which is the expected output. The failed deterministic checks (duration ≤ 12 months, general-solicitation carve-out) are artifacts of there being no non-solicit clause to measure; they do not indicate a substantive defect here. Cited paragraphs are relevant evidence of absence (post-termination transition duties are the most likely home for such a covenant), and the rationale accurately notes the proprietary-process carve-out does not restrict hiring of Servicer personnel.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.1425065,
+    "durationMs": 38366,
+    "id": "f-renewal-d64284b3",
+    "paragraphIds": [
+      "p0363"
+    ],
+    "producedBy": "drafter",
+    "quote": "Section 8.3 Termination. This Agreement will terminate on the earlier to occur of (a) the date upon which the last remaining Receivable is paid in full, settled, sold or written off and any amounts received are applied and (b) the Issuer is terminated under Section 8.1 of the Trust Agreement.",
+    "rationale": "This is a securitization transfer and servicing agreement with no subscription term, renewal term or evergreen mechanic. Article VIII fixes a single, self-liquidating term: the Agreement terminates automatically on the earlier of the last Receivable being paid in full/settled/sold/written off or termination of the Issuer under Section 8.1 of the Trust Agreement, with Sections 8.1 and 8.2 giving the Class A Certificateholder optional acquisition/redemption exits. Searches for \"renew\", \"automatically renew\", \"successive\", \"extended for\" and \"unless either party gives notice\" return no results, so there is no automatic renewal, no non-renewal notice window and no renewal price-uplift language. There is nothing to shorten or cap, and no exit risk to us as Issuer/Depositor (the Servicer cannot roll the term forward unilaterally). The auto-renewal rule is therefore inapplicable to this deal structure rather than breached; no redline proposed.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-viii",
+    "sectionRef": "§ VIII TERMINATION",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-renewal notice window ≤ 60 days",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant with no redline and no comment, which matches the rendered output (p0363 is unchanged) — consistent with the expectation that compliant findings carry no negotiation edit. The cited text supports the rationale: Section 8.3 sets a single self-liquidating term (last Receivable paid/settled/sold/written off, or termination of the Issuer under the Trust Agreement) with no evergreen, successive-term, notice-window or price-uplift mechanic. Absence of any auto-renewal or non-renewal notice window is favorable to our side (the Servicer cannot unilaterally roll the term forward), so treating the rule as satisfied rather than flagging a deviation avoids over-flagging; classifying as 'missing' would be inappropriate because this securitization transfer and servicing structure does not contemplate a subscription renewal clause. The failed deterministic check ('non-renewal notice window ≤ 60 days — number not found') is expected here: there is no notice window to measure, so the regex miss is not evidence of a defect. Rationale is accurate and appropriately scoped as internal evaluation evidence; no actionable redline was required or proposed.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.31396725,
+    "durationMs": 59755,
+    "id": "f-transition-2322b8a4",
+    "paragraphIds": [
+      "p0343",
+      "p0344",
+      "p0346",
+      "p0347",
+      "p0329",
+      "p0147"
+    ],
+    "producedBy": "drafter",
+    "quote": "(a) Cooperation on Termination. On its resignation or termination, the Servicer will cooperate with the Issuer, the Owner Trustee, the Indenture Trustee and the Successor Servicer in effecting (i) the termination of its rights and obligations under this Agreement and (ii) an orderly transition of such rights and obligations to the Successor Servicer.",
+    "rationale": "A usable exit/transition regime exists and clears the fallback. Section 7.5 requires the outgoing Servicer to cooperate in an orderly transition (7.5(a)), to transfer all funds and to deliver the Receivable Files and the accounts and records it maintains to the Successor Servicer as soon as practicable after the effective date of resignation or termination (7.5(b)), and to bear all reasonable transition expenses of the Issuer, Owner Trustee, Indenture Trustee and Successor Servicer (7.5(c)) — i.e. transition assistance at the Servicer's cost rather than at its then-current rates, which is better than the preferred position for us. Section 7.3 requires Cellco to continue performing until a Successor Servicer accepts engagement (and to continue remittance obligations under 3.12(b) while any Receivable has a Principal Balance), so assistance runs well beyond 90 days/6 months. Section 3.10(f) separately requires the Custodian to deliver the Receivable Files to the Indenture Trustee or successor custodian on termination of its custodial appointment, again at the terminated custodian's expense. Walk-away territory (no data return, or immediate deletion) is not present. Minor sub-elements short of the model language, noted but not redlined: file/record delivery is \"as soon as practicable\" rather than a hard 30-day deadline; there is no deletion-and-certification mechanic (unsurprising here, since Cellco remains Marketing Agent/Administrator and needs Obligor data to bill the underlying accounts); and 7.5(b) carves out the Servicer's proprietary processes, models and servicing software and items restricted by confidentiality or privacy policies. We would raise the 30-day delivery outside date only as a low-priority comment.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-vii",
+    "sectionRef": "§ VII SERVICER RESIGNATION AND TERMINATION; SUCCESSOR SERVICER",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "data return/transition present",
+          "ok": false
+        }
+      ],
+      "notes": "The cited text substantively supports the compliant classification: §7.5(a) requires cooperation in an orderly transition, §7.5(b) requires transfer of funds and delivery of the Receivable Files and records to the Successor Servicer, §7.5(c) puts transition expenses on the outgoing Servicer, and §7.3 keeps the Servicer performing until a Successor Servicer accepts engagement — assistance and data return are present and exceed the fallback duration. Walk-away territory (no data return, or immediate deletion of data) is absent; §3.10(f) adds a parallel file-delivery obligation for the Custodian at its own expense. The failed deterministic 'data return/transition present' regex is a phrasing artifact — this ABS agreement uses 'Receivable Files', 'accounts and records' and 'Successor Servicer' rather than 'data export/return' vocabulary — so it does not undercut the substance. Shortfalls versus the model language ('as soon as practicable' rather than a hard 30-day outside date, no deletion-and-certification mechanic, carve-outs for proprietary servicing software and confidentiality/privacy-restricted items) are correctly noted in the rationale as minor sub-elements rather than flagged as a deviation, consistent with the playbook's classification semantics. No redline or counterparty comment is proposed, which is the expected output for a compliant finding retained as internal evidence.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.35627425,
+    "durationMs": 68048,
+    "id": "f-warranty-bb001d14",
+    "paragraphIds": [
+      "p0082",
+      "p0069",
+      "p0071",
+      "p0072",
+      "p0073",
+      "p0112",
+      "p0114",
+      "p0257"
+    ],
+    "producedBy": "drafter",
+    "quote": "(a) General Servicing Obligations. The Servicer will manage, service, administer and collect on the Receivables with reasonable care using that degree of skill and attention that the Servicer exercises for all comparable device payment plan agreement receivables that it services for itself or others according to the Servicing Procedures.",
+    "rationale": "The transaction contains the functional equivalent of the performance warranty package and it meets (indeed exceeds) the preferred position on the material terms. Quality standard: Section 3.2(a) binds Cellco as Servicer to service with reasonable care using the degree of skill and attention it applies to comparable receivables it services for itself or others under the Servicing Procedures — the securitization analogue of \"professional and workmanlike.\" Conformance warranty and duration: the Eligibility Representation is made by each Originator and the Servicer as of the Closing Date and each Acquisition Date and expressly \"will survive the transfer and absolute assignment of the Receivables\" and the pledge to the Indenture Trustee (p0069/p0071), as do the Servicer's and Marketing Agent's Section 6.1 representations (p0257) — i.e., open-ended survival rather than the preferred 12-month/90-day windows. Remedy: Section 2.5(b)-(c) requires the Originator to reacquire, or the Servicer to acquire, any Receivable for which the Eligibility Representation was breached (uncured, material adverse effect), and Section 3.3(b) requires the Servicer to acquire Receivables where it fails to cure a breach of its Section 3.2(c)/(d) obligations, in each case at the Acquisition Amount (present value of the Principal Balance net of collections) — a cash refund-equivalent remedy after a cure period, which satisfies the \"repair, replace or refund\" element. Compliance-with-law warranties are present (No Violation / No Conflict). No \"AS IS\" clause or blanket warranty disclaimer appears anywhere; Section 6.2(a)'s limitation to willful misconduct, bad faith or gross negligence preserves the parties' \"specific obligations,\" so the reacquisition/acquisition remedy is not swallowed — and that liability standard is a limitation-of-liability point addressed under the LOL rule, not double-flagged here. The absence of documentation-conformance and malicious-code warranties is not material in a receivables transfer and servicing agreement (no software or deliverables). No redline proposed.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-iii",
+    "sectionRef": "§ III SERVICING OF RECEIVABLES",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "warranty period ≥ 90 days or expressed in months/years",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected output shape; the rendered redline is byte-identical to the original paragraphs, so nothing improper is being proposed to the counterparty. The cited text supports the compliance conclusion: Section 3.2(a) supplies a quality-of-performance standard (reasonable care / degree of skill and attention applied to comparable receivables under the Servicing Procedures), the Eligibility Representation is made at Closing and each Acquisition Date with express survival of transfer and pledge, and Sections 2.5(b)-(c) / 3.3(b)-(d) supply a cash reacquisition/acquisition remedy at the Acquisition Amount after an uncured material breach — the functional analogue of 'repair, replace or refund'. No 'AS IS' clause or blanket warranty disclaimer appears in the cited material, so the walk-away trigger is absent and the express representations are not swallowed. The failed deterministic check (no explicit 90-day/12-month period) is a phrasing artifact of this instrument type: the representations survive open-endedly rather than for a fixed window, which is better than the preferred 12-month/90-day limits for our side, and the rationale expressly notes the point rather than ignoring it. Non-applicable preferred sub-elements (documentation conformance, malicious code) are correctly noted in the rationale rather than flagged, and the willful-misconduct/gross-negligence liability standard is properly deferred to the LOL rule instead of being double-flagged here.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.540344,
+    "durationMs": 135938,
+    "id": "f-insurance-4512127b",
+    "paragraphIds": [
+      "p0146",
+      "p0439"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Cellco holds the Receivable Files and Obligor personally identifiable information as Servicer and Custodian, but the Agreement contains no insurance covenant, so we have added our standard coverage requirement (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, workers' compensation as required by law, certificates on request). If the full programme is an issue, we can fall back to E&O of USD 1M and cyber of USD 2M.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "Section 10.14",
+          "paragraphId": "p0439",
+          "text": "Section 10.14 Insurance. Cellco, in each of its capacities as Servicer, Marketing Agent and Custodian, will maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: (a) commercial general liability insurance of not less than $1,000,000 per occurrence and $2,000,000 in the aggregate; (b) professional liability (errors and omissions) insurance of not less than $2,000,000; (c) cyber liability insurance of not less than $5,000,000 covering its handling of the Receivable Files and any Personally Identifiable Information of the Obligors; and (d) workers' compensation insurance as required by applicable Law. Cellco will provide certificates of insurance to the Issuer and the Depositor on request."
+        }
+      ],
+      "precedentId": "seed-insurance",
+      "summary": "Insert a new Section 10.14 (Insurance) in Article X requiring Cellco, as Servicer, Marketing Agent and Custodian, to carry CGL, E&O, cyber and workers' compensation coverage and to provide certificates on request."
+    },
+    "quote": "(e) Access to Receivable Files. The Custodian will give the Servicer access to the Receivable Files and, on request of the Servicer, the Custodian will promptly release any document in the Receivable Files to the Servicer for purposes of servicing the Receivables.",
+    "rationale": "The Agreement contains no insurance covenant of any kind. A full-text search for \"insurance\" returns only unrelated references (insurance premiums billed to Obligor accounts at p0095 and FDIC deposit insurance at p0903), and Articles III, VI and X contain no coverage requirement, fidelity bond or errors-and-omissions provision. Meanwhile, Cellco is the counterparty performing services that squarely engage this rule: under Section 3.10 it acts as Custodian and \"will hold and maintain in custody\" the Receivable Files (p0138), maintains them and the receivables systems on which they are electronically stored (p0141, p0145), and controls access subject to its \"confidentiality, privacy and data protection policies\" (p0146). The Receivable Files comprise Obligor records, and the Agreement itself recognises Personally Identifiable Information as a category requiring redaction (p0446, p0884). Exhibit A (\"Custodian's Security Requirements\") is not reproduced in this form (sec-p1043 contains no substantive text), so no coverage requirement sits there either. That places the document in walk-away territory under this rule — no insurance for a vendor that processes personal data — so neither the preferred nor the fallback position is met. Redline inserts a new Section 10.14 in Article X Miscellaneous, per the rule's redline guidance, at the preferred level (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, workers' compensation as required by law, certificates on request), with terminology conformed to this Agreement (Receivable Files, Personally Identifiable Information, Obligors, applicable Law) and applied to Cellco in all three of its capacities. Noting for context: severity is low and insurance covenants are atypical in a securitization transfer and servicing agreement, where Cellco's indemnity under Section 6.3 provides some overlapping (though uncollateralised and gross-negligence-limited) protection; the fallback of E&O USD 1M and cyber USD 2M is offered in the comment if the full programme is resisted.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-iii",
+    "sectionRef": "§ III SERVICING OF RECEIVABLES",
+    "severity": "low",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "insurance obligation present",
+          "ok": true
+        }
+      ],
+      "notes": "Factual predicate holds: the Agreement contains no insurance/fidelity-bond/E&O covenant, and Cellco as Servicer/Custodian holds the Receivable Files and Obligor Personally Identifiable Information (Section 3.10, p0138–p0146), so the rule's trigger (service provider touching our data) is engaged and 'missing' is the correct status — neither preferred nor fallback coverage exists anywhere in the document. Redline is actionable and tracks the model language at the preferred level (CGL 1M/2M, E&O 2M, cyber 5M, workers' comp, certificates on request), inserted as a stand-alone miscellaneous section rather than rewriting existing text, with terminology properly conformed to this Agreement (Receivable Files, Personally Identifiable Information, Obligors, applicable Law) and applied to Cellco in its Servicer/Marketing Agent/Custodian capacities. Comment is accurate, concise, first-person plural, cites the playbook position and offers the E&O 1M / cyber 2M fallback, as the tone guidance requires; deterministic checks confirm the operation applies and the inserted insurance obligation renders. Minor caveats, not disqualifying: the anchor paragraph (p0439) is a sentence fragment, so confirm the new Section 10.14 lands at the end of a section within Article X rather than mid-clause; and the rationale correctly notes that insurance covenants are atypical in a securitization transfer and servicing agreement (Servicer fidelity/E&O covenants are nonetheless common), which supports keeping this at low severity and negotiating to the fallback if resisted.",
+      "verdict": "pass"
+    }
+  }
+]

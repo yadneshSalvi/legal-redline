@@ -133,3 +133,31 @@ pnpm eval --config b1-prompt          # replay by default; add --live to re-run
 pnpm eval --all                       # every config
 pnpm report                           # summary.md + changelog-data.json
 ```
+
+## 9. Round 2: registered long tier and end-to-end redline metrics
+
+Round 1 and every field above remain unchanged. Round 2 adds a deterministic long-document tier, selected
+from CUAD by the frozen title-family × canonical-word-count × paragraph-count × parsed-section rule in
+`plans/campaign/preregistration.md`. Directory prefixes define tiers: `cuad-*` and `synth-*` are `short`;
+`long-*` is `long`. `pnpm eval --tier short|long|all` writes
+`evals/results/<config>.<tier>.json`; the legacy `evals/results/<config>.json` artifacts are not overwritten.
+
+Judge v2 returns an element verdict for each atomic preferred/fallback position plus aggregate preferred and
+fallback satisfaction, minimality, intent preservation, drafting quality, and reason. Explicit
+`rule.position.elements` are authoritative; when absent, the cached judge response performs the decomposition.
+Its namespace is `evals/cache/judge-v2/`; `evals/cache/judge/` remains the v1 namespace.
+
+For a tier's pooled, non-ambiguous `deviation|missing` gold items, complete redline rate (CRR) counts an item
+only when its matched proposal validates, passes every deterministic check, meets every element of either the
+preferred or fallback position, is judge-minimal and intent-preserving, and every replacement changes at most
+60% of its characters. Applied tracked-change yield counts items whose complete matched proposal appears in
+the system's own accept-all tracked-change document and whose package, collateral paragraphs, requested change
+count, and LibreOffice round trip validate. Pipeline configs reconcile ops before `applyRedlines`; the one-prompt
+baseline uses its exact-string replacement ops in output order without reconciliation.
+
+Precedent adherence is deterministic: for matched proposals on gold-positive rules represented in
+`data/precedents/seed.json`, take the maximum token-set Jaccard between proposed operative text and the
+same-rule seeded `clauseAfter`; similarity at least 0.60 adheres. Normalisation uses `normalizeForMatch`, unique
+ASCII alphanumeric tokens longer than two characters, and no stopword removal. Counts and denominators accompany
+all rates. Detection, deviation accuracy, v1 redline validity, minimality, citations, integrity, and resources
+retain their round-1 definitions.

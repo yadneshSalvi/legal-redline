@@ -143,3 +143,16 @@ The hard case tests definition resolution, party direction, a cross-referenced c
 | x-monolith | 233 | 590 | 466 | 215296 | 6985601 | 474517 | $11.8433 | 2573.8 s |
 
 Replay uses committed model and judge caches. Cost and token numbers describe the recorded live run; replay itself incurs no API cost.
+
+## Round 2 tiers
+
+| Config | Tier | F1 macro | Recall micro | CRR | Tracked-change yield | Precedent adherence | Minimality | Cost |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| b1-prompt | long | 60.3% | 45.8% | 0.0% | 41.7% | 0.0% | 0.0% | $4.7510 |
+| final | long | 58.8% | 47.9% | 0.0% | 45.8% | 4.3% | 0.0% | $34.3835 |
+| i3-verifier | long | 57.2% | 45.8% | 0.0% | 45.8% | 0.0% | 4.5% | $33.9355 |
+| b1-prompt | short | 91.5% | 86.3% | 1.1% | 86.3% | 2.4% | 3.7% | $4.1912 |
+| final | short | 94.8% | 91.6% | 10.5% | 86.3% | 6.9% | 13.8% | $42.1468 |
+| i3-verifier | short | 94.5% | 93.7% | 11.6% | 88.4% | 4.5% | 15.7% | $47.9733 |
+
+CRR and tracked-change yield use all non-ambiguous deviation/missing gold items as their pooled denominator. Precedent adherence reports only matched proposals for seeded rules.

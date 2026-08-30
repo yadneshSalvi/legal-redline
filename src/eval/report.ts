@@ -23,7 +23,8 @@ async function loadResults(root: string): Promise<ConfigEvaluationResult[]> {
       results.push(value as ConfigEvaluationResult);
     }
   }
-  return results.sort((left, right) => left.config.localeCompare(right.config));
+  return results.sort((left, right) =>
+    (left.tier ?? "legacy").localeCompare(right.tier ?? "legacy") || left.config.localeCompare(right.config));
 }
 
 function comparisonTable(results: readonly ConfigEvaluationResult[]): string {
@@ -81,41 +82,74 @@ function resourcesTable(results: readonly ConfigEvaluationResult[]): string {
   ].join("\n");
 }
 
+function tierTable(results: readonly ConfigEvaluationResult[]): string {
+  const rows = results.map((result) => {
+    const aggregate = result.aggregate;
+    return `| ${result.config} | ${result.tier ?? "—"} | ${percent(aggregate.detection.macro.f1)} | ${percent(aggregate.detection.micro.recall)} | ${percent(aggregate.completeRedline?.rate ?? 0)} | ${percent(aggregate.appliedTrackedChangeYield?.rate ?? 0)} | ${percent(aggregate.precedentAdherence?.rate ?? 0)} | ${percent(aggregate.minimality.rate)} | ${money(aggregate.resources.costUsd)} |`;
+  });
+  return [
+    "| Config | Tier | F1 macro | Recall micro | CRR | Tracked-change yield | Precedent adherence | Minimality | Cost |",
+    "|---|---|---:|---:|---:|---:|---:|---:|---:|",
+    ...rows,
+  ].join("\n");
+}
+
 export async function generateReport(resultsRoot = resolve("evals/results")): Promise<string> {
   const results = await loadResults(resultsRoot);
   if (results.length === 0) throw new Error(`No config results found in ${resultsRoot}`);
+  const legacyResults = results.filter((result) => result.tier === undefined);
+  const tierResults = results.filter((result) => result.tier !== undefined);
   const markdown = [
     "# Evaluation summary",
     "",
     "## Config comparison",
     "",
-    comparisonTable(results),
+    comparisonTable(legacyResults),
     "",
     "## Per-contract results",
     "",
-    contractTable(results),
+    contractTable(legacyResults),
     "",
     "## Hard case",
     "",
-    hardCaseTable(results),
+    hardCaseTable(legacyResults),
     "",
     "The hard case tests definition resolution, party direction, a cross-referenced convenience right, and a stand-alone late-payment penalty.",
     "",
     "## Resources",
     "",
-    resourcesTable(results),
+    resourcesTable(legacyResults),
     "",
     "Replay uses committed model and judge caches. Cost and token numbers describe the recorded live run; replay itself incurs no API cost.",
     "",
+    ...(tierResults.length === 0 ? [] : [
+      "## Round 2 tiers",
+      "",
+      tierTable(tierResults),
+      "",
+      "CRR and tracked-change yield use all non-ambiguous deviation/missing gold items as their pooled denominator. Precedent adherence reports only matched proposals for seeded rules.",
+      "",
+    ]),
   ].join("\n");
   await atomicWrite(join(resultsRoot, "summary.md"), markdown);
   await atomicWriteJson(join(resultsRoot, "changelog-data.json"), {
     generatedFrom: "evals/results/*.json",
-    configs: results.map((result) => ({
+    configs: legacyResults.map((result) => ({
       id: result.config,
       aggregate: result.aggregate,
       contracts: result.contracts.map((contract) => ({ id: contract.contractId, metrics: contract.metrics })),
     })),
+    tiers: (["short", "long"] as const).flatMap((tier) => {
+      const selected = tierResults.filter((result) => result.tier === tier);
+      return selected.length === 0 ? [] : [{
+        id: tier,
+        configs: selected.map((result) => ({
+          id: result.config,
+          aggregate: result.aggregate,
+          contracts: result.contracts.map((contract) => ({ id: contract.contractId, metrics: contract.metrics })),
+        })),
+      }];
+    }),
   });
   return markdown;
 }

@@ -10,9 +10,8 @@ import {
   getConfig,
   runReview,
 } from "@/src/agent";
-import { usageWithCost } from "@/src/agent/pricing";
 import type { LlmClient, LlmMode } from "@/src/agent/llm";
-import type { ConfigId, PipelineConfig, ReviewRun, RunStats, TrajectoryEvent } from "@/src/agent/types";
+import type { ConfigId, PipelineConfig, Precedent, ReviewRun, RunStats, TrajectoryEvent } from "@/src/agent/types";
 import type { TrajectoryWriter } from "@/src/agent/trajectory";
 import { parseDocx } from "@/src/engine";
 import type { DocumentModel } from "@/src/engine/types";
@@ -23,10 +22,23 @@ import type { Store } from "@/src/store";
 import { assertEvaluationLabelers, loadContractMeta, loadGold } from "./gold";
 import { evaluateDocumentIntegrity } from "./integrity";
 import { atomicWrite, atomicWriteJson } from "./io";
-import { createIndependentJudge, type IndependentJudge, type JudgeMode, type JudgeResult } from "./judge";
+import {
+  createIndependentJudge,
+  createIndependentJudgeV2,
+  type IndependentJudge,
+  type IndependentJudgeV2,
+  type JudgeMode,
+  type JudgeResult,
+  type JudgeV2Result,
+} from "./judge";
 import { aggregateMetrics, computeContractMetrics, renderProposalText, type AggregateMetrics, type ContractMetrics } from "./metrics";
+import { computeRound2Metrics } from "./metrics-round2";
 import { matchFindings } from "./match";
 import { loadPlaybookFile } from "./playbook";
+import { existingReplayStats, replayStatsFromCache } from "./replay-stats";
+import { evaluateTrackedChangeYield } from "./tracked-change-yield";
+
+export type EvaluationTier = "short" | "long";
 
 export interface EvaluationDependencies {
   parseDocx: (bytes: Uint8Array, filename: string) => Promise<DocumentModel>;
@@ -36,6 +48,7 @@ export interface EvaluationDependencies {
   createTrajectoryWriter: (store: Store, runId: string) => TrajectoryWriter;
   createStore: (kind?: string) => Store;
   createJudge: (options: { mode: JudgeMode; cacheDir: string; allowLive: boolean }) => IndependentJudge;
+  createJudgeV2: (options: { mode: JudgeMode; cacheDir: string; allowLive: boolean }) => IndependentJudgeV2;
 }
 
 export interface EvaluationOptions {
@@ -51,16 +64,19 @@ export interface EvaluationOptions {
   resultsRoot?: string;
   playbookPath?: string;
   libreoffice?: boolean;
+  tier?: EvaluationTier;
+  judgeConcurrency?: number;
 }
 
 export interface ContractEvaluationResult {
   contractId: string;
   metrics: ContractMetrics;
-  judgements: Record<string, JudgeResult>;
+  judgements: Record<string, JudgeResult | JudgeV2Result>;
 }
 
 export interface ConfigEvaluationResult {
   config: string;
+  tier?: EvaluationTier;
   contracts: ContractEvaluationResult[];
   aggregate: AggregateMetrics;
 }
@@ -73,6 +89,7 @@ const DEFAULT_DEPENDENCIES: EvaluationDependencies = {
   createTrajectoryWriter,
   createStore,
   createJudge: createIndependentJudge,
+  createJudgeV2: createIndependentJudgeV2,
 };
 
 function initialStats(): RunStats {
@@ -115,6 +132,12 @@ async function discoverContracts(root: string): Promise<string[]> {
   return contracts;
 }
 
+export function contractTier(contractId: string): EvaluationTier | null {
+  if (contractId.startsWith("cuad-") || contractId.startsWith("synth-")) return "short";
+  if (contractId.startsWith("long-")) return "long";
+  return null;
+}
+
 function stableTrajectory(events: readonly TrajectoryEvent[]): TrajectoryEvent[] {
   const ids = new Map(events.map((event, index) => [event.id, `e${String(index + 1).padStart(4, "0")}`]));
   return events.map((event, index) => ({
@@ -125,63 +148,6 @@ function stableTrajectory(events: readonly TrajectoryEvent[]): TrajectoryEvent[]
   }));
 }
 
-async function existingReplayStats(path: string): Promise<RunStats | null> {
-  try {
-    return JSON.parse(await readFile(path, "utf8")) as RunStats;
-  } catch (error) {
-    if (error instanceof Error && "code" in error && error.code === "ENOENT") return null;
-    throw error;
-  }
-}
-
-interface CachedAnthropicResponse {
-  response?: {
-    model?: string;
-    usage?: {
-      input_tokens?: number;
-      output_tokens?: number;
-      cache_read_input_tokens?: number;
-      cache_creation_input_tokens?: number;
-    };
-    content?: Array<{ type?: string }>;
-  };
-}
-
-async function replayStatsFromCache(cacheDir: string, stats: RunStats): Promise<RunStats> {
-  let files: string[];
-  try {
-    files = (await readdir(cacheDir)).filter((file) => file.endsWith(".json")).sort();
-  } catch (error) {
-    if (error instanceof Error && "code" in error && error.code === "ENOENT") return stats;
-    throw error;
-  }
-  const usage = { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, cacheWriteTokens: 0, costUsd: 0 };
-  let toolCalls = 0;
-  for (const file of files) {
-    const cached = JSON.parse(await readFile(join(cacheDir, file), "utf8")) as CachedAnthropicResponse;
-    const response = cached.response;
-    if (response?.usage === undefined) continue;
-    const priced = usageWithCost(response.model ?? "claude-opus-5", {
-      inputTokens: response.usage.input_tokens ?? 0,
-      outputTokens: response.usage.output_tokens ?? 0,
-      cacheReadTokens: response.usage.cache_read_input_tokens ?? 0,
-      cacheWriteTokens: response.usage.cache_creation_input_tokens ?? 0,
-    });
-    usage.inputTokens += priced.inputTokens;
-    usage.outputTokens += priced.outputTokens;
-    usage.cacheReadTokens += priced.cacheReadTokens ?? 0;
-    usage.cacheWriteTokens += priced.cacheWriteTokens ?? 0;
-    usage.costUsd += priced.costUsd;
-    toolCalls += response.content?.filter((block) => block.type === "tool_use").length ?? 0;
-  }
-  return {
-    ...stats,
-    llmCalls: files.length,
-    toolCalls,
-    usage: { ...usage, costUsd: Number(usage.costUsd.toFixed(8)) },
-  };
-}
-
 async function evaluateOne(input: {
   configId: string;
   contractId: string;
@@ -189,8 +155,11 @@ async function evaluateOne(input: {
     contractsRoot: string;
     cacheRoot: string;
     runsRoot: string;
+    tier?: EvaluationTier;
+    judgeConcurrency: number;
   };
   playbook: Playbook;
+  precedents: readonly Precedent[];
   dependencies: EvaluationDependencies;
 }): Promise<ContractEvaluationResult> {
   const { contractId, configId, dependencies } = input;
@@ -249,20 +218,29 @@ async function evaluateOne(input: {
 
   const matched = matchFindings(reviewed.findings, gold);
   const tp = new Set(matched.truePositiveFindingIds);
-  const judge = dependencies.createJudge({
+  const tiered = input.options.tier !== undefined;
+  const judge = tiered ? undefined : dependencies.createJudge({
     mode: input.options.judgeMode,
     cacheDir: join(input.options.cacheRoot, "judge"),
     allowLive: input.options.allowLive,
   });
+  const judgeV2 = tiered ? dependencies.createJudgeV2({
+    mode: input.options.judgeMode,
+    cacheDir: join(input.options.cacheRoot, "judge-v2"),
+    allowLive: input.options.allowLive,
+  }) : undefined;
   const judgements: Record<string, JudgeResult> = {};
-  for (const finding of reviewed.findings.filter((candidate) => tp.has(candidate.id) && candidate.proposal !== undefined)) {
+  const judgementsV2: Record<string, JudgeV2Result> = {};
+  const judgeLimit = pLimit(input.options.judgeConcurrency ?? 4);
+  const judgeFindings = reviewed.findings.filter((candidate) => tp.has(candidate.id) && candidate.proposal !== undefined);
+  await Promise.all(judgeFindings.map((finding) => judgeLimit(async () => {
     const rule = input.playbook.rules.find((candidate) => candidate.id === finding.ruleId);
-    if (rule === undefined || finding.proposal === undefined) continue;
+    if (rule === undefined || finding.proposal === undefined) return;
     const originalClause = finding.paragraphIds
       .map((id) => document.paragraphs.find((paragraph) => paragraph.id === id)?.text ?? "")
       .filter(Boolean)
       .join("\n\n");
-    const judgement = await judge.judge({
+    const judgeInput = {
       ruleId: rule.id,
       ruleTitle: rule.title,
       preferredPosition: rule.position.preferred,
@@ -270,9 +248,26 @@ async function evaluateOne(input: {
       originalClause,
       renderedClause: renderProposalText(document, finding),
       comment: finding.proposal.comment,
-    });
-    judgements[finding.id] = judgement.result;
-  }
+    };
+    if (judgeV2 !== undefined) {
+      const judgement = await judgeV2.judge({
+        ...judgeInput,
+        preferredElements: rule.position.elements?.preferred,
+        fallbackElements: rule.position.elements?.fallback,
+      });
+      judgementsV2[finding.id] = judgement.result;
+      judgements[finding.id] = {
+        satisfies_rule: judgement.result.satisfies_preferred || judgement.result.satisfies_fallback,
+        minimal: judgement.result.minimal,
+        preserves_intent: judgement.result.preserves_intent,
+        drafting_quality: judgement.result.drafting_quality,
+        reason: judgement.result.reason,
+      };
+    } else if (judge !== undefined) {
+      const judgement = await judge.judge(judgeInput);
+      judgements[finding.id] = judgement.result;
+    }
+  })));
   const integrity = await evaluateDocumentIntegrity({
     originalBytes: original,
     document,
@@ -290,12 +285,35 @@ async function evaluateOne(input: {
     memo: reviewed.memo,
     stats: reviewed.stats,
     integrity,
+    ...(tiered ? {
+      round2: computeRound2Metrics({
+        gold,
+        findings: reviewed.findings,
+        document,
+        rules: input.playbook.rules,
+        judgements: judgementsV2,
+        trackedChangeYield: await evaluateTrackedChangeYield({
+          originalBytes: original,
+          document,
+          findings: reviewed.findings,
+          strategy: baseConfig.singlePrompt ? "baseline-naive" : "pipeline-reconciled",
+          author: input.playbook.style.author,
+          libreoffice: input.options.libreoffice,
+        }),
+        precedents: input.precedents,
+      }),
+    } : {}),
   });
-  const stableEvents = stableTrajectory(trajectory.events);
-  await atomicWriteJson(join(outputDir, "findings.json"), reviewed.findings);
-  await atomicWrite(join(outputDir, "trajectory.jsonl"), `${stableEvents.map((event) => JSON.stringify(event)).join("\n")}\n`);
-  await atomicWriteJson(statsPath, reviewed.stats);
-  return { contractId, metrics, judgements };
+  if (input.options.mode !== "replay" || priorStats === null) {
+    const stableEvents = stableTrajectory(trajectory.events);
+    await atomicWriteJson(join(outputDir, "findings.json"), reviewed.findings);
+    await atomicWrite(
+      join(outputDir, "trajectory.jsonl"),
+      `${stableEvents.map((event) => JSON.stringify(event)).join("\n")}\n`,
+    );
+    await atomicWriteJson(statsPath, reviewed.stats);
+  }
+  return { contractId, metrics, judgements: tiered ? judgementsV2 : judgements };
 }
 
 export async function runEvaluation(
@@ -308,7 +326,15 @@ export async function runEvaluation(
   const runsRoot = resolve(options.runsRoot ?? "evals/runs");
   const resultsRoot = resolve(options.resultsRoot ?? "evals/results");
   const playbook = await loadPlaybookFile(options.playbookPath ?? resolve("data/playbooks/customer-vendor-services.yaml"));
-  const contractIds = options.contracts ?? (await discoverContracts(contractsRoot));
+  const precedents = JSON.parse(await readFile(resolve("data/precedents/seed.json"), "utf8")) as Precedent[];
+  const discovered = options.contracts ?? (await discoverContracts(contractsRoot));
+  const contractIds = options.tier === undefined
+    ? discovered.filter((id) => contractTier(id) === "short")
+    : discovered.filter((id) => contractTier(id) === options.tier);
+  if (options.contracts !== undefined && contractIds.length !== options.contracts.length) {
+    const wrong = options.contracts.filter((id) => contractTier(id) !== options.tier);
+    throw new Error(`Contracts outside requested tier ${options.tier ?? "legacy short"}: ${wrong.join(", ")}`);
+  }
   const limit = pLimit(options.concurrency);
   const allResults: ConfigEvaluationResult[] = [];
   for (const configId of options.configs) {
@@ -324,11 +350,14 @@ export async function runEvaluation(
               allowLive: options.allowLive,
               judgeMode: options.judgeMode,
               libreoffice: options.libreoffice ?? true,
+              tier: options.tier,
+              judgeConcurrency: options.judgeConcurrency ?? 4,
               contractsRoot,
               cacheRoot,
               runsRoot,
             },
             playbook,
+            precedents,
             dependencies,
           }),
         ),
@@ -337,10 +366,12 @@ export async function runEvaluation(
     contracts.sort((left, right) => left.contractId.localeCompare(right.contractId));
     const result: ConfigEvaluationResult = {
       config: configId,
+      ...(options.tier === undefined ? {} : { tier: options.tier }),
       contracts,
       aggregate: aggregateMetrics(contracts.map((contract) => contract.metrics)),
     };
-    await atomicWriteJson(join(resultsRoot, `${configId}.json`), result);
+    const filename = options.tier === undefined ? `${configId}.json` : `${configId}.${options.tier}.json`;
+    await atomicWriteJson(join(resultsRoot, filename), result);
     allResults.push(result);
   }
   return allResults;

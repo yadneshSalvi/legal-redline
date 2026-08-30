@@ -1,0 +1,75 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYPviW9aKPgpgj7uUpCM",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01SNyEr4iVqwp2YMTKNDMGvX",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0687",
+            "p0691",
+            "p0695"
+          ],
+          "quote": "(f) actual or alleged infringement of any Third Party's Intellectual Property by the Product or by either Party in performing its duties or obligations hereunder with respect to the Product;",
+          "rationale": "Article 12 contains a mutual indemnity with a proper procedure (notice, control of defence, participation, cooperation) and SFJ's limb in 12.1.1 does cover its gross negligence/wilful misconduct, material breach and Protocol breaches. However, the only third-party IP infringement indemnity runs one way: under 12.1.2(f) PB indemnifies SFJ for infringement \"by the Product or by either Party in performing its duties or obligations hereunder\", so we carry SFJ's own infringement risk (subject only to a gross negligence/wilful misconduct or material breach carve-out), while SFJ gives us no IP indemnity at all. That fails the fallback, which requires the counterparty to stand behind IP claims arising from its own activities. Our minimal edit adds an SFJ IP limb for infringement arising from SFJ's (and its Affiliates'/Permitted Third Parties') performance and deletes \"either Party\" from 12.1.2(f) so our indemnity is confined to the Product and our own performance; we leave the balance of PB's operating-party indemnity intact as the existing bargain.",
+          "confidence": 0.76,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0691",
+                "oldText": "and/or (f) from any after any Program Transfer, product liability claims resulting from the Commercialization of Product other than Product manufactured by PB by or on behalf of SFJ or any of its Affiliates, licensees or sublicensees; except to the extent that any of the foregoing (a) through (f) was caused by",
+                "newText": "(f) any actual or alleged infringement or misappropriation of any Third Party's Intellectual Property arising from the performance by SFJ, its Affiliates or any of its or their respective Permitted Third Parties of SFJ's obligations under this Agreement or, if applicable, the Program Transfer Agreement; and/or (g) from any after any Program Transfer, product liability claims resulting from the Commercialization of Product other than Product manufactured by PB by or on behalf of SFJ or any of its Affiliates, licensees or sublicensees; except to the extent that any of the foregoing (a) through (g) was caused by"
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0695",
+                "oldText": "(f) actual or alleged infringement of any Third Party's Intellectual Property by the Product or by either Party in performing its duties or obligations hereunder with respect to the Product;",
+                "newText": "(f) actual or alleged infringement of any Third Party's Intellectual Property by the Product or by PB in performing its duties or obligations hereunder with respect to the Product;"
+              }
+            ],
+            "comment": "[Playbook] We added an SFJ indemnity for third-party IP claims arising from SFJ's own performance and narrowed our clause 12.1.2(f) so we no longer indemnify SFJ for infringement caused by SFJ's activities; our playbook requires each party to stand behind IP claims arising from its own conduct, with our indemnity limited to the Product we supply.",
+            "level": "preferred",
+            "precedentId": "seed-indemn-1",
+            "summary": "Add an SFJ IP-infringement indemnity limb and narrow PB's IP indemnity to the Product and PB's own performance"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2617,
+      "cache_read_input_tokens": 17569,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2617,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1305,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INDEMN",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 12744
+}

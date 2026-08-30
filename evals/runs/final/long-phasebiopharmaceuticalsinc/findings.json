@@ -1,0 +1,763 @@
+[
+  {
+    "confidence": 0,
+    "costUsd": 0.4011475,
+    "durationMs": 72190,
+    "id": "f-ip-1c9a02e8",
+    "paragraphIds": [],
+    "producedBy": "drafter",
+    "quote": "",
+    "rationale": "Worker failed and requires manual review: Tool loop exceeded 12 iterations",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionRef": "§ —",
+    "severity": "critical",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Tool loop exceeded 12 iterations",
+      "verdict": "fail"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.49699625,
+    "durationMs": 129573,
+    "id": "f-lol-cap-20d7e347",
+    "paragraphIds": [
+      "p0833",
+      "p0743"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 15.11 waives consequential damages but leaves both Parties' direct liability entirely uncapped, so we added a mutual cap at the greater of twelve months' Article 6 payments and USD 1,000,000, consistent with our position that liability be capped for both sides at a meaningful amount. Indemnification, confidentiality/data protection, gross negligence, willful misconduct, fraud, IP infringement and each Party's payment/funding obligations sit outside the cap.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "FOR THE AVOIDANCE OF DOUBT, THIS SECTION 15.11 IS NOT MEANT TO LIMIT PB'S OBLIGATION TO PAY SFJ THE AMOUNTS SET FORTH IN ARTICLE 6 OR SECTION 14.2. EXCEPT FOR EXCLUDED CLAIMS, EACH PARTY'S TOTAL AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT WILL NOT EXCEED THE GREATER OF (A) THE AGGREGATE AMOUNTS PAID OR PAYABLE BY PB TO SFJ UNDER ARTICLE 6 IN THE TWELVE (12) MONTHS IMMEDIATELY PRECEDING THE EVENT GIVING RISE TO THE CLAIM AND (B) ONE MILLION DOLLARS USD ($1,000,000). \"EXCLUDED CLAIMS\" MEANS A PARTY'S BREACH OF ITS CONFIDENTIALITY OR DATA PROTECTION OBLIGATIONS UNDER ARTICLE 10 OR ARTICLE 11, ITS INDEMNIFICATION OBLIGATIONS UNDER ARTICLE 12, ITS GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD, ITS INFRINGEMENT OF THE OTHER PARTY'S INTELLECTUAL PROPERTY, AND ITS OBLIGATIONS TO MAKE PAYMENTS EXPRESSLY REQUIRED UNDER THIS AGREEMENT, INCLUDING PB'S OBLIGATIONS UNDER ARTICLE 6 AND SECTION 14.2 AND SFJ'S OBLIGATION TO FUND DEVELOPMENT COSTS UNDER ARTICLE 4.",
+          "oldText": "FOR THE AVOIDANCE OF DOUBT, THIS SECTION 15.11 IS NOT MEANT TO LIMIT PB'S OBLIGATION TO PAY SFJ THE AMOUNTS SET FORTH IN ARTICLE 6 OR SECTION 14.2.",
+          "paragraphId": "p0833"
+        }
+      ],
+      "precedentId": "seed-lol-2",
+      "summary": "Add a mutual monetary cap with uncapped Excluded Claims to Section 15.11"
+    },
+    "quote": "15.11 Limitation of Liability. TO THE MAXIMUM EXTENT PERMITTED BY LAW AND NOTWITHSTANDING ANY PROVISION IN THIS AGREEMENT TO THE CONTRARY, NEITHER PARTY WILL BE LIABLE TO THE OTHER PARTY FOR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL, SPECIAL, RELIANCE OR PUNITIVE DAMAGES OR LOST OR IMPUTED PROFITS OR ROYALTIES OR COST OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES",
+    "rationale": "Section 15.11 is the only limitation-of-liability provision (Article 12 contains indemnities and insurance limits only, and Section 13.6 is a warranty disclaimer). It provides a mutual waiver of indirect/consequential damages and confirms PB's Article 6/14.2 payment obligations are not limited, but it contains no aggregate monetary cap at all, so each Party's direct liability is unlimited. That fails the fallback, which requires a mutual cap of at least 12 months' fees with carve-outs. We therefore added a mutual cap at the greater of twelve months' Article 6 payments and USD 1,000,000, with uncapped Excluded Claims (indemnification, confidentiality/data protection, gross negligence, willful misconduct, fraud, IP infringement) and preserved uncapped treatment of each Party's payment/funding obligations. The existing consequential-damages exclusion and payment-obligation carve-out are left intact.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-15.3.2",
+    "sectionRef": "§ 15.3.2 If to SFJ:",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "cap references 12 months of fees or a fixed floor",
+          "ok": true
+        },
+        {
+          "name": "no unlimited Customer liability language remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.850 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0833",
+          "ok": false
+        }
+      ],
+      "notes": "Classification is correct: Section 15.11 contains only a mutual consequential-damages waiver and a payment-obligation carve-out; there is no aggregate monetary cap anywhere in the quoted provisions, so both Parties' direct liability is unlimited. That fails the fallback (mutual cap of 12 months' fees with carve-outs), so 'deviation' rather than compliant/fallback is right — this is not an upgrade of an acceptable fallback. Redline is actionable and directionally correct for us: it is purely additive (two appended sentences in the paragraph's existing all-caps style), makes the cap expressly mutual ('EACH PARTY'S TOTAL AGGREGATE LIABILITY'), uses the playbook basis (greater of 12 months' payments and USD 1,000,000), and adds the required uncapped Excluded Claims (indemnification, confidentiality/data protection, gross negligence, willful misconduct, fraud, IP infringement). No existing protective language is disturbed: the consequential-damages exclusion and the 'not meant to limit PB's obligation to pay SFJ under Article 6 or Section 14.2' sentence are preserved, and the counterparty's Article 4 funding obligation is expressly placed outside the cap, so capping liability does not erode our recovery on the counterparty's core funding covenant. The failed 'minimal edit' check is advisory only and overstated here — the rendered text shows no deletions or rewriting of the original sentences, only the cap and Excluded Claims sentences the rule requires to be added. Comment is accurate, concise, in the required voice with the [Playbook] prefix, and states the position plus what sits outside the cap. Minor point for the negotiation (not a defect in the finding): because Article 6 payments are milestone/approval-driven, the 12-month measure may be zero in early years so the USD 1,000,000 floor would effectively govern; consider a higher floor or an alternative basis (e.g., aggregate funding provided) when discussing with the counterparty.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.44356,
+    "durationMs": 114011,
+    "id": "f-assign-3fba5451",
+    "paragraphIds": [
+      "p0765",
+      "p0766",
+      "p0814"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 15.6 already permits assignment to an affiliate or successor with a parent guarantee, so we have deleted SFJ's sole-discretion right to terminate (and the 150% Development Costs payment) on a Change of Control of PB, which our playbook treats as a walk-away term. If SFJ needs comfort, we can discuss a successor creditworthiness/assumption condition instead.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "A Change of Control of PB shall not give SFJ any right to terminate this Agreement or to accelerate, increase or otherwise modify any payment obligation of PB hereunder, and this Agreement shall continue in full force and effect in accordance with its terms following any such Change of Control, provided that PB or its successor shall assume, and where applicable guarantee, PB's obligations hereunder in accordance with Section 15.6.",
+          "oldText": "SFJ may, in its sole discretion, terminate this Agreement in its entirety at any time following a Change of Control of PB that occurs prior to the date of payment by PB of the final Approval Payment. In the event that SFJ terminates this Agreement pursuant to this Section 14.2.6, then, in exchange for purchasing the Trial Data Package including the Research Results included therein as set forth in Section 11.1.1.4, PB will pay to SFJ within [***] of the date of termination an amount equal to one hundred fifty percent (150%) of Development Costs which were paid or incurred by SFJ.",
+          "paragraphId": "p0765"
+        },
+        {
+          "kind": "delete_paragraph",
+          "paragraphId": "p0766"
+        }
+      ],
+      "summary": "Remove SFJ's change-of-control termination right and the associated 150% payment"
+    },
+    "quote": "14.2.6 Termination for Change of Control of PB. PB will notify SFJ in writing promptly (and in any event within [***]) following the entering into of a definitive agreement with respect to a Change of Control of PB. SFJ may, in its sole discretion, terminate this Agreement in its entirety at any time following a Change of Control of PB that occurs prior to the date of payment by PB of the final Approval Payment.",
+    "rationale": "The assignment clause itself (Section 15.6) is acceptable and at or near the preferred position: it is mutual and expressly permits either Party, without consent, to assign the entire Agreement to an Affiliate or to a successor in a merger, sale of stock or sale of all or substantially all assets (including by operation of law), subject only to a guarantee/continuing-liability mechanic. The absence of a \"not unreasonably withheld\" qualifier on consent for other assignments is a minor sub-element, noted only. The failure is in Article 14: Section 14.2.6 gives SFJ a sole-discretion right to terminate the entire Agreement following a Change of Control of PB and triggers a payment of 150% of Development Costs paid or incurred by SFJ. A counterparty termination (and effective re-pricing) right on our change of control is expressly walk-away territory under this rule, and it undercuts the M&A assignment freedom granted by Section 15.6. We therefore delete SFJ's change-of-control termination right and the associated 150% payment, retaining PB's notice obligation and the Section 15.6 assumption/guarantee protection; the consequential paragraph p0766, which operates only upon such a termination, is deleted as conforming. PB's own Change of Control Buy-Out Option in Section 6.7.2 is a right in our favour and is not flagged.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-p0745",
+    "sectionRef": "§ TERM AND TERMINATION",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "successor/affiliate carve-out for Customer present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=1.002 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0765",
+          "ok": false
+        }
+      ],
+      "notes": "Correctly classified as a deviation: Section 14.2.6 gives the counterparty (SFJ) a sole-discretion right to terminate the entire Agreement on our Change of Control plus a 150% Development Costs payment, which is expressly walk-away territory under ASSIGN ('a Vendor right to terminate or re-price on Customer's change of control'). This is not an over-flag of an acceptable fallback. The finding correctly treats Section 15.6 as compliant (mutual, express affiliate/successor and merger/stock/asset carve-out) and relegates the absent 'not unreasonably withheld' qualifier to a noted sub-element rather than a separate deviation; PB's own buy-out option in 6.7.2 is rightly left alone as a right in our favour. Redline is directionally correct and actionable: it removes SFJ's termination right and the 150% payment while preserving PB's notice obligation and cross-referencing the Section 15.6 assumption/guarantee mechanic, so the counterparty retains successor-credit comfort. The anti-acceleration language is scoped to Change of Control and does not disturb Section 6.2 adjustments or PB's Section 6.7.2 option. Deletion of p0766 is conforming, not substantive over-reach: that paragraph operates only 'following the date of such termination' under 14.2.6 and would be orphaned once the termination right is removed. Comment is accurate, correctly cites the playbook position, and offers a sensible fallback (successor creditworthiness/assumption condition) in the required tone. Advisory only: the failed 'minimal edit' check reflects a justified whole-clause rewrite, but the retained heading '14.2.6 Termination for Change of Control of PB' no longer matches the surviving text — consider renaming it (e.g. 'Notice of Change of Control of PB') or achieving the same result by simply striking the two offending sentences.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.254581,
+    "durationMs": 52172,
+    "id": "f-exclusivity-7297f362",
+    "paragraphIds": [
+      "p0369",
+      "p0085",
+      "p0262",
+      "p0263"
+    ],
+    "producedBy": "drafter",
+    "quote": "3.19 Exclusivity Commitment of SFJ. During the applicable Exclusive Period, SFJ shall not, and shall cause its Affiliates not to, either by itself or through a Third Party, conduct human clinical trials of, or sell, offer for sale or have sold:",
+    "rationale": "The only exclusivity construct in the Agreement runs against the counterparty: Section 3.19 (with the \"Exclusive Period\" definition at 1.1.68) bars SFJ and its Affiliates from developing or selling Competing Products, which benefits PB and is therefore not a deviation. No provision obliges PB to source exclusively from SFJ or to refrain from procuring goods or services from third parties: Sections 2.4.1–2.4.3 let each Party (including PB) delegate to Affiliates, any CRO on Exhibit B or JDC-approved, and contract with any Approved Vendor, and PB is itself the GMP Manufacturer under Section 3.14.1.1, directly or through an Approved CRO. Article 7's covenants (including the Section 7.5.5 Licensing Transaction consent gate, which is limited by the Excluded Licensing Transaction carve-out and an expedited arbitration test) are financing-style negative covenants over IP and royalty streams, not sole-supplier or exclusive-dealing obligations, so they fall outside this rule. This meets the preferred position — no exclusivity or sole-supplier obligation on the Customer.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-3.9",
+    "sectionRef": "§ 3.9 IDMC",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no requirements/sole-supplier obligation on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant, and consistent with that, no redline text was altered and no comment was proposed — appropriate for a retained internal evidence finding. The cited text supports the conclusion: Section 3.19 with the 'Exclusive Period' definition (1.1.68) restricts SFJ (counterparty) and its Affiliates from clinical trials/sales of Competing Products, which benefits our party (PB) and per the detection guidance is expressly not a deviation. Sections 2.4.1–2.4.2 affirmatively permit each Party, including PB, to delegate to Affiliates and contract with listed or JDC-approved CROs and Vendors, showing no requirements-contract or 'sole supplier' obligation on the Customer; the deterministic check ('no requirements/sole-supplier obligation on Customer remains') is satisfied. Rationale correctly distinguishes Article 7's negative covenants over IP/royalty streams (including the 7.5.5 Licensing Transaction consent gate with its Excluded Licensing Transaction carve-out) as financing covenants outside the scope of this exclusive-dealing rule, so the preferred position (no exclusivity burden on Customer) is met.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.76,
+    "costUsd": 0.3968325,
+    "durationMs": 97300,
+    "id": "f-indemn-1dfc8ba0",
+    "paragraphIds": [
+      "p0687",
+      "p0691",
+      "p0695"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We added an SFJ indemnity for third-party IP claims arising from SFJ's own performance and narrowed our clause 12.1.2(f) so we no longer indemnify SFJ for infringement caused by SFJ's activities; our playbook requires each party to stand behind IP claims arising from its own conduct, with our indemnity limited to the Product we supply.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "(f) any actual or alleged infringement or misappropriation of any Third Party's Intellectual Property arising from the performance by SFJ, its Affiliates or any of its or their respective Permitted Third Parties of SFJ's obligations under this Agreement or, if applicable, the Program Transfer Agreement; and/or (g) from any after any Program Transfer, product liability claims resulting from the Commercialization of Product other than Product manufactured by PB by or on behalf of SFJ or any of its Affiliates, licensees or sublicensees; except to the extent that any of the foregoing (a) through (g) was caused by",
+          "oldText": "and/or (f) from any after any Program Transfer, product liability claims resulting from the Commercialization of Product other than Product manufactured by PB by or on behalf of SFJ or any of its Affiliates, licensees or sublicensees; except to the extent that any of the foregoing (a) through (f) was caused by",
+          "paragraphId": "p0691"
+        },
+        {
+          "kind": "replace",
+          "newText": "(f) actual or alleged infringement of any Third Party's Intellectual Property by the Product or by PB in performing its duties or obligations hereunder with respect to the Product;",
+          "oldText": "(f) actual or alleged infringement of any Third Party's Intellectual Property by the Product or by either Party in performing its duties or obligations hereunder with respect to the Product;",
+          "paragraphId": "p0695"
+        }
+      ],
+      "precedentId": "seed-indemn-1",
+      "summary": "Add an SFJ IP-infringement indemnity limb and narrow PB's IP indemnity to the Product and PB's own performance"
+    },
+    "quote": "(f) actual or alleged infringement of any Third Party's Intellectual Property by the Product or by either Party in performing its duties or obligations hereunder with respect to the Product;",
+    "rationale": "Article 12 contains a mutual indemnity with a proper procedure (notice, control of defence, participation, cooperation) and SFJ's limb in 12.1.1 does cover its gross negligence/wilful misconduct, material breach and Protocol breaches. However, the only third-party IP infringement indemnity runs one way: under 12.1.2(f) PB indemnifies SFJ for infringement \"by the Product or by either Party in performing its duties or obligations hereunder\", so we carry SFJ's own infringement risk (subject only to a gross negligence/wilful misconduct or material breach carve-out), while SFJ gives us no IP indemnity at all. That fails the fallback, which requires the counterparty to stand behind IP claims arising from its own activities. Our minimal edit adds an SFJ IP limb for infringement arising from SFJ's (and its Affiliates'/Permitted Third Parties') performance and deletes \"either Party\" from 12.1.2(f) so our indemnity is confined to the Product and our own performance; we leave the balance of PB's operating-party indemnity intact as the existing bargain.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-p0685",
+    "sectionRef": "§ INDEMNIFICATION AND INSURANCE",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.502 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0691",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.063 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0695",
+          "ok": true
+        }
+      ],
+      "notes": "Classification is correct: SFJ's indemnity in 12.1.1 (a)-(f) as drafted contains no third-party IP infringement limb, while our clause 12.1.2(f) obliges us to indemnify SFJ for infringement caused by 'either Party' in performing its duties. That fails the fallback, which requires the counterparty to stand behind IP claims arising from its own activities, so this is a deviation and not an acceptable-fallback over-flag. Both edits are directionally correct and benefit our side: the new limb in 12.1.1 gives us an SFJ IP indemnity confined to infringement arising from SFJ's/its Affiliates'/Permitted Third Parties' performance, and replacing 'either Party' with 'PB' in 12.1.2(f) removes our exposure for SFJ-caused infringement while leaving our Product-based indemnity intact. Drafting is technically clean: the inserted limb is renumbered (old (f) becomes (g)), the trailing carve-out reference is updated to '(a) through (g)', the 'and/or' sequencing reads correctly, and the pre-existing notice/control/cooperation procedure in 12.2 applies to the new limb without further edits. Edit is minimal in substance — no attempt to rewrite the wider operating-party indemnity bargain; the higher changed-character ratio on p0691 is explained by the necessary insertion and re-lettering, not by unnecessary rewriting. Comment is accurate, concise, first person plural, states what changed and why, and cites the playbook position; only note (properly left in the rationale rather than redlined) is that the preferred super-cap/standard remedies elements are not addressed, which is acceptable in this co-development context.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.55393025,
+    "durationMs": 143484,
+    "id": "f-ld-5f6ba098",
+    "paragraphIds": [
+      "p0750",
+      "p0781",
+      "p0792"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Our position is that we do not pay liquidated damages or penalties, so we have reduced the 300% multiple on a breach termination to a return of the Development Costs SFJ actually funded and deleted the 25% per annum uplift on a JSC-decision termination. These fixed sums are expressly in lieu of damages under Section 14.4.2, so a 3x multiple and 25% interest operate as a penalty rather than compensation; we are happy to keep the exclusive-remedy construct in exchange.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "an amount equal to one hundred percent (100%) of Development Costs paid or incurred by SFJ prior to such termination",
+          "oldText": "an amount equal to three hundred percent (300%) of Development Costs paid or incurred by SFJ prior to such termination",
+          "paragraphId": "p0750"
+        },
+        {
+          "kind": "replace",
+          "newText": "an amount equal to the Development Costs paid or incurred by SFJ",
+          "oldText": "an amount equal to the Development Costs paid or incurred by SFJ plus interest at the annual rate of twenty-five percent (25%) from the date such Development Costs were paid or incurred by SFJ",
+          "paragraphId": "p0781"
+        }
+      ],
+      "precedentId": "seed-ld",
+      "summary": "Remove punitive multiple and default interest from PB's termination payments (return of SFJ's actual Development Costs only)"
+    },
+    "quote": "In the event that SFJ terminates this Agreement pursuant to this Section 14.2.1 then in exchange for purchasing the Trial Data Package including the Research Results included therein as set forth in Section 11.1.1.4, PB will pay SFJ, within [***] of the date of termination, an amount equal to three hundred percent (300%) of Development Costs paid or incurred by SFJ prior to such termination.",
+    "rationale": "Section 14.4.2 confirms that the fixed sums payable by PB on termination under Section 14.2 are \"in lieu of any claim for damages that SFJ may have\" — i.e., they are liquidated amounts payable by us, the Customer, and are therefore squarely within this rule (SFJ's contingent Approval Payments under Article 6, and the optional Buy-Out Payments under Section 6.7, are the priced commercial bargain and are not flagged). Two of those liquidated amounts fail the fallback on a material term: (i) Section 14.2.1 requires PB to pay 300% of Development Costs paid or incurred by SFJ (up to roughly $360M against the $120M funding benchmark in Section 6.2) within days of a breach termination, while PB also remains liable for Approval Payments; and (ii) Section 14.2.10 adds 25% per annum interest to a termination triggered not by any breach but by PB's good-faith exercise of its own decision-making authority under Section 5.2.4 — punitive amounts triggered by non-material or non-breach events, which is walk-away territory. Given the financing structure, deleting the payment entirely (preferred position) would be disproportionate, so our redline takes the smallest step: return of the Development Costs SFJ actually funded (the same measure SFJ already accepted in Section 14.2.9), with the punitive 3x multiple and 25% uplift removed. We have not separately reopened the 150%/300% figures in Sections 14.2.2, 14.2.5.2, 14.2.6, 14.2.7 or 14.2.8.1, which should be conformed if this principle is accepted.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-p0745",
+    "sectionRef": "§ TERM AND TERMINATION",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.068 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0750",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.667 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0781",
+          "ok": false
+        }
+      ],
+      "notes": "Rule applies and the direction is correct: Section 14.4.2 expressly makes the Section 14.2 termination sums payable by PB 'in lieu of any claim for damages that SFJ may have', so they are liquidated amounts payable by our party (PB), not vendor-side service credits. Deviation classification is supportable: a 300% multiple on Development Costs (p0750) and cost recovery plus 25% p.a. on a non-breach, decision-authority termination (p0781) fail both the preferred (no Customer-payable LD) and the fallback (single capped early-termination amount) on material terms, and the multiple plus retained Approval Payment exposure approaches walk-away territory. Redlines are valid and surgical: p0750 changes only '300%' to '100%'; p0781 deletes only the 25% per annum uplift while preserving the Approval Payment/Buy-Out mechanics. The flagged 0.667 changed-character ratio on p0781 is an artifact of the diff; the substantive edit is a single deleted phrase. Comment is accurate, correctly cites Section 14.4.2, explains the penalty-vs-compensation point, and offers a trade (retaining the exclusive-remedy construct) in the required tone. Caveats noted but not disqualifying: (a) the drafter reasonably scoped out the priced Approval/Buy-Out consideration, but a counterparty will argue the 300% multiple and 25% yield are the funder's negotiated return on capital rather than a penalty, so expect pushback; (b) the finding leaves the parallel 150%/300% multiples in Sections 14.2.2, 14.2.5.2, 14.2.6, 14.2.7 and 14.2.8.1 unconformed, which should be raised so the agreement is internally consistent; (c) the rationale's statement that PB 'also remains liable for Approval Payments' is textually supported for 14.2.10 but not on the face of p0750.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.39163775,
+    "durationMs": 76186,
+    "id": "f-license-df95cd8b",
+    "paragraphIds": [
+      "p0659",
+      "p0660",
+      "p0661",
+      "p0663",
+      "p0666"
+    ],
+    "producedBy": "drafter",
+    "quote": "an exclusive, worldwide, royalty-free, fully-paid, freely-assignable license, with the right to sublicense through multiple tiers, or (iii) a non‑exclusive, worldwide, royalty-free, fully-paid, freely-assignable license, with the right to sublicense through multiple tiers ((i) through (iii) in order of preference), to PB of any Trial Invention",
+    "rationale": "There is no inbound licence to us that is revocable or scope-limited: this Co-Development Agreement gives PB (our party) rights to the relevant IP by ownership rather than licence — PB retains all Existing PB Intellectual Property (11.1.1.1), is exclusive owner of all Trial Inventions with SFJ assigning and causing its Affiliates and Permitted Third Parties to assign (11.1.1.3(a)-(b)), and acquires sole ownership of the Trial Data Package and Research Results (11.1.1.4). Where assignment cannot be obtained from SFJ's consultants or Third Party contractors, SFJ must instead procure for PB a worldwide, royalty-free, fully-paid, freely-assignable licence with the right to sublicense through multiple tiers (11.1.1.3(b)-(c)) — irrevocable in substance, transferable to successors, and extendable to our Affiliates and contractors via the sublicence right. That meets or exceeds the preferred position, so no redline is warranted. The only grant in the other direction (11.1.1.6 \"No Other Rights\") is protective of us, limiting SFJ to what is necessary to perform, and the Program Transfer grant sits in the Exhibit O form outside this text. We note only as sub-elements that the contractor licences are obtained on a commercially reasonable efforts basis with a carve-out in 11.1.1.3(c) for contractor background/improvement technology, and that the AZ License prevails over conflicting terms.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-p0647",
+    "sectionRef": "§ INTELLECTUAL PROPERTY AND PERSONALLY IDENTIFIABLE INFORMATI…",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "affiliates covered by the licence",
+          "ok": true
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant, and consistent with that, the rendered redline is identical to the original paragraphs and no counterparty comment is proposed — nothing is being raised as a negotiation issue. The cited text supports the compliance conclusion: 11.1.1.3(a) vests exclusive ownership of all Trial Inventions in PB (our party) with assignment from SFJ, its Affiliates and Permitted Third Parties; 11.1.1.3(b)-(c) require, where assignment is unavailable, a worldwide, royalty-free, fully-paid, freely-assignable licence with multi-tier sublicensing rights (functionally irrevocable, successor-transferable, and extendable to our Affiliates/contractors); 11.1.1.4 transfers sole ownership of the Trial Data Package and Research Results to PB. No revocable-at-will grant or affiliate/contractor exclusion runs against us; 11.1.1.6 ('No Other Rights') limits SFJ's rights and is protective of our party, so flagging would be over-flagging. Deterministic checks (affiliates covered; no at-will revocation) both pass, and the rationale properly relegates minor points (commercially reasonable efforts qualifier, contractor background-technology carve-out, AZ License precedence) to noted sub-elements rather than deviations.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.265738,
+    "durationMs": 47709,
+    "id": "f-noncompete-25cde0c5",
+    "paragraphIds": [
+      "p0369",
+      "p0085",
+      "p0552"
+    ],
+    "producedBy": "drafter",
+    "quote": "3.19 Exclusivity Commitment of SFJ. During the applicable Exclusive Period, SFJ shall not, and shall cause its Affiliates not to, either by itself or through a Third Party, conduct human clinical trials of, or sell, offer for sale or have sold:",
+    "rationale": "The only exclusivity/field-of-use covenant in the Agreement (Section 3.19, read with the \"Exclusive Period\", \"Competing Product\" and \"Brilinta Competing Product\" definitions) binds SFJ, the counterparty, not PB — it restricts SFJ from running trials of or selling ticagrelor-reversal and competing P2Y12 products, which operates in our favour. A search of the covenants (Sections 7.5–7.6), the definitions and Article 14 shows no provision preventing PB from developing, acquiring, manufacturing or commercialising any competing or alternative product, and no post-term restriction on our business. Section 7.5.5 requires SFJ consent for certain Licensing Transactions concerning the Product, but that is a financing/collateral protection over our own out-licensing of the funded Product rather than a non-compete or field-of-use restriction on the businesses we may operate or the products we may buy or build, so it is not treated under this rule. This meets the preferred position: no non-compete on the Customer.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-3.9",
+    "sectionRef": "§ 3.9 IDMC",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no open-ended compete restriction on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant, and no redline or comment was proposed — consistent with the expectation that compliant findings are recorded as evidence rather than raised as negotiation issues. The cited text supports the conclusion: Section 3.19 (with the 'Exclusive Period' and 'Competing Product' definitions) binds SFJ, the counterparty, from running trials of or selling competing ticagrelor-reversal agents; restrictions on the vendor are expressly acceptable under the detection guidance and operate in our favour. No provision cited or otherwise identified restricts PB from developing, acquiring or commercialising competing or alternative products, and there is no post-term non-compete on our side, so the preferred position (no non-compete or field-of-use restriction on Customer) is met. The rationale correctly distinguishes Section 7.5.5 as a financing/collateral consent right over out-licensing of the funded Product rather than a field-of-use or non-compete covenant on our business, and flags it transparently instead of double-counting it under this rule. The deterministic check ('no open-ended compete restriction on Customer remains') passes, and the rendered paragraphs are unmodified, as expected for a compliant finding.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.61554275,
+    "durationMs": 149506,
+    "id": "f-t4c-76931d7c",
+    "paragraphIds": [
+      "p0755",
+      "p0765",
+      "p0780"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Our playbook requires a workable customer convenience exit and no vendor walk-away on short notice; as drafted PB can only exit after SFJ has spent $60 million and only by paying 300% of Development Costs, while SFJ may terminate in its sole discretion with no notice period. We have moved PB's at-will right to 90 days' notice without the spend gate, aligned the exit payment with the 150% multiple SFJ already uses in Sections 14.2.6 and 14.2.8.1, and required 90 days' prior written notice for SFJ's discretionary terminations.",
+      "level": "fallback",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "PB may terminate this Agreement at any time upon ninety (90) days' prior written notice to SFJ.",
+          "oldText": "PB may terminate this Agreement at any time after SFJ has paid or incurred a total of $60 million of Development Costs and prior to the date of receipt of the first Regulatory Approval upon [***] prior written notice to SFJ.",
+          "paragraphId": "p0755"
+        },
+        {
+          "kind": "replace",
+          "newText": "one hundred fifty percent (150%)",
+          "oldText": "three hundred percent (300%)",
+          "paragraphId": "p0755"
+        },
+        {
+          "kind": "replace",
+          "newText": "SFJ may, in its sole discretion, terminate this Agreement in its entirety upon not less than ninety (90) days' prior written notice to PB at any time following a Change of Control of PB that occurs prior to the date of payment by PB of the final Approval Payment.",
+          "oldText": "SFJ may, in its sole discretion, terminate this Agreement in its entirety at any time following a Change of Control of PB that occurs prior to the date of payment by PB of the final Approval Payment.",
+          "paragraphId": "p0765"
+        },
+        {
+          "kind": "replace",
+          "newText": "SFJ may, in its sole discretion, terminate this Agreement in its entirety upon not less than ninety (90) days' prior written notice to PB at any time prior to the date of receipt of the first Regulatory Approval",
+          "oldText": "SFJ may, in its sole discretion, terminate this Agreement in its entirety at any time prior to the date of receipt of the first Regulatory Approval",
+          "paragraphId": "p0780"
+        }
+      ],
+      "precedentId": "seed-t4c",
+      "summary": "Make PB's at-will exit genuinely available (90 days' notice, no $60M/pre-approval gate) with the exit payment reduced to 150% of Development Costs, and require 90 days' prior notice for SFJ's sole-discretion terminations."
+    },
+    "quote": "14.2.2 At-Will Termination by PB. PB may terminate this Agreement at any time after SFJ has paid or incurred a total of $60 million of Development Costs and prior to the date of receipt of the first Regulatory Approval upon [***] prior written notice to SFJ.",
+    "rationale": "Both limbs of the rule fail the fallback. (1) Our convenience exit: Section 14.2.2 is the only at-will right we have and it is double-gated — unavailable until SFJ has paid or incurred $60 million of Development Costs and unavailable at all once the first Regulatory Approval is received — and its price is \"three hundred percent (300%) of Development Costs paid or incurred by SFJ prior to such termination\". In a multi-year term that is effectively no usable convenience right, and the exit charge is far beyond the fallback's cap of roughly three months' fees. (2) SFJ's exit: Sections 14.2.6 (Change of Control of PB) and 14.2.10 (JSC decision disagreement) each let SFJ \"in its sole discretion, terminate this Agreement in its entirety at any time\" with no stated notice period, and 14.2.3 permits immediate termination on a Material Adverse Event — a counterparty walk-away on fewer than 90 days' notice, which the playbook treats as walk-away territory. We proposed the fallback rather than the preferred position because the existing bargain is a development-financing structure in which SFJ funds the trials against Approval Payments, so a no-penalty 30-day exit would be disproportionate: instead we make PB's at-will right exercisable at any time on 90 days' notice, cut the exit payment to the 150% multiple SFJ itself already accepts in Sections 14.2.6 and 14.2.8.1, and impose a 90-day notice floor on SFJ's discretionary terminations. Related buy-out pricing under Section 6.7 is a payments term and is not flagged again here.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-p0745",
+    "sectionRef": "§ TERM AND TERMINATION",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 3 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 4 applies",
+          "ok": true
+        },
+        {
+          "name": "Customer convenience termination present",
+          "ok": false
+        },
+        {
+          "detail": "changed-character ratio=0.656 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0755",
+          "ok": false
+        },
+        {
+          "detail": "changed-character ratio=0.500 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0755",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.243 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0765",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.303 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0780",
+          "ok": true
+        }
+      ],
+      "notes": "Primary limb is a genuine fallback failure: PB's only at-will exit (14.2.2) is double-gated (unavailable until SFJ has spent $60M and lost once first Regulatory Approval is received) and priced at 300% of Development Costs, so in a multi-year development term there is effectively no usable customer convenience right and the exit charge far exceeds the fallback's fee cap — correctly classified as a deviation, not an acceptable fallback. Redline is directionally correct and reasonably scoped: it removes the spend/approval gates, sets a 90-day notice (within the fallback band), and reduces the exit payment to the 150% multiple the counterparty itself already accepts in 14.2.6/14.2.8.1 — an internally sourced benchmark that is defensible where a literal '3 months' fees' cap has no analogue in a development-financing structure. Counterparty-exit edits are minimal and on-point: adding a 90-day prior written notice floor to SFJ's 'sole discretion, at any time' terminations in 14.2.6 and 14.2.10 addresses the walk-away trigger (vendor convenience exit on fewer than 90 days' notice) without deleting the negotiated triggers. Failed deterministic checks are not substantive: the 'Customer convenience termination present' regex misses because the customer is named 'PB' rather than 'Customer', and the 0.656 changed-character ratio on p0755 reflects the rewrite the rule genuinely requires (removing gates and repricing the exit fee), with the remainder of the clause left intact. Comment is accurate and appropriately framed (cites the $60M gate, 300% multiple, and SFJ's no-notice discretionary rights; explains the 150%/90-day fallback), and the rationale correctly avoids double-flagging Section 6.7 buy-out pricing under a payments rule. Minor, non-fatal points to flag to the drafter rather than grounds for failure: SFJ's 14.2.6/14.2.10 rights are event-triggered rather than pure convenience rights, so the 'walk-away' characterization is somewhat stretched; and deleting the pre-Approval limit in 14.2.2 leaves the 'obtains Regulatory Approval following such termination' proviso not obviously covering a post-approval exit, which the counterparty may argue lets PB escape Approval Payments.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.355091,
+    "durationMs": 70223,
+    "id": "f-audit-ac2d8c8c",
+    "paragraphIds": [
+      "p0624",
+      "p0625",
+      "p0321",
+      "p0322"
+    ],
+    "producedBy": "drafter",
+    "quote": "9.1 Accounting. Each Party will maintain materially complete and accurate accounting records related to this Agreement in accordance with GAAP. Each Party will retain such records for [***] after the earlier of expiration or early termination of this Agreement.",
+    "rationale": "SFJ has no audit, inspection or verification right against PB, so there is nothing for this rule to constrain. Article 9 (Records) imposes only mutual record-keeping/retention obligations on \"Each Party\" and grants neither Party a right to inspect or audit the other's books. The only \"Audits\" provision, Section 3.6, is each Party auditing the facilities of its own Permitted Third Parties (3.6.1) and PB auditing its own manufacturing facilities (3.6.2), with report copies shared — that is self-audit and reporting, not an SFJ audit of PB. Section 3.5.5 is reciprocal source-data verification of clinical records each Party is itself responsible for. Article 3.18.2 requires PB to deliver financial statements and hold periodic executive review meetings, but confers no examination right, no on-site inspection and no access to PB systems; Articles 4, 6 and 7 contain no cost- or payment-verification audit. There is no unannounced or unlimited audit right and no remote/system access language anywhere in the document, so nothing approaches walk-away territory. Because the absence of any audit right binding us is more favourable than the preferred position, we do not propose inserting frequency, notice or cost-allocation limits (or an audit right) — doing so would create a right against our client that SFJ does not currently have. Noted for the file only: if SFJ later seeks a records-audit right (e.g., over Development Costs or Approval Payments), we should condition it on once per 12 months, 30 days' written notice, business hours, an independent auditor bound by confidentiality, SFJ's cost unless underpayment exceeds 5%, and no access to PB systems.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-p0623",
+    "sectionRef": "§ RECORDS",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "audit frequency limited",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is 'compliant' and the rendered redline is identical to the original paragraphs with no comment — consistent with a compliant, evidence-only finding where no negotiation issue is raised. The cited text supports the conclusion: Art. 9 imposes only mutual record-keeping/retention duties on 'Each Party' with no examination or inspection right; Sections 3.6.1–3.6.2 are each Party's quality oversight of its own Permitted Third Parties / PB's own manufacturing facilities with report copies shared, i.e. self-audit and reporting rather than an SFJ audit right over PB. No unlimited/unannounced audit or remote system-access language appears in the cited clauses, so nothing reaches walk-away territory; the absence of any audit right binding our client is more favourable than the preferred position and correctly left unredlined (inserting limits would create a right SFJ does not have). The failed 'audit frequency limited' deterministic check is a false signal here — the regex cannot match frequency caps because there is no audit right against us to cap; it does not undermine the substance. Rationale appropriately notes for the file the terms to demand (once per 12 months, 30 days' notice, independent auditor, Vendor cost unless >5% underpayment, no system access) if SFJ later seeks a records-audit right.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.14178575,
+    "durationMs": 35479,
+    "id": "f-govlaw-8269ab04",
+    "paragraphIds": [
+      "p0822",
+      "p0824",
+      "p0827"
+    ],
+    "producedBy": "drafter",
+    "quote": "15.9 Governing Law. The construction and validity of this Agreement and the provisions hereof, and the rights and obligations of the Parties hereunder, will be governed by the internal laws of the State of Delaware, USA, and, to the extent applicable to Patents and Trademarks, the applicable federal laws of the USA, in each instance without regard to conflict of laws principles.",
+    "rationale": "Section 15.9 selects Delaware law, which sits squarely at the playbook fallback (Delaware or California law) rather than the preferred New York law. The dispute forum is also within accepted territory: after Executive Officer escalation, disputes go to ICDR arbitration with the seat/legal place of arbitration in New York, governed by the U.S. Federal Arbitration Act (15.10.2.2), so there is no foreign law, foreign venue, or arbitration seated abroad — the walk-away triggers are absent. IP ownership/validity/enforceability disputes are expressly reserved to a U.S. federal court and either Party may seek preliminary injunctive relief in any court of competent jurisdiction (15.10.1). The only shortfalls against the preferred position are Delaware rather than New York law and a domestic arbitral forum rather than New York County courts; both are non-material sub-elements noted here rather than redlined, and the arbitration provisions are symmetrical and do not disadvantage us.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-15.3.2",
+    "sectionRef": "§ 15.3.2 If to SFJ:",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "governing law within the accepted set",
+          "ok": true
+        }
+      ],
+      "notes": "Compliant claim is supported by the cited text: Section 15.9 selects Delaware law, which is expressly within the playbook fallback (Delaware or California), and the rationale correctly states it sits at the fallback rather than the preferred New York position. No walk-away trigger is present: the arbitral seat is New York (15.10.2.2), so there is no foreign law, foreign venue, or arbitration seated abroad; IP ownership/validity disputes are reserved to a U.S. federal court and either Party may seek injunctive relief in any competent court. Consistent with playbook classification semantics, no redline or counterparty comment is proposed for a fallback-compliant clause; the shortfalls (Delaware vs. New York law, domestic arbitration vs. New York County courts) are appropriately noted in the rationale rather than flagged as deviations. Deterministic check on accepted governing law passes and the redline is identical to the original text. Minor accuracy nit (non-material): the rationale attributes a U.S. Federal Arbitration Act reference to 15.10.2.2, which is not visible in the quoted paragraph; the seat-in-New-York language alone supports the conclusion.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.188266,
+    "durationMs": 45337,
+    "id": "f-mfn-54652f32",
+    "paragraphIds": [
+      "p0543",
+      "p0552"
+    ],
+    "producedBy": "drafter",
+    "quote": "enter into a new subordination agreement with a new lender(s) on terms and conditions that are taken as a whole not less favorable in any material respect to SFJ than those set forth in the subordination agreement to be entered into with SVB",
+    "rationale": "Searches for MFN/best-terms language (most favoured, no less/not less favourable, at least as favorable, best price, match, comparable terms) returned no pricing or best-terms MFN in the Agreement. The only \"not less favorable to SFJ\" language is Section 7.5 (p0543), which is a condition on any replacement lender subordination agreement in the security-interest package, not an obligation for PB to extend SFJ the benefit of better terms granted to third parties. Article 6 (Payments to SFJ) and the Licensing Transaction definitions/Section 7.5.5 (p0552) impose consent and approval mechanics on PB's third-party licensing, but no obligation to offer SFJ terms no less favourable than those given to others or to match third-party offers. This meets the preferred position (no MFN obligation on PB), so no redline is proposed.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-p0535",
+    "sectionRef": "§ SECURITY INTEREST",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the redline is unchanged with no counterparty comment, which is the expected output for a compliant finding. The cited text supports compliance: p0543's 'not less favorable in any material respect to SFJ' is a benchmark for a replacement lender's subordination agreement against the SVB subordination agreement, not an obligation on PB (our party) to extend SFJ any better terms granted to third parties, so it is not an MFN within the rule's detection guidance. p0552 imposes consent/approval mechanics on PB's Licensing Transactions (with Excluded Licensing Transaction carve-outs), not a best-terms or price-matching obligation; noting this in the rationale rather than flagging it is correct and also avoids double-flagging an assignment/licensing-control term. No MFN obligation burdening the Customer exists, which matches the preferred position; the rule's fallback and walk-away tests are not triggered, so no actionable redline is required.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.41040675,
+    "durationMs": 90177,
+    "id": "f-mincommit-654e46dd",
+    "paragraphIds": [
+      "p0399",
+      "p0402",
+      "p0521",
+      "p0527",
+      "p0755"
+    ],
+    "producedBy": "drafter",
+    "quote": "PB shall notify SFJ in writing of the total amount of Development Costs (inclusive of all Development Costs paid or incurred since the Effective Date) that PB elects to have SFJ fund (the \"Elected Total Amount\"), which shall be no less than $110 million and no more than $120 million.",
+    "rationale": "This is a development-funding agreement, not a supply arrangement, and it contains no minimum purchase commitment, take-or-pay obligation, shortfall penalty or volume cap on PB. The spending commitments run the other way: SFJ commits to fund up to $120M of Development Costs (Sections 4.1–4.2), which under the detection guidance is a commitment made to us and is not flagged. PB's payments to SFJ (Article 6 Approval Payments) are purely contingent on obtaining Regulatory Approval and are expressly proportional to actual amounts funded — Section 6.2 scales the Approval Payments by actual Development Costs over $120M and provides for \"true-up payments,\" i.e. a true-up rather than a penalty, which meets the preferred/fallback economics. PB also retains exits: the buy-out options in Sections 6.7.1–6.7.2 and at-will termination under Section 14.2.2. Noted but not flagged as deviations: (i) the $110M floor on the Elected Total Amount in Section 4.2.3(ii) is a minimum draw of funding PB receives (with corresponding consideration trued up under Section 6.2), not committed spend with a shortfall charge; (ii) the matched-spend covenant in Section 4.2.3 (\"PB shall spend at least an amount equal to the amount of funding paid by SFJ\") is a use-of-proceeds covenant on money PB has received; and (iii) the 300% exit payment on at-will termination is a termination-economics point addressed under the termination rule and is not double-flagged here.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-p0379",
+    "sectionRef": "§ DEVELOPMENT COSTS",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant and the rendered redline is identical to the original paragraphs with no comment — consistent with a no-action, internal-evidence finding. The cited text supports compliance with MINCOMMIT: the funding commitment runs from SFJ to PB (a commitment made to our side, expressly excluded by the detection guidance), and PB's Article 6 Approval Payments are contingent on Regulatory Approval and scaled to actual Development Costs funded, with express 'true-up payments' rather than a shortfall penalty. No take-or-pay, minimum purchase, shortfall charge or volume cap on our usage appears in the cited clauses; PB also holds exits (Section 6.7.1 buy-out and Section 14.2.2 at-will termination), so the walk-away scenario is not present. Sub-elements that fall short of ideal (the $110M floor on the Elected Total Amount, the matched-spend use-of-proceeds covenant, and the 300% at-will exit payment) are correctly noted in the rationale rather than flagged, and the exit economics are properly deferred to the termination rule to avoid double-flagging the same commercial term.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.13552275,
+    "durationMs": 38889,
+    "id": "f-nosolicit-c813dd9d",
+    "paragraphIds": [
+      "p0841"
+    ],
+    "producedBy": "drafter",
+    "quote": "15.16 Nonsolicitation. During the Term and for a period of [***] thereafter, neither Party shall solicit an employee of the other Party who is or has been involved in the performance or oversight of any of the development activities hereunder to terminate his or her employment and accept employment or work as a consultant with the soliciting Party. Notwithstanding the foregoing, nothing herein shall restrict or preclude the Parties' right to make generalized searches for employees by way of a general solicitation for employment placed in a trade journal, newspaper or website.",
+    "rationale": "Section 15.16 is the only personnel restriction binding PB; searches for \"hire\", \"employ or engage\" and \"induce\" return no no-hire or broader covenant elsewhere. The clause sits at our fallback position on every material term: it is fully mutual (\"neither Party\"), scope is narrowed to employees \"who is or has been involved in the performance or oversight of any of the development activities hereunder\" rather than all personnel, it prohibits only solicitation (no no-hire — PB remains free to hire an SFJ employee who approaches it), and it carries an express general-advertising carve-out for \"generalized searches ... by way of a general solicitation for employment placed in a trade journal, newspaper or website\". Two minor sub-elements fall short of the preferred position and are noted rather than flagged: the tail duration is redacted ([***]) so it cannot be confirmed against the 24-month walk-away threshold, and it runs from expiry of the Term rather than from the end of the individual's involvement; there is also no separate express carve-out for unsolicited approaches, though the \"solicit ... to terminate\" framing already leaves employee-initiated contact unrestricted. Since our preferred position (no non-solicit on Customer) is not met but the fallback is satisfied on all material terms, this is compliant and we should not redline it. If the redacted tail proves to exceed 24 months, that would be a separate walk-away issue to raise on the unredacted copy.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-15.3.2",
+    "sectionRef": "§ 15.3.2 If to SFJ:",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-solicit duration ≤ 12 months",
+          "ok": false
+        },
+        {
+          "name": "general-solicitation carve-out present",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is 'compliant' and the finding correctly proposes no redline and no counterparty comment, consistent with playbook treatment of fallback-level clauses. The cited text (p0841) supports the classification on every material fallback term: it is mutual ('neither Party'), limited to employees 'involved in the performance or oversight of any of the development activities hereunder' rather than all personnel, prohibits solicitation only (no no-hire language), and contains an express general-advertising carve-out ('general solicitation for employment placed in a trade journal, newspaper or website'). The failed deterministic duration check is explained by the [***] redaction rather than an excessive term; the rationale transparently notes this and correctly flags that a tail exceeding 24 months would be a separate walk-away issue to confirm on the unredacted copy. Shortfalls versus the preferred position (tail measured from expiry of the Term rather than end of involvement; no separate unsolicited-approach carve-out) are properly recorded in the rationale as minor sub-elements rather than escalated to a deviation, matching the playbook's classification semantics; redlining an acceptable fallback would be over-flagging.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.17471275,
+    "durationMs": 28987,
+    "id": "f-renewal-c13caf9d",
+    "paragraphIds": [
+      "p0746"
+    ],
+    "producedBy": "drafter",
+    "quote": "14.1 Term. The term of this Agreement (the \"Term\") will commence on the Effective Date and will expire upon the earliest of (i) termination of this Agreement in accordance with Section 14.2, or (ii) the date of payment of the last Approval Payment due based on all applicable Regulatory Approvals which have been received.",
+    "rationale": "Article 14 sets a milestone-based Term (running to the last Approval Payment or earlier termination under Section 14.2) with no automatic renewal, extension or evergreen mechanic — searches for \"renew\"/\"extend\" return only unrelated IP-registration, lien and insurance references, and Section 14.2 contains only termination rights (including PB's at-will right under 14.2.2). There is therefore no auto-renewal, no non-renewal notice window and no renewal price uplift to test, so nothing operates against us; any continuation would require mutual written agreement, which matches the preferred position. No redline proposed.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-p0745",
+    "sectionRef": "§ TERM AND TERMINATION",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-renewal notice window ≤ 60 days",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant, and the cited Article 14.1 text supports it: the Term runs to the earlier of termination under 14.2 or payment of the last Approval Payment, with no automatic renewal, evergreen extension, non-renewal notice window or renewal price uplift. With no auto-renewal mechanic, there is nothing operating against us; any continuation would require mutual written agreement, which aligns with the RENEWAL preferred position, so no redline or comment is correctly proposed. The failed deterministic check ('non-renewal notice window ≤ 60 days — number not found') is expected and non-probative here, since the absence of any notice window is precisely the basis for compliance rather than a phrasing miss. Redline is unchanged from the original paragraph and no comment was added, consistent with a compliant (internal evidence only) finding.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.40728825,
+    "durationMs": 69999,
+    "id": "f-transition-b448f1ee",
+    "paragraphIds": [
+      "p0782",
+      "p0783",
+      "p0785",
+      "p0788",
+      "p0789",
+      "p0640",
+      "p0335",
+      "p0663"
+    ],
+    "producedBy": "drafter",
+    "quote": "(ii) (x) transfer control to PB of any or all Clinical Trials being conducted by or on behalf of SFJ or its Affiliate as of the effective date of termination and (y) continue to conduct such Clinical Trials being conducted by or on behalf of SFJ or an Affiliate as of the effective date of termination for up to [***] to enable such transfer to be completed without interruption of any such Clinical Trial, in each case ((x) and (y)), at PB's cost and expense; and",
+    "rationale": "The agreement contains post-termination transition and data-return machinery running in our favour, so no insert is needed. Section 14.3 (p0782–p0789) requires SFJ, on any termination, to assign sole ownership of the Trial Data Package and Research Results to PB, assign and physically deliver true, correct and complete copies of all Product Filings within a specified period, disclose all previously-undisclosed Research Results, either wind down at SFJ's cost or transfer control of and continue running the Clinical Trials for a transition period to avoid interruption, and assign and provide transition cooperation on all Clinical Trial, CRO and other Vendor Agreements. Section 11.1.1.4 (p0663) makes ownership of the Trial Data Package transfer to PB on termination, and Section 3.11.1 (p0335) gives PB the right to receive copies of all Clinical Trial data, CRFs and the Clinical Trials Master File on request (or destruction at our option). Section 10.3 (p0640) adds return-or-destroy of Confidential Information at the disclosing party's direction with written officer certification of destruction, which is the certified-deletion element of the preferred position. This meets the preferred position on the material terms (transition assistance, data return, certified deletion). Minor points noted only: the delivery period in Section 14.3.3 and the trial-continuation period in Section 14.3.4 are redacted ([***]) rather than fixed at 30 days/6 months, and no \"machine-readable format\" standard is specified — we should confirm those redacted periods are at least 30 days and 90 days respectively, but they are not independent deviations.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-p0745",
+    "sectionRef": "§ TERM AND TERMINATION",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "data return/transition present",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant and the finding correctly proposes no redline and no counterparty comment, which is the expected output for a compliant classification. The cited text substantively covers the rule's material terms in our favour: Section 14.3.1/11.1.1.4 transfer ownership of the Trial Data Package and Research Results to PB on any termination; 14.3.3 requires delivery of complete copies of Product Filings; 14.3.4 provides for wind-down or transfer of control plus continued conduct of the Clinical Trials for a transition period; 14.3.5 assigns CRO/Vendor/Clinical Trial Agreements with good-faith transition cooperation; 3.11.1 gives PB copies of all Clinical Trial data, CRFs and the Master File on request; and 10.3 provides return-or-destroy of Confidential Information with written officer certification (the certified-deletion element). The failed deterministic regex ('data return/transition present') is explained by domain phrasing — this pharma co-development agreement uses assignment/delivery/transfer-of-control and CRF/Master File language rather than SaaS-style 'transition services' or 'data export' wording — so it is a phrasing variant, not evidence of absence. Shortfalls identified (redacted [***] delivery and trial-continuation periods, no 'machine-readable format' standard) are correctly treated as rationale notes rather than independent deviations under the playbook's minor sub-element guidance, and the rationale flags the practical diligence point (confirm the redacted periods are at least 30/90 days). Rationale is accurate to the quoted paragraphs; no misattribution of obligations or overstatement of what the clauses provide.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.243247,
+    "durationMs": 65232,
+    "id": "f-warranty-447e8db0",
+    "paragraphIds": [
+      "p0719",
+      "p0723",
+      "p0727",
+      "p0739",
+      "p0741",
+      "p0743",
+      "p0250"
+    ],
+    "producedBy": "drafter",
+    "quote": "13.6.2 EXCEPT AS OTHERWISE SET FORTH IN THIS ARTICLE 13, NEITHER PARTY MAKES, AND EACH PARTY EXPRESSLY DISCLAIMS, ANY REPRESENTATION OR WARRANTY OF ANY KIND WITH RESPECT TO THE SUBJECT MATTER OF THIS AGREEMENT, EITHER ORAL OR WRITTEN, EXPRESS, IMPLIED, STATUTORY OR OTHERWISE, INCLUDING ANY REPRESENTATION OR WARRANTY REGARDING THE USE, RESULTS OR EFFICACY OF THE PRODUCT.",
+    "rationale": "This is a co-development/funding agreement, not a software or services procurement: PB (our party) is the performing/development party and SFJ is principally the funder, with SFJ acting as sponsor and performing trial activities in the SFJ Territory. Article 13 contains express, largely mutual warranties that cover the elements the playbook cares about on the counterparty side — authority and no conflicting agreements (13.1.1–13.1.2), compliance with law (13.1.3 Anti-Corruption Laws; 13.1.4 debarment certifications; 13.1.5 required certifications, permits and authorisations), and SFJ's funding-capacity warranty (13.5). SFJ's performance standard is set by Section 2.2.2, which requires it to conduct the Clinical Trials and perform all other assigned responsibilities in compliance with the Protocol, all Applicable Laws and the Agreement, and \"Applicable Laws\" expressly includes GCP/GLP/GMP and ICH guidelines — the industry-standard equivalent of the \"professional and workmanlike\" standard in this context. Critically, the disclaimer does not swallow the express warranties: 13.6.2 opens \"EXCEPT AS OTHERWISE SET FORTH IN THIS ARTICLE 13\", so this is not walk-away \"AS IS\" territory. The 13.6.1 no-warranty on trial outcome/patentability is mutual and, because PB generates the Research Results, operates in our favour, so we do not disturb it. The conformance-period and repair/replace/refund mechanics (12 months / 90 days) have no analogue here as there are no software deliverables; that gap is noted rather than flagged, and remedies for breach run through Article 12 indemnification and Article 14 termination. PB's own warranties are more extensive than SFJ's, but that is the negotiated funding bargain and is addressed under the reps/diligence rules rather than this warranty rule. No redline proposed.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-p0718",
+    "sectionRef": "§ REPRESENTATIONS AND WARRANTIES",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "warranty period ≥ 90 days or expressed in months/years",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is 'compliant' with no redline and no comment, which is the expected output shape; nothing actionable is being proposed against the counterparty, so there is no invalid or directionally wrong edit to reject. The cited text supports the compliance call on the material terms the rule cares about: Article 13 contains express mutual warranties covering authority, compliance with Applicable Laws (13.1.3 Anti-Corruption, 13.1.5 certifications/permits) and SFJ's funding capacity (13.5), and Section 2.2.2 imposes a Protocol/Applicable Law (GCP/GLP/GMP/ICH) performance standard that is the context-appropriate analogue of 'professional and workmanlike'. The disclaimer does not swallow the express warranties — 13.6.2 opens 'EXCEPT AS OTHERWISE SET FORTH IN THIS ARTICLE 13' — so the walk-away 'AS IS' condition is not triggered, correctly ruling out a deviation. The failed deterministic check (no 90-day/12-month conformance period) is a phrasing/fit artefact: this is a co-development and funding agreement with no software or deliverable conformance mechanic, and the rationale expressly notes the gap rather than flagging it, consistent with the instruction to note minor sub-elements short of preferred wording. The rationale correctly declines to disturb 13.6.1 (mutual, and favourable to our party as generator of Research Results) and PB's broader warranties, in line with the rule against flagging clauses that benefit our party or duplicating terms covered by other rules.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.16849325,
+    "durationMs": 34570,
+    "id": "f-insurance-e441ed2a",
+    "paragraphIds": [
+      "p0706",
+      "p0707",
+      "p0708",
+      "p0709",
+      "p0710",
+      "p0711",
+      "p0712",
+      "p0713",
+      "p0714",
+      "p0715"
+    ],
+    "producedBy": "drafter",
+    "quote": "each Party will carry and maintain, at its own expense, insurance coverage of the kind and with liability limits that, at a minimum, satisfy the requirements of Section 12.3.2, to protect itself and the other Party against any claims or liabilities that may arise from the conduct of the Clinical Trials and all other rights and obligations hereunder with insurers with a minimum \"A-\" A.M. Best rating.",
+    "rationale": "Section 12.3 contains a full, mutual insurance regime that binds SFJ as well as PB: commercial general liability (12.3.2.1), umbrella excess liability (12.3.2.2), clinical trials liability (12.3.2.3), professional liability for subcontractors/Permitted Third Parties providing professional services (12.3.2.4) and product liability (12.3.4), each set at the greater of the Applicable Law minimum or the stated limit, with \"A-\" A.M. Best-rated insurers, primary and non-contributing cover, additional-insured status for us on clinical trial liability, tail coverage after termination, prior notice of cancellation/material change, an express statement that insurance does not cap liability, a flow-down requiring subcontractors to be insured, and certificates of insurance on written request. That satisfies the preferred position on coverage types and certificate mechanics; the specific limits are redacted ([***]) so amounts cannot be verified from the face of the document, and there is no dedicated cyber/privacy line (personal data handling is instead addressed in Article 11). These are minor sub-elements in a co-development/clinical trial agreement rather than a hosting or data-processing engagement, and are noted rather than redlined; the obligation is mutual and confers a benefit on us as an insured party, so no change is proposed.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-p0685",
+    "sectionRef": "§ INDEMNIFICATION AND INSURANCE",
+    "severity": "low",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "insurance obligation present",
+          "ok": true
+        }
+      ],
+      "notes": "The cited Section 12.3 is a genuine, mutual insurance regime covering commercial general liability, umbrella excess, clinical trials liability, professional liability for subcontractors and product liability, with A- rated insurers, additional-insured status, tail coverage, cancellation notice and certificates of insurance on request — this meets or exceeds the fallback and substantially the preferred position, so a 'compliant' classification is correct. No redline or counterparty comment is proposed, which is the expected output for a compliant finding; the deterministic check confirms an insurance obligation is present, so this is not a 'missing' clause case. The rationale properly notes the shortfalls (redacted [***] limits that cannot be verified and no dedicated cyber/privacy line, with data handling addressed in Article 11) as minor sub-elements rather than flagging them as deviations, consistent with the classification guidance. The obligation is mutual and confers benefit on our party as additional insured, so declining to redline avoids over-flagging a clause that benefits us.",
+      "verdict": "pass"
+    }
+  }
+]
