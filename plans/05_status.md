@@ -127,3 +127,6 @@
   validity 51 %, minimality 31 %, $3.51)**. x-monolith recording; `plans/harness/finalize.sh` auto-fires after it (waiter pid 61428) → re-score all
   with the final gate (`--allow-live`), report, render-docs, exports. Production env `REDLINER_LLM_MODE=live` (replay caches are not bundled
   in the deployment); live Corio `final` run being recorded for the video (`data/runs/video-cache`).
+- Sun 06:00 — **Production judge path verified live**: sample Kubient run (`final`) on playbook-redliner.vercel.app → 118 SSE events → awaiting_review
+  (18 findings, $3.23) → 6 decisions → apply 6 s → output.docx (12 ins / 3 del / 6 comments, validation ok) → `/review/-QiColwui8Kpan` renders.
+  Video run recorded locally: `data/runs/SDqRoWCFr52ycs` (Corio, final: 4 dev / 3 missing / 11 compliant, 18 verified, $3.88).
