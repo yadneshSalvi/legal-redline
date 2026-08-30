@@ -91,4 +91,4 @@ https://github.com/yadneshSalvi/legal-redline/releases/download/v1.0/playbook-re
 - [x] Deployed `/evals` shows real data (browser-verified 07:2x IST); production sample run → decisions → apply → download verified live by the reviewer (ZPXbp77-_fEMQw); local replay of samples verified (z5SipZ1hUSJAIU, 18 findings, $0, apply ok)
 - [x] Video rendered (4:52.6, 1080p) and published as GitHub release v1.0; link in README §10 and header (YouTube unlisted upload still optional, by the author)
 - [x] Final gate review: approve-with-fixes → all fixes landed (1–3, 5–8 re-verified in a clean clone at 6f79c83; fix 4 + keep-alive verified locally: sample replays in-app in 2 s with no keys)
-- [ ] Author spot-check of gold + one human review session recorded (`trajectories/human/`)
+- [ ] Author spot-check of gold (`plans/06_gold_review.md`, ~15 min) + one live review session on production (optional; 4 recorded sessions already in `trajectories/human/` and a narrated one in `trajectories/app/i3-verifier/human-reviewed-msa/`)

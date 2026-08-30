@@ -149,3 +149,7 @@
 - `video-final` (Sol, 66 min, exit 0): `plans/video/renders/playbook-redliner.mp4` 4:52.6, 1080p H.264/AAC, genuine CORIO live run NVDjaRym9fKYVj (interrupted once by a dev-server reload → resumed; $4.54), hard-case run JxR5VovErXWC5F, real `/evals`. Lead re-rendered cards + re-assembled after switching the end-card URL to playbook-redliner.vercel.app (custom domain does not resolve).
 - Fix 4: stream route replays packaged samples from `evals/cache/<config>/<sampleId>` with meta.json parties and shadowed precedents when REDLINER_LLM_MODE=replay (verified: 118 SSE events in 2 s, 18 findings, $0, apply ok). `after(execute(...))` keeps a run alive when the SSE client disconnects. `applyDecisions` persists `apply-request.json`.
 - Video published as GitHub release v1.0 asset; README header + §10 link it.
+
+## 2026-08-30 08:35 IST — submission-ready (94cada6)
+- Coding-agent traces re-exported: 23 harness sessions + 6 Claude Code transcripts incl. the Fable gate-review subagent (brief → report → trace) and the video-final Sol session; redaction verified.
+- Left for the author: HackerEarth submission (text in plans/09_submission.md), optional YouTube unlisted upload (release v1.0 asset already linked), optional gold spot-check + one live review session on production, optional custom domain.
