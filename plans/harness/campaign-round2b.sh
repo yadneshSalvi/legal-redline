@@ -5,6 +5,8 @@
 set -u
 cd "$(dirname "$0")/../.."
 stamp() { date "+%Y-%m-%d %H:%M:%S"; }
+free_gb=$(df -g / | awk 'NR==2{print $4}')
+if [ "${free_gb:-0}" -lt 6 ]; then echo "ABORT: only ${free_gb} GB free on / — recording under ENOSPC silently degrades runs (see 2026-08-30 i5 incident)"; exit 2; fi
 echo "=== $(stamp) ROUND-2b CAMPAIGN START (HEAD $(git rev-parse --short HEAD))"
 PAIRS=(i7-precise:short final-v3:all)
 for pair in $PAIRS; do
