@@ -168,10 +168,41 @@ export const CONFIGS: Record<ConfigId, PipelineConfig> = {
     workerMaxIterations: 24,
     plannerMaxIterations: 28,
   },
+  "final-v4": {
+    ...BASE,
+    id: "final-v4",
+    label: "Final v4 (length router)",
+    description:
+      "The shipped configuration: a length router over the two best-measured pipelines — i7-precise below 15,000 words, i6-longdoc at or above it. Precedent memory is off (it measured as a non-result). Runs execute the routed configuration's prompts unchanged and share its replay caches.",
+    singlePrompt: false,
+    playbookInContext: true,
+    docModel: true,
+    planner: true,
+    perRuleWorkers: true,
+    toolValidation: true,
+    verifier: true,
+    precedentMemory: false,
+    elementAware: true,
+    monolith: false,
+    effort: "high",
+    verifierEffort: "high",
+    maxRepairRounds: 3,
+    routes: { thresholdWords: 15_000, below: "i7-precise", atOrAbove: "i6-longdoc" },
+  },
 };
 
 export function getConfig(id: string): PipelineConfig {
   const config = CONFIGS[id as ConfigId];
   if (!config) throw new Error(`Unknown pipeline config: ${id}`);
   return config;
+}
+
+/**
+ * The configuration that actually runs for a document: a router config resolves to its routed member by word count;
+ * every other config resolves to itself. Callers key caches and prompts on the resolved id.
+ */
+export function resolveConfig(config: PipelineConfig, document: { stats: { words: number } }): PipelineConfig {
+  if (!config.routes) return config;
+  const target = document.stats.words >= config.routes.thresholdWords ? config.routes.atOrAbove : config.routes.below;
+  return resolveConfig(getConfig(target), document);
 }

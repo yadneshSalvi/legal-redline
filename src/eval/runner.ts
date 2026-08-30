@@ -8,6 +8,7 @@ import {
   createLlmClient,
   createTrajectoryWriter,
   getConfig,
+  resolveConfig,
   runReview,
 } from "@/src/agent";
 import type { LlmClient, LlmMode } from "@/src/agent/llm";
@@ -44,6 +45,7 @@ export interface EvaluationDependencies {
   parseDocx: (bytes: Uint8Array, filename: string) => Promise<DocumentModel>;
   runReview: typeof runReview;
   getConfig: (id: string) => PipelineConfig;
+  resolveConfig: typeof resolveConfig;
   createLlmClient: (options: Parameters<typeof createLlmClient>[0]) => LlmClient;
   createTrajectoryWriter: (store: Store, runId: string) => TrajectoryWriter;
   createStore: (kind?: string) => Store;
@@ -85,6 +87,7 @@ const DEFAULT_DEPENDENCIES: EvaluationDependencies = {
   parseDocx,
   runReview,
   getConfig,
+  resolveConfig,
   createLlmClient,
   createTrajectoryWriter,
   createStore,
@@ -176,7 +179,9 @@ async function evaluateOne(input: {
   const store = dependencies.createStore("memory");
   await store.putBytes(sourceKey, original);
   const trajectory = dependencies.createTrajectoryWriter(store, runId);
-  const cacheDir = join(input.options.cacheRoot, configId, contractId);
+  // A router config shares the replay cache of the member it resolves to for this document.
+  const resolvedConfigId = dependencies.resolveConfig(dependencies.getConfig(configId), document).id;
+  const cacheDir = join(input.options.cacheRoot, resolvedConfigId, contractId);
   const llm = dependencies.createLlmClient({
     mode: input.options.mode,
     cacheDir,

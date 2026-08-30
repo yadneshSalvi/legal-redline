@@ -5,6 +5,7 @@ import { Command } from "commander";
 import { nanoid } from "nanoid";
 
 import { applyDecisions, createLlmClient, createTrajectoryWriter, getConfig, loadPlaybook, runReview } from "@/src/agent";
+import { resolveConfig } from "@/src/agent/configs";
 import type { ConfigId, Decision, ProgressEvent, ReviewRun } from "@/src/agent/types";
 import type { LlmMode } from "@/src/agent/llm";
 import { parseDocx, parseText } from "@/src/engine";
@@ -49,7 +50,7 @@ async function main(): Promise<void> {
   const playbook = await loadPlaybook(options.playbook);
   // A contract from the evaluation set replays from its committed cache with the parties the evaluation used;
   // both must match exactly for the recorded request hashes to hit.
-  const evalContext = await resolveEvalContext({ contractDir: path.dirname(filename), configId: config.id });
+  const evalContext = await resolveEvalContext({ contractDir: path.dirname(filename), configId: resolveConfig(config, document).id });
   const parties = options.party || options.counterparty
     ? { ...(options.party ? { ourParty: options.party } : {}), ...(options.counterparty ? { counterparty: options.counterparty } : {}) }
     : (evalContext.parties ?? undefined);

@@ -147,6 +147,10 @@ fallback satisfaction, minimality, intent preservation, drafting quality, and re
 `rule.position.elements` are authoritative; when absent, the cached judge response performs the decomposition.
 Its namespace is `evals/cache/judge-v2/`; `evals/cache/judge/` remains the v1 namespace.
 
+The judge decomposes the prose positions itself. The checklists the pipeline drafts against (`position.elements` for
+`i5`/`i6`/`final-v2`, `position.elementsPrecise` for `i7-precise`/`final-v3`) are never passed to it, so the same cached
+decomposition scores every configuration and the grader never uses the student's rubric.
+
 For a tier's pooled, non-ambiguous `deviation|missing` gold items, complete redline rate (CRR) counts an item
 only when its matched proposal validates, passes every deterministic check, meets every element of either the
 preferred or fallback position, is judge-minimal and intent-preserving, and every replacement changes at most

@@ -3,7 +3,7 @@ import path from "node:path";
 import { nanoid } from "nanoid";
 import { after } from "next/server";
 
-import { getConfig } from "@/src/agent/configs";
+import { getConfig, resolveConfig } from "@/src/agent/configs";
 import { createLlmClient, type LlmMode } from "@/src/agent/llm";
 import { runReview } from "@/src/agent/orchestrator";
 import { createTrajectoryWriter } from "@/src/agent/trajectory";
@@ -80,7 +80,7 @@ async function execute(id: string, run: ReviewRun, state: ActiveRun): Promise<vo
     // used (and without the local precedent index), so a checkout with no API keys still completes a real run.
     const sampleId = run.tags?.[0];
     const evalContext = mode === "replay" && sampleId && /^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$/.test(sampleId)
-      ? await resolveEvalContext({ contractDir: path.join(process.cwd(), "data", "contracts", sampleId), configId: run.config })
+      ? await resolveEvalContext({ contractDir: path.join(process.cwd(), "data", "contracts", sampleId), configId: resolveConfig(getConfig(run.config), run.document).id })
       : null;
     const llm = createLlmClient({ mode, cacheDir: evalContext?.cacheDir ?? `data/runs/${id}/cache` });
     await runReview({

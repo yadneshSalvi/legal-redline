@@ -149,6 +149,7 @@ const roles: Record<ConfigId, ConfigRole> = {
   final: "final",
   "final-v2": "final",
   "final-v3": "final",
+  "final-v4": "final",
 };
 
 /** The stage column of IMPROVEMENT_CHANGELOG.md, so the table reads like the document. */
@@ -166,6 +167,7 @@ const stages: Record<ConfigId, string> = {
   final: "Final",
   "final-v2": "Final v2",
   "final-v3": "Final v3",
+  "final-v4": "Final v4 · length router (i7 below 15k words, i6 above)",
 };
 
 /** Which independent judge scored the judge-dependent columns of a row (EVAL.md §9). */

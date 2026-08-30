@@ -116,7 +116,8 @@ export type ConfigId =
   | "x-monolith"
   | "final"
   | "final-v2"
-  | "final-v3";
+  | "final-v3"
+  | "final-v4";
 
 export type Effort = "low" | "medium" | "high" | "xhigh" | "max";
 
@@ -137,6 +138,11 @@ export interface PipelineConfig {
   elementAware: boolean;
   /** Locks round-1 detection before judge-shaped prose decomposition and precision repair. */
   preciseElementProtocol: boolean;
+  /**
+   * Length router: below `thresholdWords` the run executes exactly the `below` configuration, otherwise `atOrAbove`
+   * (prompts, tools and caches of the routed configuration are reused unchanged). Undefined for ordinary configs.
+   */
+  routes?: { thresholdWords: number; below: ConfigId; atOrAbove: ConfigId };
   /** Uses whole-document search planning and paginated section reads. */
   longDocumentPlanning: boolean;
   longDocumentThresholdWords: number;

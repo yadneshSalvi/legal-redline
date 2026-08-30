@@ -1,5 +1,6 @@
 import pLimit from "p-limit";
 
+import { resolveConfig } from "@/src/agent/configs";
 import { assembleFindings, statsFor, withSectionReference } from "@/src/agent/assembler";
 import { runBaseline } from "@/src/agent/baseline";
 import { draftRule } from "@/src/agent/drafter";
@@ -246,7 +247,9 @@ async function runWorker(
   }
 }
 
-export async function runReview(input: RunReviewInput): Promise<ReviewRun> {
+export async function runReview(rawInput: RunReviewInput): Promise<ReviewRun> {
+  // A router config (e.g. final-v4) executes the member configuration its document length selects.
+  const input: RunReviewInput = { ...rawInput, config: resolveConfig(rawInput.config, rawInput.run.document) };
   const { run, trajectory, llm } = input;
   const perRule: PerRuleStats = Object.fromEntries(
     Object.entries(run.stats.perRule ?? {}).map(([ruleId, stats]) => [ruleId, { ...stats }]),

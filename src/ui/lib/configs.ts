@@ -80,6 +80,12 @@ export const configCatalog: { id: ConfigId; label: string; description: string; 
     description: "i7 precision with precedent memory and the thresholded long-document planning path.",
     kind: "iteration",
   },
+  {
+    id: "final-v4",
+    label: "Final v4 · Length router",
+    description: "Shipped: i7-precise below 15,000 words, i6-longdoc at or above; memory off. Shares the routed configs' prompts and caches.",
+    kind: "iteration",
+  },
 ];
 
 export const defaultConfigId: ConfigId = "final";
