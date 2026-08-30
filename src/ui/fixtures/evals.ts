@@ -2,17 +2,18 @@
  * Fallback for `GET /api/evals` — the shape `src/eval/report.ts` writes to
  * `evals/results/changelog-data.json`, with illustrative numbers so the dashboard can be designed
  * and reviewed before the eval has been run in an environment. The page labels this "fixture"
- * wherever it is used; real results always win.
+ * wherever it is used; real results always win and none of these figures may be quoted.
  *
- * The aggregates are computed from the per-contract metrics with the same arithmetic as
- * `aggregateMetrics`, so every number on the page adds up the way a real report does.
+ * The round-1 `configs[]` numbers are unchanged from the first fixture. `tiers[]` adds the round-2
+ * shape — both tiers, the three end-to-end redline rates and the per-element misses — so the tier
+ * switch and the element panel have something to render before a report exists.
  */
-import type { AggregateMetrics, ContractMetrics } from "@/src/eval/metrics";
 import type { ConfigId } from "@/src/agent/types";
-import type { EvalConfigResult, EvalsData } from "../lib/evals";
+import type { ElementMiss, EvalsData } from "../lib/evals";
+import { configResult, type ContractSpec, type Profile } from "./evals-gen";
 
-/** The 12 committed contracts (EVAL.md §1): gold positives and length drive the fixture numbers. */
-const contracts: { id: string; goldPositives: number; words: number }[] = [
+/** The 12 committed short-tier contracts (EVAL.md §1). */
+const shortContracts: ContractSpec[] = [
   { id: "cuad-americas-shopping-mall-hosting", goldPositives: 8, words: 2880 },
   { id: "cuad-bluefly-hosting", goldPositives: 11, words: 5136 },
   { id: "cuad-bnc-mortgage-hosting", goldPositives: 10, words: 4738 },
@@ -27,30 +28,19 @@ const contracts: { id: string; goldPositives: number; words: number }[] = [
   { id: "synth-hardcase", goldPositives: 5, words: 4876 },
 ];
 
-/** Fixed per-contract offsets: real runs are uneven, and a flat table reads as invented. */
-const jitter = [0.03, -0.04, 0.02, -0.06, 0.05, -0.02, -0.05, 0.04, 0.06, -0.03, 0.02, 0];
+/** The six long-tier contracts and their canonical word counts (pre-registration §Population). */
+const longContracts: ContractSpec[] = [
+  { id: "long-array-biopharma-inc", goldPositives: 8, words: 42_742 },
+  { id: "long-harpoontherapeuticsinc", goldPositives: 8, words: 37_789 },
+  { id: "long-manufacturersservicesltd", goldPositives: 8, words: 41_906 },
+  { id: "long-phasebiopharmaceuticalsinc", goldPositives: 8, words: 45_074 },
+  { id: "long-revolutionmedicinesinc", goldPositives: 8, words: 40_426 },
+  { id: "long-verizonabsllc", goldPositives: 8, words: 44_507 },
+];
 
-interface Profile {
-  id: ConfigId;
-  recall: number;
-  precision: number;
-  statusAccuracy: number;
-  validity: number;
-  minimality: number;
-  hallucination: number;
-  /** Extra recall penalty on `synth-hardcase`, the definition-resolution trap. */
-  hardPenalty: number;
-  callsPerContract: number;
-  toolCallsPerContract: number;
-  retriesPerContract: number;
-  /** Input tokens per thousand words of contract. */
-  inputPerKWord: number;
-  outputPerKWord: number;
-  cachedShare: number;
-  costPerContract: number;
-  latencyMsPerContract: number;
-  escalationsPerContract: number;
-}
+/** Fixed per-contract offsets: real runs are uneven, and a flat table reads as invented. */
+const shortJitter = [0.03, -0.04, 0.02, -0.06, 0.05, -0.02, -0.05, 0.04, 0.06, -0.03, 0.02, 0];
+const longJitter = [0.04, -0.05, 0.02, -0.03, 0.05, -0.02];
 
 const profiles: Profile[] = [
   { id: "b0-chat", recall: 0.34, precision: 0.29, statusAccuracy: 0.41, validity: 0.11, minimality: 0.18, hallucination: 0.19, hardPenalty: 0.22, callsPerContract: 1, toolCallsPerContract: 0, retriesPerContract: 0, inputPerKWord: 1500, outputPerKWord: 340, cachedShare: 0, costPerContract: 0.09, latencyMsPerContract: 41_000, escalationsPerContract: 0 },
@@ -63,228 +53,108 @@ const profiles: Profile[] = [
   { id: "final", recall: 0.86, precision: 0.85, statusAccuracy: 0.9, validity: 0.95, minimality: 0.88, hallucination: 0.004, hardPenalty: 0.04, callsPerContract: 41, toolCallsPerContract: 112, retriesPerContract: 3, inputPerKWord: 12_100, outputPerKWord: 1880, cachedShare: 0.82, costPerContract: 1.47, latencyMsPerContract: 219_000, escalationsPerContract: 1 },
 ];
 
-const clamp = (value: number, low: number, high: number): number => Math.min(high, Math.max(low, value));
-const ratio = (numerator: number, denominator: number): number => (denominator === 0 ? 0 : numerator / denominator);
-const f1of = (precision: number, recall: number): number =>
-  precision + recall === 0 ? 0 : (2 * precision * recall) / (precision + recall);
+/** Round-2 rates layered on the round-1 profiles; judge v2 is stricter, so validity drops. */
+const roundTwoRates: Partial<Record<ConfigId, Pick<Profile, "crr" | "appliedYield" | "adherence" | "validity" | "minimality">>> = {
+  "b1-prompt": { crr: 0.06, appliedYield: 0.61, adherence: 0.14, validity: 0.31, minimality: 0.19 },
+  "i3-verifier": { crr: 0.23, appliedYield: 0.73, adherence: 0.33, validity: 0.74, minimality: 0.42 },
+  final: { crr: 0.3, appliedYield: 0.78, adherence: 0.45, validity: 0.79, minimality: 0.48 },
+  "final-v2": { crr: 0.64, appliedYield: 0.87, adherence: 0.63, validity: 0.92, minimality: 0.81 },
+};
 
-interface Detection {
-  tp: number;
-  fp: number;
-  fn: number;
+function profileOf(id: ConfigId): Profile {
+  const found = profiles.find((profile) => profile.id === id);
+  if (!found) throw new Error(`Unknown fixture profile: ${id}`);
+  return found;
 }
 
-function detectionFor(profile: Profile, index: number): Detection {
-  const contract = contracts[index];
-  const offset = jitter[index];
-  const hard = contract.id === "synth-hardcase" ? profile.hardPenalty : 0;
-  const recall = clamp(profile.recall + offset - hard, 0.05, 0.97);
-  const precision = clamp(profile.precision + offset / 2, 0.05, 0.97);
-  const tp = Math.max(1, Math.round(contract.goldPositives * recall));
+const finalV2: Profile = {
+  ...profileOf("final"),
+  id: "final-v2",
+  recall: 0.89,
+  precision: 0.87,
+  statusAccuracy: 0.92,
+  hardPenalty: 0.03,
+  callsPerContract: 58,
+  toolCallsPerContract: 164,
+  inputPerKWord: 15_400,
+  outputPerKWord: 2260,
+  costPerContract: 2.08,
+  latencyMsPerContract: 268_000,
+};
+
+function withRoundTwo(profile: Profile): Profile {
+  return { ...profile, ...(roundTwoRates[profile.id] ?? {}) };
+}
+
+/** Long documents cost more and are found less often; the fixture says so plainly. */
+function longVariant(profile: Profile): Profile {
+  const drop = (value: number, by: number): number => Math.max(0, value - by);
+  const scale = (value: number | undefined, by: number): number | undefined =>
+    value === undefined ? undefined : value * by;
   return {
-    tp,
-    fp: Math.max(0, Math.round((tp * (1 - precision)) / precision)),
-    fn: Math.max(0, contract.goldPositives - tp),
+    ...profile,
+    recall: drop(profile.recall, 0.19),
+    precision: drop(profile.precision, 0.07),
+    statusAccuracy: drop(profile.statusAccuracy, 0.09),
+    validity: drop(profile.validity, 0.11),
+    minimality: drop(profile.minimality, 0.07),
+    hallucination: profile.hallucination * 1.7,
+    crr: scale(profile.crr, 0.52),
+    appliedYield: scale(profile.appliedYield, 0.7),
+    adherence: scale(profile.adherence, 0.78),
+    callsPerContract: Math.round(profile.callsPerContract * 2.4),
+    toolCallsPerContract: Math.round(profile.toolCallsPerContract * 2.6),
+    costPerContract: profile.costPerContract * 3.2,
+    latencyMsPerContract: Math.round(profile.latencyMsPerContract * 2.7),
   };
 }
+
+const tieredProfiles: Profile[] = [
+  withRoundTwo(profileOf("b1-prompt")),
+  withRoundTwo(profileOf("i3-verifier")),
+  withRoundTwo(profileOf("final")),
+  withRoundTwo(finalV2),
+];
 
 /**
- * Spreads a target rate over the contracts as whole counts, carrying the fraction forward. Real
- * per-contract rates are ragged (7 of 9, 8 of 8) and only the pooled rate lands on the target;
- * rounding each contract independently would print a table of 100 %s.
+ * Illustrative element misses. `pnpm report` does not write `tiers[].elementMisses` yet, so this is
+ * the only place the per-element panel has data; the elements themselves are the real checklists
+ * from `data/playbooks/customer-vendor-services.yaml`.
  */
-function allocate(eligible: readonly number[], rate: number): number[] {
-  let exact = 0;
-  let issued = 0;
-  return eligible.map((count) => {
-    exact += count * rate;
-    const target = Math.floor(exact + 1e-9);
-    const passing = Math.min(count, Math.max(0, target - issued));
-    issued += passing;
-    return passing;
-  });
-}
+const fixtureElementMisses: ElementMiss[] = [
+  { ruleId: "LOL-CAP", ruleTitle: "Limitation of liability", element: "Breach of data protection and security obligations is uncapped.", level: "preferred", eligible: 12, unmet: 7, configId: "final-v2" },
+  { ruleId: "LOL-CAP", ruleTitle: "Limitation of liability", element: "Customer payment obligations are excluded from damages subject to the cap.", level: "preferred", eligible: 12, unmet: 6, configId: "final-v2" },
+  { ruleId: "INDEMN", ruleTitle: "Indemnification by Vendor", element: "Vendor controls the defence but may not settle without Customer's consent.", level: "preferred", eligible: 11, unmet: 5, configId: "final-v2" },
+  { ruleId: "TRANSITION", ruleTitle: "Transition assistance", element: "Transition assistance continues for at least 90 days after termination.", level: "preferred", eligible: 9, unmet: 4, configId: "final-v2" },
+  { ruleId: "AUDIT", ruleTitle: "Audit rights against Customer", element: "Audits are limited to once in any 12-month period on 30 days' notice.", level: "fallback", eligible: 8, unmet: 3, configId: "final-v2" },
+  { ruleId: "RENEWAL", ruleTitle: "Auto-renewal window", element: "The non-renewal notice window is no longer than 30 days.", level: "preferred", eligible: 10, unmet: 3, configId: "final-v2" },
+];
 
-function component(eligible: number, passing: number): { eligible: number; passing: number; rate: number } {
-  return { eligible, passing, rate: ratio(passing, eligible) };
-}
-
-interface Allocations {
-  applies: number[];
-  checks: number[];
-  judge: number[];
-  valid: number[];
-  minimal: number[];
-  correct: number[];
-  hallucinations: number[];
-  references: number[];
-  located: number[];
-}
-
-function allocationsFor(profile: Profile, detections: readonly Detection[]): Allocations {
-  const tps = detections.map((detection) => detection.tp);
-  const located = detections.map((detection) => detection.tp + 2);
-  const references = tps.map((tp) => tp * 3 + 4);
-  return {
-    applies: allocate(tps, clamp(profile.validity + 0.05, 0, 1)),
-    checks: allocate(tps, clamp(profile.validity + 0.03, 0, 1)),
-    judge: allocate(tps, clamp(profile.validity + 0.02, 0, 1)),
-    valid: allocate(tps, profile.validity),
-    minimal: allocate(tps, profile.minimality),
-    correct: allocate(located, profile.statusAccuracy),
-    hallucinations: allocate(references, profile.hallucination),
-    references,
-    located,
-  };
-}
-
-function contractMetrics(
-  profile: Profile,
-  index: number,
-  detection: Detection,
-  allocations: Allocations,
-): ContractMetrics {
-  const contract = contracts[index];
-  const { tp, fp, fn } = detection;
-  const precision = ratio(tp, tp + fp);
-  const recall = ratio(tp, tp + fn);
-  const references = allocations.references[index];
-  const hallucinations = allocations.hallucinations[index];
-  const located = allocations.located[index];
-  const kWords = contract.words / 1000;
-  const inputTokens = Math.round(profile.inputPerKWord * kWords);
-
-  return {
-    detection: {
-      tp,
-      fp,
-      fn,
-      escalations: profile.escalationsPerContract,
-      ambiguousItems: index % 4 === 0 ? 1 : 0,
-      ambiguousMatches: index % 4 === 0 && profile.recall > 0.6 ? 1 : 0,
-      precision,
-      recall,
-      f1: f1of(precision, recall),
-    },
-    deviationAccuracy: {
-      located,
-      correct: allocations.correct[index],
-      accuracy: ratio(allocations.correct[index], located),
-    },
-    redlineValidity: {
-      eligible: tp,
-      applies: component(tp, allocations.applies[index]),
-      checks: component(tp, allocations.checks[index]),
-      judge: component(tp, allocations.judge[index]),
-      valid: component(tp, allocations.valid[index]),
-    },
-    minimality: component(tp, allocations.minimal[index]),
-    citations: {
-      references,
-      hallucinations,
-      rate: ratio(hallucinations, references),
-      invalidReferences: Array.from({ length: hallucinations }, (_, offset) => `${11 + offset}.4`),
-    },
-    integrity: {
-      attempted: true,
-      ok: profile.validity > 0.5,
-      ops: tp * 2,
-      applied: tp * 2,
-      changeCountMatches: profile.validity > 0.5,
-      collateralParagraphIds: [],
-      libreoffice: { attempted: false, ok: false, message: "LibreOffice not installed" },
-      errors: [],
-    },
-    resources: {
-      calls: profile.callsPerContract,
-      toolCalls: profile.toolCallsPerContract,
-      retries: profile.retriesPerContract,
-      inputTokens,
-      outputTokens: Math.round(profile.outputPerKWord * kWords),
-      cacheReadTokens: Math.round(inputTokens * profile.cachedShare),
-      cacheWriteTokens: Math.round(inputTokens * profile.cachedShare * 0.08),
-      costUsd: profile.costPerContract,
-      latencyMs: profile.latencyMsPerContract,
-    },
-  };
-}
-
-/** The same arithmetic as `aggregateMetrics`, so the fixture is internally consistent. */
-function aggregate(metrics: readonly ContractMetrics[]): AggregateMetrics {
-  const sum = (select: (metric: ContractMetrics) => number): number =>
-    metrics.reduce((total, metric) => total + select(metric), 0);
-  const mean = (select: (metric: ContractMetrics) => number): number => sum(select) / metrics.length;
-  const tp = sum((metric) => metric.detection.tp);
-  const fp = sum((metric) => metric.detection.fp);
-  const fn = sum((metric) => metric.detection.fn);
-  const microPrecision = ratio(tp, tp + fp);
-  const microRecall = ratio(tp, tp + fn);
-  const located = sum((metric) => metric.deviationAccuracy.located);
-  const correct = sum((metric) => metric.deviationAccuracy.correct);
-  const validEligible = sum((metric) => metric.redlineValidity.valid.eligible);
-  const validPassing = sum((metric) => metric.redlineValidity.valid.passing);
-  const minimalEligible = sum((metric) => metric.minimality.eligible);
-  const minimalPassing = sum((metric) => metric.minimality.passing);
-  const references = sum((metric) => metric.citations.references);
-  const hallucinations = sum((metric) => metric.citations.hallucinations);
-
-  return {
-    contracts: metrics.length,
-    detection: {
-      macro: {
-        precision: mean((metric) => metric.detection.precision),
-        recall: mean((metric) => metric.detection.recall),
-        f1: mean((metric) => metric.detection.f1),
-      },
-      micro: {
-        tp,
-        fp,
-        fn,
-        escalations: sum((metric) => metric.detection.escalations),
-        ambiguousItems: sum((metric) => metric.detection.ambiguousItems),
-        ambiguousMatches: sum((metric) => metric.detection.ambiguousMatches),
-        precision: microPrecision,
-        recall: microRecall,
-        f1: f1of(microPrecision, microRecall),
-      },
-    },
-    deviationAccuracy: { located, correct, accuracy: ratio(correct, located) },
-    redlineValidity: { eligible: validEligible, passing: validPassing, rate: ratio(validPassing, validEligible) },
-    minimality: { eligible: minimalEligible, passing: minimalPassing, rate: ratio(minimalPassing, minimalEligible) },
-    citationHallucination: {
-      references,
-      hallucinations,
-      rate: ratio(hallucinations, references),
-      invalidReferences: metrics.flatMap((metric) => metric.citations.invalidReferences),
-    },
-    resources: {
-      calls: sum((metric) => metric.resources.calls),
-      toolCalls: sum((metric) => metric.resources.toolCalls),
-      retries: sum((metric) => metric.resources.retries),
-      inputTokens: sum((metric) => metric.resources.inputTokens),
-      outputTokens: sum((metric) => metric.resources.outputTokens),
-      cacheReadTokens: sum((metric) => metric.resources.cacheReadTokens),
-      cacheWriteTokens: sum((metric) => metric.resources.cacheWriteTokens),
-      costUsd: sum((metric) => metric.resources.costUsd),
-      latencyMs: sum((metric) => metric.resources.latencyMs),
-    },
-  };
-}
-
-function configResult(profile: Profile): EvalConfigResult {
-  const detections = contracts.map((_, index) => detectionFor(profile, index));
-  const allocations = allocationsFor(profile, detections);
-  const perContract = detections.map((detection, index) =>
-    contractMetrics(profile, index, detection, allocations),
-  );
-  return {
-    id: profile.id,
-    aggregate: aggregate(perContract),
-    contracts: contracts.map((contract, index) => ({ id: contract.id, metrics: perContract[index] })),
-  };
-}
+/** Half the population, so pooling the two tiers in the "All" view stays arithmetically sane. */
+const longElementMisses: ElementMiss[] = fixtureElementMisses.map((miss) => ({
+  ...miss,
+  eligible: miss.eligible === undefined ? undefined : Math.round(miss.eligible / 2),
+  unmet: Math.max(1, Math.round(miss.unmet / 2)),
+}));
 
 export const fixtureEvals: EvalsData = {
   generatedFrom: "src/ui/fixtures/evals.ts",
-  configs: profiles.map(configResult),
+  configs: profiles.map((profile) => configResult(profile, shortContracts, shortJitter)),
+  tiers: [
+    {
+      id: "short",
+      configs: tieredProfiles.map((profile) => configResult(profile, shortContracts, shortJitter)),
+      elementMisses: fixtureElementMisses,
+    },
+    {
+      id: "long",
+      configs: tieredProfiles.map((profile) => configResult(longVariant(profile), longContracts, longJitter)),
+      elementMisses: longElementMisses,
+    },
+  ],
 };
+
+/** Word counts for the fixture path, where `GET /api/samples` has nothing to say. */
+export const fixtureWords: Record<string, number> = Object.fromEntries(
+  [...shortContracts, ...longContracts].map((contract) => [contract.id, contract.words]),
+);

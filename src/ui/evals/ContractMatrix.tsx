@@ -2,27 +2,68 @@
 
 import { Tag } from "../Chip";
 import { cn } from "../cn";
-import { percent, type ContractRow, type LadderRow } from "../lib/evals";
+import { percent, type LadderRow } from "../lib/evals";
+import type { ContractGroup, ContractRow } from "../lib/evals-round2";
 
 /** A quiet `navy.soft` wash, strongest at F1 = 1, invisible below 0.3 — the table stays readable. */
 function shade(value: number): number {
   return Math.min(1, Math.max(0, (value - 0.3) / 0.7));
 }
 
+const HARD_CASE_NOTE =
+  "Illusory cap hidden in a definition, a vendor-side non-compete and a customer-favouring MFN as decoys, and a convenience right split across two sections.";
+
+function words(value: number | null): string {
+  return value === null ? "—" : value.toLocaleString("en-US");
+}
+
 /**
- * Contracts × configs, issue-detection F1 per cell. The hard case is pinned to the top because it
- * is the contract the pipeline was designed against (EVAL.md §1).
+ * Contracts × configs, issue-detection F1 per cell, grouped by tier. The hard case is pinned to the
+ * top of the short tier because it is the contract the pipeline was designed against (EVAL.md §1).
  */
-export function ContractMatrix({ rows, configs }: { rows: ContractRow[]; configs: LadderRow[] }) {
+export function ContractMatrix({ groups, configs }: { groups: ContractGroup[]; configs: LadderRow[] }) {
   const present = configs.filter((config) => config.present);
+  const columns = present.length + 3;
+
+  function cells(row: ContractRow) {
+    return present.map((config) => {
+      const value = row.f1[config.id];
+      return (
+        <td
+          key={config.id}
+          className={cn(
+            "relative px-2 py-2 text-right align-middle",
+            config.role === "final" && "border-l border-hairline",
+          )}
+        >
+          {value === null || value === undefined ? (
+            <span className="mono text-[11.5px] text-ink-faint">—</span>
+          ) : (
+            <>
+              <span
+                aria-hidden
+                className="absolute inset-x-[3px] inset-y-[3px] rounded-[3px] bg-navy-soft"
+                style={{ opacity: shade(value) }}
+              />
+              <span className="mono relative text-[11.5px] text-ink">{percent(value, 0)}</span>
+            </>
+          )}
+        </td>
+      );
+    });
+  }
+
   return (
-    <div className="overflow-hidden rounded-card border border-hairline bg-sheet">
+    <div className="overflow-x-auto rounded-card border border-hairline bg-sheet">
       <table className="w-full border-collapse text-left">
-        <caption className="sr-only">Issue-detection F1 per contract for every configuration.</caption>
+        <caption className="sr-only">Issue-detection F1 per contract for every configuration, grouped by tier.</caption>
         <thead>
           <tr className="border-b border-hairline bg-paper">
             <th className="label-caps px-3 py-2 align-bottom" scope="col">
               Contract
+            </th>
+            <th className="label-caps px-2 py-2 text-right align-bottom" scope="col">
+              Words
             </th>
             <th className="label-caps px-2 py-2 text-right align-bottom leading-[1.25]" scope="col">
               Gold
@@ -43,53 +84,36 @@ export function ContractMatrix({ rows, configs }: { rows: ContractRow[]; configs
             ))}
           </tr>
         </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr
-              key={row.id}
-              className={cn("border-b border-hairline last:border-b-0", row.hard && "border-b-hairline-strong")}
-            >
-              <th scope="row" className="px-3 py-2 text-left align-middle font-normal">
-                <span className="flex items-center gap-2">
-                  <span className="mono text-[11.5px] text-ink">{row.id}</span>
-                  {row.hard ? <Tag tone="comment">hard case</Tag> : null}
+        {groups.map((group, index) => (
+          <tbody key={group.tier}>
+            <tr className={cn("border-b border-hairline bg-paper", index > 0 && "border-t")}>
+              <th scope="colgroup" colSpan={columns} className="px-3 py-1.5 text-left font-normal">
+                <span className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+                  <span className="label-caps text-ink">{`${group.label} · ${group.rows.length}`}</span>
+                  <span className="text-[11.5px] text-ink-muted">{group.caption}</span>
                 </span>
-                {row.hard ? (
-                  <span className="mt-0.5 block max-w-[52ch] text-[11.5px] leading-[1.45] text-ink-muted">
-                    Illusory cap hidden in a definition, a vendor-side non-compete and a customer-favouring MFN as
-                    decoys, and a convenience right split across two sections.
-                  </span>
-                ) : null}
               </th>
-              <td className="mono px-2 py-2 text-right text-[11px] text-ink-faint">{row.goldItems}</td>
-              {present.map((config) => {
-                const value = row.f1[config.id];
-                return (
-                  <td
-                    key={config.id}
-                    className={cn(
-                      "relative px-2 py-2 text-right align-middle",
-                      config.role === "final" && "border-l border-hairline",
-                    )}
-                  >
-                    {value === null ? (
-                      <span className="mono text-[11.5px] text-ink-faint">—</span>
-                    ) : (
-                      <>
-                        <span
-                          aria-hidden
-                          className="absolute inset-y-[3px] inset-x-[3px] rounded-[3px] bg-navy-soft"
-                          style={{ opacity: shade(value) }}
-                        />
-                        <span className="mono relative text-[11.5px] text-ink">{percent(value, 0)}</span>
-                      </>
-                    )}
-                  </td>
-                );
-              })}
             </tr>
-          ))}
-        </tbody>
+            {group.rows.map((row) => (
+              <tr key={row.id} className={cn("border-b border-hairline last:border-b-0", row.hard && "border-b-hairline-strong")}>
+                <th scope="row" className="px-3 py-2 text-left align-middle font-normal">
+                  <span className="flex items-center gap-2">
+                    <span className="mono text-[11.5px] text-ink">{row.id}</span>
+                    {row.hard ? <Tag tone="comment">hard case</Tag> : null}
+                  </span>
+                  {row.hard ? (
+                    <span className="mt-0.5 block max-w-[52ch] text-[11.5px] leading-[1.45] text-ink-muted">
+                      {HARD_CASE_NOTE}
+                    </span>
+                  ) : null}
+                </th>
+                <td className="mono px-2 py-2 text-right text-[11px] text-ink-faint">{words(row.words)}</td>
+                <td className="mono px-2 py-2 text-right text-[11px] text-ink-faint">{row.goldItems}</td>
+                {cells(row)}
+              </tr>
+            ))}
+          </tbody>
+        ))}
       </table>
     </div>
   );

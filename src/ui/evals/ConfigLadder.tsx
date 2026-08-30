@@ -13,6 +13,17 @@ const roleTag: Record<ConfigRole, { label: string; tone: "neutral" | "navy" | "c
   final: { label: "shipped", tone: "navy" },
 };
 
+const groupHeadings: { group: MetricColumn["group"]; label: string }[] = [
+  { group: "quality", label: "Quality" },
+  { group: "redline", label: "Round 2 · end-to-end redline" },
+  { group: "resources", label: "Per contract" },
+];
+
+/** The first column of each group carries the vertical rule that separates the groups. */
+const groupStarts = new Set(
+  groupHeadings.map(({ group }) => metricColumns.find((column) => column.group === group)?.key),
+);
+
 /** Only two rows are load-bearing in the changelog: the official baseline and the shipped pipeline. */
 function rowClass(row: LadderRow): string {
   if (row.role === "final") return "bg-navy-soft/55";
@@ -27,66 +38,77 @@ function accentClass(row: LadderRow): string {
   return "bg-transparent";
 }
 
-function Cell({
-  row,
-  column,
-  best,
-}: {
-  row: LadderRow;
-  column: MetricColumn;
-  best: number | null;
-}) {
-  if (!row.present) {
+function Cell({ row, column, best }: { row: LadderRow; column: MetricColumn; best: number | null }) {
+  const value = row.present ? row[column.key] : null;
+  const border = groupStarts.has(column.key) ? "border-l border-hairline" : "";
+  if (value === null) {
     return (
-      <td className="mono px-2 py-2.5 text-right text-[11.5px] text-ink-faint" aria-label="not run">
-        —
+      <td
+        className={cn("mono px-1.5 py-2.5 text-right text-[11.5px] text-ink-faint", border)}
+        title={row.present ? `${column.label} was not scored for ${row.id}` : `${row.id} was not run on this tier`}
+      >
+        —<span className="sr-only">{row.present ? " not scored" : " not run"}</span>
       </td>
     );
   }
-  const value = row[column.key];
   const isBest = best !== null && Math.abs(value - best) < 1e-9;
+  const judgeV2 = column.judged === true && row.judge === "v2";
   return (
     <td
       className={cn(
-        "mono px-2 py-2.5 text-right whitespace-nowrap",
-        column.primary ? "border-l border-hairline text-[12.5px] text-ink" : "text-[11.5px] text-ink",
+        "mono px-1.5 py-2.5 text-right whitespace-nowrap",
+        column.primary ? "text-[12.5px] text-ink" : "text-[11.5px] text-ink",
+        border,
         isBest && "bg-verified-soft",
       )}
-      title={isBest ? `Best ${column.label.toLowerCase()} of every config` : undefined}
+      title={isBest ? `Best ${column.label.toLowerCase()} of every config in this view` : undefined}
     >
       {column.format(value)}
+      {judgeV2 ? (
+        <sup className="ml-[1px] text-[9px] text-ink-faint" aria-hidden>
+          2
+        </sup>
+      ) : null}
+      {judgeV2 ? <span className="sr-only"> scored by judge v2</span> : null}
       {isBest ? <span className="sr-only"> — best</span> : null}
     </td>
   );
 }
 
 /**
- * The config ladder: one row per named configuration in `src/agent/configs.ts`, in the order
- * IMPROVEMENT_CHANGELOG.md tells the story, primary metric first. The best value in each column
- * carries the `verified.soft` wash.
+ * The config ladder: one row per named configuration in `src/agent/configs.ts` order, primary metric
+ * first, with the round-2 redline block in the middle. The best value in each column carries the
+ * `verified.soft` wash; a metric a configuration was not scored for reads "—" rather than zero.
  */
-export function ConfigLadder({ rows }: { rows: LadderRow[] }) {
+export function ConfigLadder({ rows, caption }: { rows: LadderRow[]; caption: string }) {
   const best = bestByColumn(rows);
-  const quality = metricColumns.filter((column) => column.group === "quality");
-  const resources = metricColumns.filter((column) => column.group === "resources");
+  const spans = groupHeadings.map((heading) => ({
+    ...heading,
+    span: metricColumns.filter((column) => column.group === heading.group).length,
+  }));
 
   return (
-    <div className="overflow-hidden rounded-card border border-hairline bg-sheet">
+    <div className="overflow-x-auto rounded-card border border-hairline bg-sheet">
       <table className="w-full border-collapse text-left">
-        <caption className="sr-only">
-          Every pipeline configuration measured on the same twelve contracts, primary metric first.
-        </caption>
+        <caption className="sr-only">{caption}</caption>
         <thead>
           <tr className="border-b border-hairline bg-paper">
             <th className="label-caps px-3 py-2 align-bottom" rowSpan={2} scope="col">
               Config
             </th>
-            <th className="label-caps border-l border-hairline px-2 py-2 text-center" colSpan={quality.length} scope="colgroup">
-              Quality
-            </th>
-            <th className="label-caps border-l border-hairline px-2 py-2 text-center" colSpan={resources.length} scope="colgroup">
-              Per contract
-            </th>
+            {spans.map((heading) => (
+              <th
+                key={heading.group}
+                scope="colgroup"
+                colSpan={heading.span}
+                className={cn(
+                  "label-caps border-l border-hairline px-1.5 py-2 text-center whitespace-nowrap",
+                  heading.group === "redline" && "text-ink",
+                )}
+              >
+                {heading.label}
+              </th>
+            ))}
           </tr>
           <tr className="border-b border-hairline bg-paper">
             {metricColumns.map((column) => (
@@ -94,13 +116,16 @@ export function ConfigLadder({ rows }: { rows: LadderRow[] }) {
                 key={column.key}
                 scope="col"
                 className={cn(
-                  "label-caps w-[74px] px-2 pb-2 align-bottom text-right leading-[1.25]",
-                  (column.primary || column.key === "calls") && "border-l border-hairline",
+                  "label-caps w-[68px] px-1.5 pb-2 align-bottom text-right leading-[1.25]",
+                  groupStarts.has(column.key) && "border-l border-hairline",
                   column.primary && "text-ink",
                 )}
               >
                 <Tooltip label={column.hint} side="top">
-                  <span tabIndex={0} className="cursor-help rounded-[3px] underline decoration-hairline-strong decoration-dotted underline-offset-[3px]">
+                  <span
+                    tabIndex={0}
+                    className="cursor-help rounded-[3px] underline decoration-hairline-strong decoration-dotted underline-offset-[3px]"
+                  >
                     {column.label}
                   </span>
                 </Tooltip>
@@ -127,7 +152,7 @@ export function ConfigLadder({ rows }: { rows: LadderRow[] }) {
                     </span>
                     {tag ? <Tag tone={tag.tone}>{tag.label}</Tag> : null}
                   </span>
-                  <span className="mt-0.5 block max-w-[220px] truncate text-[12px] text-ink-muted" title={row.description}>
+                  <span className="mt-0.5 block max-w-[200px] truncate text-[12px] text-ink-muted" title={row.description}>
                     {row.label}
                   </span>
                 </th>

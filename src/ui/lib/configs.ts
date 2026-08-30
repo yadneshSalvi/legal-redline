@@ -39,6 +39,18 @@ export const configCatalog: { id: ConfigId; label: string; description: string; 
     kind: "iteration",
   },
   {
+    id: "i5-elements",
+    label: "i5 · Element-complete redlines",
+    description: "Atomic position checklists per rule, element-mapped drafting, deterministic minimality and fresh-context element verification with up to three repairs.",
+    kind: "iteration",
+  },
+  {
+    id: "i6-longdoc",
+    label: "i6 · Long-document elements",
+    description: "i5 plus, past 15,000 words, whole-document per-rule search planning, definition-first context, paginated worker reads and raised planner/worker budgets.",
+    kind: "iteration",
+  },
+  {
     id: "x-monolith",
     label: "x · Monolith (removed)",
     description: "One agent handling every rule in a single loop — the experiment we removed on cost and recall.",
@@ -48,6 +60,12 @@ export const configCatalog: { id: ConfigId; label: string; description: string; 
     id: "final",
     label: "Final pipeline",
     description: "Planner → per-rule drafters → independent verifier → assembler, with precedent memory. Recommended.",
+    kind: "iteration",
+  },
+  {
+    id: "final-v2",
+    label: "Final v2 · Element-complete pipeline",
+    description: "i6's thresholded long-document element completeness plus approved precedent language returned as element-labelled drafting templates.",
     kind: "iteration",
   },
 ];
