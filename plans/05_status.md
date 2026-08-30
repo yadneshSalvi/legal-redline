@@ -130,3 +130,6 @@
 - Sun 06:00 — **Production judge path verified live**: sample Kubient run (`final`) on playbook-redliner.vercel.app → 118 SSE events → awaiting_review
   (18 findings, $3.23) → 6 decisions → apply 6 s → output.docx (12 ins / 3 del / 6 comments, validation ok) → `/review/-QiColwui8Kpan` renders.
   Video run recorded locally: `data/runs/SDqRoWCFr52ycs` (Corio, final: 4 dev / 3 missing / 11 compliant, 18 verified, $3.88).
+- Sun 06:05 — x-monolith recorded: F1 0.941 (P 0.99 / R 0.90), validity 42 %, minimality 45 %, halluc 2.1 %, $0.99 — cheapest strong detector, but
+  lowest validity among pipeline configs (removed for validity/recall, not detection). Campaign complete; `finalize.sh` running (re-score all
+  with the final gate, report, render-docs, exports).
