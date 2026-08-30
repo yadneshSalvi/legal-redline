@@ -1,0 +1,218 @@
+
+--- text ---
+I'll start by reading the binding contracts and the current state of the eval UI.
+[tool] Bash {'command': 'ls && echo "---STYLE---" && wc -l STYLE.md EVAL.md SCHEMA.md PLAYBOOK.md 2>/dev/null && echo "---UI---" && ls -la src/ui/evals/ app/evals/ app/api/evals/ 2>/dev/null', 'description': 'List repo layout and ev 
+[tool] Bash {'command': 'cat STYLE.md', 'description': 'Read STYLE.md'} 
+[tool] Bash {'command': 'cat app/evals/page.tsx app/api/evals/route.ts src/ui/evals/EvalsDashboard.tsx', 'description': 'Read evals page, API route, dashboard'} 
+[tool] Bash {'command': 'cat src/ui/evals/HeadlineStrip.tsx src/ui/evals/ConfigLadder.tsx src/ui/evals/ContractMatrix.tsx src/ui/evals/ReproduceBlock.tsx', 'description': 'Read eval UI components'} 
+[tool] Bash {'command': 'cat src/ui/lib/evals.ts; echo "=====REPO====="; cat src/ui/lib/repo.ts; echo "=====API====="; cat src/ui/lib/api.ts', 'description': 'Read evals lib, repo lib, api lib'} 
+[tool] Bash {'command': 'ls -la evals/results/ && echo "---" && node -e "const d=require(\'~/code/hackathons/legal-redline-wt/ui-evals-round2/evals/results/changelog-data.json\'); console.log(JSON.stringify(Object. 
+[tool] Bash {'command': 'node -e "\nconst d=require(\'./evals/results/changelog-data.json\');\nconsole.log(\'generatedFrom\', d.generatedFrom);\nconsole.log(\'configs ids\', d.configs.map(c=>c.id));\nconsole.log(\'tiers\', d.tiers.m 
+[tool] Bash {'command': 'grep -rn "elementMisses" --include=*.ts --include=*.tsx --include=*.md --include=*.json -l . --exclude-dir=node_modules --exclude-dir=.git 2>/dev/null | head -20; echo "---grep in src/eval---"; grep -rn "ele 
+[tool] Bash {'command': 'node -e "\nconst d=require(\'./evals/results/changelog-data.json\');\nfor (const t of d.tiers){\n  console.log(\'== tier\', t.id, \'contracts:\', t.configs[0].contracts.map(c=>c.id).join(\', \'));\n  for(con 
+[tool] Bash {'command': 'ls data/ && echo "---" && ls data/contracts | head -30 && echo "--- gold ---" && ls data/gold 2>/dev/null | head -30', 'description': 'List data dirs'} 
+[tool] Bash {'command': 'sed -n \'1,80p\' src/eval/datasets.ts 2>/dev/null; echo "=== gold.ts 40-80 ==="; sed -n \'40,80p\' src/eval/gold.ts', 'description': 'Read dataset definitions'} 
+[tool] Bash {'command': 'ls data/contracts/long-array-biopharma-inc/ && echo "--- meta ---" && cat data/contracts/long-array-biopharma-inc/meta.json 2>/dev/null | head -c 800', 'description': 'Inspect a long contract dir'} 
+[tool] Bash {'command': 'ls -R app/api | head -60; echo "=== samples route ==="; cat app/api/samples/route.ts 2>/dev/null', 'description': 'List API routes'} 
+[tool] Bash {'command': 'ls src/ui/ && echo "=== fixtures ===" && ls src/ui/fixtures && echo "=== configs ===" && cat src/ui/lib/configs.ts', 'description': 'List UI dirs and configs lib'} 
+[tool] Bash {'command': 'grep -n "id:\\|ConfigId\\|export const" src/agent/configs.ts | head -60; echo "=== types ConfigId ==="; grep -n "ConfigId" src/agent/types.ts | head -20', 'description': 'Read agent configs order'} 
+[tool] Bash {'command': 'grep -rn "ConfigId =" src/agent/types.ts -A6; echo "=== configs.ts head ==="; sed -n \'1,60p\' src/agent/configs.ts', 'description': 'Read ConfigId union and configs'} 
+[tool] Bash {'command': 'sed -n \'60,130p\' src/agent/configs.ts; echo "=== ConfigId full ==="; sed -n \'106,122p\' src/agent/types.ts', 'description': 'Read remaining configs and ConfigId'} 
+[tool] Bash {'command': 'ls plans/campaign/ 2>/dev/null; echo "---"; sed -n \'1,120p\' plans/campaign/preregistration.md 2>/dev/null', 'description': 'Read pre-registration'} 
+[tool] Bash {'command': 'grep -n "export interface AggregateMetrics" -A 30 src/eval/metrics.ts; echo "=== ContractMetrics ==="; grep -n "export interface ContractMetrics" -A 20 src/eval/metrics.ts; echo "=== Rate/others ==="; grep - 
+[tool] Bash {'command': 'cat src/ui/fixtures/evals.ts | head -120', 'description': 'Read evals fixture'} 
+[tool] Bash {'command': "sed -n '120,400p' src/ui/fixtures/evals.ts", 'description': 'Read rest of evals fixture'} 
+[tool] Bash {'command': 'grep -rn "tiers\\|elementMiss" src/eval/report.ts | head -40; echo "=== EVAL.md new metrics ==="; grep -n "complete redline\\|Complete redline\\|CRR\\|yield\\|adherence\\|tier" EVAL.md | head -40', 'descript 
+[tool] Bash {'command': 'ls docs/ docs/screenshots 2>/dev/null | head -40; echo "=== e2e ==="; ls tests/e2e; echo; cat playwright.config.ts 2>/dev/null | head -40; ls tests/e2e/*.ts | head', 'description': 'Check screenshots and e2e 
+[tool] Bash {'command': 'sed -n \'100,170p\' src/eval/report.ts; echo "=== EVAL 137-163 ==="; sed -n \'137,163p\' EVAL.md', 'description': 'Read report tiers builder and EVAL §9'} 
+[tool] Bash {'command': 'cat package.json; echo "=== scripts dir ==="; ls scripts/ | head -40', 'description': 'Read package.json and scripts'} 
+[tool] Bash {'command': 'ls tests/; echo "---"; find . -name "playwright*.ts" -o -name "playwright*.mjs" -not -path "./node_modules/*" | grep -v node_modules | head; echo "=== render-docs ==="; head -40 scripts/render-docs.ts', 'des 
+[tool] Bash {'command': 'ls tests/* | head -50; echo "=== ui tests ==="; ls tests/ui 2>/dev/null; find tests -name "*evals*" | head', 'description': 'List tests'} 
+[tool] Bash {'command': 'grep -rln "screenshot" --include="*.ts" --include="*.mjs" --include="*.md" --include="*.json" . 2>/dev/null | grep -v node_modules | head -20', 'description': 'Find screenshot tooling'} 
+[tool] Bash {'command': 'cat tests/ui/fixtures.test.ts | head -60; echo "=== Chip/Tooltip ==="; cat src/ui/Chip.tsx; sed -n \'1,60p\' src/ui/Tooltip.tsx', 'description': 'Read ui tests and Chip/Tooltip'} 
+[tool] Bash {'command': 'cat plans/harness/briefs/ui-evals-round2.md', 'description': 'Read my brief file'} 
+[tool] Bash {'command': 'grep -n "screenshot" -B3 -A8 plans/harness/reports/20260830-010554-ui-evidence.md | head -60', 'description': 'Find how screenshots were taken'} 
+[tool] Bash {'command': 'node -e "\nconst d=require(\'./evals/results/changelog-data.json\');\nconst short=d.tiers.find(t=>t.id===\'short\');\nfor(const id of [\'b1-prompt\',\'i3-verifier\',\'final\']){\n  const L=d.configs.find(c=> 
+[tool] Bash {'command': 'ls node_modules/next/dist/docs/ 2>/dev/null | head -40; echo "=== globals.css ==="; cat app/globals.css', 'description': 'List next docs and read globals.css'} 
+[tool] Bash {'command': 'grep -rn "element" src/eval/judge.ts src/eval/judge-v2.ts 2>/dev/null | head -30; ls src/eval/', 'description': 'Inspect judge v2 element vocabulary'} 
+[tool] Bash {'command': 'cat app/api/_samples.ts | head -60; echo "=== playwright browsers ==="; ls ~/Library/Caches/ms-playwright 2>/dev/null | head', 'description': 'Read samples helper, check playwright browsers'} 
+[tool] Bash {'command': 'grep -n "export " src/eval/metrics-round2.ts | head -30; echo "=== judge-elements ==="; grep -n "export \\|interface \\|type " src/eval/judge-elements.ts | head -30; echo "=== judge.ts elements schema ===";  
+[tool] Bash {'command': 'head -40 src/ui/fixtures/samples.ts', 'description': 'Read sample fixtures'} 
+
+--- text ---
+Now I understand the data and the existing UI. Let me check the remaining pieces before writing code.
+[tool] Bash {'command': 'ls src/ui/lib/; echo "=== eslint ==="; cat eslint.config.mjs; echo "=== tokens head ==="; head -30 src/tokens.ts', 'description': 'List lib, read eslint config and tokens'} 
+[tool] Bash {'command': 'node -e "\nconst d=require(\'./evals/results/changelog-data.json\');\nfor(const t of d.tiers){for(const c of t.configs){const a=c.aggregate;\nconsole.log(t.id,c.id,\'CRR\',JSON.stringify(a.completeRedline),\ 
+
+--- text ---
+Now I'll write the data layer. Starting with `src/ui/lib/evals.ts`:
+[tool] Bash {'command': 'cat > /tmp/evals.ts <<\'TSEOF\'\n/**\n * The shape of `evals/results/changelog-data.json` (written by `src/eval/report.ts`, served by\n * `GET /api/evals`) and the derivations the `/evals` page renders from  
+[tool] Bash {'command': "sed -n '1,64p' src/eval/metrics.ts", 'description': 'Read metrics interfaces'} 
+[tool] Bash {'command': 'cat > /tmp/evals-round2.ts <<\'TSEOF\'\n/**\n * Round-2 derivations for `/evals` (EVAL.md §9): the short/long/all tier views, the pooling\n * arithmetic behind "All", the per-contract groups and the headline 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport re, pathlib\np = pathlib.Path("src/ui/lib/evals-round2.ts")\ns = p.read_text()\nbad = \'\'\'export const tierDescriptions: Record<TierView, string> = {\n  short: "the twelve 3–8k-w 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/lib/evals-round2.ts")\ns = p.read_text()\nmarker = "export interface Headline {"\nidx = s.index(marker)\nhead, tail = s[:idx], s[idx:]\nhead = hea 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/lib/configs.ts")\ns = p.read_text()\nanchor = \'\'\'  {\n    id: "x-monolith",\'\'\'\nnew = \'\'\'  {\n    id: "i5-elements",\n    label: "i5 · El 
+
+--- text ---
+Now the components — tier switch first:
+[tool] Bash {'command': 'cat > /tmp/TierSwitch.tsx <<\'TSXEOF\'\n"use client";\n\nimport { useRef } from "react";\nimport { cn } from "../cn";\nimport { tierLabels, tierViews, type TierView } from "../lib/evals-round2";\n\n/**\n * S 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/evals/TierSwitch.tsx")\ns = p.read_text()\ns = s.replace(\'import { useRef } from "react";\', \'import { useRef, type KeyboardEvent } from "react" 
+[tool] Bash {'command': 'cat > /tmp/ConfigLadder.tsx <<\'TSXEOF\'\n"use client";\n\nimport { Tag } from "../Chip";\nimport { Tooltip } from "../Tooltip";\nimport { cn } from "../cn";\nimport { bestByColumn, metricColumns, type Confi 
+[tool] Bash {'command': 'cat > /tmp/HeadlineStrip.tsx <<\'TSXEOF\'\n"use client";\n\nimport { ArrowRight } from "lucide-react";\nimport { cn } from "../cn";\nimport type { Headline } from "../lib/evals-headlines";\n\n/**\n * Baselin 
+[tool] Bash {'command': 'cat > /tmp/ContractMatrix.tsx <<\'TSXEOF\'\n"use client";\n\nimport { Fragment } from "react";\nimport { Tag } from "../Chip";\nimport { cn } from "../cn";\nimport { percent, type LadderRow } from "../lib/ev 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/evals/ContractMatrix.tsx")\ns = p.read_text()\ns = s.replace(\'import { Fragment } from "react";\\n\', \'\')\ns = s.replace(\'\\nexport { Fragment 
+[tool] Bash {'command': 'cat > /tmp/WhyRoundTwo.tsx <<\'TSXEOF\'\nimport { ExternalLink } from "lucide-react";\nimport { repoFileUrl } from "../lib/repo";\n\nconst PREREGISTRATION = "plans/campaign/preregistration.md";\n\nconst COPY 
+[tool] Bash {'command': 'head -12 src/ui/lib/useElementWidth.ts', 'description': 'Check existing hook conventions'} 
+[tool] Bash {'command': 'cat > /tmp/useTierView.ts <<\'TSEOF\'\n"use client";\n\nimport { useCallback, useEffect, useState } from "react";\nimport { tierViews, type TierView } from "./evals-round2";\n\nconst STORAGE_KEY = "playbook- 
+
+--- text ---
+Now the fixture — splitting the generator so both files stay small:
+[tool] Bash {'command': 'cat > /tmp/evals-gen.ts <<\'TSEOF\'\n/**\n * The generator behind `./evals`: turns a per-configuration profile and a list of contracts into\n * results of exactly the shape `src/eval/report.ts` writes, with  
+[tool] Bash {'command': 'grep -n "^  - id:\\|^    title:\\|    id:" data/playbooks/customer-vendor-services.yaml | head -50', 'description': 'List playbook rule ids'} 
+[tool] Bash {'command': "sed -n '22,60p' data/playbooks/customer-vendor-services.yaml", 'description': 'Inspect a rule with elements'} 
+[tool] Bash {'command': 'cat > /tmp/fx.ts <<\'TSEOF\'\n/**\n * Fallback for `GET /api/evals` — the shape `src/eval/report.ts` writes to\n * `evals/results/changelog-data.json`, with illustrative numbers so the dashboard can be desig 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/fixtures/evals.ts")\ns = p.read_text()\n\ns = s.replace(\'\'\'const finalV2: Profile = {\n  ...(profiles.find((profile) => profile.id === "final") 
+[tool] Bash {'command': 'cat > /tmp/LadderNotes.tsx <<\'TSXEOF\'\nimport type { TierView } from "../lib/evals-round2";\n\nconst population: Record<TierView, React.ReactNode> = {\n  short: (\n    <>\n      The twelve round-1 contract 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np=pathlib.Path("src/ui/evals/LadderNotes.tsx")\ns=p.read_text()\ns=s.replace(\'import type { TierView } from "../lib/evals-round2";\',\'import type { ReactNode } from "rea 
+[tool] Bash {'command': 'grep -n "tier\\|--all\\|argv\\|flag" scripts/eval.ts | head -40', 'description': 'Check eval CLI flags'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np=pathlib.Path("src/ui/evals/ReproduceBlock.tsx")\ns=p.read_text()\nold=\'\'\'  { line: "pnpm eval --all", note: "replays evals/cache → evals/results/<config>.json" },\n   
+
+--- text ---
+Now let's typecheck and fix what breaks:
+[tool] Bash {'command': 'pnpm typecheck 2>&1 | tail -40', 'description': 'Run typecheck'} 
+[tool] Bash {'command': "sed -n '138,150p' src/ui/lib/evals-round2.ts", 'description': 'Inspect shippedConfig'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np=pathlib.Path("src/ui/lib/evals-round2.ts")\ns=p.read_text()\ns=s.replace("import {\\n  FINAL_V2_CONFIG,", "import {\\n  FINAL_CONFIG,\\n  FINAL_V2_CONFIG,")\npathlib.Pat 
+[tool] Bash {'command': 'pnpm lint 2>&1 | tail -30', 'description': 'Run lint'} 
+[tool] Bash {'command': 'pnpm test 2>&1 | tail -30', 'description': 'Run unit tests'} 
+[tool] Bash {'command': 'cat > /tmp/useTierView.ts <<\'TSEOF\'\n"use client";\n\nimport { useCallback, useState } from "react";\nimport { tierViews, type TierView } from "./evals-round2";\n\nconst STORAGE_KEY = "playbook-redliner.ev 
+[tool] Bash {'command': 'cat vitest.config.mts; head -20 tests/eval/metrics-hard.test.ts', 'description': 'Check vitest config'} 
+[tool] Bash {'command': 'cat > /tmp/t.ts <<\'TSEOF\'\nimport { readFileSync } from "node:fs";\nimport path from "node:path";\n\nimport { describe, expect, it } from "vitest";\n\nimport { fixtureEvals } from "@/src/ui/fixtures/evals" 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np=pathlib.Path("src/ui/lib/evals-headlines.ts")\ns=p.read_text()\nold=\'\'\'export function tierHeadlines(data: EvalsData): Headline[] {\n  const finalId = shippedConfig(d 
+[tool] Bash {'command': 'pnpm typecheck 2>&1 | tail -4 && pnpm lint 2>&1 | tail -4 && pnpm test 2>&1 | tail -8', 'description': 'Full gate: typecheck, lint, tests'} 
+[tool] Bash {'command': 'cd docs/screenshots && for f in 01-landing.png 09-runs.png; do echo -n "$f: "; sips -g pixelWidth -g pixelHeight "$f" 2>/dev/null | tr \'\\n\' \' \'; ls -la "$f" | awk \'{print $5}\'; done', 'description': ' 
+[tool] Bash {'command': 'cat > /tmp/shot.ts <<\'TSEOF\'\n/**\n * 1440×900 evidence for `/evals` (STYLE.md §7). Drives a real browser against a running dev server\n * so the captures are of the shipped page, not of a fixture render:\ 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline-wt/ui-evals-round2 && pwd && ls /tmp/shot.ts', 'description': 'Return to worktree root'} 
+[tool] Bash {'command': 'mv /tmp/shot.ts scripts/screenshot-evals.ts\npython3 - <<\'PY\'\nimport json,pathlib\np=pathlib.Path("package.json"); d=json.loads(p.read_text())\ns=d["scripts"]; new={}\nfor k,v in s.items():\n    new[k]=v\ 
+[tool] Bash {'command': '(NEXT_PUBLIC_REPO_URL=https://github.com/yadneshSalvi/legal-redline pnpm dev -p 3101 > /tmp/dev3101.log 2>&1 &) ; sleep 1; echo started', 'description': 'Start dev server on 3101'} 
+[tool] Bash {'command': 'for i in $(seq 1 40); do if curl -s -o /dev/null -w "%{http_code}" http://localhost:3101/evals | grep -q 200; then echo "up after ${i}s"; break; fi; sleep 1; done; tail -5 /tmp/dev3101.log', 'description': ' 
+[tool] Bash {'command': 'pnpm shots:evals 2>&1 | tail -20', 'description': 'Capture screenshots'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np=pathlib.Path("src/ui/evals/EvalsDashboard.tsx")\ns=p.read_text()\nold=\'\'\'        <LadderNotes view={active} judgeV2={present.some((row) => row.judge === "v2")} />\n   
+[tool] Bash {'command': 'pnpm shots:evals 2>&1 | tail -12 && ls -la docs/screenshots/evals-round2-*.png', 'description': 'Re-capture screenshots'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-short.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-long.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-why.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-matrix.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-fixture-elements.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-fixture.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\n# 1. bestByColumn: no "best" when nothing distinguishes the rows\np=pathlib.Path("src/ui/lib/evals.ts"); s=p.read_text()\nold=\'\'\'    const values = present\n      .map( 
+[tool] Bash {'command': 'pnpm shots:evals 2>&1 | tail -9', 'description': 'Re-capture screenshots after polish'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-all.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-why.png'} 
+[tool] Bash {'command': 'cat > /tmp/verify-tier.mjs <<\'EOF\'\nimport { chromium } from "@playwright/test";\nconst base = "http://localhost:3101";\nconst browser = await chromium.launch();\nconst ctx = await browser.newContext({ vie 
+[tool] Bash {'command': 'cat > /tmp/verify-ring.mjs <<\'EOF\'\nimport { chromium } from "@playwright/test";\nconst browser = await chromium.launch();\nconst ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } }); 
+[tool] Bash {'command': 'cat > /tmp/verify-ring2.mjs <<\'EOF\'\nimport { chromium } from "@playwright/test";\nconst browser = await chromium.launch();\nconst ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } }) 
+[tool] Bash {'command': 'grep -rn "focus-visible\\|outline-" src/ui/*.tsx src/ui/**/*.tsx app/**/*.tsx 2>/dev/null | head -20; echo "=== compiled css focus rules ==="; curl -s "http://localhost:3101/evals" | grep -o \'/_next/static/ 
+[tool] Bash {'command': 'curl -s "http://localhost:3101/_next/static/chunks/%5Broot-of-the-server%5D__1067lqd._.css" | grep -o "[^}]*focus-visible[^}]*}" | head -20', 'description': 'Inspect compiled focus-visible CSS'} 
+[tool] Bash {'command': 'curl -s "http://localhost:3101/_next/static/chunks/%5Broot-of-the-server%5D__1067lqd._.css" -o /tmp/app.css; wc -c /tmp/app.css; grep -n "focus-visible" /tmp/app.css | head -10; echo "---outline decls---"; g 
+[tool] Bash {'command': "sed -n '260,270p;435,445p;620,640p' /tmp/app.css", 'description': 'Inspect surrounding CSS rules'} 
+[tool] Bash {'command': 'cat > /tmp/verify-ring3.mjs <<\'EOF\'\nimport { chromium } from "@playwright/test";\nconst browser = await chromium.launch();\nconst ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } }) 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np=pathlib.Path("scripts/screenshot-evals.ts"); s=p.read_text()\ns=s.replace(\'\'\'  /** Heading to scroll to the top of the viewport before capturing; omitted means the fo 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-focus.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-short.png'} 
+[tool] Bash {'command': 'cat > /tmp/widths.mjs <<\'EOF\'\nimport { chromium } from "@playwright/test";\nconst browser = await chromium.launch();\nfor (const [w, h] of [[1280, 900], [1920, 1080], [1024, 900]]) {\n  const ctx = await  
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np=pathlib.Path("src/ui/evals/ConfigLadder.tsx"); s=p.read_text()\ns=s.replace(\'<div className="overflow-hidden rounded-card border border-hairline bg-sheet">\',\n         
+[tool] Bash {'command': 'curl -s -o /dev/null http://localhost:3101/evals; sleep 4; node /tmp/widths.mjs', 'description': 'Recompile and re-measure widths'} 
+[tool] Bash {'command': 'grep -n "overflow-x-auto\\|w-\\[68px\\]" src/ui/evals/ConfigLadder.tsx | head; tail -3 /tmp/dev3101.log', 'description': 'Confirm edits landed and server state'} 
+[tool] Bash {'command': 'cat > /tmp/overflow.mjs <<\'EOF\'\nimport { chromium } from "@playwright/test";\nconst browser = await chromium.launch();\nconst ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });\nc 
+[tool] Bash {'command': 'node /tmp/widths.mjs >/dev/null 2>&1; echo done', 'description': 'Regenerate width check screenshots'} 
+[tool] Read {'file_path': '/tmp/evals-1280.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np=pathlib.Path("src/ui/evals/ConfigLadder.tsx"); s=p.read_text()\ns=s.replace(\'"mono px-2 py-2.5 text-right text-[11.5px] text-ink-faint"\',\'"mono px-1.5 py-2.5 text-rig 
+[tool] Bash {'command': "sed -i '' 's/width: 1280, height: 900/width: 1024, height: 900/' /tmp/overflow.mjs && node /tmp/overflow.mjs", 'description': 'Check overflow offenders at 1024'} 
+[tool] Bash {'command': 'cat > /tmp/ov2.mjs <<\'EOF\'\nimport { chromium } from "@playwright/test";\nconst b = await chromium.launch();\nconst ctx = await b.newContext({ viewport: { width: 1024, height: 900 } });\nconst p = await ct 
+[tool] Bash {'command': 'cat > /tmp/ov3.mjs <<\'EOF\'\nimport { chromium } from "@playwright/test";\nconst b = await chromium.launch();\nfor (const w of [1024, 1280, 1440, 1920]) {\n  const ctx = await b.newContext({ viewport: { wid 
+[tool] Bash {'command': 'cat > /tmp/ov4.mjs <<\'EOF\'\nimport { chromium } from "@playwright/test";\nconst b = await chromium.launch();\nconst ctx = await b.newContext({ viewport: { width: 1024, height: 900 } });\nconst p = await ct 
+[tool] Bash {'command': 'cat > /tmp/ov5.mjs <<\'EOF\'\nimport { chromium } from "@playwright/test";\nconst b = await chromium.launch();\nconst ctx = await b.newContext({ viewport: { width: 1024, height: 900 } });\nconst p = await ct 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np=pathlib.Path("AGENTS.md"); s=p.read_text()\nold="`pnpm baseline <file>` · `pnpm eval [--config …] [--live]` · `pnpm report` · `pnpm validate-docx <file>` · `pnpm export- 
+[tool] Bash {'command': 'pnpm shots:evals 2>&1 | tail -9 && pnpm typecheck 2>&1|tail -2 && pnpm lint 2>&1|tail -2 && pnpm test 2>&1|tail -6', 'description': 'Final capture and full gate'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-short.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline-wt/ui-evals-round2/docs/screenshots/evals-round2-fixture.png'} 
+[tool] Bash {'command': 'grep -rn "from \\"../lib/evals\\"\\|from \\"@/src/ui/lib/evals\\"" --include=*.tsx --include=*.ts src app tests | grep -v "evals-round2\\|evals-headlines" | head -20', 'description': 'Check remaining importe 
+[tool] Bash {'command': 'pnpm build 2>&1 | tail -25', 'description': 'Production build check'} 
+[tool] Bash {'command': 'grep -rn \'from "\\.\\./lib/evals"\' src/ui | head; echo "---"; grep -rln \'lib/evals"\' src app tests | head; echo "=== kill dev ==="; pkill -f "next dev -p 3101" ; pkill -f "next-server" ; sleep 1; lsof -t 
+[tool] Bash {'command': 'git status --porcelain && echo "--- diffstat ---" && git diff --stat | tail -20', 'description': 'List changed files'} 
+[tool] Bash {'command': 'grep -rn "tierDescriptions" src app tests | head; echo "---"; wc -l src/ui/lib/evals*.ts src/ui/evals/*.tsx src/ui/fixtures/evals*.ts scripts/screenshot-evals.ts | sort -n | tail -20; echo "--- any/ts-ignore 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np=pathlib.Path("src/ui/lib/evals-round2.ts"); s=p.read_text()\nold=\'\'\'export const tierDescriptions: Record<TierView, string> = {\n  short: "the twelve 3–8k-word round- 
+
+--- text ---
+All gates green. Here's the report.
+
+## Summary
+
+`/evals` now tells the round-2 story without dropping round 1. Four changes to the page and one new data layer:
+
+- **Headline strip** leads with complete redline rate (pooled, 18 contracts), then long-document F1 (6), applied tracked-change yield (18), then round-1 issue-detection F1 (short, 12). Each card names its own population, and the shipped config is resolved from the data — it renders `final` today and switches to `final-v2` the moment the campaign's run lands. Delta-pill logic is untouched, which is why long-document F1 currently shows a red `−1.5 pts`: on this report the pipeline is behind the one-prompt baseline on long documents.
+- **Tier switch** (`Short 12 · Long 6 · All 18`) above the ladder: a real `radiogroup`, arrow/Home/End keyboard-operable with a verified 2 px navy `:focus-visible` ring, synced to `?tier=`, remembered in `localStorage`, and disabled for tiers the report has no rows for. The ladder, both charts and the per-contract matrix all follow it.
+- **Ladder** gains a `Round 2 · end-to-end redline` column group (CRR · applied yield · adherence), `—` where a config was not scored, and keeps the green best-in-column wash — with one honesty fix: a column where every config ties (the all-zero long-tier CRR) no longer washes green.
+- Two rules keep the ladder honest and are stated in the notes under it: **the short view renders every round-1 column from the round-1 result, byte-identical to before** (a test asserts this over all eleven round-1 columns × every config), taking only the three new columns from the re-scored tier run; and **"All" requires both tiers** — a config measured on one tier only reads `—` rather than being pooled into an 18-contract number it never earned. Judge v2 re-scored validity and minimality much more strictly on the identical runs (`final` 50.6 % → 44.8 % validity, 35.6 % → 13.8 % minimality), so every judge-v2-sourced cell carries a `²` and the footnote explains it.
+- **"Why round 2"** panel sits directly under the ladder with the lead's copy verbatim, a footer line stating that round 1 is still on the page, and a `repoFileUrl` link to `plans/campaign/preregistration.md`.
+- **Per-element panel** renders only when `tiers[].elementMisses` exists. It does not exist in the real report, so on real data the section is absent; the fixture supplies rows so the panel is demonstrable.
+- **Matrix** groups Short/Long tiers with headers and a Words column; **Reproduce** block gains `pnpm eval --tier all`.
+
+`pnpm typecheck`, `pnpm lint`, `pnpm test` (168 tests, 16 new) and `pnpm build` all pass. No new dependencies; `src/eval/**` and `evals/**` untouched.
+
+## Files
+
+**New**
+- `src/ui/lib/evals-round2.ts` — tier views, `poolAggregates` (counts add, rates recomputed, macro means re-weighted by contract count), `tierLadderRows`, `contractGroups`, `elementMissRows`, `shippedConfig`
+- `src/ui/lib/evals-headlines.ts` — round-2 headline cards + round-1 fallback
+- `src/ui/lib/useTierView.ts` — URL + `localStorage` tier preference
+- `src/ui/evals/TierSwitch.tsx`, `WhyRoundTwo.tsx`, `ElementMissPanel.tsx`, `LadderNotes.tsx`
+- `src/ui/fixtures/evals-gen.ts` — fixture generator split out of the fixture data
+- `tests/ui/evals-round2.test.ts` — 16 tests over the committed report
+- `scripts/screenshot-evals.ts` + `pnpm shots:evals`
+
+**Modified**
+- `src/ui/lib/evals.ts` — `tiers[]`/`elementMisses` in the payload shape and normaliser, three round-2 metric columns, `judge` provenance, tie-suppressing `bestByColumn`
+- `src/ui/lib/configs.ts` — `i5-elements`, `i6-longdoc`, `final-v2` in `src/agent/configs.ts` order
+- `src/ui/evals/EvalsDashboard.tsx`, `ConfigLadder.tsx`, `ContractMatrix.tsx`, `HeadlineStrip.tsx`, `ReproduceBlock.tsx`
+- `src/ui/fixtures/evals.ts` — round-1 numbers unchanged, both tiers added
+- `app/evals/page.tsx` (intro copy), `AGENTS.md` (commands), `package.json`
+
+## Screenshots
+
+All 1440×900, `docs/screenshots/`, captured by `pnpm shots:evals` against a real dev server:
+
+| File | State |
+|---|---|
+| `evals-round2-short.png` | default tier, round-1 columns unchanged + the three new ones |
+| `evals-round2-long.png` | `?tier=long`, judge-v2 `²` markers, unrun configs as `—` |
+| `evals-round2-all.png` | `?tier=all`, pooled 18 contracts |
+| `evals-round2-focus.png` | keyboard focus on the tier switch (2 px navy ring) |
+| `evals-round2-why.png` | "Why round 2" panel + pre-registration link + charts |
+| `evals-round2-matrix.png` | per-contract matrix, Short/Long group headers, word counts |
+| `evals-round2-fixture.png` | fixture path, `final-v2` as shipped |
+| `evals-round2-fixture-elements.png` | per-element panel (fixture data) |
+
+Width checks: 1280 fits with no clipping after tightening cell padding; 1920 fits; below ~1240 the ladder card scrolls horizontally rather than the page (`body` keeps `overflow-x: hidden`, verified `window.scrollX === 0` at 1280/1440/1920).
+
+## Data shape used / gaps
+
+**Used, exactly as in the file:** `configs[]`; `tiers[{id, configs[{id, aggregate, contracts}]}]`; per-tier `aggregate.{detection.macro, detection.micro, deviationAccuracy, redlineValidity, minimality, citationHallucination, completeRedline, appliedTrackedChangeYield, precedentAdherence, resources, contracts}`; per-contract `metrics.detection.{f1,tp,fn}`.
+
+**Gaps:**
+1. **`tiers[].elementMisses` does not exist** — not in `changelog-data.json` and not written by `src/eval/report.ts`. The panel is omitted on real data. I did not invent rows for it; the fixture (labelled "fixture" on screen) carries illustrative ones using real playbook element strings so the component is reviewable. The normaliser is deliberately lenient — it accepts `element|label|text`, `unmet|misses|missed|failing`, `eligible|judged|total`, `ruleId|rule`, `ruleTitle|title`, `configId|config`, and `level: "preferred"|"fallback"` — but the eval side still has to agree on a shape.
+2. **No word counts in the report.** The matrix reads them from `GET /api/samples` (`data/contracts/*/meta.json`, e.g. `long-array-biopharma-inc` = 42,742), falling back to `—`, and from the fixture on the fixture path. If the report ever carries them, that source should win.
+3. **`i5-elements`, `i6-longdoc`, `final-v2` are not in the data yet.** Catalogue entries, roles and stage labels exist, so they render in `src/agent/configs.ts` order as soon as they appear; `final-v2` automatically takes the "shipped" accent and the headline comparison from `final`.
+4. **Judge version is not in the payload.** Tier results are judge-v2-scored and the legacy `configs[]` are judge-v1; the file does not say so. I infer it from which array a row came from. If a future report re-scores `configs[]` too, that inference breaks and should become an explicit field.
+5. `tiers[].configs[].aggregate.contracts` is present and used; the ladder never hard-codes 12/6/18.
+
+## Known gaps / risks
+
+- **The `elementMisses` shape is my guess.** If the campaign emits something structurally different, the panel silently shows nothing rather than crashing — but it will need a one-line mapping change.
+- **The short view mixes judge versions within a row** for `b1-prompt`/`i3-verifier`/`final`: round-1 columns are v1, the three round-2 columns are v2 on the same runs. This was the only way to satisfy "round-1 numbers must keep rendering exactly as they do today". It is disclosed by the `²` marker and the footnote, but a reader comparing minimality (35.6 %, v1) against CRR (10.5 %, v2) in one row is comparing two judges.
+- **`i5-elements` will be short-tier only.** In the short view its judge-v2 validity/minimality will sit in the same column as the round-1 configs' v1 values, marked `²` but still washed against them by the best-in-column rule. If that lands, consider excluding cross-judge cells from the wash.
+- **Long-tier detection currently regresses** (`b1-prompt` 60.3 % → `final` 58.8 %). The card shows red, as specified. Nothing in the UI softens it.
+- `pnpm shots:evals` needs a dev server on 3101 and `NEXT_PUBLIC_REPO_URL` set for the pre-registration link to render as a link rather than plain mono text (the placeholder is still unresolved by default).
+- `localStorage` key is `playbook-redliner.evals.tier`; a stale `all` there will select All on first load even if a future report has only one tier — the switch clamps to Short in that case, but the URL is not rewritten.
+
+=== result turns=127 cost=$13.56 error=False ===

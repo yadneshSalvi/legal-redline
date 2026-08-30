@@ -383,3 +383,13 @@ export async function runEvaluation(
 export function allConfigIds(): string[] {
   return Object.keys(CONFIGS satisfies Record<ConfigId, PipelineConfig>);
 }
+
+/** Configs recorded on a round-2 tier (so `--all --tier <t>` replays without cache misses); round-1-only configs are excluded. */
+const TIERED_CONFIG_IDS: Record<EvaluationTier, ConfigId[]> = {
+  short: ["b1-prompt", "i3-verifier", "final", "i5-elements", "i6-longdoc", "final-v2", "i7-precise", "final-v3", "final-v4"],
+  long: ["b1-prompt", "i3-verifier", "final", "i6-longdoc", "final-v2", "final-v3", "final-v4"],
+};
+
+export function tieredConfigIds(tier: EvaluationTier): string[] {
+  return [...TIERED_CONFIG_IDS[tier]];
+}

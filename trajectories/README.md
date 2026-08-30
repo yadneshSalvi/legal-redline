@@ -6,7 +6,9 @@ coding agents that built it. Secrets are redacted (`sk-…` → `[redacted]`).
 ```
 trajectories/
 ├─ app/                      product agents (exported by `pnpm export-trajectories`)
-│  ├─ final/<contractId>/    planner → drafters (one per rule) → verifier (+ repair rounds) → assembler → memo → human decisions → apply
+│  ├─ final/<contractId>/    round 1: planner → drafters (one per rule) → verifier (+ repair rounds) → assembler → memo → human decisions → apply
+│  ├─ final-v4/<contractId>/ round 2, the shipped length router — 12 short + 6 long (40k-word) contracts; below 15k words the run is
+│  │                         i7-precise (element checklists, single-level structured repair), above it i6-longdoc (whole-document search planning)
 │  │   ├─ trajectory.jsonl   one TrajectoryEvent per line (llm_request / llm_response / tool_call / tool_result / validation / retry / human_decision …)
 │  │   ├─ run.json + findings.json
 │  │   ├─ prompts.md         exact first system prompt used by each model-backed agent

@@ -3,7 +3,8 @@ import "dotenv/config";
 import { Command, Option } from "commander";
 
 import { generateReport } from "@/src/eval/report";
-import { allConfigIds, contractTier, runEvaluation, type EvaluationTier } from "@/src/eval/runner";
+import { allConfigIds,
+  tieredConfigIds, contractTier, runEvaluation, type EvaluationTier } from "@/src/eval/runner";
 import type { JudgeMode } from "@/src/eval/judge";
 
 async function main(): Promise<void> {
@@ -46,7 +47,7 @@ async function main(): Promise<void> {
       ? requested
       : requested.filter((id) => contractTier(id) === tier);
     results.push(...await runEvaluation({
-      configs: options.all === true ? allConfigIds() : [options.config],
+      configs: options.all === true ? (tier === undefined ? allConfigIds() : tieredConfigIds(tier)) : [options.config],
       contracts,
       mode: options.live === true ? "record" : "replay",
       allowLive: options.allowLive === true,

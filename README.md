@@ -72,7 +72,7 @@ and forgets everything between contracts. Counsel still has to do the actual wor
 ## 5. Results (headline)
 
 Two rounds of measurement, one fair baseline throughout: the same model (Claude Opus 5) with the same playbook and the
-whole contract in one prompt. Every number replays from the committed cache at zero cost (`pnpm eval --tier all`).
+whole contract in one prompt. Every number replays from the committed cache at zero cost (`pnpm eval --all --tier all`).
 
 **Round 2 — pre-registered, independent judge v2.** Short tier = the 12 contracts of round 1 (3–8k words); long tier =
 6 CUAD agreements of 37–45k words chosen by a written rule before any result; gold anchored on CUAD's lawyer-labelled
@@ -81,9 +81,9 @@ playbook position, is minimal and preserves intent (see [`EVAL.md`](EVAL.md) §9
 
 | Metric | Baseline | Round-1 final | **Final v4 (shipped)** | Change vs baseline |
 |---|---:|---:|---:|---|
-| Complete redline rate, short tier | 1.1 % | 10.5 % | 54.7 % | +53.7 pp |
+| Complete redline rate, short tier | 1.1 % (20.0 % if its whole-clause replacements are exempted from the minimality gate¹) | 10.5 % | 54.7 % (47.6 % on the 8 holdout contracts) | +53.7 pp (+27.6 pp on the format-neutral holdout comparison) |
 | Complete redline rate, long tier | 0 % | 0 % | 22.9 % | +22.9 pp |
-| Long-document F1 / recall | 60.3 % / 45.0 % | 58.8 % / 43.7 % | 75.3 % / 68.6 % | +15.1 pp F1 / +23.6 pp recall |
+| Long-document F1 / recall (macro) | 60.3 % / 45.0 % | 58.8 % / 43.7 % | 75.3 % / 68.6 % | +15.1 pp F1 / +23.6 pp recall |
 | Applied tracked-change yield, long tier | 41.7 % | 45.8 % | 62.5 % | +20.8 pp |
 | Redline validity (judge v2), short tier | 42.7 % | 44.8 % | 74.2 % | +31.5 pp |
 | Minimal edits (judge v2), short tier | 3.7 % | 13.8 % | 59.6 % | +55.9 pp |
@@ -91,12 +91,19 @@ playbook position, is minimal and preserves intent (see [`EVAL.md`](EVAL.md) §9
 | Cost per contract, short / long | $0.35 / $0.79 | $3.51 / $5.73 | $5.14 / $11.11 | — |
 
 `final-v4` is a length router over the two configurations that measured best on each tier — `i7-precise` below 15,000
-words, `i6-longdoc` above — chosen from the ladder after the results, which we say plainly. The short-tier iteration was
-developed on four contracts and run once on the rest: its complete-redline rate is 22/32 = 68.8 % on those four and
-**30/63 = 47.6 % on the eight it never saw** — the holdout is the number we stand behind. The last configuration we
-built (`final-v3`: i7 + long-document planner + memory) regressed on long documents and is reported, not shipped. Memory (precedent adherence) stayed ≈ 0 on independent contracts, and a builder-side judge that was shown the
-pipeline's own checklist had reported 86 % where the independent judge reports a third of that; both are in the
-changelog. The long tier's F1 improves but the round-1 pipeline had lost to the baseline there, which we report.
+words, `i6-longdoc` above — chosen from the ladder after the results, which we say plainly. Three more things a reader
+should know before the number: (1) the short-tier iteration was developed on four contracts (`americas`, `bnc`,
+`synth-12`, `synth-hardcase`) and run once on the other eight: **47.6 % on those eight is the figure we stand behind**;
+its 68.8 % on the four dev contracts is a per-contract pick between two recordings of the same prompts — a single clean
+run scores 53.1 % there (49.5 % pooled) — so the dev figure is inflated by selection, not just by tuning. (2) The
+pre-registration set the success criterion at ≥ 70 % holdout CRR; that criterion **failed** (47.6 %), and the pipeline's
+dev split is not the pre-registered one (americas, merit, sparkling, kubient), on which `i7` scores 54.5 % dev vs 54.8 %
+holdout. (3) ¹ The baseline can only express an inserted clause as a whole-paragraph replacement, which the minimality
+gate rejects; 18 of its proposals pass every judge criterion and fail only that gate, so its format-neutral CRR is 20.0 %
+(19.0 % on the holdout) against `final-v4`'s 54.7 % / 47.6 %. Memory (precedent adherence) stayed ≈ 0 on independent
+contracts, and a builder-side judge that was shown the pipeline's own checklist had reported 86 % where the independent
+judge reports a third of that; both are in the changelog. The last configuration we built (`final-v3`: i7 +
+long-document planner + memory) regressed on long documents and is reported, not shipped.
 
 **Round 1 — issue detection, 12 short contracts, judge v1** (retained; this is where a one-prompt baseline is already
 strong):

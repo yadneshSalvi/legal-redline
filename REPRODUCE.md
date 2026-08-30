@@ -26,7 +26,7 @@ pnpm typecheck && pnpm test     # ~10 s, no network
 
 ```bash
 pnpm eval --all                 # round 1: replays evals/cache → evals/results/<config>.json  (add --config final for one)
-pnpm eval --all --tier all      # round 2: both tiers → evals/results/<config>.{short,long}.json (final-v4 replays from
+pnpm eval --all --tier all      # round 2: both tiers (only configs measured on a tier run; per config: --config <id> --tier <t>) → evals/results/<config>.{short,long}.json (final-v4 replays from
                                 #          the caches of the members it routes to: i7-precise below 15k words, i6-longdoc above)
 pnpm report                     # → evals/results/summary.md + changelog-data.json
 ```

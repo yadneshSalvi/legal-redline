@@ -6,7 +6,7 @@ All copied files are credential-redacted and absolute home paths are normalized 
 
 | Label | Model | Harness | Started | Duration | Cost | Brief → report | Event trace |
 |---|---|---|---|---:|---:|---|---|
-| lead-325ba387 | Claude Fable 5 | Claude Code | 2026-08-29T16:27:41.821Z | 626m 29s | — | lead orchestration (this transcript) | [trace](claude-code/325ba387-1ab8-4b57-9e70-3f69911246c4.jsonl) |
+| lead-325ba387 | Claude Fable 5 | Claude Code | 2026-08-29T16:27:41.821Z | 1337m 22s | — | lead orchestration (this transcript) | [trace](claude-code/325ba387-1ab8-4b57-9e70-3f69911246c4.jsonl) |
 | smoke-codex | GPT-5.6 Sol | Codex CLI | 2026-08-29 22:55:13 | 6s | — | [brief](briefs/_smoke_codex.md) → [report](reports/20260829-225513-smoke-codex.md) | [trace](codex/20260829-225513-smoke-codex.codex.jsonl) |
 | smoke-opus | Claude Opus 5 | Claude Agent SDK | 2026-08-29 22:55:20 | 3s | $0.12 | [brief](briefs/_smoke_opus.md) → [report](reports/20260829-225520-smoke-opus.md) | [trace](opus/20260829-225520-smoke-opus.opus.log) |
 | smoke-opus (SDK transcript) | Claude Opus 5 | Claude Agent SDK | 2026-08-29T17:25:20.608Z | 2s | — | same session as the harness row above (full SDK transcript) | [trace](claude-code/b3f10255-a938-4bc0-aa51-4c01490b12e7.jsonl) |
@@ -35,5 +35,12 @@ All copied files are credential-redacted and absolute home paths are normalized 
 | video-pipeline | GPT-5.6 Sol | Codex CLI | 2026-08-30 01:38:35 | 29m 44s | — | [brief](briefs/video-pipeline.md) → [report](reports/20260830-013835-video-pipeline.md) | [trace](codex/20260830-013835-video-pipeline.codex.jsonl) |
 | gate-final (reviewer subagent) | Claude Fable 5 | Claude Code subagent | 2026-08-30T01:39:03.460Z | 34m 49s | — | [brief](briefs/gate-final.md) → [report](reports/20260830-gate-final.md) | [trace](claude-code/agent-agate-final-28a2ab8618420328.jsonl) |
 | video-final | GPT-5.6 Sol | Codex CLI | 2026-08-30 07:09:23 | 66m 4s | — | [brief](briefs/video-final.md) → [report](reports/20260830-070923-video-final.md) | [trace](codex/20260830-070923-video-final.codex.jsonl) |
+| metrics-hard | GPT-5.6 Sol | Codex CLI | 2026-08-30 08:56:57 | 180m 31s | — | [brief](briefs/metrics-hard.md) → [report](reports/20260830-085657-metrics-hard.md) | [trace](codex/20260830-085657-metrics-hard.codex.jsonl) |
+| redline-quality | GPT-5.6 Sol | Codex CLI | 2026-08-30 08:56:57 | 138m 10s | — | [brief](briefs/redline-quality.md) → [report](reports/20260830-085657-redline-quality.md) | [trace](codex/20260830-085657-redline-quality.codex.jsonl) |
+| ui-evals-round2 | Claude Opus 5 | Claude Agent SDK | 2026-08-30 12:00:40 | 31m 52s | $13.56 | [brief](briefs/ui-evals-round2.md) → [report](reports/20260830-120040-ui-evals-round2.md) | [trace](opus/20260830-120040-ui-evals-round2.opus.log) |
+| redline-quality-r2 | GPT-5.6 Sol | Codex CLI | 2026-08-30 13:02:44 | 246m 52s | — | [brief](briefs/redline-quality-r2.md) → [report](reports/20260830-130244-redline-quality-r2.md) | [trace](codex/20260830-130244-redline-quality-r2.codex.jsonl) |
+| video-round2 | GPT-5.6 Sol | Codex CLI | 2026-08-30 19:37:59 | 18m 45s | — | [brief](briefs/video-round2.md) → [report](reports/20260830-193759-video-round2.md) | [trace](codex/20260830-193759-video-round2.codex.jsonl) |
+| gate-round2 (reviewer subagent) | Claude Fable 5 | Claude Code subagent | 2026-08-30T14:08:11.275Z | 35m 16s | — | [brief](briefs/gate-round2.md) → [report](reports/20260830-200900-gate-round2.md) | [trace](claude-code/agent-agate-round2-8339f1e378a06d6c.jsonl) |
+| video-round2-fix | GPT-5.6 Sol | Codex CLI | 2026-08-30 19:58:05 | 8m 25s | — | [brief](briefs/video-round2-fix.md) → [report](reports/20260830-195805-video-round2-fix.md) | [trace](codex/20260830-195805-video-round2-fix.codex.jsonl) |
 
 No Claude Code transcript exceeded the 50 MB export limit.

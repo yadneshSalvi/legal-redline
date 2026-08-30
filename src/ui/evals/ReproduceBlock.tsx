@@ -9,7 +9,7 @@ const commands = [
   { line: "pnpm install --frozen-lockfile", note: "" },
   { line: "cp .env.example .env", note: "leave the keys empty — replay needs none" },
   { line: "pnpm eval --all", note: "replays evals/cache → evals/results/<config>.json" },
-  { line: "pnpm eval --tier all", note: "round 2: short + long tiers → <config>.<tier>.json" },
+  { line: "pnpm eval --all --tier all", note: "round 2: short + long tiers → <config>.<tier>.json" },
   { line: "pnpm report", note: "→ evals/results/summary.md + changelog-data.json" },
 ];
 
