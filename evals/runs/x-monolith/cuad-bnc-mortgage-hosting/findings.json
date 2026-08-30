@@ -1,0 +1,443 @@
+[
+  {
+    "confidence": 0.83,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-indemn-cdf1f41d",
+    "paragraphIds": [
+      "p0073",
+      "p0075",
+      "p0071"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] TrueLink's indemnity covers only its own breach and does not clearly reach third-party IP infringement claims arising from the Interface, while Client's indemnity is very broad. We have added the standard vendor indemnity for infringement, breach of law, unauthorised access to Client data and wilful misconduct.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0075",
+          "text": "TrueLink shall further defend, indemnify and hold harmless Client and its affiliates from and against any third-party claim, and all resulting damages, costs and expenses (including reasonable attorneys' fees), to the extent arising out of (i) an allegation that the Interface, the Hosting Services or the Support Services infringe or misappropriate any intellectual property right; (ii) TrueLink's breach of applicable law; (iii) any unauthorized access to or disclosure of Client Content, Client Proprietary Information or Credit Data caused by TrueLink; or (iv) TrueLink's gross negligence or willful misconduct."
+        }
+      ],
+      "summary": "Add Vendor IP-infringement, breach-of-law, data-breach and misconduct indemnity"
+    },
+    "quote": "TrueLink shall indemnify and hold Client harmless, its affiliates, directors, officers, employees, agents and licensors harmless from and against all claims, actions, expenses, losses, and liabilities, including reasonable attorneys' fees, arising from or relating to any",
+    "rationale": "TrueLink's indemnity is limited to its own breach of the Agreement, with no third-party IP infringement indemnity for the Interface (and no non-infringement warranty to support one), while Client's indemnity in Section 12(a) is very broad. That fails the fallback, so we added the standard vendor indemnity for infringement, breach of law, unauthorised access to Client data and gross negligence/wilful misconduct.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-12",
+    "sectionRef": "§ 12 INDEMNITY.",
+    "severity": "critical",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-ip-f5e21436",
+    "paragraphIds": [
+      "p0054",
+      "p0029"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] We cannot grant TrueLink rights to distribute, license, resell or otherwise exploit data originating with Client and its borrowers; the licence is narrowed to what is needed to deliver the services and we have confirmed that Client retains ownership of Client Content, Client Intellectual Property and Client data.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Client hereby grants to TrueLink the nonexclusive, worldwide right and license to use, upload, display, copy and store Credit Data solely as necessary to provide the Hosting Services and Support Services to Client during the term of this Agreement, subject to the limitations set forth in and in accordance with the Non-Competition Agreement. As between the parties, Client retains all right, title and interest in and to Client Content, Client's Intellectual Property and all data provided by or on behalf of Client or its customers (including Credit Data), and no ownership interest therein is assigned to or jointly held by TrueLink.",
+          "oldText": "Client hereby grants to TrueLink the nonexclusive worldwide right and license to use, distribute, disseminate, license, resell, exploit, upload, display, copy and store Credit Data subject to the limitations set forth in and in accordance with the Non-Competition Agreement.",
+          "paragraphId": "p0054"
+        }
+      ],
+      "summary": "Narrow the Credit Data licence to service delivery and confirm Client ownership of its data and IP"
+    },
+    "quote": "Client hereby grants to TrueLink the nonexclusive worldwide right and license to use, distribute, disseminate, license, resell, exploit, upload, display, copy and store Credit Data subject to the limitations set forth in and in accordance with the Non-Competition Agreement.",
+    "rationale": "Section 8(d) hands TrueLink an unrestricted right to distribute, license, resell and exploit data originating with our borrowers, and the agreement nowhere confirms Client's retained ownership of its data and IP — directionally adverse under this rule. TrueLink keeping ownership of the Interface (Section 2(d)) is acceptable; we narrowed the Credit Data licence to service delivery and added a Client ownership/no-joint-ownership sentence.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-8",
+    "sectionRef": "§ 8 COVENANTS AND WARRANTIES OF CLIENT",
+    "severity": "critical",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.05374757,
+    "durationMs": 12962,
+    "id": "f-lol-cap-657fe724",
+    "paragraphIds": [
+      "p0077"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] We need the cap to run both ways: as drafted TrueLink is capped while Client's liability is unlimited. We have made the 12-month fee cap mutual and placed confidentiality, indemnities, gross negligence, wilful misconduct, fraud and IP infringement outside the cap, and confirmed Client's payment obligations are not caught by it.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "EXCEPT FOR EXCLUDED CLAIMS, IN NO EVENT SHALL EITHER PARTY'S TOTAL AGGREGATE LIABILITY FOR ANY MATTER ARISING UNDER OR RELATED TO THIS AGREEMENT EXCEED THE TOTAL COMPENSATION PAID OR PAYABLE FOR HOSTING AND SUPPORT SERVICES OVER THE IMMEDIATELY PRECEDING 12 MONTHS PERIOD. \"EXCLUDED CLAIMS\" MEANS A PARTY'S BREACH OF ITS CONFIDENTIALITY, DATA PROTECTION OR SECURITY OBLIGATIONS, ITS INDEMNIFICATION OBLIGATIONS, ITS GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD, AND ITS INFRINGEMENT OF THE OTHER PARTY'S INTELLECTUAL PROPERTY RIGHTS. CLIENT'S OBLIGATION TO PAY FEES DUE UNDER THIS AGREEMENT IS NOT SUBJECT TO THIS LIMITATION.",
+          "oldText": "IN NO EVENT SHALL TRUELINK'S LIABILITY FOR ANY MATTER ARISING UNDER OR RELATED TO SECTION 3, 4, 7 AND 11 THIS AGREEMENT (OTHER THAN DUE TO A BREACH RESULTING FROM TRUELINK'S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT) EXCEED THE TOTAL COMPENSATION PAID FOR HOSTING AND SUPPORT SERVICES OVER THE IMMEDIATELY PRECEDING 12 MONTHS PERIOD.",
+          "paragraphId": "p0077"
+        }
+      ],
+      "summary": "Make the liability cap mutual and add standard uncapped carve-outs"
+    },
+    "quote": "IN NO EVENT SHALL TRUELINK'S LIABILITY FOR ANY MATTER ARISING UNDER OR RELATED TO SECTION 3, 4, 7 AND 11 THIS AGREEMENT (OTHER THAN DUE TO A BREACH RESULTING FROM TRUELINK'S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT) EXCEED THE TOTAL COMPENSATION PAID FOR HOSTING AND SUPPORT SERVICES OVER THE IMMEDIATELY PRECEDING 12 MONTHS PERIOD.",
+    "rationale": "The cap is one-sided: only TrueLink's liability is limited (to 12 months' hosting/support compensation) and Client's liability — including under the broad Section 12(a) indemnity — is unlimited, which is walk-away territory. We made the 12-month cap mutual and added the standard uncapped carve-outs (confidentiality/data, indemnities, gross negligence, wilful misconduct, fraud, IP infringement), confirming Client's fee obligations sit outside the cap.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-12",
+    "sectionRef": "§ 12 INDEMNITY.",
+    "severity": "critical",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-assign-0ba91216",
+    "paragraphIds": [
+      "p0080"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] We cannot accept a consent requirement that blocks assignment to a successor in a merger or sale of assets; we have added the M&A carve-out (on notice) and a reasonableness standard for any other consent.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "without the prior written approval of the other party, which approval shall not be unreasonably withheld or delayed, except no such approval shall be required for an assignment to a financially responsible affiliate or, in the case of Client, to a successor in connection with a merger, acquisition, reorganization or sale of all or substantially all of its assets, upon written notice to the other party.",
+          "oldText": "without the prior written approval of the other party, except no such approval shall be required for an assignment to a financially responsible affiliate.",
+          "paragraphId": "p0080"
+        }
+      ],
+      "summary": "Add successor/M&A carve-out and reasonableness standard to assignment consent"
+    },
+    "quote": "15. ASSIGNMENT OR TRANSFER. Neither party shall assign or transfer any of its rights under this Agreement without the prior written approval of the other party, except no such approval shall be required for an assignment to a financially responsible affiliate.",
+    "rationale": "Consent is required for any assignment with only an affiliate carve-out — there is no successor/M&A carve-out and no reasonableness standard, so it fails the fallback and would let TrueLink block a sale of our business. We added the M&A/successor carve-out on notice and a \"not unreasonably withheld\" standard; helpfully, there is no vendor change-of-control termination right to delete.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-12",
+    "sectionRef": "§ 12 INDEMNITY.",
+    "severity": "high",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-exclusivity-fdcb8e91",
+    "paragraphIds": [
+      "p0022",
+      "p0042"
+    ],
+    "producedBy": "monolith",
+    "quote": "Subject to the foregoing, Client shall order TrueLink a credit report on each borrower for which an underwriting approval is requested through a System using the Interface.",
+    "rationale": "The licence is non-exclusive and Section 2(a) confirms we may use alternative providers, so there is no sole-supplier obligation. The only tie-in is Section 3(i), which applies solely where we choose to route an underwriting request through the Interface, is confined to a single defined product (credit reports) and runs only with the 1-year term — within the fallback; noted rather than redlined.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-2",
+    "sectionRef": "§ 2 LICENSE.",
+    "severity": "high",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-ld-c5bdea4c",
+    "paragraphIds": [
+      "p0045",
+      "p0079"
+    ],
+    "producedBy": "monolith",
+    "quote": "Client will pay TrueLink's fees for requested Hosting Services and Support Services pursuant to the schedule of charges set forth on Exhibits \"A\" and \"B\" attached hereto, (but not less than $____ per month for the Hosting Services and $____ per month for Support Services).",
+    "rationale": "No liquidated damages, penalty or termination-related minimum payment is imposed on Client; Client's only exposure is the monthly minimum fees while services are being provided, which is a commercial floor rather than a penalty (addressed under MINCOMMIT). Nothing to redline under this rule.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-5",
+    "sectionRef": "§ 5 COMPENSATION.",
+    "severity": "high",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.75,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-license-a1b9787b",
+    "paragraphIds": [
+      "p0022",
+      "p0028"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] Our licences must cover affiliates and contractors acting on our behalf; we have added them to the grant with no change to the permitted scope of use.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "TrueLink hereby grants to Client, its affiliates and contractors acting on Client's behalf a non-exclusive license to use the Interface",
+          "oldText": "TrueLink hereby grants to Client a non-exclusive license to use the Interface",
+          "paragraphId": "p0022"
+        }
+      ],
+      "summary": "Extend the licence to Client affiliates and contractors acting on its behalf"
+    },
+    "quote": "a. Grant. TrueLink hereby grants to Client a non-exclusive license to use the Interface in the ordinary course of its business of the origination, underwriting, processing and funding of consumer finance receivables in accordance with this Agreement.",
+    "rationale": "The grant runs to Client alone: affiliates are not covered and there is no mechanism to add them, which fails the fallback even though the licence is not revocable at will (it runs with the term). We inserted affiliates and contractors acting on our behalf into the grant; successor transferability is addressed under ASSIGN rather than duplicated here.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-2",
+    "sectionRef": "§ 2 LICENSE.",
+    "severity": "high",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-noncompete-59629980",
+    "paragraphIds": [
+      "p0022",
+      "p0054"
+    ],
+    "producedBy": "monolith",
+    "quote": "Client is not obligated to utilize the License and is free to acquire, develop, license or otherwise utilize any other hardware, software system, design, formula, procedure or trade secret to provide software and services similar to the ones provided by TrueLink hereunder",
+    "rationale": "No non-compete or field-of-use restriction binds Client; Section 2(a) expressly preserves our freedom to build or buy competing software and services. We note Section 8(d) cross-refers to a separate \"Non-Competition Agreement\" governing Credit Data use — that document should be diligenced separately, but nothing in this agreement restricts our business.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-2",
+    "sectionRef": "§ 2 LICENSE.",
+    "severity": "high",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.8,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-t4c-4c8b19a0",
+    "paragraphIds": [
+      "p0079",
+      "p0078"
+    ],
+    "producedBy": "monolith",
+    "quote": "14. TERMINATION. Subject to Section 4 hereof, TrueLink will continue to provide the requested Hosting Services and Support Services until the last day of the month following the month in which Client provides TrueLink with a written notice of its election to terminate this Agreement.",
+    "rationale": "Client may terminate at will, effective at the end of the month following notice (roughly 30–60 days), with no early-termination fee, and TrueLink has no convenience right (its Section 13 rights are for-cause only) — at or near our preferred position. We note only that no pro-rata refund of prepaid fees is stated (fees are invoiced monthly) and that Section 13's cross-reference to \"Section 12\" should read Section 14.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-12",
+    "sectionRef": "§ 12 INDEMNITY.",
+    "severity": "high",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-audit-abf6afa4",
+    "paragraphIds": [
+      "p0037",
+      "p0047"
+    ],
+    "producedBy": "monolith",
+    "quote": "e. Access. Client will have access to Interface usage statistics and raw log files in real time via the Interface.",
+    "rationale": "There is no audit, inspection or usage-verification right exercisable against Client, and no TrueLink access to Client systems; the only access and documentation rights run in our favour (Sections 3(e) and 6). Better than our preferred position, so no redline.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-2",
+    "sectionRef": "§ 2 LICENSE.",
+    "severity": "medium",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-govlaw-f7f14620",
+    "paragraphIds": [
+      "p0093",
+      "p0094"
+    ],
+    "producedBy": "monolith",
+    "quote": "Any and all disputes between the parties that cannot be settled by mutual agreement shall be resolved solely and exclusively in the state or federal courts located within San Luis Obispo County, California, and each party consents to the jurisdiction of such courts and irrevocably waives any objections thereto",
+    "rationale": "California law with exclusive jurisdiction of California state/federal courts and no arbitration sits at our accepted fallback. We note only that the venue is TrueLink's home county (Client is in Orange County) — a point we could raise commercially, but not a playbook deviation.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-12",
+    "sectionRef": "§ 12 INDEMNITY.",
+    "severity": "medium",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.93,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-mfn-ead09424",
+    "paragraphIds": [
+      "p0047"
+    ],
+    "producedBy": "monolith",
+    "quote": "TrueLink agrees that the costs for any Hosting Services will not increase for a period of one year from the date of this Agreement and that rates charged for Hosting Services will not exceed that charged by TrueLink to any other party.",
+    "rationale": "The only MFN runs in our favour — TrueLink must not charge us more than any other customer for Hosting Services. No MFN obligation burdens Client, so no redline; we keep this provision.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-5",
+    "sectionRef": "§ 5 COMPENSATION.",
+    "severity": "medium",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-mincommit-ade7fb6c",
+    "paragraphIds": [
+      "p0045",
+      "p0047",
+      "p0079"
+    ],
+    "producedBy": "monolith",
+    "quote": "Client will be provided upon request with documentation supporting the amount charged (other than the minimum monthly fees listed in Section 4) and will be entitled to contest any charge (other than the minimum monthly fees listed in Section 4), provided that Client timely pays all contested amounts.",
+    "rationale": "The only commitment is a monthly minimum fee for Hosting and Support Services during a 1-year term, and Client can exit that at will under Section 14 (effective end of the following month), so it sits within the fallback — no multi-year take-or-pay and no shortfall penalty. We note the minimum amounts and the Section 4 support-services period are left blank and must be completed before signature, and that the \"Section 4\" cross-reference in Section 6 should read Section 5.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-5",
+    "sectionRef": "§ 5 COMPENSATION.",
+    "severity": "medium",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-nosolicit-4815cd1d",
+    "paragraphIds": [
+      "p0049"
+    ],
+    "producedBy": "monolith",
+    "quote": "Client shall not engage in the practice commonly known as \"spamming\" pursuant to the rights granted hereunder.",
+    "rationale": "There is no non-solicitation or no-hire covenant binding Client anywhere in the agreement (the only \"solicit\" references concern unsolicited commercial e-mail), which matches our preferred position of no non-solicit.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-7",
+    "sectionRef": "§ 7 UNSOLICITED COMMERCIAL E-MAIL.",
+    "severity": "medium",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-renewal-9ab9de5a",
+    "paragraphIds": [
+      "p0078"
+    ],
+    "producedBy": "monolith",
+    "quote": "This Agreement shall renew automatically thereafter for successive one year periods until terminated pursuant to Section 12 herein or unless either Client or TrueLink deliver to the other written notice of intent not to renew no later than thirty (30) days prior to the end of said year.",
+    "rationale": "Automatic 12-month renewals with a mutual 30-day non-renewal window meet our preferred structure. The absence of a vendor renewal reminder and of an express renewal price-uplift cap (Section 6 freezes hosting costs only for the first year) are noted rather than flagged.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-12",
+    "sectionRef": "§ 12 INDEMNITY.",
+    "severity": "medium",
+    "status": "compliant"
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.05374756,
+    "durationMs": 12961,
+    "id": "f-transition-97be0c13",
+    "paragraphIds": [
+      "p0078",
+      "p0079"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] The exit provisions put the whole burden on Client and say nothing about returning our data; we have added transition assistance at TrueLink's then-current rates, return of Client data in machine-readable form within 30 days, and certified deletion thereafter.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0079",
+          "text": "Upon expiry or termination of this Agreement for any reason, TrueLink shall (a) at Client's request, provide reasonable transition assistance for up to six (6) months at TrueLink's then-current rates; (b) within thirty (30) days, return all Client Content, Client Proprietary Information and other Client data in a commonly used, machine-readable format; and (c) thereafter delete such data from its systems and certify such deletion in writing."
+        }
+      ],
+      "summary": "Add transition assistance, data return and deletion certification on exit"
+    },
+    "quote": "If Client decides to discontinue its Hosting Service, Client is responsible for arranging for a new name server within 30 days. In case of discontinued Service, Client shall retain full ownership of all domains associated with Client and Client Content. If Client decides to discontinue Hosting Service, Client is responsible for arranging for a new hosting environment within 60 days.",
+    "rationale": "Exit is framed entirely as Client's burden: TrueLink owes no transition assistance, no return or export of Client Content and Client data, and no deletion certification, which fails the fallback for a hosting vendor. We inserted the standard transition-assistance, 30-day machine-readable data return and certified-deletion obligations after Section 14.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-12",
+    "sectionRef": "§ 12 INDEMNITY.",
+    "severity": "medium",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-warranty-d563ea42",
+    "paragraphIds": [
+      "p0059",
+      "p0060",
+      "p0076",
+      "p0069"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] The only express TrueLink warranty is Y2K-specific and the disclaimer removes everything else, so we have added the standard workmanlike-performance and 90-day conformance warranty with a re-perform/repair/refund remedy.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "paragraphId": "p0060",
+          "text": "TrueLink further warrants that (a) the Hosting Services and Support Services will be performed in a professional and workmanlike manner consistent with industry standards; and (b) for a period of ninety (90) days following delivery, the Interface and each deliverable provided as part of the Support Services will conform in all material respects to its documentation. Client's remedy for breach of this warranty is, at TrueLink's option, re-performance, repair or replacement, or a refund of the fees paid for the non-conforming services or deliverable. The express warranties in this Section are not subject to any disclaimer of warranties in this Agreement."
+        }
+      ],
+      "summary": "Add a services/conformance warranty with a remedy and carve it out of the disclaimer"
+    },
+    "quote": "EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, TRUELINK DISCLAIMS ANY AND ALL EXPENSES WARRANTIES, WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE AND IMPLIED WARRANTIES OF MERCHANTABILITY OR FOR ANY MATTER RELATING TO THE ACCURACY OR COMPLETENESS, OR TIMING OF TRANSMISSION OF ANY DATA SUBMITTED THROUGH THE INTERFACE OR TO OR FROM THE WEB SITE.",
+    "rationale": "The only express TrueLink warranty is Y2K-specific (Section 9); there is no conformance-to-documentation warranty, no workmanlike-performance standard (Section 11's \"same care as for its own operations\" is not an industry standard) and no remedy, while the disclaimer strips everything else. That falls below the fallback, so we inserted the 90-day conformance and workmanlike warranties with a re-perform/repair/refund remedy, carved out of the disclaimer.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-8",
+    "sectionRef": "§ 8 COVENANTS AND WARRANTIES OF CLIENT",
+    "severity": "medium",
+    "status": "deviation"
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.05374757,
+    "durationMs": 12961,
+    "id": "f-insurance-1c661cbc",
+    "paragraphIds": [
+      "p0097"
+    ],
+    "producedBy": "monolith",
+    "proposal": {
+      "comment": "[Playbook] TrueLink hosts our web site and processes borrower credit data, so standard insurance is required; we have inserted our usual limits and a certificate right.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "31",
+          "paragraphId": "p0097",
+          "text": "31. INSURANCE. TrueLink shall maintain, at its own expense, throughout the term and for one (1) year thereafter: commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; and, where TrueLink processes Client Content, Credit Data or other Client data, cyber liability insurance of not less than USD 5,000,000. TrueLink shall provide certificates of insurance on request."
+        }
+      ],
+      "summary": "Insert a vendor insurance covenant"
+    },
+    "quote": "30. FORCE MAJEURE. TrueLink will be excused from delays in performing or from failing to perform its obligations under this Agreement to the extent the delays or failures result from causes beyond the reasonable control or TrueLink.",
+    "rationale": "The agreement contains no insurance obligation at all, which is unacceptable for a vendor hosting our web site and processing borrower credit data. We inserted a short insurance section (CGL 1M/2M, E&O 2M, cyber 5M, certificates on request) after Section 30.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-12",
+    "sectionRef": "§ 12 INDEMNITY.",
+    "severity": "low",
+    "status": "missing"
+  }
+]
