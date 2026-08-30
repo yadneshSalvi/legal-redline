@@ -250,11 +250,9 @@ async function evaluateOne(input: {
       comment: finding.proposal.comment,
     };
     if (judgeV2 !== undefined) {
-      const judgement = await judgeV2.judge({
-        ...judgeInput,
-        preferredElements: rule.position.elements?.preferred,
-        fallbackElements: rule.position.elements?.fallback,
-      });
+      // The independent judge decomposes the prose positions itself (pre-registered); it never sees the playbook's
+      // `position.elements`, which the element-aware pipeline drafts against — the grader does not use the student's rubric.
+      const judgement = await judgeV2.judge(judgeInput);
       judgementsV2[finding.id] = judgement.result;
       judgements[finding.id] = {
         satisfies_rule: judgement.result.satisfies_preferred || judgement.result.satisfies_fallback,
