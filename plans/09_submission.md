@@ -15,8 +15,7 @@
 Customer-side in-house counsel spend 1–3 hours per vendor contract producing the one thing the negotiation runs on: a Word file with tracked
 changes and comments that apply the company playbook. Playbook Redliner turns the .docx into a clause-addressable model, runs one drafter per
 playbook rule with tools that validate every edit anchor, has an independent verifier check each redline, remembers approved language, and
-waits for a human to accept/edit/reject before writing real OOXML tracked changes and margin comments. Measured on 12 contracts (8 lawyer-labelled
-CUAD filings + 4 seeded synthetic incl. a definition-trap hard case) against a fair single-prompt baseline: issue-detection F1 91.5% → 94.8% (recall +5.2 pp at the same precision), redline validity 42.7% → 50.6%, minimal edits 11% → 36%, unplaced findings 12 → 0, document integrity 12/12, at $3.51 per contract. Everything reproduces
+waits for a human to accept/edit/reject before writing real OOXML tracked changes and margin comments. Measured in two rounds against a fair single-prompt baseline (same model, playbook and contract): round 1, issue-detection F1 91.5 → 94.8 %; round 2 (pre-registered, independent per-element judge), complete redlines 1.1 → 54.7 % (47.6 % on the untouched holdout), 40k-word documents F1 60.3 → 75.3 % and recall 45 → 69 %, judge validity 42.7 → 74.2 %, minimal edits 3.7 → 59.6 %. Everything reproduces
 from the repo at zero cost.
 
 ## Long description (ready to paste; replace VIDEO_URL)

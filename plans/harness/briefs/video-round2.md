@@ -13,7 +13,7 @@ v1.0) tells the round-1 story: detection F1 91.5 → 94.8. Round 2 changed the h
 ## Beats to re-render
 - `baseline` card: four tiles → Complete redlines · Long-document F1 · Applied tracked changes · Word output (none).
 - `comparison-live`: `/evals?tier=long` on the local server (real data, round-2 dashboard), scroll the ladder slowly, then the tier switch.
-- `comparison-card`, `changelog` card (ladder now ends in `final-v3`; the removed monolith stays), `hot-take` card if the line changed.
+- `comparison-card`, `changelog` card (ladder now ends in `final-v4`; the removed monolith stays), `hot-take` card if the line changed.
 - New 12-second beat `round2-why` between `comparison-live` and `changelog` (card, narration from `{{ROUND2_WHY}}`); trim `findings-arrive`
   and `precedents` by 4 s each if needed to stay ≤ 300 s — say what you trimmed.
 - Regenerate only changed narration (`node bin/tts.mjs`), cards (`node bin/cards.mjs`), assemble, verify with ffprobe, extract 8 frames and
