@@ -22,10 +22,12 @@ cp .env.example .env            # leave keys empty for replay mode
 pnpm typecheck && pnpm test     # ~10 s, no network
 ```
 
-## 2. Reproduce the evaluation (zero cost, ≈ 5–10 min for all eight configs)
+## 2. Reproduce the evaluation (zero cost, ≈ 5–10 min for the round-1 short tier, ≈ 15 min for both tiers)
 
 ```bash
-pnpm eval --all                 # replays evals/cache → evals/results/<config>.json  (add --config final for one)
+pnpm eval --all                 # round 1: replays evals/cache → evals/results/<config>.json  (add --config final for one)
+pnpm eval --all --tier all      # round 2: both tiers → evals/results/<config>.{short,long}.json (final-v4 replays from
+                                #          the caches of the members it routes to: i7-precise below 15k words, i6-longdoc above)
 pnpm report                     # → evals/results/summary.md + changelog-data.json
 ```
 
