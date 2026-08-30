@@ -1,0 +1,124 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYM1xR6r3R7Ans7nAEjU",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01RP8GeMCcukXKUFGRYfeKxB",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0241",
+            "p0275",
+            "p0276",
+            "p0280"
+          ],
+          "quote": "21.2 Each Patty agrees to indemnify each of the other Parties in respect of all costs, expenses, damages and demands, arising out of or in connection with any claim against, or liability of, the latter as an owner of APCN 2 where such claim is made by, or the liability is to, any third party not being a Party hereto and arises out of or in connection with APCN 2 provided that no indemnifying Party shall be obligated to contribute more than its share of liability as per Schedule B.",
+          "rationale": "The only indemnity architecture is multilateral and cost-sharing: Subparagraph 21.2 is a reciprocal owner-liability indemnity capped at each Party's Schedule B share, and Paragraph 32 (32.1-32.6) merely reimburses a Party that discharges a third-party claim in Schedule B proportions, with notice to and settlement control by the Management Committee. Nothing anywhere in the Agreement gives us an indemnity against claims that the APCN 2 or any Segment, equipment or facility supplied by another Party infringes third-party intellectual property, and there are no procure/modify/replace or refund remedies. That fails the fallback on a material term (no supplier-side IP indemnity at all), so we have inserted the shortest fallback-level clause as Subparagraph 32.7, running in our favour, with the customary Teleglobe-modification, combination and specification exclusions, procure/modify/replace-or-refund remedies and a three-times-annual-charges super-cap. We did not pursue the preferred position because narrowing our own indemnity in the reciprocal Subparagraph 21.2 would require collateral rewrites of the consortium's pro rata sharing mechanic.",
+          "confidence": 0.72,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Insert new Subparagraph 32.7 giving Teleglobe an IP infringement indemnity from each other Party, with customary exclusions, procure/modify/replace-or-refund remedies and a 3x annual charges super-cap.",
+            "precedentId": "seed-indemn-1",
+            "comment": "[Playbook] Paragraph 32 and Subparagraph 21.2 only share third-party ownership claims pro rata and give us no protection where the APCN 2 or a Segment supplied by another Party infringes third-party intellectual property. We have added Subparagraph 32.7, an IP infringement indemnity in our favour with the usual modification, combination and specification exclusions, procure/modify/replace-or-refund remedies and a three-times-annual-charges super-cap, which is our fallback position.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0280",
+                "numbering": "32.7",
+                "text": "Each other Party shall indemnify Teleglobe USA Inc. against any claim by a third party alleging that the APCN 2, or any Segment, equipment or facility provided by that Party under this Agreement, infringes or misappropriates any intellectual property right, except to the extent the claim arises from modifications made by Teleglobe USA Inc., from combination of the affected item with items not provided by that Party, or from specifications furnished by Teleglobe USA Inc. The indemnifying Party shall procure the right of continued use of, modify, or replace the affected item and, if none of those remedies is reasonably available, shall refund the amounts paid by Teleglobe USA Inc. in respect of that item. Each indemnifying Party's aggregate liability under this Subparagraph 32.7 shall not exceed three times the amounts payable annually by Teleglobe USA Inc. under this Agreement."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Vendor indemnifies Customer against third-party intellectual-property claims.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The IP indemnity may exclude infringement caused by Customer modifications.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The IP indemnity may exclude infringement caused by Customer combinations.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The IP indemnity may exclude infringement caused by Customer specifications.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor must procure continued use, modify, or replace the infringing item.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor must refund applicable fees if procure, modify, or replace remedies are unavailable.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor's indemnity is subject to a super-cap of three times annual fees.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1632,
+      "cache_read_input_tokens": 21060,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1632,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1791,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INDEMN",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 16791
+}

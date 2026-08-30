@@ -1,0 +1,70 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYLqEh5p3QnRcqrfUwa4",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll start by inspecting the planner's candidate paragraphs and searching for restriction language."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_011PJqQsE6b196LqRm4te8b4",
+        "name": "read_paragraphs",
+        "input": {
+          "paragraphIds": [
+            "p0298",
+            "p0281"
+          ]
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01NQYtoZBTdEEXmRo2SVqfxF",
+        "name": "search",
+        "input": {
+          "query": "compet"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 6790,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 6790,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 139,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "read_paragraphs",
+      "ruleId": "NONCOMPETE",
+      "sha256": "5dba51126aa4a44e8550722ce4c46f0fdc0aa6a88d8a54407712f29e2963eb57"
+    },
+    {
+      "name": "search",
+      "ruleId": "NONCOMPETE",
+      "sha256": "3d9310df06efbefd5d0d21e2d474596209c99436978897e6aeb29af2ebfe8531"
+    }
+  ],
+  "durationMs": 2778
+}

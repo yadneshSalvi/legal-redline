@@ -1,0 +1,105 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYPCPLZRsNJzwYm2yeip",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01MYzP7eY9eHGhDrX7bXvP7z",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0024",
+            "p0026",
+            "p0028",
+            "p0029"
+          ],
+          "quote": "unless terminated by either Party hereto upon ninety (90) days written notice to the other. Such notice shall specify the date on which this Agreement is to be terminated (the \"Termination Date\").",
+          "rationale": "Section 4.1 gives each Party a no-cause exit on 90 days' written notice, so the Company's notice period sits within the 60–90 day fallback band and HDI's notice period meets the 90-day floor. Two fallback elements fail, however. First, HDI's notice may specify any Termination Date and is not tied to the end of the then-current term, so HDI can walk away mid-term. Second, the Company's exit is not free: Section 4.2(a) imposes a Termination Payment equal to half of (twelve months' Net Sales less $800,000), an uncapped penalty far exceeding three months of fees. We therefore cap the Termination Payment at three months of fees (leaving the 4.2(b)/(c) mechanics intact) and limit HDI's no-cause termination to the end of the then-current term, landing the clause squarely at the fallback.",
+          "confidence": 0.82,
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Customer may terminate for convenience on 60 to 90 days' notice.",
+                "status": "already_met",
+                "quote": "unless terminated by either Party hereto upon ninety (90) days written notice to the other"
+              },
+              {
+                "element": "Any early-termination fee is capped at three months of fees.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor may terminate for convenience only at the end of a term.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Vendor must give at least 90 days' notice of convenience termination.",
+                "status": "already_met",
+                "quote": "unless terminated by either Party hereto upon ninety (90) days written notice to the other"
+              }
+            ]
+          },
+          "proposal": {
+            "level": "fallback",
+            "summary": "Cap the Termination Payment at three months of fees and limit HDI's convenience termination to the end of the then-current term.",
+            "precedentId": "seed-t4c",
+            "comment": "[Playbook] We kept the mutual 90-day notice, but capped the Company's Termination Payment at three months of fees instead of a share of a year's Net Sales, and limited HDI's no-cause termination to the end of the then-current term. This reflects our fallback position on termination for convenience.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0026",
+                "oldText": "an amount equal to the aggregate Net Sales for the twelve (12) months preceding the Termination Date less $800,000, the balance of which shall be divided by two.",
+                "newText": "an amount equal to the aggregate Net Sales for the twelve (12) months preceding the Termination Date less $800,000, the balance of which shall be divided by two, provided that the Termination Payment shall not exceed three (3) months of fees."
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0024",
+                "oldText": "This Agreement shall be automatically renewed for an additional one year period on each anniversary of the Effective Date, unless terminated by either Party hereto upon ninety (90) days written notice to the other.",
+                "newText": "This Agreement shall be automatically renewed for an additional one year period on each anniversary of the Effective Date, unless terminated by either Party hereto upon ninety (90) days written notice to the other, provided that termination by HDI shall be effective only at the end of the then-current term."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1435,
+      "cache_read_input_tokens": 24760,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1435,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1337,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "T4C",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 17844
+}

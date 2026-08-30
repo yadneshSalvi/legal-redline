@@ -1,0 +1,122 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYNJZBScyw3ky72NRUv5",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_015cxPrhYWTSy2DnWy6MSjyD",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0241",
+            "p0245"
+          ],
+          "quote": "21.2 Each Patty agrees to indemnify each of the other Parties in respect of all costs, expenses, damages and demands, arising out of or in connection with any claim against, or liability of, the latter as an owner of APCN 2 where such claim is made by, or the liability is to, any third party not being a Party hereto and arises out of or in connection with APCN 2",
+          "rationale": "The only indemnity in the Agreement is the reciprocal consortium indemnity at 21.2, which is confined to third-party claims against a Party in its capacity as an owner of APCN 2 and is share-limited under Schedule B; Paragraph 32 is merely claims-settlement and cost-sharing machinery, and 4.9/(i)-(iii) expressly disclaim any warranty as to the Supplier or the Wet Segment. Nothing anywhere covers third-party intellectual-property infringement claims arising from what the other Parties provide, so the fallback is failed on a material term (no IP indemnity at all is walk-away territory). We insert a single fallback-level Subparagraph 21.4: IP indemnity in our favour with the usual modification, combination and specification exclusions, procure/modify/replace remedies with a fee refund if none is available, and the fallback three times annual fees super-cap. We targeted the fallback rather than the preferred position because narrowing our own side of the mutual 21.2 indemnity and bolting a full defence-and-procedure regime onto a multilateral consortium agreement would require collateral rewrites.",
+          "confidence": 0.72,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0245",
+                "numbering": "21.4",
+                "text": "21.4 Each other Party which provides, procures or supplies any part of APCN 2, or any equipment or software used therein, shall indemnify Teleglobe against any claim by a third party that such part, equipment or software infringes or misappropriates any intellectual property right, save to the extent the claim arises from modifications made by Teleglobe, from combination by Teleglobe with items not so provided, or from specifications supplied by Teleglobe. That Party shall, at its option, procure for Teleglobe the right to continue using the infringing item, or modify or replace it, and if none of those remedies is reasonably available shall refund the fees paid by Teleglobe in respect of the infringing item. That Party's aggregate liability under this Subparagraph 21.4 shall not exceed three times the annual fees and costs payable by Teleglobe under this Agreement."
+              }
+            ],
+            "comment": "[Playbook] The mutual indemnity at 21.2 reaches only third-party claims against a Party as an owner of APCN 2, so it leaves us with no protection for intellectual-property infringement claims. We add a fallback-level IP indemnity in our favour with the usual Customer modification, combination and specification exclusions, procure/modify/replace and refund remedies, and a three times annual fees super-cap.",
+            "level": "fallback",
+            "precedentId": "seed-indemn-1",
+            "summary": "Insert a Subparagraph 21.4 IP infringement indemnity in Teleglobe's favour, with standard exclusions, procure/modify/replace and refund remedies, and a 3x annual fees super-cap."
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Vendor indemnifies Customer against third-party intellectual-property claims.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The IP indemnity may exclude infringement caused by Customer modifications.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The IP indemnity may exclude infringement caused by Customer combinations.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The IP indemnity may exclude infringement caused by Customer specifications.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor must procure continued use, modify, or replace the infringing item.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor must refund applicable fees if procure, modify, or replace remedies are unavailable.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor's indemnity is subject to a super-cap of three times annual fees.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1581,
+      "cache_read_input_tokens": 20860,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1581,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1669,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INDEMN",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 16371
+}

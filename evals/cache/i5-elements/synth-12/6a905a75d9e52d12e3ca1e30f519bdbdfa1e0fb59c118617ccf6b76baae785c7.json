@@ -1,0 +1,114 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYFqn4eQZAqhsE8kQNMS",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01WDqVere6z9rjh3qTSkigkq",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0045",
+            "p0044"
+          ],
+          "quote": "12.4 Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+          "rationale": "Section 12.4 (p0045) is the only non-solicitation provision in the agreement and it binds us alone. It fails the fallback on every material term: it is one-way rather than mutual, covers \"any Vendor employee\" rather than only personnel directly involved in the Services, runs for twenty-four months after the term rather than twelve months after a person's involvement ends, has no carve-out for general advertisements or unsolicited approaches (the phrase \"regardless of how the employee applies\" expressly negates one), and is a no-hire because it bars us from hiring or employing Vendor staff. A no-hire covering all Vendor personnel for twenty-four months is walk-away territory, and it also contradicts § 12.3 (p0044), where \"Vendor acknowledges that Customer has made no exclusivity, non-compete, most-favoured-customer, minimum-volume, or no-hire commitment.\" Our preferred position is no non-solicit on us at all; because the minimality gate requires an edit rather than deletion of the clause, the redline narrows § 12.4 to the fallback in one operation: mutual, limited to personnel directly involved in the Services, twelve (12) months from the end of involvement (now expressed numerically so the period is machine-verifiable), with general advertisements, unsolicited approaches and hiring all carved out. The separate non-compete in the second § 12.4 (p0046) is left to its own rule.",
+          "confidence": 0.94,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Narrow § 12.4 to a mutual twelve (12) month non-solicit limited to personnel involved in the Services, with advertising/unsolicited-approach carve-outs and no no-hire",
+            "comment": "[Playbook] Our preferred position is no non-solicit on us at all, and a 24-month bar on hiring any Vendor employee \"regardless of how the employee applies\" is a no-hire we cannot accept and conflicts with § 12.3. As a fallback we have made the clause mutual, limited it to personnel directly involved in the Services for twelve (12) months after their involvement ends, and carved out general advertisements, unsolicited approaches and hiring.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0045",
+                "oldText": "Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+                "newText": "Neither Party shall solicit the other's personnel directly involved in the Services for twelve (12) months after their involvement ends. General advertisements, unsolicited approaches, and hiring are not restricted."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "The non-solicitation restriction is mutual.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The restriction covers only personnel directly involved in the Services.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The restriction lasts no longer than 12 months after the person's involvement ends.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "General advertisements are excluded from the restriction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Unsolicited approaches are excluded from the restriction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The restriction does not prohibit hiring.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 708,
+      "cache_read_input_tokens": 33192,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 708,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1426,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13816
+}

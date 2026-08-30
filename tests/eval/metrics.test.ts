@@ -47,7 +47,12 @@ describe("evaluation metrics", () => {
       kind: "parametric",
       cuad: [],
       summary: "Cap",
-      position: { preferred: "12 months", fallback: "12 months", walkaway: "3 months" },
+      position: {
+        preferred: "12 months",
+        fallback: "12 months",
+        walkaway: "3 months",
+        elements: { preferred: ["12-month cap"], fallback: ["12-month cap"] },
+      },
       detect: "find cap",
       redline: "raise cap",
       checks: [{ type: "regex_present", pattern: "twelve\\s*\\(12\\)\\s*months", flags: "i", label: "12 months" }],

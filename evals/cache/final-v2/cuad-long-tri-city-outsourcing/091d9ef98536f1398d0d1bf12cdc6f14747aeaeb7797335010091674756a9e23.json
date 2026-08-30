@@ -1,0 +1,139 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYM9Svnc99jxX7uetEoP",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_015HUXR74EhvexQyToj1hr5o",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0016",
+            "p0219",
+            "p0220",
+            "p0221"
+          ],
+          "quote": "A. By Customer. Customer shall indemnify M&I from, and defend M&I against, any liability or expenses arising out of or relating to (i) the inaccuracy or untruthfulness of any representation or warranty made by Customer to M&I, (ii) a violation of Federal, state, or other laws or regulations for the protection of persons or members of a protected class or category of persons by Customer or its employees or agents,",
+          "rationale": "Section 14.2(B) already gives us an M&I indemnity with an express duty to defend, covering third-party claims that the Services or M&I's software infringe IP, and Section 14.3 supplies notice, assumption/control of the defence and full cooperation; because the preamble defines \"Customer\" as Tri City National Bank \"including its Affiliates\", those obligations already run to our Affiliates and no affiliate wording is needed. The bargain nevertheless fails the preferred checklist on two material points: M&I's indemnity does not reach M&I's violation of applicable law generally (only protected-class statutes are listed), M&I-caused unauthorized access to or disclosure of our data, or M&I's gross negligence or wilful misconduct; and our own indemnity at 14.2(A) is sweeping (representations, protected-class laws, harassment, work injury, all property/financial loss from our acts or omissions, and Section 6.6(B) matters) rather than limited to content we supply and our own breach of law. The cure is two surgical edits: a new operative Paragraph C adding the three missing conduct limbs, and a narrowing of Paragraph A. Noted but not flagged: the retained IP limb reaches only United States patent, copyright and trademark claims and does not cover trade-secret misappropriation or non-US rights; Section 6.6 is \"INTENTIONALLY OMITTED\", so dropping limb (vi) leaves no orphaned reference; and Section 13.4's three-month cap on M&I's total liability is a limitation-of-liability issue addressed under that rule, so the fallback's 3x annual fees super-cap is not pursued here.",
+          "confidence": 0.85,
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Vendor has an express duty to defend Customer and its affiliates.",
+                "status": "already_met",
+                "quote": "M&I shall indemnify Customer from, and defend Customer against, any liability or expenses"
+              },
+              {
+                "element": "Vendor indemnifies Customer and its affiliates against third-party claims.",
+                "status": "already_met",
+                "quote": "Tri City National Bank, a Wisconsin corporation (including its Affiliates, \"Customer\")"
+              },
+              {
+                "element": "Vendor indemnity covers claims that Services or Deliverables infringe intellectual property rights.",
+                "status": "already_met",
+                "quote": "any claim by a third party that the Services or M&I's software infringe upon any United States patent, copyright or trademark of a third party"
+              },
+              {
+                "element": "Vendor indemnity covers Vendor's breach of applicable law.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor indemnity covers a data breach caused by Vendor.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor indemnity covers Vendor's gross negligence and wilful misconduct.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The indemnification procedure requires notice of a claim.",
+                "status": "already_met",
+                "quote": "such indemnitee shall give notice of such claim to the indemnifying party, including a brief description of the amount and basis therefor, if known"
+              },
+              {
+                "element": "The indemnification procedure allocates control of the defence.",
+                "status": "already_met",
+                "quote": "shall be entitled to assume control of the defense of the claim with counsel chosen by the indemnifying party, reasonably satisfactory to the indemnitee"
+              },
+              {
+                "element": "The indemnification procedure requires reasonable cooperation.",
+                "status": "already_met",
+                "quote": "Indemnitee shall cooperate fully with, and assist, the indemnifying party in its defense against such claim in all reasonable respects."
+              },
+              {
+                "element": "Customer indemnity is limited to Customer-provided content and Customer's breach of law.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              }
+            ]
+          },
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-indemn-2",
+            "summary": "Extend M&I's indemnity to M&I's breach of applicable law, M&I-caused unauthorized access to Customer data, and M&I's gross negligence or wilful misconduct; narrow Customer's indemnity to Customer-provided content and Customer's violation of law.",
+            "comment": "[Playbook] We extended M&I's indemnity and defense to M&I's violation of applicable law, M&I-caused unauthorized access to or disclosure of our data, and M&I's gross negligence or wilful misconduct, and we narrowed our own indemnity to content we supply and our own violations of law, consistent with our indemnity playbook position. The IP limb of Paragraph B and the Section 14.3 notice, control and cooperation procedures are unchanged, and \"Customer\" already includes our Affiliates.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0220",
+                "numbering": "C.",
+                "text": "C. M&I's indemnity and defense obligations under Paragraph B shall further extend to any liability or expenses arising out of or relating to (i) M&I's violation of applicable law, (ii) any unauthorized access to or disclosure of Customer's data caused by M&I, and (iii) M&I's gross negligence or wilful misconduct."
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0219",
+                "oldText": "any liability or expenses arising out of or relating to (i) the inaccuracy or untruthfulness of any representation or warranty made by Customer to M&I, (ii) a violation of Federal, state, or other laws or regulations for the protection of persons or members of a protected class or category of persons by Customer or its employees or agents, (iii) sexual discrimination or harassment by Customer or its employees or agents, (iv) work-related injury or death caused by Customer or its employees or agents, (v) tangible personal or real property damage or financial or monetary loss incurred by M&I resulting from Customer's acts or omissions, or those of its employees or agents and (vi) those matters included in Section 6.6(B) above.",
+                "newText": "any liability or expenses arising out of or relating to (i) content, data, or materials provided by Customer to M&I and (ii) Customer's violation of applicable law."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1737,
+      "cache_read_input_tokens": 32150,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1737,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 2401,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INDEMN",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 21686
+}

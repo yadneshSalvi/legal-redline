@@ -1,0 +1,114 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYJPa7Bas7DQbXPAxG6C",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01Ken9QdiYc9CM4kXq3Y1Koq",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0302"
+          ],
+          "quote": "22.14 Solicitation. Neither party shall solicit the employees of the other party during the Term of this Agreement, for any reason.",
+          "rationale": "§ 22.14 is the only solicitation covenant in the Agreement (no no-hire, \"employ or engage\" or \"induce to leave\" language appears anywhere). It is mutual and bars only solicitation, so the mutuality and no-hire elements of the fallback are already satisfied. However it fails the fallback on three material terms: scope covers all employees of the other party rather than only personnel directly involved in the Services (walk-away territory), duration runs for the entire multi-year Term rather than 12 months after involvement ends, and there is no carve-out for general advertisements or unsolicited approaches. We therefore narrowed scope and duration and added the carve-out sentence, landing the clause at the fallback with minimal edits rather than deleting it to the preferred position.",
+          "confidence": 0.86,
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "The non-solicitation restriction is mutual.",
+                "status": "already_met",
+                "quote": "Neither party shall solicit the employees of the other party"
+              },
+              {
+                "element": "The restriction covers only personnel directly involved in the Services.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The restriction lasts no longer than 12 months after the person's involvement ends.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "General advertisements are excluded from the restriction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Unsolicited approaches are excluded from the restriction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "The restriction does not prohibit hiring.",
+                "status": "already_met",
+                "quote": "Neither party shall solicit the employees of the other party"
+              }
+            ]
+          },
+          "proposal": {
+            "level": "fallback",
+            "summary": "Narrow § 22.14 non-solicit to personnel directly involved in the Services for 12 months after involvement ends, and add general-advertisement and unsolicited-approach carve-outs.",
+            "comment": "[Playbook] We have narrowed the mutual non-solicit in § 22.14 to employees directly involved in performing the Services and limited it to twelve months after that involvement ends, and added carve-outs for general advertisements and unsolicited approaches. That is our fallback position; as drafted the clause reaches all employees of either party for the whole Term with no carve-outs.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0302",
+                "oldText": "Neither party shall solicit the employees of the other party during the Term of this Agreement, for any reason.",
+                "newText": "Neither party shall solicit the employees of the other party who are directly involved in performing the Services, during their involvement and for twelve (12) months thereafter."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0302",
+                "text": "The foregoing restriction does not apply to general advertisements or to unsolicited approaches by an employee."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1574,
+      "cache_read_input_tokens": 12931,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1574,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1197,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11677
+}

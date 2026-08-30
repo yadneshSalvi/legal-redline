@@ -1,0 +1,79 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYHEjDW1MDmgjLN4LkvH",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01NyWKdAUug8GuJCk17A44da",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0046",
+            "p0044"
+          ],
+          "quote": "12.4 During the term and for twenty-four months thereafter, Customer shall not develop, market, sell, or acquire any product or service that competes with Vendor in any territory.",
+          "rationale": "Section 12.4 (second instance) binds us, the Customer, not the Vendor: it prohibits developing, marketing, selling, or acquiring any competing product or service for the term plus twenty-four months in any territory. The scope is undefined (\"any product or service that competes with Vendor\") and the post-term tail exceeds 12 months, so it fails every fallback element and sits in walk-away territory. It also contradicts Section 12.3, which records that \"Customer has made no exclusivity, non-compete, most-favoured-customer, minimum-volume, or no-hire commitment.\" We therefore strike the restriction entirely, marking the section intentionally omitted; no affirmative re-grant is needed because retained Section 12.3 already confirms nothing restricts our products, fields, or territories. (The separate no-hire covenant in the first Section 12.4 is addressed under its own rule.)",
+          "confidence": 0.93,
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Customer has no non-compete or field-of-use restriction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          },
+          "proposal": {
+            "level": "preferred",
+            "summary": "Strike the Section 12.4 non-compete restriction on Customer, leaving the section intentionally omitted",
+            "comment": "[Playbook] We cannot accept any restriction on the products or businesses we may develop, sell, or acquire, so we have struck this non-compete, which also contradicted Section 12.3. If you need protection, we could discuss a restriction limited to one named competing product, during the term only and no longer than 12 months, with carve-outs for our internal development and acquisitions.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0046",
+                "oldText": "During the term and for twenty-four months thereafter, Customer shall not develop, market, sell, or acquire any product or service that competes with Vendor in any territory.",
+                "newText": "[Intentionally omitted.]"
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 712,
+      "cache_read_input_tokens": 12298,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 712,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 887,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NONCOMPETE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9659
+}

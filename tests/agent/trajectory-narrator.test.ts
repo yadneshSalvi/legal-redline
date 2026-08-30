@@ -14,7 +14,12 @@ const rule: Playbook["rules"][number] = {
   kind: "parametric",
   cuad: [],
   summary: "Use a meaningful mutual cap.",
-  position: { preferred: "Twelve months.", fallback: "Six months.", walkaway: "Customer uncapped." },
+  position: {
+    preferred: "Twelve months.",
+    fallback: "Six months.",
+    walkaway: "Customer uncapped.",
+    elements: { preferred: ["Twelve-month cap."], fallback: ["Six-month cap."] },
+  },
   detect: "Locate the aggregate cap.",
   redline: "Make the smallest replacement.",
   checks: [],

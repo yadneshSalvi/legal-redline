@@ -1,0 +1,92 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYM7mpHeiGG4J4keV9a4",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01H5EdW1xYepAT64jUk1gcC2",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0211",
+            "p0212",
+            "p0213",
+            "p0214",
+            "p0215",
+            "p0216",
+            "p0217"
+          ],
+          "quote": "A. Throughout the Term of this Agreement, M&I shall maintain at all times at its own cost and expense:",
+          "rationale": "Section 14.1 contains a real insurance clause (CGL at $2,000,000 primary limits, fidelity $10,000,000, workers' compensation as mandated by the state, all-risk property, plus \"A\"-rated carriers, 30 days' notice of change/cancellation and certificates on request). However, it carries no professional liability (errors and omissions) and no cyber/privacy coverage, so it fails both fallback elements for a vendor that processes our data and Items. We therefore stay at the fallback level and add only those two coverages ($1,000,000 E&O; $2,000,000 cyber/privacy) as a new item in the 14.1(A) schedule, so the existing at-own-expense lead-in, notice and certificate mechanics in 14.1(B) apply unchanged. The preferred-level gaps (E&O $2M, cyber $5M) are noted but not pressed.",
+          "confidence": 0.82,
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Professional errors and omissions coverage is at least USD 1,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Cyber and privacy coverage is at least USD 2,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          },
+          "proposal": {
+            "level": "fallback",
+            "summary": "Add E&O ($1M) and cyber/privacy ($2M) coverage to the M&I insurance schedule in 14.1(A)",
+            "comment": "[Playbook] M&I's insurance schedule omits professional liability and cyber coverage even though it processes our customer data, so we added the two coverages at our fallback limits (E&O USD 1M; cyber/privacy USD 2M). The existing certificate and notice mechanics in 14.1(B) apply to these policies without further change.",
+            "precedentId": "seed-insurance",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0216",
+                "numbering": "5.",
+                "text": "Professional Liability (Errors and Omissions) Insurance in an amount not less than one million dollars ($1,000,000), and Cyber and Privacy Liability Insurance in an amount not less than two million dollars ($2,000,000)."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 804,
+      "cache_read_input_tokens": 11586,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 804,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 976,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10886
+}

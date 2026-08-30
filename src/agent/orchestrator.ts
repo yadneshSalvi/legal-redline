@@ -3,7 +3,9 @@ import pLimit from "p-limit";
 import { assembleFindings, statsFor, withSectionReference } from "@/src/agent/assembler";
 import { runBaseline } from "@/src/agent/baseline";
 import { draftRule } from "@/src/agent/drafter";
+import { runElementWorkerRounds } from "@/src/agent/element-worker";
 import { isReplayFailure, type LlmClient, type LlmEvent } from "@/src/agent/llm";
+import { planLongDocumentReview } from "@/src/agent/longdoc-planner";
 import { createPrecedentMemory } from "@/src/agent/memory";
 import { createDeterministicMemo, createMemo } from "@/src/agent/memo";
 import { runMonolith } from "@/src/agent/monolith";
@@ -134,60 +136,80 @@ async function runWorker(
   const started = Date.now();
   emit(input, { type: "worker", runId: input.run.id, ruleId: rule.id, ruleTitle: rule.title, state: "running" });
   try {
-    let drafted = await draftRule({
-      document: input.run.document,
-      playbook: input.playbook,
-      rule,
-      plan,
-      parties,
-      config: input.config,
-      llm: input.llm,
-      memory: input.config.precedentMemory ? createPrecedentMemory(input.store) : undefined,
-    });
-    let finding = drafted.finding;
-    if (!input.config.verifier) finding = skipVerification(finding);
-    else {
-      for (let attempt = 1; attempt <= input.config.maxRepairRounds + 1; attempt += 1) {
-        emit(input, { type: "worker", runId: input.run.id, ruleId: rule.id, ruleTitle: rule.title, state: "verifying" });
-        const verified = await verifyFinding({
-          document: input.run.document,
-          playbook: input.playbook,
-          rule,
-          finding,
-          config: input.config,
-          llm: input.llm,
-          attempt,
-        });
-        finding = verified.finding;
-        await input.trajectory.event("verifier", "validation", `Verified ${rule.id}: ${finding.verification?.verdict}`, {
-          ruleId: rule.id,
-          findingId: finding.id,
-          payload: finding.verification,
-        });
-        if (finding.verification?.verdict !== "fail") break;
-        if (attempt > input.config.maxRepairRounds) {
-          finding = { ...finding, status: "needs_review" };
-          break;
+    let finding: Finding;
+    if (input.config.elementAware) {
+      const elementResult = await runElementWorkerRounds({
+        document: input.run.document,
+        playbook: input.playbook,
+        rule,
+        plan,
+        parties,
+        config: input.config,
+        llm: input.llm,
+        memory: input.config.precedentMemory ? createPrecedentMemory(input.store) : undefined,
+        trajectory: input.trajectory,
+        onVerifying: () => emit(input, {
+          type: "worker", runId: input.run.id, ruleId: rule.id, ruleTitle: rule.title, state: "verifying",
+        }),
+      });
+      finding = elementResult.finding;
+      ruleStats(perRule, rule.id).retries += elementResult.repairs;
+    } else {
+      let drafted = await draftRule({
+        document: input.run.document,
+        playbook: input.playbook,
+        rule,
+        plan,
+        parties,
+        config: input.config,
+        llm: input.llm,
+        memory: input.config.precedentMemory ? createPrecedentMemory(input.store) : undefined,
+      });
+      finding = drafted.finding;
+      if (!input.config.verifier) finding = skipVerification(finding);
+      else {
+        for (let attempt = 1; attempt <= input.config.maxRepairRounds + 1; attempt += 1) {
+          emit(input, { type: "worker", runId: input.run.id, ruleId: rule.id, ruleTitle: rule.title, state: "verifying" });
+          const verified = await verifyFinding({
+            document: input.run.document,
+            playbook: input.playbook,
+            rule,
+            finding,
+            config: input.config,
+            llm: input.llm,
+            attempt,
+          });
+          finding = verified.finding;
+          await input.trajectory.event("verifier", "validation", `Verified ${rule.id}: ${finding.verification?.verdict}`, {
+            ruleId: rule.id,
+            findingId: finding.id,
+            payload: finding.verification,
+          });
+          if (finding.verification?.verdict !== "fail") break;
+          if (attempt > input.config.maxRepairRounds) {
+            finding = { ...finding, status: "needs_review" };
+            break;
+          }
+          await input.trajectory.event("drafter", "retry", `Repair ${rule.id} after verifier feedback`, {
+            ruleId: rule.id,
+            findingId: finding.id,
+            payload: { feedback: verified.feedback, round: attempt },
+          });
+          ruleStats(perRule, rule.id).retries += 1;
+          drafted = await draftRule({
+            document: input.run.document,
+            playbook: input.playbook,
+            rule,
+            plan,
+            parties,
+            config: input.config,
+            llm: input.llm,
+            memory: input.config.precedentMemory ? createPrecedentMemory(input.store) : undefined,
+            session: drafted.session,
+            verifierFeedback: verified.feedback,
+          });
+          finding = drafted.finding;
         }
-        await input.trajectory.event("drafter", "retry", `Repair ${rule.id} after verifier feedback`, {
-          ruleId: rule.id,
-          findingId: finding.id,
-          payload: { feedback: verified.feedback, round: attempt },
-        });
-        ruleStats(perRule, rule.id).retries += 1;
-        drafted = await draftRule({
-          document: input.run.document,
-          playbook: input.playbook,
-          rule,
-          plan,
-          parties,
-          config: input.config,
-          llm: input.llm,
-          memory: input.config.precedentMemory ? createPrecedentMemory(input.store) : undefined,
-          session: drafted.session,
-          verifierFeedback: verified.feedback,
-        });
-        finding = drafted.finding;
       }
     }
     const metrics = ruleStats(perRule, rule.id);
@@ -287,7 +309,9 @@ export async function runReview(input: RunReviewInput): Promise<ReviewRun> {
     } else {
       const planned = await stage(input, "planner", "Map rules to document", () =>
         input.config.planner
-          ? planReview({ document: run.document, playbook: input.playbook, config: input.config, llm, parties: input.parties })
+          ? input.config.longDocumentPlanning && input.run.document.stats.words >= input.config.longDocumentThresholdWords
+            ? planLongDocumentReview({ document: run.document, playbook: input.playbook, config: input.config, llm, parties: input.parties })
+            : planReview({ document: run.document, playbook: input.playbook, config: input.config, llm, parties: input.parties })
           : Promise.resolve(deterministicPlan(run.document, input.playbook, input.parties)),
       );
       if (!input.config.perRuleWorkers) {

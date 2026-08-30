@@ -65,8 +65,11 @@ const roles: Record<ConfigId, ConfigRole> = {
   "i2-workers": "iteration",
   "i3-verifier": "iteration",
   "i4-memory": "iteration",
+  "i5-elements": "iteration",
+  "i6-longdoc": "iteration",
   "x-monolith": "removed",
   final: "final",
+  "final-v2": "iteration",
 };
 
 /** The stage column of IMPROVEMENT_CHANGELOG.md, so the table reads like the document. */
@@ -77,8 +80,11 @@ const stages: Record<ConfigId, string> = {
   "i2-workers": "Iteration 2",
   "i3-verifier": "Iteration 3",
   "i4-memory": "Iteration 4",
+  "i5-elements": "Iteration 5",
+  "i6-longdoc": "Iteration 6",
   "x-monolith": "Removed",
   final: "Final",
+  "final-v2": "Final v2",
 };
 
 export interface LadderRow {

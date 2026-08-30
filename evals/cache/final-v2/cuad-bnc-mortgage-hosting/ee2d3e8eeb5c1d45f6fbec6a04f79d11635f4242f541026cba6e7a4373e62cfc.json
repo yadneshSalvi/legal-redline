@@ -1,0 +1,101 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYPHWa1xnEHEXo9cq99b",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01VyZMhHqwB5mGNNkRSuEG5g",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0059",
+            "p0060",
+            "p0076"
+          ],
+          "quote": "9. TRUELINK WARRANTIES. TrueLink represents and warrants that the Interface and all related software (i) is designed to be used before, on and after January l, 2000;",
+          "rationale": "The only TrueLink warranty is the Y2K date-processing warranty in Section 9; nothing warrants that the Interface software conforms to its documentation, that the Hosting or Support Services will be performed to any quality standard, or gives Client a repair/replace or refund remedy. Section 3's service levels are only \"reasonable commercial efforts\" commitments, and the disclaimer at p0076 (although carved out for express warranties) leaves Client with no conformance warranty. This fails every fallback element, so we insert the shortest fallback warranty: 90 days software conformance to documentation, 30 days for the Services, with repair, replacement or refund. The express-warranty carve-out in the disclaimer already preserves this new warranty, so no edit to p0076 is needed.",
+          "confidence": 0.82,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0060",
+                "text": "TrueLink further warrants that (i) for ninety (90) days following delivery, the Interface and all related software will conform in all material respects to its documentation, and (ii) for thirty (30) days following performance, the Hosting Services and Support Services will be performed in a professional and workmanlike manner. Client's remedy for breach of this warranty is repair or replacement of the non-conforming software or Services, or a refund of the fees paid for them."
+              }
+            ],
+            "comment": "[Playbook] TrueLink's only warranty is the Y2K provision, so we added the fallback performance warranty: 90 days of conformance to documentation for the Interface software, 30 days for the Hosting and Support Services, with repair, replacement or refund as the remedy.",
+            "level": "fallback",
+            "precedentId": "seed-warranty",
+            "summary": "Add a TrueLink performance warranty (90-day software conformance, 30-day services) with repair/replace or refund remedy"
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Software is warranted to conform to its documentation for at least 90 days.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Services are warranted for at least 30 days.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Warranty remedies include repair or replacement.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Warranty remedies include a refund.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1676,
+      "cache_read_input_tokens": 17970,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1676,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1060,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "WARRANTY",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11937
+}
