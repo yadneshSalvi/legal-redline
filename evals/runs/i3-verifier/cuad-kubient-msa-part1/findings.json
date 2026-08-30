@@ -1,5 +1,41 @@
 [
   {
+    "confidence": 0.85,
+    "costUsd": 0.2026025,
+    "durationMs": 60460,
+    "id": "f-indemn-f601506e",
+    "paragraphIds": [
+      "p0046",
+      "p0047",
+      "p0048",
+      "p0049",
+      "p0050",
+      "p0051",
+      "p0052",
+      "p0053"
+    ],
+    "producedBy": "drafter",
+    "quote": "(a) Kubient agrees to indemnify, defend, and hold harmless Customer and its officers, directors, managers, members, agents, and employees from all third-party allegations, claims, actions, losses, expenses, damages, costs (including, without limitation, reasonable attorneys' fees) or liabilities (\"Claims\") arising out of or in connection with:",
+    "rationale": "The Agreement contains a vendor-side defence and indemnity that meets the preferred position on its material terms. Kubient defends, indemnifies and holds harmless AP and its officers, directors, managers, members, agents and employees against all third-party Claims (expressly including reasonable attorneys' fees) arising out of or in connection with the Services (p0048), the Auction Platform (p0049), Kubient's breach of any representation or warranty, and the acts or omissions of Kubient or its subcontractors (p0051). Third-party IP infringement is captured: claims \"arising out of or in connection with\" the Services and the Auction Platform reach infringement allegations, and limb (iv) indemnifies breach of Kubient's warranties, which include that it owns or controls the rights granted to AP and is the rightful owner or licensee of all IP rights to the Service, Auction Platform and products delivered (p0039, p0040). Kubient's compliance-with-Law warranty (p0041) and the acts/omissions limb likewise pick up breach of law, Vendor-caused data incidents and gross negligence/wilful misconduct. Standard procedure is present (prompt notice, indemnitor control of defence with no liability-admitting settlement without consent, cooperation at the indemnifying party's cost), and notice delay does not relieve the indemnifying party — a pro-AP formulation. The indemnity is uncapped in practice: p0027 carves \"THE PARTIES' LIABILITY FOR INDEMNIFICATION\" out of the consequential-damages exclusion, and no super-cap or sub-cap is imposed, so the fallback's 3x-fees ceiling is not needed. AP's own indemnity (p0052) is directionally correct — keyed to its Content and Properties, unauthorised or inappropriate use, and its own breach and acts/omissions — with no reciprocal indemnity for Kubient's Services. Two minor sub-elements fall short of the ideal preferred wording and are noted rather than flagged: the Creative limb (p0050) carries a \"to the best of its knowledge\" qualifier, and AP's indemnity extends slightly beyond Customer-provided content and breach of law to unauthorised use and breach of any representation or warranty. Neither is material, and per playbook semantics these are recorded here instead of being redlined. No walk-away condition exists.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-preamble",
+    "sectionRef": "§ Preamble",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected output shape; nothing is being over-flagged or wrongly edited. The cited text supports compliance: Kubient (Vendor) 'shall indemnify, defend, and hold harmless' Customer and its officers/directors/agents against all third-party Claims, including reasonable attorneys' fees, arising out of or in connection with the Services, the Auction Platform, breach of any representation or warranty, and the acts or omissions of Kubient or its subcontractors — an indemnity broader than the preferred IP/breach-of-law/misconduct list. The failed deterministic check ('vendor indemnity for IP infringement present') is a phrasing artefact: there is no IP-specific limb, but claims 'arising out of or in connection with the Services' and 'the Auction Platform', combined with the indemnity for breach of Kubient's IP-ownership warranties, capture third-party infringement allegations, so the substance of the preferred (and a fortiori the fallback) position is met. Customer's own indemnity is properly directional — keyed to Customer's Content/Properties, unauthorised use, its own breach and acts/omissions — with no indemnity running to Kubient for Kubient's Services, so no walk-away condition exists. The two shortfalls identified (the 'to the best of its knowledge' qualifier on the Creative limb and the slightly wider Customer indemnity) are correctly recorded in the rationale as minor sub-elements rather than redlined, consistent with the playbook's classification semantics.",
+      "verdict": "pass"
+    }
+  },
+  {
     "confidence": 0.82,
     "costUsd": 0.2384645,
     "durationMs": 73930,
@@ -269,39 +305,38 @@
     }
   },
   {
-    "confidence": 0.83,
-    "costUsd": 0.4652495,
-    "durationMs": 152996,
-    "id": "f-t4c-899ea7ad",
+    "confidence": 0.78,
+    "costUsd": 0.18944525,
+    "durationMs": 67898,
+    "id": "f-t4c-9ab7e7db",
     "paragraphIds": [
-      "p0000",
       "p0016"
     ],
     "producedBy": "drafter",
-    "quote": "Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice to the other Party. Except for termination for material breach as detailed in paragraph 4(b), Kubient shall be entitled to all fees generated during the termination period regardless of which Party terminates the Agreement",
-    "rationale": "Compliant at the fallback; no redline and no counterparty comment proposed. A Customer convenience right is present and enforceable by us. The preamble (p0000) defines The Associated Press as the \"Customer\" and provides that \"Each of Customer and Kubient may be referred to herein individually as a 'Party'\", so the Section 4(a) grant that \"Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice to the other Party\" expressly confers a for-any-reason (convenience) exit on AP. The deterministic \"Customer convenience termination present\" check fails only because the sentence uses the defined term \"Party\" instead of naming the Customer; that is a drafting-phrasing artifact and does not affect the substance. Notice period: 90 days, squarely inside the fallback's 60-90 day window. Term: a one (1) year Initial Term auto-renewing in 1-year increments, so the trigger for \"absence of any Customer convenience right in a term longer than 12 months\" is not met and there is no multi-year lock-in. Vendor side: Kubient's convenience right requires the same 90 days' notice - not \"fewer than 90 days\" - so the walk-away threshold is not reached, the right is symmetric rather than one-sided against us, and the Initial Term bar prevents Kubient exiting mid-term. Economics: Kubient's entitlement to fees \"generated during the termination period\" is bounded by the ~3-month notice period rather than being an uncapped early-termination penalty, consistent with the fallback cap of no more than 3 months' fees, and it applies whichever party terminates. Noted per the minor sub-element rule, not flagged: 90 days rather than the preferred 30; Kubient's right not confined to term-end; and no pro-rata prepaid-fee refund, which is inapplicable because Section 5 is a revenue-share under which Kubient remits to AP rather than AP prepaying fees.",
+    "quote": "The initial term of this Agreement shall be one (1) year from the Effective Date (the \"Initial Term\"). This Agreement will automatically renew for additional 1-year terms unless earlier terminated pursuant to this Agreement's express provisions (together with the Initial Term, such additional periods the \"Term\"). Neither Party may terminate this Agreement during the Initial Term except as set forth in paragraph 4(b) or any Exhibit. Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice to the other Party.",
+    "rationale": "Section 4(a) sits at the playbook fallback, so we are not redlining it. The committed period is a 1-year Initial Term (not a multi-year commitment), and the detection standard only treats the absence of a convenience right as a deviation where the term exceeds 12 months. Following the Initial Term, AP holds a symmetric convenience right on ninety (90) days' written notice, which is inside the fallback's 60–90 day window. Kubient's own convenience right is not confined to term-end, but it requires 90 days' notice and so does not reach the walk-away threshold of \"fewer than 90 days' notice\"; the Initial Term lock-out prevents Kubient from exiting mid-term. On the money side, Kubient's entitlement to \"all fees generated during the termination period\" is effectively limited to the 90-day notice period (approximately three months' fees), consistent with the fallback cap of no more than 3 months' fees, and it applies equally whichever party terminates. Noted but not flagged: we do not get the preferred 30-day notice, and there is no pro-rata refund of prepaid fees — that mechanic is inapplicable here because Section 5 is a revenue-share under which Kubient pays AP rather than AP prepaying fees. Kubient's convenience right not being restricted to the end of a renewal term is likewise a sub-element short of the preferred wording rather than a material failure.",
     "ruleId": "T4C",
     "ruleTitle": "Termination for convenience",
     "sectionId": "sec-preamble",
     "sectionRef": "§ Preamble",
     "severity": "high",
-    "status": "needs_review",
+    "status": "compliant",
     "verification": {
-      "attempts": 3,
+      "attempts": 1,
       "checks": [
         {
           "name": "Customer convenience termination present",
           "ok": false
         }
       ],
-      "notes": "Customer convenience termination present: failed The cited Section 4(a) does confer a Customer convenience right: the preamble defines The Associated Press as \"Customer\" and each of Customer and Kubient as a \"Party\", so \"Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice\" gives us a for-any-reason exit; the failed deterministic regex is explainable as a defined-term phrasing variant, not a substantive gap. Notice period of 90 days sits inside the fallback's 60–90 day window, and the term is a 1-year Initial Term with 1-year auto-renewals, so the detection trigger for 'no Customer convenience right in a term longer than 12 months' is not met and there is no multi-year lock-in. Vendor's mirror right is on the same 90 days' notice, so it does not fall into walk-away territory (which requires Vendor convenience on fewer than 90 days); Kubient's entitlement to fees 'generated during the termination period' is bounded by the ~90-day notice window rather than being an uncapped early-termination penalty, consistent with the fallback's 3-month fee cap. Correctly treated as compliant-at-fallback with no redline and no counterparty comment; the shortfalls versus preferred (90 rather than 30 days, Vendor's right not confined to term-end, no pro-rata refund in a revenue-share model where Customer does not prepay) are properly noted in the rationale rather than flagged, per the minor sub-element rule.",
-      "verdict": "fail"
+      "notes": "Claimed status is 'compliant' and the cited text supports it: Section 4(a) gives the Customer (AP) a for-any-reason termination right on ninety (90) days' written notice after the Initial Term, which sits squarely inside the fallback's 60–90 day window; no redline or comment is expected for a compliant finding, and none was proposed. The Initial Term is exactly one (1) year, so the detection trigger for 'absence of any Customer convenience right in a term longer than 12 months' is not met; auto-renewal in 1-year increments with a 90-day exit right is not a multi-year lock-in, so the walk-away band is not reached. Vendor-side exit is on 90 days' notice, i.e. not 'fewer than 90 days', so the walk-away threshold for Vendor convenience termination is not triggered. The fact that Kubient's right is not confined to term-end is correctly treated as a sub-element short of preferred wording and noted in the rationale rather than flagged, and the right is symmetric rather than one-sided against us. The economics are read fairly: Kubient's entitlement to fees 'generated during the termination period' is effectively the ~3 months of the notice period, consistent with the fallback's cap of no more than 3 months' fees, and it applies to either terminating party. The failed deterministic check ('Customer convenience termination present') is a phrasing false negative — the right is expressed as 'Either Party may terminate this Agreement for any reason following the Initial Term upon ninety (90) days written notice' rather than naming the Customer — so it does not undercut the compliant classification. Absence of a pro-rata prepaid-fee refund is correctly explained as inapplicable to a revenue-share structure where Kubient remits to AP rather than AP prepaying fees; this is noted, not over-flagged.",
+      "verdict": "pass"
     }
   },
   {
-    "confidence": 0.93,
-    "costUsd": 0.3450495,
-    "durationMs": 93754,
+    "confidence": 0.9,
+    "costUsd": 0.16502125,
+    "durationMs": 40852,
     "id": "f-audit-e0ac58d2",
     "paragraphIds": [
       "p0001",
@@ -309,23 +344,23 @@
     ],
     "producedBy": "drafter",
     "quote": "Customer agrees to provide all reasonable and necessary access, support and cooperation for Kubient to provide the Services in a timely and effective manner.",
-    "rationale": "This rule constrains audit rights exercisable against us, and the Agreement grants Kubient none. Searches for \"audit\", \"records\", \"inspect\" and \"verif\" return no hits, and a paragraph-by-paragraph read of the single section confirms it: §5 Fees and Payment (p0023) creates no examination or true-up right, and the only access-related obligation on AP (§1, p0001) is cooperation so Kubient can deliver the Services, not a right to examine AP's books, usage or systems. With no audit right in Kubient's favour there is no frequency, notice, cost-allocation or system-access term to constrain, so the position is at least as protective as the preferred standard (annual, 30 days' notice, independent auditor bound by confidentiality, Vendor cost, no system access). Compliant is correct rather than \"missing\": treating it as missing would require inserting an audit obligation against our own party, which the rule does not seek. The \"audit frequency limited\" deterministic check necessarily fails where no audit clause exists and is heuristic noise, not evidence of a gap. No redline or counterparty comment is proposed. Parked under the reporting/revenue-verification rule to avoid double-flagging: Impressions are measured solely as measured by Kubient (p0009) and revenue share runs through the Exhibits with no AP-side verification right — a point that runs in our favour to fix.",
+    "rationale": "The Agreement contains no audit, inspection, records-examination or usage-verification right exercisable against the Customer (AP). Full-text searches for \"audit\", \"records\", \"inspect\" and \"verif\" return no hits, and a read of every paragraph of the single section confirms it: the fees provision (§5, p0023) creates no examination right, and the only access-related obligation on AP (§1, p0001) is cooperation for Kubient to deliver the Services, not a right to audit AP's books, usage or systems. That outcome is better than the preferred position (annual audits, 30 days' notice, independent auditor, Vendor cost, no system access) because Kubient has no audit right at all, so there is no frequency, notice, cost-allocation or system-access exposure to constrain. No redline is warranted; inserting audit machinery would create an obligation against us that does not currently exist. Separately noted for the deal team (not a deviation under this rule): Impressions are measured solely \"as measured by Kubient\" (p0009) and revenue share is per Exhibit with no AP-side reporting or verification right — an AP audit right over Kubient's reporting would be beneficial to us and can be raised under the reporting/revenue-verification rule rather than here.",
     "ruleId": "AUDIT",
     "ruleTitle": "Audit rights against Customer",
     "sectionId": "sec-preamble",
     "sectionRef": "§ Preamble",
     "severity": "medium",
-    "status": "needs_review",
+    "status": "compliant",
     "verification": {
-      "attempts": 3,
+      "attempts": 1,
       "checks": [
         {
           "name": "audit frequency limited",
           "ok": false
         }
       ],
-      "notes": "audit frequency limited: failed Claimed status is compliant and no redline or counterparty comment was proposed, which is the expected output for a compliant finding. The cited paragraphs (§1 access/cooperation for service delivery; §5 fees/payment) contain no examination, inspection, records or verification right in Kubient's favour, so there is no frequency, notice, cost-allocation or system-access term that could fall below the fallback. Absence of any audit right binding the Customer is at least as protective as the preferred position; classifying it as 'missing' would wrongly require inserting an audit obligation against our own party, so 'compliant' is the correct label. The failed 'audit frequency limited' regex is expected heuristic noise where no audit clause exists and does not evidence a gap. Rationale appropriately parks the Kubient-measured impressions / no customer-side verification point under the reporting rule to avoid double-flagging the same commercial term.",
-      "verdict": "fail"
+      "notes": "Claimed status is 'compliant' and the rendered redline is identical to the original paragraphs with no counterparty comment — exactly what is expected for a compliant finding. The cited paragraphs contain no audit, inspection, records-examination or usage-verification right against the Customer; §1 imposes only cooperation/access for service delivery and §5 creates no examination right, so there is no frequency, notice, cost-allocation or system-access exposure to constrain. Absence of any Vendor audit right is at least as favourable to us as the preferred position, so treating it as compliant (rather than 'missing', which would perversely require inserting an obligation against ourselves) is the correct classification, and no redline is warranted. The failed deterministic check ('audit frequency limited') is expected noise where no audit clause exists and does not undercut the substance. The rationale's side note on Kubient-measured impressions and the lack of an AP-side verification right is correctly parked for a reporting/revenue-verification rule rather than double-flagged here.",
+      "verdict": "pass"
     }
   },
   {
@@ -408,9 +443,9 @@
     }
   },
   {
-    "confidence": 0.93,
-    "costUsd": 0.32990025,
-    "durationMs": 112048,
+    "confidence": 0.9,
+    "costUsd": 0.1330105,
+    "durationMs": 42900,
     "id": "f-nosolicit-0c777cc3",
     "paragraphIds": [
       "p0066",
@@ -418,15 +453,15 @@
     ],
     "producedBy": "drafter",
     "quote": "Provisions that should reasonably be considered to survive termination of the Agreement will survive and be enforceable after such termination or expiration, including without limitation provisions relating to confidentiality, proprietary rights, indemnification, limitations of liability, effects of termination, and governing Law.",
-    "rationale": "Compliant at the preferred position: the Agreement contains no non-solicitation, no-hire, or other restrictive covenant binding Customer, and the preferred position for NOSOLICIT is precisely the absence of any non-solicit on Customer.\n\nEvidence of absence: the document is a single flat section, so there is no separate restrictive-covenants or general-provisions section in which a covenant could sit. Searches for the rule's detection triggers \"solicit\", \"induce\" and \"recruit\" return zero hits. The residual \"hire\"/\"employ\"/\"personnel\" matches are all unrelated: \"hired by, employed, retained or under ... control\" appears only in the mutual indemnities (p0051, p0052); \"employees\" appears only in the consequential-damages exclusion (p0027), the indemnity beneficiary lists (p0047, p0052) and the confidentiality permitted-disclosure carve-out (p0061); \"personnel\" appears only in the data-security access-control covenants (p0035, p0045). The miscellaneous provisions run from (a) to (i) with no gap in lettering (p0064-p0073) before the signature block at p0074, ruling out an omitted subsection. The independent contractor clause (p0066) disclaims an employment relationship but imposes no hiring or solicitation restriction, so it creates no implied covenant. The quoted survival list at p0070 enumerates confidentiality, proprietary rights, indemnification, limitations of liability, effects of termination and governing law, and omits any non-solicit, confirming none exists to survive.\n\nThe deterministic checks for duration (12 months or less) and for a general-solicitation carve-out are inapplicable, and their failure is not evidence of an error: both measure the wording of an existing non-solicit, and there is none in this Agreement to measure. No redline or counterparty comment is proposed, because the absence of a covenant benefits our party and flagging it would invite Kubient to add a restriction the Associated Press does not currently carry.\n\nNoted for the negotiation file only, not as a deviation: if Kubient later proposes a non-solicit, our fallback ceiling is a mutual covenant limited to personnel directly involved in the services, running 12 months from the end of their involvement, with carve-outs for general advertisements and unsolicited approaches, and no no-hire.",
+    "rationale": "The Agreement contains no non-solicitation, no-hire, or other restrictive covenant binding the Customer. Searches for \"solicit\", \"induce\", \"recruit\", \"hire\", \"personnel\" and \"compete\" return no hiring-restriction language: the only \"hire\"/\"employed\" references are in the mutual indemnities (p0051, p0052) describing acts of third parties under a party's control, and \"employees\" otherwise appears only in the liability exclusion (p0027), indemnity beneficiary lists (p0047, p0052) and the confidentiality permitted-disclosure provision (p0061). The general provisions (p0064–p0073) cover governing law, publicity, independent contractor status, fees, notices, severability/survival, force majeure, assignment and counterparts, and the survival list at p0070 includes no restrictive covenant. This matches the preferred position of no non-solicit on the Customer, so no redline is required.",
     "ruleId": "NOSOLICIT",
     "ruleTitle": "Non-solicitation of employees binding Customer",
     "sectionId": "sec-preamble",
     "sectionRef": "§ Preamble",
     "severity": "medium",
-    "status": "needs_review",
+    "status": "compliant",
     "verification": {
-      "attempts": 3,
+      "attempts": 1,
       "checks": [
         {
           "detail": "number not found",
@@ -438,8 +473,8 @@
           "ok": false
         }
       ],
-      "notes": "general-solicitation carve-out present: failed Claimed status is compliant and the redline is byte-identical to the original with no comment, which is exactly what a compliant finding should look like — nothing is being raised against the counterparty. The playbook's preferred position for NOSOLICIT is the absence of any non-solicit binding Customer, so an agreement with no such covenant is correctly classified as compliant rather than 'missing'; the rule's presence kind is satisfied by the preferred outcome. Evidence of absence is well supported: the cited paragraphs (independent-contractor clause p0066 and severability/survival clause p0070) contain no solicitation, no-hire or inducement restriction, and the survival list omits any restrictive covenant, corroborating that none exists elsewhere. The two failed deterministic checks (duration ≤ 12 months; general-solicitation carve-out) are inapplicable heuristics here — both presuppose an existing non-solicit to measure — so their failure is not evidence of a drafting error. Refraining from any edit is correct: the absence of a covenant benefits Customer, and inserting fallback language would invite a restriction the Customer does not currently bear. The fallback ceiling is properly noted for the negotiation file only.",
-      "verdict": "fail"
+      "notes": "Claimed status is compliant and the preferred position for this rule is the absence of any non-solicit binding Customer; the cited general provisions (independent contractor status, severability/survival) contain no restrictive covenant and the survival list omits any non-solicit, supporting absence. No redline or counterparty comment was proposed, which is correct for a compliant finding — the rendered redline is identical to the original paragraphs. The failed deterministic checks (duration ≤ 12 months, general-solicitation carve-out) are inapplicable here: they test the wording of an existing non-solicit, and none exists, so their failure is not evidence of an error. Rationale is accurate and appropriately records this as internal evidence of compliance rather than a negotiation issue; no over-flagging.",
+      "verdict": "pass"
     }
   },
   {
@@ -544,22 +579,21 @@
     }
   },
   {
-    "confidence": 0.83,
-    "costUsd": 0.32903625,
-    "durationMs": 99955,
-    "id": "f-warranty-c670112e",
+    "confidence": 0.76,
+    "costUsd": 0.174155,
+    "durationMs": 53197,
+    "id": "f-warranty-abdc610d",
     "paragraphIds": [
       "p0032",
       "p0034",
       "p0036",
       "p0038",
       "p0041",
-      "p0016",
       "p0062"
     ],
     "producedBy": "drafter",
-    "quote": "(ix) it is now and throughout the Term shall comply with all applicable Laws in connection with the operation of its business and the performance of its obligations hereunder or the provision of the Service",
-    "rationale": "Compliant at or above the preferred position; no redline proposed.\n\nScope: Section 9(b) contains genuine express Vendor warranties — the Service \"will perform in all material respects to industry standards\" (9(b)(ii)), services will \"be free from errors that materially affect their utility\" (9(b)(vi)), no viruses/Trojan Horses/worms or other harmful routines (9(b)(iv)), and compliance with all applicable Laws (9(b)(ix)), plus IP non-infringement and ownership warranties. That matches the preferred position's substantive scope (professional performance, conformance, compliance with laws, no malicious code).\n\nPeriod (addressing the failed numeric check): the warranties are drafted as continuing \"represents, warrants and covenants\" obligations running \"now and throughout the Term\" rather than expiring after a fixed window. The Term is expressed in years, not days: paragraph 4(a) sets an Initial Term of \"one (1) year from the Effective Date,\" automatically renewing for additional 1-year terms. The effective warranty duration is therefore at least twelve (12) months and, on renewal, longer — meeting the preferred 12-month software period and exceeding the 90-day services period and the fallback entirely. The deterministic period check failed only because no standalone \"90 days\"/\"12 months\" warranty window is recited; the absence of that cut-off is what makes the clause better for us, so it is a false negative and not a ground to redline.\n\nDisclaimer: Section 13 does not swallow the express warranty. It is bracketed by \"Except as expressly set forth herein\" and \"except for the representations and warranties set forth in this Agreement,\" confining the \"as is\"/\"as available\" language to implied warranties (merchantability, fitness, course of dealing). Walk-away \"AS IS\" territory is ruled out.\n\nNoted, not flagged: there is no express repair/replace/refund remedy sentence. Consistent with the playbook's treatment of minor sub-elements, we note rather than flag it — general contract remedies remain available, the Section 7 cap excludes only consequential damages, paragraph 4(b) gives a 30-day cure/termination right for material breach, and Section 11(a)(iv) indemnifies us for Kubient's breach of any warranty. Importing the model remedy sentence would risk converting that open relief into a narrower Vendor-elected exclusive remedy, so pressing it would work against our interests.",
+    "quote": "(vi) any services provided by it shall comply with the terms of this Agreement and shall be free from errors that materially affect their utility;",
+    "rationale": "Section 9(b) contains a genuine express performance warranty from Kubient that exceeds the preferred position on the two material terms. Scope: the Service \"will perform in all material respects to industry standards\" (9(b)(ii)), services will \"be free from errors that materially affect their utility\" (9(b)(vi)), no viruses/malicious code (9(b)(iv)), and compliance with all applicable Laws \"now and throughout the Term\" (9(b)(ix)). Duration: the warranties are drafted as continuing representations, warranties and covenants for the whole Term rather than being cut off after 12 months/90 days, so the period is better than preferred. The Section 13 disclaimer does not swallow the express warranty — it opens \"Except as expressly set forth herein\" and expressly excepts \"the representations and warranties set forth in this Agreement,\" so this is not walk-away \"AS IS\" territory. The only preferred element absent is a stated repair/replace/refund remedy sentence; we note but do not flag this, because leaving the warranty to general contract remedies (plus the 30-day cure/termination right in paragraph 4(b) and indemnity for breach of warranty under 11(a)(iv)) preserves broader relief for us than a vendor-elected, typically exclusive, repair-replace-refund remedy would.",
     "ruleId": "WARRANTY",
     "ruleTitle": "Performance warranty and duration",
     "sectionId": "sec-preamble",
@@ -567,70 +601,15 @@
     "severity": "medium",
     "status": "compliant",
     "verification": {
-      "attempts": 2,
+      "attempts": 1,
       "checks": [
         {
           "name": "warranty period ≥ 90 days or expressed in months/years",
-          "ok": true
-        }
-      ],
-      "notes": "Claimed status is compliant and the rendered redline is byte-identical to the original paragraphs with no comment, which is the expected output for a compliant finding. The cited text supports compliance: Section 9(b) contains genuine express Vendor warranties covering performance to industry standards (9(b)(ii)), freedom from errors materially affecting utility (9(b)(vi)), no viruses/malicious routines (9(b)(iv)) and compliance with applicable Laws (9(b)(ix)) — matching the preferred position's substantive scope. Duration analysis is sound: the warranties are continuing 'now and throughout the Term' obligations, and the Term is a 1-year Initial Term with automatic 1-year renewals, so the effective coverage equals or exceeds the preferred 12-month/90-day windows; the deterministic period check is satisfied. The Section 13 disclaimer is bracketed by 'Except as expressly set forth herein' and 'except for the representations and warranties set forth in this Agreement,' so it does not swallow the express warranties and walk-away 'AS IS' territory is ruled out. The absent repair/replace/refund sentence is properly noted rather than flagged: it is a sub-element short of preferred wording, and importing a Vendor-elected exclusive remedy would narrow the customer's existing general remedies, cure/termination right and warranty-breach indemnity — consistent with the instruction not to flag clauses that benefit our party.",
-      "verdict": "repaired"
-    }
-  },
-  {
-    "confidence": 0.72,
-    "costUsd": 0.68664825,
-    "durationMs": 224994,
-    "id": "f-indemn-e5ef3088",
-    "paragraphIds": [
-      "p0046",
-      "p0047",
-      "p0048",
-      "p0049",
-      "p0050",
-      "p0051",
-      "p0052",
-      "p0053",
-      "p0033",
-      "p0027"
-    ],
-    "producedBy": "drafter",
-    "proposal": {
-      "comment": "[Playbook] We have added an express limb confirming that Kubient's indemnity covers third-party claims that the Services, Auction Platform or deliverables infringe intellectual property rights. This coverage is already implicit through the warranty-breach limb and Kubient's non-infringement warranty, so we regard this as a clarification rather than a change in the bargain, and it avoids our having to prove a warranty breach before the defence obligation is triggered.",
-      "level": "preferred",
-      "ops": [
-        {
-          "kind": "insert_after",
-          "numbering": "(vi)",
-          "paragraphId": "p0051",
-          "text": "any allegation or claim that the Services, the Auction Platform or any deliverables provided hereunder by Kubient infringe, misappropriate or violate any patent, copyright, trademark, trade secret or other intellectual property right of any third party."
-        }
-      ],
-      "summary": "Add an express third-party IP infringement limb to Kubient's indemnity in Section 10."
-    },
-    "quote": "(iv) Kubient's breach of any representation or warranty under this Agreement or (v) the acts or omissions of Kubient or a third party hired by, employed, retained or under Kubient control with respect to Kubient's obligations hereunder.",
-    "rationale": "Section 10 contains a genuine Vendor indemnity, but it has no express third-party IP-infringement limb. Kubient's limbs are: (i) the Services, (ii) the Auction Platform, (iii) the Creative (knowledge-qualified), (iv) breach of any representation or warranty, and (v) the acts or omissions of Kubient or its subcontractors. IP infringement is reached only derivatively - through limb (iv) read together with the non-infringement warranty at p0033 (\"the Service and any deliverables provided hereunder by Kubient do not and shall not infringe, misappropriate or violate any patent, copyright, trademark, trade secret, publicity, privacy or other rights of any third party\"), and through the broad \"arising out of or in connection with the Services\" language. That derivative route is materially weaker than the preferred position's express IP limb: on limb (iv) the defence obligation is keyed to a breach of warranty, so Kubient can argue AP must first establish breach before defence is owed, whereas an express infringement limb triggers on the mere allegation. Given this is the critical IP indemnity, we take the smallest edit that reaches the preferred position: inserting limb (vi) covering any allegation or claim that the Services, Auction Platform or deliverables infringe, misappropriate or violate third-party IP rights. The redline is clarifying rather than expansionary, since the same exposure already sits with Kubient via p0033 and limb (iv), which is how we would defend the change in negotiation.\n\nThe rest of the rule is satisfied and is not redlined. Kubient \"agrees to indemnify, defend, and hold harmless Customer and its officers, directors, managers, members, agents, and employees\" from all third-party Claims including reasonable attorneys' fees (p0047). Breach of law is covered via limb (iv) plus the compliance-with-Law warranty (p0041); Vendor-caused data incidents, gross negligence and wilful misconduct are covered by limb (v). Standard procedure is present at p0053-p0055 (prompt notice with no forfeiture for delay, indemnitor control of defence and settlement subject to consent for liability-admitting settlements, cooperation at the indemnitor's cost). p0027 carves indemnification out of the consequential-damages exclusion and no cap is applied, so the fallback's 3x annual fees super-cap is unnecessary and we do not seek it. Direction is correct on our side: AP's indemnity (p0052) is keyed to its own Content and Properties, its own unauthorised use, breach and acts or omissions, and does not indemnify Kubient for Kubient's Services, so no walk-away scenario arises and no narrowing of AP's indemnity is required.\n\nTwo minor sub-elements remain noted rather than flagged: the \"to the best of its knowledge\" qualifier on the Creative limb (p0050), and AP's indemnity extending slightly beyond Customer-provided content and breach of law to unauthorised use and breach of any representation or warranty.",
-    "ruleId": "INDEMN",
-    "ruleTitle": "Indemnification by Vendor",
-    "sectionId": "sec-preamble",
-    "sectionRef": "§ Preamble",
-    "severity": "low",
-    "status": "needs_review",
-    "verification": {
-      "attempts": 3,
-      "checks": [
-        {
-          "name": "operation 1 applies",
-          "ok": true
-        },
-        {
-          "name": "vendor indemnity for IP infringement present",
           "ok": false
         }
       ],
-      "notes": "Over-flagging: the existing Section 10(a) is a genuine Vendor-side indemnity covering 'all third-party allegations, claims, actions ... arising out of or in connection with (i) the Services; (ii) the Auction Platform', which on its face captures a third-party allegation that the Services or Platform infringe IP. Combined with the express non-infringement warranty at p0033 and the warranty-breach limb (iv), the clause does not 'exclude IP infringement' — the trigger under the guidance for a deviation. On the playbook's classification semantics the clause meets (indeed exceeds) the fallback (Vendor IP indemnity, no cap needed because indemnification is carved out of the damages exclusion and uncapped) and materially the preferred position: the finding's own rationale confirms defence obligation, breach-of-law, data-incident, gross negligence/wilful misconduct coverage, standard procedure (p0053-p0055), and a suitably narrow Customer indemnity. The absence of an express standalone IP limb is a wording/mechanic refinement to be noted in the rationale, not redlined. The redline is not actionable as rendered: the new text is appended after the full stop ending limb (v) with no '(vi)' label and no connecting 'or', leaving a dangling sentence fragment inside the enumerated list rather than the clean limb (vi) described in the rationale. Correct disposition would be a 'compliant' finding noting that IP infringement is reached through the broad 'arising out of or in connection with the Services' limb plus the p0033 warranty, with the knowledge qualifier on the Creative limb flagged as a minor sub-element.",
-      "verdict": "fail"
+      "notes": "Claimed status is compliant and the redline is identical to the original text with no comment, which is the expected output for a compliant finding — no over-flagging or unnecessary edit. The cited text supports compliance: Section 9(b) contains genuine express warranties covering performance to industry standards (9(b)(ii)), freedom from errors materially affecting utility (9(b)(vi)), no viruses/malicious code (9(b)(iv)) and ongoing compliance with Laws (9(b)(ix)) — matching the preferred position's substantive scope. Duration is at least as good as preferred: the warranties are continuing reps/warranties/covenants for the whole Term rather than expiring after 12 months/90 days. The failed deterministic period check is a false negative caused by the absence of a fixed numeric period, which here favors the Customer. The Section 13 disclaimer does not swallow the express warranty — it is bracketed by 'Except as expressly set forth herein' and 'except for the representations and warranties set forth in this Agreement' — so walk-away 'AS IS' territory is correctly ruled out. The only absent preferred element is a stated repair/replace/refund remedy sentence; the rationale correctly treats this as a minor sub-element noted rather than flagged, and reasonably observes that general contract remedies plus the cure/termination right and warranty-breach indemnity preserve broader relief than a vendor-elected exclusive remedy would.",
+      "verdict": "pass"
     }
   },
   {

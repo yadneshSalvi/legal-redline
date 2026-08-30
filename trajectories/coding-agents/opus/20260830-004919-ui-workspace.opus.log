@@ -1,0 +1,61 @@
+
+--- text ---
+I'll start by reading the reviewer's report and the files the lead changed.
+[tool] Bash {'command': 'cat plans/harness/reports/20260830-002722-review-ui.md', 'description': 'Read the adversarial UI review report'} 
+[tool] Bash {'command': 'cat src/ui/lib/redline.ts', 'description': "Read the lead's updated redline.ts"} 
+[tool] Bash {'command': "sed -n '1,80p' src/engine/diff.ts 2>/dev/null || ls src/engine/", 'description': 'Read engine diff module'} 
+[tool] Bash {'command': 'grep -n "costUsd\\|durationMs\\|perRule\\|sectionRef" src/agent/types.ts', 'description': 'Check new Finding/RunStats fields'} 
+[tool] Bash {'command': 'sed -n \'46,80p;120,145p\' src/agent/types.ts; echo "=== stream route (data/id lines) ==="; grep -n "data:\\|id:\\|seq" "app/api/runs/[id]/stream/route.ts" | head -20', 'description': 'Read Finding new field 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ngit log --oneline -8\necho "=== ui files changed since my build (mtime) ==="\nfind src/ui app/page.tsx app/layout.tsx app/globals.css src/tokens.ts -newe 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\necho "=== tests/ui/redline.test.ts ==="; cat tests/ui/redline.test.ts\necho "=== FindingCard diff vs mine (cost/time + trajectory) ==="; git diff --stat  
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ngit show bd473d0 --stat; git show bd473d0 -- STYLE.md | head -30', 'description': "Check the lead's STYLE.md label amendment"} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; sed -n \'40,80p\' src/ui/data/useRun.ts; echo "=== store applyEvent ==="; sed -n \'130,185p\' src/ui/state/reviewStore.ts', 'description': 'Read useRun s 
+
+--- text ---
+Now let me implement fixes 1, 2, 4, 5, 9, 12 and the store-level seq dedupe.
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\n\n# ---------------------------------------------------------------- fix 1: seq from payload + dedupe\np = pathlib.Pa 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/state/reviewStore.ts")\ns = p.read_text()\ns = s.replace("""      if (typeof event.seq === " 
+
+--- text ---
+Now fixes 2, 4, 5, 9, 12:
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\n\n# ------------------------------------------------- fix 2 + 5 + 12(b): FindingCard\np = pathlib.Path("src/ui/Findin 
+[tool] Bash {'command': "cd ~/code/hackathons/legal-redline; sed -n '78,135p' src/ui/FindingCard.tsx", 'description': 'Read FindingCard card markup'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\n\np = pathlib.Path("src/ui/FindingCard.tsx")\ns = p.read_text()\n\nold = """  if (decidedQuietly) {\n    return (\n   
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ncat > /tmp/rl-heading.ts <<\'EOF\'\nimport type { Finding } from "@/src/agent/types";\nimport type { DocumentModel, Paragraph, Section } from "@/src/engi 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ncat > /tmp/rl-outline.tsx <<\'EOF\'\n"use client";\n\nimport type { Finding, Severity } from "@/src/agent/types";\nimport type { DocumentModel } from "@/ 
+
+--- text ---
+Now fix 10 (paper metrics + tokens) and fix 6 (not-found page):
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\n\n# ---------------------------------------------------------------- fix 10: paper metrics\np = pathlib.Path("app/glo 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ncat > /tmp/rl-notfound.tsx <<\'EOF\'\nimport Link from "next/link";\nimport { EmptyState } from "@/src/ui/EmptyState";\n\nexport default function NotFoun 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ncat > /tmp/rl-board.ts <<\'EOF\'\n"use client";\n\nimport { useMemo } from "react";\nimport type { AgentName, ReviewRun } from "@/src/agent/types";\nimpo 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\n\n# ---------------------------------------------------------------- ProgressBoard: resumed + counts\np = pathlib.Pat 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\n\n# FindingsPane no longer reads `stages` directly\np = pathlib.Path("src/ui/workspace/FindingsPane.tsx")\ns = p.read 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/FindingCard.tsx")\ns = p.read_text()\ns = s.replace("""  decided: DecidedFinding;\n  /** Set 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\n\n# ------------------------------------------------- fix 11: the insertion renumbers the clause below it\np = pathli 
+
+--- text ---
+Now the fixture vitest (fix 11b):
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ncat > /tmp/rl-fixtures.test.ts <<\'EOF\'\nimport { describe, expect, it } from "vitest";\n\nimport type { Severity } from "@/src/agent/types";\nimport {  
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/RunsTable.tsx")\ns = p.read_text()\n\ns = s.replace("""const dateFormat = new Intl.DateTimeF 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npnpm typecheck 2>&1 | tail -6; pnpm lint 2>&1 | tail -12; pnpm exec vitest run tests/ui 2>&1 | tail -8', 'description': 'Gates after the code fixes'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/workspace/Workspace.tsx")\ns = p.read_text()\ns = s.replace("  const workers = useReviewStor 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\n(pnpm dev -p 3101 > /tmp/rl-dev2.log 2>&1 &) ; sleep 10; tail -8 /tmp/rl-dev2.log; for p in / /runs /review/sample /review/sample-running /nope; do print 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ncurl -s -o /dev/null -w "3201: %{http_code}\\n" http://localhost:3201/\ngrep -rn "You can access the existing server" node_modules/next/dist/ 2>/dev/null 
+
+--- text ---
+The dev-server lock (Next 16, hard `process.exit`) prevents a second instance in this checkout; the reviewer's server on **3201** serves this same working tree, so I'll verify against it with read-only requests.
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nfor p in / /runs /review/sample /review/sample-running /nope /evals; do printf "%s -> " "$p"; curl -s -o /dev/null -w "%{http_code}\\n" "http://localhost 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline2\nL=plans/harness/logs\nagent-browser set viewport 1440 900 >/dev/null 2>&1\nagent-browser open http://localhost:320 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-r2-notfound-1440.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline2\nagent-browser open http://localhost:3201/review/sample >/dev/null 2>&1; agent-browser wait --load networkidle >/de 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/workspace/Workspace.tsx")\ns = p.read_text()\ns = s.replace("""  const selectedId = useRevie 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; grep -n "lastSelected" -A 14 src/ui/workspace/Workspace.tsx | head -24; echo "=== selectedId decl ==="; grep -n "selectedId = useReviewStore\\|decisions  
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/workspace/Workspace.tsx")\ns = p.read_text()\ns = s.replace("  const selectedId = useReviewS 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ncat > /tmp/rl-stream.test.ts <<\'EOF\'\nimport { describe, expect, it } from "vitest";\n\nimport type { ProgressEvent, ReviewRun } from "@/src/agent/type 
+[tool] Bash {'command': 'agent-browser --help 2>&1 | grep -i -A3 "init"; echo "---"; agent-browser open --help 2>&1 | grep -i "init" | head -5', 'description': 'Check agent-browser init-script support'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ncat > /tmp/rl-resume-stub.js <<\'EOF\'\n// Verification harness only: presents a finished backend run as still `running`, with no stage or\n// worker fra 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-r2-reattach-1440.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline2\nagent-browser open http://localhost:3201/review/vk4mZ70eggRXtb >/dev/null 2>&1; agent-browser wait --load networki 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ngrep -n "SIGNIFICANT_RETAINED\\|retained /\\|0.3\\|wordDiffSegments\\|groupDenseChanges" src/ui/lib/redline.ts || echo "no UI-only coarsening left in red 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline2\nsleep 4\n# fix 3 evidence: UI preview must equal the engine\'s own grouping for a fixture op\ncat > /tmp/rl-diffch 

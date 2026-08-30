@@ -1,0 +1,227 @@
+
+--- text ---
+I'll start by reading the contracts and the builder's report, then get the browser skill loaded.
+[tool] Bash {'command': 'cat STYLE.md', 'description': 'Read STYLE.md contract'} 
+[tool] Bash {'command': 'cat plans/harness/reports/20260829-231420-ui-workspace.md 2>/dev/null || ls plans/harness/reports/', 'description': 'Read builder report'} 
+[tool] Skill {'skill': 'agent-browser'} 
+[tool] Bash {'command': 'sed -n \'1,80p\' SCHEMA.md && echo "=== TOC ===" && grep -n \'^#\' SCHEMA.md', 'description': 'Read SCHEMA.md head and TOC'} 
+[tool] Bash {'command': 'agent-browser skills get core --full 2>&1 | head -400', 'description': 'Load agent-browser core skill'} 
+[tool] Bash {'command': "sed -n '95,180p' SCHEMA.md", 'description': 'Read SCHEMA.md sections 6-7'} 
+[tool] Bash {'command': '(pnpm dev -p 3201 > /tmp/dev3201.log 2>&1 &) ; sleep 1; echo started', 'description': 'Start dev server on 3201', 'run_in_background': True} 
+[tool] Bash {'command': 'cat src/tokens.ts', 'description': 'Read tokens.ts'} 
+[tool] Bash {'command': 'pnpm typecheck 2>&1 | tail -20; echo "=== LINT ==="; pnpm lint 2>&1 | tail -30', 'description': 'Run typecheck and lint', 'timeout': 300000} 
+[tool] Bash {'command': 'echo "=== HEX in scope ===" && grep -rnE \'#[0-9A-Fa-f]{3,8}\\b\' src/ui app/page.tsx app/layout.tsx app/review app/runs src/tokens.ts app/globals.css 2>/dev/null | grep -vE \'#p[0-9]\' | head -60', 'descrip 
+[tool] Bash {'command': 'sleep 6; cat /tmp/dev3201.log; echo "---"; curl -s -o /dev/null -w "%{http_code}\\n" http://localhost:3201/ ', 'description': 'Check dev server log and reachability'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; echo "=== default tailwind palette classes ==="; grep -rnE \'\\b(text|bg|border|ring|fill|stroke|from|to|via|outline|decoration|shadow|accent|caret|divid 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; echo "=== >400 lines in scope ==="; find src/ui app/page.tsx app/layout.tsx app/review app/runs app/globals.css src/tokens.ts -type f | xargs wc -l | sor 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat app/globals.css', 'description': 'Read globals.css'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; for f in src/ui/data/useRun.ts src/ui/lib/api.ts; do echo "=== $f ==="; cat -n "$f"; done', 'description': 'Read useRun and api'} 
+[tool] Bash {'command': "cd ~/code/hackathons/legal-redline; sed -n '1,200p' src/agent/types.ts | cat -n", 'description': 'Read agent types head'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; sed -n \'200,300p\' src/agent/types.ts | cat -n; echo "=== routes ==="; find app -maxdepth 3 -name \'page.tsx\' -o -maxdepth 3 -name \'route.ts\' | sort' 
+[tool] Bash {'command': "cd ~/code/hackathons/legal-redline; find app -name 'page.tsx' -o -name 'route.ts' -o -name 'not-found.tsx' -o -name 'error.tsx' | sort", 'description': 'List all app routes'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat -n src/ui/TopBar.tsx', 'description': 'Read TopBar'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; export AGENT_BROWSER_SESSION=rev3201; agent-browser --session rev3201 viewport 1440 900 2>&1 | tail -2; agent-browser --session rev3201 open http://local 
+[tool] Bash {'command': 'agent-browser --help 2>&1 | head -80', 'description': 'List agent-browser commands'} 
+[tool] Bash {'command': "cd ~/code/hackathons/legal-redline; mkdir -p /tmp/rev-shots; agent-browser --session rev3201 set viewport 1440 900 2>&1 | tail -2; agent-browser --session rev3201 reload 2>&1|tail -1; sleep 
+[tool] Read {'file_path': '/tmp/rev-shots/landing-1440.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat > /tmp/contrast.js <<\'EOF\'\nfunction parse(c){const m=c.match(/rgba?\\(([\\d.]+),\\s*([\\d.]+),\\s*([\\d.]+)(?:,\\s*([\\d.]+))?\\)/);if(!m)return n 
+[tool] Read {'file_path': '/tmp/rev-shots/landing-1440-full.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 open http://localhost:3201/review/sample 2>&1|tail -2; sleep 3; agent-browser --session rev3201 screenshot /tmp/rev-shots 
+[tool] Read {'file_path': '/tmp/rev-shots/review-1440.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' | agent-browser --session rev3201 eval --stdin\nconst sheet=document.querySelector(\'.paper-sheet\');\nconst cs=sheet?getComputedStyle(shee 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 eval -b "$(base64 < /tmp/contrast.js | tr -d \'\\n\')" 2>&1 | python3 -c "import sys,json; d=sys.stdin.read().strip(); d= 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 eval -b "$(base64 < /tmp/contrast.js | tr -d \'\\n\')" 2>&1 | tail -5', 'description': 'Raw contrast output on workspace' 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; sed -i \'\' \'1i\\\n(()=>{\n\' /tmp/contrast.js; echo \'})()\' >> /tmp/contrast.js; tail -3 /tmp/contrast.js; agent-browser --session rev3201 eval -b "$( 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; sed -i \'\' \'s/^JSON.stringify(out.slice(0,40),null,1);/return JSON.stringify(out.slice(0,60));/\' /tmp/contrast.js; agent-browser --session rev3201 eva 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 snapshot -i -c 2>&1 | head -90', 'description': 'Snapshot interactive elements on workspace'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; sed -n \'1,60p\' src/ui/fixtures/sample-document.ts | cat -n; echo "=== 8.2 dupes ==="; grep -n \'8\\.[123]\' src/ui/fixtures/sample-document.ts', 'descr 
+[tool] Bash {'command': "cd ~/code/hackathons/legal-redline; grep -n 'insert_after' -A 6 src/ui/fixtures/sample-findings.ts | head -40", 'description': 'Find insert_after op in fixture'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' | agent-browser --session rev3201 eval --stdin\ndocument.body.focus(); return document.activeElement.tagName;\nEOF\nagent-browser --session 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/state.js\n(()=>{\nconst arts=Array.from(document.querySelectorAll(\'article\'));\nreturn JSON.stringify({\n active: document.activeE 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/sel.js\n(()=>{\nconst cards=Array.from(document.querySelectorAll(\'article\')).filter(a=>a.querySelector(\'h3\'));\nconst i=cards.fi 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; S=$(base64 < /tmp/sel.js|tr -d \'\\n\'); C=$(cat <<\'EOF\' | base64 | tr -d \'\\n\'\n(()=>{const m=document.body.innerText.match(/open\\s+(\\d+)\\s+accep 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/sel2.js\n(()=>{const arts=Array.from(document.querySelectorAll(\'article\')).slice(1);\nreturn JSON.stringify(arts.map((a,i)=>({i,h3 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 press j >/dev/null 2>&1; sleep 0.3; agent-browser --session rev3201 press a >/dev/null 2>&1; sleep 0.6; agent-browser --s 
+[tool] Read {'file_path': '/tmp/rev-shots/decisions-1440.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/rules.js\n(()=>{const out=[];\ndocument.querySelectorAll(\'p[id^=p00], div[id^=p00]\').forEach(p=>{\n const row=p.closest(\'.paper-r 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 press j >/dev/null 2>&1; sleep 0.3; agent-browser --session rev3201 press e >/dev/null 2>&1; sleep 0.8; agent-browser --s 
+[tool] Read {'file_path': '/tmp/rev-shots/edit-dialog.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/act.js\n(()=>{const a=document.activeElement;const d=document.querySelector(\'[role=dialog]\');\nreturn JSON.stringify({tag:a.tagNam 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/dlg.js\n(()=>{const d=document.querySelector(\'[role=dialog]\');\nreturn JSON.stringify({attrs: d?Array.from(d.attributes).map(a=>a. 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; grep -rn \'labelledBy\' src/ui | head; echo "=== Dialog usages ==="; grep -rln \'<Dialog\' src/ui | head', 'description': 'Find labelledBy usages'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 press Escape >/dev/null 2>&1; sleep 0.5; agent-browser --session rev3201 eval -b "$(base64 < /tmp/act.js|tr -d \'\\n\')"  
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 press \'?\' >/dev/null 2>&1; sleep 0.7; agent-browser --session rev3201 screenshot /tmp/rev-shots/shortcuts.png 2>&1|tail 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 press Escape >/dev/null 2>&1; sleep 0.4; agent-browser --session rev3201 eval "document.body.click(); 1" >/dev/null 2>&1; 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 find role button click --name "Memo" >/dev/null 2>&1; sleep 0.8; agent-browser --session rev3201 screenshot /tmp/rev-shot 
+[tool] Read {'file_path': '/tmp/rev-shots/memo.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/ov.js\n(()=>{const o=document.querySelector(\'.fixed.inset-0\');const cs=o?getComputedStyle(o):null;\nreturn JSON.stringify({found:! 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 press Escape >/dev/null 2>&1; sleep 0.4; agent-browser --session rev3201 find role button click --name "Export .docx" >/d 
+[tool] Read {'file_path': '/tmp/rev-shots/export.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; python3 -c "\nfrom PIL import Image\nim=Image.open(\'/tmp/rev-shots/export.png\').convert(\'RGB\'); print(\'export topbar\', im.getpixel((300,20)))"; age 
+[tool] Read {'file_path': '/tmp/rev-shots/export-unavailable.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 press Escape >/dev/null 2>&1; agent-browser --session rev3201 open http://localhost:3201/review/sample-running >/dev/null 
+[tool] Read {'file_path': '/tmp/rev-shots/running-t1.png'} 
+[tool] Read {'file_path': '/tmp/rev-shots/running-t5.png'} 
+[tool] Read {'file_path': '/tmp/rev-shots/running-t11.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat -n src/ui/lib/redline.ts', 'description': 'Read redline.ts'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat -n src/ui/state/reviewStore.ts', 'description': 'Read reviewStore'} 
+[tool] Bash {'command': "cd ~/code/hackathons/legal-redline; grep -n 'id:\\|after\\|retry\\|event:\\|data:' app/api/runs/\\[id\\]/stream/route.ts | head -30", 'description': 'Check SSE route id emission'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; sed -n \'20,45p\' app/api/runs/\\[id\\]/stream/route.ts | cat -n; echo "=== grep for \'id: \' sse ==="; grep -n \'encode(\' app/api/runs/\\[id\\]/stream/ 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; curl -s http://localhost:3201/api/runs | python3 -c "import sys,json;d=json.load(sys.stdin);print(len(d),\'runs\');[print(r[\'id\'],r[\'status\'],len(r[\ 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; timeout 6 curl -sN "http://localhost:3201/api/runs/bGTeubgQvDK-tB/stream?after=0" | head -c 600 | cat -A | head -20', 'description': 'Inspect raw SSE fra 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; curl -sN --max-time 6 "http://localhost:3201/api/runs/bGTeubgQvDK-tB/stream?after=0" 2>/dev/null | head -c 400 | od -c | head -12', 'description': 'Inspe 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; curl -sN --max-time 8 "http://localhost:3201/api/runs/vk4mZ70eggRXtb/stream?after=0" 2>/dev/null | head -c 500 | sed -n \'1,12p\'; echo "[EXIT $?]"', 'de 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 open "http://localhost:3201/review/vk4mZ70eggRXtb" >/dev/null 2>&1; sleep 5; agent-browser --session rev3201 screenshot / 
+[tool] Read {'file_path': '/tmp/rev-shots/real-run.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/board.js\n(()=>{const t=document.body.innerText;\nconst m=t.match(/WORKING[\\s\\S]{0,400}/);\nreturn JSON.stringify({board:m?m[0].re 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 open http://localhost:3201/review/sample >/dev/null 2>&1; sleep 2\nfor wh in "1280 800" "1920 1080" "1024 900"; do set -- 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 set viewport 1280 800 2>&1|tail -2; sleep 1; agent-browser --session rev3201 eval "window.innerWidth+\'x\'+window.innerHe 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat > /tmp/vp.js <<\'EOF\'\n(()=>{const d=document.documentElement;const panes=Array.from(document.querySelectorAll(\'.pane\')).map(p=>Math.round(p.getBo 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; grep -n \'max-w\\|w-\\[\' src/ui/Paper.tsx | head -20; echo "=== Paper.tsx head ==="; sed -n \'1,60p\' src/ui/Paper.tsx | cat -n | sed -n \'25,60p\'', 'd 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; echo "=== tokens.ts imports ==="; grep -rn "from \\"@/src/tokens\\"\\|from \\"../../tokens\\"\\|tokens\'" src/ui app --include=*.ts --include=*.tsx | hea 
+[tool] Grep {'pattern': 'from ["\'].*tokens["\']', 'output_mode': 'content', '-n': True} 
+[tool] Read {'file_path': '/tmp/rev-shots/review-1280x800.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 set viewport 1440 900 >/dev/null 2>&1; agent-browser --session rev3201 set media light reduced-motion 2>&1|tail -1; sleep 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 set media light 2>&1|tail -1; agent-browser --session rev3201 open http://localhost:3201/runs >/dev/null 2>&1; sleep 3; a 
+[tool] Read {'file_path': '/tmp/rev-shots/runs.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; grep -n \'aria-label\\|sr-only\\|title=\' src/ui/RunsTable.tsx | head -20; echo "=== severity dot markup ==="; grep -n -B3 -A8 \'bySeverity\\|severityCol 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; echo "=== emoji scan ==="; grep -rnP \'[\\x{1F300}-\\x{1FAFF}\\x{2600}-\\x{27BF}\\x{2190}-\\x{21FF}\\x{2B00}-\\x{2BFF}]\' src/ui app/*.tsx app/review app 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 open http://localhost:3201/review/sample >/dev/null 2>&1; sleep 2.5; cat <<\'EOF\' > /tmp/tab.js\n(()=>{const a=document. 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 find role button click --name "Accept all verified" >/dev/null 2>&1; sleep 0.8; agent-browser --session rev3201 screensho 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 --session rev3201 open http://localhost:3201/review/does-not-exist >/dev/null 2>&1; sleep 2.5; agent-browser --session re 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 open http://localhost:3201/evals >/dev/null 2>&1; sleep 2; agent-browser --session rev3201 screenshot /tmp/rev-shots/eval 
+[tool] Read {'file_path': '/tmp/rev-shots/evals-404.png'} 
+[tool] Bash {'command': "cd ~/code/hackathons/legal-redline; wc -l src/ui/FindingCard.tsx; sed -n '1,80p' src/ui/FindingCard.tsx | cat -n", 'description': 'Read FindingCard head'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; sed -n \'80,263p\' src/ui/FindingCard.tsx | cat -n | sed \'s/^ *\\([0-9]*\\)/\\1/\' | awk -F\'\\t\' \'{printf "%d\\t%s\\n", $1+79, substr($0, index($0,"\ 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; agent-browser --session rev3201 press Escape >/dev/null 2>&1; sleep 0.5; agent-browser --session rev3201 open http://localhost:3201/review/sample >/dev/n 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/css.js\n(()=>{let found=[];for(const s of document.styleSheets){try{for(const r of s.cssRules){const t=r.cssText||\'\';if(/opacity-6 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/css2.js\n(()=>{let out=[];for(const s of document.styleSheets){try{for(const r of s.cssRules){const t=r.cssText||\'\';const m=t.matc 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; grep -rn \'rl-fade\\|rl-enter\\|rl-rise\' src/ui app --include=\'*.tsx\' | head -20; echo "=== opacity utilities in ui ==="; grep -rn \'opacity-\' src/ui 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat -n app/review/\\[runId\\]/page.tsx; echo "=== FindingsPane keyboard ==="; grep -n -A 40 \'onKeyDown\\|useEffect\' src/ui/workspace/FindingsPane.tsx | 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; wc -l src/ui/workspace/*.tsx; echo "=== keyboard handler location ==="; grep -rn "key === \\"j\\"\\|\'j\'\\|\\"j\\"" src/ui | head -10', 'description': ' 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; sed -n \'40,140p\' src/ui/workspace/Workspace.tsx | cat -n | awk \'{printf "%d\\t", $1+39; $1=""; print}\'', 'description': 'Read Workspace keyboard + la 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/pill.js\n(()=>{const pills=Array.from(document.querySelectorAll(\'.paper-sheet span\')).filter(s=>/^\\d+$/.test(s.textContent.trim() 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat <<\'EOF\' > /tmp/pill2.js\n(()=>{const all=Array.from(document.querySelectorAll(\'.paper-sheet *\')).filter(s=>/^\\d{1,2}$/.test((s.textContent||\'\' 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; sed -n \'199,263p\' src/ui/FindingCard.tsx | cat -n | awk \'{printf "%d\\t", $1+198; $1=""; print}\'', 'description': 'Read FindingCard footer'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\ndef lum(h):\n    h=h.lstrip(\'#\'); r,g,b=[int(h[i:i+2],16)/255 for i in (0,2,4)]\n    f=lambda v: v/12.92 if v<=0.03928 else ((v+0.055)/1.055)**2.4\n    return 0.2126*f(r)+0.7152*f(g)+0. 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat -n src/ui/VerifierBadge.tsx; cat <<\'EOF\' > /tmp/badge.js\n(()=>{const els=Array.from(document.querySelectorAll(\'span,div\')).filter(e=>/^(verified 
+[tool] Bash {'command': 'python3 - <<\'PY\'\ndef lum(rgb):\n    f=lambda v: (v/255)/12.92 if (v/255)<=0.03928 else (((v/255)+0.055)/1.055)**2.4\n    r,g,b=rgb; return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b)\ndef hx(h):\n    h=h.lstrip(\ 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; grep -rn \'72\' src/ui/Paragraph.tsx src/ui/Outline.tsx src/ui/Paper.tsx 2>/dev/null; echo "=== Outline sections source ==="; sed -n \'1,50p\' src/ui/Out 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; ls plans/harness/logs/ | head -5; for f in /tmp/rev-shots/*.png; do b=$(basename "$f"); cp "$f" "plans/harness/logs/review-r1-$b.tmp" && mv "plans/harnes 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; echo "=== decisions route body parse ==="; sed -n \'1,40p\' app/api/runs/\\[id\\]/decisions/route.ts | grep -n \'decisions\\|json\\|body\' ; echo "=== ra 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; cat > /tmp/diffcheck.mts <<\'EOF\'\nimport { diffWords } from "diff";\nimport { sampleFindings } from "~/code/hackathons/legal-redline/ 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; mkdir -p .review-tmp && cp /tmp/diffcheck.mts .review-tmp/diffcheck.mts && sed -i \'\' \'s#"~/code/hackathons/legal-redline/src/ui/fixt 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline; rm -rf .review-tmp; git status --porcelain | grep -v \'^ M \\|^?? plans/\\|^?? src/agent/replay.ts\\|^?? tests/\' | head; echo "--- tracked changes by me 
+
+--- text ---
+```json
+{
+  "verdict": "revise",
+  "required_fixes": [
+    {
+      "where": "src/ui/data/useRun.ts:53-54",
+      "what": "The SSE `?after=<seq>` reconnect never advances: `lastSeq` is read from `message.lastEventId`, but the server never emits an `id:` line. Verified on the wire: `curl -sN http://localhost:3201/api/runs/vk4mZ70eggRXtb/stream?after=0` returns only `data: {\"seq\":1,\"type\":\"status\",...}` frames (app/api/runs/[id]/stream/route.ts:32 writes `data:` only). `Number(\"\")` is 0, so `Number.isFinite(seq) && seq > 0` is always false and every reconnect requests `?after=0`.",
+      "why": "SCHEMA §6 says a reload/re-attach resumes with `?after=<seq>`; today every backoff reconnect replays the entire buffered event log. `logs` (reviewStore.ts:175) appends without dedupe so the log strip duplicates, and `stats`/`stage` are re-applied. Brief item 5 fails.",
+      "how": "Take `seq` from the parsed payload instead of the event id: `const data = JSON.parse(message.data) as ProgressEvent & { seq?: number }; if (typeof data.seq === \"number\" && data.seq > lastSeq) lastSeq = data.seq;` then `apply(data)`. (Alternatively have the route emit `id: ${seq}` and record `seq` in SCHEMA §6 — but fix one side, not neither.)"
+    },
+    {
+      "where": "src/ui/FindingCard.tsx:85-87 + app/globals.css:196-198",
+      "what": "Rejected cards do not fade. `opacity-60` is applied (class present, `.opacity-60 { opacity: 0.6 }` is in the compiled sheet) but `getComputedStyle(card).opacity` measures **1**: the same element carries `rl-fade`, whose keyframes end at `opacity: 1` with `animation-fill-mode: both`, and a filled animation permanently outranks the declarative utility. Measured on /review/sample after pressing R: `cls: \"rl-fade … border-navy opacity-60\", opacity: \"1\"`.",
+      "why": "STYLE §4 requires rejected cards to \"fade to 60 % with strike on the title\". Only the strike lands. This is the same class of silent-override bug the builder already hit once with unlayered CSS, and it will bite any future `rl-*` + opacity pairing.",
+      "how": "Don't animate `opacity` on the element that also sets it: change the keyframe to `animation-fill-mode: backwards`/drop `both` for `.rl-fade`, or wrap the card content and put `opacity-60` on the wrapper, or express the rejected fade as an explicit `@layer components` rule (`article[data-rejected] { opacity: .6 }`) that outranks the animation via a matching `animation: none`."
+    },
+    {
+      "where": "src/ui/lib/redline.ts:93-98",
+      "what": "The `< 30 % retained` fallback collapses a replace into one strike + one insert even when a word diff is plainly available. Reproduced against the fixture ops with the real `diffWords`: `T4C p0022` collapses at ratio 0.26 while sharing four ≥6-char runs (\"may terminate this Agreement\", \"for convenience at any time on\", \") days' written notice to\", \"Customer.\"); `IP p0026` collapses at 0.13 while sharing \"shall be\" and \"the Deliverables\". Both are visible as whole-clause strikes in plans/harness/logs/review-r1-decisions-1440.png (§4.3) and review-r1-review-1440.png (first card).",
+      "why": "STYLE §2 is unconditional: \"never show a whole-paragraph replace as one strike + one insert when a word diff is possible.\" Worse, the engine writes fine-grained `w:ins`/`w:del` from unmodified `diffWords` (SCHEMA §2), so the preview a lawyer approves is not the redline Word receives — a substantive trust problem, not a taste one.",
+      "how": "Drop the ratio fallback, or gate it on `equalRuns >= 6ch === 0` (the `LOL-CAP p0040` case at ratio 0.01 legitimately has none). Also reconsider `SIGNIFICANT_RETAINED = 6`, which strikes-and-reinserts genuinely unchanged short words the docx will leave alone."
+    },
+    {
+      "where": "src/ui/Dialog.tsx:36",
+      "what": "`aria-labelledby={labelledBy}` is spread onto `RadixDialog.Content` and `labelledBy` is never passed by any of the four call sites (EditDialog, ExportDialog, FindingsPane accept-all, ShortcutsDialog — `grep -rn labelledBy src/ui` only matches Dialog.tsx itself). Passing `undefined` overrides Radix's default `aria-labelledby={titleId}`, so the rendered node has no name: attribute dump of the open edit dialog is `role=dialog, id=radix-_r_b_, aria-describedby=radix-_r_d_, data-state=open, tabindex=-1` — no `aria-labelledby`.",
+      "why": "Every modal in the product is announced as an unnamed dialog (WCAG 4.1.2). Drawer, which does not pass the prop, is correctly labelled — proving the regression is caused by the prop, not by Radix.",
+      "how": "Only set the attribute when provided: `{...(labelledBy ? { \"aria-labelledby\": labelledBy } : {})}`. Since no caller uses it, deleting the prop entirely is cleaner and removes dead code."
+    },
+    {
+      "where": "src/ui/FindingCard.tsx:86 and :131",
+      "what": "Card selection is conveyed only by `border-navy` vs `border-hairline`. There is no `aria-selected`/`aria-current`, no focus move, and no non-colour cue; J/K change the border while `document.activeElement` stays `BODY` (measured across four J/K presses).",
+      "why": "The selected finding is what A/R/E act on, so its state is functional, not decorative. Colour-only state (WCAG 1.4.1) that is invisible to assistive tech (4.1.2) means a screen-reader user cannot tell which finding a keystroke will decide.",
+      "how": "Add `aria-current=\"true\"` (or `aria-selected` with a `listbox`/`option` pairing on the pane) to the selected article, plus a non-colour cue — e.g. the existing 2 px left rule idiom from the paper. A roving `tabindex` on the cards would also make the selection follow focus."
+    },
+    {
+      "where": "src/ui/TopBar.tsx:19-20 and src/ui/lib/api.ts:71-74",
+      "what": "Two of four nav items and the `trajectory ↗` link on every finding card are dead. `curl -o /dev/null -w '%{http_code}'` gives 404 for `/evals`, `/precedents` and `/trajectories/sample`; the result is the stock unbranded Next.js \"404 This page could not be found.\" on a white (not `paper`) canvas inside our chrome — plans/harness/logs/review-r1-evals-404.png.",
+      "why": "A judge clicking the nav in the demo lands on an unstyled error page. STYLE §3 requires designed error states, and the workspace already ships an excellent one for a missing run — the shell should not fall through to Next's default.",
+      "how": "Either land the pages, or mark the two nav items as pending (non-link, `ink-faint`, `aria-disabled`) and point `trajectoryHref` at the existing `/api/runs/[id]/trajectory` (or hide the link when no viewer exists). Add an `app/not-found.tsx` on `paper` with the same card treatment as the run-not-found state."
+    },
+    {
+      "where": "src/ui/Outline.tsx:27 vs src/ui/Paragraph.tsx:32",
+      "what": "On real backend data the outline lists mis-detected headings as sections: entries read `1.1 \"Affiliate\" means, with respect to a Party, any enti…`, `1.2 \"Applicable Law\" means every statute, regulation,…`, `2.1 Customer commits to purchase at least USD…` — plans/harness/logs/review-r1-real-run.png. `Paragraph.tsx:32` already suppresses heading treatment above 72 characters, so the *same paragraph* renders as body text in the paper and as a section in the outline.",
+      "why": "STYLE §3 specifies the left pane as \"sections with severity dots + jump\"; a 20-entry list of clamped sentences is unusable for navigation and makes the product look broken on exactly the real CUAD documents the demo will show.",
+      "how": "Extract the predicate used in Paragraph.tsx:32 into one shared `isRenderedHeading(paragraph)` helper and filter `doc.sections` in Outline.tsx with it (a section whose heading paragraph is not rendered as a heading should be folded into its parent)."
+    },
+    {
+      "where": "src/ui/ProgressBoard.tsx + src/ui/workspace/DocBar.tsx",
+      "what": "Re-attaching to a live run shows a false board. On `/review/vk4mZ70eggRXtb` (status `running`, 8 findings already delivered, $3.16 spent) the board reads `Ingest — waiting · Planner — Map rules to document · Drafters — waiting · Verifier — waiting · Assembler — waiting` and the doc bar reads `0 of 18 rules · reviewing` beside `8 engaged`. Persists across a reload (measured twice). Cause: stage/worker state is derived only from live SSE `stage`/`worker` events, and the polling-fallback path emits only `finding`/`stats`/`status`.",
+      "why": "SCHEMA §6 promises \"a page reload during a run shows partial results and can re-attach to the stream\", and STYLE §3 makes the board the headline artefact of the agent pipeline. Telling the user ingest is waiting for a run that has 8 verified findings is worse than showing nothing.",
+      "how": "Seed the board from the persisted `ReviewRun` when stage events are absent: `findings.length > 0 || stats.llmCalls > 0` ⇒ ingest/planner done; derive `n of 18` from `run.stats.findings`/rule coverage rather than from the worker-chip array; fall back to a plain \"resumed — live stage detail unavailable\" line instead of \"waiting\"."
+    },
+    {
+      "where": "src/ui/lib/redline.ts:270-277",
+      "what": "`proposalPreview` inserts the `\\n` separator only when `op.paragraphId` changes, so two `insert_after` ops sharing one anchor run together. Live on the real run: the INDEMN card's Proposed redline reads `INDEMNIFICATIONVendor shall defend, indemnify, and hold harmless…` — plans/harness/logs/review-r1-real-run.png.",
+      "why": "The card preview is the only place the reviewer sees the proposal before approving it; a missing separator makes a heading-plus-clause insertion look like a typo in our own output.",
+      "how": "Emit the separator between consecutive ops whenever `previousParagraph !== null` and the previous op was an `insert_after` (or simply between every pair of ops), not only on paragraph change."
+    },
+    {
+      "where": "src/ui/Paper.tsx:26 + app/globals.css:176-186",
+      "what": "`max-w-[860px] px-8` caps the sheet at 796 px, and `--paper-gutter` drops to 40 px below 1440. Measured: 1280 → sheet 796 px / gutter 40 px (measure 716 px); 1920 → sheet 796 px / gutter 64 px; 1440 → sheet 716 px / gutter 64 px. `tokens.paper.columnWidth = 760` is never imported anywhere (`grep -rn 'from \".*tokens\"' src/ui` matches only Monogram.tsx).",
+      "why": "STYLE §3 labels the paper column 760 px and §1 fixes 64 px horizontal padding; at 1280–1439 and ≥1920 the sheet is 36 px over spec with a 24 px smaller gutter, giving a 716 px measure (~93 characters at 15.5 px) instead of the intended ~632 px. Long measure is exactly what the 760 px cap exists to prevent.",
+      "how": "Cap the sheet at 760 px (`max-w-[824px]` with `px-8`, or set the width from `paper.columnWidth`) and keep `--paper-gutter: 64px` at every width ≥1024. While there, either use the `src/tokens.ts` layout/paper/motion exports or delete them so there is one source of truth for these numbers."
+    },
+    {
+      "where": "src/ui/fixtures/sample-findings.ts:84",
+      "what": "The INDEMN proposal inserts a clause with `numbering: \"8.2\"` after `p0036` (\"8.1 Indemnity by Customer\"), but the document already has `p0037` = \"8.2 Procedure\". The accepted paper therefore renders two consecutive paragraphs numbered 8.2 — confirmed in the DOM (`p0036.1` \"8.2 Indemnity by Vendor\" immediately followed by `p0037` \"8.2 Procedure\") and visible in the a11y tree.",
+      "why": "This is the flagship demo document, and the builder's report claims it is \"internally consistent\". Duplicate clause numbering in a redline is the first thing a contracts lawyer notices, and it undercuts the numbering work already done in the engine (commit a78f398).",
+      "how": "Number the inserted clause 8.2 and renumber the existing Procedure clause to 8.3 in `sample-document.ts` (with the finding's ops updated), or number the insertion 8.3 and anchor it after `p0037`. Consider promoting the builder's throwaway anchor-verification script into a vitest that also asserts no duplicate `numbering` within a section."
+    },
+    {
+      "where": "src/ui/FindingCard.tsx:208, src/ui/VerifierBadge.tsx:35, app/page.tsx (CUAD attribution)",
+      "what": "Three sub-4.5:1 text values. (a) The precedent chip is `text-verified` with `hover:bg-verified-soft` → 4.21:1 on hover (computed). (b) The `×N` attempt count is `opacity-70` `deletion` over `deletion-soft` → 3.37:1 at 10 px. (c) The CUAD attribution paragraph is `text-ink-faint` on `paper` → 3.31:1 at 12 px (measured in-page: `{cr: 3.31, size: 12, color: rgb(138,137,148), bg: rgb(251,250,247)}`).",
+      "why": "(a) STYLE §2 states the rule verbatim: \"`verified` text sits on `sheet`, not on `verified.soft`\" — the hover state breaks the contract the builder wrote. (b) and (c) are data-bearing prose the builder's own pass promoted everywhere else; the attribution is also a CC-BY-4.0 obligation and should be legible.",
+      "how": "(a) Keep `bg-sheet` on hover and signal hover with `border-verified` only (already present). (b) Drop `opacity-70` and use `text-ink-muted` for the count. (c) Move the attribution paragraph to `ink-muted` (6.40:1 on paper). The workspace itself is otherwise clean — my full-page scan found 0 failures on /review/sample and /runs."
+    }
+  ],
+  "suggestions": [
+    "STYLE §1 says 12 px small-caps labels are `ink.faint`; `.label-caps` (app/globals.css:113) uses `ink.muted` because `ink.faint` is 3.31:1. The code is right and the contract is stale — amend STYLE §1 the way §2 was already amended for the amber pill, so the next reviewer does not flag it.",
+    "Progress chips use `bg-comment-soft` for the `verifying` state (ProgressBoard.tsx:20). Amber is the comment/high-severity token everywhere else in the product; a second `navy-soft` treatment (e.g. a ring instead of a wash) would keep the severity language unambiguous. STYLE §5 only specifies queued → running → done.",
+    "Paper paragraphs are `[onclick]` divs with no `tabindex`/`role` (visible throughout the a11y snapshot). The equivalent action is available from the findings pane, so it is not a keyboard blocker, but the paper's tabbable scroll container has no accessible name either — `role=\"document\"` + `aria-label` on the pane would tidy both.",
+    "The severity counts on /runs are four bare dots labelled only by `title=\"critical findings\"` (RunsTable.tsx:148). `title` on a non-interactive span is unreliable in AT and unreachable by keyboard — prefer an `sr-only` label plus a legend in the column header.",
+    "`/runs` prints raw backend error strings including an absolute home path (\"Replay cache miss: ~…\"). Not a secret, but truncate to the message or map known failures to short copy before the demo.",
+    "`✗` (U+2717) is used as a literal glyph for failed verifier checks (FindingCard.tsx:226). It reads fine, but STYLE §6 forbids emoji and standardises on lucide icons — an `X` component would be more consistent and avoids font-fallback risk.",
+    "Dead code: `src/tokens.ts` exports `severityColor`, `fonts`, `radius`, `shadow`, `space`, `paper`, `layout`, `motionMs` and nothing imports them (only `colors`, by Monogram.tsx). The CSS `@theme` block duplicates the values, which is how the 760 vs 796 drift happened. Either consume the TS tokens or reduce the file to what is used and note the `@theme` block as canonical.",
+    "`src/ui/fixtures/sample-findings.ts` is 404 lines, 4 over the ~400 guideline. Pure data; splitting the nine findings into two files would keep the rule mechanical.",
+    "Decisions on `/review/sample` vanish on reload (no backend for the fixture id). Understood and documented, but a one-line \"prepared example — decisions are not saved\" note in the doc bar would stop it reading as a bug during the demo.",
+    "`motion` (13.1.1) is pinned and unused; the CSS animations meet STYLE §5 including reduced motion. Either drop the dependency or note in AGENTS.md that CSS is the sanctioned mechanism."
+  ],
+  "evidence": [
+    "Gates: `pnpm typecheck` → \"✓ Types generated successfully\", tsc --noEmit clean. `pnpm lint` → no output (clean; the `_queuedAt` warning in the builder's report is gone).",
+    "Console/errors via agent-browser on `/`, `/review/sample`, `/review/sample-running`, `/runs`, `/review/vk4mZ70eggRXtb`, `/review/does-not-exist`: zero errors, zero React/hydration warnings; only React-DevTools/HMR/Fast-Refresh dev noise.",
+    "Tokens: no hex outside src/tokens.ts + app/globals.css @theme; zero default-Tailwind palette classes, zero `text-white`/`bg-black`, zero `dark:`, zero emoji, zero \"lorem ipsum\", no toast library, fonts exactly Inter / Source Serif 4 / Geist Mono (app/layout.tsx:7-9). One gradient, the permitted landing hero wash (globals.css:154-156).",
+    "Tracked-change rendering measured in the DOM: `del` = `rgb(179,38,30)`, `line-through`, thickness `1.5px`; `ins` = `rgb(30,90,168)`, `underline`, offset `3px` — STYLE §2 exactly. Comment pill: `color rgb(27,27,31)` on `rgb(255,244,214)`, `comment`@50 % 1 px border, radius 999 px, 11 px Geist Mono — STYLE §2 exactly.",
+    "Paragraph rules measured across all 50 paragraphs: proposed → 2 px `rgb(213,209,199)` (hairline-strong); accepted p0022 → 2 px `rgb(42,127,111)` (verified) with `navy-soft` wash; rejected p0040 → rule removed, transparent, original vendor text restored (\"9.2 Cap. Vendor's total aggregate…\"). Top bar 56 px, doc bar 48 px, paper 15.5 px / 25.575 px Source Serif 4.",
+    "Layout: no horizontal or page scroll at 1024, 1280, 1439, 1440, 1920 (`scrollWidth - clientWidth === 0`, `scrollHeight - clientHeight === 0` at each). Panes 240 / 780 / 419 at 1440; outline `display:none` below 1440 with the popover in the doc bar (plans/harness/logs/review-r1-review-1280x800.png); three panes return at exactly 1440.",
+    "Keyboard-only pass on 9 findings: J/K walk the list and sync the paper highlight (p0026/p0027 → p0036 → p0040 → p0022 measured); A/R/E/Enter act on the selection (footer counters moved 9/0/0/0 → 8/1/0/0 → 8/0/0/1); `/` focuses the active filter chip; `?` opens the documented shortcut list; Escape closes dialog, drawer and popover. Handler correctly ignores inputs, modifiers and open dialogs (Workspace.tsx:59-67).",
+    "Edit flow end to end: E opens the modal, Tab cycles 5 controls entirely inside `[role=dialog]` with `body { pointer-events: none }` and a measured `outline: rgb(30,42,71) solid 2px` on each; overlay dims (top-bar pixel 255,255,255 → 198,198,199); Save records `Decision{action:\"edit\"}` and the paper re-renders with the reviewer's wording and an `insertion` paragraph rule.",
+    "Accept-all confirmation lists the verified-and-open findings by name and section; export confirmation reports honest counts (1 replacement / 1 paragraph / 0 inserted / 0 struck / 1 comment) and warns that 7 findings stay open; with `/apply` unavailable it fails gracefully in-panel (\"The apply service is not running in this environment, so nothing has been written…\") with no toast and no console error.",
+    "Focus rings: 22-step Tab sweep of the workspace — every control reports `2px solid rgb(30,42,71)` and every icon-only control has an accessible name (\"Keyboard shortcuts\", \"Close dialog\", \"Close panel\", \"Undo decision on …\", \"Expand/Collapse the full details for …\", \"Precedent used: …\").",
+    "Reduced motion (`set media light reduced-motion`): `matchMedia` matches, `.rl-pulse` → `animation-name: none` with a static `rgb(233,237,246)` fill, and the slide/rise keyframes are redefined to opacity-only.",
+    "Running simulation `/review/sample-running` captured at t≈1 s / 5 s / 11 s: designed empty state (hairline skeletons + Source Serif italic copy), then ingest ✓ → planner ✓ → per-rule drafter chips with elapsed and one-line results → findings arriving and immediately decidable; doc-bar ring and cost advance 0/18 $0.00 → 4/18 $0.92.",
+    "Real backend run `/review/vk4mZ70eggRXtb` renders end to end against `GET /api/runs/[id]`; `POST /api/runs/[id]/decisions` body shape `{ decisions: Decision[] }` matches the route's zod `DecisionBatchSchema` and the `Decision` interface field for field.",
+    "Radix primitives (DropdownMenu, Popover, Dialog, Collapsible, Tooltip) are all re-themed with our tokens — no stock shadcn surface anywhere.",
+    "My screenshots are committed for the record at plans/harness/logs/review-r1-*.png (26 files: landing 1440 + full, workspace 1440/1280/1920/1024, decisions, edit dialog, memo, shortcuts, accept-all, export, export-unavailable, running t1/t5/t11, real-run, runs, error-state, evals-404, reduced-motion)."
+  ],
+  "score": { "correctness": 7, "contract_compliance": 7, "quality": 9 }
+}
+```
+
+=== result turns=113 cost=$9.29 error=False ===

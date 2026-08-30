@@ -7,9 +7,10 @@
 > your team already approved, and waits for you to accept, edit or reject each finding before it writes a single
 > tracked change into the document.
 
-Entry for the **micro1 Frontier Engineering Challenge 2026 (Agentic Workflows Hackathon)**. Live demo:
-`{{DEPLOY_URL}}` · Video: `{{VIDEO_URL}}` · Reproduction: [`REPRODUCE.md`](REPRODUCE.md) ·
-Changelog with evidence: [`IMPROVEMENT_CHANGELOG.md`](IMPROVEMENT_CHANGELOG.md) · Trajectories: [`trajectories/`](trajectories/)
+Entry for the **micro1 Frontier Engineering Challenge 2026 (Agentic Workflows Hackathon)**.
+Live demo: **<https://playbook-redliner.vercel.app>** · Video: _link added on upload (see §10)_ ·
+Reproduction: [`REPRODUCE.md`](REPRODUCE.md) · Changelog with evidence: [`IMPROVEMENT_CHANGELOG.md`](IMPROVEMENT_CHANGELOG.md) ·
+Trajectories: [`trajectories/`](trajectories/) · Full results: [`docs/results.md`](docs/results.md)
 
 ---
 
@@ -70,16 +71,28 @@ and forgets everything between contracts. Counsel still has to do the actual wor
 
 ## 5. Results (headline)
 
-| Metric | Baseline (one prompt + playbook) | Playbook Redliner (final) | Change |
-|---|---|---|---|
-| Issue-detection F1 (12 contracts) | {{B1_F1}} | {{FINAL_F1}} | {{F1_DELTA}} |
-| Redline validity (applies ∧ satisfies rule ∧ judge) | {{B1_VALID}} | {{FINAL_VALID}} | {{VALID_DELTA}} |
-| Citation hallucination rate | {{B1_HALL}} | {{FINAL_HALL}} | {{HALL_DELTA}} |
-| Document integrity (untouched paragraphs identical, opens in LibreOffice) | n/a (no docx) | {{FINAL_INTEGRITY}} | — |
-| Cost per contract | {{B1_COST}} | {{FINAL_COST}} | {{COST_DELTA}} |
+12 contracts (8 lawyer-labelled CUAD filings + 4 seeded synthetic, one a definition-trap hard case), one playbook of
+18 rules, gold of one item per rule. The baseline is fair: the same model (Claude Opus 5) with the same playbook in one
+prompt. Every number replays from the committed cache at zero cost (`pnpm eval --all`).
 
-Full tables, per-contract results and the hard case: [`evals/results/summary.md`](evals/results/summary.md).
-How each iteration earned its place: [`IMPROVEMENT_CHANGELOG.md`](IMPROVEMENT_CHANGELOG.md).
+| Metric | Baseline (one prompt + playbook) | Playbook Redliner (final) | Change |
+|---|---:|---:|---|
+| Issue-detection F1, macro over 12 contracts | 91.5% | 94.8% | +3.3 pp |
+| Recall / precision | 87.1% / 98.0% | 92.3% / 97.7% | +5.2 pp recall at the same precision |
+| Deviation-status accuracy (compliant vs deviation vs missing) | 77.6% | 86.8% | +9.2 pp |
+| Redline validity (applies ∧ checks ∧ independent GPT-5.6 judge) | 42.7% | 50.6% | +7.9 pp |
+| Minimal edits (word-level, ≤ 1.5× original) | 11.0% | 35.6% | +24.6 pp |
+| Findings the system could not place in the document (escalated to the human) | 12 | 0 | −12 |
+| Citation hallucination rate | 2.9% | 3.8% | +0.9 pp (within noise; reported as is) |
+| Document integrity (untouched paragraphs identical; LibreOffice round-trip) | n/a — no `.docx` output | 12/12 pass | — |
+| Output | JSON + replacement strings | `.docx` with tracked changes + comments, issues memo | — |
+| Cost per contract (list prices) | $0.35 | $3.51 | ×10 |
+
+Two rows of the eight-config ladder are the same configuration recorded twice; they differ by 1.2 pp F1, so we treat
+F1 differences under ~1.5 pp as noise and stand behind the ones far outside it (recall, validity, minimality,
+escalations). How each iteration earned its place, the one that made things worse, the calibration pass that mattered
+most, the hard case and the main failure mode: [`IMPROVEMENT_CHANGELOG.md`](IMPROVEMENT_CHANGELOG.md). Full tables and
+per-contract results: [`evals/results/summary.md`](evals/results/summary.md) · interactive: `/evals` on the live demo.
 
 ## 6. Repository map
 
@@ -99,7 +112,19 @@ Contracts that govern the code: [`AGENTS.md`](AGENTS.md) · [`SCHEMA.md`](SCHEMA
 
 ## 7. Main failure mode and hot take
 
-{{FAILURE_MODE_AND_HOT_TAKE}}
+**Failure mode — the redline is only half right.** Redline validity plateaus at ≈ 50% for every agentic config. Of
+the 87 final-run redlines the independent judge assessed, 34 fail the rule because the edit improves the clause but
+omits one element of a multi-part playbook position (the successor-transfer right in a licence, the 60-day renewal
+reminder, a stated warranty period), and 29 are not minimal because clauses that must be inserted whole are scored as
+rewrites. The drafter reads a position as a direction; the judge reads it as a checklist; the verifier's deterministic
+checks only cover regexes, so it cannot close the gap. The next fix is a schema change — positions as explicit element
+lists the verifier can enumerate — not another agent. On detection, the residual errors are "right rule, neighbouring
+paragraph" (details and the weakest contract in the changelog).
+
+**Hot take.** Give a specialist agent one rule and it will find a violation — the biggest quality jump in this project
+came from writing the semantics into the playbook, not from any model, tool or extra agent. And before you believe a
+one-point gain on an agent benchmark, record the same configuration twice: two rows of our table are the same pipeline
+and they differ by more than most published "improvements".
 
 ## 8. Tools disclosure
 
@@ -112,3 +137,9 @@ and GPT-5.6 Sol (independent evaluation judge and gold-label drafting).
 
 Code: MIT. Evaluation contracts: CUAD v1 © The Atticus Project, CC BY 4.0 (public SEC filings). Synthetic contracts and
 the playbook: original, MIT. No private or personal data is used anywhere.
+
+## 10. Video
+
+≤ 5 minutes, one genuine end-to-end run on a CUAD hosting agreement, the hard case's trajectory, and the evaluation
+ladder: _link added on upload_. Script and production pipeline: [`plans/07_video.md`](plans/07_video.md),
+[`plans/video/`](plans/video/).

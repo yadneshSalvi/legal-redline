@@ -533,9 +533,9 @@
     }
   },
   {
-    "confidence": 0.82,
-    "costUsd": 0.39903625,
-    "durationMs": 120956,
+    "confidence": 0.8,
+    "costUsd": 0.49548625,
+    "durationMs": 128525,
     "id": "f-license-d18ecbb5",
     "paragraphIds": [
       "p0008",
@@ -544,27 +544,33 @@
     ],
     "producedBy": "drafter",
     "proposal": {
-      "comment": "[Playbook] We extended the Section 1.4 access and use rights to our affiliates and to contractors acting on our behalf (and to a successor in a merger or sale of the business), since our group and outsourced providers need to operate and monitor the Site; our playbook requires affiliate and contractor coverage plus successor transferability. We also carved those parties out of the \"no other person shall acquire or have any rights\" language in Section 10.3, which as drafted would exclude them; if you prefer, we can accept affiliates being added on written notice to HDI.",
+      "comment": "[Playbook] We extended the access and use rights in Section 1.4 to our Affiliates and contractors acting on our behalf, since our group and outsourced providers operate the Site day to day, and carved them out of the \"no other person shall acquire or have any rights\" limitation in Section 10.3, which would otherwise strip those rights. We also confirmed the licence transfers to a successor in a merger or sale of assets to protect transaction continuity; if preferred, we can instead cover Affiliates and contractors upon written notice to HDI.",
       "level": "preferred",
       "ops": [
         {
           "kind": "replace",
-          "newText": "HDI shall also provide the Company with access to HDI's software and Content administration tools for purposes of allowing the Company to monitor current catalog information. The access and use rights granted to the Company under this Section 1.4 may be exercised by the Company, its affiliates (meaning any entity that controls, is controlled by or is under common control with the Company) and any contractors acting on the Company's behalf, and may be transferred to any successor to the Company's business by way of merger, acquisition or sale of all or substantially all of its assets.",
-          "oldText": "HDI shall also provide the Company with access to HDI's software and Content administration tools for purposes of allowing the Company to monitor current catalog information.",
+          "newText": "the right for the Company, its Affiliates and its contractors acting on its behalf to use, a computer system on which the Site will be stored and operated",
+          "oldText": "the right to use, a computer system on which the Site will be stored and operated",
           "paragraphId": "p0009"
         },
         {
           "kind": "replace",
-          "newText": "but, other than the Company's affiliates and contractors acting on the Company's behalf (which may exercise the rights granted to the Company under Section 1.4), no other person shall acquire or have any rights under this Agreement.",
-          "oldText": "but no other person shall acquire or have any rights under this Agreement.",
+          "newText": "for purposes of allowing the Company, its Affiliates and its contractors acting on its behalf to monitor current catalog information",
+          "oldText": "for purposes of allowing the Company to monitor current catalog information",
+          "paragraphId": "p0009"
+        },
+        {
+          "kind": "replace",
+          "newText": "provided that the Company may assign this Agreement and the rights granted to it hereunder to a successor in connection with a merger, acquisition or sale of all or substantially all of its assets, and that the Company's Affiliates and contractors acting on its behalf may exercise the access and use rights granted to the Company under Section 1.4, and no other person shall acquire or have any rights under this Agreement",
+          "oldText": "but no other person shall acquire or have any rights under this Agreement",
           "paragraphId": "p0063"
         }
       ],
       "precedentId": "seed-license",
-      "summary": "Extend the Section 1.4 access/use rights to the Company's affiliates and contractors acting on its behalf and to a successor in an M&A transaction, and carve them out of the \"no other person\" limitation in Section 10.3."
+      "summary": "Extend the Section 1.4 access/use grant to the Company's Affiliates and contractors acting on its behalf, and carve them (plus a successor transfer right) out of the \"no other person\" limitation in Section 10.3."
     },
     "quote": "the right to use, a computer system on which the Site will be stored and operated, with a direct Internet connection of shared but greater than T-1 bandwidth, plus capacity to process continuously during burst periods. HDI shall also provide the Company with access to HDI's software and Content administration tools for purposes of allowing the Company to monitor current catalog information.",
-    "rationale": "Section 1.4 (p0008-p0009) is the operative access/use grant, but it runs to \"the Company\" alone: no affiliates, no contractors acting on our behalf, and no written-notice mechanic to add them. That fails a material term of the fallback, which requires at minimum affiliate coverage on written notice plus successor transferability. The gap is not merely one of silence: Section 10.3 (p0063) provides that \"no other person shall acquire or have any rights under this Agreement,\" which affirmatively excludes our affiliates and contractors from exercising the Section 1.4 rights and leaves no path to add them — the rule's walk-away trigger. Section 10.3 is otherwise a standard binding-effect/successors-and-assigns clause; it confirms the Agreement inures to successors but does not itself grant an affirmative right to transfer the licence in an M&A transaction, so it only weakly supports the second fallback element and cannot cure the missing affiliate and contractor coverage. The redline makes the smallest edits to reach the preferred position: it extends the Section 1.4 access and use rights to our affiliates and to contractors acting on our behalf and to a successor by merger, acquisition or sale of substantially all assets, and carves those parties out of the \"no other person\" limitation in Section 10.3. The comment offers the affiliates-on-written-notice fallback. The grant is not expressed to be revocable at HDI's discretion, so no revocability deletion is needed, and the term/termination mechanics are addressed under the term rule.",
+    "rationale": "Section 1.4 (p0008-p0009) is the operative access/use grant, but it runs to \"the Company\" alone: Affiliates and contractors acting on our behalf are not covered, and there is no written-notice mechanic to add them. That is a material term of the fallback (affiliate coverage at minimum on written notice) left unmet. The silence is not neutral, because Section 10.3 (p0063) provides that \"no other person shall acquire or have any rights under this Agreement,\" which affirmatively excludes our Affiliates and contractors from the granted rights and leaves no path to add them — the rule's walk-away trigger. Section 10.3 is also only a standard binding-effect/successors-and-assigns clause; it confirms the Agreement inures to successors but does not grant an affirmative right to transfer the licence in an M&A transaction, so it weakly supports the second fallback element and cannot cure the missing affiliate coverage. Redline (validated, ok:true) extends the Section 1.4 grant to our Affiliates and contractors acting on our behalf and carves them, plus an express successor transfer right, out of the \"no other person\" limitation in Section 10.3, with the written-notice approach offered as a fallback. The licence is not stated to be revocable at HDI's discretion, so no change is needed on revocability.",
     "ruleId": "LICENSE",
     "ruleTitle": "Licence grant scope",
     "sectionId": "sec-1.4",
@@ -583,6 +589,10 @@
           "ok": true
         },
         {
+          "name": "operation 3 applies",
+          "ok": true
+        },
+        {
           "name": "affiliates covered by the licence",
           "ok": true
         },
@@ -591,17 +601,22 @@
           "ok": true
         },
         {
-          "detail": "changed-character ratio=0.705 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "detail": "changed-character ratio=0.474 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
           "name": "minimal edit p0009",
-          "ok": false
+          "ok": true
         },
         {
-          "detail": "changed-character ratio=0.681 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "detail": "changed-character ratio=0.432 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0009",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.827 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
           "name": "minimal edit p0063",
           "ok": false
         }
       ],
-      "notes": "Rule applies: Section 1.4 is the operative grant of access/use rights to us (the customer) over HDI's system and administration tools, and it names only \"the Company\" — no affiliates, no contractors, and no written-notice mechanic to add them. Classification is correct: the clause fails the fallback on a material term (affiliate coverage on written notice is absent), so \"deviation\" rather than \"compliant\" is right; Section 10.3's successors-and-assigns language only partially supports the transferability element and does not cure the affiliate/contractor gap. Redline is actionable and directionally correct for us: it appends affiliate/contractor/successor coverage to the Section 1.4 grant and carves those parties out of the \"no other person\" limitation, expanding our rights without adding obligations on us or new obligations on HDI beyond who may exercise existing rights. Deterministic changed-character ratios (0.705 / 0.681) are explained by appending a single coverage sentence to short paragraphs and by an in-line carve-out; the underlying edits are insertions that preserve the original wording, so the advisory minimality flags are not disqualifying. Comment is accurate, concise, cites the playbook position, and offers the affiliates-on-written-notice fallback with the required [Playbook] prefix; the rationale's characterisation of Section 10.3 as an affirmative exclusion (rather than a standard no-third-party-beneficiary clause) is somewhat strong and its \"walk-away\" framing overstates the position, but this does not change the deviation outcome or the validity of the edit.",
+      "notes": "Directionally correct: we act for the Customer, and the Company (Deerskin) is our party under the hosting agreement, so extending the Section 1.4 access/use rights to our Affiliates and contractors is a benefit-side edit, not a concession. Deviation classification is supportable: Section 1.4 grants access and use to \"the Company\" alone, with no affiliate/contractor coverage and no written-notice mechanic, which fails the fallback's material term (affiliates covered at least on written notice); Section 10.3's \"no other person shall acquire or have any rights\" makes the silence exclusionary rather than neutral, so it is not an acceptable fallback clause that would make this over-flagging. Redline is actionable and reads cleanly when merged with p0008 (\"HDI shall provide the Company with access to, and the right for the Company, its Affiliates and its contractors acting on its behalf to use, a computer system...\"), and the Section 10.3 insertion preserves the original no-third-party-rights language while carving out Affiliates/contractors and adding the successor transfer per the rule's redline guidance. Failed minimal-edit heuristic on p0063 (0.827) is explained by the length of the inserted proviso; the surviving original wording is intact, so this is not an unnecessary rewrite. Minor gaps noted, not disqualifying: the redline uses capitalised \"Affiliates\" although no Affiliate definition appears in the resolved definitions — add a short definition (or lower-case \"affiliates\") to avoid an undefined term; the \"access to\" limb of 1.4 still names only the Company, so the extension rests on the \"right to use\" limb. Rationale slightly overstates by framing the standard no-third-party-rights sentence as the rule's walk-away trigger; the finding stands on the failed fallback element regardless, and Section 10.3 contains no anti-assignment prohibition, so the successor-transfer element was only weakly at risk.",
       "verdict": "repaired"
     }
   },
@@ -657,9 +672,9 @@
     }
   },
   {
-    "confidence": 0.94,
-    "costUsd": 0.28101925,
-    "durationMs": 93089,
+    "confidence": 0.9,
+    "costUsd": 0.12038975,
+    "durationMs": 36821,
     "id": "f-nosolicit-f8e9d79d",
     "paragraphIds": [
       "p0035",
@@ -667,15 +682,15 @@
     ],
     "producedBy": "drafter",
     "quote": "Each General Manager shall have the authority to make and convey decisions on behalf of each Party and to be the liaison with the other Party for all production and Content matters.",
-    "rationale": "Compliant at the preferred position: the Agreement imposes no non-solicitation, no-hire or anti-poaching restriction on the Company. The general-solicitation carve-out and 12-month duration checks fail only vacuously — there is no covenant in the document for them to qualify, so no carve-out is required and nothing can be narrowed. Basis: full reads of sec-p0001, sec-1.4, sec-5.4 (including the General Manager/liaison appointment at p0035, the point at which named individuals are put in contact and where a reciprocal no-hire would typically sit), Exclusivity §6, Confidentiality §8, Warranties §9 and General Provisions §10, plus targeted searches for \"solicit\", \"hire\", \"employ\", \"employ or engage\", \"induce\", \"personnel\" and \"directly or indirectly\". The only hits are incidental and impose no restriction: HDI's \"employees, or agents\" in the confidentiality carve-out (p0051) and \"agent, partner, employee or representative\" in the No Joint Venture clause (p0061). Because the rule's preferred position is \"No non-solicit on Customer\", the absence of any such covenant satisfies the rule outright; \"missing\" would be the wrong classification because the rule does not expect a restriction to exist. The Section 6 exclusivity covenants (including §6.1 binding the Company as to competing Deerskin-branded web projects) restrict competing projects rather than personnel and are handled under the separate exclusivity rule, so they are not double-flagged here. No redline and no counterparty comment are warranted, and the document text is unchanged.",
+    "rationale": "Searches for \"solicit\", \"hire\", \"employ or engage\", \"induce\", \"personnel\" and a full read of the operative sections (including sec-5.4, where the General Manager/liaison appointments put named individuals in contact, and the confidentiality, exclusivity and general provisions) show no non-solicitation, no-hire or anti-poaching covenant anywhere in the Agreement. The Company is therefore under no restriction on soliciting or hiring HDI personnel, which matches the preferred position (\"No non-solicit on Customer\"). The only restrictive covenants present are the Section 6 exclusivity provisions, which concern competing web projects rather than personnel and are addressed under the exclusivity rule. No redline needed.",
     "ruleId": "NOSOLICIT",
     "ruleTitle": "Non-solicitation of employees binding Customer",
     "sectionId": "sec-5.4",
     "sectionRef": "§ 5.4 Each of HDI and the Company shall appoint a",
     "severity": "medium",
-    "status": "needs_review",
+    "status": "compliant",
     "verification": {
-      "attempts": 3,
+      "attempts": 1,
       "checks": [
         {
           "detail": "number not found",
@@ -687,8 +702,8 @@
           "ok": false
         }
       ],
-      "notes": "general-solicitation carve-out present: failed Claimed status is compliant and the cited paragraphs (p0035 liaison/General Manager, p0061 No Joint Venture) contain no non-solicitation, no-hire or anti-poaching covenant binding the Customer, which matches the rule's preferred position ('No non-solicit on Customer'). No redline and no counterparty comment were proposed, which is the expected output for a compliant finding; the rendered text is identical to the original paragraphs. The failed deterministic checks (duration ≤12 months, general-solicitation carve-out) fail vacuously because there is no covenant for them to qualify — they are not evidence of a deviation here. 'Missing' would be the wrong classification since the rule's preferred outcome is the absence of a restriction on us; the finding correctly reasons this and correctly defers the Section 6 exclusivity covenants to the separate exclusivity rule rather than double-flagging. Rationale is well-evidenced (targeted searches for 'solicit', 'hire', 'employ or engage', 'induce') and accurately characterises the only incidental 'employee'/'agent' references as non-restrictive.",
-      "verdict": "fail"
+      "notes": "Claimed status is compliant and the rule's preferred position is 'No non-solicit on Customer'; absence of any non-solicitation, no-hire or anti-poaching covenant therefore satisfies the preferred position rather than constituting a 'missing' clause. Cited paragraphs (p0035 General Manager/liaison, p0061 no joint venture) contain no solicitation, employment or inducement restriction, and the rationale documents targeted searches for 'solicit', 'hire', 'employ or engage', 'induce' and 'personnel' across the operative sections. No redline and no counterparty comment were produced, which is the correct output for a compliant finding; the rendered text is byte-identical to the original. The failed deterministic checks (duration ≤ 12 months, general-solicitation carve-out) are expected artefacts of there being no non-solicit clause to measure and do not indicate an error. Rationale correctly defers the Section 6 exclusivity covenants to the separate exclusivity rule, avoiding double-flagging the same commercial term.",
+      "verdict": "pass"
     }
   },
   {

@@ -133,3 +133,9 @@
 - Sun 06:05 — x-monolith recorded: F1 0.941 (P 0.99 / R 0.90), validity 42 %, minimality 45 %, halluc 2.1 %, $0.99 — cheapest strong detector, but
   lowest validity among pipeline configs (removed for validity/recall, not detection). Campaign complete; `finalize.sh` running (re-score all
   with the final gate, report, render-docs, exports).
+
+## 2026-08-30 07:15 IST — finalize done, narrative written, evidence committed
+- `finalize.sh` completed 06:58 (re-score of all 8 configs with `--allow-live --judge live`, report, render-docs, exports). Final ladder (macro F1 · validity · minimality · $/contract): b0 71.7 · 23.5 · 5.9 · 0.51 | b1 91.5 · 42.7 · 11.0 · 0.35 | i1 91.8 · 41.5 · 45.1 · 1.24 | i2 94.4 · 48.3 · 33.3 · 2.97 | i3 94.5 · 51.7 · 28.1 · 4.00 | i4 93.6 · 50.6 · 32.2 · 4.02 | x 94.1 · 42.4 · 42.4 · 0.99 | final 94.8 · 50.6 · 35.6 · 3.51. Escalations: b1 12, all agentic configs 0 (i2: 1).
+- Lead wrote the narrative by hand: `IMPROVEMENT_CHANGELOG.md` (learning cells, Iteration 5 calibration section, variance caveat — i4 and final are the same config recorded twice, 1.2 pp apart —, hard-case verdict: it did NOT separate the configs on detection; failure mode: partial redlines (34/87 fail satisfies_rule, 29 not minimal) + "right rule, neighbouring paragraph" on bluefly; hot take). README §5/§7/§10 rewritten; REPRODUCE placeholders filled (versions, 7 s tests, ~50 min replay, ~$275 live ladder). `EvalsDashboard.tsx` monolith sentence corrected (it cost less, not more).
+- Discovered: `evals/runs/<config>` for all 8 configs were already tracked (229 MB) — only `pre-calibration-*` runs are ignored.
+- Next: push → deploy → verify `/evals`; launch `video-final` (Sol) and the Fable gate review; then video upload + link, submission text, ask the user for the gold spot-check + a human review session.

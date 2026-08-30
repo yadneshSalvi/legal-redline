@@ -1,4 +1,4 @@
-# HackerEarth submission — Playbook Redliner (draft; fill `{{…}}` from evals/results before submitting)
+# HackerEarth submission — Playbook Redliner (ready except the video link)
 
 **Deadline:** Mon 2026-08-31 18:00 UTC (23:30 IST). Submit from the registered HackerEarth account (the participant must submit).
 
@@ -16,7 +16,7 @@ Customer-side in-house counsel spend 1–3 hours per vendor contract producing t
 changes and comments that apply the company playbook. Playbook Redliner turns the .docx into a clause-addressable model, runs one drafter per
 playbook rule with tools that validate every edit anchor, has an independent verifier check each redline, remembers approved language, and
 waits for a human to accept/edit/reject before writing real OOXML tracked changes and margin comments. Measured on 12 contracts (8 lawyer-labelled
-CUAD filings + 4 seeded synthetic incl. a definition-trap hard case) against a fair single-prompt baseline: {{HEADLINE}}. Everything reproduces
+CUAD filings + 4 seeded synthetic incl. a definition-trap hard case) against a fair single-prompt baseline: issue-detection F1 91.5% → 94.8% (recall +5.2 pp at the same precision), redline validity 42.7% → 50.6%, minimal edits 11% → 36%, unplaced findings 12 → 0, document integrity 12/12, at $3.51 per contract. Everything reproduces
 from the repo at zero cost.
 
 ## Long description (structure)
@@ -29,7 +29,7 @@ from the repo at zero cost.
 
 ## Pre-submit checklist
 - [ ] `pnpm eval --all && pnpm report` from a clean clone reproduces `evals/results/summary.md`
-- [ ] README / CHANGELOG / REPRODUCE have no `{{` placeholders; numbers match `evals/results`
+- [x] README / CHANGELOG / REPRODUCE have no `{{` placeholders; numbers match `evals/results` (2026-08-30 07:10 IST)
 - [ ] `trajectories/` committed (app + coding agents), secrets redacted
 - [ ] Deployed `/evals` shows real data; sample run completes in replay; export works
 - [ ] Video uploaded; link in README and submission

@@ -7,29 +7,31 @@ API keys** from the committed replay cache; live re-runs need keys and cost mone
 
 | Tool | Version used | Notes |
 |---|---|---|
-| Node.js | 22.x | `node --version` |
+| Node.js | 22.x (22.22 used) | `node --version` |
 | pnpm | 10.15 | `corepack enable && corepack prepare pnpm@10.15.0 --activate` |
 | Git | any | |
-| LibreOffice (optional) | 25.x | only for the "opens in LibreOffice" integrity check and PDF rendering; the eval records it as skipped when absent |
-| Docker (optional) | 28.x | `docker build -t redliner . && docker run --rm redliner pnpm eval --all` runs the whole evaluation in a clean container |
+| LibreOffice (optional) | 26.8 | only for the "opens in LibreOffice" integrity check and PDF rendering; the eval records it as skipped when absent |
+| Docker (optional) | 28.3 | `docker build -t redliner . && docker run --rm redliner pnpm eval --all` runs the whole evaluation in a clean container |
 
 ## 1. Install
 
 ```bash
-git clone {{REPO_URL}} playbook-redliner && cd playbook-redliner
+git clone https://github.com/yadneshSalvi/legal-redline playbook-redliner && cd playbook-redliner
 pnpm install --frozen-lockfile
 cp .env.example .env            # leave keys empty for replay mode
-pnpm typecheck && pnpm test     # ~{{TEST_RUNTIME}} s, no network
+pnpm typecheck && pnpm test     # ~10 s, no network
 ```
 
-## 2. Reproduce the evaluation (zero cost, ~{{REPLAY_RUNTIME}})
+## 2. Reproduce the evaluation (zero cost, ~50 min for all eight configs, ~6 min for one)
 
 ```bash
-pnpm eval --all                 # replays evals/cache → evals/results/<config>.json
+pnpm eval --all                 # replays evals/cache → evals/results/<config>.json  (add --config final for one)
 pnpm report                     # → evals/results/summary.md + changelog-data.json
 ```
 
-Expected: `summary.md` matches the tables in `IMPROVEMENT_CHANGELOG.md` byte-for-byte (the runs are deterministic in replay).
+Expected: `summary.md` matches the tables in `IMPROVEMENT_CHANGELOG.md` and `evals/results/*.json` byte-for-byte (the runs are
+deterministic in replay; the judge verdicts replay from `evals/cache/judge`). A cache miss throws `ReplayCacheMiss` rather than
+silently calling a model — if you see one, the checkout and the cache are out of sync.
 
 ## 3. Run the solution on a contract
 
@@ -39,8 +41,8 @@ pnpm review data/contracts/synth-hardcase/contract.docx --config final --mode re
 pnpm validate-docx data/contracts/synth-hardcase/contract.docx data/runs/<runId>/output.docx --pdf
 ```
 
-Live (needs `ANTHROPIC_API_KEY`): drop `--mode replay`. Typical run on a 5k-word contract: {{LIVE_RUNTIME}} min,
-{{LIVE_COST}} USD.
+Live (needs `ANTHROPIC_API_KEY`): drop `--mode replay`. Typical run on a 5k-word contract: 4–5 min,
+3–4 USD.
 
 ## 4. Run the baseline on the same contract
 
@@ -69,7 +71,7 @@ Gold files are committed; `scripts/label-assist.ts` regenerates the LLM drafts (
 ## 7. Live re-run of everything (needs both keys)
 
 ```bash
-pnpm eval --all --live --judge live     # ≈ {{LIVE_EVAL_RUNTIME}} h wall-clock, ≈ {{LIVE_EVAL_COST}} USD
+pnpm eval --all --live --judge live     # ≈ 4.5 h wall-clock, ≈ 275 (≈ 210 of Claude Opus 5 calls across the eight configs + ≈ 65 of GPT-5.6 judge calls) USD
 ```
 
 ## 8. Trajectories
@@ -89,4 +91,19 @@ silently creating evidence. Coding transcripts over 50 MB are skipped and identi
 
 ## 9. Versions
 
-{{VERSIONS_TABLE}}
+| Component | Version |
+|---|---|
+| macOS (development) / Debian bookworm (Docker image `node:22-bookworm-slim`) | 26.5.2 / 12 |
+| Node.js | 22.22.3 |
+| pnpm | 10.15.0 (pinned in `package.json` `packageManager`) |
+| TypeScript / tsx / vitest | 5.9.3 / 4.23.12 / 4.1.11 |
+| Next.js / React / Tailwind | 16.3.3 / 19.2.8 / 4.3.3 |
+| `@anthropic-ai/sdk` (Claude Opus 5: drafter, verifier, planner, memo, baselines) | 0.122.0 — model id `claude-opus-5` |
+| `openai` (GPT-5.6 Sol: independent judge, gold-label drafting) | 7.8.0 — model id `gpt-5.6-sol` |
+| `jszip` / `@xmldom/xmldom` / `diff` / `zod` / `yaml` | 3.10.1 / 0.9.12 / 9.0.0 / 4.5.2 / 2.9.0 |
+| LibreOffice (integrity check, PDF render; optional) | 26.8.0.3 |
+| Docker (optional) | 28.3.2 |
+
+Model outputs are pinned by the replay cache (`evals/cache/**`), so the numbers do not depend on the models still
+behaving the same way; a live re-run (§7) is expected to land within about ±1 pp macro F1 of the committed results
+(see "run-to-run variance" in `IMPROVEMENT_CHANGELOG.md`).

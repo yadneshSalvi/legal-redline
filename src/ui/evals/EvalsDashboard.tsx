@@ -156,7 +156,10 @@ export function EvalsDashboard() {
           the least work — not the one we recommend. <span className="text-ink">b0-chat</span> is the naive approach — the whole contract in one prompt with no
           playbook. <span className="text-ink">b1-prompt</span> is the official baseline: same model, same playbook, one
           direct prompt. <span className="text-ink">x-monolith</span> was removed — one agent handling all eighteen
-          rules in a single loop cost more and found less than per-rule workers.
+          rules in a single loop ran at a third of the workers&apos; cost, but recall fell and its redlines dropped back to
+          baseline validity. <span className="text-ink">i4-memory</span> and <span className="text-ink">final</span> are
+          the same configuration recorded twice: the 1.2 pp between them is run-to-run variance, so F1 differences
+          under about 1.5 pp are noise.
         </p>
       </Section>
 

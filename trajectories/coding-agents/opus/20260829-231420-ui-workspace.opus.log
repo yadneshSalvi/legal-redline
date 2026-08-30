@@ -1,0 +1,348 @@
+
+--- text ---
+I'll start by reading the mandatory context files.
+[tool] Bash {'command': 'ls -la && echo "---PKG---" && cat package.json', 'description': 'List repo root and read package.json'} 
+[tool] Bash {'command': 'cat STYLE.md', 'description': 'Read STYLE.md'} 
+[tool] Bash {'command': 'cat SCHEMA.md', 'description': 'Read SCHEMA.md'} 
+[tool] Bash {'command': 'cat PLAYBOOK.md && echo "===TREE===" && find src app public data plans -type f | head -100', 'description': 'Read PLAYBOOK.md and tree'} 
+[tool] Bash {'command': 'cat src/agent/types.ts', 'description': 'Read agent types'} 
+[tool] Bash {'command': 'cat src/engine/types.ts', 'description': 'Read engine types'} 
+[tool] Bash {'command': "sed -n '1,120p' plans/00_master_plan.md", 'description': 'Read master plan §1-2'} 
+[tool] Bash {'command': 'echo "===layout==="; cat app/layout.tsx; echo "===page==="; cat app/page.tsx; echo "===globals==="; cat app/globals.css; echo "===tsconfig==="; cat tsconfig.json; echo "===eslint==="; cat eslint.config.mjs;  
+[tool] Bash {'command': 'ls node_modules/next/dist/docs/ 2>/dev/null | head -50; echo "---"; ls node_modules/next/dist/docs/**/ 2>/dev/null | head -80', 'description': 'List Next 16 docs'} 
+[tool] Bash {'command': 'cat data/playbooks/customer-vendor-services.yaml | head -120', 'description': 'Read playbook YAML head'} 
+[tool] Bash {'command': "cd node_modules/next/dist/docs/01-app/01-getting-started && sed -n '1,200p' 13-fonts.md", 'description': 'Read Next 16 fonts doc'} 
+[tool] Bash {'command': 'cd node_modules/next/dist/docs/01-app/01-getting-started && sed -n \'1,150p\' 11-css.md; echo "=====LAYOUTS====="; sed -n \'1,200p\' 03-layouts-and-pages.md', 'description': 'Read Next 16 css + layouts docs' 
+[tool] Bash {'command': "sed -n '1,120p' ~/code/hackathons/legal-redline/node_modules/next/dist/docs/01-app/01-getting-started/11-css.md", 'description': 'Read Next 16 CSS doc'} 
+[tool] Bash {'command': "sed -n '1,120p' ~/code/hackathons/legal-redline/node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/dynamic-routes.md 2>/dev/null || ls ~/code/hackatho 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline && node -e "const p=require(\'./node_modules/radix-ui/package.json\'); console.log(JSON.stringify(p.exports,null,1)); console.log(p.version)" 2>&1 | head  
+[tool] Bash {'command': 'ls node_modules | head -60; echo "--- diff types ---"; ls node_modules/diff/ 2>/dev/null; ls node_modules/@types 2>/dev/null', 'description': 'List node_modules top-level'} 
+[tool] Bash {'command': 'node -e "const p=require(\'./node_modules/diff/package.json\'); console.log(p.version, JSON.stringify(p.exports))"; echo "--- diffWords type ---"; grep -n "diffWords" node_modules/diff/dist/*.d.ts | head -20 
+[tool] Bash {'command': 'node -e "const p=require(\'./node_modules/lucide-react/package.json\'); console.log(p.version, p.main, JSON.stringify(p.exports).slice(0,300))"; echo "---motion---"; node -e "const p=require(\'./node_modules 
+[tool] Bash {'command': 'grep -n "diffWords\\b" node_modules/diff/libesm/index.d.ts | head; echo "---"; grep -rn "declare function diffWords" -A 6 node_modules/diff/libesm/diff/word.d.ts 2>/dev/null | head -30; echo "--- ChangeObjec 
+[tool] Bash {'command': 'node -e "const p=require(\'./node_modules/lucide-react/package.json\'); console.log(p.version); console.log(p.main, p.module, p.types); console.log(JSON.stringify(p.exports))" 2>&1 | head -20', 'description' 
+[tool] Bash {'command': 'node -e "const p=require(\'./node_modules/lucide-react/package.json\'); console.log(JSON.stringify(p,null,1))" | head -40; echo "---dist---"; ls node_modules/lucide-react/dist | head', 'description': 'Inspec 
+[tool] Bash {'command': 'agent-browser skills get core --full 2>&1 | head -300', 'description': 'Get agent-browser core skill'} 
+[tool] Bash {'command': "agent-browser skills get core --full 2>&1 | sed -n '300,600p'", 'description': 'Get rest of agent-browser core skill'} 
+[tool] Bash {'command': 'agent-browser --help 2>&1 | head -80', 'description': 'agent-browser help'} 
+[tool] Bash {'command': "agent-browser --help 2>&1 | sed -n '80,160p'", 'description': 'Rest of agent-browser help'} 
+
+--- text ---
+Read the remaining contract docs, then I'll start building.
+[tool] Bash {'command': 'sed -n \'1,60p\' ~/code/hackathons/legal-redline/EVAL.md; echo "=== playbook rules (ids/titles) ==="; grep -n "^  - id:\\|^    title:\\|^    severity:\\|^    category:" ~/ 
+
+--- text ---
+Now I'll build. Starting with the token layer and global styles.
+[tool] Bash {'command': 'cat > /tmp/rl-tokens.ts <<\'EOF\'\n/**\n * Design tokens — the only source of colour, type, radius, shadow and layout metrics in the product.\n * These values are mirrored into CSS custom properties by the ` 
+[tool] Bash {'command': 'cat > /tmp/rl-globals.css <<\'EOF\'\n@import "tailwindcss";\n\n/* ---------------------------------------------------------------------------\n   Theme — mirrors src/tokens.ts. Default Tailwind palettes are  
+[tool] Bash {'command': 'grep -o "as [A-Za-z]*}" node_modules/radix-ui/dist/index.d.mts | sed \'s/as //;s/}//\' | tr \'\\n\' \' \'', 'description': 'List radix-ui exported namespaces'} 
+[tool] Bash {'command': 'grep -oE "as [A-Za-z]+ \\}" node_modules/radix-ui/dist/index.d.mts | sed -E \'s/as ([A-Za-z]+) \\}/\\1/\' | tr \'\\n\' \' \'; echo; echo "---count---"; grep -c "^export" node_modules/radix-ui/dist/index.d.mt 
+[tool] Bash {'command': 'mkdir -p src/ui/state src/ui/data src/ui/fixtures src/ui/lib && cat > /tmp/rl-cn.ts <<\'EOF\'\nimport { clsx, type ClassValue } from "clsx";\nimport { twMerge } from "tailwind-merge";\n\n/** Conditional clas 
+[tool] Bash {'command': 'cat > /tmp/rl-sev.tsx <<\'EOF\'\n"use client";\n\nimport type { Severity } from "@/src/agent/types";\nimport { cn } from "./cn";\n\nconst styles: Record<Severity, { pill: string; dot: string; label: string } 
+[tool] Bash {'command': 'cat > /tmp/rl-dialog.tsx <<\'EOF\'\n"use client";\n\nimport { Dialog as RadixDialog } from "radix-ui";\nimport { X } from "lucide-react";\nimport type { ReactNode } from "react";\nimport { cn } from "./cn";\ 
+[tool] Bash {'command': 'cat > /tmp/rl-configs.ts <<\'EOF\'\nimport type { ConfigId } from "@/src/agent/types";\n\n/** Human labels for the pipeline configs the eval harness measures (master plan §2.2). */\nexport const configCatalo 
+
+--- text ---
+Now the fixture document — real contract prose:
+[tool] Bash {'command': 'cat > /tmp/rl-doc.ts <<\'TSEOF\'\n/**\n * Fixture document: a realistic customer-side hosting agreement used by `/review/sample` until the\n * ingest pipeline is wired to the UI. Prose is original (no lorem, 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport re, pathlib\np = pathlib.Path("src/ui/fixtures/sample-document.ts")\ns = p.read_text()\n\ns = s.replace(\n"""interface Draft {\n  text: string;\n  heading?: boolean;\n  style?: str 
+[tool] Bash {'command': 'cat > /tmp/rl-findings.ts <<\'TSEOF\'\n/**\n * Fixture findings for `/review/sample`: nine findings across every severity, every status, all three\n * redline op kinds and all four verifier verdicts, written 
+[tool] Bash {'command': "sed -n '172,200p;257,275p;376,400p;420,470p' data/playbooks/customer-vendor-services.yaml", 'description': 'Read playbook rules NOSOLICIT GOVLAW LD INSURANCE MINCOMMIT TRANSITION'} 
+[tool] Bash {'command': "sed -n '392,420p' data/playbooks/customer-vendor-services.yaml", 'description': 'Read WARRANTY rule'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/fixtures/sample-document.ts")\ns = p.read_text()\n\nedits = [\n# 3.2 Minimum Commitment -> Invoicing (MINCOMMIT compliant)\n("""      "3.2 Minimum 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/fixtures/sample-findings.ts")\ns = p.read_text()\n\n# T4C rationale no longer references fee acceleration in 4.4\nold = """      "Convenience term 
+[tool] Bash {'command': 'cat > /tmp/rl-run.ts <<\'TSEOF\'\n/**\n * The fixture `ReviewRun` rendered by `/review/sample`, plus the per-rule worker results the progress\n * board and the finding cards read. `/review/sample-running` re 
+[tool] Bash {'command': 'cat > /tmp/rl-sim.ts <<\'TSEOF\'\n/**\n * Replays the fixture run as a timed `ProgressEvent` stream so `/review/sample-running` exercises the\n * same code path as a live SSE run (5× compressed). Nothing her 
+[tool] Bash {'command': 'cat > /tmp/rl-runs.ts <<\'TSEOF\'\n/** Fallback for `GET /api/runs` — the run history table before the store is wired up. */\nimport type { DocumentModel, ReviewRun, RunStats, Severity } from "@/src/agent/ty 
+[tool] Bash {'command': 'cat > /tmp/rl-redline.ts <<\'TSEOF\'\n/**\n * Turns findings + human decisions into the segment stream the paper renders. Word-level, so a\n * rewritten sentence shows as the handful of words that actually c 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib, re\np = pathlib.Path("src/ui/lib/redline.ts")\ns = p.read_text()\ns = s.replace("""function resolveState(\n  touching: DecidedFinding[],\n): ParagraphState {\n  if (touchi 
+[tool] Bash {'command': 'cat > /tmp/rl-store.ts <<\'TSEOF\'\n"use client";\n\nimport { create } from "zustand";\nimport type {\n  AgentName,\n  Decision,\n  DecisionAction,\n  Finding,\n  Precedent,\n  ProgressEvent,\n  ReviewRun,\n 
+[tool] Bash {'command': 'cat > /tmp/rl-api.ts <<\'TSEOF\'\n/**\n * Thin client for the HTTP API in SCHEMA.md §6. Every call resolves to `null` rather than throwing\n * when the route is not there yet, so the UI can fall back to its  
+[tool] Bash {'command': 'cat > /tmp/rl-userun.ts <<\'TSEOF\'\n"use client";\n\nimport { useCallback, useEffect, useRef, useState } from "react";\nimport type { ProgressEvent } from "@/src/agent/types";\nimport { fixtureRun, sampleWo 
+[tool] Bash {'command': 'cat > /tmp/rl-mono.tsx <<\'EOF\'\nimport { colors } from "@/src/tokens";\n\n/**\n * The monogram: a page with a struck-through line and an inserted one — a redline, drawn small.\n * Deliberately geometric so 
+[tool] Bash {'command': 'cat > /tmp/rl-topbar.tsx <<\'EOF\'\n"use client";\n\nimport Link from "next/link";\nimport { usePathname, useRouter } from "next/navigation";\nimport { DropdownMenu } from "radix-ui";\nimport { ChevronDown,  
+[tool] Bash {'command': 'cat > /tmp/rl-layout.tsx <<\'EOF\'\nimport type { Metadata } from "next";\nimport { Geist_Mono, Inter, Source_Serif_4 } from "next/font/google";\nimport { TopBar } from "@/src/ui/TopBar";\nimport { TooltipPr 
+[tool] Bash {'command': 'cat > /tmp/rl-dropzone.tsx <<\'EOF\'\n"use client";\n\nimport { FileText, Upload, X } from "lucide-react";\nimport { useCallback, useRef, useState, type DragEvent } from "react";\nimport { cn } from "./cn";\ 
+[tool] Bash {'command': 'cat > /tmp/rl-start.tsx <<\'EOF\'\n"use client";\n\nimport { useRouter } from "next/navigation";\nimport { Collapsible } from "radix-ui";\nimport { ChevronDown, ChevronRight } from "lucide-react";\nimport {  
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/StartReview.tsx")\ns = p.read_text()\ns = s.replace(\'import { startRun } from "./lib/api";\', \'import { getPlaybooks, getSamples, startRun } fro 
+[tool] Bash {'command': 'cat > /tmp/rl-page.tsx <<\'EOF\'\nimport { StartReview } from "@/src/ui/StartReview";\n\nconst steps = [\n  { title: "Ingest", body: "The .docx becomes a clause-addressable model: paragraph ids, section tree 
+[tool] Bash {'command': 'mkdir -p plans/harness/logs && (pnpm dev -p 3101 > /tmp/rl-dev.log 2>&1 &) ; sleep 12; tail -30 /tmp/rl-dev.log', 'description': 'Start dev server on 3101'} 
+[tool] Bash {'command': 'curl -s -o /dev/null -w "%{http_code}\\n" http://localhost:3101/ ; sleep 3; tail -40 /tmp/rl-dev.log', 'description': 'Hit landing page and check dev log'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("app/layout.tsx")\ns = p.read_text()\ns = s.replace(\'export const metadata: Metadata = {\\n  title: {\',\n \'const siteUrl = process.env.NEXT_PUBLIC_SITE 
+[tool] Bash {'command': 'cat > /tmp/rl-redlinetext.tsx <<\'EOF\'\n"use client";\n\nimport type { Segment } from "./lib/redline";\nimport { cn } from "./cn";\n\n/**\n * Word\'s own conventions: deletions struck through in red, insert 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/RedlineText.tsx")\ns = p.read_text()\ns = s.replace(\'\'\'            <ins\n              key={index}\n              className="text-insertion dec 
+[tool] Bash {'command': 'cat > /tmp/rl-paper.tsx <<\'EOF\'\n"use client";\n\nimport type { ParagraphRender } from "./lib/redline";\nimport { Paragraph } from "./Paragraph";\n\n/**\n * "The paper": the document itself, set in Source  
+[tool] Bash {'command': 'for n in Check CheckCheck RotateCw TriangleAlert AlertTriangle ChevronDown ChevronRight ChevronLeft ExternalLink Pencil X Undo2 BookMarked Upload FileText Keyboard ArrowRight ArrowLeft Minus Circle Loader2 D 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/Paper.tsx")\ns = p.read_text()\ns = s.replace(\'import type { ParagraphRender } from "./lib/redline";\',\n              \'import type { ReactNode  
+[tool] Bash {'command': 'cat > /tmp/rl-card.tsx <<\'EOF\'\n"use client";\n\nimport Link from "next/link";\nimport { BookMarked, Check, ExternalLink, Undo2 } from "lucide-react";\nimport type { Finding, Precedent } from "@/src/agent/ 
+[tool] Bash {'command': 'cat > /tmp/rl-board.tsx <<\'EOF\'\n"use client";\n\nimport { Check, TriangleAlert } from "lucide-react";\nimport { useEffect, useState } from "react";\nimport type { AgentName } from "@/src/agent/types";\nim 
+[tool] Bash {'command': 'cat > /tmp/rl-md.tsx <<\'EOF\'\n"use client";\n\nimport type { ReactNode } from "react";\n\n/**\n * A deliberately small Markdown renderer for the issues memo: headings, paragraphs, bullet and\n * numbered l 
+[tool] Bash {'command': 'cat > /tmp/rl-memo.tsx <<\'EOF\'\n"use client";\n\nimport { FileDown } from "lucide-react";\nimport { Button } from "./Button";\nimport { Drawer } from "./Dialog";\nimport { EmptyState } from "./EmptyState"; 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("app/globals.css")\ns = p.read_text()\ns = s.replace("  --ease-out-quiet: cubic-bezier(0.22, 0.75, 0.25, 1);",\n              "  --ease-out-quiet: cubic-b 
+[tool] Bash {'command': 'cat > /tmp/rl-usedecided.ts <<\'EOF\'\n"use client";\n\nimport { useMemo } from "react";\nimport { decideFindings, type DecidedFinding } from "../lib/redline";\nimport { filterFindings, orderFindings, useRev 
+[tool] Bash {'command': 'cat > /tmp/rl-pane.tsx <<\'EOF\'\n"use client";\n\nimport { Check, Download } from "lucide-react";\nimport { useMemo, useState, type RefObject } from "react";\nimport type { DocumentModel } from "@/src/engin 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/state/useDecided.ts")\ns = p.read_text()\ns = s.replace(\'import { filterFindings, orderFindings, useReviewStore } from "./reviewStore";\',\n      
+[tool] Bash {'command': 'cat > /tmp/rl-ws.tsx <<\'EOF\'\n"use client";\n\nimport { useCallback, useEffect, useMemo, useRef, useState } from "react";\nimport { Button } from "../Button";\nimport { EmptyState } from "../EmptyState";\n 
+[tool] Bash {'command': 'cat > /tmp/rl-runstable.tsx <<\'EOF\'\n"use client";\n\nimport Link from "next/link";\nimport { useEffect, useState } from "react";\nimport type { ReviewRun, RunStatus, Severity } from "@/src/agent/types";\n 
+[tool] Bash {'command': 'pnpm typecheck 2>&1 | tail -40', 'description': 'Run typecheck'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/fixtures/runs.ts")\ns = p.read_text()\ns = s.replace(\'import type { DocumentModel, ReviewRun, RunStats, Severity } from "@/src/agent/types";\',\n 
+[tool] Bash {'command': 'pnpm lint 2>&1 | tail -40', 'description': 'Run lint'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/EditDialog.tsx")\ns = p.read_text()\n\ns = s.replace(\'import { useEffect, useState } from "react";\', \'import { useState } from "react";\')\n\no 
+[tool] Bash {'command': 'pnpm typecheck 2>&1 | tail -10; echo "---"; tail -20 /tmp/rl-dev.log', 'description': 'Typecheck and check dev log'} 
+[tool] Bash {'command': 'cat > tmp-verify-fixture.mts <<\'EOF\'\nimport { sampleDocument } from "@/src/ui/fixtures/sample-document";\nimport { sampleFindings } from "@/src/ui/fixtures/sample-findings";\n\nconst byId = new Map(sample 
+[tool] Bash {'command': 'for p in / /runs /review/sample /review/sample-running; do printf "%s -> " "$p"; curl -s -o /dev/null -w "%{http_code}\\n" "http://localhost:3101$p"; done; echo "--- dev log ---"; tail -20 /tmp/rl-dev.log',  
+[tool] Bash {'command': 'agent-browser --session redline set viewport 1440 900 2>&1 | tail -2; agent-browser --session redline open http://localhost:3101/ 2>&1 | tail -3; agent-browser --session redline wait --load networkidle 2>&1  
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-landing-pass1.png'} 
+[tool] Bash {'command': 'ls -R app/api 2>/dev/null | head -40; echo "=== samples ==="; curl -s http://localhost:3101/api/samples | head -c 1200; echo; echo "=== playbooks ==="; curl -s http://localhost:3101/api/playbooks | head -c 4 
+[tool] Bash {'command': 'curl -s http://localhost:3101/api/samples | python3 -c "import json,sys; d=json.load(sys.stdin); [print(x[\'id\'],\'|\',x[\'kind\'],\'|\',x[\'words\'],\'|\',x[\'title\']) for x in d]"', 'description': 'List  
+[tool] Bash {'command': 'cat > /tmp/rl-title.ts <<\'EOF\'\nimport type { SampleContract } from "../fixtures/samples";\n\nconst SMALL = new Set(["and", "or", "of", "the", "for", "to", "in", "a", "an", "with", "on", "by"]);\n\nfunctio 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\n\n# 1. Button: legible disabled state\np = pathlib.Path("src/ui/Button.tsx")\ns = p.read_text()\ns = s.replace(\n \'"inline-flex select-none items-center justify-center ga 
+[tool] Bash {'command': 'sleep 4; agent-browser --session redline open http://localhost:3101/ 2>&1|tail -1; agent-browser --session redline wait --load networkidle 2>&1|tail -1; agent-browser --session redline set viewport 1440 900  
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-landing-pass1b.png'} 
+[tool] Bash {'command': 'cat > /tmp/rl-startstore.ts <<\'EOF\'\n"use client";\n\nimport { create } from "zustand";\nimport type { ConfigId } from "@/src/agent/types";\nimport { defaultPlaybook } from "../fixtures/samples";\nimport { 
+[tool] Bash {'command': 'cat > /tmp/rl-page2.tsx <<\'EOF\'\nimport { SampleRow } from "@/src/ui/SampleRow";\nimport { StartReview } from "@/src/ui/StartReview";\n\nconst steps = [\n  { title: "Ingest", body: "The .docx becomes a cla 
+[tool] Bash {'command': 'agent-browser --session redline open http://localhost:3101/ 2>&1|tail -1; agent-browser --session redline wait --load networkidle 2>&1|tail -1; agent-browser --session redline set viewport 1440 900 2>&1|tail 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-landing-pass1c.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\n\np = pathlib.Path("src/ui/lib/contractTitle.ts")\ns = p.read_text()\ns = s.replace(\'\'\'export function sampleBlurb(sample: SampleContract): string {\n  if (sample.note) 
+
+--- text ---
+Now let me look at the workspace — the most important screen.
+[tool] Bash {'command': 'agent-browser --session redline open http://localhost:3101/review/sample 2>&1|tail -1; agent-browser --session redline wait --load networkidle 2>&1|tail -1; agent-browser --session redline set viewport 1440  
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-pass1.png'} 
+[tool] Bash {'command': 'cat <<\'EOF\' | agent-browser --session redline eval --stdin\n({\n  scrollWidth: document.documentElement.scrollWidth,\n  clientWidth: document.documentElement.clientWidth,\n  bodyScrollWidth: document.body. 
+[tool] Bash {'command': 'cat <<\'EOF\' | agent-browser --session redline eval --stdin\n({\n  scrollWidth: document.documentElement.scrollWidth,\n  clientWidth: document.documentElement.clientWidth,\n  scrollHeight: document.document 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\n\n# --- globals.css: deterministic workspace metrics -------------------------------------------------\np = pathlib.Path("app/globals.css")\ns = p.read_text()\nanchor = "/ 
+[tool] Bash {'command': 'agent-browser --session redline open http://localhost:3101/review/sample 2>&1|tail -1; agent-browser --session redline wait --load networkidle 2>&1|tail -1; agent-browser --session redline set viewport 1440  
+[tool] Bash {'command': 'grep -n "workspace\\|findings-pane\\|outline-pane" src/ui/workspace/Workspace.tsx; echo "=== computed ==="; cat <<\'EOF\' | agent-browser --session redline eval --stdin\n(() => {\n  const ws = document.query 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("app/globals.css")\ns = p.read_text()\ns = s.replace(""".workspace {\n  display: flex;\n  flex-direction: column;\n}""", """.workspace {\n  display: flex; 
+[tool] Bash {'command': 'agent-browser --session redline screenshot plans/harness/logs/ui-workspace-review-pass1c.png 2>&1|tail -1', 'description': 'Screenshot fixed workspace'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-pass1c.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\n\n# --- DocBar: no overflow, calmer hierarchy -------------------------------------------------------\np = pathlib.Path("src/ui/workspace/DocBar.tsx")\ns = p.read_text()\n 
+[tool] Bash {'command': 'agent-browser --session redline open http://localhost:3101/review/sample 2>&1|tail -1; agent-browser --session redline wait --load networkidle 2>&1|tail -1; sleep 1; agent-browser --session redline screensho 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-pass1d.png'} 
+[tool] Bash {'command': 'cat <<\'EOF\' | agent-browser --session redline eval --stdin\n(() => {\n  const btns = Array.from(document.querySelectorAll("button"));\n  const exp = btns.find(b => b.textContent.trim().startsWith("Export . 
+[tool] Bash {'command': 'CSS=$(curl -s http://localhost:3101/review/sample | grep -oE \'/_next/static/[^"]*\\.css\' | head -1); echo "CSS: $CSS"; curl -s "http://localhost:3101$CSS" > /tmp/rl.css; wc -c /tmp/rl.css; grep -o "\\.text 
+[tool] Bash {'command': 'grep -c "" /tmp/rl.css; grep -o "text-sheet" /tmp/rl.css | head -2; echo "--- search color utilities ---"; grep -oE "\\.(text|bg)-(ink|sheet|navy|paper)[a-z-]*" /tmp/rl.css | sort -u | head -20; echo "--- al 
+[tool] Bash {'command': 'grep -n "text-sheet" /tmp/rl.css | head -5; echo "---context---"; grep -n -A3 -B3 "\\.text-sheet" /tmp/rl.css | head -40', 'description': 'Show text-sheet rule context'} 
+[tool] Bash {'command': 'cat <<\'EOF\' | agent-browser --session redline eval --stdin\n(() => {\n  const chip = document.querySelector(\'button[aria-pressed="true"]\');\n  const exp = Array.from(document.querySelectorAll("button")). 
+
+--- text ---
+Found a systemic cascade bug: my custom CSS is unlayered, so it overrides every Tailwind utility. Fixing globals.css layering.
+[tool] Bash {'command': 'cat > /tmp/rl-globals2.css <<\'EOF\'\n@import "tailwindcss";\n\n/* ---------------------------------------------------------------------------\n   Theme — mirrors src/tokens.ts. Default Tailwind palettes are 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/FindingCard.tsx")\ns = p.read_text()\n\nold = \'\'\'          <div\n            className={cn(\n              "mt-1 rounded-field border border-ha 
+[tool] Bash {'command': 'pnpm lint 2>&1 | tail -12', 'description': 'Show full lint output'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-pass1e.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/FindingCard.tsx")\ns = p.read_text()\ns = s.replace(\'<p className={cn("font-serif text-[13px] leading-[1.6]", expanded ? "" : "line-clamp-6")}>\' 
+[tool] Bash {'command': "agent-browser --session redline snapshot -i -c 2>&1 | sed -n '60,130p'", 'description': 'Snapshot rest of page'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/FindingCard.tsx")\ns = p.read_text()\n\ns = s.replace(\'\'\'        aria-expanded={expanded}\n        className="mt-2 block w-full px-3.5 text-lef 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-decisions-pass1.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/FindingCard.tsx")\ns = p.read_text()\ns = s.replace(\'\'\'function formatSeconds(ms?: number): string | null {\'\'\',\n\'\'\'/** "§ 9.2 Limitation 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-pass2.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/lib/redline.ts")\ns = p.read_text()\nold = \'\'\'/**\n * Word-level diff, except when the two texts share almost nothing: interleaving a wholly ne 
+[tool] Bash {'command': 'cat <<\'EOF\' | agent-browser --session redline eval --stdin\n(() => { document.getElementById("p0027").scrollIntoView({block:"center"}); return "ok"; })()\nEOF\nsleep 1; agent-browser --session redline scre 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-diff-check.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/lib/redline.ts")\ns = p.read_text()\nold = \'\'\'  const flush = () => {\n    if (removed.length > 0) out.push({ type: "delete", text: removed }); 
+[tool] Bash {'command': 'agent-browser --session redline press j >/dev/null 2>&1; agent-browser --session redline press j >/dev/null 2>&1; agent-browser --session redline press e 2>&1|tail -1; sleep 1; agent-browser --session redlin 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-edit-dialog-pass2.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\n\np = pathlib.Path("src/ui/Dialog.tsx")\ns = p.read_text()\ns = s.replace(\'\'\'  width = 640,\n  labelledBy,\n}: {\n  open: boolean;\n  onOpenChange: (open: boolean) => v 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-edit-dialog-pass2b.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/EditDialog.tsx")\ns = p.read_text()\ns = s.replace(\'rows={Math.max(2, Math.ceil(op.newText.length / 52))}\', \'rows={Math.max(3, Math.ceil(op.new 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-memo-pass2.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\n\np = pathlib.Path("src/ui/fixtures/sample-run.ts")\ns = p.read_text()\ns = s.replace(\'\'\'**Counterparty:** Brightline Cloud Services Ltd. · **Playbook:** Customer-side  
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-shortcuts-pass2.png'} 
+[tool] Bash {'command': 'agent-browser --session redline press Escape >/dev/null 2>&1; sleep 1\nagent-browser --session redline find role button click --name "Export .docx" 2>&1|tail -1; sleep 1; agent-browser --session redline scre 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-export-dialog.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/workspace/ExportDialog.tsx")\ns = p.read_text()\nold = \'\'\'      <p className="text-[13px] leading-[1.6] text-ink">\n        {applying.length} f 
+[tool] Bash {'command': 'agent-browser --session redline find text "Accept all verified" click 2>&1|tail -1; sleep 1; agent-browser --session redline screenshot plans/harness/logs/ui-workspace-acceptall-confirm.png 2>&1|tail -1', 'd 
+[tool] Bash {'command': 'agent-browser --session redline snapshot -i -c 2>&1 | tail -20', 'description': 'Snapshot to find accept-all button ref'} 
+[tool] Bash {'command': 'agent-browser --session redline click @e81 2>&1|tail -1; sleep 1; agent-browser --session redline screenshot plans/harness/logs/ui-workspace-acceptall-confirm.png 2>&1|tail -1', 'description': 'Click accept- 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-acceptall-confirm.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/workspace/FindingsPane.tsx")\ns = p.read_text()\ns = s.replace(\'\'\'              <li key={d.finding.id} className="flex items-baseline gap-2 tex 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-export-dialog2.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/workspace/ExportDialog.tsx")\ns = p.read_text()\ns = s.replace(\'  const paragraphs = new Set(applying.flatMap((d) => d.ops).map((op) => op.paragr 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-export-unavailable.png'} 
+[tool] Bash {'command': 'agent-browser --session redline press Escape >/dev/null 2>&1\nagent-browser --session redline open http://localhost:3101/review/sample-running 2>&1|tail -1\nagent-browser --session redline wait --load networ 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-running-pass2.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/workspace/Workspace.tsx")\ns = p.read_text()\nold = \'\'\'  // The first selection is automatic (the top finding), so it must not yank either pane 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-running-pass2b.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/ProgressBoard.tsx")\ns = p.read_text()\ns = s.replace(\'import { useEffect, useState } from "react";\', \'import { useEffect, useRef, useState } f 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-running-pass2c.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/ProgressBoard.tsx")\ns = p.read_text()\ns = s.replace(\'max-h-[232px]\', \'max-h-[206px]\')\np.write_text(s)\nprint("ok")\nPY\nsleep 3\necho "===  
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-empty-state.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-error-state.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/workspace/Workspace.tsx")\ns = p.read_text()\nold = \'\'\'      <div className="flex flex-1 items-center justify-center bg-paper px-6">\n        < 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-runs-pass2.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/lib/contractTitle.ts")\ns = p.read_text()\ns = s.replace(\'\'\'export function prettyContractTitle(raw: string): PrettyTitle {\n  const match = /^ 
+[tool] Bash {'command': 'agent-browser --session redline open "http://localhost:3101/review/PFLRALt3w26sfg" 2>&1|tail -1; agent-browser --session redline wait --load networkidle 2>&1|tail -1; sleep 2; agent-browser --session redline 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-real-run.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\n\n# Paragraph: robust heading rendering for real, noisily-detected documents\np = pathlib.Path("src/ui/Paragraph.tsx")\ns = p.read_text()\ns = s.replace(\'\'\'  const { pa 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-real-run2.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/Paragraph.tsx")\ns = p.read_text()\ns = s.replace(\'        paragraph.isHeading && "font-semibold",\\n\', \'\')\np.write_text(s)\nprint("ok")\nPY\ 
+
+--- text ---
+Now the final capture pass at all three widths.
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nS="agent-browser --session redline"\n$S set viewport 1440 900 >/dev/null 2>&1\n$S open http://localhost:3101/ >/dev/null 2>&1; $S wait --load networkidle 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser set viewport 1440 900 >/dev/null 2>&1\nagent-browser open http://localhost:3101/ >/dev/null 2>&1; age 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-landing-pass2.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/lib/contractTitle.ts")\ns = p.read_text()\ns = s.replace(\'\'\'  if (sample.id.includes("hardcase")) {\n    return "An illusory cap hidden in a de 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-landing-pass2b.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-runs-pass2b.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser set viewport 1440 900 >/dev/null 2>&1\nagent-browser open http://localhost:3101/review/sample >/dev/n 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-decisions-1440.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser open http://localhost:3101/review/sample >/dev/null 2>&1; agent-browser wait --load networkidle >/dev 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-1280x800.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser find role button click --name "Document outline" 2>&1|tail -1; sleep 1\nagent-browser screenshot plan 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-1920x1080.png'} 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-outline-popover-1280.png'} 
+[tool] Bash {'command': 'python3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/Outline.tsx")\ns = p.read_text()\ns = s.replace(\'className="pane w-full border-r border-hairline bg-paper"\',\n              \'className="pane mi 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/public/og.png'} 
+[tool] Bash {'command': 'grep -rn "text-ink-faint" src app --include=*.tsx --include=*.ts | wc -l; grep -rn "text-ink-faint" src app --include=*.tsx | sed \'s/:.*text-ink-faint//\' | sort | uniq -c | sort -rn | head -40', 'descripti 
+[tool] Grep {'pattern': 'text-ink-faint', 'path': '~/code/hackathons/legal-redline/src/ui', 'output_mode': 'content', '-n': True, 'head_limit': 60} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib, re\n\nskip_markers = ("aria-hidden", "disabled:", "marker:", "pointer-events-none")\nchanged = []\nfor path in pathli 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\n\n# High severity: keep the amber identity in the border and wash, put the label in ink so it clears 4.5:1\np = pathl 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser set viewport 1440 900 >/dev/null 2>&1\nagent-browser open http://localhost:3101/review/sample >/dev/n 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-expanded-1440.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/lib/redline.ts")\ns = p.read_text()\nold = \'\'\'/** A compact one-line preview of a proposa 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser open http://localhost:3101/review/sample >/dev/null 2>&1; agent-browser wait --load networkidle >/dev 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-focus-ring.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser find role button click --name "Memo" >/dev/null 2>&1; sleep 1\nagent-browser screenshot plans/harness 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-memo-1440.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser set viewport 1440 900 >/dev/null 2>&1\nfor u in / /runs /review/sample /review/sample-running /review 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nfor w in 1024 1152 1280 1366 1600 1920; do\n  agent-browser set viewport $w 900 >/dev/null 2>&1\n  agent-browser op 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser set viewport 1024 900 >/dev/null 2>&1\nagent-browser open "http://localhost:3101/review/sample" >/dev 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-1024x900.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\n\np = pathlib.Path("app/globals.css")\ns = p.read_text()\nanchor = "  /* Motion (STYLE.md §5). */"\nadd = """  /* The 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser set viewport 1440 900 >/dev/null 2>&1\nagent-browser open "http://localhost:3101/review/sample" >/dev 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-1024x900.png'} 
+
+--- text ---
+Final capture pass with all fixes applied:
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nL=plans/harness/logs\n# clear superseded intermediates\nrm -f $L/ui-workspace-landing-pass1b.png $L/ui-workspace-la 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nL=plans/harness/logs\n# decisions state: expand card 1, accept card 3, reject card 4\nagent-browser open http://loc 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nL=plans/harness/logs\nagent-browser click @e81 >/dev/null 2>&1; sleep 1\nagent-browser screenshot $L/ui-workspace-a 
+[tool] Bash {'command': "cd ~/code/hackathons/legal-redline\nL=plans/harness/logs\nrm -f $L/ui-workspace-acceptall-confirm.png $L/ui-workspace-edit-dialog-pass2b.png $L/ui-workspace-error-state.png \\\n      $L/ui- 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-decisions-pass2.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nL=plans/harness/logs\nagent-browser open http://localhost:3101/review/sample >/dev/null 2>&1; agent-browser wait -- 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-decisions-pass2.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nL=plans/harness/logs\nagent-browser open http://localhost:3101/review/sample >/dev/null 2>&1; agent-browser wait -- 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-decisions-pass2.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\necho "=== typecheck ==="; pnpm typecheck 2>&1 | tail -8\necho "=== lint ==="; pnpm lint 2>&1 | tail -10', 'description': 'Run final typecheck and lint ga 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npnpm lint 2>&1 | grep -E "src/ui|app/(page|layout|runs|review)" || echo "no lint findings in UI scope"\necho "=== build ==="\ntimeout 300 pnpm build 2>&1 
+[tool] Bash {'command': 'pnpm build 2>&1 | tail -40', 'description': 'Run production build', 'timeout': 420000} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser open http://localhost:3101/review/sample >/dev/null 2>&1; agent-browser wait --load networkidle >/dev 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-edited-pass2.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nagent-browser open "http://localhost:3101/review/PFLRALt3w26sfg" >/dev/null 2>&1; agent-browser wait --load network 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ngit status --porcelain | grep -v "^?? plans/harness/logs/" | head -60\necho "--- untracked screenshots ---"\ngit status --porcelain plans/harness/logs |  
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\ngit status --porcelain | grep "^??" ; echo "--- ignored check ---"; git check-ignore -v plans/harness/logs/ui-workspace-landing-pass2.png public/og.svg 2 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\necho "=== src/ui tree with line counts ==="\nfind src/ui -type f | sort | xargs wc -l | sort -k2\necho "=== other files ==="\nwc -l src/tokens.ts app/glo 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-reduced-motion.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\npython3 - <<\'PY\'\nimport pathlib\np = pathlib.Path("src/ui/TopBar.tsx")\ns = p.read_text()\ns = s.replace(\'import { ChevronDown, Keyboard } from "luci 
+[tool] Read {'file_path': '~/code/hackathons/legal-redline/plans/harness/logs/ui-workspace-review-default-pass2.png'} 
+[tool] Bash {'command': 'cd ~/code/hackathons/legal-redline\nexport AGENT_BROWSER_SESSION=redline\nfor u in / /runs /review/sample; do\n  agent-browser console --clear >/dev/null 2>&1; agent-browser errors --clear  
+[tool] Bash {'command': "cd ~/code/hackathons/legal-redline; ls plans/harness/logs/*.png | sed 's|plans/harness/logs/||' | sort", 'description': 'Final screenshot list'} 
+
+--- text ---
+## Summary
+
+Shipped the design system, app shell, landing page and the complete review workspace for Playbook Redliner, working against the real HTTP/SSE protocol in SCHEMA §6 with a committed fixture fallback.
+
+- **Design system** — `src/tokens.ts` + `app/globals.css`: every STYLE.md §1 token as `@theme` custom properties with `--color-*: initial` first, so a stray `bg-zinc-100` cannot compile. Inter / Source Serif 4 / Geist Mono via `next/font/google`. Base styles live in `@layer base` and component classes in `@layer components` — a systemic bug I found and fixed mid-build, where unlayered CSS silently outranked every Tailwind utility (`button { color: inherit }` was defeating `text-sheet`, giving ink-on-navy buttons).
+- **Shell** — 56 px top bar with an SVG monogram (a page with a red strike and a blue insertion), nav, a live "Sample contracts" menu wired to `POST /api/runs`, and a `?` shortcuts button with a global hotkey.
+- **Landing** — hero + one-paragraph value statement, upload dropzone (drag/click, `FormData` → `/api/runs`), playbook select, "Advanced" pipeline-config disclosure, a sample row fed by `GET /api/samples`, a six-step "how it works" strip and CUAD attribution.
+- **Workspace** — three panes per STYLE §3: outline with severity dots, the paper (Source Serif, 760 px column, `#p0042` anchors, sticky section headings, word-level redlines rendered from `Finding.proposal.ops`), and the findings pane (filter chips, cards per STYLE §4, Accept/Edit/Reject, verifier badge, precedent chip, cost/time, trajectory link, sticky footer with accept-all and export). Full keyboard review (`J`/`K`/`A`/`R`/`E`/`Enter`/`/`), memo drawer with a dependency-free Markdown renderer, edit modal recording `Decision{action:"edit"}`, and the SSE-driven agent progress board while a run is in flight.
+- **Data layer** — `useRun` + zustand store speak the real protocol: `GET /api/runs/[id]`, `EventSource` on `/stream?after=<seq>` with backoff reconnect, `POST /decisions`, `POST /apply`. It is already live: `/review/PFLRALt3w26sfg` renders a real backend run and its decision POST returns 200.
+- **Fixture** — a 50-paragraph "Web Site Hosting and Managed Services Agreement" (original prose, internally consistent: the nine flagged rules are real deviations and the other nine are genuinely compliant), 9 findings covering all four severities, all four statuses, all three op kinds, all four verifier verdicts, one precedent, plus a 5×-compressed replay of the same run at `/review/sample-running`.
+
+Two judgement calls worth your attention: the word-diff is **coarsened** for legibility (change runs collapsed; below 30 % retained text it falls back to one strike + one insert), and two STYLE token pairings could not reach 4.5:1 — details under Known gaps.
+
+## Files
+
+**New — design system and pages**
+- `src/tokens.ts` · `app/globals.css` (307) · `app/layout.tsx` · `app/page.tsx` · `app/review/[runId]/page.tsx` · `app/runs/page.tsx`
+- `public/favicon.svg` · `public/og.svg` · `public/og.png` (rendered from the SVG at 1200×630)
+
+**New — `src/ui/`** (5,254 lines total, all ≤ ~400)
+- Primitives: `cn.ts` `Button` `Chip` `SeverityPill` `Kbd` `Skeleton` `EmptyState` `Dialog` (Dialog + Drawer) `Tooltip` `Monogram` `VerifierBadge` `Markdown`
+- Shell/landing: `TopBar` `ShortcutsDialog` `Dropzone` `SampleCard` `SampleRow` `StartReview` `RunsTable`
+- Paper: `Paper` `Paragraph` `RedlineText` `Outline`
+- Findings: `FindingCard` `ProgressBoard` `MemoDrawer` `EditDialog`
+- Workspace: `workspace/Workspace` `workspace/DocBar` `workspace/FindingsPane` `workspace/ExportDialog`
+- Logic: `lib/redline.ts` `lib/api.ts` `lib/configs.ts` `lib/contractTitle.ts` · `state/reviewStore.ts` `state/useDecided.ts` `state/startStore.ts` · `data/useRun.ts`
+- Fixtures: `fixtures/sample-document.ts` `fixtures/sample-findings.ts` `fixtures/sample-run.ts` `fixtures/simulate.ts` `fixtures/runs.ts` `fixtures/samples.ts`
+
+**Incidental edits (outside the listed scope, please confirm)**
+- `next.config.ts` — added `devIndicators: false` so the dev overlay badge stays out of every agent's screenshots.
+- Deleted `app/favicon.ico` and the five scaffold SVGs in `public/` (`next.svg`, `vercel.svg`, `globe.svg`, `window.svg`, `file.svg`).
+
+## Verification evidence
+
+`agent-browser skills get core --full` was loaded first and its snapshot-and-ref workflow used throughout. Three full passes; every screenshot below was read back and critiqued against STYLE.md, and the defects found are listed after the list.
+
+**Screenshots** (`plans/harness/logs/`, 1440×900 unless noted)
+
+| File | What it proves |
+|---|---|
+| `ui-workspace-landing-pass1.png` | Pass-1 baseline (raw CUAD titles overflowing, unreadable disabled button, dead space in the card) |
+| `ui-workspace-landing-pass2.png` | Final landing: hero, dropzone, playbook select, Advanced disclosure, sample band, how-it-works, CUAD footer |
+| `ui-workspace-review-pass1.png` | Pass-1 baseline showing the layout defect: whole page scrolled, doc bar and outline gone |
+| `ui-workspace-review-default-pass2.png` | Final default workspace: three panes, paper/ink palette, hairlines, `?` button, cost, status |
+| `ui-workspace-review-expanded-pass2.png` | One card expanded — full clause, rationale, both-paragraph redline, comment |
+| `ui-workspace-review-decisions-pass2.png` | One accepted (✓ one-liner, § 9.2, Undo), one rejected (struck title at 60 %, vendor wording restored in the paper), an escalated card with `unverified ×3` |
+| `ui-workspace-edit-dialog-pass2.png` | Edit modal: rule title, their-text/your-text per op, margin comment, first field autofocused |
+| `ui-workspace-edited-pass2.png` | End-to-end edit: "edited by you" tag, reviewer's wording in the paper, blue "edited" paragraph rule, `edited 1` |
+| `ui-workspace-memo-pass2.png` | Memo drawer with the hand-written Markdown renderer (headings, table, lists, bold) |
+| `ui-workspace-shortcuts-pass2.png` | Shortcuts dialog opened with `?` |
+| `ui-workspace-acceptall-pass2.png` | "Accept all verified" confirmation listing the 7 verified-and-open findings |
+| `ui-workspace-export-pass2.png` | Export confirmation: 8 replacements across 5 paragraphs, 2 inserted, 1 struck, 7 comments |
+| `ui-workspace-export-unavailable-pass2.png` | Honest failure path when `/apply` is unavailable — nothing written, engine path named |
+| `ui-workspace-running-pass2.png` | Mid-run board: ingest ✓ → planner ✓ → 18 drafter chips (done with elapsed + result, running, verifying, queued) → verifier → assembler, findings already decidable |
+| `ui-workspace-running-empty-pass2.png` | Designed empty state at t≈1 s: board + serif-italic copy + skeleton cards |
+| `ui-workspace-error-pass2.png` | Error state in a sheet card with retry / all-runs |
+| `ui-workspace-runs-pass2.png` | Runs table (live `GET /api/runs`) with stat strip, title-cased contracts, severity dots, cost, dates |
+| `ui-workspace-real-run-pass2.png` | The workspace rendering a **real backend run** end to end, applied banner + download link |
+| `ui-workspace-focus-ring-pass2.png` | Keyboard focus: measured `outline: rgb(30,42,71) 2px` |
+| `ui-workspace-reduced-motion.png` | `prefers-reduced-motion`: pulse replaced by a static navy-soft fill |
+| `ui-workspace-outline-popover-1280.png` | 1280: outline collapsed into a popover per STYLE §3 |
+| `ui-workspace-review-1280x800.png` / `-1920x1080.png` / `-1024x900.png` | Required width checks |
+
+**Defects found by reading the screenshots and fixed:** page-level scroll instead of independent panes (flex-basis was overriding the workspace height); `wide:` pane width losing to `lg:` in utility ordering (moved to explicit media queries); white-on-navy text failing because unlayered CSS outranked utilities; `-webkit-line-clamp` bleeding text into padding; doc-bar and card-footer overflow at 420 px; scroll hijack that dragged the pane off the progress board mid-run; raw ALL-CAPS CUAD filenames; noisy interleaved word diffs; and — on real backend data — long ALL-CAPS definitions rendered as shouting sticky headings and a whole-sentence `sectionRef`.
+
+**Interaction coverage** — all exercised via refs/keyboard with a screenshot after each: drag-free dropzone activation, playbook and config selects, Advanced disclosure, sample-card start, nav, samples menu, outline jump, outline popover, paragraph hover/click sync, `J`/`K`/`A`/`R`/`E`/`Enter`/`/`/`?`, Escape on dialog/drawer/popover, accept-all confirm, export confirm + unavailable path, edit save, undo, memo download button.
+
+**Console / errors** — zero on `/`, `/runs`, `/review/sample`, `/review/sample-running`, `/review/does-not-exist`: no errors, no React warnings, no hydration warnings (`agent-browser console` and `errors` both empty after filtering HMR/devtools noise). The one dev-server warning present at pass 1 (`metadataBase` not set) was fixed.
+
+**No horizontal or page scroll at 1024 / 1152 / 1280 / 1366 / 1600 / 1920** — `scrollWidth === clientWidth` and `scrollHeight === clientHeight` measured at each.
+
+**Gates**
+```
+pnpm typecheck  →  ✓ Types generated successfully   (tsc --noEmit clean)
+pnpm lint       →  1 warning: app/api/_shared.ts:20  '_queuedAt' is defined but never used
+                   (backend agent's file; zero findings in src/ui, app/page, app/layout, app/runs, app/review)
+pnpm build      →  succeeds; / and /runs static, /review/[runId] dynamic
+                   (warnings are fs.readFile traces in src/playbook/loader.ts — not mine)
+```
+
+## Known gaps / risks
+
+1. **Per-finding cost and time have no home in the schema.** STYLE §4 asks for `cost $0.11 · 38 s` on the card, but `Finding` carries neither. I take them from SSE `worker` events (`costUsd`/`durationMs`), with the fixture supplying the same shape. A completed run re-loaded from `GET /api/runs/[id]` therefore has no per-rule figures and the card omits those two fields. Recommend adding them to `Finding` or a `perRule` map on `ReviewRun`.
+2. **Two STYLE tokens cannot reach 4.5:1.** `comment` `#B98A1F` is 3.1:1 on white and 2.8:1 on `comment-soft`; `verified` on `verified-soft` is 4.19:1. I did **not** change any token value. Instead the *text* of amber elements (High severity pill, comment anchor pill, comment tag) is now `ink` with the amber kept in the border, wash and dot, and the verifier badge and precedent chip sit on `bg-sheet` (4.83:1). This deviates from STYLE §2's literal "comment.soft bg, comment text" for the anchor pill. If you want amber text back, darken the token to roughly `#8A6410` in STYLE.md **and** `src/tokens.ts` and I'll revert the workaround. Everything else measured: ink 17:1, ink-muted 5.9–6.1:1, deletion-on-soft 5.6:1, medium 5.7:1, low 5.1:1, insertion 6.8:1. I also promoted every data-bearing `ink-faint` use to `ink-muted` (ink-faint is 3.3:1 and now appears only on icons, list markers and disabled text).
+3. **The screenshots will not be committed.** `.gitignore:5` excludes `plans/harness/logs/`, which is where STYLE §7 says UI screenshots must live. Your call: a negation rule, or a different directory.
+4. **`/evals` and `/precedents` nav links currently 404.** The brief specified all four nav items; those two pages belong to other agents. There is no branded `not-found` page (outside my scope) — worth adding before the demo if those pages slip.
+5. **The word diff is coarsened in the UI only.** Change runs are merged into one strike + one insert, small retained scraps are folded into the change, shared leading words are hoisted back out, and below 30 % retained text the whole span becomes one strike + one insert. The engine still writes fine-grained `w:ins`/`w:del`, so preview granularity and docx granularity can differ. Rationale is in the comment on `wordDiffSegments`.
+6. **The engine over-detects headings on real documents.** Long ALL-CAPS definition paragraphs arrive with `isHeading: true`; I render anything over 72 characters as body text so real runs read correctly, but the detection itself is worth tightening.
+7. **`sectionRef` from the backend is sometimes a whole sentence** (e.g. "§ 14.2 Vendor exclusively owns every Deliverable created for Customer. Customer receives…"). I clip to 46 characters with the full value in `title`. A short reference would be better at the source.
+8. **Workspace height is `calc(100dvh - 56px)`.** If the top-bar height changes, `.workspace` in `app/globals.css` must change with it (noted in the CSS).
+9. **Below 1024 the workspace stacks and the page scrolls**; I did not build the bottom sheet STYLE §3 mentions for that range (outside the 1024–1920 acceptance window).
+10. **Fixture decisions are not persisted** across reload (no API to POST to for `sample`), and `src/ui/fixtures/sample-findings.ts` is 404 lines — 4 over the ~400 guideline, pure data.
+11. I used **CSS animations rather than the `motion` package** for every transition. Motion behaviour matches STYLE §5 including reduced motion, but `motion` is currently unused by the UI.
+
+## Suggestions for reviewer
+
+- Open **`/review/PFLRALt3w26sfg`** (or any row in `/runs`) — the workspace is already live against the backend, and `POST /api/runs/<id>/decisions` returns 200 from the card actions. That is the highest-value thing to sanity-check, because it exercises the real payload rather than my fixture.
+- Decide item 2 (the `comment` token contrast) — it is the only place where I knowingly deviate from STYLE.md, and it needs a contract change to resolve properly.
+- Decide item 1 (per-finding cost/time in `SCHEMA.md`) before the video, since the card currently shows those figures for streamed runs and hides them for reloaded ones.
+- Fix `.gitignore` (item 3) or the screenshots are lost at commit time.
+- Consider `/evals` and `/precedents`: either those pages land, or I should mark the nav items as pending before the demo.
+- Contract prose in `src/ui/fixtures/sample-document.ts` is original and internally consistent — nine rules are genuine deviations, nine genuinely compliant, and the worker notes for the clean nine say what was actually found. If anyone edits that document, the anchors in `sample-findings.ts` must be re-checked (every `replace` op's `oldText` must occur exactly once); I verified all of them with a throwaway `tsx` script and can re-add it as a vitest if you want the invariant enforced.
+
+=== result turns=219 cost=$42.63 error=False ===

@@ -408,6 +408,36 @@
     }
   },
   {
+    "confidence": 0.78,
+    "costUsd": 0.42818525,
+    "durationMs": 171060,
+    "id": "f-audit-67c5b2c4",
+    "paragraphIds": [
+      "p0132",
+      "p0137"
+    ],
+    "producedBy": "drafter",
+    "quote": "IBM reserves the right to investigate potential violations of the representations and warranties in Subsection 11.2(b). If IBM reasonably determines that a breach of any such warranty has occurred, then IBM may, in its sole and reasonable discretion:",
+    "rationale": "The Agreement contains no usage, licence or fee-compliance audit right against Customer: searches for \"audit\", \"inspect\", \"verify\", \"records\" and \"monitor\" return nothing relevant, and §§ 11.5 (Capacity Planning) and 13.2 (AUP) grant IBM no monitoring or verification rights. § 11.3 is an acceptable-use enforcement right — IBM may investigate suspected breaches of the Content/AUP warranty in § 11.2(b) and then remove Content, restrict access or terminate — not verification of our usage or charges, so the AUDIT rule's frequency/notice/cost and underpayment true-up parameters do not apply to it. The absence of any audit right binding us is better than the preferred position and favourable to Bluefly, so no redline is warranted. Noted for the file only (not a deviation): § 11.3 does not require investigators to be bound by confidentiality or expressly limit access to Customer systems, and the notice in p0137 is best-efforts and attaches only to restriction/removal actions; if this clause is opened for other reasons we could ask for notice where practicable, confidentiality obligations on investigators and no access to Customer systems beyond what is necessary. Any suspension/termination remedies in § 11.3(a)-(d) are addressed under the suspension and termination rules rather than here.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-11.3",
+    "sectionRef": "§ 11.3 Suspected Violations",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 2,
+      "checks": [
+        {
+          "name": "audit frequency limited",
+          "ok": false
+        }
+      ],
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected output shape; the rendered paragraphs are unchanged, so there is no invalid or directionally wrong edit to assess. The cited text supports the conclusion: §11.3/p0132 is an acceptable-use enforcement and investigation right tied to breach of the Content/AUP warranties, not a usage, licence or fee-verification audit right, and p0137 only adds a best-efforts notice obligation before removal/restriction. Neither grants IBM access to Customer systems or records for measuring our usage or charges, so the AUDIT parameters (frequency, notice, cost, underpayment true-up) do not attach. Absence of any audit right binding Customer is better than the preferred position and benefits our party, so treating it as compliant rather than 'missing' or a deviation is correct under the playbook's instruction not to flag clauses that favour us. The failed deterministic check ('audit frequency limited') is expected noise here: no audit clause exists to carry a frequency cap, so the regex miss is not evidence of an unmet playbook position. Minor observations (no confidentiality obligation on investigators, no express no-system-access limit, best-efforts notice) are correctly recorded as file notes rather than raised as deviations, and overlapping suspension/termination remedies are properly deferred to the other rules to avoid double-flagging.",
+      "verdict": "repaired"
+    }
+  },
+  {
     "confidence": 0.9,
     "costUsd": 0.11264975,
     "durationMs": 42118,
@@ -461,26 +491,24 @@
     }
   },
   {
-    "confidence": 0.93,
-    "costUsd": 0.236531,
-    "durationMs": 86483,
-    "id": "f-nosolicit-d9248d20",
+    "confidence": 0.9,
+    "costUsd": 0.0765025,
+    "durationMs": 29648,
+    "id": "f-nosolicit-8796d70a",
     "paragraphIds": [
-      "p0181",
-      "p0182",
-      "p0184"
+      "p0182"
     ],
     "producedBy": "drafter",
     "quote": "Each party is responsible for the supervision, direction, and control of its respective personnel. IBM reserves the right to determine the assignment of its personnel. IBM may subcontract portions of",
-    "rationale": "Compliant at the preferred position: no non-solicitation, no-hire or inducement covenant binds Bluefly anywhere in the Agreement. § 14.8 Personnel — the expected home for such a restraint — addresses only each party's supervision, direction and control of its own personnel, IBM's right to determine assignment of its personnel, and IBM's right to subcontract to Subcontractors and Affiliates; it contains no \"shall not solicit\", \"employ or engage\", \"no-hire\" or \"induce ... to leave\" language. Document-wide searches for solicit, hire, employ, employment, engage, induce, recruit, personnel and \"shall not\" return no hiring or solicitation restraint; the only \"shall not\" obligations on Bluefly are the no-resale covenant (§ 14.11) and interpretive/waiver provisions. Because the preferred position is the absence of any non-solicit on the Customer, this omission favors our party and maps to compliant rather than missing, so no redline and no counterparty comment are warranted. The deterministic sub-checks (12-month duration limit; general-solicitation carve-out) fail vacuously — there is no covenant whose duration or carve-outs could be measured — and do not undercut compliance. Internal negotiation guidance only: if IBM later proposes a non-solicit, hold to the fallback — mutual, limited to personnel directly involved in the Services, 12 months from the end of their involvement, with carve-outs for general advertisements and unsolicited approaches, and no no-hire.",
+    "rationale": "§ 14.8 Personnel, the likely home for any hiring restriction, addresses only supervision, assignment and subcontracting of each party's personnel and imposes no hiring or solicitation restraint. Document-wide searches for \"solicit\", \"hire\", \"employ\", \"induce\", \"recruit\" and \"personnel\" return no non-solicitation or no-hire covenant anywhere in the agreement. Bluefly is therefore free to hire or approach IBM personnel, which matches the preferred position (no non-solicit on Customer); no redline is needed and no fallback narrowing is required.",
     "ruleId": "NOSOLICIT",
     "ruleTitle": "Non-solicitation of employees binding Customer",
     "sectionId": "sec-14.8",
     "sectionRef": "§ 14.8 Personnel",
     "severity": "medium",
-    "status": "needs_review",
+    "status": "compliant",
     "verification": {
-      "attempts": 3,
+      "attempts": 1,
       "checks": [
         {
           "detail": "number not found",
@@ -492,8 +520,8 @@
           "ok": false
         }
       ],
-      "notes": "general-solicitation carve-out present: failed Claimed status is compliant with no redline and no counterparty comment, which is the expected output for a clause at the preferred position — nothing is being over-flagged or edited. The cited § 14.8 Personnel text addresses only each party's supervision/direction/control of its own personnel, IBM's assignment rights and subcontracting; it contains none of the rule's detection triggers ('shall not solicit', 'employ or engage', 'no-hire', 'induce ... to leave'). Because the preferred position is the absence of any non-solicit binding the Customer, treating the omission as compliant (rather than 'missing') is the correct classification — the gap favors our party and the rule expressly prefers no such covenant. The failed deterministic sub-checks (12-month duration, general-solicitation carve-out) fail vacuously since there is no covenant whose duration or carve-outs could be measured; they are heuristics and do not undercut compliance here. Rationale is accurate to the quoted text and the internal fallback guidance (mutual, personnel directly involved, 12 months, advertising/unsolicited carve-outs, no no-hire) is retained as evidence rather than raised as a negotiation issue, consistent with playbook handling of compliant findings.",
-      "verdict": "fail"
+      "notes": "Claimed status is compliant and the preferred position for this rule is the absence of any non-solicit binding the Customer, so a finding of 'no covenant present' is the correct classification rather than 'missing'. The cited paragraph (§ 14.8 Personnel) deals only with supervision, direction, assignment and subcontracting of each party's personnel and contains no solicitation, hiring or inducement restraint, supporting the rationale. No redline and no counterparty comment were proposed, which is the expected output for a compliant finding retained as internal evidence. The failed deterministic checks (duration ≤ 12 months, general-solicitation carve-out) are vacuous here because there is no non-solicit clause to measure; they do not undercut the compliance conclusion.",
+      "verdict": "pass"
     }
   },
   {
@@ -747,36 +775,6 @@
       ],
       "notes": "Deviation classification is correct: Section 5.1 provides only a care-and-skill warranty plus an authority rep, with no conformance warranty for Materials, no warranty period and no stated remedy, while 5.2 makes 5.1 exclusive and 5.4(c) puts all Materials 'AS IS' — this fails the fallback (90 days / 30 days with repair, re-performance or refund) and approaches walk-away for deliverables. Redline is actionable and tracks the rule's redline guidance and model language: it inserts a 90-day conformance and no-malicious-code warranty, adds the repair/re-performance/refund remedy, and carves the express warranties out of the 'AS IS' disclaimer ('EXCEPT AS EXPRESSLY WARRANTED IN SECTION 5.1'), leaving the existing professional/workmanlike language intact. The failed deterministic check on warranty period is a false negative — the inserted text expressly states 'a period of ninety (90) days following delivery', which meets the fallback threshold; the 0.474 changed-character ratio on p0074 reflects the necessary carve-out prefix on an all-caps disclaimer, not an over-broad rewrite. Comment is accurate, concise, in the required voice, and correctly explains both the gap and the carve-out; only minor placement nits (new subsection (c) after (b) which does not carry an 'and', and the remedy sentence following the compliance covenant paragraph) which do not affect substance.",
       "verdict": "pass"
-    }
-  },
-  {
-    "confidence": 0.8,
-    "costUsd": 0.5219845,
-    "durationMs": 202414,
-    "id": "f-audit-67c5b2c4",
-    "paragraphIds": [
-      "p0132",
-      "p0137"
-    ],
-    "producedBy": "drafter",
-    "quote": "IBM reserves the right to investigate potential violations of the representations and warranties in Subsection 11.2(b). If IBM reasonably determines that a breach of any such warranty has occurred, then IBM may, in its sole and reasonable discretion:",
-    "rationale": "No usage, licence or fee-verification audit right binds Customer anywhere in this Agreement. Searches for \"audit\", \"inspect\", \"verify\", \"records\" and \"monitor\" return nothing relevant, and §§ 11.5 (Capacity Planning) and 13.2 (Acceptable Use Policy) give IBM no monitoring or verification rights. § 11.3 is an acceptable-use enforcement right: IBM may investigate suspected breaches of the Content/AUP warranty in § 11.2(b) and then remove Content, restrict access or terminate. It grants no access to Customer systems or records for measuring our usage or charges, so the AUDIT parameters (frequency, notice, cost allocation, underpayment true-up) do not attach to it. Because the complete absence of an audit right is better than the preferred position and benefits Bluefly, the playbook direction rule means this is compliant rather than \"missing\" or a deviation, and no redline or comment is warranted. On the deterministic \"audit frequency limited\" check: the miss is expected here, since there is no audit clause capable of carrying a frequency cap, and it is not evidence of an unmet playbook position. Noted for the file only, not as deviations: § 11.3 does not bind investigators to confidentiality or expressly exclude access to Customer systems, and the p0137 notice is best-efforts and attaches only to restriction/removal actions; if § 11.3 is reopened for other reasons we could seek notice where practicable, investigator confidentiality and no access to our systems beyond what is necessary. The suspension and termination remedies in § 11.3(a)-(d) are left to the suspension and termination rules to avoid double-flagging.",
-    "ruleId": "AUDIT",
-    "ruleTitle": "Audit rights against Customer",
-    "sectionId": "sec-11.3",
-    "sectionRef": "§ 11.3 Suspected Violations",
-    "severity": "low",
-    "status": "needs_review",
-    "verification": {
-      "attempts": 3,
-      "checks": [
-        {
-          "name": "audit frequency limited",
-          "ok": false
-        }
-      ],
-      "notes": "audit frequency limited: failed Claimed status is compliant with no redline and no comment, which is the expected output for a compliant finding; nothing actionable is being asserted against the counterparty. The cited text (§11.3 / p0132, p0137) is an acceptable-use enforcement and investigation right tied to breach of the Content/AUP warranties in §11.2(b), not a usage, licence or fee-verification audit of Customer. It grants no right of entry to Customer systems or records for measuring usage or charges, so the AUDIT parameters (frequency, notice, cost allocation, underpayment true-up) do not attach to it. Absence of any audit right binding Customer is more favourable than the preferred position, so under the direction rule (do not flag a clause that benefits our party) treating this as compliant rather than 'missing' or a deviation is correct. The failed 'audit frequency limited' deterministic check is adequately explained: there is no audit clause capable of carrying a frequency cap, so the regex miss is a phrasing/absence artefact rather than evidence of an unmet position. Secondary observations (no confidentiality obligation on investigators, best-efforts notice in p0137, suspension/termination remedies left to other rules) are properly recorded in the rationale as file notes rather than raised as deviations or double-flagged.",
-      "verdict": "fail"
     }
   },
   {
