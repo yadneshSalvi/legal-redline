@@ -11,10 +11,14 @@ function shortHeading(heading: string): string {
   return `${normalized.slice(0, MAX_SECTION_HEADING_LENGTH - 1).trimEnd()}…`;
 }
 
+const LEADING_LABEL = /^(?:(?:article|section|clause)\s+)?(?:[A-Z]?\d+(?:\.\d+)*|[IVXLC]+)[.)]?\s/i;
+
 function formatSectionReference(section: Section | undefined): string {
   if (!section) return "§ —";
   const heading = shortHeading(section.heading);
-  return ["§", section.number, heading].filter(Boolean).join(" ");
+  // Headings that already carry their own label ("2. GRANT OF RIGHTS", "ARTICLE IV TERM") are not prefixed again.
+  const number = LEADING_LABEL.test(section.heading.trim()) ? undefined : section.number;
+  return ["§", number, heading].filter(Boolean).join(" ");
 }
 
 /** Add a compact, document-derived location after a model has submitted its finding. */
