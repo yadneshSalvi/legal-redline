@@ -32,7 +32,9 @@ describe("normalizeEvals", () => {
     const data = committed();
     expect(data.configs.length).toBeGreaterThan(0);
     expect(data.tiers.map((tier) => tier.id)).toEqual(["short", "long"]);
-    expect(data.tiers[1].configs.map((config) => config.id).sort()).toEqual(["b1-prompt", "final", "i3-verifier"]);
+    expect(data.tiers[1].configs.map((config) => config.id).sort()).toEqual(
+      expect.arrayContaining(["b1-prompt", "final", "i3-verifier"]),
+    );
   });
 
   it("rejects a payload with neither configs nor tiers", () => {
@@ -152,7 +154,8 @@ describe("the per-contract matrix", () => {
 describe("the headline strip", () => {
   it("compares the baseline with the shipped config and signs the delta by direction", () => {
     const data = committed();
-    expect(shippedConfig(data)).toBe("final");
+    // The shipped config is the latest `final*` the committed report carries (round 1: final; round 2: final-v2/v3).
+    expect(shippedConfig(data)).toMatch(/^final(-v\d+)?$/);
     const cards = tierHeadlines(data);
     expect(cards.map((card) => card.label)).toEqual([
       "Complete redline rate",
@@ -162,9 +165,9 @@ describe("the headline strip", () => {
     ]);
     expect(cards[0].scope).toBe("all · 18 contracts");
     expect(cards[0].improved).toBe(true);
-    // Long-tier detection went backwards on this report; the pill has to say so.
-    expect(cards[1].improved).toBe(false);
-    expect(cards[1].delta.startsWith("−")).toBe(true);
+    // The pill's direction must agree with the sign of the delta whichever way the shipped config moved
+    // (round-1 `final` regressed on the long tier; `final-v2`/`final-v3` improve it) — never hard-code the direction.
+    for (const card of cards) expect(card.improved).toBe(!card.delta.startsWith("−"));
   });
 
   it("falls back to the round-1 four when the report has no tiers", () => {
