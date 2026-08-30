@@ -1,0 +1,67 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXxYDzNuDi1X2E9a2k7C",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_011AVDvNpwGHENLrTGbHC7u8",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0138"
+          ],
+          "quote": "ARTICLE XXI EFFECT OF TERMINATION Upon termination of this Agreement: for any reason (a) the rights and licenses granted to Licensee pursuant to this Agreement will automatically terminate, and (b) Licensee shall, within five (5) days, ship to Licensor all Licensed Technology, API's Documentation with respect to the Licensed Technology and other Confidential Information in Licensee's possession or control",
+          "rationale": "The Agreement has no post-termination transition assistance or customer data return provision. Article XXI (Effect of Termination) is entirely one-way in Licensor's favour: the licence terminates automatically, Licensee must ship back all Licensed Technology, API documentation and Confidential Information within five days and certify compliance, and \"[a]ll of the Licensor's rights ... shall survive termination\". Nothing obliges Licensor to return or export the trade, order and account data we generate through the hosted platform, and there is no export format, deletion or certification timing. Searches for transition, migration, export, wind-down and data return produced nothing relevant (the only \"export\" hit is US export-control compliance at p0148; the confidentiality article at p0123-p0125 imposes only Licensee-side duties; the sole \"records\" duty at p0072 requires us to keep records for Licensor's audit). This is a hosted FX trading platform terminable immediately on insolvency (p0132) or an unconsented change of control (p0134), so the absence of any exit mechanic risks losing access to our own regulatory and trade records — walk-away territory under the rule. Inserted a new Article XXI(c) at the preferred position (six months' assistance at then-current rates, thirty-day machine-readable return of Licensee Data, certified deletion thereafter), with ninety-day assistance offered as the fallback in the comment.",
+          "confidence": 0.88,
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-transition",
+            "summary": "Insert reciprocal transition-assistance and Licensee data return/deletion obligations into Article XXI (Effect of Termination).",
+            "comment": "[Playbook] Article XXI only requires us to return Licensor materials and says nothing about our own trade and account data, so we have added a reciprocal exit provision: up to six months of transition assistance at Licensor's then-current rates, return of Licensee Data in a machine-readable format within thirty days, and certified deletion thereafter. If six months is too long, we can accept ninety days of assistance provided the thirty-day data export and deletion certificate remain.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0138",
+                "numbering": "(c)",
+                "text": "(c) TRANSITION ASSISTANCE AND RETURN OF LICENSEE DATA. Upon expiry or termination of this Agreement for any reason, Licensor shall (i) at Licensee's request, provide reasonable transition assistance for up to six (6) months at Licensor's then-current rates; (ii) within thirty (30) days of such expiry or termination, return to Licensee all data of or relating to Licensee, its customers and its trades that is stored in or processed by the Licensed Technology (\"Licensee Data\") in a commonly used, machine-readable format; and (iii) thereafter delete all Licensee Data from its systems and certify such deletion in writing to Licensee. Licensor shall not withhold, suspend access to, or delete any Licensee Data except in accordance with this Section, and this Section shall survive termination of this Agreement."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1410,
+      "cache_read_input_tokens": 17884,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1410,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1314,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "TRANSITION",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 12208
+}

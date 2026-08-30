@@ -1,0 +1,739 @@
+[
+  {
+    "confidence": 0.86,
+    "costUsd": 0.15060275,
+    "durationMs": 40919,
+    "id": "f-indemn-cc763401",
+    "paragraphIds": [
+      "p0086",
+      "p0087",
+      "p0088",
+      "p0090"
+    ],
+    "producedBy": "drafter",
+    "quote": "8.1 By Commerce One. Commerce One shall indemnify, defend and hold harmless Corio and its Customers from any and all damages, liabilities, costs and expenses (including reasonable attorneys' fees) incurred by Corio or its Customers arising out of any claim that the Software infringes any patent, copyright, trademark or trade right secret of a third party",
+    "rationale": "Section 8.1 gives us (and our Customers) a full defend-and-indemnify from Commerce One for third-party claims that the Software infringes patent, copyright, trademark or trade secret rights, with standard procedure (prompt notice, tender of control to the vendor at its expense, cooperation at its expense, right to join with our own counsel) and the standard remedy ladder of procure / modify or replace / terminate and refund a pro-rated portion of fees. Exclusions in 8.2 are the usual narrow ones (use outside the Documentation; third-party modification where the infringement would not otherwise have occurred) and do not include combination or Corio-specification carve-outs. Critically, Section 9 carves liability \"ARISING UNDER SECTION 8\" out of both the 12-month fee cap and the consequential-damages exclusion, so the vendor indemnity is uncapped — better than the fallback's 3x annual fees super-cap. There is no reciprocal Corio indemnity anywhere (Section 6 trademark provisions impose approval/compliance obligations but no hold-harmless), so no one-way or over-broad customer indemnity to narrow. The clause therefore sits at or above the fallback and is not redlined. Noted only for the file, not as deviations: the indemnity does not extend to Commerce One's breach of applicable law, unauthorised access to or disclosure of Corio data, or its gross negligence/wilful misconduct, and it is limited to the Software rather than covering affiliates expressly — points we could raise if the section is reopened for other reasons.",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-8-2",
+    "sectionRef": "§ 8 INDEMNIFICATION.",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "vendor indemnity for IP infringement present",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and the cited text supports it: Section 8.1 is a full Vendor (Commerce One) defend-indemnify-hold-harmless for third-party claims that the Software infringes patent, copyright, trademark or trade secret rights, with standard notice/control/cooperation procedure and the procure/modify-replace/terminate-and-refund remedy ladder. Exclusions in 8.2 are narrow (use outside Documentation; third-party modification but-for causation) and do not undercut the fallback; Section 9 expressly carves Section 8 liability out of both the 12-month fee cap and the consequential-damages exclusion, so the indemnity is uncapped — better than the fallback's 3x super-cap. No reciprocal or one-way Customer indemnity exists to narrow, so nothing to redline; the deterministic check confirming a Vendor IP indemnity is consistent. Consistent with the compliant treatment, no redline text was changed and no counterparty comment was emitted; the shortfalls versus preferred (no breach-of-law, data-breach, or gross negligence/wilful misconduct prongs; no express affiliate coverage) are correctly noted in the rationale as file notes rather than flagged as deviations.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.26592175,
+    "durationMs": 73308,
+    "id": "f-ip-598bd48e",
+    "paragraphIds": [
+      "p0115",
+      "p0116"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We own the Developments our personnel create, so we have deleted the carve-out transferring ownership to Commerce One wherever it provides ongoing support; Commerce One's pre-existing materials and the Software remain its property. If ongoing support is the concern, we can instead grant Commerce One a licence to use those Developments for support purposes.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "shall be owned by Corio.",
+          "oldText": "shall be owned by Corio, unless such Developments are supported on an ongoing basis by Commerce One in which case Commerce One will retain all ownership rights, including",
+          "paragraphId": "p0115"
+        },
+        {
+          "kind": "replace",
+          "newText": "To the extent",
+          "oldText": "intellectual property rights in the Developments. To the extent",
+          "paragraphId": "p0116"
+        }
+      ],
+      "precedentId": "seed-ip",
+      "summary": "Remove the carve-out that gives Commerce One ownership of Developments created solely by Corio where Commerce One supports them."
+    },
+    "quote": "shall be owned by Corio, unless such Developments are supported on an ongoing basis by Commerce One in which case Commerce One will retain all ownership rights, including",
+    "rationale": "Section 13.5 starts in the right place — Developments (software interface coding/programs created solely by Corio) are owned by us and Commerce One assigns any claim of ownership (p0116) — and Commerce One's retention of the Software under 2.8 is acceptable. However, the carve-out in p0115 flips ownership of IP created solely by our personnel to Commerce One whenever Commerce One supports it on an ongoing basis, with no licence back to us for those Developments. That is an assignment of Customer-created IP to the Vendor, which is walk-away territory under this rule and fails the fallback (no perpetual, irrevocable, royalty-free licence back). The minimal fix deletes the carve-out so Developments are owned by Corio, subject to Commerce One's pre-existing ownership; if support is the driver we can offer Commerce One a support-purposes licence instead. Noted but not separately flagged: the agreement has no express Customer Data ownership sentence (data is covered only by the confidentiality/NDA regime at Section 10), and ownership of enhancements to the Software itself is left to future negotiation rather than allocated to us.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-13",
+    "sectionRef": "§ 13 SHARED RESOURCES.",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "no assignment of Customer Data/IP to Vendor remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.871 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0115",
+          "ok": false
+        },
+        {
+          "detail": "changed-character ratio=0.794 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0116",
+          "ok": false
+        }
+      ],
+      "notes": "Classification is correct: the carve-out in p0115 transfers ownership of Developments created solely by Corio (our party, the licensee/customer) to Commerce One whenever it provides ongoing support, with no licence back — an assignment of Customer-created IP to the Vendor, which fails the fallback (no perpetual, irrevocable, royalty-free licence back) and sits in walk-away territory, so a deviation finding with a redline is warranted rather than over-flagging. Redline is substantively minimal and correctly targeted: the only change across p0115/p0116 is deletion of the trailing carve-out ('unless such Developments are supported on an ongoing basis by Commerce One ... intellectual property rights in the Developments.'), leaving 'shall be owned by Corio.' and preserving Commerce One's pre-existing ownership, the assignment sentence, the NDA/invention covenants and the future-negotiation sentence. The failed 'minimal edit' checks are artifacts of the deletion spanning the paragraph boundary / full-text replacement, not evidence of an over-broad rewrite. Direction of the edit is right for our side (ownership retained by us, no Customer IP assigned to Vendor) and no assignment-to-Vendor language remains, consistent with the deterministic check. Comment is accurate, concise, in first person plural with the [Playbook] prefix, explains what was deleted and why, and offers a sensible fallback (a support-purposes licence to Commerce One) without lecturing. Sub-elements short of the preferred position (no express Customer Data ownership sentence; enhancements to the Software left to future negotiation) are appropriately noted in the rationale rather than redlined, which matches the playbook's treatment of minor gaps; severity 'critical' as claimed is appropriate given the IP-assignment issue.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.30834925,
+    "durationMs": 87188,
+    "id": "f-lol-cap-90da358d",
+    "paragraphIds": [
+      "p0090"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We removed the \"transaction which the liability relates to\" narrowing so the mutual cap is the greater of twelve months' fees and US$1,000,000, which is our standard position. We also added the standard carve-outs so indemnification, confidentiality/security breaches, gross negligence, wilful misconduct, fraud and IP infringement sit outside the cap, and confirmed Corio's fee obligations are not capped damages.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "EXCEPT FOR EXCLUDED CLAIMS, IN NO EVENT SHALL EITHER PARTY'S LIABILITY ARISING OUT OF THIS AGREEMENT OR THE USE OR PERFORMANCE OF THE SOFTWARE EXCEED THE GREATER OF (A) THE TOTAL AMOUNT PAID OR PAYABLE BY CORIO HEREUNDER DURING THE TWELVE (12) MONTHS IMMEDIATELY PRIOR TO THE EVENT GIVING RISE TO THE CAUSE OF ACTION TO WHICH THE LIABILITY RELATES AND (B) ONE MILLION U.S. DOLLARS (US$1,000,000). \"EXCLUDED CLAIMS\" MEANS A PARTY'S LIABILITY ARISING UNDER SECTION 8 OF THIS AGREEMENT, ITS BREACH OF ITS CONFIDENTIALITY, DATA PROTECTION OR SECURITY OBLIGATIONS, ITS GROSS NEGLIGENCE, WILFUL MISCONDUCT OR FRAUD, AND ITS INFRINGEMENT OF THE OTHER PARTY'S INTELLECTUAL PROPERTY RIGHTS. CORIO'S OBLIGATION TO PAY FEES DUE HEREUNDER SHALL NOT BE TREATED AS DAMAGES SUBJECT TO THIS SECTION 9.",
+          "oldText": "EXCEPT FOR LIABILITY ARISING UNDER SECTION 8 OF THIS AGREEMENT, IN NO EVENT SHALL EITHER PARTY'S LIABILITY ARISING OUT OF THIS AGREEMENT OR THE USE OR PERFORMANCE OF THE SOFTWARE EXCEED THE TOTAL AMOUNT ACTUALLY PAID BY CORIO HEREUNDER FOR THE TRANSACTION WHICH THE LIABILITY RELATES TO DURING THE TWELVE (12) MONTHS IMMEDIATELY PRIOR TO THE FILING OF THE CAUSE OF ACTION TO WHICH THE LIABILITY RELATES.",
+          "paragraphId": "p0090"
+        }
+      ],
+      "precedentId": "seed-lol-2",
+      "summary": "Make the mutual cap a true 12-months'-fees floor of US$1,000,000 and add standard uncapped carve-outs"
+    },
+    "quote": "EXCEPT FOR LIABILITY ARISING UNDER SECTION 8 OF THIS AGREEMENT, IN NO EVENT SHALL EITHER PARTY'S LIABILITY ARISING OUT OF THIS AGREEMENT OR THE USE OR PERFORMANCE OF THE SOFTWARE EXCEED THE TOTAL AMOUNT ACTUALLY PAID BY CORIO HEREUNDER FOR THE TRANSACTION WHICH THE LIABILITY RELATES TO DURING THE TWELVE (12) MONTHS IMMEDIATELY PRIOR TO THE FILING OF THE CAUSE OF ACTION TO WHICH THE LIABILITY RELATES.",
+    "rationale": "The cap in § 9 is mutual and the consequential-damages exclusion is mutual, which is good, but it fails the fallback on two material terms. First, the base is not 12 months' fees: it is only amounts \"actually paid by Corio ... for the transaction which the liability relates to\" in the prior 12 months, which slices the cap down to a single transaction's fees and can fall well below six months' fees (walk-away territory for a vendor cap). Second, the only carve-out is Section 8 (Commerce One's IP indemnity); there are no carve-outs for breach of confidentiality (§ 10 / the concurrent NDA), gross negligence, wilful misconduct or fraud, whereas the fallback requires carve-outs at least for indemnification, confidentiality, gross negligence and wilful misconduct. Redline moves the clause to the preferred position: greater of 12 months' fees paid or payable and US$1,000,000, standard Excluded Claims outside the cap, and confirmation that Corio's fee obligations are not capped damages. Minor drafting notes not separately flagged: the duplicated consequential-damages sentence at p0092 appears to be a conversion artifact and the consequential-damages carve-out still cross-refers only to Section 8.",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-9",
+    "sectionRef": "§ 9 LIMITATION OF LIABILITY.",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "cap references 12 months of fees or a fixed floor",
+          "ok": true
+        },
+        {
+          "name": "no unlimited Customer liability language remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.716 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0090",
+          "ok": false
+        }
+      ],
+      "notes": "Classification is correct: § 9 caps liability only at amounts 'actually paid by Corio ... for the transaction which the liability relates to', which is materially narrower than the fallback's 12 months' fees, and the sole carve-out is Section 8 (IP indemnity) — the fallback's required carve-outs for confidentiality, gross negligence and wilful misconduct are absent, so the clause fails the fallback on two material terms. Redline is valid and directionally right for the customer: it keeps the cap mutual, replaces the transaction-specific base with the greater of 12 months' fees paid or payable and US$1,000,000, adds a single 'Excluded Claims' sentence preserving the existing Section 8 carve-out, and clarifies that Corio's fee obligations are not capped damages — matching the model language and redline guidance. The failed minimal-edit heuristic (0.716) is justified here: the rule requires rewriting the cap basis and inserting a carve-out definition; the surrounding consequential-damages and allocation-of-risk sentences were left intact. Comment is accurate, concise, in first person plural with the required prefix, and correctly states the position and that indemnification/confidentiality sit outside the cap; the residual Section 8-only cross-reference in the consequential-damages sentence is properly noted as a minor drafting point rather than being over-edited.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.13290075,
+    "durationMs": 40162,
+    "id": "f-assign-50c3f58d",
+    "paragraphIds": [
+      "p0121"
+    ],
+    "producedBy": "drafter",
+    "quote": "14.1 Assignment. Neither party may assign this Agreement or any rights or obligations hereunder, whether by operation of law or otherwise, without the prior written consent of the other party. Notwithstanding the foregoing, either party shall have the right to assign this Agreement in connection with the merger or acquisition of such party or the sale of all or substantially all of its assets related to this Agreement without such consent, except in the case where such transaction involves a direct competitor of the other party where consent of the other party will be required.",
+    "rationale": "Section 14.1 is symmetrical and carries the material M&A carve-out: Corio (as well as Commerce One) may assign without consent in a merger, acquisition or sale of all or substantially all assets. There is no change-of-control trigger anywhere in the Agreement — a search for \"change of control\" returns nothing, and the §11.2 termination triggers are limited to uncured material breach and insolvency/assignment for benefit of creditors — so Commerce One has no right to terminate or re-price on our change of control. That places the clause at the playbook fallback (mutual right to assign to successors, consent required for other assignments) and well clear of walk-away territory, so we do not redline it. Two sub-elements fall short of the preferred position and are noted only: (i) there is no express right for Corio to assign to an affiliate without consent, and (ii) the consent standard for other assignments is not qualified as \"not to be unreasonably withheld,\" and no written-notice mechanic is specified. The \"direct competitor\" exception is mutual and also protects us against Commerce One assigning to a Corio competitor, so it is not adverse on balance.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-14",
+    "sectionRef": "§ 14 MISCELLANEOUS.",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "successor/affiliate carve-out for Customer present",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and consistent with the artifacts: the redline is identical to the original paragraph and no comment is raised, which is the expected output for a compliant finding. Section 14.1 meets the fallback on its material terms — a mutual right to assign in a merger, acquisition or sale of substantially all assets without consent, with consent required for other assignments — and the deterministic check confirms the successor/M&A carve-out for Customer is present. No walk-away trigger exists: there is no blanket prohibition on Customer assignment (the M&A carve-out is express) and no Vendor termination or re-pricing right on Customer's change of control; the rationale correctly notes §11.2 triggers are limited to uncured material breach and insolvency. The two shortfalls versus the preferred position (no express affiliate carve-out, consent not qualified as 'not to be unreasonably withheld', no notice mechanic) are correctly recorded in the rationale rather than redlined, per the playbook's treatment of minor sub-elements. The mutual 'direct competitor' consent exception is accurately characterized as symmetrical and not adverse on balance, so it does not convert the clause into a deviation.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.193876,
+    "durationMs": 43171,
+    "id": "f-exclusivity-e46e96dc",
+    "paragraphIds": [
+      "p0030",
+      "p0035",
+      "p0198",
+      "p0042"
+    ],
+    "producedBy": "drafter",
+    "quote": "Commerce One hereby grants to Corio a fee-bearing, perpetual and irrevocable, nonexclusive, nontransferable (except in accordance with Section 14.1 of this Agreement), right and license in the Territory",
+    "rationale": "No exclusivity or sole-supplier obligation is imposed on Corio anywhere in the Agreement, so it meets the preferred position. The grants of rights in Section 2 (Sections 2.1-2.4, 2.9) are all expressly \"nonexclusive\" licences to Corio and contain no covenant requiring Corio to source hosting, procurement or e-commerce software solely from Commerce One or to refrain from offering competing ASP solutions; Section 2.7's restrictions are ordinary licence-scope limits, and Section 13.6 expressly preserves each party's independent development rights. The Exhibit D sales and marketing cooperation provisions are prefaced as \"non-binding\" and only call for joint marketing and cross-selling efforts, not exclusive dealing. The only exclusivity-flavoured terms (Section 2.4's bar on Commerce One contacting Corio Customers about non-ASP licence sales and its referral obligation) run in our favour and are not flagged.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-3",
+    "sectionRef": "§ 3 2. GRANT OF RIGHTS.",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no requirements/sole-supplier obligation on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant, and consistent with that no redline or comment was proposed — the rendered paragraphs are identical to the originals. The cited text supports the preferred position: all grants to Corio (the customer-side party here) are expressly 'nonexclusive', and Section 2.7 is an ordinary licence-scope restriction rather than an exclusive-dealing covenant. No requirements or sole-supplier obligation binds Corio. Exhibit D marketing cooperation is expressly 'non-binding' joint marketing, not exclusive dealing; Section 2.4's bar on Commerce One contacting Corio Customers runs in our favour and is correctly not flagged per the detection guidance. Deterministic check confirms no sole-supplier/requirements obligation on Customer remains; rationale is accurate and appropriately retained as internal evidence rather than a negotiation issue.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.87,
+    "costUsd": 0.16840175,
+    "durationMs": 46023,
+    "id": "f-ld-1e7d83ae",
+    "paragraphIds": [
+      "p0097",
+      "p0098",
+      "p0165",
+      "p0161"
+    ],
+    "producedBy": "drafter",
+    "quote": "If either party materially breaches any term or condition of this Agreement and fails to cure such breach within-thirty (30) days after receiving written notice of the breach, the nonbreaching party may terminate this Agreement on written notice at any time following the end of such-thirty (30) day period.",
+    "rationale": "The agreement contains no liquidated damages, penalty, minimum-fee-on-termination or early-termination charge payable by Corio (the customer/licensee). Searches for \"liquidated damages\", \"penalt\", \"interest\" and \"minimum\" return no such mechanic; the Fees section (4.1-4.4) and Exhibit B payment terms impose only accrued license, maintenance, MarketSite access, implementation and revenue-share amounts, and Section 11 permits termination for uncured material breach or insolvency without any pre-agreed damages sum. Section 11.3 only preserves ordinary payment obligations for Customers Corio continues to serve, which is a survival of accrued fees rather than a liquidated amount. The revenue-share and support commitments in Exhibits B and C run in Corio's favour, and Corio's remedies for non-acceptance or warranty breach (refund of prepaid fees under 3.x, 7 and 8) benefit us, so they are not flagged. This meets the preferred position (no liquidated damages or penalties payable by Customer); no redline is required.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-11",
+    "sectionRef": "§ 11 TERM AND TERMINATION.",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is 'compliant' and no redline or comment was proposed, which is the expected output for a compliant finding — the rendered redline is identical to the original paragraphs. The cited text supports the conclusion: Section 11.2 provides only for termination on uncured material breach or insolvency with no pre-agreed damages sum, and 11.3 merely preserves accrued/ongoing payment obligations for Corio's then-existing Customers (a survival of fees, not a liquidated amount). Exhibit B items cited (License Fees due on Acceptance; Implementation Fees on time-and-materials with a cap) are ordinary consideration, not penalties or minimum-fee-on-termination mechanics. Correctly identifies Corio as our party (licensee/customer) and correctly declines to flag Vendor-side or Corio-favourable remedies (refunds, support commitments, revenue share) per the rule's detection guidance. No deterministic check failures; rationale accurately notes the clause meets the preferred position rather than the fallback.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.78,
+    "costUsd": 0.33205225,
+    "durationMs": 96917,
+    "id": "f-license-1f89e0ac",
+    "paragraphIds": [
+      "p0030",
+      "p0033",
+      "p0121"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We extended the internal use licence to Corio's affiliates and to contractors acting on Corio's behalf, and confirmed it is irrevocable, consistent with our playbook position that licence scope follow our operating group. If preferred, we can accept affiliate coverage on written notice to Commerce One.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Commerce One grants to Corio, its affiliates and its contractors acting on Corio's behalf a nonexclusive, nontransferable (except in accordance with Section 14.1 of this Agreement), royalty-free, fully paid up, perpetual and irrevocable right and license in the Territory",
+          "oldText": "Commerce One grants to Corio a nonexclusive, nontransferable (except in accordance with Section 14.1 of this Agreement), royalty-free, fully paid up, perpetual right and license in the Territory",
+          "paragraphId": "p0033"
+        },
+        {
+          "kind": "replace",
+          "newText": "for (i) the internal business operations of Corio and its affiliates",
+          "oldText": "for (i) Corio's internal business operations",
+          "paragraphId": "p0033"
+        }
+      ],
+      "precedentId": "seed-license",
+      "summary": "Extend the internal use licence in Section 2.2 to Corio affiliates and contractors and make it irrevocable."
+    },
+    "quote": "Commerce One grants to Corio a nonexclusive, nontransferable (except in accordance with Section 14.1 of this Agreement), royalty-free, fully paid up, perpetual right and license in the Territory to reproduce, install and use additional copies of the Software and Software tools and utilities, subject to any restrictions placed on the Commerce One by third party software providers, in machine executable object code for (i) Corio's internal business operations and (ii) production, testing, development, upgrade, reporting and training.",
+    "rationale": "The Section 2 grants are strong on two of the three material terms: the hosting licence is expressly \"perpetual and irrevocable\" and the internal use licence is royalty-free, fully paid up and perpetual, so the licence is not revocable at Commerce One's discretion; and Section 14.1 permits assignment to a successor in a merger, acquisition or sale of substantially all assets without consent (subject only to a direct-competitor carve-out), meeting the successor-transfer element. The gap is affiliate/contractor coverage: no grant names Corio's affiliates, the word \"Affiliate\" appears nowhere in the agreement, and the internal use licence is confined to \"Corio's internal business operations\", with no written-notice or other path to add affiliates. That fails the fallback requirement that affiliates be covered on written notice, so we propose the minimal edit extending Section 2.2 to Corio's affiliates and contractors acting on its behalf (contractor hosting is already partly covered by the \"owned or operated by or for Corio\" definition of Corio Servers) and confirming irrevocability. We have not treated the \"nontransferable\" label as a separate issue given the Section 14.1 carve-out.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-3",
+    "sectionRef": "§ 3 2. GRANT OF RIGHTS.",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "affiliates covered by the licence",
+          "ok": true
+        },
+        {
+          "name": "no at-will revocation remains",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.284 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0033",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.559 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0033",
+          "ok": true
+        }
+      ],
+      "notes": "Deviation classification is sound: the fallback requires affiliate coverage (at minimum on written notice), and no grant in Section 2 names Corio's affiliates — 'Affiliate' appears nowhere in the agreement and Section 2.2 is confined to 'Corio's internal business operations', so the clause fails a material fallback term and edges toward the walk-away scenario (affiliates excluded with no path to add them). The rationale correctly credits the elements that are already met (2.1 is 'perpetual and irrevocable'; 2.2 is royalty-free, fully paid up and perpetual; Section 14.1 permits assignment to a successor in a merger/acquisition/asset sale), so this is not an upgrade of an already-compliant clause but a targeted fix of the one failing element. The redline is directionally correct and reasonably minimal: it extends only Section 2.2 to 'its affiliates and its contractors acting on Corio's behalf' and conforms clause (i) accordingly, leaving 2.1 untouched because the 'Corio Servers' definition ('owned or operated by or for Corio') already accommodates third-party/contractor hosting. The inserted text reads grammatically and does not introduce an undefined capitalised 'Affiliate' term. The added 'and irrevocable' in 2.2 is a small conforming addition consistent with the preferred position for paid-up licences (2.1 already says irrevocable) and is bundled into the same edit rather than raised as a separate flag, which is acceptable. Comment is accurate, concise, in the required voice, explains the change and the playbook basis, and offers the written-notice fallback; the 'nontransferable' label is correctly not double-flagged given the Section 14.1 successor carve-out. Deterministic checks all pass; the changed-character ratios (0.284/0.559) reflect the necessary in-line insertions in a single sentence and do not indicate an over-broad rewrite.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.242464,
+    "durationMs": 48561,
+    "id": "f-noncompete-c871eb07",
+    "paragraphIds": [
+      "p0117",
+      "p0042",
+      "p0013",
+      "p0024"
+    ],
+    "producedBy": "drafter",
+    "quote": "13.6 Independent Development: Covenant not to Sue. Nothing in this Agreement will be construed to prohibit either parties' right to independently develop the Developments contemplated above.",
+    "rationale": "No non-compete or field-of-use restraint binds Corio's own business. The Grant of Rights (§§2.1–2.10) and §2.7 Restrictions only limit how Corio may use, copy and sublicense Commerce One's Software; the \"Corio Market Segment\" (§1.3) and \"Territory\" (§1.24) definitions likewise scope the licence grant rather than restrict what businesses Corio may operate or what products it may buy or build. §13.6 expressly preserves each party's right to develop independently, and §14.8 confirms Corio solely directs and may subcontract the Corio Services. The only competitor reference (§14.1) is a mutual assignment consent right, not a covenant not to compete, and the sales and marketing cooperation in Exhibit D is expressly \"non-binding\". This meets the preferred position (no non-compete on Customer), so no redline is warranted.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-13",
+    "sectionRef": "§ 13 SHARED RESOURCES.",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "no open-ended compete restriction on Customer remains",
+          "ok": true
+        }
+      ],
+      "notes": "Claimed status is compliant and the redline is byte-identical to the original with no comment, which is the expected output for a compliant finding. The cited text supports the conclusion: §2.7 is a standard license-use restriction (no copying, reverse engineering) and §13.6 affirmatively preserves each party's independent development rights — neither restrains what businesses Corio may operate or what products it may buy or build. The 'Corio Market Segment' (§1.3) and 'Territory' (§1.11) definitions delimit the scope of the license grant rather than impose a covenant not to compete or a prohibition on Corio's other activities; the rationale expressly reasons through this borderline point, and the deterministic check confirms no open-ended compete restriction on Customer. Rationale accurately notes the only competitor reference (§14.1) is an assignment-consent right and that Exhibit D marketing cooperation is non-binding, so no actionable deviation exists under NONCOMPETE.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.18171275,
+    "durationMs": 54617,
+    "id": "f-t4c-e8e1264b",
+    "paragraphIds": [
+      "p0096",
+      "p0097"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] The five-year term gives us no way out except for breach, so we have added a convenience exit on thirty (30) days' notice with a pro-rata refund of prepaid license, maintenance and access fees, consistent with our playbook position. If you need a longer runway, we can move to sixty (60) days' notice.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "11.4",
+          "paragraphId": "p0098",
+          "text": "Termination for Convenience. Corio may terminate this Agreement, in whole or in part, for convenience upon thirty (30) days' prior written notice to Commerce One, without penalty, early termination fee or other charge. In such event, Commerce One shall refund to Corio, within thirty (30) days after the effective date of termination, any prepaid fees (including any prepaid license, Software Maintenance and Support and MarketSite.net access fees) allocable to the period after the effective date of termination."
+        }
+      ],
+      "precedentId": "seed-t4c",
+      "summary": "Add Corio convenience termination right on 30 days' notice with pro-rata refund of prepaid fees"
+    },
+    "quote": "11.1 Term. The term of this Agreement shall commence on the Effective Date and shall continue in full force and effect for an initial period of five (5) years. Thereafter, this Agreement shall automatically renew for subsequent one (1) year periods unless either party provides the other party with written notification at least thirty (30) days prior to the expiration of the initial five (5) year term or any one (1) year renewal thereof of its intention to terminate this Agreement.",
+    "rationale": "Section 11 gives a five-year initial term with automatic one-year renewals, and the only exit rights are for uncured material breach or insolvency (11.2) plus non-renewal at the end of a term (11.1). Corio therefore has no termination-for-convenience right during a multi-year committed term, which the playbook treats as walk-away territory and fails the fallback (60–90 days' notice with a capped fee). Commerce One likewise has no mid-term convenience right, so no cut-back of the Vendor side is needed. Because annual maintenance/support and MarketSite.net access fees are paid in advance (Exhibit B payment terms), we added a 30 days' notice convenience right with a pro-rata refund of prepaid fees as new Section 11.4, matching the preferred position, and offered 60 days' notice as a fallback in the comment.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-11",
+    "sectionRef": "§ 11 TERM AND TERMINATION.",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "Customer convenience termination present",
+          "ok": false
+        }
+      ],
+      "notes": "Classification is correct: Section 11.1 imposes a five-year committed term and Section 11.2 provides exits only for uncured material breach or insolvency, so Corio (the Customer/licensee) has no convenience exit during a multi-year term — expressly walk-away territory under T4C and failing the 60–90 day/capped-fee fallback. The redline is directionally right and actionable for our side: it grants Corio a 30 days' notice convenience right, in whole or in part, without penalty or early-termination fee, with a pro-rata refund of prepaid license, maintenance and MarketSite.net fees, tracking the model language. No cut-back of a Vendor convenience right is needed because Commerce One likewise has none mid-term; the finding correctly notes this rather than over-editing. The failed deterministic check ('Customer convenience termination present') is a phrasing artifact — the inserted paragraph plainly states 'Corio may terminate this Agreement, in whole or in part, for convenience upon thirty (30) days' prior written notice' — so it does not undermine the substance. Comment is accurate, concise, in our voice, cites the playbook position and offers the 60-day fallback. Minor, non-disqualifying drafting nits: the new provision is appended to the p0098 'Effect of Termination' paragraph and the rendered text omits the '11.4' section number referenced in the rationale; renumbering/relocating the insert would tidy this up.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.12676525,
+    "durationMs": 41091,
+    "id": "f-audit-646c5e2b",
+    "paragraphIds": [
+      "p0059"
+    ],
+    "producedBy": "drafter",
+    "quote": "Such inspections may be made no more than once each calendar year, at reasonable times and upon reasonable notice. Commerce One shall bear all costs and expenses of such inspection. If any such inspection discloses a shortfall or an overpayment, the appropriate party shall promptly pay the amount of such shortfall or refund such overpayment. In addition, if any such inspection reveals an underpayment of more than five percent (5%) for the period under audit, Corio shall reimburse Commerce One for the reasonable cost of the examination.",
+    "rationale": "Section 4.4 is the only audit right binding us (Corio). It meets or exceeds the preferred position on every material term: frequency is capped at once each calendar year; the audit is limited to an off-site review of books and records maintained for fee-verification purposes, with no right of access to Corio systems or premises-level inspection; it must be conducted by an independent certified public accountant who is reasonably acceptable to us (a stronger control than the preferred \"independent auditor\"); it must occur at reasonable times; Commerce One bears all costs unless an underpayment exceeding 5% is found; and the true-up runs both ways, so a discovered overpayment must be refunded to us. The only sub-element short of the preferred wording is that notice is \"reasonable notice\" rather than a fixed 30 (or fallback 15) days, and auditor confidentiality is handled generally through Section 10 and the concurrent non-disclosure agreement rather than expressly in the audit clause. Those are minor drafting points, not material failures of the fallback, so no redline is warranted; we would only raise the fixed notice period if the clause is reopened for other reasons.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-4",
+    "sectionRef": "§ 4 FEES.",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "audit frequency limited",
+          "ok": true
+        }
+      ],
+      "notes": "The cited Section 4.4 is the audit right binding our party (Corio, the licensee) and satisfies the playbook's material terms: frequency capped at once each calendar year, inspection limited to books and records (no access to Customer systems or premises), performed by an independent CPA reasonably acceptable to us, at reasonable times, with Commerce One bearing all costs unless an underpayment exceeding 5% is found — at or above the preferred position. Correctly classified as compliant rather than a deviation; the only shortfalls (\"reasonable notice\" instead of a fixed 30/15-day period, and auditor confidentiality handled via the general confidentiality section/NDA rather than expressly in the clause) are minor sub-elements properly noted in the rationale rather than redlined. No redline or counterparty comment was proposed, which is the expected output for a compliant finding; the rendered paragraph is unchanged from the original and the deterministic check on audit frequency passes. Rationale is accurate to the quoted text (two-way true-up, 5% threshold, off-site records review) and no other audit/inspection right against us is implicated, so there is no double-flagging or missed walk-away trigger.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.79,
+    "costUsd": 0.1141305,
+    "durationMs": 40608,
+    "id": "f-govlaw-016810da",
+    "paragraphIds": [
+      "p0123"
+    ],
+    "producedBy": "drafter",
+    "quote": "14.3 Choice of Law; Arbitration; Venue. This Agreement shall be governed by the laws of the State of California, USA, excluding conflict of laws provisions and excluding the 1980 United Nations Convention on Contracts for the International Sale of Goods. Any disputes arising out of this Agreement shall be resolved by binding arbitration in accordance with the then-current commercial arbitration rules of the American Arbitration Association (\"RULES\"). The arbitration shall be conducted by one (1) arbitrator appointed in accordance with the Rules in San Francisco County, California.",
+    "rationale": "Section 14.3 is the only governing law/venue provision in the Agreement. The governing law is California, which sits squarely within the playbook's fallback position (Delaware or California law and courts), and the dispute forum is domestic: AAA commercial arbitration seated in San Francisco County, California, with judgment enforceable in the San Francisco courts. There is no foreign seat, no foreign exclusive venue and no vendor home-jurisdiction law outside the accepted list, so the walk-away trigger (vendor home jurisdiction outside the accepted list, or mandatory arbitration seated abroad) is not engaged. The only shortfall against the preferred position is that disputes go to arbitration rather than directly to the New York (or California) courts, and that the law is California rather than New York; those are sub-elements of the preferred wording rather than material failures of the fallback, and the fee-allocation mechanic is symmetric between the parties (loser pays AAA fees, each side bears its own presentation costs), so it does not disadvantage us. Accordingly this clause is compliant at the fallback and we do not redline it.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-14",
+    "sectionRef": "§ 14 MISCELLANEOUS.",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "governing law within the accepted set",
+          "ok": true
+        }
+      ],
+      "notes": "The cited Section 14.3 is the operative governing-law/venue provision and the finding quotes it accurately; California law is expressly within the playbook's fallback set (Delaware or California law and courts). The walk-away trigger is not engaged: there is no vendor home-jurisdiction law outside the accepted list and no arbitration seated abroad — the AAA seat is San Francisco County, California, with enforcement in the San Francisco courts, i.e. a domestic forum, consistent with the rule summary's concern about 'foreign arbitration'. The shortfalls against the preferred position (California rather than New York law; arbitration rather than direct recourse to courts) are correctly treated as sub-elements noted in the rationale rather than material fallback failures, and the fee-allocation mechanic is symmetric, so it does not disadvantage us. Consistent with a compliant claim, no redline or counterparty comment was produced — the rendered text is identical to the original and the deterministic jurisdiction check passes, so the finding is properly retained as internal evidence rather than raised as a negotiation issue.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.86,
+    "costUsd": 0.160305,
+    "durationMs": 47336,
+    "id": "f-mfn-319ce1be",
+    "paragraphIds": [
+      "p0148",
+      "p0152",
+      "p0155",
+      "p0157"
+    ],
+    "producedBy": "drafter",
+    "quote": "LICENSE FEES: BuySite Hosted Edition: [*]",
+    "rationale": "The pricing and revenue-sharing exhibits (Exhibit B, §§ PRICING, REVENUE SHARING FEES, PAYMENT TERMS), the Fees section (§ 4) and the sales/marketing exhibit (Exhibit D) set fixed license, MarketSite.net access, maintenance, implementation and revenue-share amounts with no benchmarking against third-party terms. Targeted literal and regex searches for \"most favored/favoured\", \"no less favorable\", \"best price/pricing/terms\", \"preferential\", \"comparable terms/other customers\" and \"terms and conditions offered to\" returned no hits anywhere in the agreement. There is therefore no MFN or best-terms obligation running against Corio (our party, the licensee paying the fees), and equally no MFN in Commerce One's favour to preserve. This matches the preferred position — no MFN obligation on the Customer — so no redline is warranted.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-p0148",
+    "sectionRef": "§ PRICING",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Compliant finding: the cited pricing/revenue-share paragraphs set fixed, redacted fee and revenue-share amounts with no benchmarking or matching obligation against third-party terms, so nothing obliges Corio (the licensee/customer) to extend best terms to Commerce One. Party roles are correctly identified — Corio pays the fees and is our party; Commerce One is the vendor — and the rule only bites where the Customer must give the Vendor no-less-favourable terms. Consistent with a compliant status, no redline was rendered (redline text is identical to the original) and no counterparty comment was proposed, which is the expected output for an internal evidence finding. Deterministic checks are empty and the negative-search rationale (no hits for 'most favored', 'no less favorable', 'best pricing', 'preferential', etc.) is a reasonable basis for the preferred-position classification; there is also no Vendor-granted MFN to preserve.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.3026785,
+    "durationMs": 83046,
+    "id": "f-mincommit-b2289421",
+    "paragraphIds": [
+      "p0151",
+      "p0157",
+      "p0158",
+      "p0161",
+      "p0055"
+    ],
+    "producedBy": "drafter",
+    "quote": "2. Corio Customer Application Management Revenue: Corio to pay Commerce One [*] of all Application Management Revenue from Corio Customers for use of Commerce One Software or MarketSite.net Service Access subject to the following limitations.",
+    "rationale": "The agreement meets the preferred position: there is no minimum purchase commitment, take-or-pay, shortfall penalty or volume cap imposed on us (Corio). Our variable fees are pure usage/revenue-based — the Application Management Revenue share is a percentage of revenue actually invoiced to Corio Customers (p0157), excluding professional service and network access fees (p0159) and accruing only once a Customer goes live (p0160). Implementation fees are time-and-materials against an agreed Statement of Work with a stated cap (p0161), i.e. ordered services only. Seat volume is uncapped rather than committed (\"SOFTWARE USERS: BuySite Hosted Edition: Unlimited\", p0151), with unlimited Customer sublicensing (p0032) and unlimited MarketSite.net access (p0041). Maintenance and support is expressly elective in economic effect — it continues only \"provided that Corio continues to pay the annual Maintenance and Support fees\" (p0055, echoed in the survival language at p0098), so we can stop paying rather than being locked in.\n\nTwo minor sub-elements noted but not flagged: (i) the five-year initial term (p0096) carries annual MarketSite.net access and maintenance fees with no termination-for-convenience right, but these are fees for a service actually made available on an unlimited-access basis rather than a committed minimum volume or take-or-pay, so the walk-away trigger is not met; and (ii) the \"minimum limitation of 40 Authorized Software Users per Customer\" in p0158 is a threshold on a fee waiver that benefits us (the 3000 royalty-free user licenses), not a purchase obligation. Exhibit D's initial-customer and marketing items are expressly \"non-binding\" (p0198) and framed as commercially reasonable efforts (p0205), so they create no volume commitment either. No redline required.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-p0148",
+    "sectionRef": "§ PRICING",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [],
+      "notes": "Claimed status is compliant with no redline and no comment, which is the expected output shape for a compliant finding; nothing is raised as a negotiation issue. The cited paragraphs support the compliance call: variable fees are a percentage of Application Management Revenue actually received from Customers (p0157), implementation is time-and-materials against an agreed SOW with a cap (p0161), and seat volume is 'Unlimited' rather than a committed minimum (p0151) — i.e. fees for usage/ordered services only, the preferred position. The only 'minimum' language in scope (p0158, 40 Authorized Software Users per Customer) is correctly read as a qualifying threshold on a royalty-free-license fee waiver that benefits our side, not a purchase obligation, so it is properly not flagged. Annual maintenance/access fees over the five-year term are correctly characterised as fees conditioned on continued payment (p0055) rather than take-or-pay or shortfall exposure; noting this in the rationale rather than flagging it matches the playbook's treatment of minor sub-elements. No deterministic check failures and no unnecessary edits; the finding is properly retained as internal evidence.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.123963,
+    "durationMs": 35583,
+    "id": "f-nosolicit-3be0005a",
+    "paragraphIds": [
+      "p0203",
+      "p0126"
+    ],
+    "producedBy": "drafter",
+    "quote": "5. PERSONNEL. Each party agrees to assign one (1) existing sales or marketing employee primarily dedicated to assist in the sales and marketing promotional activity set forth in this Exhibit D.",
+    "rationale": "Searches for \"solicit\", \"hire\", \"induce\", \"recruit\" and \"employ\" return no restrictive covenant anywhere in the agreement. The only personnel-related provisions are Section 13 (Shared Resources — Commerce One personnel access and Employee NDA/Invention Agreement warranties), Section 14.5 (Independent Contractors) and Exhibit D Section 5 (each party dedicates a sales/marketing employee); none restricts Corio from soliciting, hiring or employing Commerce One personnel. This satisfies the preferred position (no non-solicit binding the Customer), so no redline is warranted. Nothing to note as a fallback compromise.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-p0197",
+    "sectionRef": "§ SALES AND MARKETING COOPERATION",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-solicit duration ≤ 12 months",
+          "ok": false
+        },
+        {
+          "name": "general-solicitation carve-out present",
+          "ok": false
+        }
+      ],
+      "notes": "The playbook's preferred position is 'No non-solicit on Customer,' so the absence of any solicitation/no-hire covenant satisfies the preferred position; classifying as compliant is correct. Cited paragraphs (Exhibit D §5 personnel dedication and §14.5 independent contractors) contain no restrictive covenant, supporting the rationale that no non-solicit binds the Customer. Consistent with a compliant finding, no redline or counterparty comment was proposed and the original text is left unchanged. The failed deterministic checks (duration, general-solicitation carve-out) are expected artifacts of there being no non-solicit clause to measure, not evidence of a defect.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.88,
+    "costUsd": 0.084308,
+    "durationMs": 29886,
+    "id": "f-renewal-2a9cfa71",
+    "paragraphIds": [
+      "p0096"
+    ],
+    "producedBy": "drafter",
+    "quote": "Thereafter, this Agreement shall automatically renew for subsequent one (1) year periods unless either party provides the other party with written notification at least thirty (30) days prior to the expiration of the initial five (5) year term or any one (1) year renewal thereof of its intention to terminate this Agreement.",
+    "rationale": "Section 11.1 provides automatic renewal for successive one (1) year terms, and either party — including us — may prevent renewal on thirty (30) days' written notice. That matches the preferred position on the material terms: 12-month renewal periods and a customer opt-out at 30 days, well inside the fallback 60-day ceiling and far from the walk-away triggers (notice window >90 days or automatic multi-year renewals; the five-year period here is the negotiated initial term, not an auto-renewal term). Two preferred sub-elements are absent and noted only: there is no Commerce One reminder 60 days before renewal, and no express cap on renewal price increases (the pricing exhibit at Exhibit B is redacted and contains no uplift mechanic). Consistent with the playbook, these minor gaps are not redlined; we can raise the reminder and an uplift cap as drafting asks if the pricing figures are unblanked.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-11",
+    "sectionRef": "§ 11 TERM AND TERMINATION.",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "detail": "number not found",
+          "name": "non-renewal notice window ≤ 60 days",
+          "ok": false
+        }
+      ],
+      "notes": "The cited Section 11.1 provides automatic renewal for successive one (1) year periods with a mutual right to prevent renewal on thirty (30) days' written notice, which meets the preferred position's material terms (12-month renewal term, customer opt-out at 30 days) and is well inside the fallback 60-day ceiling. No walk-away trigger is present: the five (5) year period is the negotiated initial term rather than an automatic multi-year renewal, and the notice window is far below 90 days. The rationale correctly treats the absent vendor 60-day reminder and the absent CPI/3% uplift cap as minor preferred sub-elements noted but not redlined, consistent with the playbook's classification semantics. Consistent with a compliant finding, no redline or counterparty comment was proposed; the rendered text is unchanged from the original paragraph. The failed deterministic check ('number not found') is a regex artifact — the clause plainly states 'at least thirty (30) days prior' — so it does not undercut the substantive conclusion.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.72,
+    "costUsd": 0.31554225,
+    "durationMs": 90648,
+    "id": "f-transition-2027cb4d",
+    "paragraphIds": [
+      "p0098"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] Section 11.3 preserves continuity of support for our existing Customers but says nothing about getting our and our Customers' data back from Commerce One (including data held in the MarketSite.net Service). We have added our standard exit provision: up to six months of transition assistance at then-current rates, return of data within 30 days in a machine-readable format, and certified deletion thereafter. We can live with 90 days of assistance if that is easier.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "11.4",
+          "paragraphId": "p0098",
+          "text": "11.4 Transition Assistance and Data Return. Upon expiration or termination of this Agreement for any reason, Commerce One shall (i) at Corio's request, provide reasonable transition assistance to Corio and its Customers for a period of up to six (6) months at Commerce One's then-current rates; (ii) within thirty (30) days of Corio's request, return or export to Corio all data of Corio, its Customers and Software Users then in Commerce One's possession or control, including any such data residing in or generated by the MarketSite.net Service, in a commonly used, machine-readable format; and (iii) thereafter delete such data from its systems and certify such deletion to Corio in writing. This Section 11.4 shall survive any termination or expiration of this Agreement."
+        }
+      ],
+      "summary": "Insert transition assistance, data return and deletion certification obligations in Section 11."
+    },
+    "quote": "Upon termination or expiration of this Agreement, each party shall otherwise return or destroy any Confidential Information of the other party provided, however, Corio may retain any Confidential Information necessary for Corio to continue supporting it's then-existing Customers.",
+    "rationale": "Section 11.3 handles the continuity limb of the rule well in our favour (our right to keep serving existing Customers survives, and Commerce One's support and maintenance obligation survives indefinitely so long as we keep paying), and Section 12's source code escrow further protects continuity. However, no provision anywhere requires Commerce One to return or export our and our Customers' data (including data held in or generated by the MarketSite.net Service) in a machine-readable format, or to delete and certify deletion thereafter; Section 11.3 only addresses Confidential Information on a \"return or destroy\" basis at the holder's election, with no format or timing. The data-export limb is a material term of the fallback (data export within 30 days), so the clause fails the fallback and we have inserted a new Section 11.4 reflecting the preferred position (six months' assistance at then-current rates, 30-day machine-readable return, certified deletion), noting we can accept 90 days of assistance.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-11",
+    "sectionRef": "§ 11 TERM AND TERMINATION.",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "data return/transition present",
+          "ok": true
+        }
+      ],
+      "notes": "Directionally correct: the insert imposes exit obligations on Commerce One (Vendor) in favour of Corio (the Customer we represent); it adds rights and does not cut back the existing survival of support/maintenance in Section 11.3. Deviation classification is defensible: Section 11.3 only requires 'return or destroy' of Confidential Information at the holder's election, with no data export/return obligation, no machine-readable format and no timing, so the clause fails the fallback's material term (data export within 30 days) even though the surviving support obligation covers continuity. Redline is a clean additive insertion of a new Section 11.4 tracking the model language (six months' assistance at then-current rates, 30-day machine-readable return, certified deletion, plus survival), with no rewriting of the original paragraph — smallest edit that reaches the playbook position. Comment is accurate, concise, in first person plural, cites the playbook position and offers the 90-day fallback; deterministic checks confirm the data-return/transition language is present.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.82,
+    "costUsd": 0.2098285,
+    "durationMs": 60366,
+    "id": "f-warranty-78977b85",
+    "paragraphIds": [
+      "p0078",
+      "p0079"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We extended the product warranty to twelve (12) months running from our acceptance of the Software and removed the fixed December 31, 1999 cut-off, since a 60-day period measured from the Effective Date can expire before or shortly after delivery. Our playbook position is 12 months for software; we can accept ninety (90) days from acceptance as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "for a period of twelve (12) months from Corio's acceptance of the Software pursuant to Section 3.1 (the \"Warranty Period\")",
+          "oldText": "for a period of sixty (60) days from the Effective Date, but in no event not later than December 31, 1999 (the \"Warranty Period\")",
+          "paragraphId": "p0078"
+        }
+      ],
+      "precedentId": "seed-warranty",
+      "summary": "Extend Software/MarketSite.net warranty period to twelve (12) months from acceptance and remove the December 31, 1999 drop-dead cut-off."
+    },
+    "quote": "Commerce One warrants that the Software and MarketSite.net Service will perform in substantial accordance with the Documentation, and the media on which the Software is distributed will be free from defects in materials and workmanship under normal use, for a period of sixty (60) days from the Effective Date, but in no event not later than December 31, 1999 (the \"Warranty Period\").",
+    "rationale": "Section 7.3 does contain a real express conformance warranty (performance in substantial accordance with the Documentation, plus a no-malicious-code warranty) and a genuine remedy ladder — correction, replacement free of charge, and termination with refund of all prepaid fees — and the disclaimer in Section 7 only strips implied warranties, so it does not swallow the express warranty. The material term that fails is duration: 60 days measured from the Effective Date, hard-capped at December 31, 1999. That is below the fallback of 90 days for software, and because it runs from the Effective Date (not delivery or acceptance, which under Section 3.1 can run to December 31, 1999) the warranty could expire at or before acceptance, leaving effectively no coverage. We therefore propose the preferred 12-month period measured from acceptance and deletion of the fixed cut-off date, noting 90 days from acceptance as an acceptable fallback.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-8",
+    "sectionRef": "§ 8 7 WARRANTIES AND DISCLAIMER.",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "warranty period ≥ 90 days or expressed in months/years",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.767 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0078",
+          "ok": false
+        }
+      ],
+      "notes": "Deviation classification is correct: the express warranty runs only sixty (60) days from the Effective Date with a hard December 31, 1999 cut-off, which is below the fallback of 90 days for software and, because it runs from the Effective Date rather than delivery/acceptance, can expire at or before acceptance — a material failure of the fallback, not a mere sub-element gap. Rationale accurately acknowledges the parts that already comply (substantial-conformance warranty, no-malicious-code warranty, correction/replacement/refund remedy ladder, disclaimer limited to implied warranties), so it does not over-claim or double-flag. Redline is targeted and directionally right: it substitutes 'twelve (12) months from Corio's acceptance of the Software pursuant to Section 3.1' for the 60-day/Effective-Date period and deletes the fixed cut-off, leaving the second (malicious code) sentence, the remedy paragraph and the 'Warranty Period' definition intact and still operative. The failed minimal-edit heuristic is not substantive here — the only substantive replacement is the duration/trigger language the rule requires be rewritten; the balance of the paragraph is preserved verbatim. Comment is accurate, in tone, states what changed and why (period could expire before or shortly after delivery), cites the 12-month playbook position and offers the 90-days-from-acceptance fallback.",
+      "verdict": "pass"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.29357825,
+    "durationMs": 82135,
+    "id": "f-insurance-baabeeda",
+    "paragraphIds": [
+      "p0132",
+      "p0133"
+    ],
+    "producedBy": "drafter",
+    "proposal": {
+      "comment": "[Playbook] We added a standard insurance provision, as the Agreement currently has none even though Commerce One's consultants and professional services personnel support our hosted environment and its MarketSite.net Service handles our and our Customers' data. Our playbook position is CGL of USD 1M/2M, E&O of USD 2M and, where Customer Data is processed, cyber cover of USD 5M, with certificates on request; we can discuss E&O of USD 1M and cyber of USD 2M if the higher limits are a problem.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "insert_after",
+          "numbering": "14.10",
+          "paragraphId": "p0132",
+          "text": "14.10 Insurance. Commerce One shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: (a) commercial general liability insurance of not less than One Million Dollars ($1,000,000) per occurrence and Two Million Dollars ($2,000,000) in the aggregate; (b) professional liability (errors and omissions) insurance of not less than Two Million Dollars ($2,000,000); (c) where Commerce One processes Corio or Customer data, cyber and privacy liability insurance of not less than Five Million Dollars ($5,000,000); and (d) workers' compensation insurance as required by applicable law. Commerce One shall provide Corio with certificates of insurance evidencing such coverage upon Corio's request."
+        },
+        {
+          "kind": "replace",
+          "newText": "14.11 Complete Understanding.",
+          "oldText": "14.10 Complete Understanding.",
+          "paragraphId": "p0133"
+        }
+      ],
+      "precedentId": "seed-insurance",
+      "summary": "Insert a new Section 14.10 requiring Commerce One to maintain commercial general liability, professional liability and cyber liability insurance and to provide certificates on request; renumber Complete Understanding."
+    },
+    "quote": "14.9 Bankruptcy. The parties hereto agree that Corio, as a licensee of Commerce One's intellectual property, shall be afforded all of the protections afforded to a licensee under Section 365(n) of the United States Bankruptcy Code",
+    "rationale": "The Agreement contains no insurance provision. A search for \"insurance\" returns only the net-revenue definition in Section 1 (p0012, deducting \"taxes, freight, insurance, refunds or credits\"), and neither the Miscellaneous section (14.1-14.10) nor the Indemnification section (8.1-8.2) imposes any coverage obligation on Commerce One. Commerce One is the vendor: it supplies an operations consultant and professional services personnel for our installation and implementations (5.1, 5.2, 5.6), provides support and training (5.3, 5.5), and its MarketSite.net Service handles Corio and Customer data. That is squarely within the rule's scope, and no insurance at all for a vendor of hosted services touching our data is walk-away territory rather than merely short of the fallback. The redline inserts a new Section 14.10 at the preferred limits (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M where Customer Data is processed, statutory workers' compensation, certificates on request) and renumbers Complete Understanding to 14.11; the fallback of E&O USD 1M / cyber USD 2M is offered in the comment if the limits are resisted.",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-14",
+    "sectionRef": "§ 14 MISCELLANEOUS.",
+    "severity": "low",
+    "status": "missing",
+    "verification": {
+      "attempts": 1,
+      "checks": [
+        {
+          "name": "operation 1 applies",
+          "ok": true
+        },
+        {
+          "name": "operation 2 applies",
+          "ok": true
+        },
+        {
+          "name": "insurance obligation present",
+          "ok": true
+        },
+        {
+          "detail": "changed-character ratio=0.069 (advisory: whole-clause rewrites are acceptable when the rule requires them)",
+          "name": "minimal edit p0133",
+          "ok": true
+        }
+      ],
+      "notes": "The rule is a 'missing'-kind insurance rule and the cited miscellaneous paragraphs (14.9–14.10) contain no coverage obligation; the rationale confirms the only 'insurance' hit elsewhere is the net-revenue definition, so no usable clause exists and the 'missing' classification is correct. Direction is correct for our side: we represent Corio (the licensee/customer) and the inserted obligation runs against Commerce One, the software/hosting vendor whose consultants and MarketSite.net Service touch Corio and Customer data; nothing in the edit burdens our party. The redline is a clean, minimal insertion of a new Section 14.10 tracking the model language (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M where data is processed, statutory workers' comp, certificates on request) with a correct renumber of Complete Understanding to 14.11 and no other text disturbed (changed-character ratio 0.069 on p0133 is purely the renumber). The comment is accurate, concise, in the required voice, states what changed and why, cites the preferred limits and offers the E&O USD 1M / cyber USD 2M fallback, and does not overstate the record.",
+      "verdict": "pass"
+    }
+  }
+]

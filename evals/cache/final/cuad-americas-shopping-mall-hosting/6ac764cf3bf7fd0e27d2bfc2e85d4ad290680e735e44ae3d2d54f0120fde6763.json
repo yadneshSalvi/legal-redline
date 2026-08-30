@@ -1,0 +1,89 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXwRjijg6v9teMgiSWcL",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01Gkvtexghgd8pm2J16B4Bb1",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0055",
+            "p0056",
+            "p0058",
+            "p0059",
+            "p0068"
+          ],
+          "quote": "9. Warranties.",
+          "rationale": "The Agreement contains no indemnification, defence or hold-harmless language anywhere: searches for \"indemnif\", \"hold harmless\" and \"claim\" return nothing, and the Warranties section (9, p0055–p0058) runs straight into General Provisions (10, p0059) with only corporate-authority reps and a Globix carve-out. HDI designs, develops, hosts and operates the Site and supplies the underlying software and technology, yet bears no obligation to defend the Company against third-party IP infringement claims, HDI-caused data/Content breaches, breaches of law or wilful misconduct. That is walk-away territory under the rule (no Vendor IP indemnity at all), so we have inserted a new Section 9A giving the preferred HDI indemnity with standard notice/control/cooperation procedure, a carve-out for Company-supplied Content and Marks, a narrow reciprocal Company indemnity, and a conforming update to the survival list in Section 10.7.",
+          "confidence": 0.9,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert HDI indemnity (IP infringement, breach of law, data breach, gross negligence/wilful misconduct) with narrow Company indemnity for its Content, after the Warranties section; add it to the survival list.",
+            "comment": "[Playbook] The Agreement contains no indemnity at all, so we have added HDI's defence and indemnity for third-party IP infringement claims relating to the Site, HDI's breach of law, HDI-caused data or Content breaches and HDI's gross negligence or wilful misconduct, with standard notice/control/cooperation mechanics. Our reciprocal indemnity is deliberately limited to Content we supply and our own breach of law, and we have added the new section to the survival list.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0058",
+                "numbering": "9A",
+                "text": "9A. Indemnification.",
+                "asHeading": true
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0058",
+                "text": "9A.1 HDI shall defend, indemnify and hold harmless the Company and its affiliates from and against any third-party claim, and all resulting damages, liabilities, costs and expenses (including reasonable attorneys' fees), to the extent arising out of (a) an allegation that the Site, the Services or any software, tool, technology or other deliverable provided by HDI infringes or misappropriates any intellectual property right (excluding any claim to the extent arising from Content or Marks provided by the Company); (b) HDI's breach of applicable law; (c) any unauthorized access to or disclosure of Content, Confidential Information or customer data caused by HDI; or (d) HDI's gross negligence or wilful misconduct. HDI's obligations under this Section 9A.1 are conditioned upon the Company promptly notifying HDI of the claim, permitting HDI to control the defense and settlement thereof (provided that no settlement imposing any liability, obligation or admission on the Company shall be entered into without the Company's prior written consent) and providing reasonable cooperation at HDI's expense.",
+                "asHeading": false
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0058",
+                "text": "9A.2 The Company shall defend and indemnify HDI from and against any third-party claim, and all resulting damages, costs and expenses (including reasonable attorneys' fees), to the extent arising out of Content or Marks provided by the Company or the Company's breach of applicable law.",
+                "asHeading": false
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0068",
+                "oldText": "Sections 6.3, 7, 9 and 10",
+                "newText": "Sections 6.3, 7, 9, 9A and 10"
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2376,
+      "cache_read_input_tokens": 12702,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2376,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1419,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INDEMN",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13622
+}

@@ -1,0 +1,73 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXwxpsQpLYDHbzhcCNpF",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01RJtUooCwezsZM4nWx4zjJX",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0132",
+            "p0133"
+          ],
+          "quote": "14.9 Bankruptcy. The parties hereto agree that Corio, as a licensee of Commerce One's intellectual property, shall be afforded all of the protections afforded to a licensee under Section 365(n) of the United States Bankruptcy Code",
+          "rationale": "The Agreement contains no insurance provision. A search for \"insurance\" returns only the revenue definition in Section 1 (p0012, deducting \"taxes, freight, insurance, refunds or credits\" from net revenue), and neither the Miscellaneous section (14.1–14.10) nor the Indemnification section (8.1–8.2) imposes any coverage obligation on Commerce One. Commerce One is the vendor here: it supplies an operations consultant and professional services personnel for our installation and implementations (5.1, 5.2, 5.6), provides support and training (5.3, 5.5), and its MarketSite.net Service handles Corio and Customer data. That falls squarely within the rule's scope, and the absence of any coverage for a vendor of hosted services touching our data is walk-away territory rather than merely short of the fallback. Redline inserts a new Section 14.10 at the preferred limits (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M where Customer Data is processed, statutory workers' compensation, certificates on request) and renumbers Complete Understanding to 14.11; the fallback of E&O USD 1M / cyber USD 2M is offered in the comment if the limits are resisted.</parationale>\n<parameter name=\"confidence\">0.9",
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-insurance",
+            "summary": "Insert a new Section 14.10 requiring Commerce One to maintain commercial general liability, professional liability and cyber liability insurance and to provide certificates on request; renumber Complete Understanding.",
+            "comment": "[Playbook] We added a standard insurance provision, as the Agreement currently has none even though Commerce One's consultants and professional services personnel support our hosted environment and its MarketSite.net Service handles our and our Customers' data. Our playbook position is CGL of USD 1M/2M, E&O of USD 2M and, where Customer Data is processed, cyber cover of USD 5M, with certificates on request; we can discuss E&O of USD 1M and cyber of USD 2M if the higher limits are a problem.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0132",
+                "numbering": "14.10",
+                "text": "14.10 Insurance. Commerce One shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: (a) commercial general liability insurance of not less than One Million Dollars ($1,000,000) per occurrence and Two Million Dollars ($2,000,000) in the aggregate; (b) professional liability (errors and omissions) insurance of not less than Two Million Dollars ($2,000,000); (c) where Commerce One processes Corio or Customer data, cyber and privacy liability insurance of not less than Five Million Dollars ($5,000,000); and (d) workers' compensation insurance as required by applicable law. Commerce One shall provide Corio with certificates of insurance evidencing such coverage upon Corio's request."
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0133",
+                "oldText": "14.10 Complete Understanding.",
+                "newText": "14.11 Complete Understanding."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1191,
+      "cache_read_input_tokens": 11789,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1191,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1293,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a41afd06005372cf2975a57e73d90511448d4e1df021bb7dc547e1da849e2269"
+    }
+  ],
+  "durationMs": 12629
+}

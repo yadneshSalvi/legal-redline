@@ -1,0 +1,67 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeXxJFCfeRW59u7n9obwj",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01BwcZRkeYzvBVLK2VoUtzda",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0133"
+          ],
+          "quote": "During the term of this Agreement and for a period of one year thereafter, both parties agree not to hire or allow its respective affiliates to hire any employee of the other party, or any person who was an employee of the other party during the previous six months and who was directly involved in the provision of services under this Agreement.",
+          "rationale": "Section 19 is a no-hire, not a non-solicit: it prohibits Sparkling (and its affiliates) from hiring \"any employee of the other party\" outright. The \"directly involved in the provision of services\" qualifier attaches only to the former-employee limb, so the live-employee restriction covers all of Garman's personnel, and there is no general-advertising or unsolicited-approach carve-out. No-hire provisions and covenants covering all of a party's personnel are walk-away items under the rule, so this fails the fallback despite the acceptable one-year duration. The redline moves the clause to the fallback: a mutual solicitation-only restriction limited to personnel directly involved in the services, running twelve months from the end of that involvement, with the customary carve-outs.",
+          "confidence": 0.86,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0133",
+                "oldText": "During the term of this Agreement and for a period of one year thereafter, both parties agree not to hire or allow its respective affiliates to hire any employee of the other party, or any person who was an employee of the other party during the previous six months and who was directly involved in the provision of services under this Agreement.",
+                "newText": "During the term of this Agreement and for a period of twelve (12) months following the end of the relevant individual's involvement in the provision of services under this Agreement, neither party shall, and neither party shall permit its affiliates to, directly solicit for employment any employee of the other party who was directly involved in the provision of services under this Agreement. Nothing in this Section restricts either party from (a) placing or responding to general advertisements or recruitment campaigns not specifically targeted at the other party's personnel, or (b) hiring any person who approaches it on an unsolicited basis, and this Section does not prohibit either party from hiring any person."
+              }
+            ],
+            "comment": "[Playbook] We converted this no-hire into a mutual non-solicit limited to personnel directly involved in the services for twelve months after their involvement ends, and added the customary general-advertising and unsolicited-approach carve-outs. Our playbook does not permit no-hire restrictions or covenants covering all of a party's employees.",
+            "level": "fallback",
+            "precedentId": "seed-nosolicit",
+            "summary": "Narrow Section 19 no-hire to a 12-month mutual non-solicit of involved personnel with standard carve-outs."
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1054,
+      "cache_read_input_tokens": 6620,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1054,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1020,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 9800
+}
