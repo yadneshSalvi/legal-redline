@@ -62,4 +62,5 @@ zustand 5.0.15 · vitest 4.1.11 · tsx 4.23.12 · @playwright/test 1.62.1 · pnp
 ## Commands
 `pnpm dev` · `pnpm build` · `pnpm typecheck` · `pnpm lint` · `pnpm test` · `pnpm test:e2e` ·
 `pnpm fetch-cuad` · `pnpm build-dataset` · `pnpm synth` · `pnpm review <file.docx> [--config final]` ·
-`pnpm baseline <file>` · `pnpm eval [--config …] [--live]` · `pnpm report` · `pnpm validate-docx <file>` · `pnpm export-trajectories`
+`pnpm baseline <file>` · `pnpm eval [--config …] [--tier short|long|all] [--live]` · `pnpm report` · `pnpm validate-docx <file>` ·
+`pnpm export-trajectories` · `pnpm shots:evals` (1440×900 /evals captures; needs a dev server on 3101)

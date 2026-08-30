@@ -9,6 +9,7 @@ const commands = [
   { line: "pnpm install --frozen-lockfile", note: "" },
   { line: "cp .env.example .env", note: "leave the keys empty — replay needs none" },
   { line: "pnpm eval --all", note: "replays evals/cache → evals/results/<config>.json" },
+  { line: "pnpm eval --tier all", note: "round 2: short + long tiers → <config>.<tier>.json" },
   { line: "pnpm report", note: "→ evals/results/summary.md + changelog-data.json" },
 ];
 
@@ -16,7 +17,8 @@ const SUMMARY_PATH = "evals/results/summary.md";
 
 /**
  * The exact commands from REPRODUCE.md §1–§2. Every number on this page comes out of the committed
- * replay cache, so a judge reproduces it without an API key and at no cost (EVAL.md §6).
+ * replay cache, so a judge reproduces it without an API key and at no cost (EVAL.md §6). The tier
+ * run (EVAL.md §9) is what fills the short/long switch and the round-2 redline columns.
  */
 export function ReproduceBlock() {
   const summaryUrl = repoFileUrl(SUMMARY_PATH);

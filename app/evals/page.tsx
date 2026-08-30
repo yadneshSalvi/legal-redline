@@ -12,8 +12,10 @@ export default function EvalsPage() {
         </h1>
         <p className="mt-1.5 max-w-[86ch] text-[13px] leading-[1.6] text-ink-muted">
           Every configuration of the pipeline, from “paste it into a chat assistant” to the version we shipped, run
-          over the same twelve contracts against the same playbook and the same lawyer-confirmed gold. The primary
-          metric is issue-detection F1; the numbers reproduce from the committed replay cache at zero cost.
+          over the same contracts against the same playbook and the same lawyer-confirmed gold. Round 1 measured
+          issue-detection F1 on twelve short contracts; round 2 adds a pre-registered long-document tier and the
+          end-to-end question underneath it — how often the result is a complete redline. Every number reproduces from
+          the committed replay cache at zero cost.
         </p>
       </header>
       <EvalsDashboard />
