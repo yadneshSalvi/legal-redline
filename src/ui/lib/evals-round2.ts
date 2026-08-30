@@ -12,7 +12,7 @@ import type { ConfigId } from "@/src/agent/types";
 import type { AggregateMetrics, ComponentMetrics } from "@/src/eval/metrics";
 import {
   FINAL_CONFIG,
-  FINAL_V2_CONFIG,
+  ,
   HARD_CASE_ID,
   absentRow,
   configDescriptors,
@@ -132,11 +132,15 @@ export function poolAggregates(parts: readonly AggregateMetrics[]): AggregateMet
 
 /** `final-v2` is the shipped row as soon as the report contains it; until then `final` is. */
 export function shippedConfig(data: EvalsData): ConfigId {
-  const ids = new Set<string>([
+  // The shipped configuration is the latest `final*` (configs.ts order) the report actually carries — round 1: final;
+  // round 2: final-v2 … final-v4 (the length router). A final that regressed and was not shipped still renders, as an
+  // iteration, because it stays in the ladder.
+  const present = new Set<string>([
     ...data.configs.map((config) => config.id),
     ...data.tiers.flatMap((tier) => tier.configs.map((config) => config.id)),
   ]);
-  return ids.has(FINAL_V2_CONFIG) ? FINAL_V2_CONFIG : FINAL_CONFIG;
+  const finals = configDescriptors().filter((descriptor) => descriptor.role === "final" && present.has(descriptor.id));
+  return finals.length > 0 ? finals[finals.length - 1]!.id : FINAL_CONFIG;
 }
 
 /** Only one row wears the shipped accent; the superseded final drops back to an iteration. */
