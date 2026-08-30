@@ -55,10 +55,17 @@ const cards = {
   problem: frame(`<p class="eyebrow">THE BOTTLENECK</p><h1>${escape(DATA.problem.title)}</h1><div style="display:grid;grid-template-columns:.85fr 1.35fr;gap:22px;margin-top:50px"><div class="panel"><p class="kicker">${escape(DATA.problem.kicker)}</p><p class="stat" style="margin:70px 0 12px">${escape(DATA.problem.stat)}</p><p style="font-size:18px;color:var(--muted)">per vendor contract</p></div><div class="panel" style="display:flex;align-items:center"><p class="body">${escape(DATA.problem.body)}</p></div></div>`),
   baseline: frame(`<p class="eyebrow">SIMPLE BASELINE</p><h1>${escape(DATA.baseline.title)}</h1><p class="subtitle">${escape(DATA.baseline.subtitle)}</p><dl class="metrics">${DATA.baseline.metrics.map((metric) => `<div class="panel metric"><dt>${escape(metric.label)}</dt><dd>${escape(metric.value)}</dd></div>`).join("")}</dl>`),
   comparison: frame(`<p class="eyebrow">BASELINE → SHIPPED PIPELINE</p><h1>${escape(DATA.comparison.title)}</h1><div class="table"><div class="row head"><span>Metric</span><span>Baseline</span><span>Final</span></div>${DATA.comparison.rows.map((row) => `<div class="row"><span style="font-size:21px">${escape(row.metric)}</span><span class="num">${escape(row.baseline)}</span><span class="num final">${escape(row.final)}</span></div>`).join("")}</div>`),
+  "round2-why": frame(`<p class="eyebrow">WHY ROUND 2</p><h1>${escape(DATA.round2Why.title)}</h1><div style="display:grid;grid-template-columns:.72fr 1.4fr;gap:22px;margin-top:44px"><div class="panel" style="display:flex;flex-direction:column;justify-content:center"><p class="stat" style="font-size:62px;margin:0">${escape(DATA.round2Why.detection)}</p><p style="font-size:18px;line-height:1.45;color:var(--muted);margin:22px 0 0">${escape(DATA.round2Why.detectionLabel)}</p></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">${DATA.round2Why.pillars.map((pillar) => `<div class="panel" style="padding:28px 26px"><p class="kicker" style="font-size:15px">${escape(pillar.label)}</p><p style="font:500 23px/1.48 'Source Serif 4',serif;color:var(--ink);margin:36px 0 0">${escape(pillar.body)}</p></div>`).join("")}</div></div>`),
   changelog: frame(`<p class="eyebrow">MEASURED IMPROVEMENT</p><h1>${escape(DATA.changelog.title)}</h1><div class="ladder">${DATA.changelog.steps.map((step, index) => `${index ? '<span class="arrow">→</span>' : ''}<div class="step">${escape(step)}</div>`).join("")}</div><div class="notes"><div class="note">${escape(DATA.changelog.biggest)}</div><div class="note removed">${escape(DATA.changelog.removed)}</div></div><div class="evidence">${escape(DATA.changelog.summary)}</div>`),
   "hot-take": frame(`<p class="eyebrow">${escape(DATA.hotTake.label)}</p><h1>${escape(DATA.hotTake.title)}</h1><p class="subtitle">${escape(DATA.hotTake.subtitle)}</p>`, "hot"),
   closing: frame(`<p class="eyebrow">${escape(DATA.eyebrow)}</p><h1>${escape(DATA.closing.title)}</h1><p class="subtitle">${escape(DATA.closing.subtitle)}</p><p class="url-big">${escape(DATA.url)}</p>`, "close"),
 };
+
+const requested = process.argv.slice(2);
+const selected = requested.length === 0 ? Object.keys(cards) : requested;
+for (const id of selected) {
+  if (!(id in cards)) throw new Error(`unknown card id: ${id}`);
+}
 
 function atomicText(path, text) {
   const tmp = `${path}.tmp-${process.pid}`;
@@ -67,7 +74,8 @@ function atomicText(path, text) {
 }
 
 try {
-  for (const [id, html] of Object.entries(cards)) {
+  for (const id of selected) {
+    const html = cards[id];
     const htmlPath = resolve(HTML_DIR, `${id}.html`);
     const pngPath = resolve(OUTPUT_DIR, `${id}.png`);
     const tmpPng = `${pngPath}.tmp-${process.pid}.png`;

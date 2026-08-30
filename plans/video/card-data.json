@@ -16,32 +16,41 @@
     "title": "The fair baseline",
     "subtitle": "Same model · same playbook · one direct prompt",
     "metrics": [
-      { "label": "Issue-detection F1", "value": "91.5%" },
-      { "label": "Redline validity", "value": "42.7%" },
-      { "label": "Minimal edits", "value": "11.0%" },
+      { "label": "Complete redlines", "value": "1.1%" },
+      { "label": "Long-document F1", "value": "60.3%" },
+      { "label": "Applied tracked changes", "value": "41.7%" },
       { "label": "Word output", "value": "none" }
     ]
   },
   "comparison": {
-    "title": "Measured on the same 12 contracts",
+    "title": "Pre-registered Round 2 metrics",
     "rows": [
-      { "metric": "Issue-detection F1", "baseline": "91.5%", "final": "94.8%" },
-      { "metric": "Precision", "baseline": "98.0%", "final": "97.7%" },
-      { "metric": "Redline validity", "baseline": "42.7%", "final": "50.6%" },
-      { "metric": "Minimal edits", "baseline": "11.0%", "final": "35.6%" }
+      { "metric": "Complete redlines · short tier", "baseline": "1.1%", "final": "54.7%" },
+      { "metric": "Long-document F1", "baseline": "60.3%", "final": "75.3%" },
+      { "metric": "Applied tracked changes · long tier", "baseline": "41.7%", "final": "62.5%" }
+    ]
+  },
+  "round2Why": {
+    "title": "Measure the redline, not just the finding.",
+    "detection": "91.5% → 94.8%",
+    "detectionLabel": "Short-tier issue-detection F1 · inside run-to-run variance",
+    "pillars": [
+      { "label": "PRIMARY METRIC", "body": "A complete redline: every element met, applied, minimal." },
+      { "label": "HARDER TIER", "body": "The long documents in-house counsel actually receive." },
+      { "label": "FAIR CONTROL", "body": "The same whole-contract, one-prompt baseline." }
     ]
   },
   "changelog": {
     "title": "What each step bought",
-    "biggest": "Per-rule workers: F1 91.8% → 94.4% · validity 41.5% → 48.3%",
-    "removed": "x-monolith: 94.1% F1 · 42.4% validity — one context stops after obvious clauses",
-    "summary": "Baseline → final: F1 91.5% → 94.8% · validity 42.7% → 50.6% · minimality 11.0% → 35.6%",
-    "steps": ["b0-chat", "b1-prompt", "i1-planner", "i2-tools", "i3-verifier", "i4-memory", "final"]
+    "biggest": "i7-precise: complete redlines 32.6% → 54.7% · validity 42.7% → 74.2%",
+    "removed": "x-monolith: removed — one context stops after the obvious clauses",
+    "summary": "Baseline → final-v4: complete redlines 1.1% → 54.7% · long F1 60.3% → 75.3% · long tracked changes 41.7% → 62.5%",
+    "steps": ["b1-prompt", "i2-workers", "i3-verifier", "i4-memory", "i5-elements", "i6-longdoc", "i7-precise", "final-v4"]
   },
   "hotTake": {
     "label": "HOT TAKE",
-    "title": "Give a specialist agent one rule and it will find a violation — the biggest quality jump in this project came from writing the semantics into the playbook, not from any model, tool or extra agent.",
-    "subtitle": "The real product is a reviewable artifact with evidence."
+    "title": "Give a specialist agent one rule and it will find a violation; give it a direction instead of a checklist and it will write half a redline.",
+    "subtitle": "The biggest jumps came from writing the playbook more precisely — not from another model, tool, or agent."
   },
   "closing": {
     "title": "Your playbook, applied to their paper.",

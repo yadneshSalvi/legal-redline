@@ -75,14 +75,31 @@ function timestamp(seconds) {
   return `${String(minutes).padStart(2, "0")}:${remainder.toFixed(3).padStart(6, "0")}`;
 }
 
-function writeReport(items, starts, durations, total) {
+function itemDuration(item, narration) {
+  if (Number(item.duration) > 0) return Number(item.duration);
+  if (!item.narration) return Number(item.hold);
+  const beat = narration.get(item.narration);
+  const rate = Number(item.narrationRate ?? 1);
+  const trim = Number(item.trim ?? 0);
+  if (!(trim >= 0) || trim >= beat.duration - 0.5) throw new Error(`${item.id} has an invalid trim`);
+  return beat.duration / rate - trim + 0.4;
+}
+
+function writeReport(items, starts, durations, total, nativeTotal) {
   const rows = items.map((item, index) => {
     const start = starts[index];
     const end = start + durations[index];
-    const treatment = item.playbackRate ? `${item.playbackRate}× from source ${Number(item.mediaStart ?? 0).toFixed(1)}s` :
+    const visual = item.playbackRate ? `${item.playbackRate}× from source ${Number(item.mediaStart ?? 0).toFixed(1)}s` :
       Number(item.mediaStart) > 0 ? `source ${Number(item.mediaStart).toFixed(1)}s` : "native";
-    return `| ${index + 1} | ${item.id} | ${timestamp(start)} | ${timestamp(end)} | ${durations[index].toFixed(3)} s | ${item.src} | ${treatment} |`;
+    const timing = Number(item.duration) > 0 && item.narration ? `; fixed ${Number(item.duration).toFixed(1)} s` : "";
+    const treatment = `${visual}${timing}`;
+    const rate = item.narration ? `${Number(item.narrationRate ?? 1).toFixed(3)}×` : "—";
+    return `| ${index + 1} | ${item.id} | ${timestamp(start)} | ${timestamp(end)} | ${durations[index].toFixed(3)} s | ${rate} | ${item.src} | ${treatment} |`;
   });
+  const adjusted = items
+    .filter((item) => Number(item.narrationRate ?? 1) > 1)
+    .map((item) => `${item.id} (${Number(item.narrationRate).toFixed(3)}×)`)
+    .join(", ");
   const markdown = [
     "# Playbook Redliner — 1080p render",
     "",
@@ -92,11 +109,13 @@ function writeReport(items, starts, durations, total) {
     "- Audio: AAC, 48 kHz, stereo, 192 kb/s target",
     `- Visual transitions: ${Math.round(FADE * 1000)} ms cross-fades`,
     "",
-    "| # | Beat | Start | End | Visual duration | Source | Treatment |",
-    "| ---: | --- | ---: | ---: | ---: | --- | --- |",
+    "| # | Beat | Start | End | Visual duration | Narration rate | Source | Treatment |",
+    "| ---: | --- | ---: | ---: | ---: | ---: | --- | --- |",
     ...rows,
     "",
     "Beat end times include the 0.4-second narration tail; adjacent visuals overlap during the 250 ms cross-fade.",
+    "The findings-arrive and precedents source clips are unchanged and restored to their full narration-led durations; their narration and all other product-workflow narration play at 1.000×.",
+    `After the allowed 10-word problem cut, the fully native narration timeline is ${nativeTotal.toFixed(3)} seconds. To stay below five minutes, only the revised narration beats are adjusted: ${adjusted}.`,
     "",
   ].join("\n");
   const tmp = `${REPORT}.tmp-${process.pid}`;
@@ -135,16 +154,27 @@ function muxNarration(visual, items, starts, narration, total, output) {
     const beat = narration.get(item.narration);
     const path = resolve(VIDEO_DIR, "narration", beat.file);
     args.push("-i", path);
-    voices.push({ input: args.filter((arg) => arg === "-i").length - 1, beat, delay: Math.round(starts[index] * 1000) });
+    voices.push({
+      input: args.filter((arg) => arg === "-i").length - 1,
+      beat,
+      delay: Math.round(starts[index] * 1000),
+      rate: Number(item.narrationRate ?? 1),
+      availableDuration: Math.max(0.5, itemDuration(item, narration) - 0.4),
+    });
   }
   const filters = ["[1:a]volume=0[bed]"];
   const labels = ["bed"];
   for (let index = 0; index < voices.length; index += 1) {
     const voice = voices[index];
     const label = `voice${index}`;
-    const fadeOut = Math.max(0, voice.beat.duration - 0.3);
+    const renderedDuration = voice.beat.duration / voice.rate;
+    if (renderedDuration > voice.availableDuration + 0.01) {
+      throw new Error(`${voice.beat.id} narration is ${renderedDuration.toFixed(3)}s at ${voice.rate.toFixed(3)}× but only ${voice.availableDuration.toFixed(3)}s is available`);
+    }
+    const speed = voice.rate === 1 ? "" : `atempo=${voice.rate.toFixed(6)},`;
+    const fadeOut = Math.max(0, renderedDuration - 0.3);
     filters.push(
-      `[${voice.input}:a]aformat=sample_rates=48000:channel_layouts=stereo,loudnorm=I=-16:TP=-1.5:LRA=7,afade=t=in:st=0:d=0.3,afade=t=out:st=${fadeOut.toFixed(3)}:d=0.3,adelay=${voice.delay}:all=1[${label}]`,
+      `[${voice.input}:a]aformat=sample_rates=48000:channel_layouts=stereo,loudnorm=I=-16:TP=-1.5:LRA=7,${speed}afade=t=in:st=0:d=0.3,afade=t=out:st=${fadeOut.toFixed(3)}:d=0.3,adelay=${voice.delay}:all=1[${label}]`,
     );
     labels.push(label);
   }
@@ -166,11 +196,17 @@ function main() {
     if (!item.id || !["clip", "card", "still"].includes(item.kind) || !item.src) throw new Error(`invalid timeline item: ${JSON.stringify(item)}`);
     if (item.narration && !narration.has(item.narration)) throw new Error(`missing narration manifest entry: ${item.narration}`);
     if (!item.narration && !(Number(item.hold) > 0)) throw new Error(`${item.id} needs narration or a positive hold`);
+    if (Number(item.duration) > 0 && Number(item.duration) <= 0.8) throw new Error(`${item.id} duration is too short`);
+    const rate = Number(item.narrationRate ?? 1);
+    if (!(rate >= 1 && rate <= 1.1)) throw new Error(`${item.id} has an invalid narrationRate`);
+    if (!item.narration && item.narrationRate !== undefined) throw new Error(`${item.id} has narrationRate without narration`);
   }
 
   mkdirSync(RENDER_DIR, { recursive: true });
   mkdirSync(WORK_DIR, { recursive: true });
-  const durations = items.map((item) => item.narration ? narration.get(item.narration).duration + 0.4 : Number(item.hold));
+  const durations = items.map((item) => itemDuration(item, narration));
+  const nativeDurations = items.map((item) => itemDuration({ ...item, narrationRate: 1 }, narration));
+  const nativeTotal = nativeDurations.reduce((sum, duration) => sum + duration, 0) - FADE * (items.length - 1);
   const starts = [];
   let cursor = 0;
   for (let index = 0; index < items.length; index += 1) {
@@ -194,7 +230,7 @@ function main() {
       throw new Error(`rendered duration is ${finalDuration.toFixed(2)}s; maximum is 300s`);
     }
     renameSync(tmpOutput, OUTPUT);
-    writeReport(items, starts, durations, finalDuration);
+    writeReport(items, starts, durations, finalDuration, nativeTotal);
     process.stdout.write(`rendered ${OUTPUT}\n`);
     process.stdout.write(`total duration ${finalDuration.toFixed(3)}s\n`);
   } finally {

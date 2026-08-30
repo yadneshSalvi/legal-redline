@@ -9,6 +9,7 @@ const BIN_DIR = dirname(fileURLToPath(import.meta.url));
 const VIDEO_DIR = resolve(BIN_DIR, "..");
 const REPO_DIR = resolve(VIDEO_DIR, "../..");
 const INPUT = resolve(VIDEO_DIR, "narration.json");
+const TIMELINE = resolve(VIDEO_DIR, "timeline.json");
 const OUTPUT_DIR = resolve(VIDEO_DIR, "narration");
 const MANIFEST = resolve(OUTPUT_DIR, "manifest.json");
 const DEFAULT_MODEL = "gemini-2.5-flash-preview-tts";
@@ -72,6 +73,21 @@ function durationOf(path) {
   return Number(execFileSync("ffprobe", [
     "-v", "error", "-show_entries", "format=duration", "-of", "default=nw=1:nk=1", path,
   ], { encoding: "utf8" }).trim());
+}
+
+function plannedTimelineDuration(beats) {
+  const byId = new Map(beats.map((beat) => [beat.id, beat]));
+  const items = JSON.parse(readFileSync(TIMELINE, "utf8"));
+  const durations = items.map((item) => {
+    if (Number(item.duration) > 0) return Number(item.duration);
+    if (!item.narration) return Number(item.hold);
+    const beat = byId.get(item.narration);
+    if (!beat) throw new Error(`timeline references missing narration: ${item.narration}`);
+    const rate = Number(item.narrationRate ?? 1);
+    if (!(rate >= 1 && rate <= 1.1)) throw new Error(`${item.id} has an invalid narrationRate`);
+    return beat.duration / rate - Number(item.trim ?? 0) + 0.4;
+  });
+  return durations.reduce((sum, duration) => sum + duration, 0) - 0.25 * (items.length - 1);
 }
 
 async function listTtsModels(apiKey) {
@@ -219,9 +235,11 @@ async function main() {
     beats: manifestBeats,
   };
   atomicJson(MANIFEST, manifest);
+  const plannedDuration = plannedTimelineDuration(manifestBeats);
   process.stdout.write(`manifest ${MANIFEST}\n`);
   process.stdout.write(`total narration ${totalDuration.toFixed(2)}s\n`);
-  if (totalDuration > 292) throw new Error(`narration is ${totalDuration.toFixed(2)}s; maximum is 292s`);
+  process.stdout.write(`planned timeline ${plannedDuration.toFixed(2)}s\n`);
+  if (plannedDuration > 300) throw new Error(`planned timeline is ${plannedDuration.toFixed(2)}s; maximum is 300s`);
 }
 
 await main();

@@ -269,16 +269,25 @@ record_memo_drawer() {
 }
 
 record_evals_dashboard() {
-  open_path "/evals"
+  open_path "/evals?tier=long"
   ab wait --text "The config ladder"
   snapshot_beat evals-dashboard
   local target=$(narration_target comparison 22) started=$SECONDS
   rec_start evals-dashboard $(( target + 25 ))
-  move_pointer 1550 430
-  sleep 5
-  ab scroll down 520
-  sleep 5
-  move_pointer 1520 760
+  move_to_selector '[role="radiogroup"][aria-label="Contract tier"]' || move_pointer 1550 430
+  sleep 3
+  for _ in {1..4}; do
+    ab eval 'window.scrollBy({ top: 180, behavior: "smooth" }); true'
+    sleep 2
+  done
+  ab eval "document.querySelector('[role=\"radiogroup\"][aria-label=\"Contract tier\"]')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); true"
+  sleep 3
+  move_to_selector 'button[aria-label^="Short tier"]'
+  sleep 0.3
+  ab eval "document.querySelector('button[aria-label^=\"Short tier\"]')?.click(); true"
+  sleep 3
+  snapshot_beat evals-dashboard-short
+  move_to_selector 'button[aria-label^="Short tier"]' || move_pointer 1520 760
   hold_until "$started" "$target"
   rec_stop evals-dashboard
 }

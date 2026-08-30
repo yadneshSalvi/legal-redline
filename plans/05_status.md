@@ -175,3 +175,7 @@
 - Round-2b campaign (relaunched after the restart) finished 19:33 with zero replay misses across all 8 config×tier pairs. `final-v3` (i7 + long planner + memory) regressed on the long tier (F1 52.2, recall 39.3 — the precise worker's locked round-1 detection bypasses i6's paginated element worker) and trails i7 on short (CRR 47.4 vs 54.7) → reported, not shipped.
 - Shipped: `final-v4`, a length router (i7-precise < 15k words, i6-longdoc ≥ 15k; memory off) that reuses the members' prompts and caches — replayed both tiers at $0: short F1 94.7 / CRR 54.7 % (dev 68.8, holdout 47.6) / validity 74.2 / minimality 59.6 / 0 esc / $5.10; long F1 75.3 / recall 68.6 / CRR 22.9 / yield 62.5 / $11.11. Docs (README §5/§7, changelog Round 2 + failure mode + hot take, EVAL.md, PLAYBOOK.md) written by hand; report/docs rendered.
 - Next: commit → video re-cut (Sol) + gate-round2 review (Fable) in parallel → export traces → release v1.1 → final status.
+
+## 2026-08-30 20:10 IST — video v1.1, dashboard shipped-config fix
+- Video re-cut (Sol, 19 min) + pacing fix (Sol, 8 min): 299.9 s, product beats 1.000×, four narrations 1.052×, cards from `changelog-data.json`, end card vercel.app → release v1.1; README header/§10 + submission draft updated.
+- Dashboard: `shippedConfig` now = latest `final*` present (final-v4); verified live (CRR 44.1 % pooled +43.4, long F1 75.3, yield 81.8, F1 94.7). Gate-round2 review running.
