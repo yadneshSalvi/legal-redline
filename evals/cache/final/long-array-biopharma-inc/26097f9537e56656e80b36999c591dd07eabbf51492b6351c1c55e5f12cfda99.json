@@ -1,0 +1,75 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYNzK4FV1FhSNkLBDSHu",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01B4dt9JgzeGFzmUGgtgjkcC",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0359",
+            "p0481",
+            "p0482"
+          ],
+          "quote": "(a) Ono shall, and shall require its Affiliates to, permit Array, and/or an authorized representative reasonably acceptable to Ono, to enter the relevant facilities of Ono and its Affiliates during normal business hours and upon reasonable advance notice to inspect and verify compliance with applicable regulatory and other requirements, as well as with this Agreement",
+          "rationale": "Two audit rights bind Ono. The royalty audit in Section 7.4 sits at or above the playbook position (no more than once each Calendar Year, one inspection per quarter, reasonable prior written notice at reasonable times, independent nationally recognised accounting firm reasonably acceptable to Ono and bound by confidentiality, Array bears cost absent an underpayment above the redacted threshold, no system access) — the only shortfall is that notice is \"reasonable\" rather than a fixed 15/30 days, which is a minor sub-element noted rather than flagged, and the underpayment percentage is redacted. Section 4.9(a), however, gives Array (or its representative) an open-ended right to enter Ono facilities and examine internal procedures and records with no frequency cap, no fixed notice period, no cost allocation and no confidentiality undertaking. Unlimited inspections fall into the rule's walk-away territory and fail the fallback on frequency, so we added a once-per-Calendar-Year cap, 30 days' prior written notice, Array-borne cost and a confidentiality obligation, leaving Array's on-site (rather than independent-auditor) inspection intact given the regulatory-compliance purpose. Fifteen days' notice remains available as a fallback.",
+          "confidence": 0.72,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Add frequency cap, 30 days' written notice, Array-borne cost and confidentiality undertaking to Array's facility/records inspection right in Section 4.9(a)",
+            "comment": "[Playbook] We capped Array's inspection right at once per Calendar Year on thirty (30) days' prior written notice, at Array's expense and subject to confidentiality, consistent with our audit playbook; we can accept fifteen (15) days' notice if Array prefers.",
+            "precedentId": "seed-audit",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0359",
+                "oldText": "during normal business hours and upon reasonable advance notice to inspect",
+                "newText": "during normal business hours, no more than once each Calendar Year and upon at least thirty (30) days' prior written notice, to inspect"
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0359",
+                "oldText": "Such inspection shall not relieve Ono of any of its obligations under this Agreement.",
+                "newText": "Each such inspection shall be conducted at Array's expense, and Array shall cause itself and each of its authorized representatives to be bound by written confidentiality obligations no less protective than those set forth in Article 10 prior to commencing any such inspection. Such inspection shall not relieve Ono of any of its obligations under this Agreement."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1124,
+      "cache_read_input_tokens": 15238,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1124,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1170,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "AUDIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 12098
+}

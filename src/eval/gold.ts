@@ -143,12 +143,23 @@ export function hasOnlyHumanLabels(gold: GoldFile): boolean {
   return gold.items.every((item) => item.labeler === "human" || item.labeler === "cuad+human");
 }
 
+export function hasOnlyAgentReviewLabels(gold: GoldFile): boolean {
+  return gold.items.every((item) =>
+    (item.labeler === "agent-reviewed" || item.labeler === "cuad+agent-reviewed") &&
+    item.reviewedBy !== undefined,
+  );
+}
+
 /** Reject assisted CUAD drafts while retaining exact, generated labels for synthetic fixtures. */
 export function assertEvaluationLabelers(contractId: string, gold: GoldFile): void {
   const synthetic = contractId.startsWith("synth-");
+  const registeredLongTier = contractId.startsWith("long-");
   const approved = (item: GoldItem): boolean => synthetic
     ? item.labeler === "synthetic-exact" || (item.labeler === "human" && item.reviewedBy !== undefined)
-    : item.labeler === "human" || item.labeler === "cuad+human";
+    : item.labeler === "human" || item.labeler === "cuad+human" ||
+      (registeredLongTier &&
+        (item.labeler === "agent-reviewed" || item.labeler === "cuad+agent-reviewed") &&
+        item.reviewedBy !== undefined);
   if (!gold.items.every(approved)) {
     const invalid = [...new Set(gold.items.filter((item) => !approved(item)).map((item) =>
       item.labeler === "human" && item.reviewedBy === undefined

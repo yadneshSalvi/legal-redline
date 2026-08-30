@@ -6,6 +6,7 @@ import { Command } from "commander";
 import {
   GoldFileSchema,
   GoldStatusSchema,
+  hasOnlyAgentReviewLabels,
   hasOnlyHumanLabels,
   type GoldFile,
   type GoldItem,
@@ -48,6 +49,15 @@ interface MergeOptions {
   note?: string;
   mechanical?: boolean;
   by: string;
+}
+
+interface AttestOptions {
+  by: string;
+  basis: string;
+}
+
+interface PromoteOptions {
+  allowAgentReview?: boolean;
 }
 
 function contractDirectory(contractId: string): string {
@@ -265,6 +275,36 @@ async function removeItem(contractId: string, itemId: string): Promise<void> {
   console.log(`${contractId}: removed ${itemId}`);
 }
 
+async function attestDraft(contractId: string, options: AttestOptions): Promise<void> {
+  const [draft, playbook, paragraphs] = await Promise.all([
+    readDraft(contractId),
+    loadPlaybookFile(PLAYBOOK_PATH),
+    readParagraphs(contractId),
+  ]);
+  if (options.basis.trim().length < 10) throw new Error("--basis must describe the review performed");
+  const knownRules = new Set(playbook.rules.map((rule) => rule.id));
+  const represented = new Set(draft.items.map((item) => item.ruleId));
+  const missingRules = [...knownRules].filter((ruleId) => !represented.has(ruleId));
+  if (missingRules.length > 0) throw new Error(`${contractId}: missing rules ${missingRules.join(", ")}`);
+  const invalid = draft.items.filter((item) =>
+    !knownRules.has(item.ruleId) || item.note === undefined || item.expectedFix === undefined ||
+    item.paragraphIds.some((id) => !paragraphs.has(id)) ||
+    (item.status === "missing" && item.paragraphIds.length > 0));
+  if (invalid.length > 0) throw new Error(`${contractId}: invalid reviewed items ${invalid.map((item) => item.id).join(", ")}`);
+  const now = new Date().toISOString();
+  const items = draft.items.map((item) => {
+    const categories = itemCategories(item);
+    return {
+      ...item,
+      labeler: categories.length === 0 ? "agent-reviewed" : "cuad+agent-reviewed",
+      reviewedAt: item.reviewedAt ?? now,
+      reviewedBy: item.reviewedBy ?? options.by,
+    };
+  });
+  await atomicWriteJson(join(contractDirectory(contractId), "gold.draft.json"), GoldFileSchema.parse({ ...draft, items }));
+  console.log(`${contractId}: attested ${items.length} reviewed items by ${options.by} (${options.basis})`);
+}
+
 async function appendPromotionLog(contractId: string, draft: GoldFile): Promise<void> {
   let existing: string;
   try {
@@ -274,20 +314,25 @@ async function appendPromotionLog(contractId: string, draft: GoldFile): Promise<
     existing = "# Gold-label promotion log\n\n";
   }
   const reviewers = [...new Set(draft.items.map((item) => item.reviewedBy ?? "unrecorded"))].sort().join(", ");
+  const labelers = [...new Set(draft.items.map((item) => item.labeler))].sort().join(", ");
   const count = (status: GoldItem["status"]): number => draft.items.filter((item) => item.status === status).length;
   const distinct = draft.items.filter((item) => item.distinct === true).length;
   const line =
     `- ${new Date().toISOString()} · ${contractId} · ${draft.items.length} items ` +
     `(deviation ${count("deviation")}, compliant ${count("compliant")}, missing ${count("missing")}, ` +
-    `ambiguous ${count("ambiguous")}; distinct ${distinct}) · reviewedBy: ${reviewers}\n`;
+    `ambiguous ${count("ambiguous")}; distinct ${distinct}) · labelers: ${labelers} · reviewedBy: ${reviewers}\n`;
   await atomicWrite(LOG_PATH, `${existing.trimEnd()}\n${line}`);
 }
 
-async function promote(contractId: string): Promise<void> {
+async function promote(contractId: string, options: PromoteOptions): Promise<void> {
   const draft = await readDraft(contractId);
-  if (!hasOnlyHumanLabels(draft)) {
-    const pending = draft.items.filter((item) => item.labeler !== "human" && item.labeler !== "cuad+human");
-    throw new Error(`${contractId}: ${pending.length} items still need human review (${pending.map((item) => item.id).join(", ")})`);
+  const humanReviewed = hasOnlyHumanLabels(draft);
+  const agentReviewed = options.allowAgentReview === true && hasOnlyAgentReviewLabels(draft);
+  if (!humanReviewed && !agentReviewed) {
+    const expected = options.allowAgentReview === true
+      ? "human or explicit agent review"
+      : "human review";
+    throw new Error(`${contractId}: labels do not satisfy ${expected}; inspect every draft item before promotion`);
   }
   const nonDistinctByRule = new Map<string, string[]>();
   for (const item of draft.items.filter((candidate) => candidate.distinct !== true)) {
@@ -301,7 +346,8 @@ async function promote(contractId: string): Promise<void> {
   }
   await atomicWriteJson(join(contractDirectory(contractId), "gold.json"), draft);
   await appendPromotionLog(contractId, draft);
-  console.log(`${contractId}: promoted ${draft.items.length} human-reviewed items to gold.json`);
+  const reviewKind = humanReviewed ? "human-reviewed" : "agent-reviewed";
+  console.log(`${contractId}: promoted ${draft.items.length} ${reviewKind} items to gold.json`);
 }
 
 const program = new Command().name("gold-review").description("Review and promote CUAD gold-label drafts");
@@ -338,7 +384,17 @@ program
   .option("--by <reviewer>", "reviewer name", "lead")
   .action(mergeItems);
 program.command("remove").argument("<contractId>").argument("<itemId>").action(removeItem);
-program.command("promote").argument("<contractId>").action(promote);
+program
+  .command("attest")
+  .argument("<contractId>")
+  .requiredOption("--by <reviewer>")
+  .requiredOption("--basis <description>")
+  .action(attestDraft);
+program
+  .command("promote")
+  .argument("<contractId>")
+  .option("--allow-agent-review", "promote transparently agent-reviewed evaluation gold")
+  .action(promote);
 
 void program.parseAsync().catch((error: unknown) => {
   console.error(error instanceof Error ? error.message : String(error));

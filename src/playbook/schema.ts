@@ -78,6 +78,10 @@ export const RuleSchema = z.object({
     preferred: z.string(),
     fallback: z.string(),
     walkaway: z.string(),
+    elements: z.object({
+      preferred: z.array(z.string().trim().min(1)).min(1),
+      fallback: z.array(z.string().trim().min(1)).min(1),
+    }).optional(),
   }),
   /** Guidance for locating and judging the clause (definitions to resolve, traps, direction). */
   detect: z.string(),

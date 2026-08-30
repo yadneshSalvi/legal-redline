@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 
+import { parseText } from "@/src/engine/parse-text";
 import { normalizeForMatch, paragraphId, splitParagraphs } from "@/src/engine/text";
 import type { Rule } from "@/src/playbook/schema";
 
@@ -27,7 +28,7 @@ export interface CuadContract {
   paragraphs: CuadParagraph[];
 }
 
-interface CuadDataset {
+export interface CuadDataset {
   data: CuadContract[];
 }
 
@@ -68,6 +69,69 @@ export interface MappedCuadContract {
   paragraphs: string[];
   gold: GoldFile;
   unmatchedSpans: UnmatchedCuadSpan[];
+}
+
+export interface LongTierCandidate {
+  id: string;
+  contract: CuadContract;
+  text: string;
+  words: number;
+  paragraphs: number;
+  sections: number;
+}
+
+const LONG_TIER_FAMILY =
+  /\b(?:hosting|licen[cs](?:e|ing)|services?|maintenance|outsourcing|development|saas|subscription)\b|\bmaster(?:\s+services?)?\s+agreement\b/i;
+
+/** The registered long-tier family test is deliberately based only on the CUAD filename/title. */
+export function isLongTierFamily(title: string): boolean {
+  return LONG_TIER_FAMILY.test(title.replaceAll("_", " "));
+}
+
+/** Stable, readable id from the issuer portion of a CUAD filename/title. */
+export function longTierContractId(title: string): string {
+  const issuer = title.split(/_|\s+-\s+/u, 1)[0] ?? title;
+  const slug = issuer
+    .normalize("NFKD")
+    .replace(/\p{Mark}/gu, "")
+    .toLocaleLowerCase("en-US")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  if (slug.length === 0) throw new Error(`Cannot derive long-tier id from CUAD title: ${title}`);
+  return `long-${slug}`;
+}
+
+/**
+ * Apply the pre-registered long-tier rule without looking at labels or model outputs. The caller supplies
+ * titles represented by the round-1 set; existing long-tier titles are intentionally not exclusions so a
+ * rebuild selects the same six rather than the next six.
+ */
+export function selectLongTierContracts(input: {
+  dataset: CuadDataset;
+  excludedTitles: ReadonlySet<string>;
+  minimumWords?: number;
+  limit?: number;
+}): LongTierCandidate[] {
+  const minimumWords = input.minimumWords ?? 15_000;
+  const limit = input.limit ?? 6;
+  return input.dataset.data
+    .filter((contract) => isLongTierFamily(contract.title) && !input.excludedTitles.has(contract.title))
+    .map((contract) => {
+      const text = canonicalizeCuadText(contract.paragraphs.map((paragraph) => paragraph.context).join("\n\n"));
+      const document = parseText(text, contract.title);
+      return {
+        id: longTierContractId(contract.title),
+        contract,
+        text,
+        words: document.stats.words,
+        paragraphs: document.stats.paragraphs,
+        sections: document.stats.sections,
+      };
+    })
+    .filter((candidate) =>
+      candidate.words >= minimumWords && candidate.paragraphs >= 150 && candidate.sections > 0)
+    .sort((left, right) => right.words - left.words || left.contract.title.localeCompare(right.contract.title))
+    .slice(0, limit);
 }
 
 const CLAUSE_START = /^\s*(?:\d+(?:\.\d+)*\.?|\([a-z]\)|[A-Z]\.)\s+/;

@@ -12,6 +12,7 @@ import type { GoldFile } from "./gold";
 import type { DocumentIntegrityMetrics } from "./integrity";
 import type { JudgeResult } from "./judge";
 import { matchFindings, type MatchResult } from "./match";
+import type { Round2Metrics } from "./metrics-round2";
 
 export interface DetectionMetrics {
   tp: number;
@@ -67,6 +68,9 @@ export interface ContractMetrics {
   minimality: ComponentMetrics;
   citations: CitationMetrics;
   integrity?: DocumentIntegrityMetrics;
+  completeRedline?: ComponentMetrics;
+  appliedTrackedChangeYield?: ComponentMetrics;
+  precedentAdherence?: ComponentMetrics;
   resources: {
     calls: number;
     toolCalls: number;
@@ -90,6 +94,9 @@ export interface AggregateMetrics {
   redlineValidity: ComponentMetrics;
   minimality: ComponentMetrics;
   citationHallucination: CitationMetrics;
+  completeRedline?: ComponentMetrics;
+  appliedTrackedChangeYield?: ComponentMetrics;
+  precedentAdherence?: ComponentMetrics;
   resources: ContractMetrics["resources"];
 }
 
@@ -281,6 +288,7 @@ export function computeContractMetrics(input: {
   memo?: string;
   stats: RunStats;
   integrity?: DocumentIntegrityMetrics;
+  round2?: Round2Metrics;
 }): ContractMetrics {
   const matched = matchFindings(input.findings, input.gold);
   const detection = detectionMetrics(matched);
@@ -315,7 +323,6 @@ export function computeContractMetrics(input: {
   const eligible = proposals.length;
   const citationTexts = input.findings.flatMap((finding) => [finding.rationale, finding.proposal?.comment ?? ""]);
   if (input.memo !== undefined) citationTexts.push(input.memo);
-
   return {
     detection,
     deviationAccuracy: { located, correct, accuracy: ratio(correct, located) },
@@ -329,6 +336,7 @@ export function computeContractMetrics(input: {
     minimality: { eligible, passing: minimal, rate: ratio(minimal, eligible) },
     citations: scanCitationHallucinations(input.document, citationTexts),
     integrity: input.integrity,
+    ...(input.round2 ?? {}),
     resources: resources(input.stats),
   };
 }
@@ -355,6 +363,16 @@ export function aggregateMetrics(metrics: readonly ContractMetrics[]): Aggregate
   const aggregatedResources = Object.fromEntries(
     resourceKeys.map((key) => [key, sum((metric) => metric.resources[key])]),
   ) as unknown as ContractMetrics["resources"];
+  const aggregateComponent = (select: (metric: ContractMetrics) => ComponentMetrics | undefined): ComponentMetrics | undefined => {
+    const values = metrics.map(select).filter((value): value is ComponentMetrics => value !== undefined);
+    if (values.length === 0) return undefined;
+    const eligible = values.reduce((total, value) => total + value.eligible, 0);
+    const passing = values.reduce((total, value) => total + value.passing, 0);
+    return { eligible, passing, rate: ratio(passing, eligible) };
+  };
+  const completeRedline = aggregateComponent((metric) => metric.completeRedline);
+  const appliedTrackedChangeYield = aggregateComponent((metric) => metric.appliedTrackedChangeYield);
+  const precedentAdherence = aggregateComponent((metric) => metric.precedentAdherence);
 
   return {
     contracts: metrics.length,
@@ -380,6 +398,9 @@ export function aggregateMetrics(metrics: readonly ContractMetrics[]): Aggregate
     redlineValidity: { eligible: redlineEligible, passing: redlinePassing, rate: ratio(redlinePassing, redlineEligible) },
     minimality: { eligible: minimalEligible, passing: minimalPassing, rate: ratio(minimalPassing, minimalEligible) },
     citationHallucination: { references, hallucinations, rate: ratio(hallucinations, references), invalidReferences: metrics.flatMap((metric) => metric.citations.invalidReferences) },
+    ...(completeRedline === undefined ? {} : { completeRedline }),
+    ...(appliedTrackedChangeYield === undefined ? {} : { appliedTrackedChangeYield }),
+    ...(precedentAdherence === undefined ? {} : { precedentAdherence }),
     resources: aggregatedResources,
   };
 }

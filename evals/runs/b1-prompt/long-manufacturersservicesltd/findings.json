@@ -1,0 +1,542 @@
+[
+  {
+    "confidence": 0.85,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-indemn-423435f2",
+    "paragraphIds": [
+      "p0259",
+      "p0260",
+      "p0261",
+      "p0262",
+      "p0265"
+    ],
+    "producedBy": "baseline",
+    "quote": "MSL agrees to protect, defend, hold harmless, and indemnify IBM from and against any and all claims, damages, liabilities, losses and expenses, arising out of the following, whether alleged or actual:",
+    "rationale": "MSL indemnifies us for IP infringement, breach of law and warranty failures, with standard notice/control/cooperation procedure and mitigation remedies; there is no reciprocal customer indemnity for MSL's services. This meets our preferred position (the cap issue is addressed separately under LOL-CAP).",
+    "ruleId": "INDEMN",
+    "ruleTitle": "Indemnification by Vendor",
+    "sectionId": "sec-15.1",
+    "sectionRef": "§ 15.1 Scope of MSL's Indemnity",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-ip-35e01301",
+    "paragraphIds": [
+      "p0197",
+      "p0198",
+      "p0208"
+    ],
+    "producedBy": "baseline",
+    "quote": "IBM assumes and will assume ownership and MSL assigns and will assign all intellectual and industrial property rights for hardware, software, design and documentation of all Products delivered under this Agreement",
+    "rationale": "Ownership of Products, documentation and related inventions vests in us with an express assignment from MSL, and no IBM IP is assigned to MSL (the licence to MSL is limited to manufacturing for us). This exceeds our preferred position.",
+    "ruleId": "IP",
+    "ruleTitle": "Ownership of deliverables and Customer Data",
+    "sectionId": "sec-13.0-2",
+    "sectionRef": "§ 13.0 INTELLECTUAL AND INDUSTRIAL PROPERTY",
+    "severity": "critical",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-lol-cap-bf4030c9",
+    "paragraphIds": [
+      "p0272",
+      "p0273",
+      "p0274"
+    ],
+    "producedBy": "baseline",
+    "proposal": {
+      "comment": "[Playbook] We have moved the cap to 12 months' fees and placed indemnities, confidentiality, gross negligence and wilful misconduct outside the cap. A 3%-of-BOM cap makes the Section 15.1 indemnity (including IP infringement) largely illusory.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Except for Excluded Claims, the total liability of either Party, regardless of the form of action, whether contract or tort, is limited to the amounts paid or payable under this Agreement in the twelve (12) months immediately preceding the event giving rise to the claim. \"Excluded Claims\" means a Party's indemnification obligations under Section 15.1, its breach of its confidentiality obligations, its gross negligence, wilful misconduct or fraud, and its infringement of the other Party's intellectual property rights, none of which shall be subject to the foregoing limitation.",
+          "oldText": "The total liability for either Party, regardless of the form of action, whether contract or tort, is limited to three percent (3%) of the value of the bill of materials contained in the Products delivered to IBM and IBM Customers by MSL in the period beginning with the Effective Date of the Agreement through the resolution of the action.",
+          "paragraphId": "p0274"
+        }
+      ],
+      "summary": "The cap is mutual, but the basis (3% of bill-of-materials value) is far below 12 months' fees and there are no carve-outs, so MSL's indemnity obligations under Section 15.1 (including IP infringement) and any confidentiality or wilful-misconduct claims are swallowed by a very small cap. This fails our fallback (12 months' fees with carve-outs for indemnification, confidentiality, gross negligence and wilful misconduct)."
+    },
+    "quote": "The total liability for either Party, regardless of the form of action, whether contract or tort, is limited to three percent (3%) of the value of the bill of materials contained in the Products delivered to IBM and IBM Customers by MSL in the period beginning with the Effective Date of the Agreement through the resolution of the action.",
+    "rationale": "The cap is mutual, but the basis (3% of bill-of-materials value) is far below 12 months' fees and there are no carve-outs, so MSL's indemnity obligations under Section 15.1 (including IP infringement) and any confidentiality or wilful-misconduct claims are swallowed by a very small cap. This fails our fallback (12 months' fees with carve-outs for indemnification, confidentiality, gross negligence and wilful misconduct).",
+    "ruleId": "LOL-CAP",
+    "ruleTitle": "Limitation of liability — cap, mutuality and carve-outs",
+    "sectionId": "sec-15.3",
+    "sectionRef": "§ 15.3 Limitations of Liability",
+    "severity": "critical",
+    "status": "deviation",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-assign-61e67b3b",
+    "paragraphIds": [
+      "p0281",
+      "p0116",
+      "p0290"
+    ],
+    "producedBy": "baseline",
+    "proposal": {
+      "comment": "[Playbook] We must be able to assign to affiliates and to a successor in an M&A transaction. We also ask that Section 5.1(b)(v) be deleted or limited so a change of control of IBM does not trigger a termination right against us.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "Neither Party may assign, transfer or subcontract any rights or duties under this Agreement without prior written approval by the other Party, except that IBM may assign this Agreement, in whole or in part, without consent to any of its Subsidiaries or to a successor in a merger, acquisition or sale of substantially all of its assets, upon written notice to MSL.",
+          "oldText": "Neither Party may assign, transfer or subcontract any rights or duties under this Agreement without prior written approval by the other Party.",
+          "paragraphId": "p0281"
+        }
+      ],
+      "summary": "This is a blanket assignment prohibition with no affiliate or M&A carve-out for us, and Section 5.1(b)(v) gives MSL a termination right if substantially all of our shares or assets are acquired by an MSL competitor — both sit in walk-away territory under our playbook."
+    },
+    "quote": "Neither Party may assign, transfer or subcontract any rights or duties under this Agreement without prior written approval by the other Party.",
+    "rationale": "This is a blanket assignment prohibition with no affiliate or M&A carve-out for us, and Section 5.1(b)(v) gives MSL a termination right if substantially all of our shares or assets are acquired by an MSL competitor — both sit in walk-away territory under our playbook.",
+    "ruleId": "ASSIGN",
+    "ruleTitle": "Assignment and change of control",
+    "sectionId": "sec-16.2",
+    "sectionRef": "§ 16.2 Assignment",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.8,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-exclusivity-7b5f76fd",
+    "paragraphIds": [
+      "p0720",
+      "p0882",
+      "p0768"
+    ],
+    "producedBy": "baseline",
+    "quote": "The forecasts provided by IBM, or agreed to by IBM hereunder, do not obligate IBM to purchase any Product.",
+    "rationale": "No sole-supplier or requirements obligation binds us; forecasts are expressly non-binding and Section 7.4 preserves our ability to move Products to an alternative supplier. No exclusivity deviation.",
+    "ruleId": "EXCLUSIVITY",
+    "ruleTitle": "Exclusivity obligations binding Customer",
+    "sectionId": "sec-6.0-4",
+    "sectionRef": "§ 6.0 PURCHASE OF PRODUCTS",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.65,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-ld-cb5f073b",
+    "paragraphIds": [
+      "p0132",
+      "p0903",
+      "p1190"
+    ],
+    "producedBy": "baseline",
+    "proposal": {
+      "comment": "[Playbook] We should not fund an unlimited inventory buy-out when we are terminating for MSL's default. We have capped the exposure at three months' purchases and allowed set-off; we are happy to leave the mechanism intact for no-fault expiry.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "subject to the Supply Flexibility set forth in Appendix 4 to the Statement of Work, provided that where this Agreement is terminated for MSL's default IBM's aggregate purchase obligation under this Section 5.2 b) shall not exceed three (3) months' average Product purchases and shall be reduced by any damages owed to IBM arising from such default. This purchase shall not include any Parts that are cancelable or otherwise transferable to IBM:",
+          "oldText": "subject to the Supply Flexibility set forth in Appendix 4 to the Statement of Work. This purchase shall not include any Parts that are cancelable or otherwise transferable to IBM:",
+          "paragraphId": "p0132"
+        }
+      ],
+      "summary": "Even where we terminate for MSL's own default, every option under Section 5.2 b) requires us to buy MSL's inventory and forecast-driven Parts at prices set by Section 5.3, and Appendix 2 imposes a further formula-based payment on us for forecast inaccuracy. These are uncapped customer-payable amounts triggered in part by the vendor's breach, which fails our position that no liquidated amounts are payable by us beyond a 3-month cap."
+    },
+    "quote": "be entitled to terminate all outstanding Purchase Orders without liability for such termination and purchase MSL's inventory of Parts, including Parts to be delivered to MSL to meet IBM's forecasted requirements, subject to the Supply Flexibility set forth in Appendix 4 to the Statement of Work.",
+    "rationale": "Even where we terminate for MSL's own default, every option under Section 5.2 b) requires us to buy MSL's inventory and forecast-driven Parts at prices set by Section 5.3, and Appendix 2 imposes a further formula-based payment on us for forecast inaccuracy. These are uncapped customer-payable amounts triggered in part by the vendor's breach, which fails our position that no liquidated amounts are payable by us beyond a 3-month cap.",
+    "ruleId": "LD",
+    "ruleTitle": "Liquidated damages and penalties payable by Customer",
+    "sectionId": "sec-5.2",
+    "sectionRef": "§ 5.2 Rights Upon Termination",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.7,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-license-070b6eba",
+    "paragraphIds": [
+      "p0208",
+      "p1530"
+    ],
+    "producedBy": "baseline",
+    "quote": "nothing in this Agreement grants or may grant MSL any rights or licenses in any preexisting intellectual property of IBM except that IBM grants MSL a royalty-free license to use the confidential information disclosed in connection with this Agreement",
+    "rationale": "In this structure we are the licensor: we own the Products and grant MSL only a narrow manufacturing licence, and loaned software is licensed to MSL under the EPLA. There is no vendor licence to us that needs affiliate/contractor or irrevocability protection.",
+    "ruleId": "LICENSE",
+    "ruleTitle": "Licence grant scope",
+    "sectionId": "sec-13.3",
+    "sectionRef": "§ 13.3 Licenses",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-noncompete-9e09117d",
+    "paragraphIds": [
+      "p0180",
+      "p0995"
+    ],
+    "producedBy": "baseline",
+    "quote": "Assets purchased by MSL and listed in Attachment 3: Asset List, Part 2 are to be used solely in Products purchased by IBM pursuant to the Attachment 1: Statement of Work.",
+    "rationale": "The field-of-use and competitive restrictions run against MSL (asset use, tooling, integration services), not against us. No restriction on the businesses we may operate or products we may buy or build.",
+    "ruleId": "NONCOMPETE",
+    "ruleTitle": "Non-compete restrictions on Customer",
+    "sectionId": "sec-8.0-2",
+    "sectionRef": "§ 8.0 PURCHASE OF ASSETS",
+    "severity": "high",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-t4c-ccc04b44",
+    "paragraphIds": [
+      "p0104",
+      "p0107"
+    ],
+    "producedBy": "baseline",
+    "proposal": {
+      "comment": "[Playbook] We need a convenience exit in a three-year term. Our position is 30 days' notice with a pro-rata refund; we can discuss 60–90 days' notice as a fallback.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "unless terminated as provided in Section 5.0. In addition, IBM may terminate this Agreement, in whole or in part, for convenience upon thirty (30) days' prior written notice to MSL, and MSL shall refund any amounts prepaid by IBM for the period after the effective date of such termination.",
+          "oldText": "unless terminated as provided in Section 5.0.",
+          "paragraphId": "p0104"
+        }
+      ],
+      "summary": "We have a three-year committed term with termination available only for cause, insolvency or force majeure; there is no customer termination-for-convenience right (cancelling individual Purchase Orders under SOW Section 6.1 is not equivalent). Absence of a convenience right in a multi-year term is walk-away territory for us."
+    },
+    "quote": "This Agreement shall become effective on the Effective Date and shall continue for a period of three (3) years unless terminated as provided in Section 5.0.",
+    "rationale": "We have a three-year committed term with termination available only for cause, insolvency or force majeure; there is no customer termination-for-convenience right (cancelling individual Purchase Orders under SOW Section 6.1 is not equivalent). Absence of a convenience right in a multi-year term is walk-away territory for us.",
+    "ruleId": "T4C",
+    "ruleTitle": "Termination for convenience",
+    "sectionId": "sec-4.0-2",
+    "sectionRef": "§ 4.0 TERM",
+    "severity": "high",
+    "status": "deviation",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-audit-51919cc9",
+    "paragraphIds": [
+      "p0163",
+      "p1310"
+    ],
+    "producedBy": "baseline",
+    "quote": "IBM may perform process audits at MSL's or an MSL Related Company's Work Center or MSL's subcontractors' facilities to assure that identified IBM specifications have been complied with.",
+    "rationale": "All audit and inspection rights run in our favour (against MSL, its subsidiaries and its subcontractors), including the Microsoft-driven audits in Attachment 6. No audit rights are asserted against our usage or systems, so nothing to redline.",
+    "ruleId": "AUDIT",
+    "ruleTitle": "Audit rights against Customer",
+    "sectionId": "sec-7.0-2",
+    "sectionRef": "§ 7.0 AUDIT",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-govlaw-ee1daa03",
+    "paragraphIds": [
+      "p0300",
+      "p0301"
+    ],
+    "producedBy": "baseline",
+    "quote": "This Agreement and the performance of transactions under this Agreement shall be governed by the substantive laws of the state of New York.",
+    "rationale": "New York law with proceedings in a court sited within New York State matches our preferred position; no arbitration. The jury waiver and the redacted limitation period are noted but not redlined.",
+    "ruleId": "GOVLAW",
+    "ruleTitle": "Governing law and venue",
+    "sectionId": "sec-16.9",
+    "sectionRef": "§ 16.9 Governing Law",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.9,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-mfn-1356933b",
+    "paragraphIds": [
+      "p0761",
+      "p0766",
+      "p1099"
+    ],
+    "producedBy": "baseline",
+    "quote": "MSL agrees that MSL engineering will be priced to IBM on a \"most favored customer\" basis.",
+    "rationale": "The MFN mechanics in SOW Section 7.4 and Section 21.1 run in our favour (MSL must extend better terms/pricing to us). Nothing obliges us to give MSL best terms, so no redline.",
+    "ruleId": "MFN",
+    "ruleTitle": "Most-favoured-nation obligations burdening Customer",
+    "sectionId": "sec-7.4",
+    "sectionRef": "§ 7.4 [*]",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.75,
+    "costUsd": 0.04704483,
+    "durationMs": 7311,
+    "id": "f-mincommit-bdf13b1f",
+    "paragraphIds": [
+      "p0882",
+      "p0720"
+    ],
+    "producedBy": "baseline",
+    "quote": "The forecasts provided by IBM, or agreed to by IBM hereunder, do not obligate IBM to purchase any Product.",
+    "rationale": "There is no minimum purchase, take-or-pay or volume commitment on us; we pay for Products actually ordered. The residual forecast-accuracy and inventory exposure is addressed under the liquidated-damages finding rather than flagged twice here.",
+    "ruleId": "MINCOMMIT",
+    "ruleTitle": "Minimum purchase commitments and volume restrictions on Customer",
+    "sectionId": "sec-p0878",
+    "sectionRef": "§ ATTACHMENT 1",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.6,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-nosolicit-f98e3ab6",
+    "paragraphIds": [
+      "p0189"
+    ],
+    "producedBy": "baseline",
+    "quote": "IBM agrees that, for a period of [*] years from the Effective Date of this Agreement, it will not in any way solicit for employment any Transferred Employees without the prior written consent of MSL",
+    "rationale": "The non-solicit binds only us, and the duration is redacted and expressed in years, which risks exceeding our 12-month fallback (and our 24-month walk-away). Scope is limited to Transferred Employees and the general-advertising and unsolicited-approach carve-outs we require are present. Please confirm the redacted period; if it exceeds 12 months we should shorten it and make it mutual.",
+    "ruleId": "NOSOLICIT",
+    "ruleTitle": "Non-solicitation of employees binding Customer",
+    "sectionId": "sec-9.0-2",
+    "sectionRef": "§ 9.0 PERSONNEL",
+    "severity": "medium",
+    "status": "needs_review",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.85,
+    "costUsd": 0.04704483,
+    "durationMs": 7312,
+    "id": "f-renewal-c8662efe",
+    "paragraphIds": [
+      "p0104",
+      "p0658"
+    ],
+    "producedBy": "baseline",
+    "proposal": {
+      "comment": "[Playbook] Renewal notice windows longer than 90 days are unworkable for us; we have set 30 days and would accept 60. The same change is needed in Section 2.0 of the Statement of Work.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "This Agreement will automatically be renewed for periods of twelve (12) months unless either Party gives thirty (30) days written notice prior to the end of the then-current term of its intent to terminate this Agreement.",
+          "oldText": "This Agreement will automatically be renewed for periods of twelve (12) months unless either Party gives six (6) months written notice of its intent to terminate this Agreement.",
+          "paragraphId": "p0104"
+        }
+      ],
+      "summary": "A six-month (approx. 180-day) non-renewal window exceeds our 90-day walk-away threshold, and the Statement of Work is worse still (six-month renewals requiring twelve months' notice at p0658). We need the window shortened to 30 days (60 days at fallback) in both places."
+    },
+    "quote": "This Agreement will automatically be renewed for periods of twelve (12) months unless either Party gives six (6) months written notice of its intent to terminate this Agreement.",
+    "rationale": "A six-month (approx. 180-day) non-renewal window exceeds our 90-day walk-away threshold, and the Statement of Work is worse still (six-month renewals requiring twelve months' notice at p0658). We need the window shortened to 30 days (60 days at fallback) in both places.",
+    "ruleId": "RENEWAL",
+    "ruleTitle": "Auto-renewal and non-renewal notice window",
+    "sectionId": "sec-4.0-2",
+    "sectionRef": "§ 4.0 TERM",
+    "severity": "medium",
+    "status": "deviation",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.65,
+    "costUsd": 0.04704489,
+    "durationMs": 7311,
+    "id": "f-transition-ed37c070",
+    "paragraphIds": [
+      "p0121",
+      "p0129",
+      "p0130"
+    ],
+    "producedBy": "baseline",
+    "quote": "assist in the transfer of MSL responsibilities and Products as described in Attachment 1: Statement Of Work, to IBM or to another party that IBM designates.",
+    "rationale": "On expiry or default termination MSL must inventory and transfer Products, assist in transition to us or our designee, and return all IBM documentation and confidential materials within a stated (redacted) number of days. This sits at our fallback; no fixed assistance period is specified, so we should confirm the redacted return window and add a defined assistance period if convenient.",
+    "ruleId": "TRANSITION",
+    "ruleTitle": "Post-termination transition assistance and data return",
+    "sectionId": "sec-5.2",
+    "sectionRef": "§ 5.2 Rights Upon Termination",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.75,
+    "costUsd": 0.04704483,
+    "durationMs": 7311,
+    "id": "f-warranty-2e5d1966",
+    "paragraphIds": [
+      "p1059",
+      "p1063",
+      "p1067",
+      "p1077",
+      "p1083"
+    ],
+    "producedBy": "baseline",
+    "quote": "MSL expressly warrants that all Products, MSL supplied materials and Parts, and work prepared for IBM will conform in all material respects to the specifications, drawings, or other descriptions furnished or adopted by IBM, and will be of specified quality, good workmanship, and free from defect",
+    "rationale": "There is a real express conformance and workmanship warranty with repair/replace/refund remedies (SOW 19.5) and an epidemic-failure remedy, and the implied-warranty disclaimer does not swallow it. The warranty periods for MSL Procured Parts and workmanship are redacted — please confirm they are at least 90 days.",
+    "ruleId": "WARRANTY",
+    "ruleTitle": "Performance warranty and duration",
+    "sectionId": "sec-19.1",
+    "sectionRef": "§ 19.1 Scope of Warranty",
+    "severity": "medium",
+    "status": "compliant",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  },
+  {
+    "confidence": 0.7,
+    "costUsd": 0.04704483,
+    "durationMs": 7311,
+    "id": "f-insurance-8f6ef2c4",
+    "paragraphIds": [
+      "p0909",
+      "p1107"
+    ],
+    "producedBy": "baseline",
+    "proposal": {
+      "comment": "[Playbook] Standard insurance for a vendor working on our premises and holding our inventory. We can drop to E&O USD 1M and cyber USD 2M if MSL's programme is more limited.",
+      "level": "preferred",
+      "ops": [
+        {
+          "kind": "replace",
+          "newText": "environmental and labor laws.\n\n16.4A Insurance\n\nMSL shall maintain, at its own expense, throughout the term and for one (1) year thereafter: commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; workers' compensation insurance as required by law; and, where MSL processes IBM data, cyber liability insurance of not less than USD 5,000,000. MSL shall provide certificates of insurance on request.",
+          "oldText": "environmental and labor laws.",
+          "paragraphId": "p0288"
+        }
+      ],
+      "summary": "The only insurance MSL carries is property cover for consigned Products and tooling. For a vendor manufacturing on our leased premises and holding our inventory and systems access, we expect general liability and professional/E&O cover; there is no such clause, which falls below our fallback (E&O USD 1M, cyber USD 2M)."
+    },
+    "quote": "MSL will provide replacement value insurance coverage for consigned Products.",
+    "rationale": "The only insurance MSL carries is property cover for consigned Products and tooling. For a vendor manufacturing on our leased premises and holding our inventory and systems access, we expect general liability and professional/E&O cover; there is no such clause, which falls below our fallback (E&O USD 1M, cyber USD 2M).",
+    "ruleId": "INSURANCE",
+    "ruleTitle": "Vendor insurance",
+    "sectionId": "sec-13.1",
+    "sectionRef": "§ 13.1 Consigned Products",
+    "severity": "low",
+    "status": "deviation",
+    "verification": {
+      "attempts": 0,
+      "checks": [],
+      "notes": "Baseline output is not repaired.",
+      "verdict": "skipped"
+    }
+  }
+]

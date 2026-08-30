@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import { join, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -7,6 +7,7 @@ import {
   mapCuadContract,
   PRIMARY_CUAD_SELECTIONS,
   selectCuadContracts,
+  selectLongTierContracts,
 } from "@/src/eval/cuad";
 import { atomicWrite, atomicWriteJson } from "@/src/eval/io";
 import { loadPlaybookFile } from "@/src/eval/playbook";
@@ -36,8 +37,16 @@ async function writeDocx(
   text: string,
   textToDocx: NonNullable<EngineModule["textToDocx"]>,
 ): Promise<void> {
+  const path = join(contractsRoot, id, "contract.docx");
+  try {
+    await stat(path);
+    console.log(`${id}: kept existing contract.docx`);
+    return;
+  } catch (error) {
+    if (!(error instanceof Error && "code" in error && error.code === "ENOENT")) throw error;
+  }
   const bytes = await textToDocx(text, { title });
-  await atomicWrite(join(contractsRoot, id, "contract.docx"), bytes);
+  await atomicWrite(path, bytes);
 }
 
 async function existingJson(path: string): Promise<unknown | null> {
@@ -61,8 +70,73 @@ async function mergeExistingDraft(
   return carryDraftLabels(generated, parsed.data);
 }
 
+async function roundOneCuadTitles(): Promise<Set<string>> {
+  const entries = await readdir(contractsRoot, { withFileTypes: true });
+  const titles = new Set<string>();
+  for (const entry of entries.sort((left, right) => left.name.localeCompare(right.name))) {
+    if (!entry.isDirectory() || !entry.name.startsWith("cuad-")) continue;
+    const meta = await existingJson(join(contractsRoot, entry.name, "meta.json"));
+    if (meta !== null && typeof meta === "object" && "cuadTitle" in meta && typeof meta.cuadTitle === "string") {
+      titles.add(meta.cuadTitle);
+    }
+  }
+  return titles;
+}
+
+async function buildLongTier(
+  dataset: Awaited<ReturnType<typeof loadCuad>>,
+  playbook: Awaited<ReturnType<typeof loadPlaybookFile>>,
+  textToDocx: NonNullable<EngineModule["textToDocx"]>,
+): Promise<void> {
+  const excludedTitles = await roundOneCuadTitles();
+  let minimumWords = 15_000;
+  let selected = selectLongTierContracts({ dataset, excludedTitles, minimumWords });
+  if (selected.length < 6) {
+    minimumWords = 12_000;
+    selected = selectLongTierContracts({ dataset, excludedTitles, minimumWords });
+  }
+  if (selected.length < 6) throw new Error(`Long-tier rule selected only ${selected.length} contracts at 12,000 words`);
+
+  console.log(`Long-tier threshold: ${minimumWords.toLocaleString("en-US")} words; selected ${selected.length}`);
+  for (const candidate of selected) {
+    const { contract, id } = candidate;
+    const directory = join(contractsRoot, id);
+    const mapped = mapCuadContract(id, contract, playbook.rules);
+    const previousMeta = (await existingJson(join(directory, "meta.json"))) as Record<string, unknown> | null;
+    const paragraphWordCounts = mapped.paragraphs.map((paragraph) => paragraph.split(/\s+/).filter(Boolean).length);
+    await atomicWrite(join(directory, "contract.txt"), mapped.text);
+    await atomicWriteJson(join(directory, "gold.cuad.json"), mapped.gold);
+    const draftPath = join(directory, "gold.draft.json");
+    const existingDraft = GoldFileSchema.safeParse(await existingJson(draftPath));
+    if (!existingDraft.success || existingDraft.data.items.every((item) => item.labeler === "cuad-draft")) {
+      await atomicWriteJson(draftPath, mapped.gold);
+    }
+    await atomicWriteJson(join(directory, "meta.json"), {
+      id,
+      source: "CUAD v1 (The Atticus Project, CC-BY-4.0)",
+      title: contract.title,
+      words: candidate.words,
+      paragraphs: candidate.paragraphs,
+      sections: candidate.sections,
+      maxParagraphWords: Math.max(0, ...paragraphWordCounts),
+      ourParty: previousMeta?.ourParty ?? null,
+      counterparty: previousMeta?.counterparty ?? null,
+      cuadTitle: contract.title,
+      longTierThreshold: minimumWords,
+      unmatchedSpans: mapped.unmatchedSpans,
+    });
+    await writeDocx(id, contract.title, mapped.text, textToDocx);
+    console.log(
+      `${id}: ${candidate.words} words, ${candidate.paragraphs} paragraphs, ${candidate.sections} sections, ` +
+        `${mapped.gold.items.length} mapped spans, ${mapped.unmatchedSpans.length} unmatched`,
+    );
+  }
+}
+
 async function main(): Promise<void> {
   const docxOnly = process.argv.includes("--docx-only");
+  const longTier = process.argv.includes("--long") || process.argv.includes("--tier=long") ||
+    process.argv[process.argv.indexOf("--tier") + 1] === "long";
   const textToDocx = await loadTextToDocx();
   if (docxOnly && textToDocx === undefined) {
     throw new Error("--docx-only requires @/src/engine to export textToDocx; the engine is not available yet.");
@@ -82,6 +156,11 @@ async function main(): Promise<void> {
   }
 
   const [dataset, playbook] = await Promise.all([loadCuad(datasetPath), loadPlaybookFile(playbookPath)]);
+  if (longTier) {
+    if (textToDocx === undefined) throw new Error("The DOCX writer is unavailable.");
+    await buildLongTier(dataset, playbook, textToDocx);
+    return;
+  }
   const selected = selectCuadContracts(dataset);
   for (const { selection, contract } of selected) {
     const id = `cuad-${selection.slug}`;
