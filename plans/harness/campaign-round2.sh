@@ -12,8 +12,8 @@ echo "=== $(stamp) ROUND-2 CAMPAIGN START (HEAD $(git rev-parse --short HEAD))"
 PAIRS=(b1-prompt:all i3-verifier:all final:all i5-elements:short i6-longdoc:all final-v2:all)
 for pair in $PAIRS; do
   cfg=${pair%%:*}; tier=${pair##*:}
-  echo "--- $(stamp) EVAL $cfg (tier $tier, allow-live, judge live on misses)"
-  pnpm -s eval --config "$cfg" --tier "$tier" --allow-live --judge live --concurrency 3 --judge-concurrency 4
+  echo "--- $(stamp) EVAL $cfg (tier $tier, allow-live: model + judge replay-first, live on misses)"
+  pnpm -s eval --config "$cfg" --tier "$tier" --allow-live --concurrency 3 --judge-concurrency 4
   echo "--- $(stamp) EVAL $cfg EXIT $?"
 done
 echo "--- $(stamp) REPLAY CHECK (zero cost, must not miss)"
