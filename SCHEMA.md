@@ -5,6 +5,22 @@ The types live in **`src/engine/types.ts`** (document model, redline ops, apply/
 configs, SSE protocol). **`src/playbook/schema.ts`** is the playbook zod schema. This file explains how the
 pieces fit and fixes the interfaces the type files only mention.
 
+Each rule position also carries an additive `elements` checklist:
+
+```ts
+position: {
+  preferred: string;
+  fallback: string;
+  walkaway: string;
+  elements: { preferred: string[]; fallback: string[] };
+}
+```
+
+The strings are atomic operative requirements, not summaries. Round-1 prompt serializers continue to read
+only the three prose fields. Element-aware configs persist a `Finding.elementCoverage` target level and one
+mapping per target element (`already_met` with a verbatim quote, `addressed_by_operation` with one-based op
+indexes, or `unaddressed` with an explanation). `unaddressed` is valid only on a `needs_review` submission.
+
 ## 1. Document model
 
 `parseDocx(bytes)` → `DocumentModel`: every `w:p` becomes a `Paragraph` with a stable id `p0000…` in document
@@ -78,10 +94,16 @@ timestamps). Judge calls use the same interface with the OpenAI backend (`src/ev
 | `propose_redline` | `{ ops, comment, level, summary }` | `{ ok, errors: string[], rendered: { paragraphId, segments: DiffSegment[] }[] }` — validates every op (verbatim anchor, single occurrence, paragraph exists) when `config.toolValidation`, otherwise echoes ok |
 | `submit_finding` | `{ status, paragraphIds, quote, rationale, confidence, proposal? }` | `{ ok, errors }` — final answer; the loop ends after a successful submit |
 
-Verifier (no tools): structured call → `{ verdict: "pass" | "fail", reasons: string[], severityAdjustment?: Severity }`.
+Round-1 verifier (no tools): structured call → `{ verdict: "pass" | "fail", reasons: string[], severityAdjustment?: Severity }`.
 Deterministic pre-checks (ops apply, rule.checks, minimality) are included in the verifier prompt as evidence.
 Fail → feedback message appended to the **drafter's** loop (`"Verifier feedback: …"`) for a repair round
 (≤ `config.maxRepairRounds`); still failing → `verification.verdict = "fail"`, `status = "needs_review"`.
+
+Element-aware verifier (fresh context, no tools): structured call → `{ elements: [{ element, level, status,
+evidence }], satisfies_preferred, satisfies_fallback, minimal, preserves_intent, reasons,
+severityAdjustment? }`, where `status ∈ met | not_met | cannot_tell`. The runtime recomputes preferred and
+fallback completeness from the per-element verdicts, treats operation/check/minimality gates as deterministic
+evidence, and feeds exact unmet element strings into at most three repair rounds.
 
 Planner (one structured call, tools `search`/`read_section` allowed): input = parties, section outline
 (id, heading, first 200 chars), definitions (terms only), rule list → `{ parties, plans: { ruleId,

@@ -1,0 +1,96 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYMHv3RPP9pBy63dF7KB",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01T75dUvbUx7H2eeKG6SjHNH",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0130",
+            "p0149",
+            "p0183",
+            "p0049"
+          ],
+          "quote": "(ii) a minimum monthly fee (\\\"Monthly Base Fee\\\") for certain bundled data processing Services, based on the volume of resource units used to provide such Services.",
+          "rationale": "The Monthly Base Fee is a minimum monthly fee payable in advance for the entire eight-year Term (p0049, p0130, p0149), and Customer must source the whole bundled Service set from M&I for the Term (p0183). Nothing lets Customer reduce the minimum, and the only relief is a good-faith renegotiation if M&I itself withdraws a bundled Service (p0181). That is a multi-year take-or-pay with no reduction right, i.e. walk-away territory, so we redline to the fallback: commitment limited to the current twelve-month period, reducible on thirty days' notice, with any shortfall settled by a true-up rather than a penalty. We deliberately do not disturb the termination fee mechanics, which sit under the termination-for-convenience rule.",
+          "confidence": 0.78,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0149",
+                "numbering": "8.13A",
+                "text": "Minimum Commitment. Notwithstanding Section 10.3(A), Customer's commitment to any minimum monthly fee (including the Monthly Base Fee) is limited to the then-current twelve (12) month period of the Term, and Customer may reduce that commitment, and the corresponding minimum monthly fees, upon thirty (30) days' prior written notice to M&I. Any shortfall between a minimum monthly fee and the fees for Services actually used shall be settled solely by a true-up payment of the difference, and not by any penalty."
+              }
+            ],
+            "comment": "[Playbook] The Monthly Base Fee is an 8-year minimum with no reduction right, so we have added our fallback position: the commitment runs only for the current twelve-month period, is reducible on thirty days' notice, and any shortfall is trued up rather than penalised.",
+            "level": "fallback",
+            "precedentId": "seed-mincommit",
+            "summary": "Limit the minimum monthly fee commitment to the current 12-month period, allow reduction on 30 days' notice, and convert shortfall to a true-up"
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "The commitment is limited to the current 12-month term.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Customer may reduce the commitment on 30 days' notice.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Any shortfall is handled through a true-up rather than a penalty.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1766,
+      "cache_read_input_tokens": 20966,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1766,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1091,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "MINCOMMIT",
+      "sha256": "18c20c465d6588bd91c5a224d788eca134df27b8dbe44f8c3b272f15ed518922"
+    }
+  ],
+  "durationMs": 11894
+}

@@ -1,0 +1,112 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYHYRrECfwnMCdAEr3o9",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_011fDQs59f8gTApZg2MdacpF",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0024",
+            "p0026",
+            "p0029"
+          ],
+          "quote": "This Agreement shall be automatically renewed for an additional one year period on each anniversary of the Effective Date, unless terminated by either Party hereto upon ninety (90) days written notice to the other.",
+          "rationale": "Section 4.1 lets either Party stop the annual renewal on ninety (90) days' written notice, but it never says the exit is available without cause, so the Company's convenience right is only implicit, and the following sentence (\"Such notice shall specify the date on which this Agreement is to be terminated\") leaves the Termination Date open, so HDI's exit is not expressly confined to the end of a term. We therefore state the Company's convenience right expressly on the existing 90 days' notice and add one short sentence limiting HDI's convenience termination to take effect only at the end of the then-current term on 90 days' notice. The material fee failure is Section 4.2(a): a Termination Payment of one half of twelve months' Net Sales less $800,000 on any Company termination, uncapped and payable over eight quarters under 4.2(c). We cap it at three months of the Section 3.1 payments. We target the fallback, not preferred: notice stays at 90 days rather than 30 and there is no pro-rata prepaid-fee refund, which we note but do not press. Separately, and outside this rule, Section 4.2(a) also bites where the Company terminates for HDI's breach; that belongs under a cause/remedies rule.",
+          "confidence": 0.84,
+          "proposal": {
+            "level": "fallback",
+            "summary": "Express Company convenience right; confine HDI to an end-of-term exit; cap Termination Payment at three months' fees",
+            "comment": "[Playbook] We have made express that the Company may terminate for convenience on the existing ninety (90) days' notice, confined HDI's convenience exit to the end of the then-current term on the same notice, and capped the Section 4.2 Termination Payment at three months of Section 3.1 fees rather than an uncapped share of twelve months' Net Sales. This is our fallback position on convenience termination and early-termination fees.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0024",
+                "oldText": "unless terminated by either Party hereto upon ninety (90) days written notice to the other.",
+                "newText": "unless terminated by the Company for convenience and without cause upon ninety (90) days written notice to HDI."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0024",
+                "text": "HDI may terminate this Agreement for convenience only effective at the end of the then-current term, upon ninety (90) days written notice to the Company."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0029",
+                "numbering": "(d)",
+                "text": "In no event shall the Termination Payment exceed the aggregate payments due from the Company to HDI pursuant to Section 3.1 for the three (3) months preceding the Termination Date."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Customer may terminate for convenience on 60 to 90 days' notice.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Any early-termination fee is capped at three months of fees.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  3
+                ]
+              },
+              {
+                "element": "Vendor may terminate for convenience only at the end of a term.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Vendor must give at least 90 days' notice of convenience termination.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2951,
+      "cache_read_input_tokens": 24388,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 2951,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1360,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "T4C",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 14096
+}

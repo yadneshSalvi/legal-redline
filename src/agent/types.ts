@@ -7,6 +7,22 @@ import type { DocumentModel, ParagraphId, RedlineOp, SectionId } from "@/src/eng
 export type Severity = "critical" | "high" | "medium" | "low";
 export type FindingStatus = "deviation" | "missing" | "compliant" | "needs_review";
 export type PositionLevel = "preferred" | "fallback";
+export type ElementCoverageMapping =
+  | { element: string; status: "already_met"; quote: string }
+  | { element: string; status: "addressed_by_operation"; operationIndexes: number[] }
+  | { element: string; status: "unaddressed"; explanation: string };
+
+export interface ElementCoverage {
+  level: PositionLevel;
+  mappings: ElementCoverageMapping[];
+}
+
+export interface VerificationElement {
+  element: string;
+  level: PositionLevel;
+  status: "met" | "not_met" | "cannot_tell";
+  evidence: string;
+}
 export type AgentName =
   | "ingest"
   | "planner"
@@ -41,6 +57,11 @@ export interface Verification {
   attempts: number;
   notes: string;
   checks: VerificationCheck[];
+  elements?: VerificationElement[];
+  satisfiesPreferred?: boolean;
+  satisfiesFallback?: boolean;
+  minimal?: boolean;
+  preservesIntent?: boolean;
 }
 
 export interface Finding {
@@ -57,6 +78,8 @@ export interface Finding {
   quote: string;
   rationale: string;
   proposal?: Proposal;
+  /** Exact target-position accounting produced by element-aware drafters. */
+  elementCoverage?: ElementCoverage;
   verification?: Verification;
   /** 0..1 */
   confidence: number;
@@ -87,8 +110,11 @@ export type ConfigId =
   | "i2-workers"
   | "i3-verifier"
   | "i4-memory"
+  | "i5-elements"
+  | "i6-longdoc"
   | "x-monolith"
-  | "final";
+  | "final"
+  | "final-v2";
 
 export type Effort = "low" | "medium" | "high" | "xhigh" | "max";
 
@@ -105,12 +131,25 @@ export interface PipelineConfig {
   toolValidation: boolean;
   verifier: boolean;
   precedentMemory: boolean;
+  /** Uses additive position.elements plus the dedicated coverage/verifier protocol. */
+  elementAware: boolean;
+  /** Uses whole-document search planning and paginated section reads. */
+  longDocumentPlanning: boolean;
+  longDocumentThresholdWords: number;
+  /** Returns precedents as element-labelled drafting templates. */
+  elementMarkedMemory: boolean;
   monolith: boolean;
   model: string;
   verifierModel: string;
   effort: Effort;
   verifierEffort: Effort;
   maxRepairRounds: number;
+  /** Bounded number of model turns in a per-rule worker tool loop. */
+  workerMaxIterations: number;
+  /** Bounded number of model turns in a long-document planner tool loop. */
+  plannerMaxIterations: number;
+  /** Maximum paragraphs returned by one paginated section read. */
+  sectionPageSize: number;
   /** Max concurrent drafter workers. */
   concurrency: number;
 }

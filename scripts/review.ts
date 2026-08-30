@@ -78,6 +78,7 @@ async function main(): Promise<void> {
     findings: [],
     decisions: {},
     stats: initialStats(),
+    ...(evalContext.contractId ? { tags: ["dev", evalContext.contractId] } : {}),
   };
   // In replay the local precedent index is ignored (the evaluation ran with a fresh memory store) and left untouched.
   const store = options.mode === "replay" ? withoutLocalPrecedents(createStore("fs")) : createStore("fs");

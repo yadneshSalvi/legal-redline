@@ -1,0 +1,88 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYK2YkMXQsQr1uNF2wXc",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01FrZEMubeYTrZUCpzb7C93A",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0012",
+            "p0044",
+            "p0025"
+          ],
+          "quote": "2.1 Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+          "rationale": "§2.1 is a multi-year take-or-pay commitment (USD 2,000,000 per year for three years) expressly \"without reduction or termination rights\" — squarely in walk-away territory and failing every fallback element: it is not limited to the current 12-month term, offers no 30-day reduction right, and provides no true-up in place of the shortfall penalty. It also contradicts §12.3, in which Vendor acknowledges Customer has made no minimum-volume commitment, and sits uneasily with §7.1's bar on minimum-use charges. Because the commitment can be excised without collateral rewrites (no other provision cross-refers to it), we take the preferred position: no minimum purchase or volume commitment, with payment only for Services used or ordered. The exit/termination argument is left to T4C and is not duplicated here.",
+          "confidence": 0.9,
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Customer has no minimum purchase or volume commitment.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Customer pays only for usage or ordered Services.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          },
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-mincommit",
+            "summary": "Replace the three-year take-or-pay commitment in §2.1 with a no-minimum-commitment, pay-for-use provision.",
+            "comment": "[Playbook] We removed the USD 2,000,000 per year three-year take-or-pay commitment: our position is no minimum purchase or volume commitment, with fees payable only for Services used or ordered, which also aligns §2.1 with §12.3. If a commitment is essential, we could accept one limited to the current 12-month term, reducible on 30 days' notice, with a true-up rather than a penalty.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0012",
+                "oldText": "Customer commits to purchase at least USD 2,000,000 of Services in each of the next three years on a take-or-pay basis, without reduction or termination rights.",
+                "newText": "Customer has no minimum purchase or volume commitment and will pay only for Services used or ordered during the applicable term."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 695,
+      "cache_read_input_tokens": 10506,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 695,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 969,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "MINCOMMIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10883
+}

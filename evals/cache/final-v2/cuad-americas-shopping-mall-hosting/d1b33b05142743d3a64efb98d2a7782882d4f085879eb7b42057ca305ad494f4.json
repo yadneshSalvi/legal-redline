@@ -1,0 +1,102 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYLQT8F6xyTtz9hDduhj",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_015nP4f2cK48kEx3aqQ8Wfra",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0055",
+            "p0056",
+            "p0058"
+          ],
+          "quote": "9. Warranties.",
+          "rationale": "Section 9 (p0055-p0058) is labelled \\\"Warranties\\\" but contains only mutual corporate-existence/authority representations and an acknowledgment about the Globix Agreement. Nothing in HDI's Responsibilities (Sections 1.1-1.8) or elsewhere warrants that the Site/software will conform to documentation or that the Services will be performed to any standard, and there is no repair/replace or refund remedy (Section 1.6 gives only a termination right for late launch). There is no disclaimer, so this is not walk-away territory, but the agreement fails every fallback element, which is a material deviation. We therefore insert the shortest fallback-level warranty: 90 days of software conformance to documentation, 30 days for the Services, with repair/replacement or refund as our remedy.",
+          "confidence": 0.82,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0058",
+                "numbering": "(c)",
+                "text": "HDI warrants that (1) for ninety (90) days following delivery, the Site and any software provided by HDI hereunder will conform in all material respects to its documentation, and (2) for thirty (30) days following performance, the Services will be performed in a professional and workmanlike manner. For breach of this warranty, HDI shall, at the Company's request, repair or replace the non-conforming software or Services or refund the amounts paid for them."
+              }
+            ],
+            "comment": "[Playbook] Section 9 contains only corporate authority representations, so we added HDI's performance warranty at our fallback position: 90 days of software conformance to documentation and 30 days for the Services, with repair, replacement or refund as our remedy.",
+            "level": "fallback",
+            "precedentId": "seed-warranty",
+            "summary": "Insert a fallback-level HDI performance warranty (90-day software conformance to documentation, 30-day services warranty) with repair/replacement or refund remedies."
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Software is warranted to conform to its documentation for at least 90 days.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Services are warranted for at least 30 days.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Warranty remedies include repair or replacement.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Warranty remedies include a refund.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1220,
+      "cache_read_input_tokens": 15272,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1220,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1031,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "WARRANTY",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11387
+}

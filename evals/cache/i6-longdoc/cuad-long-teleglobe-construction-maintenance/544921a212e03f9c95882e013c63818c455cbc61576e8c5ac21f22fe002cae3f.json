@@ -1,0 +1,73 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYJUpbhk5QoajD5pNLcn",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll start by inspecting the candidate paragraphs and searching for insurance language."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01Lo6oJhg91U4EmVZKGqfC2n",
+        "name": "read_paragraphs",
+        "input": {
+          "paragraphIds": [
+            "p0139",
+            "p0133",
+            "p0138",
+            "p0141",
+            "p0142"
+          ]
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_012YukjA5EH7zzgaPfFAUuxg",
+        "name": "search",
+        "input": {
+          "query": "insurance"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1222,
+      "cache_read_input_tokens": 5148,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1222,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 149,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "read_paragraphs",
+      "ruleId": "INSURANCE",
+      "sha256": "336de3b180e01c5953afb48d12484b3ccdd2b284cef084dd11535587ac74ea28"
+    },
+    {
+      "name": "search",
+      "ruleId": "INSURANCE",
+      "sha256": "74f4be06354c85122ba42fb6865b9d2bb5f5830ffbb70c7afdf9a248a67bac30"
+    }
+  ],
+  "durationMs": 2460
+}

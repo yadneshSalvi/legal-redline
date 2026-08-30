@@ -85,6 +85,22 @@ conclusion whether the finding points at a disclaimer or at nothing. Each gold i
 original clause + rendered redlined clause + comment; outputs `{ satisfies_rule, minimal, preserves_intent,
 drafting_quality (1–5), reason }`. Never the model under test. Cached like every other call.
 
+### Redline-quality campaign dev metric (non-official)
+
+Until judge v2 and the official CRR metric land, `pnpm crr-dev <runs...>` measures every produced
+`deviation|missing` finding with a proposal. A finding passes only when all operations apply, additive playbook
+checks pass with customer/vendor aliases normalized, either the exact preferred or exact fallback element list is
+fully met, the element-config 1.5×/insertion minimality gate passes, and the independent judge marks the proposal
+minimal and intent-preserving. The judge output is
+`{ elements: [{ element, level, met, evidence }], satisfies_preferred, satisfies_fallback, minimal,
+preserves_intent }` and is cached under `evals/cache/judge-dev/`.
+
+The fixed campaign split is the four gold contracts `cuad-americas-shopping-mall-hosting`,
+`cuad-bnc-mortgage-hosting`, `synth-12`, and `synth-hardcase`, plus the shortest two parse-clean CUAD contracts
+of at least 15,000 words whose titles match hosting, licence/license, services, maintenance, outsourcing, or
+development. `pnpm prepare-long-dev` deterministically materializes the latter two; they are gold-less and
+therefore report proposal quality, escalations, cost, and integrity but no detection F1.
+
 ## 5. Configs and fairness
 
 All configs run on the same 12 contracts with the same playbook and the same `ourParty`. Baselines use the

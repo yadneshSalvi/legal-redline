@@ -1,6 +1,8 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import type { BetaRunnableTool } from "@anthropic-ai/sdk/lib/tools/BetaRunnableTool";
+import OpenAI from "openai";
+import { zodTextFormat } from "openai/helpers/zod";
 import { randomUUID } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -109,6 +111,46 @@ export interface CreateLlmClientOptions {
 export interface LlmTransport {
   complete(body: Anthropic.MessageCreateParamsNonStreaming, structured: boolean): Promise<unknown>;
   tools(body: Anthropic.Beta.MessageCreateParamsNonStreaming): Promise<unknown>;
+}
+
+export interface OpenAiStructuredResult<T> {
+  data: T;
+  usage: { inputTokens: number; outputTokens: number };
+  raw: unknown;
+}
+
+/**
+ * Independent-judge transport seam. Keeping the SDK call here ensures model credentials and all LLM calls
+ * remain in the single module allowed by the repository contract; judge modules own only prompts and caches.
+ */
+export async function completeOpenAiStructured<T>(input: {
+  model: "gpt-5.6-sol";
+  effort: "low" | "medium" | "high";
+  system: string;
+  user: string;
+  schema: z.ZodType<T>;
+  schemaName: string;
+  apiKey?: string;
+}): Promise<OpenAiStructuredResult<T>> {
+  const client = new OpenAI({ apiKey: input.apiKey ?? process.env.OPENAI_API_KEY });
+  const response = await client.responses.parse({
+    model: input.model,
+    reasoning: { effort: input.effort },
+    input: [
+      { role: "system", content: input.system },
+      { role: "user", content: input.user },
+    ],
+    text: { format: zodTextFormat(input.schema, input.schemaName) },
+  });
+  if (response.output_parsed === null) throw new Error("OpenAI structured call returned no parsed output");
+  return {
+    data: input.schema.parse(response.output_parsed),
+    usage: {
+      inputTokens: response.usage?.input_tokens ?? 0,
+      outputTokens: response.usage?.output_tokens ?? 0,
+    },
+    raw: response,
+  };
 }
 
 const EMPTY_USAGE: Usage = { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, cacheWriteTokens: 0, costUsd: 0 };

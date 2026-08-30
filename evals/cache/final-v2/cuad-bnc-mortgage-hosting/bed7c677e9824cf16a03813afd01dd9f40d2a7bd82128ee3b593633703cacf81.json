@@ -1,0 +1,115 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYLNFGoWW1omeDUxj6CQ",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01Q7hyP1Q4CKPaZhRm8kPPgD",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0079",
+            "p0078"
+          ],
+          "quote": "14. TERMINATION. Subject to Section 4 hereof, TrueLink will continue to provide the requested Hosting Services and Support Services until the last day of the month following the month in which Client provides TrueLink with a written notice of its election to terminate this Agreement.",
+          "rationale": "This hosting agreement contains no exit mechanic. Section 14 (p0079) only continues services to the end of the month following our termination notice; Section 13 (p0078) puts the burden on Client to arrange a new name server within 30 days and a new hosting environment within 60 days, and confirms only domain/Client Content ownership. Neither obliges TrueLink to give transition assistance, to return or export our data in a usable format within a fixed period, or to certify deletion after return; the confidentiality section (sec-10) has no return-of-materials mechanic either. That leaves us in walk-away territory (no data return), so we insert a single short provision meeting the preferred elements after Section 14.",
+          "confidence": 0.83,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert post-termination transition assistance, data return and certified deletion obligations after the Termination section.",
+            "comment": "[Playbook] The Agreement has no exit mechanic, so we added a short provision requiring TrueLink to provide up to six months of transition assistance at its then-current rates, return our data in a standard machine-readable format within thirty days of expiry or termination, and certify deletion after that return. We can fall back to 90 days of assistance with export within thirty days.",
+            "precedentId": "seed-transition",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0079",
+                "numbering": "14A.",
+                "text": "TRANSITION AND RETURN OF DATA. Upon expiry or termination of this Agreement for any reason, TrueLink shall (a) at Client's request, provide transition assistance for up to six (6) months at TrueLink's then-current rates; (b) within thirty (30) days after such expiry or termination, return to Client all data of Client and its customers in TrueLink's possession, including Client Content and Credit Data, in a standard machine-readable format; and (c) after such return, delete such data from its systems and certify such deletion in writing to Client."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Transition obligations apply on expiry or termination.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor provides transition assistance for up to six months.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Transition assistance is charged at then-current rates.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor returns Customer Data within 30 days after expiry or termination.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Customer Data is returned in a standard machine-readable format.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor certifies deletion of Customer Data after its return.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1075,
+      "cache_read_input_tokens": 17874,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1075,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1229,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "TRANSITION",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11615
+}

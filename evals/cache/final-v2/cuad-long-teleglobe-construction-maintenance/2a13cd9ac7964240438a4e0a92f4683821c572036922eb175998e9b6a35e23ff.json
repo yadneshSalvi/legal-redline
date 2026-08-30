@@ -1,0 +1,116 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYNYjVx95JNwPGeAW9ZU",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01DptAsn3u1cD8eWJwktkx1W",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0139",
+            "p0133",
+            "p0178"
+          ],
+          "quote": "5.3 Any of the Parties may at its own expense insure against risks so far as its own share of such costs is concerned. Should the Parties jointly agree to insure against risks, the costs of such insurance shall form part of the Capital Costs, as approved by the Management Committee.",
+          "rationale": "Insurance appears in this Agreement only as a cost concept: Subparagraph 5.3 makes insurance purely permissive (\"may at its own expense insure against risks\"), and the Capital Cost definition (p0133) merely allows insurance or an allowance in lieu within recoverable costs. No Party is required to carry any coverage type or limit, and there is no certificate obligation, so the rule fails even the fallback (E&O USD 1,000,000 / cyber USD 2,000,000). The counterparty Terminal Parties act as Maintenance Authorities and operate, maintain and access the plant on all Parties' behalf (10.1-10.9), which is the vendor-analogue exposure this rule targets; Teleglobe USA is an Initial Party but not a Terminal Party, so the inserted obligation binds only the counterparty MAs. We inserted a single short Subparagraph 10.10 inside Paragraph 10 (where \"Maintenance Authority\" is defined, so no dangling term) carrying the preferred limits, the conditional cyber cover for data belonging to, supplied by or processed for another Party, workers' compensation as required by law, and certificates on request. The permissive own-share insurance in 5.3 remains operative and is not contradicted.",
+          "confidence": 0.72,
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-insurance",
+            "summary": "Insert Subparagraph 10.10 requiring each Maintenance Authority to carry CGL, E&O, cyber and workers' compensation insurance and provide certificates on request.",
+            "comment": "[Playbook] The Agreement only permits insurance (5.3) and mandates none, so we added minimum coverage for the Terminal Parties acting as Maintenance Authorities, who operate and maintain the plant on our behalf. This is our preferred insurance position; we can fall back to E&O of USD 1,000,000 and cyber of USD 2,000,000 if needed.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0178",
+                "numbering": "10.10",
+                "text": "Each Maintenance Authority shall maintain commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; professional liability (errors and omissions) insurance of not less than USD 2,000,000; where it processes any data belonging to, supplied by or processed for another Party, cyber and privacy liability insurance of not less than USD 5,000,000; and workers' compensation insurance as required by law. Each Maintenance Authority shall provide certificates of insurance to any Party on request."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Commercial general liability coverage is at least USD 1,000,000 per occurrence.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Commercial general liability coverage is at least USD 2,000,000 in the aggregate.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Professional errors and omissions coverage is at least USD 2,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "If Vendor processes Customer Data, cyber and privacy coverage is at least USD 5,000,000.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor maintains workers' compensation coverage as required by law.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor provides certificates of insurance on request.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1275,
+      "cache_read_input_tokens": 20535,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1275,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1506,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 15897
+}

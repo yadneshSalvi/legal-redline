@@ -1,0 +1,116 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYMwGzH7iuN5TEywMEoj",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01LruTt1SHvcr2yfz8CPWzmn",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0041",
+            "p0042",
+            "p0063"
+          ],
+          "quote": "10.1 On expiry or termination, Customer's right to access terminated subscription Services ends after any agreed transition period. Rights in accepted Deliverables, paid-up licences, Customer Data, and materials Customer owned or licensed independently continue according to their terms.",
+          "rationale": "Section 10 (Effect of Expiry or Termination) contains no transition-assistance or data-return obligation. Section 10.1 merely assumes \"any agreed transition period\" without creating any entitlement or duration, and 10.2 addresses only Deliverables and Fee refunds. Section 16.5 covers return or destruction of Confidential Information but expressly carves Customer Data out to \"Sections 11 and 15\" — Section 11 does not exist in this document, and Section 15 contains only processing-purpose and privacy duties (15.1, 15.2), with no export, return, format, or deletion-certification mechanic. Searches for transition, export, extract, machine-readable, delete and destruction return nothing else responsive. The rule therefore fails at both preferred and fallback levels, so we insert a new 10.3 carrying the preferred elements: up to six months' assistance at then-current rates, return of Customer Data in a standard machine-readable format within thirty days of expiry or termination, and certified deletion after that return. Separately, the dangling reference in 16.5 to a non-existent Section 11 should be corrected in a housekeeping pass.",
+          "confidence": 0.86,
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-transition",
+            "summary": "Insert transition assistance, data return and certified deletion clause in Section 10",
+            "comment": "[Playbook] Section 10 gives us no exit help or data return, so we added a transition and data-return paragraph: up to six months' assistance at Vendor's then-current rates, return of Customer Data in a standard machine-readable format within thirty days, and certified deletion after that return. We can fall back to 90 days' assistance with export within thirty days.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0042",
+                "numbering": "10.3",
+                "text": "On expiry or termination of this Agreement or any Order Form for any reason, Vendor shall (a) at Customer's request, provide transition assistance for up to six months at Vendor's then-current rates; (b) within thirty days after that expiry or termination, return all Customer Data in a standard machine-readable format; and (c) after that return, delete Customer Data from its systems and certify the deletion in writing."
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Transition obligations apply on expiry or termination.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor provides transition assistance for up to six months.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Transition assistance is charged at then-current rates.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor returns Customer Data within 30 days after expiry or termination.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Customer Data is returned in a standard machine-readable format.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Vendor certifies deletion of Customer Data after its return.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 807,
+      "cache_read_input_tokens": 27241,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 807,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1302,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "TRANSITION",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 14037
+}

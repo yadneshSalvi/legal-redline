@@ -1,0 +1,117 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYM3Z6CfWTKihXNnjJeX",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01HvfymTE35raJf7L4aprC5i",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0240",
+            "p0241",
+            "p0126",
+            "p0270"
+          ],
+          "quote": "The common enterprise between and among the Parties shall be limited to the express provisions of this Agreement. The liability of the Parties shall be several and not joint or collective.",
+          "rationale": "The liability regime consists of §21.1 (several and not joint liability), §4.9 (PG members not liable for Supplier or Wet Segment performance; no representations or warranties), §21.2 (mutual third-party cross-indemnity limited to each Party's Schedule B share) and §32.2 (no admission of liability without Management Committee approval). Searches for \"consequential\", \"gross negligence\", \"aggregate liability\" and \"exceed\" return nothing: there is no aggregate monetary cap and no exclusion of indirect damages, so our liability to the other APCN 2 Parties is unlimited in amount and the fallback fails on a material term. We add a single new Subparagraph 21.3 at the fallback level: a mutual cap of twelve months' fees and charges paid or payable, with indemnification under §21.2, breach of confidentiality obligations under Paragraph 31 (which is headed \"31. CONFIDENTIALITY\"), gross negligence and wilful misconduct falling outside that cap. The carve-out now names the confidentiality obligations expressly rather than relying on a bare paragraph number, and the exception is scoped to the new cap only, with an express statement that the Customer-favourable Schedule B share limitation in §21.2 is preserved. The several-not-joint rule is untouched. The preferred USD 1,000,000 floor, mutual consequential-damages exclusion, and carve-outs for data protection/security, fraud, IP infringement and payment obligations are shortfalls from the preferred wording noted here, not separate deviations.",
+          "confidence": 0.83,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0241",
+                "numbering": "21.3",
+                "text": "21.3 Except in respect of a Party's indemnification obligations under Subparagraph 21.2, its breach of its confidentiality obligations under Paragraph 31, its gross negligence or its wilful misconduct, none of which is subject to the limit set out in this Subparagraph 21.3, each Party's aggregate liability to each other Party arising out of or in connection with this Agreement shall not exceed the fees and charges paid or payable by that Party under this Agreement in the twelve (12) months preceding the claim. Nothing in this Subparagraph 21.3 prejudices the Schedule B share limitation in Subparagraph 21.2."
+              }
+            ],
+            "comment": "[Playbook] The Agreement has no aggregate liability cap, so we added a mutual cap of twelve months' fees and charges, with indemnification, breach of confidentiality obligations, gross negligence and wilful misconduct outside that cap. This is our fallback position, and the Schedule B share limit in Subparagraph 21.2 is unaffected.",
+            "level": "fallback",
+            "precedentId": "seed-lol-1",
+            "summary": "Insert mutual 12-month fees liability cap with self-identifying carve-outs after §21.2"
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "The aggregate liability cap applies mutually to both parties.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "The cap is based on 12 months of fees.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Indemnification obligations are uncapped.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Breach of confidentiality obligations is uncapped.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Gross negligence is uncapped.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Wilful misconduct is uncapped.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 862,
+      "cache_read_input_tokens": 19309,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 862,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1511,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "LOL-CAP",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 14697
+}

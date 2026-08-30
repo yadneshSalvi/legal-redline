@@ -1,0 +1,101 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYHTmw5JqRxP283J6APW",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01HxXWidkFpv88o91tDdQ7ry",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0078",
+            "p0079"
+          ],
+          "quote": "14. TERMINATION. Subject to Section 4 hereof, TrueLink will continue to provide the requested Hosting Services and Support Services until the last day of the month following the month in which Client provides TrueLink with a written notice of its election to terminate this Agreement.",
+          "rationale": "Two material gaps against the fallback. First, Section 14 (p0079) only describes wind-down timing following a Client notice of election to terminate; it never states expressly that Client may terminate without cause, so our convenience right is at best implied and could be read as a timing provision only. Operation 1 states the right expressly, with the existing 31-61 day wind-down (last day of the month following the notice month) supplying the notice/effective-date mechanic, which is at least as favourable to us as the fallback's 60-90 days. Second, TrueLink's only convenience exit is non-renewal at the end of a one-year term but on just thirty (30) days' notice (p0078), below the 90-day floor and within walk-away territory; operation 2 splits the mutual notice so TrueLink must give ninety (90) days while our 30-day notice is preserved. No early-termination fee or penalty exists anywhere, so the fee-cap element is already met and needs no language. We note only as a rationale point (not a redline) that the preferred position's 30-day notice and pro-rata refund of prepaid fees are not reached; fees are invoiced monthly in arrears under Section 5, so prepayment exposure is immaterial.",
+          "confidence": 0.78,
+          "proposal": {
+            "level": "fallback",
+            "summary": "State expressly that Client may terminate for convenience at any time on written notice, and require TrueLink to give 90 days' notice of non-renewal.",
+            "comment": "[Playbook] We have made our convenience termination right explicit in Section 14 (the existing wind-down timing still applies) and extended TrueLink's non-renewal notice to ninety (90) days, consistent with our position that the host may exit only at the end of a term and only on 90 days' notice.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0079",
+                "text": "Client may terminate this Agreement for convenience at any time upon written notice to TrueLink."
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0078",
+                "oldText": "either Client or TrueLink deliver to the other written notice of intent not to renew no later than thirty (30) days prior to the end of said year",
+                "newText": "Client delivers written notice of intent not to renew no later than thirty (30) days, or TrueLink delivers such notice no later than ninety (90) days, prior to the end of said year"
+              }
+            ]
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Customer may terminate for convenience on 60 to 90 days' notice.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Any early-termination fee is capped at three months of fees.",
+                "status": "already_met",
+                "quote": "TrueLink will continue to provide the requested Hosting Services and Support Services until the last day of the month following the month in which Client provides TrueLink with a written notice of its election to terminate this Agreement."
+              },
+              {
+                "element": "Vendor may terminate for convenience only at the end of a term.",
+                "status": "already_met",
+                "quote": "This Agreement will take effect on the Effective Date and remain in effect for a period of 1 year"
+              },
+              {
+                "element": "Vendor must give at least 90 days' notice of convenience termination.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 4283,
+      "cache_read_input_tokens": 22930,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 4283,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1338,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "T4C",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 14313
+}

@@ -1,0 +1,80 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYJdn1SBKX2NKusWSwz8",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01HRX9ERfqp1NyiAhAAJXmw9",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0045",
+            "p0044"
+          ],
+          "quote": "12.4 Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+          "rationale": "Section 12.4 imposes a one-way restriction on Customer only, covers every Vendor employee rather than personnel directly involved in the Services, runs for the term plus twenty-four months, expressly includes hiring and employment (a no-hire), and negates any general-advertising or unsolicited-approach carve-out (\"regardless of how the employee applies\"). That fails every fallback element and sits in walk-away territory (no-hire plus 24-month, all-personnel scope). It also contradicts Section 12.3, in which Vendor acknowledges Customer has made \"no ... no-hire commitment\". We therefore take the preferred position and remove the restriction on Customer with a single conforming edit to the prohibitory operator and duration, which also resolves the internal conflict.",
+          "confidence": 0.9,
+          "elementCoverage": {
+            "level": "preferred",
+            "mappings": [
+              {
+                "element": "Customer has no non-solicitation restriction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          },
+          "proposal": {
+            "level": "preferred",
+            "precedentId": "seed-nosolicit",
+            "summary": "Remove the one-way non-solicit/no-hire on Customer and confirm no such restriction applies.",
+            "comment": "[Playbook] We do not accept a non-solicit on Customer, and this one-way clause covering all Vendor employees for the term plus twenty-four months with no general-advertising carve-out also contradicts Section 12.3. We have replaced it with a confirmation that no such restriction applies; alternatively we could accept a mutual non-solicit limited to personnel directly involved in the Services for twelve months after their involvement ends, carving out general advertisements and unsolicited approaches and without any hiring prohibition.",
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0045",
+                "oldText": "Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+                "newText": "Customer is subject to no restriction on soliciting, hiring, or employing any Vendor employee."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1330,
+      "cache_read_input_tokens": 22330,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1330,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 923,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "1fe553ed630856a2d31b9e05e42a5644cffe612f6fa4dd81b8f6a327d74e1ddb"
+    }
+  ],
+  "durationMs": 9974
+}

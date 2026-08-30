@@ -43,6 +43,9 @@ runs against our party — the agent must work out who is bound).
 - The **verifier** gets the same rule and judges the rendered redline; `checks` run deterministically first.
 - **Precedents** are keyed by rule id; approved redlines are stored as `{ clauseBefore, clauseAfter, comment, level }`
   and offered to drafters as model language for consistency.
+- `position.elements.preferred|fallback` is the atomic checklist behind each prose position. Element-aware configs
+  require every target element to be quoted as already present or mapped to a proposed operation, then independently
+  verify every preferred and fallback element. Round-1 configs do not serialize this additive field.
 
 ## Adding a playbook
 
