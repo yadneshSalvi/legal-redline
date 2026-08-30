@@ -17,7 +17,12 @@ const rule: Rule = {
   kind: "parametric",
   cuad: ["Cap On Liability"],
   summary: "Cap",
-  position: { preferred: "twelve months", fallback: "twelve months", walkaway: "uncapped" },
+  position: {
+    preferred: "twelve months",
+    fallback: "twelve months",
+    walkaway: "uncapped",
+    elements: { preferred: ["cap of twelve months' fees"], fallback: ["cap of twelve months' fees"] },
+  },
   detect: "find cap",
   redline: "raise cap",
   checks: [{ type: "regex_present", pattern: "twelve", flags: "i", label: "12 months" }],
