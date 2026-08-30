@@ -37,6 +37,12 @@ itself unsolved.
 | Iteration 6 | `i6-longdoc` | Above the 15,000-word threshold: definition-first whole-document search planning, paginated section reads, bounded planner/worker turns. (Context, orchestration) | ⟨i6 short⟩ | ⟨i6 long⟩ | ⟨learning⟩ |
 | **Final v2** | `final-v2` | i6 + approved precedents returned as element-labelled templates. (Memory) | ⟨v2 short⟩ | ⟨v2 long⟩ | ⟨vs baseline: CRR ⟨B1_CRR⟩ → ⟨V2_CRR⟩, long F1 ⟨B1_LONG_F1⟩ → ⟨V2_LONG_F1⟩, yield …⟩ |
 
+**The grader and the student's rubric.** The pipeline track measured its element-aware configuration at 86 % complete
+redlines with a development judge that was shown the pipeline's own checklists; the pre-registered judge, which
+decomposes the prose positions itself and never sees those checklists, scored the same design at 32.6 %. Both numbers
+are reported. A judge that grades with the system's own rubric inflates completeness by roughly 2.5×; the round-2
+iterations after `i5` were measured only against the independent judge. ⟨update with i7/final-v3 outcome⟩
+
 **Disclosures.** (1) `final-v2`'s prompts were iterated on a dev split of six contracts — `cuad-americas-shopping-mall-
 hosting`, `cuad-bnc-mortgage-hosting`, `synth-12`, `synth-hardcase` and two 15k-word CUAD agreements that are not in
 the tier — against a development judge; the numbers above for the other eight short contracts and all six long ones
