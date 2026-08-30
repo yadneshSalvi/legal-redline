@@ -22,7 +22,7 @@ cp .env.example .env            # leave keys empty for replay mode
 pnpm typecheck && pnpm test     # ~10 s, no network
 ```
 
-## 2. Reproduce the evaluation (zero cost, ~50 min for all eight configs, ~6 min for one)
+## 2. Reproduce the evaluation (zero cost, ≈ 5–10 min for all eight configs)
 
 ```bash
 pnpm eval --all                 # replays evals/cache → evals/results/<config>.json  (add --config final for one)
@@ -37,9 +37,16 @@ silently calling a model — if you see one, the checkout and the cache are out 
 
 ```bash
 pnpm review data/contracts/synth-hardcase/contract.docx --config final --mode replay --accept-all
-# → data/runs/<runId>/{run.json, trajectory.jsonl, output.docx, memo.md}
-pnpm validate-docx data/contracts/synth-hardcase/contract.docx data/runs/<runId>/output.docx --pdf
+# → Run: <runId> · Duration: ~1 s · Cost: $0 · 18 verified findings (2 deviations)
+# → data/runs/<runId>/{run.json, findings.json, trajectory.jsonl, output.docx, memo.md}
+pnpm validate-docx data/contracts/synth-hardcase/contract.docx data/runs/<runId>/output.docx --run <runId> --pdf
 ```
+
+A contract from the evaluation set (`data/contracts/<id>/`) replays from `evals/cache/<config>/<id>` with the parties
+the evaluation used (`meta.json`); the local precedent index is ignored in replay so the recorded request hashes
+match. For any other file pass `--cache-dir`, `--party` and `--counterparty` yourself — or drop `--mode replay`.
+`validate-docx --run <runId>` rebuilds the exact apply request from the run's decisions (the same report is stored
+in `run.json → output.validation`); `--pdf` adds the LibreOffice round-trip when LibreOffice is installed.
 
 Live (needs `ANTHROPIC_API_KEY`): drop `--mode replay`. Typical run on a 5k-word contract: 4–5 min,
 3–4 USD.
@@ -48,6 +55,7 @@ Live (needs `ANTHROPIC_API_KEY`): drop `--mode replay`. Typical run on a 5k-word
 
 ```bash
 pnpm baseline data/contracts/synth-hardcase/contract.docx --mode replay
+# → 0.1 s · $0 · findings: deviation 2 / compliant 16 · verifier skipped (the baseline has none)
 ```
 
 ## 5. The UI
@@ -55,8 +63,10 @@ pnpm baseline data/contracts/synth-hardcase/contract.docx --mode replay
 ```bash
 pnpm dev                         # http://localhost:3000
 ```
-Open a sample from the landing page (replays are instant), or upload your own `.docx` (live; needs the key).
-`/review/sample` renders a fixture with no backend at all.
+With `REDLINER_LLM_MODE=replay` (the `.env.example` default) and no keys, every **sample contract** on the landing
+page replays from the committed cache: the progress board, findings, verifier verdicts and memo arrive in seconds
+and cost nothing; accept / edit / reject and export write a real `.docx`. Uploading your own file needs a key and
+`REDLINER_LLM_MODE=live`. `/review/sample` renders a fixture with no backend at all.
 
 ## 6. Rebuild the dataset from scratch (optional)
 

@@ -72,7 +72,7 @@ and forgets everything between contracts. Counsel still has to do the actual wor
 ## 5. Results (headline)
 
 12 contracts (8 lawyer-labelled CUAD filings + 4 seeded synthetic, one a definition-trap hard case), one playbook of
-18 rules, gold of one item per rule. The baseline is fair: the same model (Claude Opus 5) with the same playbook in one
+18 rules, gold of 144 items (one per rule per contract, plus a second where CUAD labels two distinct clauses). The baseline is fair: the same model (Claude Opus 5) with the same playbook in one
 prompt. Every number replays from the committed cache at zero cost (`pnpm eval --all`).
 
 | Metric | Baseline (one prompt + playbook) | Playbook Redliner (final) | Change |

@@ -12,7 +12,8 @@ trajectories/
 │  │   ├─ prompts.md         exact first system prompt used by each model-backed agent
 │  │   └─ README.md          a narrated walk-through of the run: what each agent did, how tools responded, what the verifier sent back
 │  ├─ b1-prompt/<contractId>/ the baseline's single call and naive apply
-│  └─ judge/                 independent GPT-5.6 judge calls used in the evaluation
+│  └─ i3-verifier/human-reviewed-msa/  a product run reviewed by a person in the app: 13 accept/edit/reject decisions,
+│                                      then apply → output.docx (the human checkpoint and apply stages, narrated)
 ├─ human/                    recorded review sessions (decisions per finding, used for the human-review-load metric)
 └─ coding-agents/            how this repository was built
    ├─ briefs/                the instructions given to each builder/reviewer agent (from plans/harness/briefs)
@@ -23,3 +24,7 @@ trajectories/
 ```
 
 Read `app/final/<contractId>/README.md` first — it is the shortest path from the agent instructions to the final result.
+The evaluation runs stop at the human checkpoint by design (nothing is applied without a person), so for the two stages
+after it — a human accepting, editing and rejecting findings, and the apply that writes the tracked changes — read
+`app/i3-verifier/human-reviewed-msa/README.md`. The independent GPT-5.6 judge's verdicts are not trajectories; they are
+in `evals/results/<config>.json → contracts[].judgements` and replay from `evals/cache/judge/`.

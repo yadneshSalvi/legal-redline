@@ -46,7 +46,7 @@ assembler), verification (independent verifier + deterministic checks + escalati
 checkpoint (accept / edit / reject before any write).
 
 **How it is measured.** 12 contracts — 8 lawyer-labelled CUAD filings (CC-BY-4.0) and 4 seeded synthetic ones, one of
-them a definition-trap hard case — one playbook, gold of one item per rule (LLM-drafted, human-confirmed; protocol in
+them a definition-trap hard case — one playbook, gold of 144 items — one per rule per contract, a second where CUAD labels two distinct clauses (LLM-drafted, human-confirmed; protocol in
 data/contracts/LABELING.md). The baseline is fair: the same model (Claude Opus 5) with the same playbook in one prompt.
 Metrics: issue-detection F1 (primary), deviation-status accuracy, redline validity (applies ∧ deterministic checks ∧ an
 independent GPT-5.6 judge), minimality, document integrity (LibreOffice round-trip), citation hallucination, cost and

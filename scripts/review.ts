@@ -8,6 +8,7 @@ import { applyDecisions, createLlmClient, createTrajectoryWriter, getConfig, loa
 import type { ConfigId, Decision, ProgressEvent, ReviewRun } from "@/src/agent/types";
 import type { LlmMode } from "@/src/agent/llm";
 import { parseDocx, parseText } from "@/src/engine";
+import { resolveEvalContext, withoutLocalPrecedents } from "@/src/eval/replay-context";
 import { initialStats } from "@/app/api/_shared";
 import { createStore } from "@/src/store";
 
@@ -15,6 +16,7 @@ interface Options {
   config: string;
   playbook: string;
   party?: string;
+  counterparty?: string;
   acceptAll: boolean;
   mode: LlmMode;
   cacheDir?: string;
@@ -31,10 +33,11 @@ async function main(): Promise<void> {
     .argument("<file>", "Contract .docx, .txt, or .md")
     .option("--config <id>", "Pipeline config", "final")
     .option("--playbook <id>", "Playbook id or path", "customer-vendor-services-v1")
-    .option("--party <name>", "Name of the represented customer")
+    .option("--party <name>", "Name of the represented customer (default: meta.json beside an evaluation contract)")
+    .option("--counterparty <name>", "Name of the vendor / counterparty (default: meta.json beside an evaluation contract)")
     .option("--accept-all", "Apply every verified deviation/missing proposal", false)
     .option("--mode <mode>", "live, record, or replay", "live")
-    .option("--cache-dir <path>", "Replay cache directory")
+    .option("--cache-dir <path>", "Replay cache directory (default in replay: evals/cache/<config>/<contract> for an evaluation contract)")
     .parse();
   const filename = path.resolve(program.args[0]);
   const options = program.opts<Options>();
@@ -44,6 +47,23 @@ async function main(): Promise<void> {
   const document = isDocx ? await parseDocx(bytes, path.basename(filename)) : parseText(new TextDecoder().decode(bytes), path.basename(filename));
   const config = getConfig(options.config);
   const playbook = await loadPlaybook(options.playbook);
+  // A contract from the evaluation set replays from its committed cache with the parties the evaluation used;
+  // both must match exactly for the recorded request hashes to hit.
+  const evalContext = await resolveEvalContext({ contractDir: path.dirname(filename), configId: config.id });
+  const parties = options.party || options.counterparty
+    ? { ...(options.party ? { ourParty: options.party } : {}), ...(options.counterparty ? { counterparty: options.counterparty } : {}) }
+    : (evalContext.parties ?? undefined);
+  const cacheDir = options.cacheDir ?? (options.mode === "replay" ? (evalContext.cacheDir ?? undefined) : undefined);
+  if (options.mode === "replay" && cacheDir === undefined) {
+    throw new Error(
+      `Replay needs a cache: pass --cache-dir, or review a contract under data/contracts/<id>/ that has evals/cache/${config.id}/<id>`,
+    );
+  }
+  console.log(
+    `Config: ${config.id} · mode: ${options.mode}` +
+      (cacheDir ? ` · cache: ${path.relative(process.cwd(), cacheDir)}` : "") +
+      (parties?.ourParty ? ` · parties: ${parties.ourParty} / ${parties.counterparty ?? "(inferred)"}` : ""),
+  );
   const runId = nanoid(14);
   const createdAt = new Date().toISOString();
   const sourceKey = `runs/${runId}/source.${isDocx ? "docx" : "txt"}`;
@@ -59,10 +79,11 @@ async function main(): Promise<void> {
     decisions: {},
     stats: initialStats(),
   };
-  const store = createStore("fs");
+  // In replay the local precedent index is ignored (the evaluation ran with a fresh memory store) and left untouched.
+  const store = options.mode === "replay" ? withoutLocalPrecedents(createStore("fs")) : createStore("fs");
   await Promise.all([store.putBytes(sourceKey, bytes), store.putJson(`runs/${runId}/run.json`, run)]);
   const trajectory = createTrajectoryWriter(store, runId);
-  const llm = createLlmClient({ mode: options.mode, cacheDir: options.cacheDir });
+  const llm = createLlmClient({ mode: options.mode, cacheDir });
   const started = Date.now();
   const reviewed = await runReview({
     run,
@@ -72,7 +93,7 @@ async function main(): Promise<void> {
     store,
     trajectory,
     llm,
-    parties: options.party ? { ourParty: options.party } : undefined,
+    parties,
     onProgress: logProgress,
   });
   await store.putJson(`runs/${runId}/findings.json`, reviewed.findings);
