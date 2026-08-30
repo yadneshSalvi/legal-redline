@@ -8,14 +8,16 @@ cd "$(dirname "$0")/../.."
 LOG=plans/harness/logs/campaign-round2.log
 stamp() { date "+%Y-%m-%d %H:%M:%S"; }
 echo "=== $(stamp) ROUND-2 CAMPAIGN START (HEAD $(git rev-parse --short HEAD))"
-CONFIGS=(b1-prompt i3-verifier final i5-elements i6-longdoc final-v2)
-for cfg in $CONFIGS; do
-  echo "--- $(stamp) EVAL $cfg (tier all, allow-live, judge live on misses)"
-  pnpm -s eval --config "$cfg" --tier all --allow-live --judge live --concurrency 3 --judge-concurrency 4
+# config:tier pairs — i5-elements has no long-document planning, so it is measured on the short tier only.
+PAIRS=(b1-prompt:all i3-verifier:all final:all i5-elements:short i6-longdoc:all final-v2:all)
+for pair in $PAIRS; do
+  cfg=${pair%%:*}; tier=${pair##*:}
+  echo "--- $(stamp) EVAL $cfg (tier $tier, allow-live, judge live on misses)"
+  pnpm -s eval --config "$cfg" --tier "$tier" --allow-live --judge live --concurrency 3 --judge-concurrency 4
   echo "--- $(stamp) EVAL $cfg EXIT $?"
 done
 echo "--- $(stamp) REPLAY CHECK (zero cost, must not miss)"
-pnpm -s eval --all --tier all --concurrency 3; echo "--- $(stamp) REPLAY EXIT $?"
+for pair in $PAIRS; do cfg=${pair%%:*}; tier=${pair##*:}; pnpm -s eval --config "$cfg" --tier "$tier" --concurrency 3 || echo "REPLAY MISS in $cfg/$tier"; done; echo "--- $(stamp) REPLAY EXIT $?"
 pnpm -s report; echo "--- $(stamp) report EXIT $?"
 pnpm -s render-docs; echo "--- $(stamp) render-docs EXIT $?"
 echo "=== $(stamp) ROUND-2 CAMPAIGN DONE"

@@ -3,8 +3,11 @@
 You are the UI engineer on **Playbook Redliner** (`AGENTS.md`, `STYLE.md` are binding; `src/tokens.ts`; existing `src/ui/evals/*`,
 `app/evals/page.tsx`, `app/api/evals/route.ts`). Round 2 of the evaluation added a **long-document tier** and new end-to-end metrics —
 **complete redline rate (CRR)**, **applied tracked-change yield**, **precedent adherence** — plus judge v2 per-element verdicts. The data
-now in `evals/results/changelog-data.json` has (read it, it is the contract): `configs[]` as before (tier "short") and `tiers[]` with per-tier,
-per-config aggregates including the new metrics. Round-1 numbers must keep rendering exactly as they do today.
+now in `evals/results/changelog-data.json` has (read it, it is the contract): `configs[]` as before (round-1 shape) and
+`tiers[{ id: "short"|"long", configs[{ id, aggregate, contracts }] }]` where `aggregate` carries `detection`, `redlineValidity`,
+`minimality`, `citationHallucination`, `deviationAccuracy`, `resources` (round-1 shapes) plus `completeRedline`, `appliedTrackedChangeYield`
+and `precedentAdherence` (each `{ eligible, passing, rate }`). Configs present today: b1-prompt, i3-verifier, final; the campaign running in
+parallel adds i5-elements (short only), i6-longdoc and final-v2 — render whatever configs the file contains, in `src/agent/configs.ts` order. Round-1 numbers must keep rendering exactly as they do today.
 
 ## What to build (1440×900 screenshots for each state in `docs/screenshots/evals-round2-*.png`)
 1. **Headline strip** becomes the round-2 story: CRR baseline → final-v2 (the big one), long-document F1 baseline → final-v2, applied yield,
