@@ -1,0 +1,66 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYb2GhpHaQaF28e8xu3P",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01GFKJXseWAGEM7aAwk3uoxG",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0078",
+            "p0079"
+          ],
+          "quote": "14. TERMINATION. Subject to Section 4 hereof, TrueLink will continue to provide the requested Hosting Services and Support Services until the last day of the month following the month in which Client provides TrueLink with a written notice of its election to terminate this Agreement.",
+          "rationale": "This is a hosting agreement, so the playbook expects exit rights, but no transition-assistance or data-return clause exists anywhere. Section 14 (p0079) only continues services to month-end after notice; Section 13 (p0078) confirms Client retains ownership of domains and Client Content and places the burden on Client to arrange a new name server (30 days) and new hosting environment (60 days), without any TrueLink obligation to assist with migration, export or return data in a usable format, or delete data and certify deletion. The confidentiality section (sec-10) contains no return-of-materials hook either. That falls short of even the fallback (90 days' assistance plus export within 30 days), so we insert the preferred transition clause after the Termination section; the new section falls within the \"Sections 1 and 5 through 30\" survival language in p0090.</rationale>\n<parameter name=\"confidence\">0.85",
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert transition assistance and data return/deletion obligation after the Termination section",
+            "comment": "[Playbook] The Agreement gives us no exit rights: TrueLink has no obligation to help us migrate or to return our data on termination, and Section 13 only makes us responsible for finding new hosting. We have added a standard transition clause requiring up to six months of assistance at TrueLink's then-current rates, return of our data in machine-readable form within 30 days, and certified deletion thereafter; we can accept 90 days of assistance if that is easier operationally.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0079",
+                "numbering": "14a.",
+                "text": "14a. TRANSITION ASSISTANCE AND RETURN OF DATA. Upon expiration or termination of this Agreement for any reason, TrueLink shall (a) at Client's request, provide reasonable transition assistance for up to six (6) months at TrueLink's then-current rates; (b) within thirty (30) days of such expiration or termination, return to Client all Client Content and all other Client data in TrueLink's possession or control, including borrower and loan data, in a commonly used, machine-readable format; and (c) thereafter delete such Client Content and data from its systems and certify such deletion to Client in writing."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 939,
+      "cache_read_input_tokens": 10523,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 939,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 963,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "TRANSITION",
+      "sha256": "a41afd06005372cf2975a57e73d90511448d4e1df021bb7dc547e1da849e2269"
+    }
+  ],
+  "durationMs": 10418
+}

@@ -83,6 +83,16 @@ export const RuleSchema = z.object({
       preferred: z.array(z.string().trim().min(1)).min(1),
       fallback: z.array(z.string().trim().min(1)).min(1),
     }),
+    /**
+     * Round-2 r2 checklists that mirror the prose position phrase by phrase; read only by the `i7-precise` / `final-v3`
+     * drafter. Kept separate so the `i5` / `i6` / `final-v2` prompts (which embed `elements`) stay byte-identical.
+     */
+    elementsPrecise: z
+      .object({
+        preferred: z.array(z.string().trim().min(1)).min(1),
+        fallback: z.array(z.string().trim().min(1)).min(1),
+      })
+      .optional(),
   }),
   /** Guidance for locating and judging the clause (definitions to resolve, traps, direction). */
   detect: z.string(),

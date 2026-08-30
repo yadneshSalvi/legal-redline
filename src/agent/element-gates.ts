@@ -69,6 +69,8 @@ export function elementCoverageGate(input: {
   proposalLevel?: PositionLevel;
   operationCount: number;
   coverage?: ElementCoverage;
+  /** Checklist to account against (defaults to `position.elements`; precise configs pass `elementsPrecise`). */
+  elements?: Rule["position"]["elements"];
 }): ElementGateResult {
   const errors: string[] = [];
   const actionable = input.status === "deviation" || input.status === "missing";
@@ -79,7 +81,7 @@ export function elementCoverageGate(input: {
   if (input.proposalLevel !== undefined && input.coverage.level !== input.proposalLevel) {
     errors.push(`Coverage level ${input.coverage.level} does not match proposal level ${input.proposalLevel}`);
   }
-  const expected = elementsFor(input.rule, input.coverage.level);
+  const expected = (input.elements ?? input.rule.position.elements)[input.coverage.level];
   const counts = new Map<string, number>();
   for (const mapping of input.coverage.mappings) counts.set(mapping.element, (counts.get(mapping.element) ?? 0) + 1);
   for (const element of expected) {

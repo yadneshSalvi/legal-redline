@@ -105,6 +105,14 @@ severityAdjustment? }`, where `status ∈ met | not_met | cannot_tell`. The runt
 fallback completeness from the per-element verdicts, treats operation/check/minimality gates as deterministic
 evidence, and feeds exact unmet element strings into at most three repair rounds.
 
+Configs with `preciseElementProtocol: true` preserve the round-1 drafter as the detection/classification stage,
+then lock that status while a dedicated repair drafter works on actionable findings. Its verifier receives only
+the prose preferred/fallback positions and independently decomposes them in the same style as judge v2; the
+playbook checklist is supplied to the repair drafter but not to this verifier. Precise repairs must also pass the
+official per-replacement changed-character ratio (`≤ 0.60`) and sentence-preservation checks before submission.
+Exhausting the quality-repair budget leaves the established actionable status intact rather than converting a
+detected issue into `needs_review`.
+
 Planner (one structured call, tools `search`/`read_section` allowed): input = parties, section outline
 (id, heading, first 200 chars), definitions (terms only), rule list → `{ parties, plans: { ruleId,
 candidateSectionIds, candidateParagraphIds, likelyAbsent, note }[] }`.

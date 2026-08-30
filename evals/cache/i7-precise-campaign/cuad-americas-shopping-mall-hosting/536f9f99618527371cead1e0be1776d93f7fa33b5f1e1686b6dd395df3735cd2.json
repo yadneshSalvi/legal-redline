@@ -1,0 +1,113 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYcm5xy52oDzLfkEDopV",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_014qfHP8VhZgvrE5p4jhL4Er",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0037",
+            "p0024",
+            "p0026"
+          ],
+          "quote": "6.1 Except as provided in Section 6.2, during the term of this Agreement, the Company shall not participate in any project similar to the Site on the Internet with respect to Deerskin Products or products substantially similar to Deerskin Products",
+          "rationale": "Section 6.1 binds the Company (our party) to exclusivity for the whole term. The term under Section 4.1 is one year but renews automatically each anniversary indefinitely, and the only exit (90 days' notice) triggers a Termination Payment under Section 4.2(a), so the covenant effectively runs for the full, open-ended term with no performance-based release. The scope is also open-ended (\"products substantially similar\", \"companies similar to\", \"including, without limitation\"). That fails the fallback, which requires exclusivity confined to a defined product category and 12 months, ending automatically on HDI's failure to meet service levels or delivery dates. Because HDI bears the development and hosting costs and gives a reciprocal covenant in Section 6.3 (which benefits us and is untouched), we take the fallback: 12 months from the Effective Date, limited to the defined Deerskin Products category, with automatic termination on any HDI service level or delivery date failure.",
+          "confidence": 0.82,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0037",
+                "oldText": "during the term of this Agreement, the Company shall not participate",
+                "newText": "during the twelve (12) month period commencing on the Effective Date, the Company shall not participate"
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0037",
+                "oldText": "in any project similar to the Site on the Internet with respect to Deerskin Products or products substantially similar to Deerskin Products (including, without limitation, the products of Wilson's House of Leather, Excelled and companies similar to Wilson's House of Leather and Excelled) and HDI shall have the exclusive right to use of the \"Deerskin\" brand for a self-contained web site",
+                "newText": "in any project similar to the Site on the Internet with respect to Deerskin Products and HDI shall have the exclusive right to use of the \"Deerskin\" brand for a self-contained web site"
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0037",
+                "numbering": "6.1(a)",
+                "text": "The Company's obligations under Section 6.1 shall terminate automatically upon HDI's failure to meet any service level or delivery date under this Agreement."
+              }
+            ],
+            "comment": "[Playbook] We have limited our Section 6.1 undertaking to 12 months from the Effective Date and to the defined Deerskin Products category (deleting the open-ended similar-products/similar-companies scope), and made it end automatically if HDI misses a service level or delivery date. HDI's reciprocal covenant in Section 6.3 is unaffected.",
+            "level": "fallback",
+            "summary": "Limit Company's exclusivity in Section 6.1 to the defined Deerskin Products category for 12 months, ending automatically on HDI service level or delivery date failure"
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Exclusivity limited to a defined product category.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Exclusivity limited to 12 months.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Exclusivity ending automatically on Vendor's failure to meet service levels.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  3
+                ]
+              },
+              {
+                "element": "Exclusivity ending automatically on Vendor's failure to meet delivery dates.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  3
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 5725,
+      "cache_read_input_tokens": 9529,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 5725,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1387,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "EXCLUSIVITY",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 13412
+}

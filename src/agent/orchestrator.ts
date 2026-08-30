@@ -11,6 +11,7 @@ import { createDeterministicMemo, createMemo } from "@/src/agent/memo";
 import { runMonolith } from "@/src/agent/monolith";
 import { deterministicPlan, planReview } from "@/src/agent/planner";
 import type { Parties, PlannerOutput } from "@/src/agent/planner";
+import { runPreciseElementWorkerRounds } from "@/src/agent/precise-element-worker";
 import type { PipelineConfig, ProgressEvent, ReviewRun, Finding, RunStats } from "@/src/agent/types";
 import type { TrajectoryWriter } from "@/src/agent/trajectory";
 import { skipVerification, verifyFinding } from "@/src/agent/verifier";
@@ -137,8 +138,10 @@ async function runWorker(
   emit(input, { type: "worker", runId: input.run.id, ruleId: rule.id, ruleTitle: rule.title, state: "running" });
   try {
     let finding: Finding;
-    if (input.config.elementAware) {
-      const elementResult = await runElementWorkerRounds({
+    if (input.config.preciseElementProtocol || input.config.elementAware) {
+      const elementResult = await (input.config.preciseElementProtocol
+        ? runPreciseElementWorkerRounds
+        : runElementWorkerRounds)({
         document: input.run.document,
         playbook: input.playbook,
         rule,

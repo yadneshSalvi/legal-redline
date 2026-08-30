@@ -1,0 +1,68 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYrDVVZVfqu2gq1RnQ3B",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll start by reading the candidate section and searching for warranty language."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01Xd3GWb77HdVRiLe2rAHvK3",
+        "name": "read_section",
+        "input": {
+          "sectionId": "sec-p0115"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_017jSgAvtVkHKHMMyPA4ym1p",
+        "name": "search",
+        "input": {
+          "query": "warrant",
+          "limit": 40
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 762,
+      "cache_read_input_tokens": 3316,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 762,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 143,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "read_section",
+      "ruleId": "WARRANTY",
+      "sha256": "41be5f558b8b23cfac3746cbd95d0b2cd421310c346472c53eab5d99cc6fb0fa"
+    },
+    {
+      "name": "search",
+      "ruleId": "WARRANTY",
+      "sha256": "35f4c77376f78561cd6fce03c1f86b12eb35cd0aa945c618a4db34e7b7060e38"
+    }
+  ],
+  "durationMs": 2369
+}

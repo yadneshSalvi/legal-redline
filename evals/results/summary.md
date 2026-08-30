@@ -159,5 +159,6 @@ Replay uses committed model and judge caches. Cost and token numbers describe th
 | i3-verifier | short | 94.5% | 93.7% | 11.6% | 88.4% | 4.5% | 15.7% | $47.9733 |
 | i5-elements | short | 92.1% | 94.7% | 34.7% | 84.2% | 1.1% | 45.6% | $125.8458 |
 | i6-longdoc | short | 93.8% | 93.7% | 28.4% | 87.4% | 0.0% | 38.2% | $70.8156 |
+| i7-precise | short | 95.5% | 93.8% | 68.8% | 90.6% | 0.0% | 76.7% | $19.0753 |
 
 CRR and tracked-change yield use all non-ambiguous deviation/missing gold items as their pooled denominator. Precedent adherence reports only matched proposals for seeded rules.

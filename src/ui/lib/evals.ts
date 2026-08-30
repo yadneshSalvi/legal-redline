@@ -144,9 +144,11 @@ const roles: Record<ConfigId, ConfigRole> = {
   "i4-memory": "iteration",
   "i5-elements": "iteration",
   "i6-longdoc": "iteration",
+  "i7-precise": "iteration",
   "x-monolith": "removed",
   final: "final",
   "final-v2": "final",
+  "final-v3": "final",
 };
 
 /** The stage column of IMPROVEMENT_CHANGELOG.md, so the table reads like the document. */
@@ -159,9 +161,11 @@ const stages: Record<ConfigId, string> = {
   "i4-memory": "Iteration 4",
   "i5-elements": "Iteration 5",
   "i6-longdoc": "Iteration 6",
+  "i7-precise": "Iteration 7",
   "x-monolith": "Removed",
   final: "Final",
   "final-v2": "Final v2",
+  "final-v3": "Final v3",
 };
 
 /** Which independent judge scored the judge-dependent columns of a row (EVAL.md §9). */

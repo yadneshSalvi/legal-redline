@@ -1,0 +1,70 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYjfAf9AKVRoie7huMGm",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "The redline validated. Submitting the finding."
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_01Y1Nainvdc5CLW5Mgvs6thz",
+        "name": "submit_finding",
+        "input": {
+          "status": "missing",
+          "paragraphIds": [
+            "p0097"
+          ],
+          "quote": "30. FORCE MAJEURE. TrueLink will be excused from delays in performing or from failing to perform its obligations under this Agreement to the extent the delays or failures result from causes beyond the reasonable control or TrueLink.",
+          "rationale": "A full-text search for \"insurance\" returns no results and the outline contains no insurance heading; the miscellaneous provisions (Sections 13-30, ending at Force Majeure in p0097) contain no coverage requirement. TrueLink is a hosting vendor that hosts Client's Web Site, holds Client Content and transmits data through the Interface under Credit Repository Agreements, so it processes Client data — the rule's walk-away case (no insurance for a vendor processing personal data). Neither the preferred nor the fallback position (E&O USD 1M / cyber USD 2M) is met anywhere in the document. Proposed a new Section 31 after p0097 at the preferred position (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, workers' compensation, certificates on request), with the fallback limits offered in the comment.",
+          "confidence": 0.9,
+          "proposal": {
+            "level": "preferred",
+            "summary": "Insert a new Section 31 requiring TrueLink to carry CGL, professional/E&O and cyber liability insurance and to provide certificates on request.",
+            "comment": "[Playbook] The Agreement has no insurance provision even though TrueLink hosts our Web Site and transmits Client Content and consumer credit data, so we have added a standard insurance section (CGL USD 1M/2M, E&O USD 2M, cyber USD 5M, workers' compensation, certificates on request). If those limits are an issue we can work from E&O of USD 1,000,000 and cyber of USD 2,000,000.",
+            "ops": [
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0097",
+                "numbering": "31.",
+                "text": "31. INSURANCE. TrueLink shall maintain, at its own expense, throughout the term of this Agreement and for one (1) year thereafter: (a) commercial general liability insurance of not less than USD 1,000,000 per occurrence and USD 2,000,000 in the aggregate; (b) professional liability (errors and omissions) insurance of not less than USD 2,000,000; (c) cyber and privacy liability insurance of not less than USD 5,000,000 covering TrueLink's hosting of the Web Site and its handling of Client Content and other Client data; and (d) workers' compensation insurance as required by applicable law. TrueLink shall provide Client with certificates of insurance evidencing such coverage upon request."
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 836,
+      "cache_read_input_tokens": 9420,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 836,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1038,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "INSURANCE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 10179
+}

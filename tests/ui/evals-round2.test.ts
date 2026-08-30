@@ -63,12 +63,13 @@ describe("normalizeEvals", () => {
 describe("the short view", () => {
   it("renders every round-1 column exactly as round 1 did", () => {
     const data = committed();
-    const before = ladderRows(data);
+    const roundOneIds = new Set(data.configs.map((config) => config.id));
+    const before = ladderRows(data).filter((row) => roundOneIds.has(row.id));
     const after = tierLadderRows(data, "short");
-    for (const [index, row] of before.entries()) {
-      expect(after[index].id).toBe(row.id);
-      expect(after[index].present).toBe(row.present);
-      for (const key of roundOneKeys) expect(after[index][key]).toBe(row[key]);
+    for (const row of before) {
+      const rescored = after.find((candidate) => candidate.id === row.id);
+      expect(rescored?.present).toBe(row.present);
+      for (const key of roundOneKeys) expect(rescored?.[key]).toBe(row[key]);
     }
   });
 

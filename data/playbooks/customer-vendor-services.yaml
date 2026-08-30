@@ -59,6 +59,28 @@ rules:
           - Breach of confidentiality obligations is uncapped.
           - Gross negligence is uncapped.
           - Wilful misconduct is uncapped.
+      elementsPrecise:
+        preferred:
+          - "Mutual cap."
+          - "Cap equal to the greater of fees paid or payable in the 12 months preceding the claim and USD 1,000,000."
+          - "Mutual exclusion of indirect damages."
+          - "Mutual exclusion of consequential damages."
+          - "Uncapped breach of confidentiality obligations."
+          - "Uncapped breach of data protection obligations."
+          - "Uncapped breach of security obligations."
+          - "Uncapped indemnification obligations."
+          - "Uncapped gross negligence."
+          - "Uncapped wilful misconduct."
+          - "Uncapped fraud."
+          - "Uncapped infringement of the other party's IP."
+          - "Customer's payment obligations are not damages for cap purposes."
+        fallback:
+          - "Mutual cap."
+          - "Cap equal to 12 months' fees."
+          - "Uncapped indemnification obligations."
+          - "Uncapped confidentiality obligations."
+          - "Uncapped gross negligence."
+          - "Uncapped wilful misconduct."
     detect: >
       Find the limitation-of-liability, exclusion-of-damages and any "aggregate liability" language, including
       language hidden in warranty or indemnity sections. Determine: does a cap exist; what is the basis (fixed
@@ -124,6 +146,33 @@ rules:
           - Vendor must procure continued use, modify, or replace the infringing item.
           - Vendor must refund applicable fees if procure, modify, or replace remedies are unavailable.
           - Vendor's indemnity is subject to a super-cap of three times annual fees.
+      elementsPrecise:
+        preferred:
+          - "Vendor defence of Customer."
+          - "Vendor defence of Customer affiliates."
+          - "Vendor indemnity of Customer against third-party claims."
+          - "Vendor indemnity of Customer affiliates against third-party claims."
+          - "Claims alleging the Services infringe IP."
+          - "Claims alleging the Deliverables infringe IP."
+          - "Claims arising from Vendor's breach of law."
+          - "Claims arising from a data breach caused by Vendor."
+          - "Claims arising from Vendor's gross negligence."
+          - "Claims arising from Vendor's wilful misconduct."
+          - "Indemnification procedure requiring notice."
+          - "Indemnification procedure allocating control."
+          - "Indemnification procedure requiring cooperation."
+          - "Any Customer indemnity limited to Customer-provided content."
+          - "Any Customer indemnity limited to Customer's breach of law."
+        fallback:
+          - "Vendor IP indemnity."
+          - "Exclusion for Customer modifications."
+          - "Exclusion for Customer combinations."
+          - "Exclusion for Customer specifications."
+          - "Remedy to procure continued use."
+          - "Remedy to modify the infringing item."
+          - "Remedy to replace the infringing item."
+          - "Refund if procure, modify, and replace are unavailable."
+          - "Vendor indemnity super-cap of 3× annual fees."
     detect: >
       Locate indemnification / hold harmless / defence language. Deviation if Vendor indemnity is absent, or only
       Customer indemnifies, or Vendor's indemnity excludes IP infringement. Presence of a narrow Customer
@@ -165,6 +214,16 @@ rules:
           - The restriction lasts no longer than 12 months.
           - The restriction permits Customer's internal development.
           - The restriction permits Customer acquisitions.
+      elementsPrecise:
+        preferred:
+          - "No non-compete restriction on Customer."
+          - "No field-of-use restriction on Customer."
+        fallback:
+          - "Restriction limited to a named competing product."
+          - "Restriction during the term only."
+          - "Restriction capped at 12 months."
+          - "Carve-out for internal development."
+          - "Carve-out for acquisitions."
     detect: >
       Look for "shall not … develop/market/sell/engage in", "competing products", "compete with Vendor", field-of-use
       or territory restrictions binding Customer. Restrictions binding the Vendor are fine.
@@ -198,6 +257,15 @@ rules:
           - Exclusivity lasts no longer than 12 months.
           - Exclusivity ends automatically if Vendor fails to meet service levels.
           - Exclusivity ends automatically if Vendor fails to meet delivery dates.
+      elementsPrecise:
+        preferred:
+          - "No exclusivity obligation on Customer."
+          - "No sole-supplier obligation on Customer."
+        fallback:
+          - "Exclusivity limited to a defined product category."
+          - "Exclusivity limited to 12 months."
+          - "Exclusivity ending automatically on Vendor's failure to meet service levels."
+          - "Exclusivity ending automatically on Vendor's failure to meet delivery dates."
     detect: >
       Phrases like "exclusive", "sole and exclusive provider", "shall purchase all of its requirements from",
       "shall not procure … from any third party". Exclusivity granted to Customer (e.g. Vendor won't serve our
@@ -227,6 +295,13 @@ rules:
           - The Customer MFN covers only a defined product.
           - The Customer MFN lasts no longer than 12 months.
           - The Customer MFN contains reasonable like-for-like comparison carve-outs.
+      elementsPrecise:
+        preferred:
+          - "No MFN obligation on Customer."
+        fallback:
+          - "MFN limited to a defined product."
+          - "MFN limited to 12 months."
+          - "Reasonable-comparison carve-outs."
     detect: >
       Identify who benefits from the MFN. Flag only when Customer must offer Vendor terms no less favourable than
       those given to others, or must match third-party offers. If the Vendor grants Customer best pricing, mark
@@ -256,6 +331,16 @@ rules:
           - General advertisements are excluded from the restriction.
           - Unsolicited approaches are excluded from the restriction.
           - The restriction does not prohibit hiring.
+      elementsPrecise:
+        preferred:
+          - "No non-solicit on Customer."
+        fallback:
+          - "Mutual non-solicit."
+          - "Non-solicit limited to personnel directly involved in the Services."
+          - "Non-solicit limited to 12 months from the end of their involvement."
+          - "Carve-out for general advertisements."
+          - "Carve-out for unsolicited approaches."
+          - "No no-hire."
     detect: >
       "shall not solicit", "employ or engage", "no-hire", "induce … to leave". Determine duration, scope (all
       employees vs those involved) and whether a general-solicitation carve-out exists.
@@ -298,6 +383,18 @@ rules:
           - Any early-termination fee is capped at three months of fees.
           - Vendor may terminate for convenience only at the end of a term.
           - Vendor must give at least 90 days' notice of convenience termination.
+      elementsPrecise:
+        preferred:
+          - "Customer termination for convenience."
+          - "No more than 30 days' written notice."
+          - "Pro-rata refund of prepaid fees."
+          - "No Vendor termination-for-convenience right during a committed term."
+        fallback:
+          - "Customer termination for convenience."
+          - "60–90 days' notice."
+          - "Early-termination fee not exceeding 3 months' fees."
+          - "Vendor termination for convenience only at the end of a term."
+          - "90 days' notice for Vendor termination for convenience."
     detect: >
       Find termination provisions. Determine which party may terminate without cause, the notice period, and any
       early-termination fee. Absence of any Customer convenience right in a term longer than 12 months is a
@@ -339,6 +436,16 @@ rules:
         fallback:
           - If renewal is automatic, Customer's non-renewal notice window is no more than 60 days.
           - If renewal permits price increases, each increase is capped at 5 percent.
+      elementsPrecise:
+        preferred:
+          - "Renewal only by mutual written agreement, unless the automatic-renewal alternative is complete."
+          - "For automatic renewal, 12-month renewals."
+          - "For automatic renewal, Customer opt-out on 30 days' notice."
+          - "For automatic renewal, Vendor reminder 60 days before renewal."
+          - "For renewal price increases, cap at the lesser of CPI and 3%."
+        fallback:
+          - "For automatic renewal, non-renewal notice window of no more than 60 days."
+          - "For renewal price increases, cap at 5%."
     detect: >
       "automatically renew", "unless either party gives notice … days prior", renewal term length, price uplift
       language. Compute the notice window in days and the renewal term length.
@@ -367,6 +474,13 @@ rules:
         fallback:
           - The governing law is Delaware, California, or England and Wales.
           - The dispute forum is the corresponding Delaware or California courts, or the courts of London for England and Wales law.
+      elementsPrecise:
+        preferred:
+          - "Laws of the State of New York."
+          - "Exclusive jurisdiction of the state courts in New York County."
+          - "Exclusive jurisdiction of the federal courts in New York County."
+        fallback:
+          - "A corresponding permitted pair of Delaware law and courts, California law and courts, or the laws of England and Wales with the courts of London."
     detect: Find the governing-law clause; extract jurisdiction and dispute forum; note any arbitration seat.
     redline: Replace only the jurisdiction words and forum; keep the rest of the sentence intact.
     checks:
@@ -403,6 +517,25 @@ rules:
           - A successor assignment requires written notice.
           - Other assignments require consent.
           - Consent to other assignments is not to be unreasonably withheld.
+      elementsPrecise:
+        preferred:
+          - "Customer assignment to an affiliate without consent."
+          - "Customer assignment to a successor in a merger without consent."
+          - "Customer assignment to a successor in an acquisition without consent."
+          - "Customer assignment to a successor in a sale of substantially all assets without consent."
+          - "No Vendor assignment without Customer's consent."
+          - "Customer's consent to Vendor assignment not to be unreasonably withheld."
+          - "No Vendor assignment to a Customer competitor."
+          - "No Vendor termination right on Customer's change of control."
+        fallback:
+          - "Customer right to assign to a successor."
+          - "Vendor right to assign to a successor."
+          - "Customer written notice of successor assignment."
+          - "Vendor written notice of successor assignment."
+          - "Vendor consent for Customer's other assignments."
+          - "Customer consent for Vendor's other assignments."
+          - "Vendor consent not to be unreasonably withheld."
+          - "Customer consent not to be unreasonably withheld."
     detect: >
       "may not assign", "change of control", "deemed an assignment", consent standards. Determine whether the
       restriction binds Customer symmetrically and whether change-of-control triggers any Vendor right.
@@ -449,6 +582,30 @@ rules:
           - Customer may use and modify Deliverables for its business.
           - Customer may sublicense Deliverables for its business.
           - Any Vendor licence in Customer Data is limited to processing it solely to provide the Services.
+      elementsPrecise:
+        preferred:
+          - "Customer ownership of deliverables created for it."
+          - "Customer ownership of work product created for it."
+          - "Vendor assignment of deliverables to Customer."
+          - "Vendor assignment of work product to Customer."
+          - "Vendor retention of pre-existing IP."
+          - "Customer licence to Vendor IP embedded in deliverables."
+          - "Perpetual licence to embedded Vendor IP."
+          - "Irrevocable licence to embedded Vendor IP."
+          - "Royalty-free licence to embedded Vendor IP."
+          - "Customer retention of all rights in Customer Data."
+          - "No joint ownership."
+        fallback:
+          - "Vendor ownership of generic tools."
+          - "Vendor ownership of know-how."
+          - "Customer licence to deliverables."
+          - "Perpetual licence to deliverables."
+          - "Irrevocable licence to deliverables."
+          - "Worldwide licence to deliverables."
+          - "Royalty-free licence to deliverables."
+          - "Customer use of deliverables for its business."
+          - "Customer modification of deliverables for its business."
+          - "Customer sublicensing of deliverables for its business."
     detect: >
       Ownership/assignment language: who owns "Deliverables", "Work Product", "Customer Data", improvements,
       feedback. Flag when Customer assigns IP or data to Vendor, when Vendor owns deliverables with no licence back,
@@ -484,6 +641,17 @@ rules:
         fallback:
           - Customer's affiliates are covered on written notice.
           - The licence is transferable to a successor in a merger or acquisition transaction.
+      elementsPrecise:
+        preferred:
+          - "Licence extended to Customer's affiliates."
+          - "Licence extended to contractors acting on Customer's behalf."
+          - "Perpetual paid-up licences."
+          - "Irrevocable paid-up licences."
+          - "Subscription licences terminable only for uncured material breach."
+          - "Licence transferable to successors."
+        fallback:
+          - "Affiliates covered on written notice."
+          - "Licence transferable to a successor in an M&A transaction."
     detect: >
       Find the grant clause: "non-exclusive, non-transferable", "revocable", "solely for Customer's internal use",
       whether affiliates/contractors are named, term of the licence.
@@ -525,6 +693,20 @@ rules:
           - Vendor may audit no more than once per year.
           - Vendor must give at least 15 days' notice of an audit.
           - Vendor bears audit costs unless underpayment exceeds 10 percent.
+      elementsPrecise:
+        preferred:
+          - "No more than one audit per 12 months."
+          - "30 days' written notice."
+          - "Audits during business hours."
+          - "Independent auditor."
+          - "Auditor bound by confidentiality."
+          - "Off-site audit where possible."
+          - "Audit at Vendor's cost unless underpayment exceeds 5%."
+          - "No direct access to Customer systems."
+        fallback:
+          - "One audit per year."
+          - "15 days' notice."
+          - "Audit at Vendor's cost unless underpayment exceeds 10%."
     detect: Find audit/inspection/verification rights binding Customer; extract frequency, notice, cost allocation, system access.
     redline: Insert the frequency/notice/cost limits with minimal edits; delete system-access language.
     checks:
@@ -551,6 +733,14 @@ rules:
           - Any Customer-payable liquidated amount is only an early-termination fee.
           - The early-termination fee is capped at three months of fees.
           - The early-termination fee is the sole liquidated amount payable by Customer.
+      elementsPrecise:
+        preferred:
+          - "No liquidated damages payable by Customer."
+          - "No penalties payable by Customer."
+        fallback:
+          - "Customer-payable liquidated amount limited to an early-termination fee."
+          - "Early-termination fee capped at 3 months' fees."
+          - "Early-termination fee as the sole liquidated amount."
     detect: >
       Identify liquidated damages, penalties, minimum fees on termination, "shall pay … as liquidated damages".
       Flag only when Customer pays. Service credits or LDs payable by Vendor to Customer are compliant.
@@ -584,6 +774,28 @@ rules:
           - Services are warranted for at least 30 days.
           - Warranty remedies include repair or replacement.
           - Warranty remedies include a refund.
+      elementsPrecise:
+        preferred:
+          - "Services performed in a professional manner."
+          - "Services performed in a workmanlike manner."
+          - "Deliverables conform to documentation."
+          - "Software conforms to documentation."
+          - "12-month software conformance warranty."
+          - "90-day Services warranty."
+          - "Repair remedy."
+          - "Replacement remedy."
+          - "Refund remedy."
+          - "Compliance with laws."
+          - "No malicious code."
+        fallback:
+          - "Services performed in a professional manner."
+          - "Services performed in a workmanlike manner."
+          - "Software conforms to documentation."
+          - "90-day software conformance warranty."
+          - "30-day Services warranty."
+          - "Repair remedy."
+          - "Replacement remedy."
+          - "Refund remedy."
     detect: >
       Find warranty and disclaimer sections; extract the warranty period and remedy; note whether the disclaimer swallows
       the express warranty. A missing express warranty is a deviation (insert).
@@ -623,6 +835,17 @@ rules:
         fallback:
           - Professional errors and omissions coverage is at least USD 1,000,000.
           - Cyber and privacy coverage is at least USD 2,000,000.
+      elementsPrecise:
+        preferred:
+          - "Commercial general liability of USD 1M per occurrence."
+          - "Commercial general liability of USD 2M aggregate."
+          - "Professional errors and omissions insurance of USD 2M."
+          - "Cyber and privacy insurance of USD 5M for vendors processing Customer Data."
+          - "Workers' compensation as required by law."
+          - "Certificates of insurance on request."
+        fallback:
+          - "Professional errors and omissions insurance of USD 1M."
+          - "Cyber insurance of USD 2M."
     detect: Look for an insurance clause; if absent for a services/hosting vendor, deviation (insert).
     redline: Insert a short insurance paragraph in the general/miscellaneous section.
     modelLanguage: >
@@ -655,6 +878,14 @@ rules:
           - The commitment is limited to the current 12-month term.
           - Customer may reduce the commitment on 30 days' notice.
           - Any shortfall is handled through a true-up rather than a penalty.
+      elementsPrecise:
+        preferred:
+          - "No minimum commitment."
+          - "Fees only for usage or ordered Services."
+        fallback:
+          - "Commitment limited to the current 12-month term."
+          - "Commitment reducible on 30 days' notice."
+          - "True-up rather than a penalty."
     detect: '"minimum", "commit to purchase", "take or pay", "shortfall", volume caps on Customer usage. Commitments the Vendor makes to us are fine.'
     redline: Delete or narrow to the fallback with minimal edits; replace shortfall penalties with a true-up.
 
@@ -683,6 +914,24 @@ rules:
           - Transition obligations apply on expiry or termination.
           - Vendor provides at least 90 days of transition assistance.
           - Vendor exports Customer Data within 30 days after expiry or termination.
+      elementsPrecise:
+        preferred:
+          - "Transition obligations on expiry."
+          - "Transition obligations on termination."
+          - "Vendor transition assistance."
+          - "Transition assistance for up to 6 months."
+          - "Transition assistance at then-current rates."
+          - "Vendor return of Customer Data."
+          - "Customer Data in a standard machine-readable format."
+          - "Customer Data returned within 30 days after expiry or termination."
+          - "Vendor deletion of Customer Data after return."
+          - "Vendor certification of deletion after return."
+        fallback:
+          - "Transition obligations on expiry."
+          - "Transition obligations on termination."
+          - "Vendor transition assistance for 90 days."
+          - "Vendor export of Customer Data."
+          - "Customer Data exported within 30 days after expiry or termination."
     detect: Look for transition, exit, data return/export, deletion timing. Absence in a services/hosting agreement is a deviation (insert).
     redline: Insert a transition-assistance and data-return paragraph in the termination section.
     modelLanguage: >

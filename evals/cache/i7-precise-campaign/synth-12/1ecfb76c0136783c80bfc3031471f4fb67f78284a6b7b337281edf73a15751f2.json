@@ -1,0 +1,125 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYdSEynPUJQzu5UdAPb4",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "thinking",
+        "thinking": "",
+        "signature": "CAISnAMKjgEIERgCKkCB1MlqHmDUyaN6eTAI/74B6Z8kYuW3fYB3dh9+r6h03g93MOXtWxpCNCCS8+IND0/30UijtWzYi2UHmnPohdioMg1jbGF1ZGUtb3B1cy01OAFCCHRoaW5raW5nWiQ0NDcyZGFmNS1lOTVkLTQzNzMtOWEzZS01ZDRhMTA3ZGJhNmWoAbnXz9QGEgwhRF9PDoiyLmtcu7IaDHmB6+yeyp1DWEqvHyIwCOwwE4ZTNVbx3JSlluLfzgv8DRkEhxbIPSEHGqO6H5yZ6e3DnJD2ctXmXhYRT2seKroBM1tLJdg6eACBFBziKLKhSjeqyBc4XdgImkCf8+MknpWL+Ni9VX5536w0AZuJPAFjSzcGKPLyY3Ep02f1L6so4z5uVZSORds+0QZ70uu1zt3xPYgMl4Rh7E4DJML+k31ua5Jz09X1MHQ2X7b3wJE/MB+OXYny85NOhB03h3O/Q2ggSGzfabK78rBilpDHHqZgt3iRPYYFtpUbdmzukXEcbEu+7qSa7H8cvQ84OhiWjxe/AWw3pNlh30qjGAE="
+      },
+      {
+        "type": "tool_use",
+        "id": "toolu_017DofBVa3EQNWM1GGnzEFHw",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0045"
+          ],
+          "quote": "12.4 Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+          "rationale": "Section 12.4 is one-way, is an outright no-hire (\"hire, or employ\"), covers every Vendor employee rather than personnel involved in the Services, runs 24 months, and expressly negates any general-advertising or unsolicited-application carve-out (\"regardless of how the employee applies\"). That fails the fallback on every material term. We have narrowed it to the fallback bargain with minimal edits: the no-hire words and the 24-month sweep-up are deleted, the covenant is tied to 12 months after involvement in the Services, and a short reciprocal sentence makes it mutual, limits it to personnel directly involved in the Services for 12 months from the end of that involvement, and carves out general advertisements and unsolicited approaches. This also aligns 12.4 with Section 12.3, where Vendor acknowledges Customer has made no no-hire commitment.",
+          "confidence": 0.82,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0045",
+                "oldText": "Customer shall not solicit, hire, or employ any Vendor employee during the term or for twenty-four months afterward, regardless of how the employee applies.",
+                "newText": "Customer shall not solicit any Vendor personnel during the term or for 12 months after the end of their involvement in the Services."
+              },
+              {
+                "kind": "insert_after",
+                "paragraphId": "p0045",
+                "text": "Neither party shall solicit personnel of the other party directly involved in the Services for 12 months from the end of that involvement, and this Section does not restrict general advertisements not specifically targeted at the other party's employees or unsolicited approaches by an employee."
+              }
+            ],
+            "comment": "[Playbook] We have removed the no-hire element and the 24-month tail, tied the covenant to 12 months after involvement in the Services, and made it mutual with carve-outs for general advertisements and unsolicited approaches.",
+            "level": "fallback",
+            "summary": "Narrow §12.4 to a mutual 12-month non-solicit of personnel involved in the Services, with carve-outs and no no-hire"
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Mutual non-solicit.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Non-solicit limited to personnel directly involved in the Services.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "element": "Non-solicit limited to 12 months from the end of their involvement.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "element": "Carve-out for general advertisements.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "Carve-out for unsolicited approaches.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              },
+              {
+                "element": "No no-hire.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1496,
+      "cache_read_input_tokens": 60304,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 1496,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 1264,
+      "output_tokens_details": {
+        "thinking_tokens": 53
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "NOSOLICIT",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 12171
+}

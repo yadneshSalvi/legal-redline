@@ -51,6 +51,12 @@ export const configCatalog: { id: ConfigId; label: string; description: string; 
     kind: "iteration",
   },
   {
+    id: "i7-precise",
+    label: "i7 · Official-judge precision",
+    description: "Locks round-1 detection, then repairs against prose-derived elements with official minimality gates.",
+    kind: "iteration",
+  },
+  {
     id: "x-monolith",
     label: "x · Monolith (removed)",
     description: "One agent handling every rule in a single loop — the experiment we removed on cost and recall.",
@@ -66,6 +72,12 @@ export const configCatalog: { id: ConfigId; label: string; description: string; 
     id: "final-v2",
     label: "Final v2 · Element-complete pipeline",
     description: "i6's thresholded long-document element completeness plus approved precedent language returned as element-labelled drafting templates.",
+    kind: "iteration",
+  },
+  {
+    id: "final-v3",
+    label: "Final v3 · Precise element pipeline",
+    description: "i7 precision with precedent memory and the thresholded long-document planning path.",
     kind: "iteration",
   },
 ];

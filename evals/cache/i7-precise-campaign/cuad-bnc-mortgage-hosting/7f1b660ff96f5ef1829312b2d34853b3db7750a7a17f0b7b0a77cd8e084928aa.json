@@ -1,0 +1,92 @@
+{
+  "response": {
+    "model": "claude-opus-5",
+    "id": "msg_011CeYcirwLTrt1As7wTM5jJ",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01Htr1KK9hEzeX5aWpdS6mfE",
+        "name": "submit_finding",
+        "input": {
+          "status": "deviation",
+          "paragraphIds": [
+            "p0022",
+            "p0080"
+          ],
+          "quote": "a. Grant. TrueLink hereby grants to Client a non-exclusive license to use the Interface in the ordinary course of its business of the origination, underwriting, processing and funding of consumer finance receivables in accordance with this Agreement.",
+          "rationale": "The grant runs to Client alone, with no affiliates named and no mechanism to add them, so the clause fails even the fallback licence-scope position; §15 also conditions transfer on the other party's consent with only an affiliate carve-out and no successor/M&A exception. We take the two-element fallback: affiliates are covered on written notice to TrueLink, and either party may assign to a successor by merger or sale of substantially all assets. The licence is not revocable at Vendor's discretion (it runs until termination under the term provisions), so no revocability fix is needed, and we add no contractor, perpetual/irrevocable or subscription-termination language, which are preferred-only.",
+          "confidence": 0.8,
+          "proposal": {
+            "ops": [
+              {
+                "kind": "replace",
+                "paragraphId": "p0022",
+                "oldText": "grants to Client a non-exclusive license to use the Interface in the ordinary course of its business",
+                "newText": "grants to Client and, upon written notice to TrueLink, its affiliates a non-exclusive license to use the Interface in the ordinary course of its business"
+              },
+              {
+                "kind": "replace",
+                "paragraphId": "p0080",
+                "oldText": "shall assign or transfer any of its rights under this Agreement without the prior written approval of the other party, except no such approval shall be required for an assignment to a financially responsible affiliate.",
+                "newText": "shall assign or transfer any of its rights under this Agreement without the prior written approval of the other party, except no such approval shall be required for an assignment to a financially responsible affiliate or to a successor by merger or sale of substantially all assets."
+              }
+            ],
+            "comment": "[Playbook] We have extended the licence to our affiliates on written notice to TrueLink, and confirmed that either party may assign to a successor by merger or sale of substantially all assets; this is our fallback licence-scope position.",
+            "level": "fallback",
+            "summary": "Cover Client affiliates on written notice and permit assignment to an M&A successor"
+          },
+          "elementCoverage": {
+            "level": "fallback",
+            "mappings": [
+              {
+                "element": "Affiliates covered on written notice.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  1
+                ]
+              },
+              {
+                "element": "Licence transferable to a successor in an M&A transaction.",
+                "status": "addressed_by_operation",
+                "operationIndexes": [
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      }
+    ],
+    "stop_reason": "tool_use",
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 4264,
+      "cache_read_input_tokens": 9599,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 4264,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 995,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "inference_geo": "global"
+    }
+  },
+  "toolResults": [
+    {
+      "name": "submit_finding",
+      "ruleId": "LICENSE",
+      "sha256": "a397da2041dff27cd5d5af7c1947b34bef77b94f1e64f1299e12b930bf141d99"
+    }
+  ],
+  "durationMs": 11547
+}
