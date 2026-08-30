@@ -12,7 +12,6 @@ import type { ConfigId } from "@/src/agent/types";
 import type { AggregateMetrics, ComponentMetrics } from "@/src/eval/metrics";
 import {
   FINAL_CONFIG,
-  ,
   HARD_CASE_ID,
   absentRow,
   configDescriptors,
