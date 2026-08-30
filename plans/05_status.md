@@ -179,3 +179,7 @@
 ## 2026-08-30 20:10 IST — video v1.1, dashboard shipped-config fix
 - Video re-cut (Sol, 19 min) + pacing fix (Sol, 8 min): 299.9 s, product beats 1.000×, four narrations 1.052×, cards from `changelog-data.json`, end card vercel.app → release v1.1; README header/§10 + submission draft updated.
 - Dashboard: `shippedConfig` now = latest `final*` present (final-v4); verified live (CRR 44.1 % pooled +43.4, long F1 75.3, yield 81.8, F1 94.7). Gate-round2 review running.
+
+## 2026-08-30 20:35 IST — round-2 gate: approve-with-fixes → fixes landed (1176e8ff)
+- Reviewer verified: pre-registration hash, tier selector reproduces the 6, baseline byte-identical to round 1 (long prompt carried all 877 paragraphs), no elements passed to judge v2, gold hygiene, 16 tiered replays with 0 misses, numbers to 0.1 pp, cherry-picking probes (gain survives holdout; biopharma vs other both improve; judge samples 4/5 agree).
+- Fixed: `--all --tier` limited to tier-recorded configs (the documented one-liner had aborted on a judge-v2 miss for b0/i1/i2/i4/x); dashboard shipped config (final-v4, live); disclosures: dev 68.8 % is a best-of-two-recordings selection (clean run 53.1 %, pooled 49.5 %), pre-registered ≥ 70 % holdout criterion failed (47.6 %), pipeline dev split ≠ pre-registered split (54.5/54.8 on the registered split), baseline format-neutral CRR 20.0 %; recall labelled macro; trajectories/app/final-v4 exported; coding traces re-exported. Re-verification requested; `pnpm eval --all --tier all` replay running as proof.
