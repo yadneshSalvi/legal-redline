@@ -1,6 +1,6 @@
 # Playbook Redliner solution video
 
-This directory is a reproducible, music-free production pipeline for the five-minute solution video. It uses Gemini TTS, deterministic fixture routes in the deployed app, token-faithful HTML title cards, the real redlined Word output, and ffmpeg assembly.
+This directory is a reproducible, music-free production pipeline for the five-minute solution video. It uses Gemini TTS, a genuine locally recorded agent run, token-faithful HTML title cards, the exported redlined Word output, and ffmpeg assembly.
 
 ## Regenerate
 
@@ -9,9 +9,9 @@ Run from this directory:
 ```sh
 cd plans/video
 node bin/tts.mjs
-zsh bin/record.sh all
+PLAYBOOK_URL=http://localhost:3110 zsh bin/record.sh all
 node bin/cards.mjs
-zsh bin/word-still.sh
+zsh bin/word-still.sh /absolute/path/to/data/runs/<run-id>/output.docx
 node bin/assemble.mjs
 ```
 
@@ -25,10 +25,13 @@ The final file is `renders/playbook-redliner.mp4`. Intermediate UI captures are 
 
 ## Final numbers and run data
 
-1. Replace placeholders in `narration.json` and `card-data.json`. Keep narration ids unchanged, then rerun TTS and cards. TTS hashes each beat's text, so unchanged WAV files stay cached.
-2. To use a real app run, replace `/review/sample-running` and `/review/sample` in `bin/record.sh` with `/review/<run-id>`. Replace `/trajectories/sample` with `/trajectories/<run-id>`. Keep a replay-cached run available so capture timing remains deterministic.
-3. Pass a different redlined document to `zsh bin/word-still.sh /absolute/path/to/output.docx`. The script renders every page and selects the page with the most red/blue tracked-change pixels. Its default is `data/runs/PFLRALt3w26sfg/output.docx`.
-4. Reorder visuals or change non-narrated card holds in `timeline.json`, then rerun assembly.
+The cards and narration use the recorded evaluation values: baseline F1 91.5%, validity 42.7%, minimality 11.0%; final F1 94.8%, precision 97.7%, validity 50.6%, minimality 35.6%.
+
+The final UI capture follows local CORIO run `NVDjaRym9fKYVj` from sample selection through the changing planner/worker board and first verified findings. The findings-arrive portion uses `setpts=(PTS-STARTPTS)/2` in `bin/assemble.mjs`, so that source passage is shown at 2× while the narration remains natural speed. The export interaction is also compressed to 2× so its button, confirmation, generation wait, and success link fit one narrated beat. Keyboard decisions, precedent lookup, export success, and the memo are all from the completed same run. `logs/live-run.json` records the run evidence and clip offsets.
+
+The hard-case trajectory is genuine record-mode run `JxR5VovErXWC5F`. Its LOL-CAP worker visibly resolves `get_definition("Fees")` to the Implementation Fee, then follows that term with `search("Implementation Fee")` and `read_section("Definitions")`. Three genuine attempts produced that semantically equivalent tool path rather than a second `get_definition("Implementation Fee")` call; the capture preserves the emitted trace without fabrication. `logs/hardcase-run.json` records the evidence.
+
+Pass a different redlined document to `zsh bin/word-still.sh /absolute/path/to/output.docx`. The script renders every page, selects the page with the most red/blue tracked-change pixels, and builds a slow twelve-second Ken Burns clip. Its default is `data/runs/PFLRALt3w26sfg/output.docx`.
 
 LibreOffice does not display pending Word revisions in its headless PDF export. For the still only, the script makes a temporary render copy that exposes `w:ins`/`w:del` content with blue underline/red strike styling; it never changes the source DOCX.
 

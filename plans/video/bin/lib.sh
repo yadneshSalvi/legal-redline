@@ -10,15 +10,16 @@ CURSOR_X=72
 CURSOR_Y=152
 REC_PID=""
 REC_OUT=""
+AB_BIN=${AGENT_BROWSER_BIN:-/opt/homebrew/bin/agent-browser}
 
 mkdir -p "$V/clips" "$V/logs"
 
 ab() {
-  agent-browser --session "$S" "$@" >/dev/null 2>&1
+  "$AB_BIN" --session "$S" "$@" >/dev/null 2>&1
 }
 
 abo() {
-  agent-browser --session "$S" "$@" 2>&1
+  "$AB_BIN" --session "$S" "$@" 2>&1
 }
 
 boot() {
@@ -68,7 +69,7 @@ cursor_off() {
 
 snapshot_beat() {
   local tmp="$V/logs/$1.snapshot.tmp"
-  agent-browser --session "$S" snapshot -i -c > "$tmp" 2>&1
+  "$AB_BIN" --session "$S" snapshot -i -c > "$tmp" 2>&1
   mv "$tmp" "$V/logs/$1.snapshot.txt"
 }
 
@@ -156,7 +157,7 @@ rec_start() {
   local name=$1 max_seconds=${2:-60}
   local out="$V/clips/$name.mp4" log="$V/logs/rec-$name.log"
   rm -f "$out" "$out.STOP" "$log"
-  node "$V/bin/rec.mjs" "$out" "$max_seconds" 60 "$S" > "$log" 2>&1 &
+  AGENT_BROWSER_BIN="$AB_BIN" node "$V/bin/rec.mjs" "$out" "$max_seconds" 60 "$S" > "$log" 2>&1 &
   REC_PID=$!
   REC_OUT=$out
   sleep 1.8

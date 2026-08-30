@@ -221,7 +221,7 @@ async function main() {
   atomicJson(MANIFEST, manifest);
   process.stdout.write(`manifest ${MANIFEST}\n`);
   process.stdout.write(`total narration ${totalDuration.toFixed(2)}s\n`);
-  if (totalDuration > 270) throw new Error(`narration is ${totalDuration.toFixed(2)}s; maximum is 270s`);
+  if (totalDuration > 292) throw new Error(`narration is ${totalDuration.toFixed(2)}s; maximum is 292s`);
 }
 
 await main();

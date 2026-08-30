@@ -8,7 +8,7 @@
 > tracked change into the document.
 
 Entry for the **micro1 Frontier Engineering Challenge 2026 (Agentic Workflows Hackathon)**.
-Live demo: **<https://playbook-redliner.vercel.app>** · Video: _link added on upload (see §10)_ ·
+Live demo: **<https://playbook-redliner.vercel.app>** · Video: **[4 min 53 s, 1080p](https://github.com/yadneshSalvi/legal-redline/releases/download/v1.0/playbook-redliner.mp4)** (see §10) ·
 Reproduction: [`REPRODUCE.md`](REPRODUCE.md) · Changelog with evidence: [`IMPROVEMENT_CHANGELOG.md`](IMPROVEMENT_CHANGELOG.md) ·
 Trajectories: [`trajectories/`](trajectories/) · Full results: [`docs/results.md`](docs/results.md)
 
@@ -141,5 +141,5 @@ the playbook: original, MIT. No private or personal data is used anywhere.
 ## 10. Video
 
 ≤ 5 minutes, one genuine end-to-end run on a CUAD hosting agreement, the hard case's trajectory, and the evaluation
-ladder: _link added on upload_. Script and production pipeline: [`plans/07_video.md`](plans/07_video.md),
+ladder: **[playbook-redliner.mp4](https://github.com/yadneshSalvi/legal-redline/releases/download/v1.0/playbook-redliner.mp4)** (GitHub release [`v1.0`](https://github.com/yadneshSalvi/legal-redline/releases/tag/v1.0), 49 MB, H.264 1080p). Script and production pipeline: [`plans/07_video.md`](plans/07_video.md),
 [`plans/video/`](plans/video/).

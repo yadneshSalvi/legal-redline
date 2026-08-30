@@ -6,7 +6,7 @@
 - **Title:** Playbook Redliner — agentic first-pass contract review with real Word tracked changes, verified and human-approved
 - **Repository:** https://github.com/yadneshSalvi/legal-redline (public) — README with intended user, bottleneck, value; labelled *Improvement Changelog*; main failure mode; hot take
 - **Live demo:** https://playbook-redliner.vercel.app (later https://playbook-redliner.yadneshsalvi.com)
-- **Video (≤ 5 min):** {{VIDEO_URL}} (unlisted YouTube)
+- **Video (≤ 5 min):** https://github.com/yadneshSalvi/legal-redline/releases/download/v1.0/playbook-redliner.mp4 (GitHub release v1.0; add the unlisted YouTube link too once uploaded)
 - **Reproduction guide:** `REPRODUCE.md` — clean-clone commands for solution, baseline and evaluation; `pnpm eval --all` reproduces every number at zero cost from the committed replay cache; Docker image for a clean environment
 - **Agent trajectories:** `trajectories/` — narrated per-run READMEs for the product agents (planner, drafters, verifier, assembler, memo, judge, human checkpoints) for all 12 contracts, plus every coding-agent session (Codex/GPT-5.6 Sol, Claude Opus 5 via Agent SDK, Claude Code/Fable 5 lead) with briefs, reports and redacted event traces
 - **Tools disclosure:** Claude Code (Claude Fable 5) as lead orchestrator; GPT-5.6 Sol via Codex CLI and Claude Opus 5 via Claude Agent SDK as builders/reviewers; product runs Claude Opus 5 (drafter/verifier/planner/memo) and GPT-5.6 Sol (independent judge, gold-label drafting); CUAD (CC-BY-4.0) evaluation data
@@ -78,17 +78,17 @@ agent benchmark, record the same configuration twice.
 holds narrated trajectories of every product agent for all 12 contracts, the human review sessions, and every
 coding-agent session used to build the project (GPT-5.6 Sol via Codex, Claude Opus 5 via the Agent SDK, Claude Fable 5
 lead in Claude Code) with briefs, reports and redacted traces. Live demo: https://playbook-redliner.vercel.app. Video:
-VIDEO_URL.
+https://github.com/yadneshSalvi/legal-redline/releases/download/v1.0/playbook-redliner.mp4.
 
 ## Video upload text (YouTube, unlisted)
 - **Title:** Playbook Redliner — agentic contract redlining with real Word tracked changes (micro1 Agentic Workflows Hackathon 2026)
 - **Description:** An agentic first-pass contract review for customer-side in-house counsel: playbook-driven, one drafter per rule with validated edit anchors, an independent verifier, precedent memory, a human accept/edit/reject gate, and real OOXML tracked changes + comments. Measured on 12 contracts against a fair single-prompt baseline (F1 91.5% → 94.8%, redline validity 42.7% → 50.6%, minimal edits 11% → 36%). Repo: https://github.com/yadneshSalvi/legal-redline · Demo: https://playbook-redliner.vercel.app
 
 ## Pre-submit checklist
-- [ ] `pnpm eval --all && pnpm report` from a clean clone reproduces `evals/results/summary.md`
+- [x] `pnpm eval --all && pnpm report` from a clean clone reproduces `evals/results/summary.md` (gate reviewer, clean clone of d6c52f1, no keys: byte-identical in 5 m 15 s)
 - [x] README / CHANGELOG / REPRODUCE have no `{{` placeholders; numbers match `evals/results` (2026-08-30 07:10 IST)
-- [ ] `trajectories/` committed (app + coding agents), secrets redacted
-- [ ] Deployed `/evals` shows real data; sample run completes in replay; export works
-- [ ] Video uploaded; link in README and submission
-- [ ] Final gate review (`plans/harness/briefs/gate-final.md`) verdict approve
+- [x] `trajectories/` committed (app + coding agents + human-reviewed run), secrets redacted (0 hits for key patterns, 0 home paths)
+- [x] Deployed `/evals` shows real data (browser-verified 07:2x IST); production sample run → decisions → apply → download verified live by the reviewer (ZPXbp77-_fEMQw); local replay of samples verified (z5SipZ1hUSJAIU, 18 findings, $0, apply ok)
+- [x] Video rendered (4:52.6, 1080p) and published as GitHub release v1.0; link in README §10 and header (YouTube unlisted upload still optional, by the author)
+- [x] Final gate review: approve-with-fixes → all fixes landed (1–3, 5–8 re-verified in a clean clone at 6f79c83; fix 4 + keep-alive verified locally: sample replays in-app in 2 s with no keys)
 - [ ] Author spot-check of gold + one human review session recorded (`trajectories/human/`)

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { execFileSync, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, renameSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, extname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -11,6 +11,7 @@ const MANIFEST_PATH = resolve(VIDEO_DIR, "narration/manifest.json");
 const RENDER_DIR = resolve(VIDEO_DIR, "renders");
 const WORK_DIR = resolve(RENDER_DIR, `.assemble-${process.pid}`);
 const OUTPUT = resolve(RENDER_DIR, "playbook-redliner.mp4");
+const REPORT = resolve(RENDER_DIR, "playbook-redliner-1080p.md");
 const FPS = 30;
 const FADE = 0.25;
 
@@ -39,7 +40,10 @@ function normalizeVisual(item, index, duration) {
   const source = resolve(VIDEO_DIR, item.src);
   if (!existsSync(source)) throw new Error(`missing visual for ${item.id}: ${source}`);
   const output = resolve(WORK_DIR, `segment-${String(index).padStart(2, "0")}.mp4`);
+  const playbackRate = Number(item.playbackRate ?? 1);
+  if (!(playbackRate > 0)) throw new Error(`${item.id} has an invalid playbackRate`);
   const commonFilter = [
+    ...(playbackRate === 1 ? [] : [`setpts=(PTS-STARTPTS)/${playbackRate}`]),
     "scale=1920:1080:force_original_aspect_ratio=increase",
     "crop=1920:1080",
     `fps=${FPS}`,
@@ -53,6 +57,7 @@ function normalizeVisual(item, index, duration) {
   if (isImage) args.push("-loop", "1", "-framerate", String(FPS), "-i", source);
   else {
     if (!probeVideo(source)) throw new Error(`${source} has no video stream`);
+    if (Number(item.mediaStart) > 0) args.push("-ss", Number(item.mediaStart).toFixed(3));
     args.push("-i", source);
   }
   args.push(
@@ -62,6 +67,41 @@ function normalizeVisual(item, index, duration) {
   );
   run("ffmpeg", args);
   return output;
+}
+
+function timestamp(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainder = seconds - minutes * 60;
+  return `${String(minutes).padStart(2, "0")}:${remainder.toFixed(3).padStart(6, "0")}`;
+}
+
+function writeReport(items, starts, durations, total) {
+  const rows = items.map((item, index) => {
+    const start = starts[index];
+    const end = start + durations[index];
+    const treatment = item.playbackRate ? `${item.playbackRate}× from source ${Number(item.mediaStart ?? 0).toFixed(1)}s` :
+      Number(item.mediaStart) > 0 ? `source ${Number(item.mediaStart).toFixed(1)}s` : "native";
+    return `| ${index + 1} | ${item.id} | ${timestamp(start)} | ${timestamp(end)} | ${durations[index].toFixed(3)} s | ${item.src} | ${treatment} |`;
+  });
+  const markdown = [
+    "# Playbook Redliner — 1080p render",
+    "",
+    `- Total duration: **${total.toFixed(3)} seconds** (${timestamp(total)})`,
+    `- Output: \`playbook-redliner.mp4\``,
+    `- Video: H.264, 1920×1080, ${FPS} fps, 4:2:0`,
+    "- Audio: AAC, 48 kHz, stereo, 192 kb/s target",
+    `- Visual transitions: ${Math.round(FADE * 1000)} ms cross-fades`,
+    "",
+    "| # | Beat | Start | End | Visual duration | Source | Treatment |",
+    "| ---: | --- | ---: | ---: | ---: | --- | --- |",
+    ...rows,
+    "",
+    "Beat end times include the 0.4-second narration tail; adjacent visuals overlap during the 250 ms cross-fade.",
+    "",
+  ].join("\n");
+  const tmp = `${REPORT}.tmp-${process.pid}`;
+  writeFileSync(tmp, markdown);
+  renameSync(tmp, REPORT);
 }
 
 function concatWithFades(segments, durations, output) {
@@ -154,6 +194,7 @@ function main() {
       throw new Error(`rendered duration is ${finalDuration.toFixed(2)}s; maximum is 300s`);
     }
     renameSync(tmpOutput, OUTPUT);
+    writeReport(items, starts, durations, finalDuration);
     process.stdout.write(`rendered ${OUTPUT}\n`);
     process.stdout.write(`total duration ${finalDuration.toFixed(3)}s\n`);
   } finally {

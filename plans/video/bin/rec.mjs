@@ -15,9 +15,13 @@ const fps = Number(fpsArg);
 const workDir = `${out}.frames`;
 const stopFile = `${out}.STOP`;
 const FFMPEG = process.env.FFMPEG || "/opt/homebrew/bin/ffmpeg";
+const AGENT_BROWSER = process.env.AGENT_BROWSER_BIN || "/opt/homebrew/bin/agent-browser";
 
-const cdpUrl = execFileSync("agent-browser", ["--session", sessionArg, "get", "cdp-url"], { encoding: "utf8" })
-  .trim().split("\n").map((l) => l.trim()).find((l) => l.startsWith("ws://"));
+const cdpUrl = process.env.AGENT_BROWSER_CDP_URL || execFileSync(
+  AGENT_BROWSER,
+  ["--session", sessionArg, "get", "cdp-url"],
+  { encoding: "utf8" },
+).trim().split("\n").map((l) => l.trim()).find((l) => l.startsWith("ws://"));
 if (!cdpUrl) throw new Error("no cdp url");
 
 rmSync(workDir, { recursive: true, force: true });
@@ -62,8 +66,11 @@ ws.addEventListener("message", (event) => {
 
 ws.addEventListener("open", async () => {
   const { targetInfos } = await send("Target.getTargets");
-  const page = targetInfos.find((t) => t.type === "page" && t.url.includes("playbook-redliner"))
-    ?? targetInfos.find((t) => t.type === "page");
+  const pages = targetInfos.filter((target) => target.type === "page" && target.url !== "about:blank");
+  const page = pages.find((target) => target.url.includes("playbook-redliner"))
+    ?? pages.find((target) => /localhost:3110|127\.0\.0\.1:3110/.test(target.url))
+    ?? pages.at(-1)
+    ?? targetInfos.find((target) => target.type === "page");
   if (!page) throw new Error("no page target");
   const attached = await send("Target.attachToTarget", { targetId: page.targetId, flatten: true });
   session = attached.sessionId;

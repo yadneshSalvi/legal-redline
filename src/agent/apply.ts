@@ -1,5 +1,5 @@
-import { applyRedlines, reconcileOps, textToDocx, validateDocx } from "@/src/engine";
-import type { ApplyRequest, RedlineComment, RedlineOp } from "@/src/engine/types";
+import { applyRedlines, textToDocx, validateDocx } from "@/src/engine";
+import { buildApplyRequest } from "@/src/agent/apply-request";
 import { createPrecedentMemory } from "@/src/agent/memory";
 import type { ReviewRun } from "@/src/agent/types";
 import { createTrajectoryWriter } from "@/src/agent/trajectory";
@@ -11,9 +11,6 @@ export async function applyDecisions(input: { run: ReviewRun; originalBytes: Uin
   const trajectory = createTrajectoryWriter(store, run.id);
   const playbook = await loadPlaybook(run.playbookId);
   const memory = createPrecedentMemory(store);
-  const ops: RedlineOp[] = [];
-  const comments: RedlineComment[] = [];
-  const promotions: Array<{ finding: (typeof run.findings)[number]; decision: (typeof run.decisions)[string] }> = [];
 
   for (const finding of run.findings) {
     const decision = run.decisions[finding.id];
@@ -24,26 +21,16 @@ export async function applyDecisions(input: { run: ReviewRun; originalBytes: Uin
       payload: decision,
       idempotencyKey: `human-decision:${run.id}:${finding.id}:${decision.action}:${decision.at}`,
     });
-    if (decision.action === "reject") continue;
-    const selectedOps = decision.action === "edit" ? decision.ops ?? [] : finding.proposal?.ops ?? [];
-    if (!selectedOps.length) continue;
-    ops.push(...selectedOps);
-    const first = selectedOps[0];
-    comments.push({
-      paragraphId: first.paragraphId,
-      anchorText: first.kind === "replace" ? first.oldText : undefined,
-      text: decision.comment ?? finding.proposal?.comment ?? `[Playbook] ${finding.rationale}`,
-    });
-    promotions.push({ finding, decision });
   }
 
-  const reconciled = reconcileOps(run.document, ops);
-  if (reconciled.dropped.length > 0) {
-    await trajectory.event("apply", "validation", `Reconciled ${reconciled.dropped.length} conflicting operation(s)`, {
-      payload: reconciled.dropped.map((entry) => ({ reason: entry.reason, op: entry.op })),
+  const { request, promotions, dropped } = buildApplyRequest(run, { author: playbook.style.author, date: new Date().toISOString() });
+  if (dropped.length > 0) {
+    await trajectory.event("apply", "validation", `Reconciled ${dropped.length} conflicting operation(s)`, {
+      payload: dropped.map((entry) => ({ reason: entry.reason, op: entry.op })),
     });
   }
-  const request: ApplyRequest = { ops: reconciled.ops, comments, author: playbook.style.author, date: new Date().toISOString() };
+  // The exact request is kept next to the output so `pnpm validate-docx --run <id>` can re-check the file later.
+  await store.putJson(`runs/${run.id}/apply-request.json`, request);
   const originalDocx = run.document.source.kind === "txt"
     ? await textToDocx(new TextDecoder().decode(input.originalBytes), { title: run.document.title })
     : input.originalBytes;

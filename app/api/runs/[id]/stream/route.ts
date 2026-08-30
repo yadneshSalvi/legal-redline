@@ -1,10 +1,14 @@
+import path from "node:path";
+
 import { nanoid } from "nanoid";
+import { after } from "next/server";
 
 import { getConfig } from "@/src/agent/configs";
 import { createLlmClient, type LlmMode } from "@/src/agent/llm";
 import { runReview } from "@/src/agent/orchestrator";
 import { createTrajectoryWriter } from "@/src/agent/trajectory";
 import type { ProgressEvent, ReviewRun } from "@/src/agent/types";
+import { resolveEvalContext, withoutLocalPrecedents } from "@/src/eval/replay-context";
 import { loadPlaybookById } from "@/src/playbook/loader";
 import { type BufferedProgress, jsonError, loadRun, parseJsonLines, safeId, store } from "@/app/api/_shared";
 
@@ -72,9 +76,16 @@ async function execute(id: string, run: ReviewRun, state: ActiveRun): Promise<vo
     const trajectory = createTrajectoryWriter(fs, id);
     const configuredMode = process.env.REDLINER_LLM_MODE;
     const mode: LlmMode = configuredMode === "record" || configuredMode === "replay" ? configuredMode : "live";
-    const llm = createLlmClient({ mode, cacheDir: `data/runs/${id}/cache` });
+    // In replay mode a packaged sample replays from the committed evaluation cache with the parties the evaluation
+    // used (and without the local precedent index), so a checkout with no API keys still completes a real run.
+    const sampleId = run.tags?.[0];
+    const evalContext = mode === "replay" && sampleId && /^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$/.test(sampleId)
+      ? await resolveEvalContext({ contractDir: path.join(process.cwd(), "data", "contracts", sampleId), configId: run.config })
+      : null;
+    const llm = createLlmClient({ mode, cacheDir: evalContext?.cacheDir ?? `data/runs/${id}/cache` });
     await runReview({
-      run, originalBytes, playbook, config: getConfig(run.config), store: fs, trajectory, llm,
+      run, originalBytes, playbook, config: getConfig(run.config), store: evalContext?.cacheDir ? withoutLocalPrecedents(fs) : fs,
+      trajectory, llm, parties: evalContext?.parties ?? undefined,
       onProgress: (event) => publish(id, state, event),
     });
   } catch (error) {
@@ -112,7 +123,8 @@ async function claim(id: string, run: ReviewRun, existing: BufferedProgress[]): 
     buffer: [...existing],
   };
   activeRuns.set(id, state);
-  void execute(id, run, state);
+  // The run outlives the SSE response: a viewer who navigates away must not stall it or pay for a restart.
+  after(execute(id, run, state));
   return state;
 }
 
@@ -122,7 +134,7 @@ export async function GET(request: Request, context: { params: Promise<{ id: str
     const id = safeId(rawId);
     const run = await loadRun(id);
     if (!run) return jsonError("Run not found", 404);
-    const after = Number(new URL(request.url).searchParams.get("after") ?? 0) || 0;
+    const afterSeq = Number(new URL(request.url).searchParams.get("after") ?? 0) || 0;
     const existing = parseJsonLines<BufferedProgress>(await store().getBytes(`runs/${id}/progress.jsonl`));
     let state = activeRuns.get(id);
     if (!state && (run.status === "queued" || (run.status === "running" && !freshLease(run)))) {
@@ -138,7 +150,7 @@ export async function GET(request: Request, context: { params: Promise<{ id: str
       start(controller) {
         controllerRef = controller;
         const replay = currentState?.buffer ?? existing;
-        for (const buffered of replay.filter((item) => item.seq > after)) controller.enqueue(sseData(buffered));
+        for (const buffered of replay.filter((item) => item.seq > afterSeq)) controller.enqueue(sseData(buffered));
         if (!currentState && !pollPersisted) {
           controller.close();
           return;
