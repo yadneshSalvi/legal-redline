@@ -129,7 +129,7 @@ export function poolAggregates(parts: readonly AggregateMetrics[]): AggregateMet
   };
 }
 
-/** `final-v2` is the shipped row as soon as the report contains it; until then `final` is. */
+/** `the latest final* the report carries (final-v4 today)` is the shipped row as soon as the report contains it; until then `final` is. */
 export function shippedConfig(data: EvalsData): ConfigId {
   // The shipped configuration is the latest `final*` (configs.ts order) the report actually carries — round 1: final;
   // round 2: final-v2 … final-v4 (the length router). A final that regressed and was not shipped still renders, as an
