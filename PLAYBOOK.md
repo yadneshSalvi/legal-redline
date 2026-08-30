@@ -46,6 +46,9 @@ runs against our party — the agent must work out who is bound).
 - `position.elements.preferred|fallback` is the atomic checklist behind each prose position. Element-aware configs
   require every target element to be quoted as already present or mapped to a proposed operation, then independently
   verify every preferred and fallback element. Round-1 configs do not serialize this additive field.
+- `position.elementsPrecise.preferred|fallback` (round 2b) mirrors the prose position phrase by phrase and is read only by the
+  `preciseElementProtocol` configs (`i7-precise`, `final-v3`); `elements` stays byte-identical so the `i5` / `i6` / `final-v2` prompts
+  and their replay caches do not change. Neither list is ever shown to the independent judge, which decomposes the prose itself.
 
 ## Adding a playbook
 

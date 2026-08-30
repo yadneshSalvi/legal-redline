@@ -7,7 +7,7 @@ v1.0) tells the round-1 story: detection F1 91.5 → 94.8. Round 2 changed the h
 
 ## Values (read, do not invent)
 `evals/results/changelog-data.json` → `tiers[]`; `IMPROVEMENT_CHANGELOG.md` §"Round 2"; `README.md` §5. Placeholders in `narration.json`
-(the lead rewrote the affected beats): `{{B1_CRR}} {{V2_CRR}} {{B1_LONG_F1}} {{V2_LONG_F1}} {{B1_YIELD}} {{V2_YIELD}} {{B1_F1}} {{FINAL_F1}}
+(the lead rewrote the affected beats): `{{B1_CRR}} {{V3_CRR}} {{B1_LONG_F1}} {{V3_LONG_F1}} {{B1_YIELD}} {{V3_YIELD}} {{B1_F1}} {{FINAL_F1}}
 {{ROUND2_WHY}} {{HOT_TAKE_LINE}}`. Spell numbers for speech as percentages with one decimal.
 
 ## Beats to re-render
