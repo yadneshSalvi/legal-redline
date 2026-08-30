@@ -35,7 +35,9 @@ itself unsolved.
 | Round 1 final | `final` | as in round 1 | 94.8 % · 10.5 % · 86.3 % · $3.51 | 58.8 % · 47.9 % · 0 % · 45.8 % · $5.73 | Better detection on short contracts, no better on long ones, and one redline in ten complete. **Kept as the round-1 reference; not the product.** |
 | Iteration 5 | `i5-elements` | Every playbook position written as an atomic checklist (159 elements, additive field); drafter must map each element to "already met (quote)" or "addressed by op N"; fresh-context verifier checks elements one by one with ≤ 3 repair rounds; deterministic minimality gate. (Verification, tools) | ⟨i5 short⟩ | — (no long-document planning) | ⟨learning⟩ |
 | Iteration 6 | `i6-longdoc` | Above the 15,000-word threshold: definition-first whole-document search planning, paginated section reads, bounded planner/worker turns. (Context, orchestration) | ⟨i6 short⟩ | ⟨i6 long⟩ | ⟨learning⟩ |
-| **Final v2** | `final-v2` | i6 + approved precedents returned as element-labelled templates. (Memory) | ⟨v2 short⟩ | ⟨v2 long⟩ | ⟨vs baseline: CRR ⟨B1_CRR⟩ → ⟨V2_CRR⟩, long F1 ⟨B1_LONG_F1⟩ → ⟨V2_LONG_F1⟩, yield …⟩ |
+| Final v2 | `final-v2` | i6 + approved precedents returned as element-labelled templates. (Memory) | 91.6 % · 32.6 % · 86.3 % · $10.04 | 74.4 % · 67.6 % · 20.8 % · 62.5 % · $11.38 | The element checklist tripled CRR (10.5 → 32.6 %) and the long-document planner lifted long-tier recall 45 → 68 %; but a development judge shown the pipeline's own checklist had promised 86 % — the independent judge, which decomposes the prose itself, said 32.6 %. Memory adherence stayed ≈ 0. **Superseded by round 2b.** |
+| Iteration 7 | `i7-precise` | Measured only against the independent judge: checklists that mirror the prose phrase by phrase (`position.elementsPrecise`), one committed position level per finding with the position's own wording, a minimality gate with the judge's definition, and a bounded structured repair. (Verification, tools) | ⟨i7 short⟩ | — | ⟨learning: dev CRR 31 → 69 %, cost $19.65 → $4.77 on the dev split⟩ |
+| **Final v3** | `final-v3` | i7 + the long-document planner + precedent memory. | ⟨v3 short⟩ | ⟨v3 long⟩ | ⟨vs baseline: CRR ⟨B1_CRR⟩ → ⟨V3_CRR⟩, long F1 ⟨B1_LONG_F1⟩ → ⟨V3_LONG_F1⟩, yield …⟩ |
 
 **The grader and the student's rubric.** The pipeline track measured its element-aware configuration at 86 % complete
 redlines with a development judge that was shown the pipeline's own checklists; the pre-registered judge, which
@@ -51,7 +53,7 @@ the matrix (logged). (3) The tier rule selected four biopharma development/licen
 agreement; a customer-side vendor-services playbook fits them less naturally than a hosting MSA — the rule was
 written before results and we kept it, and gold marks rules that do not apply as `ambiguous` (excluded). (4) Long-tier
 gold is GPT-5.6-drafted, CUAD-span-anchored (80/121 items) and reviewed by the evaluation agent, not yet by counsel.
-(5) Judge v2's decomposition of positions is its own; the playbook checklists the pipeline uses are not shown to it.
+(5) Judge v2's decomposition of positions is its own; the playbook checklists the pipeline uses (`position.elements`, `position.elementsPrecise`) are never shown to it. (6) `i7-precise`/`final-v3` were iterated on the same four-contract dev split against the independent judge; the eight other short contracts and the six long ones are a single holdout run. (7) During the `i5-elements` recording the machine ran out of disk; two workers failed with ENOSPC and were re-recorded in isolation — the incident, the re-record and the disk guard are in the status log.
 
 ## README.md §5 — replace the headline table with a two-part table
 Part A (round 2, pre-registered, the headline): CRR short ⟨B1_CRR⟩ → ⟨V2_CRR⟩; long-document F1 ⟨B1_LONG_F1⟩ → ⟨V2_LONG_F1⟩;
