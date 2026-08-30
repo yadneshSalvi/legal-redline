@@ -167,3 +167,6 @@
 ## 2026-08-30 17:30 IST — r2 merged; round-2b campaign running
 - `redline-quality-r2` (Sol max, 4 h 07 m): `i7-precise` official dev CRR 22/32 = 68.8 % (from 31.3 %), macro F1 95.5 %, 0 escalations, $4.77/contract (from $19.65); hard case 2/2; `final-v3` = i7 + long-doc planner + memory (long dev per-finding CRR 21 %). Merged as 5b961bd9 with r2's rewritten checklists moved to `position.elementsPrecise` (read only by `preciseElementProtocol` configs) so i5/i6/final-v2 prompts stay byte-identical — verified by zero-cost replays (i5, final-v2 short; i7 dev = 22/32 as recorded).
 - Round-2b campaign launched 17:20 (`campaign-round2b.sh`): i7-precise short (8 new contracts), final-v3 short + long, replay check, report, render-docs.
+
+## 2026-08-30 18:30 IST — machine restart (user); resume point
+- Committed c4678bce: i7-precise short tier official (CRR 54.7 %, F1 94.7 %, 0 esc, $5.10; dev 68.8 % / holdout 47.6 %), final-v3 9/18 + caches. After restart: relaunch `plans/harness/campaign-round2b.sh` (replays cached, records the rest), then docs → video → gate → export traces.
