@@ -8,7 +8,7 @@ const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "sw
 const sourceSerif = Source_Serif_4({ variable: "--font-source-serif", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://playbook-redliner.yadneshsalvi.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://playbook-redliner.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -1,4 +1,4 @@
-# HackerEarth submission — Playbook Redliner (ready except the video link)
+# HackerEarth submission — Playbook Redliner (ready to paste)
 
 **Deadline:** Mon 2026-08-31 18:00 UTC (23:30 IST). Submit from the registered HackerEarth account (the participant must submit).
 
@@ -18,7 +18,7 @@ playbook rule with tools that validate every edit anchor, has an independent ver
 waits for a human to accept/edit/reject before writing real OOXML tracked changes and margin comments. Measured in two rounds against a fair single-prompt baseline (same model, playbook and contract): round 1, issue-detection F1 91.5 → 94.8 %; round 2 (pre-registered, independent per-element judge), complete redlines 1.1 → 54.7 % (47.6 % on the untouched holdout), 40k-word documents F1 60.3 → 75.3 % and recall 45 → 69 %, judge validity 42.7 → 74.2 %, minimal edits 3.7 → 59.6 %. Everything reproduces
 from the repo at zero cost.
 
-## Long description (ready to paste; replace VIDEO_URL)
+## Long description (ready to paste)
 
 **Who has the problem.** Customer-side in-house counsel and contracts managers: the people who receive a vendor's
 master services, SaaS, licence or hosting agreement and have to send it back marked up. The deliverable is not an
@@ -45,7 +45,7 @@ assembler), verification (independent verifier + deterministic checks + escalati
 checkpoint (accept / edit / reject before any write).
 
 **How it is measured.** 12 contracts — 8 lawyer-labelled CUAD filings (CC-BY-4.0) and 4 seeded synthetic ones, one of
-them a definition-trap hard case — one playbook, gold of 144 items — one per rule per contract, a second where CUAD labels two distinct clauses (LLM-drafted, human-confirmed; protocol in
+them a definition-trap hard case — one playbook, gold of 144 items — one per applicable rule, plus a second where CUAD labels two distinct clauses (LLM-drafted, human-confirmed; protocol in
 data/contracts/LABELING.md). The baseline is fair: the same model (Claude Opus 5) with the same playbook in one prompt.
 Metrics: issue-detection F1 (primary), deviation-status accuracy, redline validity (applies ∧ deterministic checks ∧ an
 independent GPT-5.6 judge), minimality, document integrity (LibreOffice round-trip), citation hallucination, cost and
@@ -61,13 +61,19 @@ the cost, lower recall, baseline-level validity). Two rows are the same configur
 so we state that F1 differences under ~1.5 pp are noise and only claim the differences far outside it. The iteration
 that mattered most was not a model change: reading our own false positives showed the specialists over-flagged clauses
 that already met the fallback; writing the classification semantics into the playbook (shared by every config, baseline
-included) moved specialist precision from 76% to 97%.
+included) moved specialist precision from 76% to 97%. Round 2 (pre-registered, independent per-element judge, plus a
+rule-selected tier of six 37–45k-word CUAD agreements): complete redlines 1.1% → 54.7% (47.6% on the untouched holdout
+eight), 40k-word documents F1 60.3% → 75.3% and recall 45% → 69%, applied tracked changes 41.7% → 62.5%. The shipped
+configuration is a length router over the two best-measured pipelines, and the pre-registered ≥ 70% criterion is
+reported as missed.
 
-**Main failure mode.** The redline is only half right: validity plateaus at ≈ 50% because the drafter reads a playbook
-position as a direction while the judge reads it as a checklist — 34 of 87 final redlines omit one element of a
-multi-part position, 29 are whole-clause insertions scored as rewrites. The next fix is a schema change (positions as
-element lists the verifier can enumerate), not another agent. On detection, the residual errors are "right rule,
-neighbouring paragraph".
+**Main failure mode.** The redline is still only half right, and long documents are the hard half. On short contracts
+the shipped pipeline completes 55% of the gold redlines (48% on the eight contracts it was not tuned on); on 40k-word
+agreements it now finds most issues (recall 69% vs the baseline's 45%) but completes only 23% of the redlines — the
+paginated workers draft repairs that are broad, incomplete or not minimal, and the precise protocol that fixed this on
+short contracts did not transfer (our last configuration, final-v3, lost long-document recall and is reported, not
+shipped). Precedent memory measured as a non-result in both rounds. The next fix is a long-document repair loop with
+the same single-level, prose-mirrored discipline, measured on gold we do not tune against.
 
 **Hot take.** Give a specialist agent one rule and it will find a violation — the biggest quality jump came from writing
 the semantics into the playbook, not from any model, tool or extra agent. And before you believe a one-point gain on an
@@ -81,7 +87,7 @@ https://github.com/yadneshSalvi/legal-redline/releases/download/v1.3/playbook-re
 
 ## Video upload text (YouTube, unlisted)
 - **Title:** Playbook Redliner — agentic contract redlining with real Word tracked changes (micro1 Agentic Workflows Hackathon 2026)
-- **Description:** An agentic first-pass contract review for customer-side in-house counsel: playbook-driven, one drafter per rule with validated edit anchors, an independent verifier, precedent memory, a human accept/edit/reject gate, and real OOXML tracked changes + comments. Measured on 12 contracts against a fair single-prompt baseline (F1 91.5% → 94.8%, redline validity 42.7% → 50.6%, minimal edits 11% → 36%). Repo: https://github.com/yadneshSalvi/legal-redline · Demo: https://playbook-redliner.vercel.app
+- **Description:** An agentic first-pass contract review for customer-side in-house counsel: playbook-driven, one drafter per rule with validated edit anchors, an independent verifier, precedent memory, a human accept/edit/reject gate, and real OOXML tracked changes + comments. Measured on 12 contracts against a fair single-prompt baseline (complete redlines 1.1% → 54.7%, 47.6% on held-out contracts; 40k-word documents F1 60.3% → 75.3%; applied tracked changes 41.7% → 62.5%). Repo: https://github.com/yadneshSalvi/legal-redline · Demo: https://playbook-redliner.vercel.app
 
 ## Pre-submit checklist
 - [x] `pnpm eval --all && pnpm report` from a clean clone reproduces `evals/results/summary.md` (gate reviewer, clean clone of d6c52f1, no keys: byte-identical in 5 m 15 s)

@@ -81,7 +81,7 @@ playbook position, is minimal and preserves intent (see [`EVAL.md`](EVAL.md) §9
 
 | Metric | Baseline | Round-1 final | **Final v4 (shipped)** | Change vs baseline |
 |---|---:|---:|---:|---|
-| Complete redline rate, short tier | 1.1 % (20.0 % if its whole-clause replacements are exempted from the minimality gate¹) | 10.5 % | 54.7 % (47.6 % on the 8 holdout contracts) | +53.7 pp (+27.6 pp on the format-neutral holdout comparison) |
+| Complete redline rate, short tier | 1.1 % (20.0 % if its whole-clause replacements are exempted from the minimality gate¹) | 10.5 % | 54.7 % (47.6 % on the 8 holdout contracts) | +53.7 pp (holdout vs the format-neutral holdout baseline: 19.0 % → 47.6 %, +28.6 pp) |
 | Complete redline rate, long tier | 0 % | 0 % | 22.9 % | +22.9 pp |
 | Long-document F1 / recall (macro) | 60.3 % / 45.0 % | 58.8 % / 43.7 % | 75.3 % / 68.6 % | +15.1 pp F1 / +23.6 pp recall |
 | Applied tracked-change yield, long tier | 41.7 % | 45.8 % | 62.5 % | +20.8 pp |
