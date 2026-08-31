@@ -190,3 +190,7 @@
 
 ## 2026-08-31 12:00 IST — final cut (v1.3) after the author's second review
 - Fixed: cap change held + annotated with narration matching the on-screen edit (18 months / USD 1.5M, counsel's edit); hard-case zoom reframed (nothing cropped); comparison beat re-filmed on the exact ladder cells the audio speaks (short CRR 1.1→54.7, long F1 60.3→75.3, long yield 41.7→62.5) with a scoped card + holdout footnote; baseline ring on the unspoken tile removed; full 52/52 spoken↔screen audit; audit also surfaced and fixed the hard-case clause wording never being shown. 281.0 s, all beats 1.000×, unchanged beats byte-identical. Release v1.3.
+
+## 2026-08-31 13:15 IST — gate-submission audit: SUBMIT-READY
+- Independent auditor (report `plans/harness/reports/20260831-073328-gate-submission.md`): all organiser deliverables PRESENT; full replay + review/validate commands re-executed clean; every number aligned across README, changelog, submission text, video narration + 17 extracted frames, v1.3 release notes and the live /api/evals; honesty guardrails all present.
+- Fixed its 3 minors + 3 nits (1b75f472): OG/site URL fallback → vercel.app; submission draft's failure mode + results + YouTube text updated to round 2; same-scope holdout delta (+28.6 pp); gold wording ("one per applicable rule"); stale header phrases removed. Record-only nit: the 01:25–01:44 workspace montage briefly shows the Brightline prepared example between the Corio picker and the Corio findings (video declared final by the author).
