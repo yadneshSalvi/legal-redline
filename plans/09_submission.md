@@ -86,8 +86,52 @@ lead in Claude Code) with briefs, reports and redacted traces. Live demo: https:
 https://github.com/yadneshSalvi/legal-redline/releases/download/v1.3/playbook-redliner.mp4.
 
 ## Video upload text (YouTube, unlisted)
-- **Title:** Playbook Redliner — agentic contract redlining with real Word tracked changes (micro1 Agentic Workflows Hackathon 2026)
-- **Description:** An agentic first-pass contract review for customer-side in-house counsel: playbook-driven, one drafter per rule with validated edit anchors, an independent verifier, precedent memory, a human accept/edit/reject gate, and real OOXML tracked changes + comments. Measured on 12 contracts against a fair single-prompt baseline (complete redlines 1.1% → 54.7%, 47.6% on held-out contracts; 40k-word documents F1 60.3% → 75.3%; applied tracked changes 41.7% → 62.5%). Repo: https://github.com/yadneshSalvi/legal-redline · Demo: https://playbook-redliner.vercel.app
+
+- **Thumbnail:** `plans/video/thumbnail/thumbnail.png` (1280×720)
+- **Title:** AI that redlines contracts in real Word tracked changes | Playbook Redliner
+
+- **Description:**
+
+In-house counsel spend 1 to 3 hours redlining every vendor contract. The deliverable is a Word file with tracked changes and margin comments that apply the company playbook. Chat assistants can list risks. They cannot write that file.
+
+Playbook Redliner is an agentic first-pass review. A planner maps 18 playbook rules onto the contract. One drafter agent per rule reads sections, resolves defined terms, and must anchor every edit to exact text before it can propose anything. An independent verifier checks each proposal element by element. A person accepts, edits, or rejects every finding. Only then does the system write real Word tracked changes and comments into a copy of the file, with every untouched paragraph verified byte for byte.
+
+Measured against a fair baseline (same model, same playbook, the whole contract in one prompt), on a pre-registered evaluation scored by an independent judge:
+• Complete redlines on short contracts: 1.1% → 54.7% (47.6% on held-out contracts)
+• 40,000-word documents: F1 60.3% → 75.3%, recall 45% → 69%
+• Applied tracked changes on long documents: 41.7% → 62.5%
+Every number reproduces from the repository at zero cost with one command.
+
+Chapters
+00:00 What we built
+00:08 The file counsel actually sends back
+00:19 The playbook: three positions per clause
+00:36 The fair baseline, and where it fails
+01:01 Playbook Redliner
+01:14 A real SEC-filed contract
+01:25 Planner and 18 drafter agents, live
+01:43 Independent verification
+02:05 Human review: accept, edit, reject
+02:27 Precedent memory
+02:35 Export: real tracked changes in Word
+02:48 The issues memo
+02:56 The hard case: a trap in the definitions
+03:15 Results
+03:45 Why we measure redlines, not just findings
+04:01 What actually moved the numbers
+04:21 Hot take
+04:31 Reproduce everything
+
+Links
+Live demo: https://playbook-redliner.vercel.app
+Code, evaluation, and agent trajectories: https://github.com/yadneshSalvi/legal-redline
+Reproduction guide: https://github.com/yadneshSalvi/legal-redline/blob/main/REPRODUCE.md
+Improvement changelog: https://github.com/yadneshSalvi/legal-redline/blob/main/IMPROVEMENT_CHANGELOG.md
+
+Built solo for the micro1 Frontier Engineering Challenge 2026 (Agentic Workflows Hackathon). The product runs Claude Opus 5; the independent evaluation judge is GPT-5.6. Built with coding agents (Claude Code, Codex CLI, Claude Agent SDK); their full trajectories are committed in the repository. Evaluation contracts from CUAD v1 by The Atticus Project, CC BY 4.0.
+
+Music: "Perspectives" by Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0
+https://creativecommons.org/licenses/by/4.0/
 
 ## Pre-submit checklist
 - [x] `pnpm eval --all && pnpm report` from a clean clone reproduces `evals/results/summary.md` (gate reviewer, clean clone of d6c52f1, no keys: byte-identical in 5 m 15 s)
