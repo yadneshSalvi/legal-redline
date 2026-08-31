@@ -6,7 +6,7 @@
 - **Title:** Playbook Redliner — agentic first-pass contract review with real Word tracked changes, verified and human-approved
 - **Repository:** https://github.com/yadneshSalvi/legal-redline (public) — README with intended user, bottleneck, value; labelled *Improvement Changelog*; main failure mode; hot take
 - **Live demo:** https://playbook-redliner.vercel.app
-- **Video (≤ 5 min):** https://github.com/yadneshSalvi/legal-redline/releases/download/v1.3/playbook-redliner.mp4 (GitHub release v1.3, final cut; add the unlisted YouTube link too once uploaded)
+- **Video (≤ 5 min):** https://youtu.be/jK1RhLEUgOg (YouTube; same file as GitHub release v1.3: https://github.com/yadneshSalvi/legal-redline/releases/download/v1.3/playbook-redliner.mp4)
 - **Reproduction guide:** `REPRODUCE.md` — clean-clone commands for solution, baseline and evaluation; `pnpm eval --all` reproduces every number at zero cost from the committed replay cache; Docker image for a clean environment
 - **Agent trajectories:** `trajectories/` — narrated per-run READMEs for the product agents (planner, drafters, verifier, assembler, memo, judge, human checkpoints) for all 12 contracts, plus every coding-agent session (Codex/GPT-5.6 Sol, Claude Opus 5 via Agent SDK, Claude Code/Fable 5 lead) with briefs, reports and redacted event traces
 - **Tools disclosure:** Claude Code (Claude Fable 5) as lead orchestrator; GPT-5.6 Sol via Codex CLI and Claude Opus 5 via Claude Agent SDK as builders/reviewers; product runs Claude Opus 5 (drafter/verifier/planner/memo) and GPT-5.6 Sol (independent judge, gold-label drafting); CUAD (CC-BY-4.0) evaluation data
@@ -87,6 +87,8 @@ https://github.com/yadneshSalvi/legal-redline/releases/download/v1.3/playbook-re
 
 ## Video upload text (YouTube, unlisted)
 
+- **Uploaded:** https://youtu.be/jK1RhLEUgOg
+
 - **Thumbnail:** `plans/video/thumbnail/thumbnail.png` (1280×720)
 - **Title:** AI that redlines contracts in real Word tracked changes | Playbook Redliner
 
@@ -138,7 +140,7 @@ https://creativecommons.org/licenses/by/4.0/
 - [x] README / CHANGELOG / REPRODUCE have no `{{` placeholders; numbers match `evals/results` (2026-08-30 07:10 IST)
 - [x] `trajectories/` committed (app + coding agents + human-reviewed run), secrets redacted (0 hits for key patterns, 0 home paths)
 - [x] Deployed `/evals` shows real data (browser-verified 07:2x IST); production sample run → decisions → apply → download verified live by the reviewer (ZPXbp77-_fEMQw); local replay of samples verified (z5SipZ1hUSJAIU, 18 findings, $0, apply ok)
-- [x] Video final cut (4:41): author's rough edges fixed (cap annotation + matching narration, no cropped zooms, results beat on the exact ladder cells) — GitHub release v1.3; link in README §10 and header (YouTube unlisted upload still optional, by the author)
+- [x] Video final cut (4:41): author's rough edges fixed (cap annotation + matching narration, no cropped zooms, results beat on the exact ladder cells) — GitHub release v1.3; uploaded to YouTube https://youtu.be/jK1RhLEUgOg — linked in README §10 and header
 - [x] Round-2 gate review (`plans/harness/reports/20260830-200900-gate-round2.md`): approve-with-fixes → 5 fixes landed and re-verified in a clean clone at 1176e8ff (verdict approve) (tiered --all, dashboard shipped config, dev-figure selection disclosure, failed pre-registered criterion + split mismatch stated, baseline format-neutral 20.0 %)
 - [x] Round-1 gate review: approve-with-fixes → all fixes landed (1–3, 5–8 re-verified in a clean clone at 6f79c83; fix 4 + keep-alive verified locally: sample replays in-app in 2 s with no keys)
 - [ ] Author spot-check of gold (`plans/06_gold_review.md`, ~15 min) + one live review session on production (optional; 4 recorded sessions already in `trajectories/human/` and a narrated one in `trajectories/app/i3-verifier/human-reviewed-msa/`)
