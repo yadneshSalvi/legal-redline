@@ -83,7 +83,7 @@ agent benchmark, record the same configuration twice.
 holds narrated trajectories of every product agent for all 12 contracts, the human review sessions, and every
 coding-agent session used to build the project (GPT-5.6 Sol via Codex, Claude Opus 5 via the Agent SDK, Claude Fable 5
 lead in Claude Code) with briefs, reports and redacted traces. Live demo: https://playbook-redliner.vercel.app. Video:
-https://github.com/yadneshSalvi/legal-redline/releases/download/v1.3/playbook-redliner.mp4.
+https://youtu.be/jK1RhLEUgOg (also archived as GitHub release v1.3).
 
 ## Video upload text (YouTube, unlisted)
 
