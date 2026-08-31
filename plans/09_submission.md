@@ -5,7 +5,7 @@
 ## Fields (HackerEarth "Submission Package")
 - **Title:** Playbook Redliner — agentic first-pass contract review with real Word tracked changes, verified and human-approved
 - **Repository:** https://github.com/yadneshSalvi/legal-redline (public) — README with intended user, bottleneck, value; labelled *Improvement Changelog*; main failure mode; hot take
-- **Live demo:** https://playbook-redliner.vercel.app (later https://playbook-redliner.yadneshsalvi.com)
+- **Live demo:** https://playbook-redliner.vercel.app
 - **Video (≤ 5 min):** https://github.com/yadneshSalvi/legal-redline/releases/download/v1.3/playbook-redliner.mp4 (GitHub release v1.3, final cut; add the unlisted YouTube link too once uploaded)
 - **Reproduction guide:** `REPRODUCE.md` — clean-clone commands for solution, baseline and evaluation; `pnpm eval --all` reproduces every number at zero cost from the committed replay cache; Docker image for a clean environment
 - **Agent trajectories:** `trajectories/` — narrated per-run READMEs for the product agents (planner, drafters, verifier, assembler, memo, judge, human checkpoints) for all 12 contracts, plus every coding-agent session (Codex/GPT-5.6 Sol, Claude Opus 5 via Agent SDK, Claude Code/Fable 5 lead) with briefs, reports and redacted event traces
