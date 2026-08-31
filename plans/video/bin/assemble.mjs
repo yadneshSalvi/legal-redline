@@ -6,22 +6,24 @@ import { fileURLToPath } from "node:url";
 
 const BIN_DIR = dirname(fileURLToPath(import.meta.url));
 const VIDEO_DIR = resolve(BIN_DIR, "..");
-const TIMELINE_PATH = resolve(VIDEO_DIR, "timeline.json");
-const MANIFEST_PATH = resolve(VIDEO_DIR, "narration/manifest.json");
 const RENDER_DIR = resolve(VIDEO_DIR, "renders");
+const LOG_DIR = resolve(VIDEO_DIR, "logs");
 const WORK_DIR = resolve(RENDER_DIR, `.assemble-${process.pid}`);
-const OUTPUT = resolve(RENDER_DIR, "playbook-redliner.mp4");
-const REPORT = resolve(RENDER_DIR, "playbook-redliner-1080p.md");
+const OUTPUT = resolve(RENDER_DIR, "playbook-redliner-candidate.mp4");
+const TIMELINE_PATH = resolve(VIDEO_DIR, "timeline.json");
+const MANIFEST_PATH = resolve(VIDEO_DIR, "narration", "manifest.json");
+const MUSIC = resolve(VIDEO_DIR, "audio", "Perspectives.mp3");
+const TIME_CARD = resolve(VIDEO_DIR, "cards", "time-taken.png");
 const FPS = 30;
 const FADE = 0.25;
 
-function run(command, args) {
-  const result = spawnSync(command, args, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+function run(command, args, options = {}) {
+  const result = spawnSync(command, args, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], ...options });
   if (result.status !== 0) {
-    const detail = (result.stderr || result.stdout || "unknown error").trim().split("\n").slice(-12).join("\n");
+    const detail = (result.stderr || result.stdout || "unknown error").trim().split("\n").slice(-16).join("\n");
     throw new Error(`${command} failed:\n${detail}`);
   }
-  return result.stdout;
+  return `${result.stdout ?? ""}${result.stderr ?? ""}`;
 }
 
 function probeDuration(path) {
@@ -30,49 +32,163 @@ function probeDuration(path) {
   ], { encoding: "utf8" }).trim());
 }
 
-function probeVideo(path) {
-  return execFileSync("ffprobe", [
-    "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=codec_type", "-of", "csv=p=0", path,
-  ], { encoding: "utf8" }).trim() === "video";
+function isImage(path) {
+  return [".png", ".jpg", ".jpeg", ".webp"].includes(extname(path).toLowerCase());
 }
 
-function normalizeVisual(item, index, duration) {
-  const source = resolve(VIDEO_DIR, item.src);
-  if (!existsSync(source)) throw new Error(`missing visual for ${item.id}: ${source}`);
-  const output = resolve(WORK_DIR, `segment-${String(index).padStart(2, "0")}.mp4`);
-  const playbackRate = Number(item.playbackRate ?? 1);
-  if (!(playbackRate > 0)) throw new Error(`${item.id} has an invalid playbackRate`);
-  const commonFilter = [
-    ...(playbackRate === 1 ? [] : [`setpts=(PTS-STARTPTS)/${playbackRate}`]),
-    "scale=1920:1080:force_original_aspect_ratio=increase",
-    "crop=1920:1080",
+function inputArgs(path, mediaStart = 0) {
+  if (isImage(path)) return ["-loop", "1", "-framerate", String(FPS), "-i", path];
+  return [...(mediaStart > 0 ? ["-ss", Number(mediaStart).toFixed(3)] : []), "-i", path];
+}
+
+function normaliseFilter(duration, width = 1920, height = 1080) {
+  return [
+    `scale=${width}:${height}:force_original_aspect_ratio=decrease:flags=lanczos`,
+    `pad=${width}:${height}:(ow-iw)/2:(oh-ih)/2:color=#FBFAF7`,
     `fps=${FPS}`,
     `tpad=stop_mode=clone:stop_duration=${duration.toFixed(3)}`,
     `trim=duration=${duration.toFixed(3)}`,
     "setpts=PTS-STARTPTS",
     "format=yuv420p",
   ].join(",");
-  const isImage = [".png", ".jpg", ".jpeg", ".webp"].includes(extname(source).toLowerCase());
+}
+
+function renderSingle(item, duration, output) {
+  const source = resolve(VIDEO_DIR, item.src);
+  if (!existsSync(source)) throw new Error(`missing visual for ${item.id}: ${source}`);
+  const width = item.highRes ? 3840 : 1920;
+  const height = item.highRes ? 2160 : 1080;
+  run("ffmpeg", [
+    "-hide_banner", "-loglevel", "error", "-y",
+    ...inputArgs(source, Number(item.mediaStart ?? 0)),
+    "-vf", normaliseFilter(duration, width, height), "-t", duration.toFixed(3), "-an",
+    "-c:v", "libx264", "-preset", "fast", "-crf", "17", "-pix_fmt", "yuv420p", output,
+  ]);
+}
+
+function renderStates(item, duration, output) {
+  const states = [{ at: 0, src: item.src }, ...item.states];
   const args = ["-hide_banner", "-loglevel", "error", "-y"];
-  if (isImage) args.push("-loop", "1", "-framerate", String(FPS), "-i", source);
-  else {
-    if (!probeVideo(source)) throw new Error(`${source} has no video stream`);
-    if (Number(item.mediaStart) > 0) args.push("-ss", Number(item.mediaStart).toFixed(3));
-    args.push("-i", source);
+  const filters = [];
+  states.forEach((state, index) => {
+    const source = resolve(VIDEO_DIR, state.src);
+    if (!existsSync(source)) throw new Error(`missing state for ${item.id}: ${source}`);
+    args.push(...inputArgs(source));
+    filters.push(`[${index}:v]${normaliseFilter(duration)}[s${index}]`);
+  });
+  let current = "s0";
+  for (let index = 1; index < states.length; index += 1) {
+    const next = `state${index}`;
+    filters.push(`[${current}][s${index}]xfade=transition=fade:duration=0.2:offset=${Number(states[index].at).toFixed(3)}[${next}]`);
+    current = next;
   }
   args.push(
-    "-vf", commonFilter, "-t", duration.toFixed(3), "-an",
-    "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p",
-    "-movflags", "+faststart", output,
+    "-filter_complex", filters.join(";"), "-map", `[${current}]`, "-t", duration.toFixed(3), "-an",
+    "-c:v", "libx264", "-preset", "fast", "-crf", "17", "-pix_fmt", "yuv420p", output,
   );
   run("ffmpeg", args);
+}
+
+function renderCuts(item, duration, output) {
+  const cuts = item.cuts;
+  const args = ["-hide_banner", "-loglevel", "error", "-y"];
+  const filters = [];
+  cuts.forEach((cut, index) => {
+    const source = resolve(VIDEO_DIR, cut.src);
+    if (!existsSync(source)) throw new Error(`missing cut for ${item.id}: ${source}`);
+    const cutDuration = (index + 1 < cuts.length ? Number(cuts[index + 1].at) : duration) - Number(cut.at);
+    if (!(cutDuration > 0)) throw new Error(`${item.id} has an invalid cut at ${cut.at}`);
+    args.push(...inputArgs(source, Number(cut.mediaStart ?? 0)));
+    filters.push(`[${index}:v]${normaliseFilter(cutDuration)}[c${index}]`);
+  });
+  filters.push(`${cuts.map((_, index) => `[c${index}]`).join("")}concat=n=${cuts.length}:v=1:a=0[cut]`);
+  args.push(
+    "-filter_complex", filters.join(";"), "-map", "[cut]", "-t", duration.toFixed(3), "-an",
+    "-c:v", "libx264", "-preset", "fast", "-crf", "17", "-pix_fmt", "yuv420p", output,
+  );
+  run("ffmpeg", args);
+}
+
+function poseExpression(moves, property, initial) {
+  function recurse(index, current) {
+    if (index >= moves.length) return Number(current).toFixed(6);
+    const move = moves[index];
+    const at = Number(move.at);
+    const end = at + Number(move.duration);
+    const target = Number(move[property]);
+    const progress = `((t-${at.toFixed(6)})/${Number(move.duration).toFixed(6)})`;
+    const eased = `((${progress})*(${progress})*(3-2*(${progress})))`;
+    const interpolated = `(${Number(current).toFixed(6)}+(${target.toFixed(6)}-${Number(current).toFixed(6)})*${eased})`;
+    return `if(lt(t,${at.toFixed(6)}),${Number(current).toFixed(6)},if(lt(t,${end.toFixed(6)}),${interpolated},${recurse(index + 1, target)}))`;
+  }
+  return recurse(0, initial);
+}
+
+function cameraGraph(item, duration, outputLabel) {
+  const moves = item.cameraMoves ?? [];
+  if (moves.length === 0) return `[0:v]scale=1920:1080:flags=lanczos,format=yuv420p[${outputLabel}]`;
+  const scale = poseExpression(moves, "scale", 1);
+  const x = poseExpression(moves, "x", 0.5);
+  const y = poseExpression(moves, "y", 0.5);
+  return [
+    `color=c=#FBFAF7:s=3840x2160:r=${FPS}:d=${duration.toFixed(3)}[canvas]`,
+    `[0:v]scale=w='3840*(${scale})':h='2160*(${scale})':eval=frame:flags=lanczos[zoomed]`,
+    `[canvas][zoomed]overlay=x='W/2-(${x})*w':y='H/2-(${y})*h':eval=frame:shortest=1[framed]`,
+    `[framed]scale=1920:1080:flags=lanczos,format=yuv420p[${outputLabel}]`,
+  ].join(";");
+}
+
+function renderTreatment(item, duration, raw, output) {
+  const at = Number(item.timeCardAt);
+  if (Number.isFinite(at)) {
+    if (!existsSync(TIME_CARD)) throw new Error(`missing time card: ${TIME_CARD}`);
+    run("ffmpeg", [
+      "-hide_banner", "-loglevel", "error", "-y", "-i", raw,
+      "-loop", "1", "-framerate", String(FPS), "-i", TIME_CARD,
+      "-filter_complex", `${cameraGraph(item, duration, "base")};[1:v]format=rgba,fade=t=in:st=${at.toFixed(3)}:d=0.2:alpha=1,setpts=PTS-STARTPTS[card];[base][card]overlay=x=W-w-60:y=H-h-60:enable='gte(t,${at.toFixed(3)})',fps=${FPS},trim=duration=${duration.toFixed(3)},setpts=PTS-STARTPTS[treated]`,
+      "-map", "[treated]", "-t", duration.toFixed(3), "-an",
+      "-c:v", "libx264", "-preset", "fast", "-crf", "17", "-pix_fmt", "yuv420p", output,
+    ]);
+    return;
+  }
+  run("ffmpeg", [
+    "-hide_banner", "-loglevel", "error", "-y", "-i", raw,
+    "-filter_complex", `${cameraGraph(item, duration, "camera")};[camera]fps=${FPS},trim=duration=${duration.toFixed(3)},setpts=PTS-STARTPTS[treated]`,
+    "-map", "[treated]", "-t", duration.toFixed(3), "-an",
+    "-c:v", "libx264", "-preset", "fast", "-crf", "17", "-pix_fmt", "yuv420p", output,
+  ]);
+}
+
+function renderSegment(item, index, duration) {
+  const raw = resolve(WORK_DIR, `raw-${String(index).padStart(2, "0")}.mp4`);
+  const output = resolve(WORK_DIR, `segment-${String(index).padStart(2, "0")}.mp4`);
+  if (item.states) renderStates(item, duration, raw);
+  else if (item.cuts) renderCuts(item, duration, raw);
+  else renderSingle(item, duration, raw);
+  renderTreatment(item, duration, raw, output);
+  rmSync(raw, { force: true });
   return output;
 }
 
-function timestamp(seconds) {
-  const minutes = Math.floor(seconds / 60);
-  const remainder = seconds - minutes * 60;
-  return `${String(minutes).padStart(2, "0")}:${remainder.toFixed(3).padStart(6, "0")}`;
+function concatWithFades(segments, durations, output) {
+  const args = ["-hide_banner", "-loglevel", "error", "-filter_complex_threads", "2", "-y"];
+  for (const segment of segments) args.push("-i", segment);
+  const filters = segments.map((_, index) => `[${index}:v]settb=AVTB,setpts=PTS-STARTPTS[v${index}]`);
+  let current = "v0";
+  let elapsed = durations[0];
+  for (let index = 1; index < segments.length; index += 1) {
+    const next = `xf${index}`;
+    filters.push(`[${current}][v${index}]xfade=transition=fade:duration=${FADE}:offset=${(elapsed - FADE).toFixed(3)}[${next}]`);
+    current = next;
+    elapsed += durations[index] - FADE;
+  }
+  args.push(
+    "-filter_complex", filters.join(";"), "-map", `[${current}]`, "-an",
+    "-c:v", "libx264", "-preset", "fast", "-crf", "17", "-pix_fmt", "yuv420p",
+    "-r", String(FPS), "-movflags", "+faststart", output,
+  );
+  run("ffmpeg", args);
+  return elapsed;
 }
 
 function itemDuration(item, narration) {
@@ -80,159 +196,177 @@ function itemDuration(item, narration) {
   if (!item.narration) return Number(item.hold);
   const beat = narration.get(item.narration);
   const rate = Number(item.narrationRate ?? 1);
-  const trim = Number(item.trim ?? 0);
-  if (!(trim >= 0) || trim >= beat.duration - 0.5) throw new Error(`${item.id} has an invalid trim`);
-  return beat.duration / rate - trim + 0.4;
+  return beat.duration / rate + 0.4 + Number(item.extraTail ?? 0);
 }
 
-function writeReport(items, starts, durations, total, nativeTotal) {
-  const rows = items.map((item, index) => {
-    const start = starts[index];
-    const end = start + durations[index];
-    const visual = item.playbackRate ? `${item.playbackRate}× from source ${Number(item.mediaStart ?? 0).toFixed(1)}s` :
-      Number(item.mediaStart) > 0 ? `source ${Number(item.mediaStart).toFixed(1)}s` : "native";
-    const timing = Number(item.duration) > 0 && item.narration ? `; fixed ${Number(item.duration).toFixed(1)} s` : "";
-    const treatment = `${visual}${timing}`;
-    const rate = item.narration ? `${Number(item.narrationRate ?? 1).toFixed(3)}×` : "—";
-    return `| ${index + 1} | ${item.id} | ${timestamp(start)} | ${timestamp(end)} | ${durations[index].toFixed(3)} s | ${rate} | ${item.src} | ${treatment} |`;
-  });
-  const adjusted = items
-    .filter((item) => Number(item.narrationRate ?? 1) > 1)
-    .map((item) => `${item.id} (${Number(item.narrationRate).toFixed(3)}×)`)
-    .join(", ");
-  const markdown = [
-    "# Playbook Redliner — 1080p render",
-    "",
-    `- Total duration: **${total.toFixed(3)} seconds** (${timestamp(total)})`,
-    `- Output: \`playbook-redliner.mp4\``,
-    `- Video: H.264, 1920×1080, ${FPS} fps, 4:2:0`,
-    "- Audio: AAC, 48 kHz, stereo, 192 kb/s target",
-    `- Visual transitions: ${Math.round(FADE * 1000)} ms cross-fades`,
-    "",
-    "| # | Beat | Start | End | Visual duration | Narration rate | Source | Treatment |",
-    "| ---: | --- | ---: | ---: | ---: | ---: | --- | --- |",
-    ...rows,
-    "",
-    "Beat end times include the 0.4-second narration tail; adjacent visuals overlap during the 250 ms cross-fade.",
-    "The findings-arrive and precedents source clips are unchanged and restored to their full narration-led durations; their narration and all other product-workflow narration play at 1.000×.",
-    `After the allowed 10-word problem cut, the fully native narration timeline is ${nativeTotal.toFixed(3)} seconds. To stay below five minutes, only the revised narration beats are adjusted: ${adjusted}.`,
-    "",
-  ].join("\n");
-  const tmp = `${REPORT}.tmp-${process.pid}`;
-  writeFileSync(tmp, markdown);
-  renameSync(tmp, REPORT);
-}
-
-function concatWithFades(segments, durations, output) {
-  const args = ["-hide_banner", "-loglevel", "error", "-y"];
-  for (const segment of segments) args.push("-i", segment);
-  const filters = segments.map((_, index) => `[${index}:v]settb=AVTB,setpts=PTS-STARTPTS[v${index}]`);
-  let current = "v0";
-  let elapsed = durations[0];
-  for (let index = 1; index < segments.length; index += 1) {
-    const next = `xf${index}`;
-    const offset = elapsed - FADE;
-    filters.push(`[${current}][v${index}]xfade=transition=fade:duration=${FADE}:offset=${offset.toFixed(3)}[${next}]`);
-    current = next;
-    elapsed += durations[index] - FADE;
-  }
-  args.push(
-    "-filter_complex", filters.join(";"), "-map", `[${current}]`, "-an",
-    "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p",
-    "-r", String(FPS), "-movflags", "+faststart", output,
-  );
-  run("ffmpeg", args);
-  return elapsed;
-}
-
-function muxNarration(visual, items, starts, narration, total, output) {
-  const args = ["-hide_banner", "-loglevel", "error", "-y", "-i", visual, "-f", "lavfi", "-t", total.toFixed(3), "-i", "anullsrc=r=48000:cl=stereo"];
+function renderNarration(items, starts, narration, total, output) {
+  const args = ["-hide_banner", "-loglevel", "error", "-y", "-f", "lavfi", "-t", total.toFixed(3), "-i", "anullsrc=r=48000:cl=stereo"];
   const voices = [];
-  for (let index = 0; index < items.length; index += 1) {
-    const item = items[index];
-    if (!item.narration) continue;
+  items.forEach((item, index) => {
+    if (!item.narration) return;
     const beat = narration.get(item.narration);
-    const path = resolve(VIDEO_DIR, "narration", beat.file);
-    args.push("-i", path);
-    voices.push({
-      input: args.filter((arg) => arg === "-i").length - 1,
-      beat,
-      delay: Math.round(starts[index] * 1000),
-      rate: Number(item.narrationRate ?? 1),
-      availableDuration: Math.max(0.5, itemDuration(item, narration) - 0.4),
-    });
-  }
-  const filters = ["[1:a]volume=0[bed]"];
-  const labels = ["bed"];
-  for (let index = 0; index < voices.length; index += 1) {
-    const voice = voices[index];
+    args.push("-i", resolve(VIDEO_DIR, "narration", beat.file));
+    voices.push({ input: voices.length + 1, beat, delay: Math.round(starts[index] * 1000), rate: Number(item.narrationRate ?? 1) });
+  });
+  const filters = ["[0:a]volume=0[quiet]"];
+  const labels = ["quiet"];
+  voices.forEach((voice, index) => {
     const label = `voice${index}`;
     const renderedDuration = voice.beat.duration / voice.rate;
-    if (renderedDuration > voice.availableDuration + 0.01) {
-      throw new Error(`${voice.beat.id} narration is ${renderedDuration.toFixed(3)}s at ${voice.rate.toFixed(3)}× but only ${voice.availableDuration.toFixed(3)}s is available`);
-    }
     const speed = voice.rate === 1 ? "" : `atempo=${voice.rate.toFixed(6)},`;
-    const fadeOut = Math.max(0, renderedDuration - 0.3);
-    filters.push(
-      `[${voice.input}:a]aformat=sample_rates=48000:channel_layouts=stereo,loudnorm=I=-16:TP=-1.5:LRA=7,${speed}afade=t=in:st=0:d=0.3,afade=t=out:st=${fadeOut.toFixed(3)}:d=0.3,adelay=${voice.delay}:all=1[${label}]`,
-    );
+    filters.push(`[${voice.input}:a]aformat=sample_rates=48000:channel_layouts=stereo,${speed}loudnorm=I=-16:TP=-1.5:LRA=7,afade=t=in:st=0:d=0.12,afade=t=out:st=${Math.max(0, renderedDuration - 0.18).toFixed(3)}:d=0.18,adelay=${voice.delay}:all=1[${label}]`);
     labels.push(label);
-  }
-  filters.push(`${labels.map((label) => `[${label}]`).join("")}amix=inputs=${labels.length}:normalize=0:dropout_transition=0,atrim=duration=${total.toFixed(3)},asetpts=N/SR/TB[aout]`);
-  args.push(
-    "-filter_complex", filters.join(";"), "-map", "0:v:0", "-map", "[aout]",
-    "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
-    "-movflags", "+faststart", "-shortest", output,
-  );
+  });
+  filters.push(`${labels.map((label) => `[${label}]`).join("")}amix=inputs=${labels.length}:normalize=0:dropout_transition=0,atrim=duration=${total.toFixed(3)},asetpts=N/SR/TB[out]`);
+  args.push("-filter_complex", filters.join(";"), "-map", "[out]", "-c:a", "pcm_s24le", output);
   run("ffmpeg", args);
+}
+
+function renderMusic(narrationPath, total, output) {
+  const fadeOut = Math.max(0, total - 7);
+  run("ffmpeg", [
+    "-hide_banner", "-loglevel", "error", "-y", "-i", MUSIC, "-i", narrationPath,
+    "-filter_complex",
+    `[0:a]atrim=duration=${total.toFixed(3)},asetpts=PTS-STARTPTS,aformat=sample_rates=48000:channel_layouts=stereo,loudnorm=I=-28:TP=-8:LRA=7,afade=t=in:st=0:d=3,afade=t=out:st=${fadeOut.toFixed(3)}:d=7[music];[music][1:a]sidechaincompress=threshold=0.035:ratio=4:attack=40:release=350[ducked]`,
+    "-map", "[ducked]", "-c:a", "pcm_s24le", output,
+  ]);
+}
+
+function sfxEvents(items, starts) {
+  const events = [];
+  items.forEach((item, index) => {
+    let priorScale = 1;
+    for (const move of item.cameraMoves ?? []) {
+      if (Number(move.scale) > priorScale + 0.01) events.push({ kind: "whoosh", at: starts[index] + Number(move.at) });
+      priorScale = Number(move.scale);
+    }
+    if (item.id === "keyboard-review") {
+      for (const at of [5.04, 6.48, 7.84]) events.push({ kind: "tick", at: starts[index] + at });
+    }
+    if (Number(item.chimeAt) >= 0) events.push({ kind: "chime", at: starts[index] + Number(item.chimeAt) });
+  });
+  return events.sort((a, b) => a.at - b.at);
+}
+
+function renderSfx(events, total, output) {
+  const files = {
+    whoosh: resolve(VIDEO_DIR, "audio", "sfx", "soft-whoosh.wav"),
+    tick: resolve(VIDEO_DIR, "audio", "sfx", "decision-tick.wav"),
+    chime: resolve(VIDEO_DIR, "audio", "sfx", "export-chime.wav"),
+  };
+  const args = ["-hide_banner", "-loglevel", "error", "-y", "-f", "lavfi", "-t", total.toFixed(3), "-i", "anullsrc=r=48000:cl=stereo"];
+  const filters = ["[0:a]volume=0[quiet]"];
+  const labels = ["quiet"];
+  events.forEach((event, index) => {
+    const path = files[event.kind];
+    if (!existsSync(path)) throw new Error(`missing SFX: ${path}`);
+    args.push("-i", path);
+    const label = `sfx${index}`;
+    filters.push(`[${index + 1}:a]aformat=sample_rates=48000:channel_layouts=stereo,volume=-24dB,adelay=${Math.round(event.at * 1000)}:all=1[${label}]`);
+    labels.push(label);
+  });
+  filters.push(`${labels.map((label) => `[${label}]`).join("")}amix=inputs=${labels.length}:normalize=0:dropout_transition=0,atrim=duration=${total.toFixed(3)}[out]`);
+  args.push("-filter_complex", filters.join(";"), "-map", "[out]", "-c:a", "pcm_s24le", output);
+  run("ffmpeg", args);
+}
+
+function mux(visual, narration, music, sfx, total, output) {
+  run("ffmpeg", [
+    "-hide_banner", "-loglevel", "error", "-y", "-i", visual, "-i", narration, "-i", music, "-i", sfx,
+    "-filter_complex", `[1:a][2:a][3:a]amix=inputs=3:normalize=0:dropout_transition=0,alimiter=limit=0.93,atrim=duration=${total.toFixed(3)}[mix]`,
+    "-map", "0:v:0", "-map", "[mix]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+    "-movflags", "+faststart", "-shortest", output,
+  ]);
+}
+
+function integratedLufs(path) {
+  const output = run("ffmpeg", ["-hide_banner", "-nostats", "-i", path, "-filter_complex", "ebur128=framelog=verbose", "-f", "null", "-"]);
+  const matches = [...output.matchAll(/\bI:\s*(-?\d+(?:\.\d+)?) LUFS/g)];
+  return matches.length ? Number(matches.at(-1)[1]) : null;
+}
+
+function atomicJson(path, value) {
+  const tmp = `${path}.tmp-${process.pid}`;
+  writeFileSync(tmp, `${JSON.stringify(value, null, 2)}\n`);
+  renameSync(tmp, path);
 }
 
 function main() {
   const items = JSON.parse(readFileSync(TIMELINE_PATH, "utf8"));
   const manifest = JSON.parse(readFileSync(MANIFEST_PATH, "utf8"));
   const narration = new Map(manifest.beats.map((beat) => [beat.id, beat]));
-  if (!Array.isArray(items) || items.length < 2) throw new Error("timeline.json must contain at least two beats");
-  for (const item of items) {
-    if (!item.id || !["clip", "card", "still"].includes(item.kind) || !item.src) throw new Error(`invalid timeline item: ${JSON.stringify(item)}`);
-    if (item.narration && !narration.has(item.narration)) throw new Error(`missing narration manifest entry: ${item.narration}`);
-    if (!item.narration && !(Number(item.hold) > 0)) throw new Error(`${item.id} needs narration or a positive hold`);
-    if (Number(item.duration) > 0 && Number(item.duration) <= 0.8) throw new Error(`${item.id} duration is too short`);
+  if (!existsSync(MUSIC)) throw new Error(`missing music: ${MUSIC}`);
+  items.forEach((item) => {
+    if (!item.id || !item.src) throw new Error(`invalid timeline item: ${JSON.stringify(item)}`);
+    if (item.narration && !narration.has(item.narration)) throw new Error(`missing narration: ${item.narration}`);
     const rate = Number(item.narrationRate ?? 1);
-    if (!(rate >= 1 && rate <= 1.1)) throw new Error(`${item.id} has an invalid narrationRate`);
-    if (!item.narration && item.narrationRate !== undefined) throw new Error(`${item.id} has narrationRate without narration`);
-  }
+    if (item.narration && (!(rate >= 1) || rate > 1.05)) throw new Error(`${item.id} narration rate ${rate} exceeds 1.05×`);
+    const moves = item.cameraMoves ?? [];
+    moves.forEach((move, index) => {
+      if (!(Number(move.duration) > 0)) throw new Error(`${item.id} has an invalid camera move`);
+      if (index && Number(move.at) - Number(moves[index - 1].at) < 3) throw new Error(`${item.id} camera moves are less than 3 seconds apart`);
+    });
+  });
 
   mkdirSync(RENDER_DIR, { recursive: true });
+  mkdirSync(LOG_DIR, { recursive: true });
   mkdirSync(WORK_DIR, { recursive: true });
   const durations = items.map((item) => itemDuration(item, narration));
-  const nativeDurations = items.map((item) => itemDuration({ ...item, narrationRate: 1 }, narration));
-  const nativeTotal = nativeDurations.reduce((sum, duration) => sum + duration, 0) - FADE * (items.length - 1);
   const starts = [];
   let cursor = 0;
-  for (let index = 0; index < items.length; index += 1) {
+  durations.forEach((duration, index) => {
     starts.push(cursor);
-    cursor += durations[index] - (index < items.length - 1 ? FADE : 0);
-  }
-  if (cursor > 300) throw new Error(`planned duration is ${cursor.toFixed(2)}s; maximum is 300s`);
+    cursor += duration - (index + 1 < durations.length ? FADE : 0);
+  });
+  if (cursor > 300) throw new Error(`planned duration ${cursor.toFixed(3)} exceeds 300 seconds`);
 
   try {
     const segments = items.map((item, index) => {
-      process.stdout.write(`normalising ${item.id} (${durations[index].toFixed(2)}s)\n`);
-      return normalizeVisual(item, index, durations[index]);
+      process.stdout.write(`rendering ${item.id} (${durations[index].toFixed(3)}s)\n`);
+      return renderSegment(item, index, durations[index]);
     });
     const visual = resolve(WORK_DIR, "visual.mp4");
-    const calculated = concatWithFades(segments, durations, visual);
-    const tmpOutput = resolve(RENDER_DIR, `playbook-redliner.tmp-${process.pid}.mp4`);
-    muxNarration(visual, items, starts, narration, calculated, tmpOutput);
-    const finalDuration = probeDuration(tmpOutput);
-    if (finalDuration > 300) {
-      rmSync(tmpOutput, { force: true });
-      throw new Error(`rendered duration is ${finalDuration.toFixed(2)}s; maximum is 300s`);
-    }
+    const total = concatWithFades(segments, durations, visual);
+    const narrationStem = resolve(WORK_DIR, "narration.wav");
+    const musicStem = resolve(WORK_DIR, "music-ducked.wav");
+    const sfxStem = resolve(WORK_DIR, "sfx.wav");
+    renderNarration(items, starts, narration, total, narrationStem);
+    renderMusic(narrationStem, total, musicStem);
+    const events = sfxEvents(items, starts);
+    renderSfx(events, total, sfxStem);
+    const tmpOutput = resolve(RENDER_DIR, `playbook-redliner-candidate.tmp-${process.pid}.mp4`);
+    mux(visual, narrationStem, musicStem, sfxStem, total, tmpOutput);
+    const actualDuration = probeDuration(tmpOutput);
+    if (actualDuration > 300) throw new Error(`candidate duration ${actualDuration.toFixed(3)} exceeds 300 seconds`);
     renameSync(tmpOutput, OUTPUT);
-    writeReport(items, starts, durations, finalDuration, nativeTotal);
-    process.stdout.write(`rendered ${OUTPUT}\n`);
-    process.stdout.write(`total duration ${finalDuration.toFixed(3)}s\n`);
+
+    const report = {
+      generatedAt: new Date().toISOString(),
+      output: "renders/playbook-redliner-candidate.mp4",
+      duration: actualDuration,
+      fps: FPS,
+      transition: FADE,
+      loudness: {
+        narrationLufs: integratedLufs(narrationStem),
+        duckedMusicLufs: integratedLufs(musicStem),
+        sfxLufs: integratedLufs(sfxStem),
+        finalMixLufs: integratedLufs(OUTPUT),
+      },
+      sfxEvents: events,
+      beats: items.map((item, index) => ({
+        id: item.id,
+        narration: item.narration ?? null,
+        narrationRate: item.narration ? Number(item.narrationRate ?? 1) : null,
+        start: starts[index],
+        duration: durations[index],
+        end: starts[index] + durations[index],
+        source: item.src,
+        cameraMoves: (item.cameraMoves ?? []).map((move) => ({ ...move, globalAt: starts[index] + Number(move.at) })),
+      })),
+    };
+    atomicJson(resolve(LOG_DIR, "assembly.json"), report);
+    process.stdout.write(`rendered candidate ${OUTPUT}\n`);
+    process.stdout.write(`total duration ${actualDuration.toFixed(3)}s\n`);
   } finally {
     rmSync(WORK_DIR, { recursive: true, force: true });
   }

@@ -33,7 +33,7 @@ if [[ ! -f "$PDF" ]]; then
   exit 1
 fi
 
-pdftoppm -r 150 -png "$PDF" "$WORK/pages/page" >/dev/null 2>&1
+pdftoppm -r 300 -png "$PDF" "$WORK/pages/page" >/dev/null 2>&1
 pdftoppm -r 54 "$PDF" "$WORK/score/page" >/dev/null 2>&1
 
 local_choice=$(node "$BIN_DIR/pick-redline-page.mjs" "$WORK"/score/page-*.ppm)
@@ -65,7 +65,7 @@ mv "$still_tmp" "$OUT_DIR/redlined-page.png"
 clip_tmp="$CLIP_DIR/word-output.tmp-$$.mp4"
 ffmpeg -hide_banner -loglevel error -y \
   -loop 1 -i "$OUT_DIR/redlined-page.png" \
-  -vf "scale=-2:980,pad=1920:1080:(ow-iw)/2:(oh-ih)/2:color=0xFBFAF7,zoompan=z='min(zoom+0.00028,1.10)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)-12*(on/360)':d=360:s=1920x1080:fps=30,format=yuv420p" \
+  -vf "scale=-2:980:flags=lanczos,pad=1920:1080:(ow-iw)/2:(oh-ih)/2:color=0xFBFAF7,fps=30,format=yuv420p" \
   -frames:v 360 -an -c:v libx264 -preset medium -crf 17 -movflags +faststart "$clip_tmp"
 mv "$clip_tmp" "$CLIP_DIR/word-output.mp4"
 

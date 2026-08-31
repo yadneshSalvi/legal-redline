@@ -1,21 +1,156 @@
 [
-  { "id": "cold-open-title", "kind": "card", "src": "cards/cold-open.png", "hold": 3.6 },
-  { "id": "cold-open", "kind": "still", "src": "clips/word-output.mp4", "narration": "cold-open" },
-  { "id": "problem", "kind": "card", "src": "cards/problem.png", "narration": "problem", "narrationRate": 1.052 },
-  { "id": "baseline", "kind": "card", "src": "cards/baseline.png", "narration": "baseline" },
-  { "id": "landing", "kind": "clip", "src": "clips/workspace-run.mp4", "mediaStart": 0, "narration": "landing" },
-  { "id": "pick-sample", "kind": "clip", "src": "clips/workspace-run.mp4", "mediaStart": 4, "narration": "pick-sample" },
-  { "id": "workspace-run", "kind": "clip", "src": "clips/workspace-run.mp4", "mediaStart": 42, "narration": "workspace-run" },
-  { "id": "findings-arrive", "kind": "clip", "src": "clips/workspace-run.mp4", "mediaStart": 78, "playbackRate": 2, "narration": "findings-arrive" },
-  { "id": "keyboard-review", "kind": "clip", "src": "clips/keyboard-review.mp4", "narration": "keyboard-review" },
-  { "id": "precedents", "kind": "clip", "src": "clips/precedents.mp4", "narration": "precedents" },
-  { "id": "export-dialog", "kind": "clip", "src": "clips/export-dialog.mp4", "mediaStart": 4, "playbackRate": 2, "narration": "export-dialog" },
-  { "id": "memo-drawer", "kind": "clip", "src": "clips/memo-drawer.mp4", "mediaStart": 7.5, "narration": "memo-drawer" },
-  { "id": "hard-case", "kind": "clip", "src": "clips/trajectory.mp4", "narration": "hard-case" },
-  { "id": "comparison-live", "kind": "clip", "src": "clips/evals-dashboard.mp4", "narration": "comparison", "narrationRate": 1.052 },
-  { "id": "comparison-card", "kind": "card", "src": "cards/comparison.png", "hold": 5.0 },
-  { "id": "round2-why", "kind": "card", "src": "cards/round2-why.png", "narration": "round2-why", "narrationRate": 1.052 },
-  { "id": "changelog", "kind": "card", "src": "cards/changelog.png", "narration": "changelog", "narrationRate": 1.052 },
+  {
+    "id": "opening",
+    "kind": "card",
+    "src": "cards/opening-blank.png",
+    "narration": "opening",
+    "states": [
+      { "at": 0.16, "src": "cards/opening-title.png" },
+      { "at": 3.2, "src": "cards/opening.png" }
+    ]
+  },
+  {
+    "id": "cold-open",
+    "kind": "still",
+    "src": "word/redlined-page.png",
+    "highRes": true,
+    "narration": "cold-open",
+    "cameraMoves": [
+      { "at": 3.92, "duration": 1, "scale": 1.72, "x": 0.5, "y": 0.78, "label": "redlined paragraph" }
+    ],
+    "timeCardAt": 9.04
+  },
+  {
+    "id": "problem",
+    "kind": "card",
+    "src": "cards/problem-0.png",
+    "narration": "problem",
+    "states": [
+      { "at": 4.8, "src": "cards/problem-preferred.png" },
+      { "at": 5.76, "src": "cards/problem-fallback.png" },
+      { "at": 6.64, "src": "cards/problem-walkaway.png" },
+      { "at": 11.05, "src": "cards/problem-definitions.png" },
+      { "at": 13.69, "src": "cards/problem.png" }
+    ]
+  },
+  {
+    "id": "baseline",
+    "kind": "card",
+    "src": "cards/baseline.png",
+    "narration": "baseline",
+    "states": [
+      { "at": 11.76, "src": "cards/baseline-tracked.png" },
+      { "at": 12.78, "src": "cards/baseline.png" },
+      { "at": 13.2, "src": "cards/baseline-complete.png" },
+      { "at": 16.8, "src": "cards/baseline.png" },
+      { "at": 21.115, "src": "cards/baseline-f1.png" },
+      { "at": 22.75, "src": "cards/baseline.png" },
+      { "at": 22.955, "src": "cards/baseline-word.png" }
+    ]
+  },
+  { "id": "landing", "kind": "clip", "src": "clips/landing.mp4", "narration": "landing" },
+  {
+    "id": "pick-sample",
+    "kind": "clip",
+    "src": "clips/workspace-run.mp4",
+    "narration": "pick-sample",
+    "cameraMoves": [
+      { "at": 9.44, "duration": 1, "scale": 1.7, "x": 0.84, "y": 0.18, "label": "CORIO row" }
+    ]
+  },
+  {
+    "id": "workspace-run",
+    "kind": "clip",
+    "src": "clips/workspace-ingest.mp4",
+    "narration": "workspace-run",
+    "extraTail": 1,
+    "cuts": [
+      { "at": 0, "src": "clips/workspace-ingest.mp4", "mediaStart": 11.7 },
+      { "at": 13.07, "src": "clips/workspace-run.mp4", "mediaStart": 20 }
+    ],
+    "cameraMoves": [
+      { "at": 7.52, "duration": 1, "scale": 1.56, "x": 0.86, "y": 0.24, "label": "Working panel" },
+      { "at": 13.07, "duration": 1, "scale": 1, "x": 0.5, "y": 0.5, "label": "full review board" },
+      { "at": 16.35, "duration": 1, "scale": 1.62, "x": 0.86, "y": 0.28, "label": "running drafter chips" }
+    ]
+  },
+  {
+    "id": "findings-arrive",
+    "kind": "clip",
+    "src": "clips/workspace-run.mp4",
+    "mediaStart": 18,
+    "narration": "findings-arrive",
+    "cameraMoves": [
+      { "at": 11.76, "duration": 1, "scale": 1.58, "x": 0.86, "y": 0.31, "label": "drafter chip line" },
+      { "at": 18.85, "duration": 1, "scale": 1.58, "x": 0.86, "y": 0.68, "label": "findings pane" }
+    ]
+  },
+  {
+    "id": "keyboard-review",
+    "kind": "clip",
+    "src": "clips/keyboard-review.mp4",
+    "narration": "keyboard-review",
+    "cameraMoves": [
+      { "at": 10.14, "duration": 1, "scale": 1.62, "x": 0.86, "y": 0.43, "label": "LOL-CAP finding" }
+    ]
+  },
+  {
+    "id": "precedents",
+    "kind": "clip",
+    "src": "clips/precedents.mp4",
+    "narration": "precedents",
+    "cameraMoves": [
+      { "at": 2.08, "duration": 1, "scale": 1.48, "x": 0.32, "y": 0.34, "label": "precedent card" },
+      { "at": 6.08, "duration": 1, "scale": 1, "x": 0.5, "y": 0.5, "label": "full precedent bank" }
+    ]
+  },
+  {
+    "id": "export-dialog",
+    "kind": "clip",
+    "src": "clips/export-dialog.mp4",
+    "mediaStart": 20.5,
+    "narration": "export-dialog",
+    "cameraMoves": [
+      { "at": 3.52, "duration": 1, "scale": 1.62, "x": 0.86, "y": 0.17, "label": "export success banner" },
+      { "at": 8.52, "duration": 1, "scale": 1, "x": 0.5, "y": 0.5, "label": "verified document" }
+    ],
+    "chimeAt": 3.52
+  },
+  {
+    "id": "memo-drawer",
+    "kind": "clip",
+    "src": "clips/memo-drawer.mp4",
+    "mediaStart": 9.2,
+    "narration": "memo-drawer",
+    "cameraMoves": [
+      { "at": 2.88, "duration": 1, "scale": 1.48, "x": 0.84, "y": 0.36, "label": "memo walk-away section" },
+      { "at": 6.88, "duration": 1, "scale": 1, "x": 0.5, "y": 0.5, "label": "full memo drawer" }
+    ]
+  },
+  {
+    "id": "hard-case",
+    "kind": "clip",
+    "src": "clips/trajectory.mp4",
+    "narration": "hard-case",
+    "cameraMoves": [
+      { "at": 12.366, "duration": 1, "scale": 1.65, "x": 0.48, "y": 0.31, "label": "get_definition and search rows" }
+    ]
+  },
+  {
+    "id": "comparison-live",
+    "kind": "clip",
+    "src": "clips/evals-dashboard.mp4",
+    "narration": "comparison",
+    "cameraMoves": [
+      { "at": 4.24, "duration": 1, "scale": 1.5, "x": 0.17, "y": 0.2, "label": "complete redlines card" },
+      { "at": 11.52, "duration": 1, "scale": 1.5, "x": 0.38, "y": 0.2, "label": "long-document F1 card" },
+      { "at": 15.775, "duration": 1, "scale": 1.5, "x": 0.61, "y": 0.2, "label": "applied tracked changes card" },
+      { "at": 21, "duration": 1, "scale": 1, "x": 0.5, "y": 0.5, "label": "full metrics table" }
+    ]
+  },
+  { "id": "comparison-card", "kind": "card", "src": "cards/comparison.png", "hold": 5 },
+  { "id": "round2-why", "kind": "card", "src": "cards/round2-why.png", "narration": "round2-why" },
+  { "id": "changelog", "kind": "card", "src": "cards/changelog.png", "narration": "changelog" },
   { "id": "hot-take", "kind": "card", "src": "cards/hot-take.png", "narration": "hot-take" },
   { "id": "closing", "kind": "card", "src": "cards/closing.png", "narration": "closing" }
 ]

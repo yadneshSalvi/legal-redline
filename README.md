@@ -8,7 +8,7 @@
 > tracked change into the document.
 
 Entry for the **micro1 Frontier Engineering Challenge 2026 (Agentic Workflows Hackathon)**.
-Live demo: **<https://playbook-redliner.vercel.app>** · Video: **[5 min, 1080p](https://github.com/yadneshSalvi/legal-redline/releases/download/v1.1/playbook-redliner.mp4)** (see §10) ·
+Live demo: **<https://playbook-redliner.vercel.app>** · Video: **[4 min 37 s, 1080p](https://github.com/yadneshSalvi/legal-redline/releases/download/v1.2/playbook-redliner.mp4)** (see §10) ·
 Reproduction: [`REPRODUCE.md`](REPRODUCE.md) · Changelog with evidence: [`IMPROVEMENT_CHANGELOG.md`](IMPROVEMENT_CHANGELOG.md) ·
 Trajectories: [`trajectories/`](trajectories/) · Full results: [`docs/results.md`](docs/results.md)
 
@@ -168,7 +168,8 @@ the playbook: original, MIT. No private or personal data is used anywhere.
 
 ## 10. Video
 
-5 minutes, 1080p: one genuine end-to-end run on a CUAD hosting agreement, keyboard review with real tracked changes, export,
-the hard case's trajectory, and the round-2 evaluation ladder — **[playbook-redliner.mp4](https://github.com/yadneshSalvi/legal-redline/releases/download/v1.1/playbook-redliner.mp4)** (GitHub release
-[`v1.1`](https://github.com/yadneshSalvi/legal-redline/releases/tag/v1.1), 52 MB, H.264). The round-1 cut is release `v1.0`. Script and production pipeline:
-[`plans/07_video.md`](plans/07_video.md), [`plans/video/`](plans/video/).
+4 minutes 37 seconds, 1080p, every on-screen event timed to word-level Deepgram timestamps: one genuine end-to-end run on a
+CUAD hosting agreement, keyboard review with real tracked changes, export, the hard case's trajectory, and the round-2
+evaluation ladder — **[playbook-redliner.mp4](https://github.com/yadneshSalvi/legal-redline/releases/download/v1.2/playbook-redliner.mp4)** (GitHub release [`v1.2`](https://github.com/yadneshSalvi/legal-redline/releases/tag/v1.2), 55 MB, H.264). Earlier cuts: `v1.1`
+(round-2 first cut), `v1.0` (round-1). Music: "Perspectives" by Kevin MacLeod (incompetech.com), CC BY 4.0. Script and
+production pipeline: [`plans/07_video.md`](plans/07_video.md), [`plans/video/`](plans/video/).

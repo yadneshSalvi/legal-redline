@@ -1,40 +1,63 @@
 # Playbook Redliner solution video
 
-This directory is a reproducible, music-free production pipeline for the five-minute solution video. It uses Gemini TTS, a genuine locally recorded agent run, token-faithful HTML title cards, the exported redlined Word output, and ffmpeg assembly.
+This directory is the reproducible production pipeline for the 4:36.978 director's cut. It uses Gemini TTS, per-beat Deepgram word timings, a real local CORIO review, token-faithful HTML cards, a 2× LibreOffice Word-page render, eased 2× camera crops, and FFmpeg assembly.
+
+The accepted master is `renders/playbook-redliner.mp4`. The prior cut is preserved byte-for-byte as `renders/playbook-redliner-v1.1.mp4`; `renders/playbook-redliner-candidate.mp4` is the accepted pre-promotion candidate.
 
 ## Regenerate
 
-Run from this directory:
+Run from the repository root:
 
 ```sh
-cd plans/video
-node bin/tts.mjs
-PLAYBOOK_URL=http://localhost:3110 zsh bin/record.sh all
-node bin/cards.mjs
-zsh bin/word-still.sh /absolute/path/to/data/runs/<run-id>/output.docx
-node bin/assemble.mjs
+node plans/video/bin/tts.mjs
+node plans/video/bin/word-timings.mjs
+node plans/video/bin/cards.mjs
+node plans/video/bin/sfx.mjs
+zsh plans/video/bin/word-still.sh /absolute/path/to/output.docx
+node plans/video/bin/assemble.mjs
+node plans/video/bin/verify-word-sync.mjs
+node plans/video/bin/verify-camera.mjs
 ```
 
-The recorder defaults to `https://playbook-redliner.vercel.app`. To record a local build, first confirm port 3110 is free, start `pnpm dev -p 3110` yourself, then run:
+`word-timings.mjs` reads `DEEPGRAM_API_KEY` from `.env`, sends each beat WAV to Nova-2 with punctuation and smart formatting disabled, and atomically writes `word-timings.json`. It never prints the key.
+
+`assemble.mjs` writes only `renders/playbook-redliner-candidate.mp4`. After the candidate passes full decode, word-sync, camera, duration, stream, frame-review, and repository checks, promote it atomically:
 
 ```sh
-PLAYBOOK_URL=http://localhost:3110 zsh bin/record.sh all
+cp plans/video/renders/playbook-redliner-candidate.mp4 plans/video/renders/playbook-redliner.mp4.tmp
+mv plans/video/renders/playbook-redliner.mp4.tmp plans/video/renders/playbook-redliner.mp4
 ```
 
-The final file is `renders/playbook-redliner.mp4`. Intermediate UI captures are in `clips/`, generated cards in `cards/`, Word pages in `word/`, and accessibility snapshots plus recorder logs in `logs/`.
+## Live recording
 
-## Final numbers and run data
+Port 3110 is reserved for this pipeline. Start the local app with the live LLM mode and then record from the sample picker:
 
-The cards and narration use the committed Round 2 evaluation values. On the short tier, complete redlines rise from 1.1% for `b1-prompt` to 54.7% for shipped `final-v4`. On the long tier, issue-detection F1 rises from 60.3% to 75.3%, and applied tracked-change yield from 41.7% to 62.5%. The Round 2 rationale retains the round-1 short-tier context: issue-detection F1 moved from 91.5% to 94.8%.
+```sh
+REDLINER_LLM_MODE=live pnpm dev -p 3110
+PLAYBOOK_URL=http://localhost:3110 zsh plans/video/bin/record.sh live-run cuad-corio-hosting
+```
 
-The final UI capture follows local CORIO run `NVDjaRym9fKYVj` from sample selection through the changing planner/worker board and first verified findings. The findings-arrive portion uses `setpts=(PTS-STARTPTS)/2` in `bin/assemble.mjs`. Findings-arrive and precedents keep their full narration-led screen time and their narration plays at 1.000×; their source clips stay byte-identical. The export interaction is compressed to 2× so its button, confirmation, generation wait, and success link fit one narrated beat. Keyboard decisions, precedent lookup, export success, and the memo are all from the completed same run. `logs/live-run.json` records the run evidence and clip offsets.
+Director's-cut footage uses CORIO run `iG38nX2R17TCLq`: 18 findings, $3.95001625, 306,306 ms. The picker and all worker/finding footage come from that run. A short prepared-running insert proves the fixed intermediate state the resumed live capture could not revisit: Ingest is green with `50 paragraphs · 11 sections · 6 definitions` while Planner is active. The insert is capture-only and does not replace any live worker or finding result.
 
-The evaluation capture opens the real local dashboard at `/evals?tier=long`, scrolls the configuration ladder, and then switches to the short tier. After shortening `problem` by the allowed ten words, a fully native narration timeline is 304.727 seconds. Only the four revised narrations — `problem`, `comparison`, `round2-why`, and `changelog` — play at 1.052×; every product-workflow narration remains at 1.000×. The assembled cut is 299.910 seconds.
+An earlier recorder attempt submitted run `qNNahgVMqCvyWn` before a shell variable error stopped capture. It completed for $4.064898 but none of its footage is used. `logs/live-run.json` contains the selected run evidence; `clips/workspace-run-v1.1.mp4` preserves the earlier workspace recording.
 
-The hard-case trajectory is genuine record-mode run `JxR5VovErXWC5F`. Its LOL-CAP worker visibly resolves `get_definition("Fees")` to the Implementation Fee, then follows that term with `search("Implementation Fee")` and `read_section("Definitions")`. Three genuine attempts produced that semantically equivalent tool path rather than a second `get_definition("Implementation Fee")` call; the capture preserves the emitted trace without fabrication. `logs/hardcase-run.json` records the evidence.
+## Picture and timing
 
-Pass a different redlined document to `zsh bin/word-still.sh /absolute/path/to/output.docx`. The script renders every page, selects the page with the most red/blue tracked-change pixels, and builds a slow twelve-second Ken Burns clip. Its default is `data/runs/PFLRALt3w26sfg/output.docx`.
+All 18 narration beats play at 1.000×. Visuals receive a 0.4-second tail, except the workspace beat's extra second for the final chip hold, and adjacent beats use 250 ms cross-fades.
 
-LibreOffice does not display pending Word revisions in its headless PDF export. For the still only, the script makes a temporary render copy that exposes `w:ins`/`w:del` content with blue underline/red strike styling; it never changes the source DOCX.
+Camera moves are the only picture movement added in post. Each is a one-second cubic ease on a fixed 3840×2160 canvas, followed by a hold. `verify-camera.mjs` extracts and pixel-diffs two consecutive 30 fps frames at every move midpoint, and independently checks that scale and focal-point deltas remain monotonic. Evidence is in `logs/camera-verification.json` and `stills/camera-diffs/`.
 
-`assemble.mjs` gives every narrated visual a 0.4-second tail, uses 250 ms visual cross-fades, normalizes each narration beat to −16 LUFS with 300 ms fades, and fails if the result exceeds five minutes.
+The cold-open page is rendered at 300 dpi and remains static until “Tracked changes.” Its time card starts on “one” in “one to three hours.” `verify-word-sync.mjs` checks eight named events within 20 ms against `word-timings.json`; the measured maximum was 5 ms.
+
+## Audio sources and licences
+
+- `audio/Perspectives.mp3` — “Perspectives” by Kevin MacLeod, downloaded from [incompetech](https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1300027), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Music by Kevin MacLeod (incompetech.com).
+- `audio/sfx/soft-whoosh.wav` — original pink-noise whoosh generated by `bin/sfx.mjs`; source: this production; dedicated to CC0.
+- `audio/sfx/decision-tick.wav` — original 1,320 Hz decision tick generated by `bin/sfx.mjs`; source: this production; dedicated to CC0.
+- `audio/sfx/export-chime.wav` — original two-tone export chime generated by `bin/sfx.mjs`; source: this production; dedicated to CC0.
+
+Narration is normalized to −16 LUFS. The music bed is normalized to −28 LUFS before sidechain compression, ducks by about 6 dB while narration is active, fades in over the opening, and fades out under the closing; the measured ducked stem is −32.8 LUFS integrated. Every SFX event uses −24 dB gain; the sparse SFX stem measures −47.8 LUFS integrated. The delivered mix measures −15.5 LUFS integrated.
+
+## Output evidence
+
+`renders/playbook-redliner-1080p.md` is the render ledger. `logs/assembly.json`, `logs/word-sync-verification.json`, and `logs/camera-verification.json` are machine-readable evidence. The ten reviewed final frames are in `stills/final-10/`, with `stills/final-10-contact.png` as the contact sheet.

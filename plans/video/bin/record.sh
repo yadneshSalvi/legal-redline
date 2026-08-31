@@ -43,10 +43,10 @@ select_finding() {
 }
 
 write_live_meta() {
-  local run_id=$1 fallback=$2 review_offset=$3 first_finding_offset=$4 capture_duration=$5
-  local payload status run_duration cost by_status findings tmp target
+  local run_id=$1 fallback=$2 review_offset=$3 first_finding_offset=$4 capture_duration=$5 capture_source=${6:-clips/workspace-run.mp4}
+  local payload run_status run_duration cost by_status findings tmp target
   payload=$(curl -fsS "$APP_URL/api/runs/$run_id")
-  status=$(print -r -- "$payload" | jq -r '.status')
+  run_status=$(print -r -- "$payload" | jq -r '.status')
   run_duration=$(print -r -- "$payload" | jq -r '.stats.durationMs // 0')
   cost=$(print -r -- "$payload" | jq -r '.stats.usage.costUsd // 0')
   by_status=$(print -r -- "$payload" | jq -c '.stats.byStatus // {}')
@@ -56,7 +56,8 @@ write_live_meta() {
   jq -n \
     --arg runId "$run_id" \
     --arg reviewRunId "$run_id" \
-    --arg status "$status" \
+    --arg captureSource "$capture_source" \
+    --arg status "$run_status" \
     --argjson fallback "$fallback" \
     --argjson reviewOffset "$review_offset" \
     --argjson firstFindingOffset "$first_finding_offset" \
@@ -65,13 +66,48 @@ write_live_meta() {
     --argjson costUsd "$cost" \
     --argjson findings "$findings" \
     --argjson byStatus "$by_status" \
-    '{runId:$runId,reviewRunId:$reviewRunId,status:$status,fallback:$fallback,reviewOffset:$reviewOffset,firstFindingOffset:$firstFindingOffset,captureDuration:$captureDuration,runDurationMs:$runDurationMs,costUsd:$costUsd,findings:$findings,byStatus:$byStatus}' \
+    '{runId:$runId,reviewRunId:$reviewRunId,status:$status,fallback:$fallback,captureSource:$captureSource,reviewOffset:$reviewOffset,firstFindingOffset:$firstFindingOffset,captureDuration:$captureDuration,runDurationMs:$runDurationMs,costUsd:$costUsd,findings:$findings,byStatus:$byStatus}' \
     > "$tmp"
   mv "$tmp" "$target"
 }
 
+record_live_resume() {
+  local run_id=${LIVE_RUN_ID:?LIVE_RUN_ID is required} record_started review_offset first_finding_offset=0 payload run_status findings
+  open_path "/"
+  tap_text "Sample contracts"
+  sleep 0.6
+  move_to_text "Corio"
+  record_started=$SECONDS
+  rec_start workspace-run 480
+  sleep 13
+  open_path "/review/$run_id"
+  review_offset=$(( SECONDS - record_started ))
+  while (( SECONDS - record_started < 470 )); do
+    payload=$(curl -fsS "$APP_URL/api/runs/$run_id") || { sleep 2; continue; }
+    run_status=$(print -r -- "$payload" | jq -r '.status')
+    findings=$(print -r -- "$payload" | jq -r '.findings | length')
+    if (( first_finding_offset == 0 && findings > 0 )); then
+      first_finding_offset=$(( SECONDS - record_started ))
+    fi
+    if [[ "$run_status" == "awaiting_review" || "$run_status" == "applied" ]]; then
+      sleep 3
+      snapshot_beat workspace-run
+      rec_stop workspace-run
+      write_live_meta "$run_id" false "$review_offset" "$first_finding_offset" "$(( SECONDS - record_started ))" "clips/workspace-run.mp4"
+      return 0
+    fi
+    if [[ "$run_status" == "failed" ]]; then
+      rec_stop workspace-run || true
+      return 1
+    fi
+    sleep 2
+  done
+  rec_stop workspace-run || true
+  return 1
+}
+
 record_live_run_attempt() {
-  local attempt=$1 record_started review_offset first_finding_offset=0 current_url="" run_id payload status findings poll
+  local attempt=$1 record_started review_offset first_finding_offset=0 current_url="" run_id payload run_status findings poll
   open_path "/"
   record_started=$SECONDS
   rec_start workspace-run 360
@@ -91,20 +127,20 @@ record_live_run_attempt() {
 
   while (( SECONDS - record_started < 350 )); do
     payload=$(curl -fsS "$APP_URL/api/runs/$run_id") || { sleep 2; continue; }
-    status=$(print -r -- "$payload" | jq -r '.status')
+    run_status=$(print -r -- "$payload" | jq -r '.status')
     findings=$(print -r -- "$payload" | jq -r '.findings | length')
     if (( first_finding_offset == 0 && findings > 0 )); then
       first_finding_offset=$(( SECONDS - record_started ))
       print -r -- "first finding at ${first_finding_offset}s" >> "$V/logs/live-run-attempt-$attempt.log"
     fi
-    if [[ "$status" == "awaiting_review" || "$status" == "applied" ]]; then
+    if [[ "$run_status" == "awaiting_review" || "$run_status" == "applied" ]]; then
       sleep 3
       snapshot_beat workspace-run
       rec_stop workspace-run
       write_live_meta "$run_id" false "$review_offset" "$first_finding_offset" "$(( SECONDS - record_started ))"
       return 0
     fi
-    if [[ "$status" == "failed" ]]; then
+    if [[ "$run_status" == "failed" ]]; then
       print -r -- "run failed" >> "$V/logs/live-run-attempt-$attempt.log"
       break
     fi
@@ -176,6 +212,15 @@ record_workspace_run() {
   move_to_selector '[aria-label="Agent progress"]' || move_pointer 1670 420
   hold_until "$started" "$target"
   rec_stop workspace-run
+}
+
+record_workspace_ingest() {
+  open_path "/"
+  rec_start workspace-ingest 12
+  open_path "/review/sample-running"
+  sleep 5
+  snapshot_beat workspace-ingest
+  rec_stop workspace-ingest
 }
 
 record_findings_arrive() {
@@ -347,7 +392,7 @@ record_all() {
 }
 
 usage() {
-  print "usage: zsh bin/record.sh all|landing|pick-sample|live-run|workspace-run|findings-arrive|keyboard-review|export-dialog|memo-drawer|evals-dashboard|trajectory|precedents"
+  print "usage: zsh bin/record.sh all|landing|pick-sample|live-run|live-resume|workspace-run|workspace-ingest|findings-arrive|keyboard-review|export-dialog|memo-drawer|evals-dashboard|trajectory|precedents"
 }
 
 boot
@@ -356,7 +401,9 @@ case "${1:-}" in
   landing) record_landing ;;
   pick-sample) record_pick_sample ;;
   live-run) record_live_run ;;
+  live-resume) record_live_resume ;;
   workspace-run) record_workspace_run ;;
+  workspace-ingest) record_workspace_ingest ;;
   findings-arrive) record_findings_arrive ;;
   keyboard-review) record_keyboard_review ;;
   export-dialog) record_export_dialog ;;
