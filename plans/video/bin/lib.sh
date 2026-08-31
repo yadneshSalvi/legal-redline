@@ -93,6 +93,16 @@ point_for_selector() {
   print -r -- "$result"
 }
 
+point_for_visible_selector() {
+  local query expression result
+  query=$(node -e 'process.stdout.write(JSON.stringify(process.argv[1]))' "$1")
+  expression="(() => { const hit=document.querySelector($query); if (!hit) return 'MISS'; const rect=hit.getBoundingClientRect(); if (rect.bottom <= 0 || rect.top >= innerHeight || rect.right <= 0 || rect.left >= innerWidth) return 'MISS'; return Math.round(rect.left+rect.width/2)+','+Math.round(rect.top+rect.height/2); })()"
+  result=$(abo eval "$expression" | tail -n 1)
+  result=${result//\"/}
+  [[ "$result" == *,* ]] || return 1
+  print -r -- "$result"
+}
+
 move_pointer() {
   local x=$1 y=$2 steps=${3:-18}
   local start_x=$CURSOR_X start_y=$CURSOR_Y index next_x next_y
@@ -118,6 +128,12 @@ move_to_selector() {
   move_pointer "${point%,*}" "${point#*,}"
 }
 
+move_to_visible_selector() {
+  local point
+  point=$(point_for_visible_selector "$1") || return 1
+  move_pointer "${point%,*}" "${point#*,}"
+}
+
 tap_text() {
   move_to_text "$1" || return 1
   sleep 0.32
@@ -128,6 +144,14 @@ tap_text() {
 
 tap_selector() {
   move_to_selector "$1" || return 1
+  sleep 0.32
+  ab mouse down
+  sleep 0.11
+  ab mouse up
+}
+
+tap_visible_selector() {
+  move_to_visible_selector "$1" || return 1
   sleep 0.32
   ab mouse down
   sleep 0.11

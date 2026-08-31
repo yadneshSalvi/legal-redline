@@ -83,9 +83,16 @@ async function main() {
   if (!Array.isArray(beats) || beats.some((beat) => typeof beat.id !== "string" || typeof beat.text !== "string")) {
     throw new Error("narration.json must be an array of { id, text }");
   }
+  const requested = new Set(process.argv.slice(2));
+  const unknown = [...requested].filter((id) => !beats.some((beat) => beat.id === id));
+  if (unknown.length > 0) throw new Error(`unknown narration beat${unknown.length === 1 ? "" : "s"}: ${unknown.join(", ")}`);
+  const selected = requested.size === 0 ? beats : beats.filter((beat) => requested.has(beat.id));
   const apiKey = readApiKey();
-  const timings = {};
-  for (const beat of beats) {
+  const previous = requested.size > 0
+    ? JSON.parse(readFileSync(OUTPUT_PATH, "utf8"))
+    : {};
+  const timings = { ...previous };
+  for (const beat of selected) {
     process.stdout.write(`aligning ${beat.id}\n`);
     timings[beat.id] = await transcribe(apiKey, beat);
     atomicJson(OUTPUT_PATH, timings);

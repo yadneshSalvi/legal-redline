@@ -47,6 +47,25 @@ function pose(moves, localTime) {
   return current;
 }
 
+function visibleRegion(target) {
+  const scale = Number(target.scale);
+  const x = Number(target.x);
+  const y = Number(target.y);
+  const left = Math.max(0, x - 0.5 / scale);
+  const right = Math.min(1, x + 0.5 / scale);
+  const top = Math.max(0, y - 0.5 / scale);
+  const bottom = Math.min(1, y + 0.5 / scale);
+  return {
+    normalized: { left, top, right, bottom },
+    sourcePixels: {
+      left: Math.round(left * 3840),
+      top: Math.round(top * 2160),
+      right: Math.round(right * 3840),
+      bottom: Math.round(bottom * 2160),
+    },
+  };
+}
+
 const results = [];
 for (const beat of ASSEMBLY.beats) {
   const moves = beat.cameraMoves ?? [];
@@ -59,8 +78,11 @@ for (const beat of ASSEMBLY.beats) {
     const a = resolve(OUTPUT_DIR, `${stem}-a.png`);
     const b = resolve(OUTPUT_DIR, `${stem}-b.png`);
     const diff = resolve(OUTPUT_DIR, `${stem}-diff.png`);
+    const hold = resolve(OUTPUT_DIR, `${stem}-hold.png`);
     frame(a, globalA);
     frame(b, globalB);
+    const holdAt = Number(beat.start) + Number(move.at) + Number(move.duration) + 0.1;
+    frame(hold, holdAt);
     const metadata = run([
       "-hide_banner", "-loglevel", "info", "-y", "-i", a, "-i", b,
       "-filter_complex", "[0:v][1:v]blend=all_mode=difference,signalstats,metadata=print[out]",
@@ -90,14 +112,21 @@ for (const beat of ASSEMBLY.beats) {
       delta,
       differenceYavg: match ? Number(match[1]) : null,
       monotonic,
-      files: [`stills/camera-diffs/${stem}-a.png`, `stills/camera-diffs/${stem}-b.png`, `stills/camera-diffs/${stem}-diff.png`],
+      targetPose: { scale: Number(move.scale), x: Number(move.x), y: Number(move.y) },
+      visibleRegion: visibleRegion(move),
+      files: [
+        `stills/camera-diffs/${stem}-a.png`,
+        `stills/camera-diffs/${stem}-b.png`,
+        `stills/camera-diffs/${stem}-diff.png`,
+        `stills/camera-diffs/${stem}-hold.png`,
+      ],
     });
   }
 }
 
 const report = {
   render: "renders/playbook-redliner-candidate.mp4",
-  method: "Two consecutive 30 fps frames at each move midpoint; pixel-difference image plus monotonic cubic-ease pose audit.",
+  method: "Two consecutive 30 fps frames at each move midpoint; pixel-difference image, monotonic cubic-ease pose audit, target hold frame, and exact visible source region.",
   passed: results.every((result) => result.monotonic && Number(result.differenceYavg) > 0),
   moves: results,
 };

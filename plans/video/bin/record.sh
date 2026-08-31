@@ -225,7 +225,7 @@ record_workspace_ingest() {
 
 record_findings_arrive() {
   open_path "/review/sample-running"
-  sleep 10
+  sleep 10.646
   local target=$(narration_target findings-arrive 18) started=$SECONDS
   rec_start findings-arrive $(( target + 25 ))
   ab wait 'article[data-finding]' || true
@@ -314,27 +314,42 @@ record_memo_drawer() {
 }
 
 record_evals_dashboard() {
-  open_path "/evals?tier=long"
+  open_path "/evals?tier=short"
   ab wait --text "The config ladder"
+  ab eval 'document.body.style.zoom="0.9"; window.scrollTo({ top: 0, behavior: "auto" }); true'
   snapshot_beat evals-dashboard
-  local target=$(narration_target comparison 22) started=$SECONDS
+  local target=$(narration_target comparison 26) started=$SECONDS
   rec_start evals-dashboard $(( target + 25 ))
-  move_to_selector '[role="radiogroup"][aria-label="Contract tier"]' || move_pointer 1550 430
-  sleep 3
-  for _ in {1..4}; do
-    ab eval 'window.scrollBy({ top: 180, behavior: "smooth" }); true'
-    sleep 2
-  done
-  ab eval "document.querySelector('[role=\"radiogroup\"][aria-label=\"Contract tier\"]')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); true"
-  sleep 3
-  move_to_selector 'button[aria-label^="Short tier"]'
-  sleep 0.3
-  ab eval "document.querySelector('button[aria-label^=\"Short tier\"]')?.click(); true"
-  sleep 3
-  snapshot_beat evals-dashboard-short
-  move_to_selector 'button[aria-label^="Short tier"]' || move_pointer 1520 760
+  sleep 0.4
+  ab eval "document.querySelector('table')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); true"
+  sleep 6.4
+  tap_visible_selector 'button[aria-label^="Long tier"]'
+  ab wait --fn 'document.querySelector(`button[aria-label^="Long tier"]`)?.getAttribute("aria-checked") === "true"'
+  sleep 1.2
+  snapshot_beat evals-dashboard-long
+  move_to_visible_selector 'button[aria-label^="Long tier"]' || true
   hold_until "$started" "$target"
   rec_stop evals-dashboard
+}
+
+record_keyboard_review_cap() {
+  local run_id=${KEYBOARD_RUN_ID:-NVDjaRym9fKYVj}
+  open_path "/review/$run_id"
+  ab wait 'article[data-finding]'
+  select_finding "$run_id" "LOL-CAP"
+  ab eval 'document.getElementById("p0090")?.scrollIntoView({ block: "center", behavior: "auto" }); true'
+  sleep 0.8
+  snapshot_beat keyboard-review-cap
+  local target=$(narration_target keyboard-review 24) started=$SECONDS
+  rec_start keyboard-review-cap $(( target + 15 ))
+  ab eval '(() => { const paragraph=document.getElementById("p0090"); if (!paragraph) return false; document.getElementById("video-cap-annotation")?.remove(); const rect=paragraph.getBoundingClientRect(); const box=document.createElement("div"); box.id="video-cap-annotation"; Object.assign(box.style,{position:"fixed",left:`${Math.max(3,rect.left-8)}px`,top:`${Math.max(3,rect.top-8)}px`,width:`${Math.min(innerWidth-6,rect.width+16)}px`,height:`${Math.min(innerHeight-6,rect.height+16)}px`,border:"3px solid #B3261E",borderRadius:"4px",pointerEvents:"none",zIndex:"2147483646",opacity:"0",transition:"opacity 200ms ease-out"}); document.documentElement.append(box); requestAnimationFrame(()=>requestAnimationFrame(()=>{box.style.opacity="1";})); return true; })()'
+  sleep 10.646
+  ab eval 'document.getElementById("video-cap-annotation")?.style.setProperty("opacity","0"); true'
+  sleep 0.22
+  ab eval '(() => { const pane=document.querySelector(".pane"); if (!pane) return false; const start=pane.scrollTop; const distance=Math.min(520,pane.scrollHeight-pane.clientHeight-start); const began=performance.now(); const duration=1900; const step=(now)=>{const p=Math.min(1,(now-began)/duration); const eased=p*p*(3-2*p); pane.scrollTop=start+distance*eased; if(p<1) requestAnimationFrame(step);}; requestAnimationFrame(step); return true; })()'
+  snapshot_beat keyboard-review-cap-scroll
+  hold_until "$started" "$target"
+  rec_stop keyboard-review-cap
 }
 
 record_trajectory() {
@@ -392,7 +407,7 @@ record_all() {
 }
 
 usage() {
-  print "usage: zsh bin/record.sh all|landing|pick-sample|live-run|live-resume|workspace-run|workspace-ingest|findings-arrive|keyboard-review|export-dialog|memo-drawer|evals-dashboard|trajectory|precedents"
+  print "usage: zsh bin/record.sh all|landing|pick-sample|live-run|live-resume|workspace-run|workspace-ingest|findings-arrive|keyboard-review|keyboard-review-cap|export-dialog|memo-drawer|evals-dashboard|trajectory|precedents"
 }
 
 boot
@@ -406,6 +421,7 @@ case "${1:-}" in
   workspace-ingest) record_workspace_ingest ;;
   findings-arrive) record_findings_arrive ;;
   keyboard-review) record_keyboard_review ;;
+  keyboard-review-cap) record_keyboard_review_cap ;;
   export-dialog) record_export_dialog ;;
   memo-drawer) record_memo_drawer ;;
   evals-dashboard) record_evals_dashboard ;;

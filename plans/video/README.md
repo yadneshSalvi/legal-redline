@@ -1,8 +1,8 @@
 # Playbook Redliner solution video
 
-This directory is the reproducible production pipeline for the 4:36.978 director's cut. It uses Gemini TTS, per-beat Deepgram word timings, a real local CORIO review, token-faithful HTML cards, a 2× LibreOffice Word-page render, eased 2× camera crops, and FFmpeg assembly.
+This directory is the reproducible production pipeline for the 4:41.018 director's cut. It uses Gemini TTS, per-beat Deepgram word timings, a real local CORIO review, token-faithful HTML cards, a 2× LibreOffice Word-page render, eased 2× camera crops, and FFmpeg assembly.
 
-The accepted master is `renders/playbook-redliner.mp4`. The prior cut is preserved byte-for-byte as `renders/playbook-redliner-v1.1.mp4`; `renders/playbook-redliner-candidate.mp4` is the accepted pre-promotion candidate.
+The accepted master is `renders/playbook-redliner.mp4`. The promoted round-3 cut is preserved byte-for-byte as `renders/playbook-redliner-v1.2.mp4`; `renders/playbook-redliner-candidate.mp4` is the accepted pre-promotion candidate.
 
 ## Regenerate
 
@@ -17,6 +17,7 @@ zsh plans/video/bin/word-still.sh /absolute/path/to/output.docx
 node plans/video/bin/assemble.mjs
 node plans/video/bin/verify-word-sync.mjs
 node plans/video/bin/verify-camera.mjs
+node plans/video/bin/verify-consistency.mjs
 ```
 
 `word-timings.mjs` reads `DEEPGRAM_API_KEY` from `.env`, sends each beat WAV to Nova-2 with punctuation and smart formatting disabled, and atomically writes `word-timings.json`. It never prints the key.
@@ -47,7 +48,7 @@ All 18 narration beats play at 1.000×. Visuals receive a 0.4-second tail, excep
 
 Camera moves are the only picture movement added in post. Each is a one-second cubic ease on a fixed 3840×2160 canvas, followed by a hold. `verify-camera.mjs` extracts and pixel-diffs two consecutive 30 fps frames at every move midpoint, and independently checks that scale and focal-point deltas remain monotonic. Evidence is in `logs/camera-verification.json` and `stills/camera-diffs/`.
 
-The cold-open page is rendered at 300 dpi and remains static until “Tracked changes.” Its time card starts on “one” in “one to three hours.” `verify-word-sync.mjs` checks eight named events within 20 ms against `word-timings.json`; the measured maximum was 5 ms.
+The cold-open page is rendered at 300 dpi and remains static until “Tracked changes.” Its time card starts on “one” in “one to three hours.” `verify-word-sync.mjs` checks eight named events within 20 ms against `word-timings.json`; `verify-consistency.mjs` captures 52 named/numbered spoken-to-screen checks from the promoted render.
 
 ## Audio sources and licences
 
@@ -60,4 +61,4 @@ Narration is normalized to −16 LUFS. The music bed is normalized to −28 LUFS
 
 ## Output evidence
 
-`renders/playbook-redliner-1080p.md` is the render ledger. `logs/assembly.json`, `logs/word-sync-verification.json`, and `logs/camera-verification.json` are machine-readable evidence. The ten reviewed final frames are in `stills/final-10/`, with `stills/final-10-contact.png` as the contact sheet.
+`renders/playbook-redliner-1080p.md` is the render ledger. `logs/assembly.json`, `logs/word-sync-verification.json`, `logs/camera-verification.json`, and `logs/consistency-audit.json` are machine-readable evidence. The ten round-4 reviewed frames are in `stills/round4-final-10/`, with `stills/round4-final-10-contact.png` as the contact sheet.

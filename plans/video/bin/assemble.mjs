@@ -241,7 +241,9 @@ function sfxEvents(items, starts) {
       priorScale = Number(move.scale);
     }
     if (item.id === "keyboard-review") {
-      for (const at of [5.04, 6.48, 7.84]) events.push({ kind: "tick", at: starts[index] + at });
+      for (const at of item.tickAt ?? [5.04, 6.48, 7.84]) {
+        events.push({ kind: "tick", at: starts[index] + Number(at) });
+      }
     }
     if (Number(item.chimeAt) >= 0) events.push({ kind: "chime", at: starts[index] + Number(item.chimeAt) });
   });
