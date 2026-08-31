@@ -264,6 +264,15 @@ export async function runReview(rawInput: RunReviewInput): Promise<ReviewRun> {
   await input.store.putJson(`runs/${run.id}/run.json`, run);
   await trajectory.event("ingest", "run_start", `Review started with ${input.config.id}`, { payload: { config: input.config, source: run.document.source } });
   emit(input, { type: "status", runId: run.id, status: "running" });
+  // The document model was built when the file was uploaded, so the board's Ingest row is already done —
+  // without this event it sat on "waiting" while the planner ran.
+  emit(input, {
+    type: "stage",
+    runId: run.id,
+    agent: "ingest",
+    state: "end",
+    label: `${run.document.paragraphs.length} paragraphs · ${run.document.sections.length} sections · ${run.document.definitions.length} defined terms`,
+  });
 
   try {
     let checkpoint = Promise.resolve();

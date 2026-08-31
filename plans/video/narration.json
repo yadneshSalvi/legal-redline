@@ -1,70 +1,74 @@
 [
   {
+    "id": "opening",
+    "text": "We built an agentic contract review system for negotiating legal contracts. Here is the problem we are solving."
+  },
+  {
     "id": "cold-open",
-    "text": "This is what in-house counsel actually sends back to a vendor: tracked changes and margin comments in Word. Producing a first pass takes one to three hours per contract."
+    "text": "This is what in-house counsel sends back to a vendor. Tracked changes and margin comments, in Word. Writing that first pass takes one to three hours per contract."
   },
   {
     "id": "problem",
-    "text": "Every company has a playbook — preferred, fallback, and walk-away positions. Applying it clause by clause across twenty to sixty pages means catching terms hidden in definitions and staying consistent with decisions the team accepted."
+    "text": "Every company has a playbook. For each clause it sets three positions: preferred, fallback, and walk-away. Applying it across forty pages is slow. Risky terms hide inside definitions. And this month's redline has to match what the team accepted last month."
   },
   {
     "id": "baseline",
-    "text": "The naive approach is to paste the contract into a chat assistant. Our fair baseline is stronger than that: the same frontier model, the same playbook, the whole contract, one prompt. On short contracts it finds most issues — F one ninety-one point five percent. But only one point one percent of its redlines meet every element of the playbook position, on forty-thousand-word documents its F one falls to sixty point three percent, and it cannot write into the document."
+    "text": "The shortcut is to paste the contract into a chat assistant. Our baseline is stronger than that. Same frontier model. Same playbook. The whole contract in one prompt. It still falls short. Only one point one percent of its redlines carry the full playbook position. On forty-thousand-word contracts its F-one score drops to sixty point three percent. And it cannot write into the Word file."
   },
   {
     "id": "landing",
-    "text": "Playbook Redliner starts from the vendor's actual Word file and the company's versioned playbook: eighteen rules, each with a preferred, a fallback, and a walk-away position."
+    "text": "So we built Playbook Redliner. It starts from two things you already have: the vendor's Word file, and your playbook. Eighteen rules, each with those three positions."
   },
   {
     "id": "pick-sample",
-    "text": "This is a real hosting and licence agreement from the evaluation set — an SEC filing with lawyer-labelled gold. We are Corio, the customer."
+    "text": "Here is a real hosting and licence agreement from our evaluation set. An SEC filing, with lawyer-labelled answers. We act for Corio, the customer."
   },
   {
     "id": "workspace-run",
-    "text": "The document becomes a clause-addressable model. A planner maps every rule to the sections and definitions that matter, then one drafter per rule starts work, six at a time."
+    "text": "First, the document becomes a map: every clause, every section, every defined term. A planner reads that map and assigns each rule to the right sections. Then eighteen drafters go to work, one per rule, six at a time."
   },
   {
     "id": "findings-arrive",
-    "text": "Each drafter reads sections, searches the contract, resolves defined terms, and must validate every edit anchor verbatim before it can submit. An independent verifier — a fresh context that never sees the drafter's reasoning — checks each proposal, and findings land in the workspace as they pass."
+    "text": "Each drafter reads its sections, searches the contract, and resolves defined terms. Before it can propose an edit, the exact text it wants to change must match the document, word for word. Then an independent verifier checks the proposal. It never sees the drafter's reasoning. Findings appear here as they pass."
   },
   {
     "id": "keyboard-review",
-    "text": "Nothing is written until counsel decides. J and K move, A accepts, E edits, R rejects. Here the cap that was limited to a single transaction becomes a mutual twelve-month cap with a floor; the licence is extended to affiliates; a missing convenience-termination right is inserted."
+    "text": "Nothing is written until a person decides. J and K to move. A to accept. E to edit. R to reject. Watch the liability cap. It was limited to a single transaction. It becomes a mutual twelve-month cap, with a one point five million dollar floor."
   },
   {
     "id": "precedents",
-    "text": "Accepted wording becomes memory. The next contract's liability cap starts from language this team has already approved — the same words every time."
+    "text": "Accepted wording is saved as precedent. The next contract's cap starts from words the team already approved."
   },
   {
     "id": "export-dialog",
-    "text": "Export writes a new copy of the file: real Word tracked changes, real margin comments citing the playbook rule, author Playbook Redliner — and every untouched paragraph verified byte-identical."
+    "text": "Export writes a new copy of the file. Real tracked changes. Real margin comments that cite the playbook rule. Every untouched paragraph is verified, byte for byte."
   },
   {
     "id": "memo-drawer",
-    "text": "The assembler also drafts the issues memo: walk-away items first, then the fixes, then the clauses that were checked and left alone."
+    "text": "It also drafts the issues memo. Walk-away items first. Then the fixes. Then what was checked and left alone."
   },
   {
     "id": "hard-case",
-    "text": "The hard case is a cap that reads twelve months' Fees, where Fees is defined two sections away as a one-off implementation fee. A frontier model with the whole contract in context resolves that in one prompt. What the pipeline adds is the edit: one validated redline that caps all charges with a floor — and it leaves the two decoy clauses alone."
+    "text": "One test contract hides a trap. The cap says twelve months' Fees. But Fees is defined two sections away, as a small one-off fee. So the cap is nearly worthless. The system follows the definition, flags it, and writes one clean redline. The two decoy clauses are left alone."
   },
   {
     "id": "comparison",
-    "text": "On the pre-registered metrics the gap is no longer inside the noise. Complete redlines — every element met, applied to the document, minimal — rise from one point one percent to fifty-four point seven percent. On six forty-thousand-word contracts, F one goes from sixty point three percent to seventy-five point three percent and applied tracked changes from forty-one point seven percent to sixty-two point five percent. Nothing is silently applied: unsure findings go to a person."
+    "text": "Now the results, against that one-prompt baseline. Complete redlines: from one point one percent to fifty-four point seven. On the forty-thousand-word contracts, F-one goes from sixty point three to seventy-five point three. Applied tracked changes: from forty-one point seven to sixty-two point five. And nothing is applied silently. Unsure findings go to a person."
   },
   {
     "id": "round2-why",
-    "text": "Detection saturated on short contracts, so we pre-registered what the product is for — complete redlines, and the long documents counsel actually receives — before running the final pipeline. Same one-prompt baseline throughout."
+    "text": "Why measure it this way? Because on short contracts, finding issues was nearly solved. Writing the full redline was not. So we pre-registered the metrics, and a set of long contracts, before running the final system."
   },
   {
     "id": "changelog",
-    "text": "Round one showed where the value was not: the document model bought anchoring, per-rule workers bought recall, the verifier bought validity, memory was an honest non-result, and the monolith was removed — while the round-one pipeline lost to the baseline on long documents. What moved the numbers was writing every playbook position as an explicit checklist, a drafter that commits to one level in the position's own words, a verifier that checks element by element, and whole-document search planning for long contracts."
+    "text": "What actually moved the numbers? Not more agents. A more precise playbook. Every position written as a checklist. A drafter that commits to one position, in its own words. A verifier that checks element by element. And whole-document search for long contracts."
   },
   {
     "id": "hot-take",
-    "text": "Give a specialist agent one rule and it will find a violation; give it a direction instead of a checklist and it will write half a redline."
+    "text": "Give a specialist agent one rule, and it will find a violation. Give it a direction instead of a checklist, and it will write half a redline."
   },
   {
     "id": "closing",
-    "text": "Playbook Redliner. Every number, every trajectory, and every tracked change reproduces from the repository with one command."
+    "text": "Playbook Redliner. Every number, every trajectory, and every tracked change reproduces from the repository, with one command."
   }
 ]
